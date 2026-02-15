@@ -431,9 +431,6 @@ O projeto possui um guia detalhado para expansão da coleção em [`docs/como-ad
 
 | Documento | Descrição |
 |-----------|-----------|
-| [`docs/como-adicionar-novos-estilos.md`](docs/como-adicionar-novos-estilos.md) | Guia passo a passo para expandir a coleção |
-| [`docs/infographic-styles-collection.md`](docs/infographic-styles-collection.md) | Documentação detalhada de 67 estilos de infográfico com paletas, tipografia e tags |
-| [`docs/infographic-styles-database.json`](docs/infographic-styles-database.json) | Base de dados estruturada em JSON com metadados completos dos estilos |
 | [`app/llms.txt`](app/llms.txt) | Metadados do projeto para crawlers de IA |
 
 ---
