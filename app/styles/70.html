@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risograph / Retro-Pop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['Space Mono', 'monospace'] },
+          colors: {
+            paper: '#FDF5E6', navy: '#2B2D42', coral: '#EF476F', mustard: '#FFD166',
+            teal: '#06A77D', ocean: '#118AB2', darkteal: '#073B4C',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Space Grotesk', sans-serif; background: #FDF5E6; color: #2B2D42; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.18; mix-blend-mode: multiply; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+    .halftone { background-image: radial-gradient(circle, #2B2D42 1px, transparent 1px); background-size: 8px 8px; }
+    .halftone-coral { background-image: radial-gradient(circle, #EF476F 1px, transparent 1px); background-size: 6px 6px; }
+    .halftone-teal { background-image: radial-gradient(circle, #06A77D 1px, transparent 1px); background-size: 6px 6px; }
+    .misalign { position: relative; }
+    .misalign::after { content: attr(data-text); position: absolute; top: 2px; left: 3px; color: #EF476F; opacity: 0.45; z-index: -1; }
+    .ink-overlap { mix-blend-mode: multiply; }
+    .riso-card { background: #FDF5E6; border: 3px solid #2B2D42; filter: contrast(1.1); transition: transform 0.1s; }
+    .riso-card:hover { transform: translate(-2px, -2px); }
+    .riso-btn { background: #EF476F; color: #FDF5E6; border: 3px solid #2B2D42; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; transition: transform 0.1s; position: relative; }
+    .riso-btn::after { content: ''; position: absolute; inset: 0; background: #2B2D42; transform: translate(4px, 4px); z-index: -1; }
+    .riso-btn:hover { transform: translate(-2px, -2px); }
+    .riso-btn-teal { background: #06A77D; }
+    .riso-btn-mustard { background: #FFD166; color: #2B2D42; }
+    .shape-circle { width: 120px; height: 120px; border-radius: 50%; position: absolute; opacity: 0.35; mix-blend-mode: multiply; }
+    .section-divider { height: 4px; background: repeating-linear-gradient(90deg, #2B2D42 0, #2B2D42 8px, transparent 8px, transparent 16px); }
+    h1, h2, h3 { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: -0.02em; }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <section class="relative py-20 md:py-28 overflow-hidden">
+    <div class="shape-circle bg-coral top-10 left-10 w-40 h-40"></div>
+    <div class="shape-circle bg-mustard top-32 right-20 w-56 h-56" style="opacity:0.3"></div>
+    <div class="shape-circle bg-teal bottom-10 left-1/3 w-32 h-32"></div>
+    <div class="wrap relative z-10">
+      <div class="max-w-3xl">
+        <p class="font-mono text-sm tracking-widest text-coral mb-4 uppercase">Estúdio Criativo — Desde 2024</p>
+        <h1 class="text-5xl md:text-7xl font-bold leading-none mb-6 misalign" data-text="Impressão que marca.">
+          Impressão que<br>marca.
+        </h1>
+        <p class="text-lg md:text-xl text-navy/80 max-w-xl mb-8 leading-relaxed">
+          Design gráfico com alma artesanal. Criamos identidades visuais únicas com estética risográfica, texturas reais e cores vibrantes.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button class="riso-btn px-8 py-3 text-lg cursor-pointer">Comece Agora</button>
+          <button class="riso-btn riso-btn-mustard px-8 py-3 text-lg cursor-pointer">Ver Portfólio</button>
+        </div>
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 w-1/3 h-full halftone-coral opacity-20 hidden md:block"></div>
+  </section>
+
+  <div class="wrap"><div class="section-divider"></div></div>
+
+  <!-- FEATURES -->
+  <section class="py-16 md:py-24 relative">
+    <div class="wrap">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 misalign" data-text="O que fazemos">O que fazemos</h2>
+      <p class="text-center text-navy/70 mb-12 max-w-lg mx-auto">Serviços criativos com acabamento artesanal e estética retro-pop.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="riso-card p-6 cursor-pointer">
+          <div class="w-14 h-14 bg-coral flex items-center justify-center mb-4 ink-overlap">
+            <svg class="w-7 h-7 text-paper" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Identidade Visual</h3>
+          <p class="text-navy/70 text-sm leading-relaxed">Logotipos, paletas de cores e sistemas visuais completos com estética risográfica autêntica.</p>
+        </div>
+        <div class="riso-card p-6 cursor-pointer">
+          <div class="w-14 h-14 bg-teal flex items-center justify-center mb-4 ink-overlap">
+            <svg class="w-7 h-7 text-paper" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Editorial & Zines</h3>
+          <p class="text-navy/70 text-sm leading-relaxed">Publicações independentes, zines e materiais impressos com texturas granuladas e cores limitadas.</p>
+        </div>
+        <div class="riso-card p-6 cursor-pointer">
+          <div class="w-14 h-14 bg-mustard flex items-center justify-center mb-4 ink-overlap">
+            <svg class="w-7 h-7 text-navy" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Web Retro-Pop</h3>
+          <p class="text-navy/70 text-sm leading-relaxed">Sites e interfaces digitais que capturam a essência da impressão artesanal no mundo digital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="section-divider"></div></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-16 md:py-24 relative overflow-hidden">
+    <div class="absolute inset-0 halftone-teal opacity-5"></div>
+    <div class="wrap relative z-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 misalign" data-text="Depoimentos">Depoimentos</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="riso-card p-6 relative">
+          <div class="absolute -top-3 -left-1 text-6xl font-mono text-coral/40 leading-none">"</div>
+          <p class="text-navy/80 text-sm leading-relaxed mb-4 pt-4">O resultado ficou incrível. A estética risográfica trouxe uma personalidade única para nossa marca.</p>
+          <div class="flex items-center gap-3 border-t-2 border-navy/20 pt-4">
+            <div class="w-10 h-10 bg-coral halftone flex items-center justify-center text-paper font-bold text-sm">ML</div>
+            <div><p class="font-bold text-sm">Marina Lima</p><p class="text-xs text-navy/50">Diretora Criativa</p></div>
+          </div>
+        </div>
+        <div class="riso-card p-6 relative">
+          <div class="absolute -top-3 -left-1 text-6xl font-mono text-teal/40 leading-none">"</div>
+          <p class="text-navy/80 text-sm leading-relaxed mb-4 pt-4">Trabalho impecável. As texturas e cores limitadas deram um charme artesanal que nossos clientes amaram.</p>
+          <div class="flex items-center gap-3 border-t-2 border-navy/20 pt-4">
+            <div class="w-10 h-10 bg-teal halftone flex items-center justify-center text-paper font-bold text-sm">RC</div>
+            <div><p class="font-bold text-sm">Rafael Costa</p><p class="text-xs text-navy/50">Fundador, Zine Lab</p></div>
+          </div>
+        </div>
+        <div class="riso-card p-6 relative">
+          <div class="absolute -top-3 -left-1 text-6xl font-mono text-mustard/40 leading-none">"</div>
+          <p class="text-navy/80 text-sm leading-relaxed mb-4 pt-4">Superou todas as expectativas. O design retro-pop conectou perfeitamente com nosso público jovem.</p>
+          <div class="flex items-center gap-3 border-t-2 border-navy/20 pt-4">
+            <div class="w-10 h-10 bg-mustard halftone flex items-center justify-center text-navy font-bold text-sm">AS</div>
+            <div><p class="font-bold text-sm">Ana Santos</p><p class="text-xs text-navy/50">CEO, Estúdio Neon</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="section-divider"></div></div>
+
+  <!-- PRICING -->
+  <section class="py-16 md:py-24 relative">
+    <div class="wrap">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 misalign" data-text="Planos">Planos</h2>
+      <p class="text-center text-navy/70 mb-12 max-w-lg mx-auto">Escolha o pacote ideal para seu projeto criativo.</p>
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        <div class="riso-card p-6 cursor-pointer">
+          <p class="font-mono text-xs uppercase tracking-widest text-teal mb-2">Básico</p>
+          <p class="text-4xl font-bold mb-1">R$497</p>
+          <p class="text-sm text-navy/50 mb-6">por projeto</p>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Logotipo risográfico</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Paleta de 2 cores</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 revisão inclusa</li>
+          </ul>
+          <button class="riso-btn riso-btn-teal w-full py-3 cursor-pointer">Escolher</button>
+        </div>
+        <div class="riso-card p-6 cursor-pointer relative border-coral" style="border-color:#EF476F; transform: scale(1.03);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-coral text-paper font-mono text-xs uppercase tracking-widest px-4 py-1 border-2 border-navy">Popular</div>
+          <p class="font-mono text-xs uppercase tracking-widest text-coral mb-2 mt-2">Profissional</p>
+          <p class="text-4xl font-bold mb-1">R$1.297</p>
+          <p class="text-sm text-navy/50 mb-6">por projeto</p>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-coral flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Identidade visual completa</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-coral flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Paleta de 3 cores + texturas</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-coral flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>3 revisões inclusas</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-coral flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Mockups impressos</li>
+          </ul>
+          <button class="riso-btn w-full py-3 cursor-pointer">Escolher</button>
+        </div>
+        <div class="riso-card p-6 cursor-pointer">
+          <p class="font-mono text-xs uppercase tracking-widest text-ocean mb-2">Estúdio</p>
+          <p class="text-4xl font-bold mb-1">R$2.497</p>
+          <p class="text-sm text-navy/50 mb-6">por projeto</p>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-ocean flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Tudo do Profissional</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-ocean flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Website retro-pop</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-ocean flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Zine digital + impresso</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-ocean flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Revisões ilimitadas</li>
+          </ul>
+          <button class="riso-btn riso-btn-mustard w-full py-3 cursor-pointer">Escolher</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="section-divider"></div></div>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-24 relative overflow-hidden">
+    <div class="absolute inset-0 halftone opacity-[0.04]"></div>
+    <div class="shape-circle bg-coral -bottom-16 -right-16 w-64 h-64" style="opacity:0.2"></div>
+    <div class="shape-circle bg-teal -top-10 -left-10 w-48 h-48" style="opacity:0.2"></div>
+    <div class="wrap relative z-10 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4 misalign" data-text="Vamos criar juntos?">Vamos criar juntos?</h2>
+      <p class="text-navy/70 max-w-lg mx-auto mb-8 text-lg">Transforme sua ideia em uma peça visual com personalidade. Estética artesanal, resultado profissional.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="riso-btn px-10 py-4 text-lg cursor-pointer">Iniciar Projeto</button>
+        <button class="riso-btn riso-btn-teal px-10 py-4 text-lg cursor-pointer">Fale Conosco</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t-3 border-navy py-10" style="border-top: 3px solid #2B2D42;">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-coral flex items-center justify-center">
+            <svg class="w-6 h-6 text-paper" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          </div>
+          <span class="font-mono font-bold uppercase text-sm tracking-wider">Riso Studio</span>
+        </div>
+        <div class="flex gap-6 text-sm font-mono">
+          <a class="hover:text-coral transition-colors cursor-pointer">Trabalhos</a>
+          <a class="hover:text-coral transition-colors cursor-pointer">Processo</a>
+          <a class="hover:text-coral transition-colors cursor-pointer">Contato</a>
+        </div>
+        <p class="text-xs text-navy/50 font-mono">&copy; 2024 Riso Studio. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

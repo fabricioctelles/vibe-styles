@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible & Ethical</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Atkinson Hyperlegible','sans-serif'], body: ['Inter','sans-serif'] },
+          colors: {
+            primary: '#1D4ED8', 'primary-dark': '#3B82F6',
+            surface: '#FFFFFF', 'surface-dark': '#111827',
+            txt: '#111827', 'txt-dark': '#F9FAFB',
+            muted: '#374151', 'muted-dark': '#D1D5DB',
+            accent: '#B91C1C', success: '#15803D',
+          },
+          fontSize: { base: ['1.125rem', '1.75rem'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Atkinson Hyperlegible', 'Inter', sans-serif; font-size: 1.125rem; line-height: 1.75; background: #FFFFFF; color: #111827; }
+    a, button, [role="button"] { cursor: pointer; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 100; background: #1D4ED8; color: #fff; padding: .75rem 1.5rem; border-radius: .5rem; font-weight: 700; text-decoration: none; transition: top 200ms; }
+    .skip-link:focus { top: 1rem; }
+    :focus-visible { outline: 4px solid #1D4ED8; outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: .875rem 2rem; background: #1D4ED8; color: #fff; font-weight: 700; font-size: 1rem; border-radius: .5rem; border: 2px solid transparent; text-decoration: none; transition: background 200ms, box-shadow 200ms; }
+    .btn-primary:hover { background: #1e40af; box-shadow: 0 0 0 3px rgba(29,78,216,.3); }
+    .btn-outline { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: .875rem 2rem; background: transparent; color: #1D4ED8; font-weight: 700; font-size: 1rem; border-radius: .5rem; border: 2px solid #1D4ED8; text-decoration: none; transition: background 200ms, color 200ms; }
+    .btn-outline:hover { background: #1D4ED8; color: #fff; }
+    .card { background: #F9FAFB; border: 2px solid #D1D5DB; border-radius: .75rem; padding: 2rem; transition: border-color 200ms, box-shadow 200ms; }
+    .card:hover, .card:focus-within { border-color: #1D4ED8; box-shadow: 0 0 0 3px rgba(29,78,216,.15); }
+    .icon-box { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: .5rem; background: #DBEAFE; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .badge { display: inline-flex; align-items: center; gap: .375rem; padding: .25rem .75rem; border-radius: 9999px; font-size: .875rem; font-weight: 700; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    @media (prefers-color-scheme: dark) {
+      body { background: #111827; color: #F9FAFB; }
+      :focus-visible { outline-color: #3B82F6; }
+      .skip-link { background: #3B82F6; }
+      .btn-primary { background: #3B82F6; }
+      .btn-primary:hover { background: #2563EB; box-shadow: 0 0 0 3px rgba(59,130,246,.4); }
+      .btn-outline { color: #93C5FD; border-color: #93C5FD; }
+      .btn-outline:hover { background: #3B82F6; color: #fff; border-color: #3B82F6; }
+      .card { background: #1F2937; border-color: #374151; }
+      .card:hover, .card:focus-within { border-color: #3B82F6; box-shadow: 0 0 0 3px rgba(59,130,246,.2); }
+      .icon-box { background: #1E3A5F; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- HERO -->
+  <main id="conteudo-principal" role="main">
+    <section aria-labelledby="hero-titulo" class="py-20 md:py-28">
+      <div class="wrap grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-bold tracking-widest uppercase mb-4" style="color:#1D4ED8">Design Inclusivo</p>
+          <h1 id="hero-titulo" class="text-4xl md:text-5xl font-bold leading-tight mb-6">Acessibilidade é um direito, não um recurso.</h1>
+          <p class="text-lg max-w-lg leading-relaxed mb-8" style="color:#374151">
+            Interfaces éticas com alto contraste, navegação por teclado e compatibilidade total com leitores de tela. Para todos, sem exceção.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#precos" class="btn-primary">Começar agora</a>
+            <a href="#recursos" class="btn-outline">Ver recursos</a>
+          </div>
+        </div>
+        <div class="hidden md:flex justify-center" aria-hidden="true">
+          <svg viewBox="0 0 280 280" width="280" height="280" role="img" aria-label="Ilustração representando acessibilidade digital">
+            <circle cx="140" cy="140" r="130" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="3"/>
+            <circle cx="140" cy="100" r="35" fill="#1D4ED8"/>
+            <path d="M140 145 L140 200" stroke="#1D4ED8" stroke-width="8" stroke-linecap="round"/>
+            <path d="M110 165 L170 165" stroke="#1D4ED8" stroke-width="8" stroke-linecap="round"/>
+            <path d="M120 200 L110 240" stroke="#1D4ED8" stroke-width="8" stroke-linecap="round"/>
+            <path d="M160 200 L170 240" stroke="#1D4ED8" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="18" fill="none" stroke="#15803D" stroke-width="3"/>
+            <path d="M52 60 L57 66 L70 54" fill="none" stroke="#15803D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="200" y="45" width="40" height="30" rx="4" fill="none" stroke="#1D4ED8" stroke-width="3"/>
+            <path d="M208 55 L215 62 L232 52" fill="none" stroke="#1D4ED8" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="recursos" aria-labelledby="recursos-titulo" class="py-20" style="background:#F9FAFB">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-sm font-bold tracking-widest uppercase mb-3" style="color:#1D4ED8">Recursos</p>
+          <h2 id="recursos-titulo" class="text-3xl md:text-4xl font-bold">Inclusão em cada pixel.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
+          <article class="card" role="listitem">
+            <div class="icon-box mb-5">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Contraste 7:1+</h3>
+            <p style="color:#374151">Todas as combinações de cores atendem WCAG AAA, garantindo legibilidade para pessoas com baixa visão.</p>
+          </article>
+          <article class="card" role="listitem">
+            <div class="icon-box mb-5">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 12h4"/><path d="M14 12h4"/><path d="M10 8v8"/><path d="M14 8v8"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Navegação por Teclado</h3>
+            <p style="color:#374151">Cada elemento interativo é acessível via Tab, com indicadores de foco visíveis de 4px em toda a interface.</p>
+          </article>
+          <article class="card" role="listitem">
+            <div class="icon-box mb-5">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2a3 3 0 00-3 3v4a3 3 0 006 0V5a3 3 0 00-3-3z"/><path d="M19 10v1a7 7 0 01-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Leitor de Tela</h3>
+            <p style="color:#374151">HTML semântico com ARIA labels, landmarks e hierarquia de cabeçalhos para navegação assistiva completa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section aria-labelledby="depoimentos-titulo" class="py-20">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-sm font-bold tracking-widest uppercase mb-3" style="color:#1D4ED8">Depoimentos</p>
+          <h2 id="depoimentos-titulo" class="text-3xl md:text-4xl font-bold">Quem já inclui todos.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <blockquote class="card">
+            <p class="mb-6" style="color:#374151">"Pela primeira vez, nossos usuários com deficiência visual navegam sem barreiras. A taxa de conclusão de tarefas subiu 85%."</p>
+            <footer class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm" style="background:#DBEAFE;color:#1D4ED8" aria-hidden="true">MR</div>
+              <div><p class="font-bold text-sm">Marina Ribeiro</p><p class="text-sm" style="color:#374151">Head de UX, Incluir Tech</p></div>
+            </footer>
+          </blockquote>
+          <blockquote class="card">
+            <p class="mb-6" style="color:#374151">"O foco visível e a navegação por teclado transformaram a experiência. Recebemos zero reclamações de acessibilidade."</p>
+            <footer class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm" style="background:#DCFCE7;color:#15803D" aria-hidden="true">PS</div>
+              <div><p class="font-bold text-sm">Pedro Santos</p><p class="text-sm" style="color:#374151">CTO, Acesso Digital</p></div>
+            </footer>
+          </blockquote>
+          <blockquote class="card">
+            <p class="mb-6" style="color:#374151">"Design ético não é limitação — é excelência. Nossa conversão aumentou 40% ao tornar o site acessível para todos."</p>
+            <footer class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm" style="background:#FEE2E2;color:#B91C1C" aria-hidden="true">JO</div>
+              <div><p class="font-bold text-sm">Juliana Oliveira</p><p class="text-sm" style="color:#374151">CEO, Ética Web</p></div>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="precos" aria-labelledby="precos-titulo" class="py-20" style="background:#F9FAFB">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-sm font-bold tracking-widest uppercase mb-3" style="color:#1D4ED8">Planos</p>
+          <h2 id="precos-titulo" class="text-3xl md:text-4xl font-bold">Acessibilidade para cada escala.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card text-center">
+            <p class="text-sm font-bold tracking-widest uppercase mb-4" style="color:#374151">Essencial</p>
+            <p class="text-4xl font-bold mb-1">R$ 89<span class="text-lg font-normal" style="color:#374151">/mês</span></p>
+            <p class="text-sm mb-8" style="color:#374151">Para projetos pessoais</p>
+            <ul class="space-y-3 mb-8 text-left" role="list">
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>1 projeto ativo</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Auditoria WCAG básica</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Suporte por e-mail</span></li>
+            </ul>
+            <a href="#" class="btn-outline w-full justify-center" aria-label="Escolher plano Essencial">Escolher</a>
+          </div>
+          <div class="text-center relative" style="background:#1D4ED8;border:2px solid #1D4ED8;border-radius:.75rem;padding:2rem;color:#fff">
+            <span class="badge absolute -top-3 left-1/2 -translate-x-1/2" style="background:#fff;color:#1D4ED8">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#1D4ED8" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+              Popular
+            </span>
+            <p class="text-sm font-bold tracking-widest uppercase mb-4 mt-2" style="color:#BFDBFE">Profissional</p>
+            <p class="text-4xl font-bold mb-1">R$ 219<span class="text-lg font-normal" style="color:#BFDBFE">/mês</span></p>
+            <p class="text-sm mb-8" style="color:#BFDBFE">Para equipes em crescimento</p>
+            <ul class="space-y-3 mb-8 text-left" role="list">
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>10 projetos ativos</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Auditoria WCAG AAA</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Suporte prioritário</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Relatórios mensais</span></li>
+            </ul>
+            <a href="#" class="btn-primary w-full justify-center" style="background:#fff;color:#1D4ED8;border-color:#fff" aria-label="Escolher plano Profissional">Escolher</a>
+          </div>
+          <div class="card text-center">
+            <p class="text-sm font-bold tracking-widest uppercase mb-4" style="color:#374151">Empresa</p>
+            <p class="text-4xl font-bold mb-1">R$ 549<span class="text-lg font-normal" style="color:#374151">/mês</span></p>
+            <p class="text-sm mb-8" style="color:#374151">Para operações em escala</p>
+            <ul class="space-y-3 mb-8 text-left" role="list">
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Projetos ilimitados</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Gerente dedicado</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>SLA garantido 99.9%</span></li>
+              <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Treinamento da equipe</span></li>
+            </ul>
+            <a href="#" class="btn-outline w-full justify-center" aria-label="Escolher plano Empresa">Escolher</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section aria-labelledby="cta-titulo" class="py-20">
+      <div class="wrap text-center">
+        <div style="background:#EFF6FF;border:2px solid #BFDBFE;border-radius:.75rem;padding:3rem 2rem">
+          <h2 id="cta-titulo" class="text-3xl md:text-4xl font-bold mb-4">Construa para todos.</h2>
+          <p class="max-w-lg mx-auto mb-8" style="color:#374151">Interfaces éticas que respeitam cada usuário. Comece hoje a criar experiências verdadeiramente inclusivas.</p>
+          <a href="#" class="btn-primary">Começar gratuitamente</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo" class="py-12" style="border-top:2px solid #D1D5DB">
+    <div class="wrap grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <p class="text-lg font-bold mb-3" style="color:#1D4ED8">A11y.</p>
+        <p style="color:#374151">Design acessível<br>e ético desde 2024.</p>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3" style="color:#374151">Produto</p>
+        <ul class="space-y-2" role="list">
+          <li><a href="#" class="underline" style="color:#1D4ED8">Recursos</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Preços</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3" style="color:#374151">Empresa</p>
+        <ul class="space-y-2" role="list">
+          <li><a href="#" class="underline" style="color:#1D4ED8">Sobre</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Blog</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3" style="color:#374151">Legal</p>
+        <ul class="space-y-2" role="list">
+          <li><a href="#" class="underline" style="color:#1D4ED8">Privacidade</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Termos</a></li>
+          <li><a href="#" class="underline" style="color:#1D4ED8">Acessibilidade</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="wrap text-center text-sm mt-8" style="color:#374151">&copy; 2024 A11y. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

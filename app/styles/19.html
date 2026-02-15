@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soft UI Evolution</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','sans-serif']},
+    colors:{soft:{blue:'#87CEEB',pink:'#FFB6C1',green:'#90EE90'},txt:'#1E293B',muted:'#475569',surface:'#F1F5F9',base:'#E8EDF2'},
+    borderRadius:{soft:'10px','soft-lg':'12px'}}}}
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F1F5F9; color: #1E293B; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+
+    .card {
+      background: #FFFFFF;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: box-shadow 250ms ease, transform 250ms ease;
+    }
+    .card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.1); }
+    .card-accent-blue { background: linear-gradient(135deg, #EBF6FC, #FFFFFF); border: 1px solid rgba(135,206,235,0.25); }
+    .card-accent-pink { background: linear-gradient(135deg, #FFF0F3, #FFFFFF); border: 1px solid rgba(255,182,193,0.25); }
+    .card-accent-green { background: linear-gradient(135deg, #EDFCF0, #FFFFFF); border: 1px solid rgba(144,238,144,0.25); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #87CEEB, #6BB8D9);
+      color: #0F172A; font-weight: 600; border: none; border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(135,206,235,0.3), 0 4px 12px rgba(135,206,235,0.2);
+      transition: all 250ms ease;
+    }
+    .btn-primary:hover { box-shadow: 0 4px 8px rgba(135,206,235,0.4), 0 8px 20px rgba(135,206,235,0.3); transform: translateY(-1px); }
+    .btn-primary:focus-visible { outline: 3px solid #87CEEB; outline-offset: 2px; }
+
+    .btn-outline {
+      background: transparent; color: #1E293B; font-weight: 600; border: 2px solid #CBD5E1; border-radius: 10px;
+      transition: all 250ms ease;
+    }
+    .btn-outline:hover { border-color: #87CEEB; background: rgba(135,206,235,0.08); }
+    .btn-outline:focus-visible { outline: 3px solid #87CEEB; outline-offset: 2px; }
+
+    .icon-circle {
+      width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04), inset 0 -1px 2px rgba(0,0,0,0.02);
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, .btn-primary, .btn-outline { transition: none; }
+      .btn-primary:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 mb-6">
+          <span class="w-2 h-2 rounded-full bg-soft-green animate-pulse"></span>
+          <span class="text-muted text-xs font-medium tracking-wide">Design Evoluído</span>
+        </div>
+        <h1 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6 tracking-tight">Soft UI com<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#87CEEB] to-[#6BB8D9]">contraste real.</span></h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">
+          A evolução do neumorfismo: profundidade sutil, acessibilidade garantida e hierarquia visual clara para interfaces modernas.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="btn-primary inline-block px-8 py-4 text-sm tracking-wide">Explorar planos</a>
+          <a href="#recursos" class="btn-outline inline-block px-8 py-4 text-sm tracking-wide">Saiba mais</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="card p-8 w-80 space-y-5">
+          <div class="flex items-center gap-4 mb-2">
+            <div class="icon-circle bg-[#EBF6FC]">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Camadas Modernas</p><p class="text-xs text-muted">Profundidade acessível</p></div>
+          </div>
+          <div class="bg-surface rounded-lg p-3"><div class="h-2.5 rounded-full bg-gradient-to-r from-soft-blue to-[#6BB8D9] w-4/5"></div></div>
+          <div class="bg-surface rounded-lg p-3"><div class="h-2.5 rounded-full bg-gradient-to-r from-soft-pink to-[#E8A0AC] w-3/5"></div></div>
+          <div class="bg-surface rounded-lg p-3"><div class="h-2.5 rounded-full bg-gradient-to-r from-soft-green to-[#6FCC6F] w-2/3"></div></div>
+          <div class="flex gap-3 pt-2">
+            <div class="card flex-1 p-3 text-center clickable"><p class="text-lg font-bold text-[#4A9CC7]">AA+</p><p class="text-[10px] text-muted">Contraste</p></div>
+            <div class="card flex-1 p-3 text-center clickable"><p class="text-lg font-bold text-[#D4849A]">250ms</p><p class="text-[10px] text-muted">Animação</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-medium tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Evolução com propósito.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card card-accent-blue p-8">
+          <div class="icon-circle bg-[#D6EFFA] mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Sombras Modernas</h3>
+          <p class="text-muted text-sm leading-relaxed">Multi-camadas suaves que criam profundidade sem o peso do neumorfismo clássico. Mais leve, mais claro.</p>
+        </div>
+        <div class="card card-accent-pink p-8">
+          <div class="icon-circle bg-[#FFE4E9] mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#D4849A" stroke-width="1.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Contraste WCAG AA+</h3>
+          <p class="text-muted text-sm leading-relaxed">Hierarquia de cores otimizada com ratio 4.5:1+ garantido. Acessibilidade não é opcional, é padrão.</p>
+        </div>
+        <div class="card card-accent-green p-8">
+          <div class="icon-circle bg-[#DCFAE0] mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="1.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Animações 250ms</h3>
+          <p class="text-muted text-sm leading-relaxed">Transições suaves entre 200-300ms. Rápidas o suficiente para parecer responsivas, lentas para serem percebidas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-medium tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Quem já evoluiu.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFB6C1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFB6C1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFB6C1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFB6C1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFB6C1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Finalmente um design system que une beleza e acessibilidade. O contraste melhorado fez toda a diferença nos nossos testes de usabilidade."</p>
+          <div class="flex items-center gap-3">
+            <div class="icon-circle bg-[#EBF6FC] w-10 h-10">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Mariana Costa</p><p class="text-xs text-muted">Design Lead, Nuvem</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#87CEEB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#87CEEB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#87CEEB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#87CEEB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#87CEEB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"As sombras suaves dão uma sensação premium sem sacrificar a legibilidade. Nossos usuários com baixa visão finalmente navegam sem dificuldade."</p>
+          <div class="flex items-center gap-3">
+            <div class="icon-circle bg-[#FFE4E9] w-10 h-10">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#D4849A" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Rafael Mendes</p><p class="text-xs text-muted">CTO, Fluxo Digital</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#90EE90" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#90EE90" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#90EE90" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#90EE90" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="w-4 h-4" viewBox="0 0 24 24" fill="#90EE90" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"A transição do neumorfismo puro para o Soft UI Evolution foi natural. Mantivemos a identidade visual e ganhamos em usabilidade."</p>
+          <div class="flex items-center gap-3">
+            <div class="icon-circle bg-[#DCFAE0] w-10 h-10">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Juliana Alves</p><p class="text-xs text-muted">UX Manager, Prisma</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-medium tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Invista em clareza.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div class="card p-8 text-center">
+          <p class="text-muted text-sm font-medium tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 69<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para projetos pessoais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>1 projeto ativo</span>
+            </div>
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Componentes base</span>
+            </div>
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Suporte por e-mail</span>
+            </div>
+          </div>
+          <button class="btn-outline w-full py-3.5 text-sm tracking-wide">Começar grátis</button>
+        </div>
+        <div class="card p-8 text-center relative border-2 border-soft-blue" style="box-shadow: 0 4px 8px rgba(135,206,235,0.15), 0 16px 40px rgba(135,206,235,0.2);">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#87CEEB] to-[#6BB8D9] text-[#0F172A] px-5 py-1 rounded-full text-xs font-bold tracking-wide">Popular</div>
+          <p class="text-muted text-sm font-medium tracking-widest uppercase mb-4 mt-2">Profissional</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 189<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes em crescimento</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-[#EBF6FC] rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>10 projetos ativos</span>
+            </div>
+            <div class="flex items-center gap-3 bg-[#EBF6FC] rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Componentes premium</span>
+            </div>
+            <div class="flex items-center gap-3 bg-[#EBF6FC] rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A9CC7" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Suporte prioritário</span>
+            </div>
+          </div>
+          <button class="btn-primary w-full py-3.5 text-sm tracking-wide">Escolher plano</button>
+        </div>
+        <div class="card p-8 text-center">
+          <p class="text-muted text-sm font-medium tracking-widest uppercase mb-4">Empresa</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 479<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para operações em escala</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Projetos ilimitados</span>
+            </div>
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Gerente dedicado</span>
+            </div>
+            <div class="flex items-center gap-3 bg-surface rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5CB85C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>SLA 99.9% garantido</span>
+            </div>
+          </div>
+          <button class="btn-outline w-full py-3.5 text-sm tracking-wide">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="card p-12 md:p-16 text-center" style="background: linear-gradient(135deg, #EBF6FC 0%, #FFF0F3 50%, #EDFCF0 100%); border: 1px solid rgba(135,206,235,0.2);">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Evolua sua interface.</h2>
+        <p class="text-muted max-w-lg mx-auto mb-8 leading-relaxed">Design acessível com profundidade moderna. Cada pixel pensado para clareza, cada sombra calibrada para conforto visual.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button class="btn-primary px-10 py-4 text-sm tracking-wide">Começar agora</button>
+          <button class="btn-outline px-10 py-4 text-sm tracking-wide">Ver demonstração</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="card p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-soft-blue to-[#6BB8D9] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+            </div>
+            <span class="font-extrabold text-lg">Evolve.</span>
+          </div>
+          <p class="text-muted text-xs leading-relaxed">Soft UI Evolution.<br>Design moderno desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Recursos</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Sobre</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-xs mt-8">&copy; 2024 Evolve. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

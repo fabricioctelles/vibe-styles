@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro-interactions — Feedback Tátil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            primary: '#6366F1',
+            success: '#22C55E',
+            danger: '#EF4444',
+            warn: '#F59E0B',
+            txt: '#0F172A',
+            muted: '#475569',
+            subtle: '#94A3B8',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Tactile button press */
+    .btn-tactile {
+      transition: transform 80ms ease, box-shadow 80ms ease, background-color 100ms ease;
+    }
+    .btn-tactile:hover { box-shadow: 0 4px 16px rgba(99,102,241,0.3); }
+    .btn-tactile:active { transform: scale(0.96); box-shadow: 0 1px 4px rgba(99,102,241,0.2); }
+
+    .btn-outline {
+      transition: transform 80ms ease, border-color 100ms ease, color 100ms ease;
+    }
+    .btn-outline:active { transform: scale(0.96); }
+
+    /* Card hover micro-interaction */
+    .card-lift {
+      transition: transform 100ms ease, box-shadow 100ms ease;
+    }
+    .card-lift:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+    /* Spinner */
+    @keyframes spin-smooth { to { transform: rotate(360deg); } }
+    .spinner { animation: spin-smooth 0.7s linear infinite; }
+
+    /* Success checkmark draw */
+    @keyframes draw-check {
+      from { stroke-dashoffset: 24; }
+      to { stroke-dashoffset: 0; }
+    }
+    .check-draw { stroke-dasharray: 24; stroke-dashoffset: 24; animation: draw-check 0.3s ease forwards 0.1s; }
+
+    /* Error shake */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-3px); }
+      40%, 80% { transform: translateX(3px); }
+    }
+    .shake { animation: shake 0.3s ease; }
+
+    /* Pulse dot */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .pulse-1 { animation: pulse-dot 0.8s ease infinite; }
+    .pulse-2 { animation: pulse-dot 0.8s ease infinite 0.15s; }
+    .pulse-3 { animation: pulse-dot 0.8s ease infinite 0.3s; }
+
+    /* Fade-in on scroll */
+    .fade-up { opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-tactile, .btn-outline, .card-lift { transition: none; }
+      .btn-tactile:active, .btn-outline:active { transform: none; }
+      .card-lift:hover { transform: none; }
+      .spinner, .check-draw, .shake { animation: none; }
+      .pulse-1, .pulse-2, .pulse-3 { animation: none; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Micro-interactions</p>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">Cada detalhe<br>responde ao toque.</h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">
+          Animações sutis de 50–100ms que criam feedback tátil instantâneo. Interfaces que parecem vivas.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="btn-tactile inline-block bg-primary text-white px-8 py-4 rounded-xl text-sm font-semibold tracking-wide">
+            Ver planos
+          </a>
+          <a href="#recursos" class="btn-outline inline-block border-2 border-gray-200 hover:border-primary hover:text-primary px-8 py-4 rounded-xl text-sm font-semibold tracking-wide">
+            Explorar recursos
+          </a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-72 space-y-5">
+          <!-- Interactive demo states -->
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-success check-draw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="text-sm font-medium text-success">Salvo com sucesso</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-danger/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <span class="text-sm font-medium text-danger">Erro na validação</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg>
+            </div>
+            <span class="text-sm font-medium text-muted">Carregando</span>
+            <span class="flex gap-1 ml-1"><span class="w-1.5 h-1.5 rounded-full bg-primary pulse-1"></span><span class="w-1.5 h-1.5 rounded-full bg-primary pulse-2"></span><span class="w-1.5 h-1.5 rounded-full bg-primary pulse-3"></span></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-warn/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <span class="text-sm font-medium text-warn">Atenção necessária</span>
+          </div>
+          <button class="btn-tactile w-full bg-primary text-white py-3 rounded-xl text-sm font-semibold">Clique para sentir</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20 bg-white">
+    <div class="wrap">
+      <div class="text-center mb-14 fade-up">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Feedback em cada interação.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-lift bg-gray-50 rounded-2xl p-8 border border-gray-100 fade-up">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Resposta Tátil</h3>
+          <p class="text-muted text-sm leading-relaxed">Botões com escala de pressão e transições de 80ms que simulam feedback físico real.</p>
+        </div>
+        <div class="card-lift bg-gray-50 rounded-2xl p-8 border border-gray-100 fade-up">
+          <div class="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Estados Visuais</h3>
+          <p class="text-muted text-sm leading-relaxed">Sucesso, erro e alerta comunicados com animações contextuais e cores semânticas.</p>
+        </div>
+        <div class="card-lift bg-gray-50 rounded-2xl p-8 border border-gray-100 fade-up">
+          <div class="w-12 h-12 rounded-xl bg-warn/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Carregamento Suave</h3>
+          <p class="text-muted text-sm leading-relaxed">Spinners e indicadores pulsantes que mantêm o usuário informado sem interromper o fluxo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14 fade-up">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Quem já sentiu a diferença.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up">
+          <div class="flex gap-1 mb-4 stars"></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"As micro-interações transformaram nosso app. Os usuários dizem que a interface parece mais rápida, mesmo sem mudar a performance."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Marina Costa</p><p class="text-xs text-subtle">Product Designer, Fluxo</p></div>
+          </div>
+        </div>
+        <div class="card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up">
+          <div class="flex gap-1 mb-4 stars"></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"O feedback visual de sucesso e erro reduziu nossos tickets de suporte em 40%. Os usuários entendem o que aconteceu instantaneamente."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Rafael Mendes</p><p class="text-xs text-subtle">CTO, Pulso Digital</p></div>
+          </div>
+        </div>
+        <div class="card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up">
+          <div class="flex gap-1 mb-4 stars"></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Detalhes como o spinner e o checkmark animado fazem toda a diferença. Nosso NPS subiu 15 pontos após a implementação."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-warn/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Juliana Alves</p><p class="text-xs text-subtle">Head de UX, Nuvem</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20 bg-white">
+    <div class="wrap">
+      <div class="text-center mb-14 fade-up">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Escolha seu nível de interação.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Starter -->
+        <div class="card-lift bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center fade-up">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-bold mb-1">R$ 69<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-subtle mb-8">Para projetos pessoais</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 componentes interativos</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Animações de hover</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+          </ul>
+          <button class="btn-tactile w-full bg-gray-900 text-white py-3 rounded-xl text-sm font-semibold">Começar grátis</button>
+        </div>
+        <!-- Pro -->
+        <div class="card-lift bg-primary rounded-2xl p-8 text-center text-white relative fade-up">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-warn text-gray-900 text-xs font-bold px-4 py-1 rounded-full">Popular</span>
+          <p class="text-white/70 text-sm font-semibold tracking-widest uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-bold mb-1">R$ 179<span class="text-base font-normal text-white/70">/mês</span></p>
+          <p class="text-xs text-white/60 mb-8">Para equipes em crescimento</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Componentes ilimitados</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Estados de feedback completos</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário 24h</li>
+          </ul>
+          <button class="btn-tactile w-full bg-white text-primary py-3 rounded-xl text-sm font-semibold">Escolher Pro</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="card-lift bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center fade-up">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-bold mb-1">R$ 449<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-subtle mb-8">Para operações em escala</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Pro incluso</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9% garantido</li>
+          </ul>
+          <button class="btn-tactile w-full bg-gray-900 text-white py-3 rounded-xl text-sm font-semibold">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center fade-up">
+      <div class="bg-primary rounded-2xl p-12 md:p-16 text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Pronto para dar vida à sua interface?</h2>
+        <p class="text-white/70 max-w-md mx-auto mb-8">Micro-interações que transformam cliques em experiências. Comece hoje e sinta a diferença.</p>
+        <button class="btn-tactile bg-white text-primary px-10 py-4 rounded-xl text-sm font-semibold tracking-wide">
+          Começar agora
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 bg-white border-t border-gray-100">
+    <div class="wrap grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <p class="font-bold text-lg mb-3 text-primary">Micro.</p>
+        <p class="text-subtle text-xs leading-relaxed">Feedback tátil para<br>interfaces modernas.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Produto</p>
+        <ul class="space-y-2 text-subtle text-xs">
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Recursos</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Preços</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Empresa</p>
+        <ul class="space-y-2 text-subtle text-xs">
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Sobre</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Blog</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Legal</p>
+        <ul class="space-y-2 text-subtle text-xs">
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Privacidade</a></li>
+          <li><a href="#" class="hover:text-primary transition-colors duration-100">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-subtle text-xs mt-8">&copy; 2024 Micro. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const star = '<svg class="w-4 h-4 text-warn" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+    document.querySelectorAll('.stars').forEach(el => { el.innerHTML = star.repeat(5); });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

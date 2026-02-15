@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlueprintCore — Engenharia de Precisão</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        bp: '#1E5DA2', bplight: '#A8D5FF', steel: '#5B9BD5', slate: '#2E4053', lgrey: '#E8E8E8'
+      },
+      fontFamily: { tech: ['IBM Plex Mono', 'monospace'], mono: ['Share Tech Mono', 'monospace'] }
+    }
+  }
+}
+</script>
+<style>
+  body { background: #1E5DA2; font-family: 'IBM Plex Mono', monospace; }
+  .bp-grid {
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0 1px, transparent 1px 20px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 20px);
+  }
+  .line-draw { stroke-dasharray: 300; stroke-dashoffset: 300; animation: draw 2.5s ease forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes dimReveal { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+  .dim-marker { animation: dimReveal .8s ease forwards; opacity: 0; }
+  .card-bp { transition: border-color .3s, box-shadow .3s; }
+  .card-bp:hover { border-color: #A8D5FF; box-shadow: 0 0 24px rgba(168,213,255,.15); }
+  @keyframes gridFade { from { opacity:0; } to { opacity:1; } }
+  .grid-fade { animation: gridFade 1.5s ease forwards; }
+  .dim-line { position: relative; }
+  .dim-line::before, .dim-line::after {
+    content: ''; position: absolute; top: 50%; width: 8px; height: 1px; background: #A8D5FF;
+  }
+  .dim-line::before { left: -12px; } .dim-line::after { right: -12px; }
+</style>
+</head>
+<body class="text-white min-h-screen bp-grid grid-fade overflow-x-hidden">
+
+<!-- Blueprint Grid SVG Background -->
+<svg class="fixed inset-0 w-full h-full pointer-events-none opacity-10" xmlns="http://www.w3.org/2000/svg">
+  <line x1="20%" y1="0" x2="20%" y2="100%" stroke="#fff" stroke-width=".5" class="line-draw"/>
+  <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#fff" stroke-width=".5" class="line-draw" style="animation-delay:.4s"/>
+  <line x1="80%" y1="0" x2="80%" y2="100%" stroke="#fff" stroke-width=".5" class="line-draw" style="animation-delay:.8s"/>
+  <line x1="0" y1="30%" x2="100%" y2="30%" stroke="#fff" stroke-width=".5" class="line-draw" style="animation-delay:.3s"/>
+  <line x1="0" y1="60%" x2="100%" y2="60%" stroke="#fff" stroke-width=".5" class="line-draw" style="animation-delay:.6s"/>
+  <!-- Dimension markers -->
+  <g class="dim-marker" style="animation-delay:.5s"><line x1="20%" y1="30%" x2="50%" y2="30%" stroke="#A8D5FF" stroke-width="1" stroke-dasharray="4 4"/><circle cx="20%" cy="30%" r="3" fill="none" stroke="#A8D5FF" stroke-width="1"/><circle cx="50%" cy="30%" r="3" fill="none" stroke="#A8D5FF" stroke-width="1"/></g>
+  <!-- Semi-circular arc -->
+  <path d="M 300 400 A 120 120 0 0 1 540 400" fill="none" stroke="#A8D5FF" stroke-width=".5" class="line-draw" style="animation-delay:1s" opacity=".3"/>
+</svg>
+
+<div class="relative z-10">
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center px-4 py-20">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 border border-white/30 px-5 py-2 mb-8">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      <span class="font-mono text-bplight text-xs tracking-[.3em] uppercase">BlueprintCore v2.0</span>
+    </div>
+    <h1 class="font-tech font-bold text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+      Projetos com <span class="text-bplight">Precisão</span> de Engenharia
+    </h1>
+    <p class="font-tech font-light text-base md:text-lg text-white/60 max-w-2xl mx-auto mb-10">
+      Cada linha traçada com exatidão técnica. Transformamos especificações complexas em soluções arquitetônicas impecáveis.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="cursor-pointer inline-flex items-center gap-2 bg-white text-bp font-tech font-semibold px-8 py-4 hover:bg-bplight transition-colors duration-200">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+        Iniciar Projeto
+      </a>
+      <a href="#features" class="cursor-pointer inline-flex items-center gap-2 border border-white/40 text-white font-tech font-medium px-8 py-4 hover:border-bplight hover:text-bplight transition-colors duration-200">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        Ver Especificações
+      </a>
+    </div>
+    <!-- Dimension marker decoration -->
+    <svg class="mx-auto mt-14 w-72" viewBox="0 0 288 24" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="12" x2="120" y2="12" stroke="#fff" stroke-width="1" class="line-draw" style="animation-delay:1.2s"/>
+      <line x1="0" y1="6" x2="0" y2="18" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="120" y1="6" x2="120" y2="18" stroke="#A8D5FF" stroke-width="1"/>
+      <text x="60" y="8" fill="#A8D5FF" font-size="8" text-anchor="middle" font-family="monospace">120mm</text>
+      <line x1="168" y1="12" x2="288" y2="12" stroke="#fff" stroke-width="1" class="line-draw" style="animation-delay:1.5s"/>
+      <line x1="168" y1="6" x2="168" y2="18" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="288" y1="6" x2="288" y2="18" stroke="#A8D5FF" stroke-width="1"/>
+      <text x="228" y="8" fill="#A8D5FF" font-size="8" text-anchor="middle" font-family="monospace">120mm</text>
+      <circle cx="144" cy="12" r="4" fill="none" stroke="#A8D5FF" stroke-width="1"/>
+      <circle cx="144" cy="12" r="1.5" fill="#A8D5FF"/>
+    </svg>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <p class="font-mono text-xs text-bplight/60 text-center tracking-[.3em] uppercase mb-2">// Especificações Técnicas</p>
+    <h2 class="font-tech font-bold text-3xl md:text-4xl text-center text-white mb-16">Módulos de <span class="text-bplight">Engenharia</span></h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card-bp bg-white/5 border border-white/20 p-8 cursor-pointer">
+        <div class="w-12 h-12 border border-bplight/40 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-bplight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 class="font-tech font-semibold text-lg text-white mb-3">Arquitetura Modular</h3>
+        <p class="font-tech font-light text-white/50 text-sm leading-relaxed">Componentes projetados com tolerância zero. Cada módulo se encaixa com a precisão de um desenho técnico.</p>
+        <span class="font-mono text-xs text-bplight/40 mt-4 block">DWG-001 | REV.A</span>
+      </div>
+      <div class="card-bp bg-white/5 border border-white/20 p-8 cursor-pointer">
+        <div class="w-12 h-12 border border-bplight/40 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-bplight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h4l3-7 4 14 3-7h4"/></svg>
+        </div>
+        <h3 class="font-tech font-semibold text-lg text-white mb-3">Análise Estrutural</h3>
+        <p class="font-tech font-light text-white/50 text-sm leading-relaxed">Monitoramento em tempo real com métricas de engenharia. Dados precisos para decisões fundamentadas.</p>
+        <span class="font-mono text-xs text-bplight/40 mt-4 block">DWG-002 | REV.A</span>
+      </div>
+      <div class="card-bp bg-white/5 border border-white/20 p-8 cursor-pointer">
+        <div class="w-12 h-12 border border-bplight/40 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-bplight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3 class="font-tech font-semibold text-lg text-white mb-3">Certificação Técnica</h3>
+        <p class="font-tech font-light text-white/50 text-sm leading-relaxed">Padrões rigorosos de qualidade aplicados em cada etapa. Conformidade total com normas internacionais.</p>
+        <span class="font-mono text-xs text-bplight/40 mt-4 block">DWG-003 | REV.A</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <p class="font-mono text-xs text-bplight/60 text-center tracking-[.3em] uppercase mb-2">// Registros de Campo</p>
+    <h2 class="font-tech font-bold text-3xl md:text-4xl text-center text-white mb-16">Laudos de <span class="text-bplight">Aprovação</span></h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="border border-white/15 bg-white/5 p-6 relative">
+        <svg class="absolute top-4 right-4 w-7 h-7 text-bplight/20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="font-tech text-white/60 text-sm leading-relaxed mb-6">"A precisão dos projetos entregues pela BlueprintCore é comparável a um desenho técnico de alta resolução. Cada detalhe milimetricamente calculado."</p>
+        <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+          <div class="w-9 h-9 border border-bplight/30 flex items-center justify-center"><span class="font-mono text-bplight text-xs">AM</span></div>
+          <div><p class="font-tech font-medium text-white text-sm">Ana Martins</p><p class="font-mono text-bplight/40 text-xs">Eng. Civil, Construtora Apex</p></div>
+        </div>
+      </div>
+      <div class="border border-white/15 bg-white/5 p-6 relative">
+        <svg class="absolute top-4 right-4 w-7 h-7 text-bplight/20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="font-tech text-white/60 text-sm leading-relaxed mb-6">"Reduzimos o tempo de projeto em 60%. A plataforma funciona como uma mesa de desenho digital com régua T integrada. Impressionante."</p>
+        <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+          <div class="w-9 h-9 border border-bplight/30 flex items-center justify-center"><span class="font-mono text-bplight text-xs">PF</span></div>
+          <div><p class="font-tech font-medium text-white text-sm">Pedro Ferreira</p><p class="font-mono text-bplight/40 text-xs">Diretor Técnico, StructLab</p></div>
+        </div>
+      </div>
+      <div class="border border-white/15 bg-white/5 p-6 relative">
+        <svg class="absolute top-4 right-4 w-7 h-7 text-bplight/20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="font-tech text-white/60 text-sm leading-relaxed mb-6">"A conformidade com normas técnicas é impecável. Cada entrega vem com documentação de engenharia completa e rastreável."</p>
+        <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+          <div class="w-9 h-9 border border-bplight/30 flex items-center justify-center"><span class="font-mono text-bplight text-xs">JR</span></div>
+          <div><p class="font-tech font-medium text-white text-sm">Juliana Rocha</p><p class="font-mono text-bplight/40 text-xs">CISO, Engenharia Vértice</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <p class="font-mono text-xs text-bplight/60 text-center tracking-[.3em] uppercase mb-2">// Tabela de Custos</p>
+    <h2 class="font-tech font-bold text-3xl md:text-4xl text-center text-white mb-16">Escalas de <span class="text-bplight">Projeto</span></h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card-bp bg-white/5 border border-white/20 p-8 text-center">
+        <span class="font-mono text-bplight/50 text-xs tracking-[.2em] uppercase">Esboço</span>
+        <div class="my-6"><span class="font-tech font-bold text-4xl text-white">R$97</span><span class="font-tech text-white/40 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Até 5 projetos</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte por e-mail</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Grid básico</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border border-white/30 text-white font-tech font-medium py-3 hover:border-bplight hover:text-bplight transition-colors duration-200">Selecionar</a>
+      </div>
+      <div class="card-bp bg-steel/20 border-2 border-bplight p-8 text-center relative md:scale-105">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-bplight text-bp font-mono text-xs px-4 py-1">RECOMENDADO</div>
+        <span class="font-mono text-bplight text-xs tracking-[.2em] uppercase">Projeto Executivo</span>
+        <div class="my-6"><span class="font-tech font-bold text-4xl text-white">R$247</span><span class="font-tech text-white/40 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Projetos ilimitados</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte prioritário 24h</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Análise estrutural</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Exportação CAD</li>
+        </ul>
+        <a href="#" class="cursor-pointer block bg-white text-bp font-tech font-semibold py-3 hover:bg-bplight transition-colors duration-200">Selecionar</a>
+      </div>
+      <div class="card-bp bg-white/5 border border-white/20 p-8 text-center">
+        <span class="font-mono text-bplight/50 text-xs tracking-[.2em] uppercase">Obra Completa</span>
+        <div class="my-6"><span class="font-tech font-bold text-4xl text-white">R$597</span><span class="font-tech text-white/40 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Tudo do Executivo</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Engenheiro dedicado</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>SLA 99.99%</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-bplight flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Projeto sob medida</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border border-white/30 text-white font-tech font-medium py-3 hover:border-bplight hover:text-bplight transition-colors duration-200">Selecionar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="px-4 py-20">
+  <div class="max-w-3xl mx-auto text-center">
+    <svg class="mx-auto mb-10 w-64" viewBox="0 0 256 40" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="20" x2="100" y2="20" stroke="#fff" stroke-width="1" class="line-draw"/>
+      <line x1="0" y1="14" x2="0" y2="26" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="100" y1="14" x2="100" y2="26" stroke="#A8D5FF" stroke-width="1"/>
+      <circle cx="128" cy="20" r="10" fill="none" stroke="#A8D5FF" stroke-width="1" class="line-draw" style="animation-delay:.5s"/>
+      <line x1="122" y1="20" x2="134" y2="20" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="128" y1="14" x2="128" y2="26" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="156" y1="20" x2="256" y2="20" stroke="#fff" stroke-width="1" class="line-draw" style="animation-delay:.3s"/>
+      <line x1="156" y1="14" x2="156" y2="26" stroke="#A8D5FF" stroke-width="1"/>
+      <line x1="256" y1="14" x2="256" y2="26" stroke="#A8D5FF" stroke-width="1"/>
+    </svg>
+    <h2 class="font-tech font-bold text-3xl md:text-5xl text-white mb-6">Pronto para <span class="text-bplight">Projetar</span>?</h2>
+    <p class="font-tech font-light text-white/50 text-lg mb-10 max-w-xl mx-auto">Toda grande obra começa com uma linha no papel. Trace o primeiro risco do seu projeto agora.</p>
+    <a href="#" class="cursor-pointer inline-flex items-center gap-3 bg-white text-bp font-tech font-bold text-lg px-10 py-4 hover:bg-bplight transition-colors duration-200">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+      Começar Projeto
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/10 px-4 py-12">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-bplight" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      <span class="font-tech font-semibold text-white">BlueprintCore</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="#" class="cursor-pointer font-mono text-sm text-white/40 hover:text-bplight transition-colors duration-200">Termos</a>
+      <a href="#" class="cursor-pointer font-mono text-sm text-white/40 hover:text-bplight transition-colors duration-200">Privacidade</a>
+      <a href="#" class="cursor-pointer font-mono text-sm text-white/40 hover:text-bplight transition-colors duration-200">Contato</a>
+    </div>
+    <p class="font-mono text-xs text-white/20">&copy; 2025 BlueprintCore. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
+</div>

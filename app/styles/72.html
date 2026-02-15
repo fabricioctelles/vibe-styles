@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victorian Lithograph — Estúdio de Arte</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Playfair Display', 'serif'], body: ['Cormorant Garamond', 'serif'] },
+          colors: {
+            parchment: '#F0E3CE', ink: '#0D0D15', vermillion: '#E85D35',
+            navy: '#223A70', brown: '#8B7355', tan: '#D4A574', charcoal: '#4A4A4A',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', serif; background: #F0E3CE; color: #0D0D15; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(13,13,21,0.3) 100%);
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 49; opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.7' fill='%238B7355'/%3E%3C/svg%3E");
+    }
+    .ornament-border {
+      border: 2px solid #8B7355; position: relative; padding: 2.5rem;
+      background: rgba(240,227,206,0.6);
+    }
+    .ornament-border::before, .ornament-border::after {
+      content: ''; position: absolute; width: 28px; height: 28px;
+      border: 2px solid #E85D35;
+    }
+    .ornament-border::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+    .ornament-border::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+    .ribbon {
+      background: #E85D35; color: #F0E3CE; padding: 0.5rem 2.5rem; display: inline-block;
+      position: relative; font-family: 'Playfair Display', serif; font-weight: 700;
+      clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+    }
+    .watercolor-wash {
+      background: linear-gradient(135deg, rgba(34,58,112,0.08) 0%, rgba(232,93,53,0.06) 50%, rgba(139,115,85,0.08) 100%);
+      mix-blend-mode: multiply;
+    }
+    .card-victorian {
+      border: 1.5px solid #8B7355; background: rgba(240,227,206,0.85);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .card-victorian:hover { box-shadow: 0 8px 32px rgba(13,13,21,0.15); transform: translateY(-3px); }
+    .divider-ornament { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+    .divider-ornament::before, .divider-ornament::after {
+      content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, #8B7355, transparent);
+    }
+    .section-title { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: 0.04em; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.8s ease-out both; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Hero -->
+  <section class="relative py-20 md:py-28 overflow-hidden">
+    <div class="absolute inset-0 watercolor-wash"></div>
+    <div class="wrap relative z-10 text-center fade-up">
+      <div class="flex justify-center mb-6">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 4L36 16H48L38 24L42 36L32 28L22 36L26 24L16 16H28L32 4Z" stroke="#E85D35" stroke-width="1.5" fill="none"/><circle cx="32" cy="32" r="28" stroke="#8B7355" stroke-width="1" stroke-dasharray="4 3"/><path d="M12 48C18 42 26 38 32 38S46 42 52 48" stroke="#223A70" stroke-width="1" fill="none"/></svg>
+      </div>
+      <p class="text-brown font-body text-lg tracking-widest uppercase mb-3">Est. MDCCCXLVIII</p>
+      <h1 class="section-title text-4xl md:text-6xl lg:text-7xl text-ink leading-tight mb-6">Estúdio de Artes<br><span class="text-vermillion italic">& Litografia Fina</span></h1>
+      <p class="font-body text-xl md:text-2xl text-charcoal max-w-2xl mx-auto mb-10 leading-relaxed">Criamos experiências digitais com a elegância e o requinte da era vitoriana, unindo tradição artesanal à inovação moderna.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="ribbon text-lg cursor-pointer">Descubra Nosso Trabalho</button>
+        <button class="border-2 border-navy text-navy px-8 py-3 font-display font-bold hover:bg-navy hover:text-parchment transition-colors duration-300 cursor-pointer">Solicitar Orçamento</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-ornament"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z" fill="#E85D35"/></svg></div></div>
+
+  <!-- Features -->
+  <section class="py-16 md:py-20">
+    <div class="wrap">
+      <h2 class="section-title text-3xl md:text-4xl text-ink text-center mb-4">Nossas Especialidades</h2>
+      <p class="text-center text-charcoal font-body text-lg mb-12 max-w-xl mx-auto">Cada projeto é tratado como uma obra de arte, com atenção meticulosa aos detalhes.</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card-victorian p-8 text-center cursor-pointer">
+          <div class="flex justify-center mb-5">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="2" stroke="#223A70" stroke-width="1.5"/><path d="M6 18H42M16 10V18M32 10V18" stroke="#223A70" stroke-width="1.5"/><circle cx="24" cy="28" r="6" stroke="#E85D35" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ink mb-3">Design Artesanal</h3>
+          <p class="font-body text-charcoal leading-relaxed">Interfaces desenhadas à mão com ornamentos clássicos e tipografia refinada que encantam.</p>
+        </div>
+        <div class="card-victorian p-8 text-center cursor-pointer">
+          <div class="flex justify-center mb-5">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M8 40L20 12L28 28L34 18L40 40H8Z" stroke="#223A70" stroke-width="1.5" fill="none"/><circle cx="34" cy="14" r="4" stroke="#E85D35" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ink mb-3">Ilustração Digital</h3>
+          <p class="font-body text-charcoal leading-relaxed">Gravuras e litografias digitais que capturam a essência da arte vitoriana com precisão.</p>
+        </div>
+        <div class="card-victorian p-8 text-center cursor-pointer">
+          <div class="flex justify-center mb-5">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M24 6V42M6 24H42" stroke="#8B7355" stroke-width="1"/><rect x="12" y="12" width="24" height="24" rx="12" stroke="#223A70" stroke-width="1.5" fill="none"/><path d="M18 24C18 20.7 20.7 18 24 18S30 20.7 30 24" stroke="#E85D35" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-ink mb-3">Identidade Visual</h3>
+          <p class="font-body text-charcoal leading-relaxed">Marcas com personalidade atemporal, inspiradas nos grandes mestres da tipografia clássica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-ornament"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z" fill="#E85D35"/></svg></div></div>
+
+  <!-- Testimonials -->
+  <section class="py-16 md:py-20 watercolor-wash">
+    <div class="wrap">
+      <h2 class="section-title text-3xl md:text-4xl text-ink text-center mb-12">Depoimentos Ilustres</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="ornament-border">
+          <svg class="mb-4" width="32" height="24" viewBox="0 0 32 24" fill="none"><path d="M0 24V14.4C0 4.8 5.6 0.8 12 0L13.2 3.6C9.6 4.4 7.6 7.2 7.2 10H12V24H0ZM18 24V14.4C18 4.8 23.6 0.8 30 0L31.2 3.6C27.6 4.4 25.6 7.2 25.2 10H30V24H18Z" fill="#D4A574"/></svg>
+          <p class="font-body text-lg text-charcoal italic leading-relaxed mb-4">"Um trabalho de excelência rara. Cada detalhe revela o cuidado artesanal que só verdadeiros mestres possuem."</p>
+          <p class="font-display font-bold text-ink">— Helena Monteiro</p>
+          <p class="text-brown text-sm">Diretora Criativa, Atelier Belas Artes</p>
+        </div>
+        <div class="ornament-border">
+          <svg class="mb-4" width="32" height="24" viewBox="0 0 32 24" fill="none"><path d="M0 24V14.4C0 4.8 5.6 0.8 12 0L13.2 3.6C9.6 4.4 7.6 7.2 7.2 10H12V24H0ZM18 24V14.4C18 4.8 23.6 0.8 30 0L31.2 3.6C27.6 4.4 25.6 7.2 25.2 10H30V24H18Z" fill="#D4A574"/></svg>
+          <p class="font-body text-lg text-charcoal italic leading-relaxed mb-4">"Transformaram nossa marca com uma identidade que respira sofisticação e tradição. Resultado impecável."</p>
+          <p class="font-display font-bold text-ink">— Ricardo Almeida</p>
+          <p class="text-brown text-sm">Fundador, Livraria Antiquária</p>
+        </div>
+        <div class="ornament-border">
+          <svg class="mb-4" width="32" height="24" viewBox="0 0 32 24" fill="none"><path d="M0 24V14.4C0 4.8 5.6 0.8 12 0L13.2 3.6C9.6 4.4 7.6 7.2 7.2 10H12V24H0ZM18 24V14.4C18 4.8 23.6 0.8 30 0L31.2 3.6C27.6 4.4 25.6 7.2 25.2 10H30V24H18Z" fill="#D4A574"/></svg>
+          <p class="font-body text-lg text-charcoal italic leading-relaxed mb-4">"A atenção aos ornamentos e à tipografia é extraordinária. Superou todas as nossas expectativas."</p>
+          <p class="font-display font-bold text-ink">— Camila Ferreira</p>
+          <p class="text-brown text-sm">Curadora, Museu Imperial</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-ornament"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z" fill="#E85D35"/></svg></div></div>
+
+  <!-- Pricing -->
+  <section class="py-16 md:py-20">
+    <div class="wrap">
+      <h2 class="section-title text-3xl md:text-4xl text-ink text-center mb-4">Planos & Investimentos</h2>
+      <p class="text-center text-charcoal font-body text-lg mb-12 max-w-xl mx-auto">Escolha o nível de refinamento ideal para o seu projeto.</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card-victorian p-8 text-center cursor-pointer">
+          <p class="text-brown tracking-widest uppercase text-sm mb-2 font-display">Aprendiz</p>
+          <p class="section-title text-4xl text-ink mb-1">R$ 970</p>
+          <p class="text-charcoal font-body mb-6">por projeto</p>
+          <ul class="font-body text-charcoal text-left space-y-3 mb-8">
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Design de 1 página</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Tipografia personalizada</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>2 revisões incluídas</li>
+          </ul>
+          <button class="w-full border-2 border-brown text-brown py-3 font-display font-bold hover:bg-brown hover:text-parchment transition-colors duration-300 cursor-pointer">Selecionar</button>
+        </div>
+        <div class="card-victorian p-8 text-center border-2 border-vermillion relative cursor-pointer">
+          <div class="ribbon text-sm absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">Mais Popular</div>
+          <p class="text-vermillion tracking-widest uppercase text-sm mb-2 font-display mt-4">Mestre</p>
+          <p class="section-title text-4xl text-ink mb-1">R$ 2.470</p>
+          <p class="text-charcoal font-body mb-6">por projeto</p>
+          <ul class="font-body text-charcoal text-left space-y-3 mb-8">
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Design de até 5 páginas</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Ilustrações sob medida</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Ornamentos exclusivos</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>5 revisões incluídas</li>
+          </ul>
+          <button class="w-full bg-vermillion text-parchment py-3 font-display font-bold hover:bg-opacity-90 transition-colors duration-300 cursor-pointer">Selecionar</button>
+        </div>
+        <div class="card-victorian p-8 text-center cursor-pointer">
+          <p class="text-navy tracking-widest uppercase text-sm mb-2 font-display">Grão-Mestre</p>
+          <p class="section-title text-4xl text-ink mb-1">R$ 5.900</p>
+          <p class="text-charcoal font-body mb-6">por projeto</p>
+          <ul class="font-body text-charcoal text-left space-y-3 mb-8">
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Páginas ilimitadas</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Identidade visual completa</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Animações personalizadas</li>
+            <li class="flex items-start gap-2"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L7 12L13 4" stroke="#E85D35" stroke-width="1.5"/></svg>Suporte prioritário vitalício</li>
+          </ul>
+          <button class="w-full border-2 border-navy text-navy py-3 font-display font-bold hover:bg-navy hover:text-parchment transition-colors duration-300 cursor-pointer">Selecionar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider-ornament"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z" fill="#E85D35"/></svg></div></div>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-24">
+    <div class="wrap">
+      <div class="ornament-border text-center max-w-3xl mx-auto">
+        <h2 class="section-title text-3xl md:text-5xl text-ink mb-6">Pronto Para Criar<br><span class="text-vermillion italic">Sua Obra-Prima?</span></h2>
+        <p class="font-body text-xl text-charcoal mb-8 max-w-lg mx-auto leading-relaxed">Junte-se aos que valorizam a arte do design refinado. Vamos transformar sua visão em realidade.</p>
+        <button class="ribbon text-lg cursor-pointer">Iniciar Meu Projeto</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-brown/30">
+    <div class="wrap text-center">
+      <div class="flex justify-center mb-4">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#8B7355" stroke-width="1"/><path d="M20 6L22.5 14H30L24 19L26.5 27L20 22L13.5 27L16 19L10 14H17.5L20 6Z" stroke="#E85D35" stroke-width="1" fill="none"/></svg>
+      </div>
+      <p class="font-display font-bold text-ink text-lg mb-2">Estúdio de Artes & Litografia Fina</p>
+      <p class="font-body text-charcoal mb-6">Tradição artesanal desde MDCCCXLVIII</p>
+      <div class="flex justify-center gap-6 mb-6">
+        <a class="text-brown hover:text-vermillion transition-colors duration-300 cursor-pointer" aria-label="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="text-brown hover:text-vermillion transition-colors duration-300 cursor-pointer" aria-label="Behance">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 8H11C12.1 8 13 8.9 13 10S12.1 12 11 12H7V8ZM7 12H11.5C12.9 12 14 13 14 14.5S12.9 17 11.5 17H7V12Z"/><path d="M16 10H21M18.5 8V10M16 14.5C16 13.1 17.1 12 18.5 12S21 13.1 21 14.5V15H16" /></svg>
+        </a>
+        <a class="text-brown hover:text-vermillion transition-colors duration-300 cursor-pointer" aria-label="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4L12 13L22 4"/></svg>
+        </a>
+      </div>
+      <p class="font-body text-brown text-sm">&copy; 2024 Estúdio de Artes. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

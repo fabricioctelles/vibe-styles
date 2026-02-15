@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skeuomorphism — Realismo Tátil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['Source Sans 3', 'sans-serif'] },
+          colors: {
+            wood: { light: '#C4A882', DEFAULT: '#8B6914', dark: '#5C4A1E' },
+            leather: { light: '#D4A574', DEFAULT: '#A0724A', dark: '#6B4226' },
+            metal: { light: '#C0C0C0', DEFAULT: '#808080', dark: '#4A4A4A' },
+            txt: '#2C1810', muted: '#6B5B4F',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', sans-serif; background: #D2C4A8; color: #2C1810; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .noise { position: relative; }
+    .noise::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0.06; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .skeu-card {
+      background: linear-gradient(180deg, #E8D9C0 0%, #DCC9A8 15%, #D4BD98 30%, #CCAF88 50%, #C4A278 70%, #BF9A6E 85%, #B89264 95%, #B08A5A 100%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 -1px 0 rgba(0,0,0,0.15) inset, 0 4px 12px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+    }
+    .skeu-btn {
+      background: linear-gradient(180deg, #8B7355 0%, #7A6248 20%, #6B5540 40%, #5C4A38 60%, #4E3F30 80%, #3E3228 100%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 3px 8px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #F5EDE0;
+      transition: transform 350ms ease, box-shadow 350ms ease;
+    }
+    .skeu-btn:hover { box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 5px 14px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.25); }
+    .skeu-btn:active { transform: scale(0.97); box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 -1px 0 rgba(0,0,0,0.2) inset, 0 1px 3px rgba(0,0,0,0.3); }
+    .skeu-btn-gold {
+      background: linear-gradient(180deg, #D4A84B 0%, #C49A3E 15%, #B88D35 30%, #A87F2C 50%, #987224 70%, #88651C 85%, #785814 95%, #6B4E10 100%);
+      box-shadow: 0 1px 0 rgba(255,235,150,0.4) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 3px 8px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,235,150,0.2); border-radius: 8px; color: #FFF8E8;
+      transition: transform 350ms ease, box-shadow 350ms ease;
+    }
+    .skeu-btn-gold:hover { box-shadow: 0 1px 0 rgba(255,235,150,0.5) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 5px 14px rgba(0,0,0,0.4); }
+    .skeu-btn-gold:active { transform: scale(0.97); box-shadow: 0 1px 0 rgba(255,235,150,0.15) inset, 0 1px 3px rgba(0,0,0,0.3); }
+    .skeu-inset {
+      background: linear-gradient(180deg, #B89E7E 0%, #C4AA8A 30%, #CCAF88 70%, #C4A882 100%);
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.2), inset 0 -1px 0 rgba(255,255,255,0.15), 0 1px 0 rgba(255,255,255,0.2);
+      border-radius: 8px;
+    }
+    .skeu-metal {
+      background: linear-gradient(180deg, #E8E8E8 0%, #D8D8D8 10%, #C8C8C8 25%, #B8B8B8 40%, #A8A8A8 55%, #B0B0B0 70%, #C0C0C0 85%, #D0D0D0 100%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 -1px 0 rgba(0,0,0,0.2) inset, 0 4px 12px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 10px;
+    }
+    .skeu-highlight { background: linear-gradient(180deg, #F5EDE0 0%, #E8D9C0 50%, #DCC9A8 100%); border-radius: 12px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 4px 16px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.12); border: 1px solid rgba(255,255,255,0.3); }
+    @media (prefers-reduced-motion: reduce) { .skeu-btn, .skeu-btn-gold { transition: none; } .skeu-btn:active, .skeu-btn-gold:active { transform: none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-muted text-sm tracking-widest uppercase mb-5 font-sans">Design Realista</p>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">Interfaces que imitam o mundo real.</h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10 font-sans">
+          Texturas, profundidade e materiais autênticos. Cada elemento parece tangível, como se pudesse ser tocado.
+        </p>
+        <a href="#precos" class="skeu-btn-gold inline-block px-8 py-4 text-sm font-semibold tracking-wide font-sans">Explorar planos</a>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="skeu-card noise p-8 w-72 h-72 flex flex-col items-center justify-center gap-5">
+          <div class="skeu-metal w-20 h-20 flex items-center justify-center">
+            <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <div class="skeu-inset w-full h-4 rounded-full overflow-hidden"><div class="h-full w-3/4 rounded-full" style="background:linear-gradient(90deg,#D4A84B,#B88D35)"></div></div>
+          <div class="skeu-inset w-full h-4 rounded-full overflow-hidden"><div class="h-full w-1/2 rounded-full" style="background:linear-gradient(90deg,#A0724A,#6B4226)"></div></div>
+          <div class="flex gap-4 mt-2">
+            <div class="skeu-metal w-12 h-12 flex items-center justify-center clickable">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div class="skeu-metal w-12 h-12 flex items-center justify-center clickable">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3 font-sans">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Materialidade digital.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="skeu-card noise p-8 text-center">
+          <div class="skeu-metal w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Texturas Autênticas</h3>
+          <p class="text-muted text-sm leading-relaxed font-sans">Superfícies com grão, ruído e materiais que replicam madeira, couro e metal com fidelidade.</p>
+        </div>
+        <div class="skeu-card noise p-8 text-center">
+          <div class="skeu-metal w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Profundidade Real</h3>
+          <p class="text-muted text-sm leading-relaxed font-sans">Múltiplas camadas de sombra e gradientes complexos criam a ilusão de objetos físicos na tela.</p>
+        </div>
+        <div class="skeu-card noise p-8 text-center">
+          <div class="skeu-metal w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Feedback Tátil</h3>
+          <p class="text-muted text-sm leading-relaxed font-sans">Botões que pressionam, interruptores que deslizam — cada interação imita o mundo físico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3 font-sans">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Quem confia no realismo.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="skeu-card noise p-8">
+          <div class="skeu-inset p-4 mb-6">
+            <p class="text-sm text-muted leading-relaxed italic font-sans">"A interface parece um objeto de luxo. Nossos clientes sentem a qualidade antes mesmo de usar o produto."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="skeu-metal w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold">Marcelo Tavares</p>
+              <p class="text-xs text-muted font-sans">Diretor Criativo, Artesão Digital</p>
+            </div>
+          </div>
+        </div>
+        <div class="skeu-card noise p-8">
+          <div class="skeu-inset p-4 mb-6">
+            <p class="text-sm text-muted leading-relaxed italic font-sans">"O esqueumorfismo trouxe personalidade ao nosso app. Cada tela conta uma história visual única."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="skeu-metal w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold">Juliana Mendes</p>
+              <p class="text-xs text-muted font-sans">UX Lead, Oficina Labs</p>
+            </div>
+          </div>
+        </div>
+        <div class="skeu-card noise p-8">
+          <div class="skeu-inset p-4 mb-6">
+            <p class="text-sm text-muted leading-relaxed italic font-sans">"Texturas e sombras realistas elevaram a percepção de valor do nosso produto em 40%."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="skeu-metal w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold">Rafael Duarte</p>
+              <p class="text-xs text-muted font-sans">CEO, Manufatura Tech</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3 font-sans">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Escolha seu material.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="skeu-card noise p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 font-sans">Madeira</p>
+          <p class="text-4xl font-bold mb-1">R$ 89<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8 font-sans">Para artesãos digitais</p>
+          <div class="space-y-3 mb-8 text-sm text-left font-sans">
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Texturas básicas
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail
+            </div>
+          </div>
+          <button class="skeu-btn w-full py-3 text-sm font-semibold tracking-wide font-sans">Começar</button>
+        </div>
+        <div class="skeu-highlight noise p-8 text-center relative">
+          <div class="skeu-btn-gold absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-semibold tracking-wide font-sans">Popular</div>
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 mt-2 font-sans">Couro</p>
+          <p class="text-4xl font-bold mb-1">R$ 219<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8 font-sans">Para equipes exigentes</p>
+          <div class="space-y-3 mb-8 text-sm text-left font-sans">
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Texturas premium
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário
+            </div>
+          </div>
+          <button class="skeu-btn-gold w-full py-3 text-sm font-semibold tracking-wide font-sans">Escolher plano</button>
+        </div>
+        <div class="skeu-card noise p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 font-sans">Metal</p>
+          <p class="text-4xl font-bold mb-1">R$ 549<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8 font-sans">Para operações em escala</p>
+          <div class="space-y-3 mb-8 text-sm text-left font-sans">
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado
+            </div>
+            <div class="skeu-inset px-4 py-3 flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5C4A1E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA garantido 99.9%
+            </div>
+          </div>
+          <button class="skeu-btn w-full py-3 text-sm font-semibold tracking-wide font-sans">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <div class="skeu-highlight noise p-12 md:p-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Toque o futuro do design.</h2>
+        <p class="text-muted max-w-md mx-auto mb-8 font-sans">Interfaces com materialidade real que encantam usuários e transformam pixels em experiências tangíveis.</p>
+        <button class="skeu-btn-gold px-10 py-4 text-sm font-semibold tracking-wide font-sans">Começar agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="skeu-card noise p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm font-sans">
+        <div>
+          <p class="font-bold text-lg mb-3 font-serif">Matéria.</p>
+          <p class="text-muted text-xs leading-relaxed">Design esqueumórfico<br>desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Recursos</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Sobre</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-xs mt-8 font-sans">&copy; 2024 Matéria. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

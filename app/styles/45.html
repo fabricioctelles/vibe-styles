@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaporWave — Retro-Futuristic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Orbitron','sans-serif'], body: ['Inter','sans-serif'] },
+          colors: {
+            vpink: '#FF71CE', vcyan: '#01CDFE', vmint: '#05FFA1', vpurple: '#B967FF',
+            vdark: '#0a0015', vcard: 'rgba(10,0,21,0.6)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#0a0015;color:#e0d0f0;overflow-x:hidden}
+    a,button,[role="button"]{cursor:pointer}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+    .neon-text{text-shadow:0 0 7px #FF71CE,0 0 15px #FF71CE,0 0 30px #B967FF}
+    .neon-cyan{text-shadow:0 0 7px #01CDFE,0 0 15px #01CDFE}
+    .glow-border{border:1px solid rgba(185,103,255,0.3);box-shadow:0 0 15px rgba(185,103,255,0.15)}
+    .card{background:rgba(10,0,21,0.7);backdrop-filter:blur(12px);border:1px solid rgba(185,103,255,0.25);border-radius:12px}
+    .card:hover{border-color:rgba(255,113,206,0.5);box-shadow:0 0 20px rgba(255,113,206,0.15)}
+    /* Retro grid */
+    .retro-grid{position:absolute;bottom:0;left:0;right:0;height:40vh;background:linear-gradient(transparent 65%,rgba(185,103,255,0.08) 65%),repeating-linear-gradient(90deg,rgba(1,205,254,0.1) 0,rgba(1,205,254,0.1) 1px,transparent 1px,transparent 80px),repeating-linear-gradient(0deg,rgba(1,205,254,0.1) 0,rgba(1,205,254,0.1) 1px,transparent 1px,transparent 80px);transform:perspective(400px) rotateX(45deg);transform-origin:bottom center;pointer-events:none}
+    /* Scanlines */
+    .scanlines::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:1}
+    /* Glitch */
+    @keyframes glitch{0%,100%{transform:translate(0)}20%{transform:translate(-2px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,2px)}80%{transform:translate(1px,-2px)}}
+    .glitch:hover{animation:glitch 0.3s ease infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .float{animation:float 4s ease-in-out infinite}
+    @keyframes scanMove{0%{top:-100%}100%{top:100%}}
+    @media(prefers-reduced-motion:reduce){.glitch:hover,.float{animation:none}}
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center py-20 scanlines overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#1a0030] via-[#0a0015] to-[#0a0015]"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-b from-vpink/20 via-vpurple/10 to-transparent blur-3xl pointer-events-none"></div>
+    <div class="retro-grid"></div>
+    <div class="wrap w-full text-center relative z-10">
+      <div class="inline-flex items-center gap-2 card px-5 py-2 text-xs font-display tracking-widest text-vcyan mb-8">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        RETRO FUTURISMO
+      </div>
+      <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 neon-text text-vpink glitch">VAPOR<span class="text-vcyan neon-cyan">WAVE</span></h1>
+      <p class="text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-10 text-white/70">Mergulhe na estética retro-futurista dos anos 80 e 90. Neon, gradientes de pôr do sol e vibrações nostálgicas em cada pixel.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#precos" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-vpink to-vpurple text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-[0_0_25px_rgba(255,113,206,0.4)]">
+          Explorar Agora
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#recursos" class="inline-flex items-center gap-2 px-8 py-4 card text-vcyan font-semibold rounded-lg transition-colors duration-200 hover:border-vcyan/50">Ver Recursos</a>
+      </div>
+      <!-- Decorative sun -->
+      <div class="mt-16 float">
+        <svg class="w-32 h-16 mx-auto" viewBox="0 0 200 80"><defs><linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF71CE"/><stop offset="50%" stop-color="#B967FF"/><stop offset="100%" stop-color="#01CDFE"/></linearGradient></defs><ellipse cx="100" cy="60" rx="80" ry="50" fill="url(#sun)" opacity="0.6"/><rect y="55" width="200" height="30" fill="#0a0015"/><line x1="20" y1="58" x2="180" y2="58" stroke="#0a0015" stroke-width="3"/><line x1="30" y1="63" x2="170" y2="63" stroke="#0a0015" stroke-width="4"/><line x1="45" y1="69" x2="155" y2="69" stroke="#0a0015" stroke-width="5"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20 relative">
+    <div class="wrap">
+      <p class="text-center text-vmint text-xs font-display tracking-[0.3em] uppercase mb-3">Recursos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-display font-bold text-vpink neon-text mb-14">Estética Digital</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8 transition-all duration-300">
+          <div class="w-12 h-12 rounded-lg bg-vpink/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-vpink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold text-white mb-2">Gradientes Sunset</h3>
+          <p class="text-white/60 text-sm leading-relaxed">Paletas de pôr do sol com transições suaves entre rosa, ciano e roxo que definem a era vaporwave.</p>
+        </div>
+        <div class="card p-8 transition-all duration-300">
+          <div class="w-12 h-12 rounded-lg bg-vcyan/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-vcyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold text-white mb-2">Efeitos Glitch</h3>
+          <p class="text-white/60 text-sm leading-relaxed">Distorções visuais e scanlines VHS que trazem a nostalgia das fitas cassete e monitores CRT.</p>
+        </div>
+        <div class="card p-8 transition-all duration-300">
+          <div class="w-12 h-12 rounded-lg bg-vmint/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-vmint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold text-white mb-2">Grid Retro</h3>
+          <p class="text-white/60 text-sm leading-relaxed">Grades em perspectiva infinita com brilho neon, remetendo ao futuro imaginado nos anos 80.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vpurple/5 to-transparent pointer-events-none"></div>
+    <div class="wrap relative z-10">
+      <p class="text-center text-vmint text-xs font-display tracking-[0.3em] uppercase mb-3">Depoimentos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-display font-bold text-vcyan neon-cyan mb-14">Vibrações Reais</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-white/60 leading-relaxed mb-6">"A estética vaporwave transformou nosso projeto. Os gradientes neon e o grid retro criaram uma identidade visual única e memorável."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-vpink to-vpurple flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold text-white">Marina Souza</p><p class="text-xs text-vpurple">Designer, NeonLab</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-white/60 leading-relaxed mb-6">"Nossos usuários ficaram fascinados com os efeitos de glitch e scanlines. A taxa de engajamento subiu 40% após a reformulação."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-vcyan to-vmint flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold text-white">Lucas Ferreira</p><p class="text-xs text-vcyan">CTO, RetroApps</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-vpink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-white/60 leading-relaxed mb-6">"A atmosfera dreamy e as cores neon trouxeram uma personalidade incrível para nossa marca. Pura nostalgia dos anos 80."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-vpurple to-vpink flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold text-white">Camila Rocha</p><p class="text-xs text-vmint">Diretora, SynthCo</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20 relative">
+    <div class="wrap">
+      <p class="text-center text-vmint text-xs font-display tracking-[0.3em] uppercase mb-3">Planos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-display font-bold text-vpink neon-text mb-4">Escolha Sua Vibe</h2>
+      <p class="text-center text-white/50 mb-14 max-w-lg mx-auto">Todos os planos incluem acesso completo à estética vaporwave.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8 text-center">
+          <p class="text-white/50 text-xs font-display tracking-[0.2em] uppercase mb-4">Básico</p>
+          <p class="text-4xl font-display font-bold text-white mb-1">R$ 49<span class="text-base font-normal text-white/40">/mês</span></p>
+          <p class="text-xs text-white/40 mb-8">Para projetos pessoais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 templates neon</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Paletas sunset</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Efeitos básicos</div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-vpurple/30 text-sm font-semibold text-white hover:border-vpink/60 hover:shadow-[0_0_15px_rgba(255,113,206,0.2)] transition-all duration-200">Começar</button>
+        </div>
+        <div class="relative card p-8 text-center border-vpink/50 shadow-[0_0_30px_rgba(255,113,206,0.15)]">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-vpink to-vpurple text-white text-xs font-display tracking-wider rounded-full">POPULAR</div>
+          <p class="text-vpink text-xs font-display tracking-[0.2em] uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-display font-bold text-white mb-1">R$ 149<span class="text-base font-normal text-white/40">/mês</span></p>
+          <p class="text-xs text-white/40 mb-8">Para equipes criativas</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Templates ilimitados</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Glitch + scanlines</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Grid retro animado</div>
+          </div>
+          <button class="w-full py-3 rounded-lg bg-gradient-to-r from-vpink to-vpurple text-white text-sm font-semibold hover:shadow-[0_0_25px_rgba(255,113,206,0.4)] transition-all duration-200">Escolher Pro</button>
+        </div>
+        <div class="card p-8 text-center">
+          <p class="text-white/50 text-xs font-display tracking-[0.2em] uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-display font-bold text-white mb-1">Custom</p>
+          <p class="text-xs text-white/40 mb-8">Para grandes marcas</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Design system completo</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Animações exclusivas</div>
+            <div class="flex items-center gap-3 text-white/60"><svg class="w-4 h-4 text-vmint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte dedicado 24/7</div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-vpurple/30 text-sm font-semibold text-white hover:border-vcyan/60 hover:shadow-[0_0_15px_rgba(1,205,254,0.2)] transition-all duration-200">Falar com Vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 relative scanlines overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vpurple/10 to-transparent pointer-events-none"></div>
+    <div class="wrap relative z-10">
+      <div class="card p-12 md:p-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-vpink/10 via-vpurple/5 to-vcyan/10"></div>
+        <div class="relative">
+          <h2 class="text-3xl md:text-4xl font-display font-bold text-white neon-text mb-4">Entre na Dimensão Retro</h2>
+          <p class="text-white/50 max-w-md mx-auto mb-8">Junte-se a milhares de criativos que já vivem a estética vaporwave no dia a dia.</p>
+          <button class="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-vpink via-vpurple to-vcyan text-white font-display font-bold rounded-lg hover:shadow-[0_0_30px_rgba(185,103,255,0.5)] transition-all duration-300">
+            Começar Gratuitamente
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="text-xs text-white/30 mt-4">Sem cartão de crédito. Cancele quando quiser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-vpurple/20">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-vpink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span class="font-display font-bold text-white">VAPOR</span>
+        </div>
+        <p class="text-white/40 text-xs leading-relaxed">Estética retro-futurista para a era digital.</p>
+      </div>
+      <div>
+        <p class="font-display text-xs tracking-widest uppercase text-white mb-3">Produto</p>
+        <ul class="space-y-2 text-white/40 text-xs">
+          <li><a href="#" class="hover:text-vpink transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-vpink transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="hover:text-vpink transition-colors duration-200">Templates</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-xs tracking-widest uppercase text-white mb-3">Empresa</p>
+        <ul class="space-y-2 text-white/40 text-xs">
+          <li><a href="#" class="hover:text-vcyan transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-vcyan transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-vcyan transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-xs tracking-widest uppercase text-white mb-3">Legal</p>
+        <ul class="space-y-2 text-white/40 text-xs">
+          <li><a href="#" class="hover:text-vmint transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-vmint transition-colors duration-200">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-white/20 text-xs mt-10 font-display tracking-wider">&copy; 2025 VAPORWAVE. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

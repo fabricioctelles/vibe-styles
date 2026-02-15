@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claymorphism — Soft 3D</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Nunito', 'sans-serif'] },
+          colors: {
+            peach: '#FDBCB4', baby: '#ADD8E6', mint: '#98FF98', lilac: '#E6E6FA',
+            txt: '#2D2D3F', muted: '#6B6B8A',
+          },
+          borderRadius: { clay: '20px' }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #F4F0FF; color: #2D2D3F; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+
+    .clay {
+      background: #E6E6FA;
+      border: 3px solid rgba(0,0,0,0.06);
+      border-radius: 20px;
+      box-shadow: inset -2px -2px 8px rgba(255,255,255,0.6), 4px 4px 8px rgba(0,0,0,0.08);
+      transition: transform 200ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 200ms ease-out;
+    }
+    .clay-peach { background: #FDBCB4; border: 3px solid rgba(0,0,0,0.06); border-radius: 20px; box-shadow: inset -2px -2px 8px rgba(255,255,255,0.5), 4px 4px 8px rgba(0,0,0,0.08); }
+    .clay-blue { background: #ADD8E6; border: 3px solid rgba(0,0,0,0.06); border-radius: 20px; box-shadow: inset -2px -2px 8px rgba(255,255,255,0.5), 4px 4px 8px rgba(0,0,0,0.08); }
+    .clay-mint { background: #98FF98; border: 3px solid rgba(0,0,0,0.06); border-radius: 20px; box-shadow: inset -2px -2px 8px rgba(255,255,255,0.5), 4px 4px 8px rgba(0,0,0,0.08); }
+    .clay-lilac { background: #E6E6FA; border: 3px solid rgba(0,0,0,0.06); border-radius: 20px; box-shadow: inset -2px -2px 8px rgba(255,255,255,0.6), 4px 4px 8px rgba(0,0,0,0.08); }
+
+    .clay-btn {
+      background: linear-gradient(145deg, #FDBCB4, #f0a89e);
+      border: 3px solid rgba(0,0,0,0.06);
+      border-radius: 20px;
+      box-shadow: inset -2px -2px 6px rgba(255,255,255,0.5), 4px 4px 8px rgba(0,0,0,0.1);
+      transition: transform 200ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 200ms ease-out;
+    }
+    .clay-btn:hover { transform: scale(1.04); box-shadow: inset -2px -2px 6px rgba(255,255,255,0.6), 6px 6px 12px rgba(0,0,0,0.12); }
+    .clay-btn:active { transform: scale(0.97); box-shadow: inset 2px 2px 6px rgba(0,0,0,0.1), 2px 2px 4px rgba(0,0,0,0.06); }
+
+    .clay-btn-alt {
+      background: linear-gradient(145deg, #ADD8E6, #9ac8d6);
+      border: 3px solid rgba(0,0,0,0.06);
+      border-radius: 20px;
+      box-shadow: inset -2px -2px 6px rgba(255,255,255,0.5), 4px 4px 8px rgba(0,0,0,0.1);
+      transition: transform 200ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 200ms ease-out;
+    }
+    .clay-btn-alt:hover { transform: scale(1.04); box-shadow: inset -2px -2px 6px rgba(255,255,255,0.6), 6px 6px 12px rgba(0,0,0,0.12); }
+    .clay-btn-alt:active { transform: scale(0.97); box-shadow: inset 2px 2px 6px rgba(0,0,0,0.1), 2px 2px 4px rgba(0,0,0,0.06); }
+
+    .clay-icon {
+      border: 3px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      box-shadow: inset -2px -2px 6px rgba(255,255,255,0.5), 3px 3px 6px rgba(0,0,0,0.08);
+    }
+    .clay:hover { transform: translateY(-4px); box-shadow: inset -2px -2px 8px rgba(255,255,255,0.6), 6px 8px 14px rgba(0,0,0,0.1); }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    @keyframes softBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .bounce-slow { animation: softBounce 3s cubic-bezier(0.34,1.56,0.64,1) infinite; }
+    .bounce-slow-d1 { animation: softBounce 3s cubic-bezier(0.34,1.56,0.64,1) 0.4s infinite; }
+    .bounce-slow-d2 { animation: softBounce 3s cubic-bezier(0.34,1.56,0.64,1) 0.8s infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .clay, .clay-btn, .clay-btn-alt { transition: none; }
+      .clay:hover { transform: none; }
+      .clay-btn:hover, .clay-btn:active, .clay-btn-alt:hover, .clay-btn-alt:active { transform: none; }
+      .bounce-slow, .bounce-slow-d1, .bounce-slow-d2 { animation: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-muted text-sm font-bold tracking-widest uppercase mb-5">Design Soft 3D</p>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">Interfaces que parecem de massinha.</h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">
+          Elementos fofos, bordas grossas e sombras duplas. Um visual lúdico e moderno que encanta qualquer usuário.
+        </p>
+        <a href="#precos" class="clay-btn inline-block px-8 py-4 text-sm font-bold tracking-wide text-txt">
+          Ver planos
+        </a>
+      </div>
+      <div class="hidden md:flex justify-center gap-5 items-end">
+        <div class="clay-peach p-6 w-28 h-28 flex items-center justify-center bounce-slow">
+          <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div class="clay-mint p-6 w-32 h-32 flex items-center justify-center bounce-slow-d1">
+          <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="clay-blue p-6 w-24 h-24 flex items-center justify-center bounce-slow-d2">
+          <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-bold tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Fofo por fora, poderoso por dentro.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="clay p-8 text-center">
+          <div class="clay-icon bg-peach w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Layout Flexível</h3>
+          <p class="text-muted text-sm leading-relaxed">Componentes arredondados que se adaptam a qualquer tela com charme e personalidade.</p>
+        </div>
+        <div class="clay p-8 text-center">
+          <div class="clay-icon bg-mint w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Camadas 3D</h3>
+          <p class="text-muted text-sm leading-relaxed">Sombras duplas internas e externas criam profundidade real, como peças de argila moldadas.</p>
+        </div>
+        <div class="clay p-8 text-center">
+          <div class="clay-icon bg-baby w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2" stroke-linecap="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 006 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Interação Lúdica</h3>
+          <p class="text-muted text-sm leading-relaxed">Animações suaves de bounce e transições que fazem cada clique parecer brincar com massinha.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-bold tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold">O que dizem por aí.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="clay-peach p-8">
+          <p class="text-sm text-txt leading-relaxed mb-6 italic">"Nossos usuários ficaram encantados. A interface parece um brinquedo premium — divertida e intuitiva ao mesmo tempo."</p>
+          <div class="flex items-center gap-3">
+            <div class="clay-icon bg-lilac w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Marina Costa</p><p class="text-xs text-muted">Designer, Bolha Studio</p></div>
+          </div>
+        </div>
+        <div class="clay-blue p-8">
+          <p class="text-sm text-txt leading-relaxed mb-6 italic">"O claymorphism trouxe uma identidade única ao nosso app infantil. As crianças adoram apertar os botões!"</p>
+          <div class="flex items-center gap-3">
+            <div class="clay-icon bg-peach w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Rafael Mendes</p><p class="text-xs text-muted">CTO, KidPlay</p></div>
+          </div>
+        </div>
+        <div class="clay-mint p-8">
+          <p class="text-sm text-txt leading-relaxed mb-6 italic">"Visual lúdico sem perder a seriedade. Perfeito para nosso produto de educação criativa."</p>
+          <div class="flex items-center gap-3">
+            <div class="clay-icon bg-baby w-10 h-10 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-bold">Juliana Alves</p><p class="text-xs text-muted">Head de Produto, Criativa</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm font-bold tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Escolha seu molde.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="clay p-8 text-center">
+          <p class="text-muted text-sm font-bold tracking-widest uppercase mb-4">Básico</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 49<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para começar a modelar</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>50 componentes
+            </div>
+          </div>
+          <button class="clay-btn-alt w-full py-3 text-sm font-bold tracking-wide">Começar</button>
+        </div>
+        <div class="clay-peach p-8 text-center relative">
+          <div class="clay-btn absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 text-xs font-bold tracking-wide">Popular</div>
+          <p class="text-muted text-sm font-bold tracking-widest uppercase mb-4 mt-2">Profissional</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 149<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes criativas</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>200+ componentes
+            </div>
+          </div>
+          <button class="clay-btn w-full py-3 text-sm font-bold tracking-wide">Escolher plano</button>
+        </div>
+        <div class="clay p-8 text-center">
+          <p class="text-muted text-sm font-bold tracking-widest uppercase mb-4">Empresa</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 399<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para escala total</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado
+            </div>
+            <div class="clay-lilac px-4 py-3 flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#2D2D3F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9%
+            </div>
+          </div>
+          <button class="clay-btn-alt w-full py-3 text-sm font-bold tracking-wide">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <div class="clay-blue p-12 md:p-16" style="border:4px solid rgba(0,0,0,0.06)">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Pronto para modelar?</h2>
+        <p class="text-muted max-w-md mx-auto mb-8">Crie interfaces lúdicas e memoráveis que seus usuários vão querer apertar.</p>
+        <button class="clay-btn px-10 py-4 text-sm font-bold tracking-wide">Começar agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="clay p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <p class="font-extrabold text-lg mb-3">Clay.</p>
+          <p class="text-muted text-xs leading-relaxed">Design claymórfico<br>desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Recursos</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Sobre</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors duration-200">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-xs mt-8">&copy; 2024 Clay. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

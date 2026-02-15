@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyNotes — Seu Caderno de Estudos</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper: '#F4F2E9', ink: '#2B2B2B', softblue: '#6FA3D2', pinkhl: '#FF9EC6',
+        yellowhl: '#F2E66B', brownink: '#8D6E54', coolgrey: '#A8A8A8'
+      },
+      fontFamily: { hand: ['Patrick Hand','cursive'], caveat: ['Caveat','cursive'], nunito: ['Nunito','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+  body { background: #F4F2E9; font-family: 'Nunito', sans-serif; }
+  .ruled-bg {
+    background-image: repeating-linear-gradient(transparent, transparent 27px, #6FA3D220 27px, #6FA3D220 28px);
+    background-size: 100% 28px;
+  }
+  .margin-line { border-left: 2px solid #FF9EC640; }
+  .highlight-yellow { background: linear-gradient(180deg, transparent 50%, #F2E66B80 50%); }
+  .highlight-pink { background: linear-gradient(180deg, transparent 50%, #FF9EC660 50%); }
+  .doodle-border { border: 2px solid #2B2B2B; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; }
+  .doodle-border-soft { border: 2px dashed #8D6E5480; border-radius: 12px; }
+  @keyframes wobble { 0%,100%{transform:rotate(-1deg)} 50%{transform:rotate(1deg)} }
+  @keyframes popIn { 0%{transform:scale(0) rotate(-10deg);opacity:0} 60%{transform:scale(1.15) rotate(3deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+  @keyframes swiperHL { 0%{width:0} 100%{width:100%} }
+  .wobble { animation: wobble 3s ease-in-out infinite; }
+  .pop-in { animation: popIn .5s ease-out forwards; }
+  .swipe-hl { position:relative; }
+  .swipe-hl::after { content:''; position:absolute; left:0; bottom:2px; height:40%; background:#F2E66B80; animation: swiperHL 1s ease-out forwards; z-index:-1; }
+  .card-hover { transition: transform .2s, box-shadow .2s; }
+  .card-hover:hover { transform: translateY(-4px) rotate(-0.5deg); box-shadow: 4px 4px 0 #8D6E5440; }
+  .sticker { transition: transform .2s; }
+  .sticker:hover { transform: scale(1.1) rotate(5deg); }
+  /* Mascot kawaii cat */
+  .mascot { filter: drop-shadow(2px 2px 0 #8D6E5430); }
+</style>
+</head>
+<body class="text-ink min-h-screen overflow-x-hidden">
+
+<!-- Doodle decorations background -->
+<svg class="fixed inset-0 w-full h-full pointer-events-none opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="8%" cy="12%" r="18" fill="none" stroke="#FF9EC6" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M85 60 l8-16 l8 16 l-4-2 l-4 6 l-4-6z" fill="none" stroke="#6FA3D2" stroke-width="1.5"/>
+  <path d="M92% 20% l-6-12 l12 0z" fill="none" stroke="#F2E66B" stroke-width="2"/>
+  <circle cx="15%" cy="85%" r="10" fill="none" stroke="#6FA3D2" stroke-width="2"/>
+  <path d="M 88% 78% q5-10 10 0 q-5 10-10 0" fill="none" stroke="#FF9EC6" stroke-width="2"/>
+</svg>
+
+<!-- HERO -->
+<section class="ruled-bg min-h-screen flex items-center justify-center px-4 py-16 relative">
+  <div class="max-w-4xl mx-auto text-center relative">
+    <!-- Kawaii cat mascot -->
+    <svg class="mascot mx-auto mb-6 w-24 h-24 wobble" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 40 L35 15 L45 35" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M55 35 L65 15 L75 40" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="58" rx="30" ry="28" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5"/>
+      <circle cx="40" cy="52" r="4" fill="#2B2B2B"/><circle cx="60" cy="52" r="4" fill="#2B2B2B"/>
+      <circle cx="42" cy="50" r="1.5" fill="white"/><circle cx="62" cy="50" r="1.5" fill="white"/>
+      <ellipse cx="35" cy="60" rx="5" ry="3" fill="#FF9EC640"/><ellipse cx="65" cy="60" rx="5" ry="3" fill="#FF9EC640"/>
+      <path d="M46 60 Q50 65 54 60" fill="none" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+      <path d="M20 55 L10 52 M20 58 L8 58 M80 55 L90 52 M80 58 L92 58" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="inline-block doodle-border px-5 py-1 mb-6 bg-yellowhl/30">
+      <span class="font-caveat text-brownink text-lg">Seu caderno favorito na web</span>
+    </div>
+    <h1 class="font-caveat font-bold text-5xl md:text-7xl text-ink mb-4 leading-tight">
+      Aprenda com <span class="swipe-hl highlight-pink inline-block px-1">Diversão</span> e <span class="swipe-hl highlight-yellow inline-block px-1">Estilo</span>
+    </h1>
+    <p class="font-hand text-lg md:text-xl text-brownink/80 max-w-2xl mx-auto mb-8">
+      Organize seus estudos do jeitinho mais fofo. Anotações, resumos e flashcards com a estética de caderno que você sempre quis.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="cursor-pointer inline-flex items-center gap-2 doodle-border bg-pinkhl text-ink font-nunito font-bold px-8 py-3 hover:bg-pinkhl/80 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+        Começar a Estudar
+      </a>
+      <a href="#features" class="cursor-pointer inline-flex items-center gap-2 doodle-border bg-paper text-ink font-nunito font-bold px-8 py-3 hover:bg-softblue/20 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        Ver Recursos
+      </a>
+    </div>
+    <!-- Doodle stars -->
+    <svg class="absolute -top-4 right-4 w-10 h-10 pop-in text-yellowhl" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4l-6.4 4.8L8 14l-6-4.8h7.6z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+    <svg class="absolute top-12 left-2 w-8 h-8 pop-in text-pinkhl" style="animation-delay:.3s" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="px-4 py-20 ruled-bg">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-caveat font-bold text-4xl md:text-5xl text-center text-ink mb-2">Tudo no seu <span class="highlight-yellow">Caderno</span></h2>
+    <p class="font-hand text-brownink/60 text-center mb-14 text-lg">~ recursos que fazem a diferença ~</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="card-hover doodle-border-soft bg-white/60 backdrop-blur p-7 cursor-pointer relative">
+        <svg class="absolute -top-3 -right-3 w-8 h-8 sticker text-pinkhl" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+        <div class="w-12 h-12 rounded-full bg-softblue/20 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-softblue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        </div>
+        <h3 class="font-caveat font-bold text-2xl text-ink mb-2">Anotações Fofas</h3>
+        <p class="font-nunito text-brownink/70 text-sm leading-relaxed">Escreva seus resumos com marcadores coloridos, adesivos e destaques. Cada página fica com a sua cara.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="card-hover doodle-border-soft bg-white/60 backdrop-blur p-7 cursor-pointer relative">
+        <svg class="absolute -top-3 -right-3 w-8 h-8 sticker text-yellowhl" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4l-6.4 4.8L8 14l-6-4.8h7.6z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+        <div class="w-12 h-12 rounded-full bg-pinkhl/20 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pinkhl" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        </div>
+        <h3 class="font-caveat font-bold text-2xl text-ink mb-2">Flashcards Kawaii</h3>
+        <p class="font-nunito text-brownink/70 text-sm leading-relaxed">Revise com cartões interativos decorados com mascotes. Memorizar nunca foi tão divertido e eficiente.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="card-hover doodle-border-soft bg-white/60 backdrop-blur p-7 cursor-pointer relative">
+        <svg class="absolute -top-3 -right-3 w-8 h-8 sticker text-softblue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <div class="w-12 h-12 rounded-full bg-yellowhl/30 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brownink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="font-caveat font-bold text-2xl text-ink mb-2">Progresso Visual</h3>
+        <p class="font-nunito text-brownink/70 text-sm leading-relaxed">Acompanhe sua evolução com gráficos desenhados à mão. Veja suas metas ganharem vida no caderno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-caveat font-bold text-4xl md:text-5xl text-center text-ink mb-2">O que <span class="highlight-pink">Dizem</span> por aí</h2>
+    <p class="font-hand text-brownink/60 text-center mb-14 text-lg">~ bilhetinhos dos nossos alunos ~</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-yellowhl/15 doodle-border p-6 relative" style="transform:rotate(-1deg)">
+        <svg class="absolute -top-2 left-4 w-6 h-6" viewBox="0 0 24 24" fill="#FF9EC6" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#2B2B2B" stroke-width="1"/><circle cx="12" cy="12" r="4" fill="#F4F2E9"/></svg>
+        <p class="font-hand text-ink/80 text-base leading-relaxed mb-5 mt-3">"Meus resumos ficaram lindos! Parece que estou escrevendo num caderno de verdade. Minha produtividade triplicou."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-pinkhl/30 flex items-center justify-center"><span class="font-caveat font-bold text-ink text-sm">JL</span></div>
+          <div><p class="font-nunito font-bold text-ink text-sm">Juliana Lima</p><p class="font-hand text-brownink/50 text-xs">Estudante de Medicina</p></div>
+        </div>
+      </div>
+      <div class="bg-softblue/10 doodle-border p-6 relative" style="transform:rotate(0.5deg)">
+        <svg class="absolute -top-2 left-4 w-6 h-6" viewBox="0 0 24 24" fill="#6FA3D2" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#2B2B2B" stroke-width="1"/><circle cx="12" cy="12" r="4" fill="#F4F2E9"/></svg>
+        <p class="font-hand text-ink/80 text-base leading-relaxed mb-5 mt-3">"Os flashcards com mascotes são viciantes! Estudo sem perceber que estou estudando. Nota 10 no ENEM!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-softblue/30 flex items-center justify-center"><span class="font-caveat font-bold text-ink text-sm">PS</span></div>
+          <div><p class="font-nunito font-bold text-ink text-sm">Pedro Santos</p><p class="font-hand text-brownink/50 text-xs">Vestibulando</p></div>
+        </div>
+      </div>
+      <div class="bg-pinkhl/10 doodle-border p-6 relative" style="transform:rotate(-0.7deg)">
+        <svg class="absolute -top-2 left-4 w-6 h-6" viewBox="0 0 24 24" fill="#F2E66B" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#2B2B2B" stroke-width="1"/><circle cx="12" cy="12" r="4" fill="#F4F2E9"/></svg>
+        <p class="font-hand text-ink/80 text-base leading-relaxed mb-5 mt-3">"Finalmente um app que entende a estética studygram! Meu feed e meus estudos nunca estiveram tão bonitos."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-yellowhl/40 flex items-center justify-center"><span class="font-caveat font-bold text-ink text-sm">MO</span></div>
+          <div><p class="font-nunito font-bold text-ink text-sm">Marina Oliveira</p><p class="font-hand text-brownink/50 text-xs">Professora de Letras</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="px-4 py-20 ruled-bg">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-caveat font-bold text-4xl md:text-5xl text-center text-ink mb-2">Escolha seu <span class="highlight-yellow">Plano</span></h2>
+    <p class="font-hand text-brownink/60 text-center mb-14 text-lg">~ qual caderno combina com você? ~</p>
+    <div class="grid md:grid-cols-3 gap-8 items-start">
+      <!-- Tier 1 -->
+      <div class="card-hover doodle-border bg-white/50 p-7 text-center">
+        <span class="font-hand text-brownink/60 text-sm">Caderninho</span>
+        <div class="my-5"><span class="font-caveat font-bold text-4xl text-ink">Grátis</span></div>
+        <div class="w-full h-px bg-brownink/20 mb-5" style="background-image:repeating-linear-gradient(90deg,#8D6E5440 0,#8D6E5440 6px,transparent 6px,transparent 12px)"></div>
+        <ul class="space-y-3 mb-7 text-left">
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Até 3 cadernos</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Adesivos básicos</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>1 mascote</li>
+        </ul>
+        <a href="#" class="cursor-pointer block doodle-border bg-paper text-ink font-nunito font-bold py-3 hover:bg-softblue/15 transition-colors duration-200">Começar</a>
+      </div>
+      <!-- Tier 2 -->
+      <div class="card-hover doodle-border bg-pinkhl/10 p-7 text-center relative md:-mt-4 border-pinkhl" style="border-color:#FF9EC6">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-pinkhl text-ink font-hand text-sm px-4 py-0.5 rounded-full whitespace-nowrap" style="border-radius:255px 15px 225px 15px/15px 225px 15px 255px">Mais Popular</div>
+        <span class="font-hand text-pinkhl text-sm">Caderno Completo</span>
+        <div class="my-5"><span class="font-caveat font-bold text-4xl text-ink">R$19</span><span class="font-hand text-brownink/50 text-sm">/mês</span></div>
+        <div class="w-full h-px mb-5" style="background-image:repeating-linear-gradient(90deg,#FF9EC680 0,#FF9EC680 6px,transparent 6px,transparent 12px)"></div>
+        <ul class="space-y-3 mb-7 text-left">
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-pinkhl flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Cadernos ilimitados</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-pinkhl flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Todos os adesivos</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-pinkhl flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>10 mascotes kawaii</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-pinkhl flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Flashcards com IA</li>
+        </ul>
+        <a href="#" class="cursor-pointer block doodle-border bg-pinkhl text-ink font-nunito font-bold py-3 hover:bg-pinkhl/80 transition-colors duration-200">Assinar Agora</a>
+      </div>
+      <!-- Tier 3 -->
+      <div class="card-hover doodle-border bg-white/50 p-7 text-center">
+        <span class="font-hand text-brownink/60 text-sm">Fichário Pro</span>
+        <div class="my-5"><span class="font-caveat font-bold text-4xl text-ink">R$39</span><span class="font-hand text-brownink/50 text-sm">/mês</span></div>
+        <div class="w-full h-px bg-brownink/20 mb-5" style="background-image:repeating-linear-gradient(90deg,#8D6E5440 0,#8D6E5440 6px,transparent 6px,transparent 12px)"></div>
+        <ul class="space-y-3 mb-7 text-left">
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Tudo do Completo</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Mascotes exclusivos</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Grupo de estudos</li>
+          <li class="flex items-center gap-2 text-sm text-ink/70 font-nunito"><svg class="w-4 h-4 text-softblue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Exportar para PDF</li>
+        </ul>
+        <a href="#" class="cursor-pointer block doodle-border bg-paper text-ink font-nunito font-bold py-3 hover:bg-softblue/15 transition-colors duration-200">Escolher Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="px-4 py-20">
+  <div class="max-w-3xl mx-auto text-center relative">
+    <svg class="absolute -top-6 left-8 w-10 h-10 wobble text-pinkhl" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+    <svg class="absolute top-0 right-6 w-8 h-8 wobble text-yellowhl" style="animation-delay:1s" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4l-6.4 4.8L8 14l-6-4.8h7.6z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+    <!-- Mini mascot -->
+    <svg class="mx-auto mb-6 w-16 h-16 wobble mascot" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M25 40 L35 15 L45 35" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M55 35 L65 15 L75 40" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="58" rx="30" ry="28" fill="#F4F2E9" stroke="#2B2B2B" stroke-width="2.5"/>
+      <circle cx="40" cy="52" r="4" fill="#2B2B2B"/><circle cx="60" cy="52" r="4" fill="#2B2B2B"/>
+      <circle cx="42" cy="50" r="1.5" fill="white"/><circle cx="62" cy="50" r="1.5" fill="white"/>
+      <ellipse cx="35" cy="60" rx="5" ry="3" fill="#FF9EC640"/><ellipse cx="65" cy="60" rx="5" ry="3" fill="#FF9EC640"/>
+      <path d="M46 60 Q50 65 54 60" fill="none" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h2 class="font-caveat font-bold text-4xl md:text-5xl text-ink mb-4">Bora <span class="highlight-pink">Estudar</span> Juntos?</h2>
+    <p class="font-hand text-brownink/70 text-lg mb-8 max-w-xl mx-auto">Abra seu caderno digital e comece a criar as anotações mais fofas da internet. É grátis para começar!</p>
+    <a href="#" class="cursor-pointer inline-flex items-center gap-2 doodle-border bg-pinkhl text-ink font-nunito font-bold text-lg px-10 py-4 hover:bg-pinkhl/80 transition-colors duration-200">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+      Criar Meu Caderno
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t-2 border-dashed border-brownink/20 px-4 py-10">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-7 h-7 text-pinkhl" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#2B2B2B" stroke-width="0.5"/></svg>
+      <span class="font-caveat font-bold text-xl text-ink">StudyNotes</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="#" class="cursor-pointer font-hand text-sm text-brownink/60 hover:text-pinkhl transition-colors duration-200">Termos</a>
+      <a href="#" class="cursor-pointer font-hand text-sm text-brownink/60 hover:text-pinkhl transition-colors duration-200">Privacidade</a>
+      <a href="#" class="cursor-pointer font-hand text-sm text-brownink/60 hover:text-pinkhl transition-colors duration-200">Contato</a>
+    </div>
+    <p class="font-hand text-xs text-brownink/40">&copy; 2025 StudyNotes. Feito com carinho.</p>
+  </div>
+</footer>
+
+</body>
+</html>

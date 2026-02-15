@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doodle / Sketch Livre</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg-white:#FFFFFF;--text-dark:#2A2A2A;--purple:#9B59B6;--red:#E74C3C;--amber:#F39C12;--blue:#3498DB;--teal:#1ABC9C;--grey:#95A5A6;--stroke-width:2px;--wobble-amount:1deg}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Patrick Hand',cursive;background:var(--bg-white);color:var(--text-dark);overflow-x:hidden}
+  h1,h2,h3{font-family:'Caveat',cursive}
+  .sketchy-border{border:2px solid var(--text-dark);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;box-shadow:2px 2px 0 rgba(0,0,0,.1)}
+  .sketchy-border-alt{border:2px solid var(--text-dark);border-radius:15px 255px 15px 225px/225px 15px 255px 15px;box-shadow:2px 2px 0 rgba(0,0,0,.1)}
+  .wobble:hover{animation:wobble .4s ease-in-out}
+  @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(1deg)}50%{transform:rotate(-1deg)}75%{transform:rotate(.5deg)}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .draw-line{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 2s ease forwards}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .fade-up{animation:fadeUp .8s ease forwards;opacity:0}
+  .doodle-underline{position:relative;display:inline-block}
+  .doodle-underline::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10'%3E%3Cpath d='M0 8 Q50 0 100 6 T200 4' fill='none' stroke='%239B59B6' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;background-size:100% 100%}
+  .squiggle-divider{width:100%;height:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 20'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 T150 10 T200 10 T250 10 T300 10 T350 10 T400 10 T450 10 T500 10 T550 10 T600 10' fill='none' stroke='%2395A5A6' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x center}
+</style>
+</head>
+<body class="min-h-screen">
+<!-- Doodle Background Decorations -->
+<svg class="fixed inset-0 w-full h-full pointer-events-none opacity-[0.07] z-0" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 50 Q80 20 110 50 T170 50" fill="none" stroke="#9B59B6" stroke-width="2" stroke-linecap="round" class="draw-line"/>
+  <circle cx="90%" cy="15%" r="20" fill="none" stroke="#E74C3C" stroke-width="2" class="draw-line" style="animation-delay:.5s"/>
+  <path d="M85% 80% L88% 75% L91% 80%" fill="none" stroke="#F39C12" stroke-width="2" stroke-linecap="round" class="draw-line" style="animation-delay:1s"/>
+  <path d="M10% 70% Q12% 65% 14% 70% T18% 70%" fill="none" stroke="#3498DB" stroke-width="2" stroke-linecap="round" class="draw-line" style="animation-delay:1.5s"/>
+  <rect x="5%" y="30%" width="30" height="30" rx="2" fill="none" stroke="#1ABC9C" stroke-width="2" transform="rotate(15,5%,30%)" class="draw-line" style="animation-delay:.8s"/>
+</svg>
+
+<!-- Hero -->
+<section class="relative z-10 min-h-screen flex items-center justify-center px-4 py-16 fade-up">
+  <div class="text-center max-w-3xl mx-auto">
+    <svg class="mx-auto mb-6 w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="35" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 5"/>
+      <path d="M28 50 Q32 28 40 26 Q48 28 52 50" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M25 42 L55 42" stroke="#F39C12" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3"/>
+      <circle cx="40" cy="22" r="4" stroke="#3498DB" stroke-width="2" fill="#3498DB" opacity=".3"/>
+    </svg>
+    <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight" style="color:var(--text-dark)">Ideias Ganham <span class="doodle-underline" style="color:var(--purple)">Vida Aqui</span></h1>
+    <p class="text-xl md:text-2xl mb-8 max-w-xl mx-auto" style="color:var(--grey)">Transforme seus rascunhos em projetos incríveis. Criatividade sem limites, do jeito que você imaginou.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="cursor-pointer inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold text-white rounded-lg wobble transition-all duration-200 hover:opacity-90" style="background:var(--purple);border:2px solid var(--text-dark)">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 19V5m0 0l-5 5m5-5l5 5"/></svg>
+        Comece Agora
+      </a>
+      <a href="#features" class="cursor-pointer inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold sketchy-border bg-white wobble transition-all duration-200 hover:bg-gray-50" style="color:var(--text-dark)">
+        Saiba Mais
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="squiggle-divider max-w-4xl mx-auto"></div>
+
+<!-- Features -->
+<section id="features" class="relative z-10 px-4 py-16 max-w-6xl mx-auto fade-up" style="animation-delay:.2s">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl md:text-5xl font-bold mb-3"><span class="doodle-underline" style="color:var(--red)">Recursos</span> Criativos</h2>
+    <p class="text-lg" style="color:var(--grey)">Ferramentas desenhadas para mentes criativas.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="sketchy-border bg-white p-8 wobble cursor-pointer transition-all duration-200 hover:-translate-y-1">
+      <div class="w-14 h-14 flex items-center justify-center mb-5 rounded-full" style="border:2px dashed var(--purple)">
+        <svg class="w-7 h-7" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+      </div>
+      <h3 class="text-2xl font-bold mb-2" style="color:var(--purple)">Desenho Livre</h3>
+      <p style="color:var(--grey)">Crie ilustrações à mão livre com ferramentas intuitivas que capturam cada traço.</p>
+    </div>
+    <div class="sketchy-border-alt bg-white p-8 wobble cursor-pointer transition-all duration-200 hover:-translate-y-1">
+      <div class="w-14 h-14 flex items-center justify-center mb-5 rounded-full" style="border:2px dashed var(--red)">
+        <svg class="w-7 h-7" fill="none" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+      </div>
+      <h3 class="text-2xl font-bold mb-2" style="color:var(--red)">Rápido e Leve</h3>
+      <p style="color:var(--grey)">Performance otimizada para que suas ideias fluam sem travamentos ou esperas.</p>
+    </div>
+    <div class="sketchy-border bg-white p-8 wobble cursor-pointer transition-all duration-200 hover:-translate-y-1">
+      <div class="w-14 h-14 flex items-center justify-center mb-5 rounded-full" style="border:2px dashed var(--teal)">
+        <svg class="w-7 h-7" fill="none" stroke="#1ABC9C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+      </div>
+      <h3 class="text-2xl font-bold mb-2" style="color:var(--teal)">Colaboração</h3>
+      <p style="color:var(--grey)">Trabalhe junto com sua equipe em tempo real, como se estivessem no mesmo quadro branco.</p>
+    </div>
+  </div>
+</section>
+
+<div class="squiggle-divider max-w-4xl mx-auto"></div>
+
+<!-- Testimonials -->
+<section class="relative z-10 px-4 py-16 max-w-6xl mx-auto fade-up" style="animation-delay:.4s">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl md:text-5xl font-bold mb-3">O Que <span class="doodle-underline" style="color:var(--blue)">Dizem</span> Por Aí</h2>
+    <p class="text-lg" style="color:var(--grey)">Criadores que já transformaram suas ideias com a gente.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="sketchy-border-alt bg-white p-7 relative">
+      <svg class="w-8 h-8 mb-3" fill="none" viewBox="0 0 32 32"><path d="M6 18c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-5zm12 0c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2h-5a2 2 0 01-2-2v-5z" fill="#9B59B6" opacity=".25"/></svg>
+      <p class="mb-5 leading-relaxed" style="color:var(--text-dark)">"Finalmente uma ferramenta que entende o processo criativo. Meus esboços nunca ficaram tão bonitos!"</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background:var(--purple);border:2px solid var(--text-dark)">LC</div>
+        <div><p class="font-bold text-sm">Lucas Carvalho</p><p class="text-sm" style="color:var(--grey)">Designer, Estúdio Traço</p></div>
+      </div>
+    </div>
+    <div class="sketchy-border bg-white p-7 relative">
+      <svg class="w-8 h-8 mb-3" fill="none" viewBox="0 0 32 32"><path d="M6 18c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-5zm12 0c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2h-5a2 2 0 01-2-2v-5z" fill="#E74C3C" opacity=".25"/></svg>
+      <p class="mb-5 leading-relaxed" style="color:var(--text-dark)">"Uso com meus alunos e eles adoram. A interface é divertida e acessível para todas as idades."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background:var(--red);border:2px solid var(--text-dark)">BM</div>
+        <div><p class="font-bold text-sm">Beatriz Mendes</p><p class="text-sm" style="color:var(--grey)">Professora de Artes</p></div>
+      </div>
+    </div>
+    <div class="sketchy-border-alt bg-white p-7 relative">
+      <svg class="w-8 h-8 mb-3" fill="none" viewBox="0 0 32 32"><path d="M6 18c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-5zm12 0c0-4 3-8 7-9l1 2c-3 1.5-4 4-4 6h3a2 2 0 012 2v4a2 2 0 01-2 2h-5a2 2 0 01-2-2v-5z" fill="#1ABC9C" opacity=".25"/></svg>
+      <p class="mb-5 leading-relaxed" style="color:var(--text-dark)">"Substituiu meu caderno de rascunhos. Agora tudo fica organizado e posso compartilhar com o time."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background:var(--teal);border:2px solid var(--text-dark)">FS</div>
+        <div><p class="font-bold text-sm">Felipe Santos</p><p class="text-sm" style="color:var(--grey)">Diretor Criativo, Rabisco Co.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="squiggle-divider max-w-4xl mx-auto"></div>
+
+<!-- Pricing -->
+<section id="pricing" class="relative z-10 px-4 py-16 max-w-6xl mx-auto fade-up" style="animation-delay:.6s">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl md:text-5xl font-bold mb-3">Planos <span class="doodle-underline" style="color:var(--amber)">Simples</span></h2>
+    <p class="text-lg" style="color:var(--grey)">Sem letras miúdas. Escolha e comece a criar.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8 items-start">
+    <!-- Starter -->
+    <div class="sketchy-border bg-white p-8 wobble cursor-pointer transition-all duration-200 hover:-translate-y-1">
+      <h3 class="text-2xl font-bold mb-1" style="color:var(--text-dark)">Rascunho</h3>
+      <p class="text-sm mb-5" style="color:var(--grey)">Para quem está começando</p>
+      <div class="mb-6"><span class="text-5xl font-bold" style="color:var(--teal)">R$0</span><span class="text-sm" style="color:var(--grey)">/mês</span></div>
+      <ul class="space-y-3 mb-8 text-base">
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#1ABC9C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>3 projetos</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#1ABC9C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Ferramentas básicas</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#1ABC9C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Exportação PNG</li>
+      </ul>
+      <a href="#" class="cursor-pointer block text-center py-3 px-6 font-semibold text-lg sketchy-border transition-all duration-200 hover:bg-gray-50" style="color:var(--text-dark)">Começar Grátis</a>
+    </div>
+    <!-- Pro -->
+    <div class="sketchy-border-alt bg-white p-8 relative wobble cursor-pointer transition-all duration-200 hover:-translate-y-1" style="border-color:var(--purple);border-width:3px">
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 text-white text-sm font-bold rounded-full" style="background:var(--purple);border:2px solid var(--text-dark)">POPULAR</div>
+      <h3 class="text-2xl font-bold mb-1" style="color:var(--purple)">Criativo</h3>
+      <p class="text-sm mb-5" style="color:var(--grey)">Para profissionais</p>
+      <div class="mb-6"><span class="text-5xl font-bold" style="color:var(--purple)">R$39</span><span class="text-sm" style="color:var(--grey)">/mês</span></div>
+      <ul class="space-y-3 mb-8 text-base">
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Projetos ilimitados</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Todas as ferramentas</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Exportação SVG e PDF</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Colaboração em equipe</li>
+      </ul>
+      <a href="#" class="cursor-pointer block text-center py-3 px-6 font-semibold text-lg text-white rounded-lg transition-all duration-200 hover:opacity-90" style="background:var(--purple);border:2px solid var(--text-dark)">Escolher Plano</a>
+    </div>
+    <!-- Enterprise -->
+    <div class="sketchy-border bg-white p-8 wobble cursor-pointer transition-all duration-200 hover:-translate-y-1">
+      <h3 class="text-2xl font-bold mb-1" style="color:var(--red)">Estúdio</h3>
+      <p class="text-sm mb-5" style="color:var(--grey)">Para times e empresas</p>
+      <div class="mb-6"><span class="text-5xl font-bold" style="color:var(--red)">R$99</span><span class="text-sm" style="color:var(--grey)">/mês</span></div>
+      <ul class="space-y-3 mb-8 text-base">
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Tudo do Criativo</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>API de integração</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Marca personalizada</li>
+        <li class="flex items-center gap-3"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Suporte prioritário</li>
+      </ul>
+      <a href="#" class="cursor-pointer block text-center py-3 px-6 font-semibold text-lg sketchy-border transition-all duration-200 hover:bg-gray-50" style="color:var(--text-dark)">Falar com Vendas</a>
+    </div>
+  </div>
+</section>
+
+<div class="squiggle-divider max-w-4xl mx-auto"></div>
+
+<!-- CTA -->
+<section class="relative z-10 px-4 py-16 max-w-3xl mx-auto fade-up" style="animation-delay:.8s">
+  <div class="sketchy-border bg-white p-10 md:p-14 text-center relative overflow-hidden">
+    <svg class="absolute top-3 right-4 w-16 h-16 opacity-10" viewBox="0 0 60 60" fill="none"><path d="M10 50 Q20 10 50 15" stroke="#9B59B6" stroke-width="3" stroke-linecap="round"/><path d="M5 30 Q30 5 55 35" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="absolute bottom-3 left-4 w-14 h-14 opacity-10" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="18" stroke="#F39C12" stroke-width="2" stroke-dasharray="4 4"/><path d="M15 35 L35 15" stroke="#3498DB" stroke-width="2" stroke-linecap="round"/></svg>
+    <h2 class="text-3xl md:text-5xl font-bold mb-4 relative z-10">Pronto para <span class="doodle-underline" style="color:var(--purple)">Rabiscar</span>?</h2>
+    <p class="text-lg mb-8 relative z-10" style="color:var(--grey)">Junte-se a milhares de criativos que já deram vida às suas ideias. Comece de graça, sem cartão.</p>
+    <a href="#" class="cursor-pointer inline-flex items-center gap-2 px-10 py-4 text-lg font-bold text-white rounded-lg wobble transition-all duration-200 hover:opacity-90 relative z-10" style="background:var(--red);border:2px solid var(--text-dark)">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+      Criar Minha Conta Grátis
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="relative z-10 px-4 py-10 max-w-6xl mx-auto" style="border-top:2px dashed var(--grey)">
+  <div class="grid sm:grid-cols-3 gap-8 mb-8">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <svg class="w-7 h-7" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/><path d="M9 18 Q11 10 14 9 Q17 10 19 18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <span class="text-xl font-bold" style="color:var(--purple)">SketchPad</span>
+      </div>
+      <p class="text-sm" style="color:var(--grey)">Dando vida a ideias desde 2023. Feito com carinho e muitos rabiscos.</p>
+    </div>
+    <div>
+      <h4 class="font-bold mb-3" style="color:var(--text-dark)">Produto</h4>
+      <ul class="space-y-2 text-sm" style="color:var(--grey)">
+        <li><a href="#features" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Recursos</a></li>
+        <li><a href="#pricing" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Preços</a></li>
+        <li><a href="#" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Templates</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold mb-3" style="color:var(--text-dark)">Suporte</h4>
+      <ul class="space-y-2 text-sm" style="color:var(--grey)">
+        <li><a href="#" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Central de Ajuda</a></li>
+        <li><a href="#" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Documentação</a></li>
+        <li><a href="#" class="cursor-pointer hover:underline transition-colors duration-200" style="color:var(--grey)">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-top:2px dashed var(--grey)">
+    <p class="text-sm" style="color:var(--grey)">&copy; 2024 SketchPad. Todos os direitos reservados.</p>
+    <div class="flex gap-4">
+      <a href="#" class="cursor-pointer transition-colors duration-200 hover:opacity-70" style="color:var(--grey)">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+      </a>
+      <a href="#" class="cursor-pointer transition-colors duration-200 hover:opacity-70" style="color:var(--grey)">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="#" class="cursor-pointer transition-colors duration-200 hover:opacity-70" style="color:var(--grey)">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

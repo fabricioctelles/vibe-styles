@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Intelligence Dashboard — BI/Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            won: '#22C55E', lost: '#EF4444', progress: '#3B82F6', blocked: '#F97316',
+            quota: '#EAB308', missed: '#6B7280', rank1: '#FFD700', rank2: '#C0C0C0', rank3: '#CD7F32',
+            dark: { 900: '#0B0F1A', 800: '#111827', 700: '#1F2937', 600: '#374151' },
+            gauge: '#E5E7EB',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0B0F1A; color: #D1D5DB; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 12px; }
+    .glow-blue { box-shadow: 0 0 24px rgba(59,130,246,0.15); }
+    .glow-green { box-shadow: 0 0 24px rgba(34,197,94,0.15); }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes needleMove { from { stroke-dashoffset: 220; } to { stroke-dashoffset: var(--needle-end); } }
+    @keyframes rankPulse { 0%,100% { opacity: 1; } 50% { opacity: .7; } }
+    .slide-up { animation: slideUp .6s ease-out both; }
+    .rank-pulse { animation: rankPulse 2s ease-in-out infinite; }
+    .gauge-fill { animation: needleMove 1.2s ease-out both; }
+    @media (prefers-reduced-motion: reduce) { .slide-up, .rank-pulse, .gauge-fill { animation: none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="flex items-center gap-2 mb-5">
+          <div class="w-2 h-2 rounded-full bg-won rank-pulse"></div>
+          <p class="text-sm tracking-widest uppercase text-won/80">Inteligência de Vendas</p>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-white">Pipeline sob <span class="text-progress">controle total.</span></h1>
+        <p class="text-lg max-w-md leading-relaxed mb-10">Funil de deals, quotas, leaderboard e previsões de fechamento — tudo em tempo real para acelerar suas vendas.</p>
+        <a href="#precos" class="inline-flex items-center gap-2 bg-progress hover:bg-progress/80 text-white px-8 py-4 rounded-lg text-sm font-semibold tracking-wide transition-colors duration-200">
+          Ver planos
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <!-- Hero card: mini pipeline funnel -->
+      <div class="hidden md:block">
+        <div class="card p-6 glow-blue">
+          <p class="text-xs uppercase tracking-wider mb-4">Funil de Pipeline</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3"><span class="text-[10px] w-20 text-right">Prospecção</span><div class="h-5 rounded bg-progress/30 flex-1" style="max-width:100%"><div class="h-full rounded bg-progress slide-up" style="width:100%"></div></div><span class="text-xs font-bold text-white">42</span></div>
+            <div class="flex items-center gap-3"><span class="text-[10px] w-20 text-right">Qualificação</span><div class="h-5 rounded bg-progress/30 flex-1" style="max-width:85%"><div class="h-full rounded bg-progress/80 slide-up" style="width:100%"></div></div><span class="text-xs font-bold text-white">28</span></div>
+            <div class="flex items-center gap-3"><span class="text-[10px] w-20 text-right">Proposta</span><div class="h-5 rounded bg-blocked/30 flex-1" style="max-width:60%"><div class="h-full rounded bg-blocked slide-up" style="width:100%"></div></div><span class="text-xs font-bold text-white">18</span></div>
+            <div class="flex items-center gap-3"><span class="text-[10px] w-20 text-right">Negociação</span><div class="h-5 rounded bg-quota/30 flex-1" style="max-width:38%"><div class="h-full rounded bg-quota slide-up" style="width:100%"></div></div><span class="text-xs font-bold text-white">9</span></div>
+            <div class="flex items-center gap-3"><span class="text-[10px] w-20 text-right">Fechado</span><div class="h-5 rounded bg-won/30 flex-1" style="max-width:22%"><div class="h-full rounded bg-won slide-up" style="width:100%"></div></div><span class="text-xs font-bold text-white">5</span></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mt-5">
+            <div class="bg-dark-700 rounded-lg p-3 text-center"><p class="text-[10px]">Win Rate</p><p class="text-sm font-bold text-won slide-up">68%</p></div>
+            <div class="bg-dark-700 rounded-lg p-3 text-center"><p class="text-[10px]">Ticket Médio</p><p class="text-sm font-bold text-white slide-up">R$ 24k</p></div>
+            <div class="bg-dark-700 rounded-lg p-3 text-center"><p class="text-[10px]">Forecast</p><p class="text-sm font-bold text-progress slide-up">R$ 412k</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Inteligência completa para vendas.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Pipeline Kanban -->
+        <div class="card p-8 hover:border-progress/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-lg bg-progress/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="6" width="5" height="15" rx="1"/><rect x="17" y="9" width="5" height="12" rx="1"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Pipeline Kanban</h3>
+          <p class="text-sm leading-relaxed">Visualize deals em colunas por estágio. Arraste cards entre fases e acompanhe o valor total de cada etapa em tempo real.</p>
+        </div>
+        <!-- Quota Gauges -->
+        <div class="card p-8 hover:border-quota/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-lg bg-quota/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Quotas & Gauges</h3>
+          <p class="text-sm leading-relaxed">Medidores visuais de atingimento de meta por rep e território. Cores automáticas: ouro para batida, cinza para pendente.</p>
+        </div>
+        <!-- Leaderboard -->
+        <div class="card p-8 hover:border-rank1/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-lg bg-rank1/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 22V8a2 2 0 00-2-2H6v16"/><path d="M14 22V8a2 2 0 012-2h2v16"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Leaderboard</h3>
+          <p class="text-sm leading-relaxed">Ranking dinâmico de vendedores com medalhas ouro, prata e bronze. Atualização em tempo real conforme deals fecham.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Quem vende mais com dados.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"Nosso win rate subiu de 45% para 68% em três meses. O pipeline visual mudou a forma como priorizamos deals."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-progress/20 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-white">Marcos Vieira</p><p class="text-xs">VP de Vendas, TechFlow</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"O leaderboard criou uma competição saudável no time. Cada rep acompanha sua quota em tempo real e se motiva."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-won/20 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-white">Camila Rocha</p><p class="text-xs">Head Comercial, DataPrime</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#EAB308"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"A previsão de forecast ficou 92% precisa. Finalmente consigo reportar ao board com confiança nos números."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-blocked/20 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-white">Rafael Duarte</p><p class="text-xs">CRO, Orbit SaaS</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Invista em inteligência de vendas.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Starter -->
+        <div class="card p-8 text-center">
+          <p class="text-sm tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 199<span class="text-base font-normal text-gray-400">/mês</span></p>
+          <p class="text-xs mb-8">Até 5 vendedores</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pipeline Kanban básico
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quota tracking individual
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Relatórios semanais
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-dark-600 text-sm font-semibold hover:bg-dark-700 transition-colors duration-200">Começar</button>
+        </div>
+        <!-- Pro -->
+        <div class="card p-8 text-center border-won/40 relative glow-green">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-won text-dark-900 px-4 py-1 rounded-full text-xs font-bold tracking-wide">Popular</div>
+          <p class="text-sm tracking-widest uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 499<span class="text-base font-normal text-gray-400">/mês</span></p>
+          <p class="text-xs mb-8">Até 25 vendedores</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Starter
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Leaderboard + Win/Loss analysis
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Forecast com IA + Territórios
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-lg bg-won text-dark-900 text-sm font-bold hover:bg-won/90 transition-colors duration-200">Escolher plano</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="card p-8 text-center">
+          <p class="text-sm tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 1.299<span class="text-base font-normal text-gray-400">/mês</span></p>
+          <p class="text-xs mb-8">Vendedores ilimitados</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Pro
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Integração CRM (Salesforce, HubSpot)
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg px-4 py-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API + SSO + Gerente dedicado
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-dark-600 text-sm font-semibold hover:bg-dark-700 transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>

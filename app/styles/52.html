@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelQuest — Plataforma Retro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pixel: ['"Press Start 2P"', 'monospace'] },
+          colors: {
+            nes: { red: '#E40058', blue: '#0058F8', green: '#00A800', yellow: '#F8D800', cyan: '#00E8D8', white: '#FCFCFC', black: '#000000', gray: '#7C7C7C', dark: '#101020', card: '#1a1a2e', border: '#3a3a5c' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated; }
+    body { font-family: 'Press Start 2P', monospace; background: #101020; color: #FCFCFC; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1rem; }
+    .pixel-border { box-shadow: 4px 0 0 #000, -4px 0 0 #000, 0 4px 0 #000, 0 -4px 0 #000, 4px 4px 0 #000, -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000; }
+    .pixel-card { background: #1a1a2e; box-shadow: 4px 0 0 #3a3a5c, -4px 0 0 #3a3a5c, 0 4px 0 #3a3a5c, 0 -4px 0 #3a3a5c; }
+    .pixel-btn { box-shadow: 4px 4px 0 #000; transition: transform 0.1s, box-shadow 0.1s; }
+    .pixel-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+    .pixel-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .blink { animation: blink 1s step-end infinite; }
+    .float-anim { animation: float 2s steps(4) infinite; }
+    @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    .marquee { animation: marquee 12s linear infinite; }
+    @media (prefers-reduced-motion: reduce) { .blink, .float-anim, .marquee { animation: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-16">
+    <div class="wrap w-full text-center">
+      <div class="inline-block pixel-card px-4 py-2 text-[10px] text-nes-cyan mb-6 tracking-wider">LEVEL 01 — BEM-VINDO</div>
+      <h1 class="text-2xl md:text-4xl leading-relaxed mb-6 text-nes-yellow">PixelQuest<span class="blink">_</span></h1>
+      <p class="text-[10px] md:text-xs text-nes-gray leading-loose max-w-xl mx-auto mb-10">A plataforma definitiva para criar, gerenciar e escalar seus projetos digitais com a nostalgia dos 8-bits e o poder da tecnologia moderna.</p>
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <a href="#precos" class="pixel-btn inline-flex items-center gap-2 px-6 py-3 bg-nes-red text-white text-[10px]">
+          INICIAR JORNADA
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#recursos" class="pixel-btn inline-flex items-center gap-2 px-6 py-3 bg-nes-blue text-white text-[10px]">VER PODERES</a>
+      </div>
+      <div class="flex justify-center">
+        <svg class="w-32 h-32 float-anim" viewBox="0 0 64 64" fill="none">
+          <rect x="20" y="8" width="24" height="4" fill="#F8D800"/>
+          <rect x="16" y="12" width="32" height="4" fill="#F8D800"/>
+          <rect x="16" y="16" width="8" height="4" fill="#1a1a2e"/><rect x="24" y="16" width="8" height="4" fill="#F8D800"/><rect x="32" y="16" width="8" height="4" fill="#1a1a2e"/><rect x="40" y="16" width="8" height="4" fill="#F8D800"/>
+          <rect x="16" y="20" width="32" height="4" fill="#F8D800"/>
+          <rect x="12" y="24" width="40" height="4" fill="#E40058"/>
+          <rect x="12" y="28" width="40" height="4" fill="#E40058"/>
+          <rect x="16" y="32" width="32" height="4" fill="#0058F8"/>
+          <rect x="12" y="36" width="8" height="4" fill="#F8D800"/><rect x="24" y="36" width="16" height="4" fill="#0058F8"/><rect x="44" y="36" width="8" height="4" fill="#F8D800"/>
+          <rect x="8" y="40" width="8" height="4" fill="#F8D800"/><rect x="48" y="40" width="8" height="4" fill="#F8D800"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="overflow-hidden py-3 bg-nes-blue/20 border-y-4 border-nes-blue">
+    <p class="marquee whitespace-nowrap text-[10px] text-nes-cyan tracking-widest">
+      ★ POWER-UP ATIVADO ★ +500 EMPRESAS CONECTADAS ★ 99.9% UPTIME ★ SUPORTE 24/7 ★ FEITO NO BRASIL ★
+    </p>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-16">
+    <div class="wrap">
+      <p class="text-center text-[10px] text-nes-green tracking-widest mb-3">— POWER-UPS —</p>
+      <h2 class="text-center text-lg md:text-2xl text-nes-yellow mb-12">Seus Poderes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="pixel-card p-6 text-center">
+          <div class="flex justify-center mb-4">
+            <svg class="w-10 h-10 text-nes-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="text-xs text-nes-white mb-3">Velocidade Turbo</h3>
+          <p class="text-[9px] text-nes-gray leading-loose">Deploy instantâneo com pipelines otimizados. Seu código em produção em segundos, não horas.</p>
+        </div>
+        <div class="pixel-card p-6 text-center">
+          <div class="flex justify-center mb-4">
+            <svg class="w-10 h-10 text-nes-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="text-xs text-nes-white mb-3">Escudo de Proteção</h3>
+          <p class="text-[9px] text-nes-gray leading-loose">Segurança de nível enterprise com criptografia ponta a ponta e monitoramento em tempo real.</p>
+        </div>
+        <div class="pixel-card p-6 text-center">
+          <div class="flex justify-center mb-4">
+            <svg class="w-10 h-10 text-nes-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3 class="text-xs text-nes-white mb-3">Mundo Conectado</h3>
+          <p class="text-[9px] text-nes-gray leading-loose">Integrações com mais de 200 ferramentas. Conecte tudo em um único painel de controle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-16">
+    <div class="wrap">
+      <p class="text-center text-[10px] text-nes-green tracking-widest mb-3">— HIGH SCORES —</p>
+      <h2 class="text-center text-lg md:text-2xl text-nes-yellow mb-12">Depoimentos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="pixel-card p-6">
+          <div class="flex gap-1 mb-3">
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-[9px] text-nes-gray leading-loose mb-4">"Migrar para o PixelQuest foi como encontrar um warp zone. Nosso time dobrou a produtividade em 2 meses."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-nes-red flex items-center justify-center pixel-border">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-[9px] text-nes-white">Lucas Ferreira</p><p class="text-[8px] text-nes-gray">CTO, ByteForge</p></div>
+          </div>
+        </div>
+        <div class="pixel-card p-6">
+          <div class="flex gap-1 mb-3">
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-[9px] text-nes-gray leading-loose mb-4">"A interface retro é incrível, mas o que impressiona mesmo é a robustez por baixo. Zero downtime em 6 meses."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-nes-blue flex items-center justify-center pixel-border">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-[9px] text-nes-white">Marina Santos</p><p class="text-[8px] text-nes-gray">PM, ArcadeOps</p></div>
+          </div>
+        </div>
+        <div class="pixel-card p-6">
+          <div class="flex gap-1 mb-3">
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3 h-3 text-nes-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-[9px] text-nes-gray leading-loose mb-4">"O suporte parece um co-op mode. Sempre tem alguém pronto pra ajudar, qualquer hora do dia."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-nes-green flex items-center justify-center pixel-border">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-[9px] text-nes-white">Pedro Nakamura</p><p class="text-[8px] text-nes-gray">Dev Lead, RetroLab</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-16">
+    <div class="wrap">
+      <p class="text-center text-[10px] text-nes-green tracking-widest mb-3">— SELECT PLAYER —</p>
+      <h2 class="text-center text-lg md:text-2xl text-nes-yellow mb-4">Escolha seu Plano</h2>
+      <p class="text-center text-[9px] text-nes-gray mb-12 max-w-md mx-auto leading-loose">Todos os planos incluem suporte dedicado e atualizações gratuitas.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="pixel-card p-6 text-center">
+          <p class="text-[10px] text-nes-cyan tracking-widest mb-4">PLAYER 1</p>
+          <p class="text-xl text-nes-white mb-1">R$ 49<span class="text-[9px] text-nes-gray">/mês</span></p>
+          <p class="text-[8px] text-nes-gray mb-6">Até 3 projetos</p>
+          <div class="space-y-3 mb-6 text-left">
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Deploy automático</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>SSL gratuito</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</div>
+          </div>
+          <button class="pixel-btn w-full py-3 bg-nes-dark text-[9px] text-nes-cyan border-2 border-nes-cyan">START</button>
+        </div>
+        <div class="relative pixel-card p-6 text-center border-l-4 border-r-4 border-nes-yellow">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-3 py-1 bg-nes-yellow text-nes-black text-[8px]">BEST VALUE</div>
+          <p class="text-[10px] text-nes-yellow tracking-widest mb-4 mt-2">PLAYER 2</p>
+          <p class="text-xl text-nes-white mb-1">R$ 149<span class="text-[9px] text-nes-gray">/mês</span></p>
+          <p class="text-[8px] text-nes-gray mb-6">Projetos ilimitados</p>
+          <div class="space-y-3 mb-6 text-left">
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Player 1</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Analytics avançado</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</div>
+          </div>
+          <button class="pixel-btn w-full py-3 bg-nes-yellow text-nes-black text-[9px]">SELECT</button>
+        </div>
+        <div class="pixel-card p-6 text-center">
+          <p class="text-[10px] text-nes-red tracking-widest mb-4">BOSS MODE</p>
+          <p class="text-xl text-nes-white mb-1">Custom</p>
+          <p class="text-[8px] text-nes-gray mb-6">Para grandes equipes</p>
+          <div class="space-y-3 mb-6 text-left">
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Player 2</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>API dedicada</div>
+            <div class="flex items-center gap-2 text-[8px] text-nes-gray"><svg class="w-3 h-3 text-nes-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99%</div>
+          </div>
+          <button class="pixel-btn w-full py-3 bg-nes-dark text-[9px] text-nes-red border-2 border-nes-red">CONTACT</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="wrap">
+      <div class="pixel-card p-10 md:p-14 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-nes-red via-nes-yellow to-nes-green"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-nes-green via-nes-cyan to-nes-blue"></div>
+        <h2 class="text-base md:text-xl text-nes-yellow mb-4">READY?</h2>
+        <p class="text-[9px] text-nes-gray max-w-sm mx-auto mb-8 leading-loose">Junte-se a mais de 500 empresas que já desbloquearam o próximo nível dos seus projetos.</p>
+        <button class="pixel-btn inline-flex items-center gap-2 px-8 py-4 bg-nes-red text-white text-[10px]">
+          PRESS START
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="text-[8px] text-nes-gray mt-4">Sem cartão de crédito. 14 dias grátis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 border-t-4 border-nes-border">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-[8px]">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-nes-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="0"/><path d="M6 12h2M10 10h1v4M14 10l2 2-2 2M18 10l2 2-2 2"/></svg>
+          <span class="text-[10px] text-nes-yellow">PixelQuest</span>
+        </div>
+        <p class="text-nes-gray leading-loose">Tecnologia moderna com alma retro.</p>
+      </div>
+      <div>
+        <p class="text-[9px] text-nes-cyan tracking-widest mb-3">PRODUTO</p>
+        <ul class="space-y-2 text-nes-gray">
+          <li><a href="#" class="hover:text-nes-white transition-colors">Recursos</a></li>
+          <li><a href="#" class="hover:text-nes-white transition-colors">Preços</a></li>
+          <li><a href="#" class="hover:text-nes-white transition-colors">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-[9px] text-nes-cyan tracking-widest mb-3">EMPRESA</p>
+        <ul class="space-y-2 text-nes-gray">
+          <li><a href="#" class="hover:text-nes-white transition-colors">Sobre</a></li>
+          <li><a href="#" class="hover:text-nes-white transition-colors">Blog</a></li>
+          <li><a href="#" class="hover:text-nes-white transition-colors">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-[9px] text-nes-cyan tracking-widest mb-3">LEGAL</p>
+        <ul class="space-y-2 text-nes-gray">
+          <li><a href="#" class="hover:text-nes-white transition-colors">Privacidade</a></li>
+          <li><a href="#" class="hover:text-nes-white transition-colors">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-nes-gray text-[8px] mt-8">&copy; 2025 PixelQuest. Todos os direitos reservados. GAME ON.</p>
+  </footer>
+
+</body>
+</html>

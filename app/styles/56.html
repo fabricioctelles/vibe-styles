@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Ink / Paper — Leitura Consciente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Lora', 'Georgia', 'serif'], heading: ['Source Serif 4', 'Georgia', 'serif'] },
+          colors: {
+            paper: '#FDFBF7', paperLight: '#F5F5F5', ink: '#1A1A1A',
+            pencil: '#4A4A4A', highlight: '#FFFF00', border: '#E0E0E0',
+            muted: '#6B6B6B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Lora', Georgia, serif; background: #FDFBF7; color: #1A1A1A; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    * { transition: none !important; animation: none !important; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .divider { border: none; border-top: 1px solid #E0E0E0; margin: 3rem 0; }
+    .card { background: #F5F5F5; border: 1px solid #E0E0E0; padding: 2rem; }
+    .highlight-mark { background: #FFFF00; padding: 0 0.25rem; }
+    @media print { .grain { display: none; } body { background: #fff; } }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="grain"></div>
+
+  <!-- Hero -->
+  <section class="py-20 md:py-28">
+    <div class="wrap text-center">
+      <div class="flex justify-center mb-8">
+        <svg class="w-12 h-12 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      </div>
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-tight mb-6" style="font-family:'Source Serif 4',Georgia,serif">Leitura sem<br><span class="highlight-mark">distrações.</span></h1>
+      <p class="text-pencil text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-10">Uma plataforma pensada para quem valoriza o foco, a calma e a profundidade. Tecnologia lenta, feita para humanos.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="cursor-pointer bg-ink text-paper px-8 py-3 font-semibold text-base border border-ink hover:bg-pencil">Começar a Ler</button>
+        <button class="cursor-pointer bg-paper text-ink px-8 py-3 font-semibold text-base border border-ink hover:bg-paperLight">Saiba Mais</button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider wrap">
+
+  <!-- Features -->
+  <section class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-sm uppercase tracking-widest text-center mb-3">Recursos</p>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-ink text-center mb-12" style="font-family:'Source Serif 4',Georgia,serif">Projetado para o foco</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card">
+          <div class="mb-4">
+            <svg class="w-8 h-8 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-ink mb-2">Modo Leitura</h3>
+          <p class="text-pencil leading-relaxed">Interface limpa e sem distrações. Apenas o texto, a tipografia e você. Como um livro de verdade.</p>
+        </div>
+        <div class="card">
+          <div class="mb-4">
+            <svg class="w-8 h-8 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-ink mb-2">Conforto Visual</h3>
+          <p class="text-pencil leading-relaxed">Fundo papel com alto contraste e zero brilho excessivo. Seus olhos agradecem após horas de leitura.</p>
+        </div>
+        <div class="card">
+          <div class="mb-4">
+            <svg class="w-8 h-8 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-ink mb-2">Sem Animações</h3>
+          <p class="text-pencil leading-relaxed">Transições instantâneas, sem efeitos desnecessários. Cada interação é direta, rápida e previsível.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider wrap">
+
+  <!-- Testimonials -->
+  <section class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-sm uppercase tracking-widest text-center mb-3">Depoimentos</p>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-ink text-center mb-12" style="font-family:'Source Serif 4',Georgia,serif">O que dizem os leitores</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card">
+          <svg class="w-6 h-6 text-pencil mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>
+          <p class="text-ink leading-relaxed mb-4 italic">"Finalmente uma plataforma que respeita meu tempo e minha atenção. É como voltar a ler no papel."</p>
+          <p class="text-pencil font-semibold text-sm">— Marina Costa, Escritora</p>
+        </div>
+        <div class="card">
+          <svg class="w-6 h-6 text-pencil mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>
+          <p class="text-ink leading-relaxed mb-4 italic">"Uso para estudar artigos longos. A ausência de distrações melhorou minha concentração em 100%."</p>
+          <p class="text-pencil font-semibold text-sm">— Rafael Mendes, Pesquisador</p>
+        </div>
+        <div class="card">
+          <svg class="w-6 h-6 text-pencil mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>
+          <p class="text-ink leading-relaxed mb-4 italic">"Parece um e-reader no navegador. Simples, elegante e extremamente funcional. Recomendo demais."</p>
+          <p class="text-pencil font-semibold text-sm">— Juliana Alves, Designer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider wrap">
+
+  <!-- Pricing -->
+  <section class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-sm uppercase tracking-widest text-center mb-3">Planos</p>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-ink text-center mb-12" style="font-family:'Source Serif 4',Georgia,serif">Escolha seu ritmo</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Free -->
+        <div class="card flex flex-col">
+          <h3 class="text-xl font-semibold text-ink mb-1">Leitor</h3>
+          <p class="text-muted text-sm mb-4">Para leitores casuais</p>
+          <p class="text-4xl font-bold text-ink mb-1">Grátis</p>
+          <p class="text-muted text-sm mb-6">para sempre</p>
+          <ul class="text-pencil text-sm space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              5 artigos por mês
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Modo leitura básico
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Marcadores simples
+            </li>
+          </ul>
+          <button class="cursor-pointer w-full bg-paper text-ink py-3 font-semibold border border-ink hover:bg-paperLight">Começar Grátis</button>
+        </div>
+        <!-- Pro -->
+        <div class="card flex flex-col border-2 border-ink relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-ink text-paper text-xs font-semibold px-3 py-1 uppercase tracking-wider">Recomendado</span>
+          <h3 class="text-xl font-semibold text-ink mb-1">Estudioso</h3>
+          <p class="text-muted text-sm mb-4">Para leitores dedicados</p>
+          <p class="text-4xl font-bold text-ink mb-1">R$19<span class="text-lg font-normal text-pencil">/mês</span></p>
+          <p class="text-muted text-sm mb-6">cobrado mensalmente</p>
+          <ul class="text-pencil text-sm space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Artigos ilimitados
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Anotações e destaques
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Sincronização offline
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Exportar para PDF
+            </li>
+          </ul>
+          <button class="cursor-pointer w-full bg-ink text-paper py-3 font-semibold border border-ink hover:bg-pencil">Assinar Agora</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="card flex flex-col">
+          <h3 class="text-xl font-semibold text-ink mb-1">Biblioteca</h3>
+          <p class="text-muted text-sm mb-4">Para equipes e instituições</p>
+          <p class="text-4xl font-bold text-ink mb-1">R$49<span class="text-lg font-normal text-pencil">/mês</span></p>
+          <p class="text-muted text-sm mb-6">por usuário</p>
+          <ul class="text-pencil text-sm space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Tudo do plano Estudioso
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Biblioteca compartilhada
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Painel administrativo
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <button class="cursor-pointer w-full bg-paper text-ink py-3 font-semibold border border-ink hover:bg-paperLight">Falar com Vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider wrap">
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-ink mb-6" style="font-family:'Source Serif 4',Georgia,serif">Redescubra o prazer<br>da <span class="highlight-mark">leitura profunda.</span></h2>
+      <p class="text-pencil text-lg max-w-lg mx-auto leading-relaxed mb-10">Sem notificações, sem algoritmos, sem pressa. Apenas você e as palavras que importam.</p>
+      <button class="cursor-pointer bg-ink text-paper px-10 py-4 font-semibold text-lg border border-ink hover:bg-pencil">Criar Minha Conta</button>
+    </div>
+  </section>
+
+  <hr class="divider wrap">
+
+  <!-- Footer -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="grid sm:grid-cols-3 gap-8 mb-10">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <svg class="w-6 h-6 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+            <span class="font-semibold text-ink">Papel</span>
+          </div>
+          <p class="text-pencil text-sm leading-relaxed">Tecnologia lenta para leitores que valorizam profundidade e calma.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-ink mb-4 text-sm uppercase tracking-wider">Produto</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Recursos</a></li>
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Preços</a></li>
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-ink mb-4 text-sm uppercase tracking-wider">Empresa</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Sobre</a></li>
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Privacidade</a></li>
+            <li><a class="cursor-pointer text-pencil hover:text-ink">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-border mb-6">
+      <p class="text-muted text-xs text-center">&copy; 2025 Papel. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memphis Design — Criativo Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Space Grotesk', 'sans-serif'], display: ['Archivo Black', 'sans-serif'] },
+          colors: {
+            memphis: { pink: '#FF71CE', yellow: '#FFCE5C', teal: '#86CCCA', purple: '#6A7BB4' },
+            surface: '#FFFDF7', dark: '#1A1A2E', txt: '#1A1A2E', muted: '#555566',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --memphis-pink: #FF71CE; --memphis-yellow: #FFCE5C; --memphis-teal: #86CCCA; --memphis-purple: #6A7BB4; --pattern-size: 20px; --shape-rotation: 15deg; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Space Grotesk', sans-serif; background: #FFFDF7; color: #1A1A2E; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .memphis-bg { background-image: radial-gradient(circle, #1A1A2E 1px, transparent 1px); background-size: var(--pattern-size) var(--pattern-size); }
+    .shape-tri { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+    .shape-zigzag { background: repeating-linear-gradient(90deg, var(--memphis-pink) 0px, var(--memphis-pink) 10px, transparent 10px, transparent 20px); }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(var(--shape-rotation)); } 50% { transform: translateY(-12px) rotate(calc(var(--shape-rotation) + 5deg)); } }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .float { animation: float 4s ease-in-out infinite; }
+    .spin-slow { animation: spin-slow 20s linear infinite; }
+    .card-memphis { background: #fff; border: 3px dashed #1A1A2E; border-radius: 0; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+    .card-memphis:hover { transform: translate(-4px, -4px); box-shadow: 6px 6px 0 #1A1A2E; }
+    @media (prefers-reduced-motion: reduce) { .float, .spin-slow { animation: none; } }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- Decorative floating shapes -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div class="absolute top-20 left-[5%] w-16 h-16 bg-memphis-pink shape-tri float opacity-40" style="--shape-rotation:12deg"></div>
+    <div class="absolute top-40 right-[8%] w-12 h-12 rounded-full border-4 border-dashed border-memphis-yellow float opacity-50" style="animation-delay:.5s"></div>
+    <div class="absolute top-[60%] left-[3%] w-10 h-10 bg-memphis-teal float opacity-30" style="--shape-rotation:-10deg;animation-delay:1s"></div>
+    <div class="absolute bottom-32 right-[12%] w-14 h-14 bg-memphis-purple shape-tri float opacity-35" style="--shape-rotation:25deg;animation-delay:1.5s"></div>
+    <div class="absolute top-[30%] right-[4%] w-20 h-5 shape-zigzag float opacity-30" style="animation-delay:2s"></div>
+    <svg class="absolute bottom-20 left-[15%] w-16 h-16 spin-slow opacity-20" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#6A7BB4" stroke-width="4" stroke-dasharray="12 8"/></svg>
+  </div>
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center py-20 z-10">
+    <div class="wrap w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-block bg-memphis-yellow px-4 py-2 text-sm font-bold uppercase tracking-widest mb-6 border-3 border-b-4 border-r-4 border-dark" style="transform:rotate(-2deg)">Estúdio Criativo</div>
+        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">Design que <span class="relative inline-block"><span class="relative z-10">quebra</span><span class="absolute bottom-1 left-0 w-full h-4 bg-memphis-pink/60 -z-0"></span></span> as regras.</h1>
+        <p class="text-muted text-lg max-w-lg leading-relaxed mb-10">Criamos experiências visuais ousadas, geométricas e cheias de personalidade. Inspirados nos anos 80, projetados para o futuro.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-flex items-center gap-2 px-8 py-4 bg-dark text-white font-bold text-sm uppercase tracking-wider hover:bg-memphis-purple transition-colors duration-200">
+            Começar projeto
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#recursos" class="inline-flex items-center gap-2 px-8 py-4 border-3 border-dark font-bold text-sm uppercase tracking-wider hover:bg-memphis-yellow/30 transition-colors duration-200">Ver serviços</a>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center items-center relative" aria-hidden="true">
+        <svg viewBox="0 0 320 320" class="w-80 h-80">
+          <rect x="40" y="40" width="120" height="120" fill="#FF71CE" transform="rotate(15 100 100)"/>
+          <circle cx="220" cy="100" r="55" fill="#FFCE5C" stroke="#1A1A2E" stroke-width="3"/>
+          <polygon points="160,180 220,300 100,300" fill="#86CCCA" stroke="#1A1A2E" stroke-width="3"/>
+          <rect x="180" y="180" width="90" height="90" fill="none" stroke="#6A7BB4" stroke-width="4" stroke-dasharray="8 6" transform="rotate(-10 225 225)"/>
+          <line x1="30" y1="260" x2="130" y2="240" stroke="#1A1A2E" stroke-width="3" stroke-dasharray="6 4"/>
+          <circle cx="70" cy="200" r="8" fill="#1A1A2E"/><circle cx="90" cy="190" r="5" fill="#1A1A2E"/><circle cx="55" cy="215" r="4" fill="#1A1A2E"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="relative py-20 z-10 memphis-bg">
+    <div class="wrap">
+      <p class="text-center text-sm font-bold uppercase tracking-[0.3em] text-memphis-purple mb-3">Serviços</p>
+      <h2 class="text-center font-display text-3xl md:text-5xl mb-14">O que fazemos de <span class="text-memphis-pink">melhor.</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-memphis p-8">
+          <div class="w-14 h-14 bg-memphis-pink flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="font-bold text-xl mb-2">Identidade Visual</h3>
+          <p class="text-muted text-sm leading-relaxed">Marcas com personalidade forte, cores vibrantes e formas geométricas que ninguém esquece.</p>
+        </div>
+        <div class="card-memphis p-8" style="transform:rotate(1deg)">
+          <div class="w-14 h-14 bg-memphis-yellow flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="font-bold text-xl mb-2">Web Design</h3>
+          <p class="text-muted text-sm leading-relaxed">Sites e landing pages com layouts assimétricos, padrões ousados e interações memoráveis.</p>
+        </div>
+        <div class="card-memphis p-8" style="transform:rotate(-1deg)">
+          <div class="w-14 h-14 bg-memphis-teal flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          <h3 class="font-bold text-xl mb-2">Motion Design</h3>
+          <p class="text-muted text-sm leading-relaxed">Animações e vídeos com estética pós-moderna, squiggles e transições geométricas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="relative py-20 z-10">
+    <div class="wrap">
+      <p class="text-center text-sm font-bold uppercase tracking-[0.3em] text-memphis-teal mb-3">Depoimentos</p>
+      <h2 class="text-center font-display text-3xl md:text-5xl mb-14">Clientes que <span class="text-memphis-yellow">amam</span> ousadia.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-memphis-pink/10 border-l-4 border-memphis-pink p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"Nossa marca ficou irreconhecível — no melhor sentido. As formas geométricas trouxeram uma energia incrível."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-memphis-pink flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-bold">Camila Rocha</p><p class="text-xs text-muted">CEO, Neon Studio</p></div>
+          </div>
+        </div>
+        <div class="bg-memphis-yellow/10 border-l-4 border-memphis-yellow p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-memphis-pink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-pink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-pink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-pink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-pink" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"O site que criaram para nós é pura arte. Cada visitante comenta sobre o visual único e divertido."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-memphis-yellow flex items-center justify-center"><svg class="w-5 h-5 text-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-bold">Lucas Ferreira</p><p class="text-xs text-muted">Diretor, Pulso Digital</p></div>
+          </div>
+        </div>
+        <div class="bg-memphis-teal/10 border-l-4 border-memphis-teal p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-memphis-purple" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-purple" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-purple" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-purple" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-memphis-purple" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">"As animações e padrões Memphis deram vida à nossa campanha. Engajamento subiu 300% nas redes."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-memphis-teal flex items-center justify-center"><svg class="w-5 h-5 text-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-bold">Beatriz Almeida</p><p class="text-xs text-muted">Marketing, Wave Co.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="relative py-20 z-10 memphis-bg">
+    <div class="wrap">
+      <p class="text-center text-sm font-bold uppercase tracking-[0.3em] text-memphis-pink mb-3">Planos</p>
+      <h2 class="text-center font-display text-3xl md:text-5xl mb-4">Escolha seu <span class="text-memphis-purple">nível</span> de ousadia.</h2>
+      <p class="text-center text-muted mb-14 max-w-lg mx-auto">Todos os planos incluem revisões ilimitadas e suporte dedicado.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div class="card-memphis p-8 text-center">
+          <div class="inline-block w-16 h-16 bg-memphis-teal shape-tri mb-6"></div>
+          <p class="font-bold uppercase tracking-widest text-sm mb-4">Básico</p>
+          <p class="font-display text-4xl mb-1">R$ 990<span class="text-base font-sans font-normal text-muted">/projeto</span></p>
+          <p class="text-xs text-muted mb-8">Ideal para startups</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-teal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>1 página de design</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-teal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>3 revisões</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-teal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Entrega em 7 dias</div>
+          </div>
+          <button class="w-full py-3 border-3 border-dark font-bold text-sm uppercase tracking-wider hover:bg-memphis-teal/20 transition-colors duration-200">Escolher</button>
+        </div>
+        <div class="relative card-memphis p-8 text-center border-memphis-pink" style="border-style:solid;border-width:4px">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 bg-memphis-pink text-white text-xs font-bold uppercase tracking-wider">Popular</div>
+          <div class="inline-block w-16 h-16 rounded-full bg-memphis-pink mb-6 mt-2"></div>
+          <p class="font-bold uppercase tracking-widest text-sm mb-4 text-memphis-pink">Pro</p>
+          <p class="font-display text-4xl mb-1">R$ 2.490<span class="text-base font-sans font-normal text-muted">/projeto</span></p>
+          <p class="text-xs text-muted mb-8">Para marcas ambiciosas</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-pink flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Até 5 páginas</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-pink flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Revisões ilimitadas</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-pink flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Motion design incluso</div>
+          </div>
+          <button class="w-full py-3 bg-memphis-pink text-white font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-opacity duration-200">Escolher Pro</button>
+        </div>
+        <div class="card-memphis p-8 text-center">
+          <div class="inline-block w-16 h-16 bg-memphis-purple mb-6" style="transform:rotate(15deg)"></div>
+          <p class="font-bold uppercase tracking-widest text-sm mb-4">Enterprise</p>
+          <p class="font-display text-4xl mb-1">Custom</p>
+          <p class="text-xs text-muted mb-8">Projetos sob medida</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Páginas ilimitadas</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Equipe dedicada</div>
+            <div class="flex items-center gap-3"><svg class="w-4 h-4 text-memphis-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário 24/7</div>
+          </div>
+          <button class="w-full py-3 border-3 border-dark font-bold text-sm uppercase tracking-wider hover:bg-memphis-purple/20 transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-20 z-10">
+    <div class="wrap">
+      <div class="relative p-12 md:p-16 text-center overflow-hidden bg-dark text-white">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-memphis-pink shape-tri opacity-30" style="transform:rotate(20deg)"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-memphis-yellow opacity-20"></div>
+        <div class="absolute top-1/2 right-8 w-16 h-16 border-4 border-dashed border-memphis-teal opacity-30" style="transform:rotate(-15deg)"></div>
+        <div class="relative">
+          <h2 class="font-display text-3xl md:text-5xl mb-4">Pronto para ser <span class="text-memphis-yellow">inesquecível</span>?</h2>
+          <p class="text-white/70 max-w-md mx-auto mb-8">Vamos criar algo que ninguém viu antes. Formas, cores e atitude — tudo junto.</p>
+          <button class="inline-flex items-center gap-2 px-10 py-4 bg-memphis-pink text-white font-bold text-sm uppercase tracking-wider hover:bg-memphis-yellow hover:text-dark transition-colors duration-200">
+            Iniciar projeto agora
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="text-xs text-white/50 mt-4">Resposta em até 24 horas. Sem compromisso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative py-12 border-t-4 border-dashed border-dark z-10">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-7 h-7" viewBox="0 0 28 28"><rect x="2" y="2" width="10" height="10" fill="#FF71CE"/><circle cx="21" cy="7" r="5" fill="#FFCE5C"/><polygon points="7,16 12,26 2,26" fill="#86CCCA"/><rect x="16" y="16" width="10" height="10" fill="none" stroke="#6A7BB4" stroke-width="2" stroke-dasharray="3 2"/></svg>
+          <span class="font-display text-lg">Memphis</span>
+        </div>
+        <p class="text-muted text-xs leading-relaxed">Design ousado e geométrico para marcas que não têm medo de se destacar.</p>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3">Serviços</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Identidade Visual</a></li>
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Web Design</a></li>
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Motion Design</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Sobre nós</a></li>
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Portfólio</a></li>
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold text-xs tracking-widest uppercase mb-3">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-memphis-pink transition-colors duration-200">Termos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-10">&copy; 2025 Memphis Studio. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

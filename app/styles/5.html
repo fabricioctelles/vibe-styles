@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D & Hyperrealism</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Orbitron','sans-serif'], body: ['Inter','sans-serif'] },
+          colors: {
+            navy: '#001F3F', forest: '#228B22', burgundy: '#800020',
+            gold: '#FFD700', silver: '#C0C0C0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#0a0e1a;color:#e2e8f0;overflow-x:hidden}
+    a,button,[role="button"]{cursor:pointer}
+    .perspective{perspective:1000px}
+    .card3d{transform-style:preserve-3d;transition:transform 350ms ease,box-shadow 350ms ease}
+    .card3d:hover{transform:translateZ(30px) rotateX(2deg) rotateY(-3deg)}
+    .shadow-hyper{box-shadow:0 2px 4px rgba(0,31,63,.3),0 8px 16px rgba(0,31,63,.25),0 20px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,215,0,.08)}
+    .shadow-hyper-hover:hover{box-shadow:0 4px 8px rgba(0,31,63,.35),0 16px 32px rgba(0,31,63,.3),0 30px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,215,0,.15)}
+    .grad-navy{background:linear-gradient(135deg,#001F3F 0%,#0a1628 20%,#001F3F 40%,#0d2137 60%,#001a35 80%,#000d1f 100%)}
+    .grad-card{background:linear-gradient(145deg,#0f1b2e 0%,#132744 30%,#0f1b2e 60%,#0a1222 100%)}
+    .grad-gold{background:linear-gradient(135deg,#FFD700 0%,#f0c800 25%,#e6b800 50%,#FFD700 75%,#ffe44d 100%)}
+    .text-gold-shine{background:linear-gradient(90deg,#FFD700,#ffe066,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .parallax-slow{transform:translateZ(-2px) scale(1.4)}
+    .parallax-mid{transform:translateZ(-1px) scale(1.2)}
+    .glow-gold{filter:drop-shadow(0 0 12px rgba(255,215,0,.3))}
+    .border-3d{border:1px solid rgba(255,215,0,.12);border-top-color:rgba(255,215,0,.25);border-bottom-color:rgba(0,0,0,.3)}
+    .btn-3d{background:linear-gradient(180deg,#FFD700 0%,#e6b800 50%,#cc9f00 100%);color:#001F3F;font-weight:700;box-shadow:0 4px 0 #997300,0 6px 12px rgba(0,0,0,.4);transition:all 300ms ease;text-transform:uppercase;letter-spacing:.08em}
+    .btn-3d:hover{transform:translateY(-2px);box-shadow:0 6px 0 #997300,0 10px 20px rgba(0,0,0,.5)}
+    .btn-3d:active{transform:translateY(2px);box-shadow:0 1px 0 #997300,0 2px 4px rgba(0,0,0,.3)}
+    .btn-outline{border:2px solid #FFD700;color:#FFD700;background:transparent;transition:all 300ms ease;box-shadow:0 0 0 transparent}
+    .btn-outline:hover{background:rgba(255,215,0,.1);box-shadow:0 0 20px rgba(255,215,0,.15)}
+    .float-anim{animation:floaty 6s ease-in-out infinite}
+    @keyframes floaty{0%,100%{transform:translateY(0) rotateX(5deg)}50%{transform:translateY(-12px) rotateX(-2deg)}}
+    .shine{position:relative;overflow:hidden}
+    .shine::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,215,0,.06) 50%,transparent 60%);animation:shimmer 4s ease-in-out infinite}
+    @keyframes shimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+    @media(prefers-reduced-motion:reduce){.float-anim,.shine::after,.card3d:hover{animation:none;transform:none}}
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center px-6 py-20 grad-navy overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background:radial-gradient(ellipse at 30% 20%,#228B22 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,#800020 0%,transparent 50%)"></div>
+    <div class="relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-gold font-display text-sm tracking-[.25em] mb-5 uppercase">Experiência Imersiva</p>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-900 leading-tight mb-6">
+          <span class="text-gold-shine">Profundidade</span><br>que você sente.
+        </h1>
+        <p class="text-silver/80 text-lg max-w-md leading-relaxed mb-10 font-body">
+          Interfaces tridimensionais com texturas realistas, iluminação física e detalhes táteis que transformam pixels em experiência.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="btn-3d px-8 py-4 rounded-lg text-sm font-display">Começar Agora</a>
+          <a href="#recursos" class="btn-outline px-8 py-4 rounded-lg text-sm font-display">Explorar</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center perspective">
+        <div class="float-anim" style="transform-style:preserve-3d">
+          <svg viewBox="0 0 320 320" width="300" height="300" class="glow-gold">
+            <defs>
+              <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#e6b800"/><stop offset="100%" stop-color="#001F3F"/></linearGradient>
+              <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#228B22"/><stop offset="100%" stop-color="#001F3F"/></linearGradient>
+              <filter id="s1"><feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#000" flood-opacity=".5"/></filter>
+            </defs>
+            <rect x="30" y="50" width="140" height="140" rx="16" fill="url(#g1)" filter="url(#s1)" transform="rotate(-8 100 120)"/>
+            <rect x="150" y="30" width="130" height="130" rx="16" fill="url(#g2)" filter="url(#s1)" opacity=".85" transform="rotate(5 215 95)"/>
+            <circle cx="120" cy="240" r="55" fill="#800020" filter="url(#s1)" opacity=".8"/>
+            <rect x="190" y="190" width="100" height="100" rx="50" fill="none" stroke="#FFD700" stroke-width="3" filter="url(#s1)" opacity=".6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-gold font-display text-sm tracking-[.25em] mb-3 uppercase text-center">Recursos</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-14">Construído em <span class="text-gold-shine">três dimensões</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective">
+        <div class="card3d shadow-hyper shadow-hyper-hover grad-card border-3d rounded-2xl p-8 shine">
+          <div class="w-12 h-12 rounded-xl grad-gold flex items-center justify-center mb-6" style="box-shadow:0 4px 12px rgba(255,215,0,.3)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#001F3F" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-gold mb-3">Profundidade Real</h3>
+          <p class="text-silver/70 leading-relaxed">Camadas de parallax com perspectiva CSS que criam sensação genuína de espaço tridimensional.</p>
+        </div>
+        <div class="card3d shadow-hyper shadow-hyper-hover grad-card border-3d rounded-2xl p-8 shine">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,#228B22,#1a6b1a);box-shadow:0 4px 12px rgba(34,139,34,.3)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-gold mb-3">Iluminação Física</h3>
+          <p class="text-silver/70 leading-relaxed">Sombras multi-camada e gradientes complexos que simulam fontes de luz realistas na interface.</p>
+        </div>
+        <div class="card3d shadow-hyper shadow-hyper-hover grad-card border-3d rounded-2xl p-8 shine">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,#800020,#5c0017);box-shadow:0 4px 12px rgba(128,0,32,.3)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-gold mb-3">Texturas Táteis</h3>
+          <p class="text-silver/70 leading-relaxed">Elementos skeuomórficos com detalhes que convidam ao toque. Botões que parecem reais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="px-6 py-20 relative" style="background:linear-gradient(180deg,#0a0e1a 0%,#0f1525 50%,#0a0e1a 100%)">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-gold font-display text-sm tracking-[.25em] mb-3 uppercase text-center">Depoimentos</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-14">Quem já <span class="text-gold-shine">mergulhou</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective">
+        <div class="card3d grad-card border-3d rounded-2xl p-8 shadow-hyper">
+          <div class="flex gap-1 mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"A sensação de profundidade é impressionante. Nossos usuários passaram 3x mais tempo navegando após a reformulação."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background:linear-gradient(135deg,#FFD700,#e6b800);color:#001F3F">LC</div>
+            <div><p class="font-semibold text-sm">Lucas Carvalho</p><p class="text-silver/50 text-xs">CTO, Vertex Labs</p></div>
+          </div>
+        </div>
+        <div class="card3d grad-card border-3d rounded-2xl p-8 shadow-hyper">
+          <div class="flex gap-1 mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"Parece que os elementos saltam da tela. A qualidade visual elevou completamente a percepção da nossa marca."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background:linear-gradient(135deg,#228B22,#1a6b1a);color:#fff">AF</div>
+            <div><p class="font-semibold text-sm">Amanda Ferreira</p><p class="text-silver/50 text-xs">Head de Design, Prism</p></div>
+          </div>
+        </div>
+        <div class="card3d grad-card border-3d rounded-2xl p-8 shadow-hyper">
+          <div class="flex gap-1 mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"As sombras e a iluminação dão uma dimensão que nunca vi em web. Conversão subiu 60% no primeiro mês."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background:linear-gradient(135deg,#800020,#5c0017);color:#FFD700">RT</div>
+            <div><p class="font-semibold text-sm">Ricardo Torres</p><p class="text-silver/50 text-xs">CEO, Dimensão Digital</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-gold font-display text-sm tracking-[.25em] mb-3 uppercase text-center">Planos</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-14">Escolha sua <span class="text-gold-shine">dimensão</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective">
+        <div class="card3d grad-card border-3d rounded-2xl p-8 shadow-hyper shadow-hyper-hover">
+          <p class="font-display text-sm text-silver/60 tracking-[.2em] uppercase mb-4">Básico</p>
+          <p class="font-display text-4xl font-bold text-white mb-1">R$ 97<span class="text-lg font-normal text-silver/50">/mês</span></p>
+          <p class="text-silver/50 text-sm mb-8">Ideal para começar</p>
+          <ul class="space-y-3 mb-10 text-sm text-silver/70">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Efeitos 3D básicos</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+          </ul>
+          <a href="#" class="btn-outline block text-center py-3 rounded-lg text-sm font-display">Escolher</a>
+        </div>
+        <div class="card3d rounded-2xl p-8 relative overflow-hidden" style="background:linear-gradient(145deg,#001F3F 0%,#0d2a4a 30%,#001F3F 60%,#001a35 100%);border:2px solid rgba(255,215,0,.35);box-shadow:0 2px 4px rgba(255,215,0,.15),0 8px 24px rgba(0,31,63,.4),0 24px 48px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,215,0,.2)">
+          <div class="absolute top-4 right-4 grad-gold text-navy text-xs font-display font-bold px-3 py-1 rounded-full" style="box-shadow:0 2px 8px rgba(255,215,0,.4)">Popular</div>
+          <p class="font-display text-sm text-gold tracking-[.2em] uppercase mb-4">Profissional</p>
+          <p class="font-display text-4xl font-bold text-white mb-1">R$ 247<span class="text-lg font-normal text-silver/50">/mês</span></p>
+          <p class="text-silver/50 text-sm mb-8">Para equipes ambiciosas</p>
+          <ul class="space-y-3 mb-10 text-sm text-silver/70">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Efeitos 3D avançados</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Texturas premium</li>
+          </ul>
+          <a href="#" class="btn-3d block text-center py-3 rounded-lg text-sm font-display">Escolher</a>
+        </div>
+        <div class="card3d grad-card border-3d rounded-2xl p-8 shadow-hyper shadow-hyper-hover">
+          <p class="font-display text-sm text-silver/60 tracking-[.2em] uppercase mb-4">Empresa</p>
+          <p class="font-display text-4xl font-bold text-white mb-1">R$ 597<span class="text-lg font-normal text-silver/50">/mês</span></p>
+          <p class="text-silver/50 text-sm mb-8">Escala sem limites</p>
+          <ul class="space-y-3 mb-10 text-sm text-silver/70">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA garantido</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#228B22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API de integração</li>
+          </ul>
+          <a href="#" class="btn-outline block text-center py-3 rounded-lg text-sm font-display">Escolher</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-6 py-24 relative overflow-hidden" style="background:linear-gradient(135deg,#001F3F 0%,#0a1628 25%,#0f1b2e 50%,#001F3F 75%,#000d1f 100%)">
+    <div class="absolute inset-0 opacity-15" style="background:radial-gradient(circle at 50% 50%,#FFD700 0%,transparent 60%)"></div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Pronto para a <span class="text-gold-shine">imersão total</span>?</h2>
+      <p class="text-silver/70 text-lg mb-10 max-w-lg mx-auto">Transforme sua presença digital em uma experiência tridimensional que seus usuários nunca vão esquecer.</p>
+      <a href="#" class="btn-3d inline-block px-12 py-4 rounded-lg text-sm font-display">Começar Gratuitamente</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-12" style="border-top:1px solid rgba(255,215,0,.12)">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <p class="font-display text-lg font-bold text-gold mb-4">Hyper3D</p>
+        <p class="text-silver/50 leading-relaxed">Interfaces imersivas<br>desde 2024.</p>
+      </div>
+      <div>
+        <p class="font-display text-xs uppercase tracking-[.2em] text-silver/40 mb-4">Produto</p>
+        <ul class="space-y-2 text-silver/60">
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Recursos</a></li>
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Preços</a></li>
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-xs uppercase tracking-[.2em] text-silver/40 mb-4">Empresa</p>
+        <ul class="space-y-2 text-silver/60">
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Sobre</a></li>
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Blog</a></li>
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-display text-xs uppercase tracking-[.2em] text-silver/40 mb-4">Legal</p>
+        <ul class="space-y-2 text-silver/60">
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Privacidade</a></li>
+          <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-10 pt-6 text-center" style="border-top:1px solid rgba(192,192,192,.1)">
+      <p class="text-silver/30 text-xs">&copy; 2024 Hyper3D. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

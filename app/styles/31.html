@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Monitoring — Live Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          colors: {
+            bg: '#0B1120', surface: '#111827', border: '#1E293B',
+            critical: '#DC2626', warning: '#FFA500', normal: '#22C55E', updating: '#3B82F6',
+            txt: '#F1F5F9', muted: '#94A3B8'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family:'Inter',sans-serif; background:#0B1120; color:#F1F5F9; }
+    a,button,[role="button"],.clickable { cursor:pointer; }
+    .wrap { max-width:1120px; margin:0 auto; padding:0 1.5rem; }
+    @keyframes pulse-live { 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(34,197,94,.7); } 70%{ opacity:.8; box-shadow:0 0 0 8px rgba(34,197,94,0); } }
+    @keyframes pulse-critical { 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(220,38,38,.7); } 70%{ opacity:.8; box-shadow:0 0 0 10px rgba(220,38,38,0); } }
+    @keyframes stream { 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+    @keyframes fade-in-up { from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
+    .dot-live { width:10px; height:10px; border-radius:50%; background:#22C55E; animation:pulse-live 2s infinite; }
+    .dot-critical { width:10px; height:10px; border-radius:50%; background:#DC2626; animation:pulse-critical 1.5s infinite; }
+    .dot-warning { width:10px; height:10px; border-radius:50%; background:#FFA500; }
+    .card { background:#111827; border:1px solid #1E293B; border-radius:12px; transition:border-color .2s,box-shadow .2s; }
+    .card:hover { border-color:#3B82F6; box-shadow:0 0 20px rgba(59,130,246,.1); }
+    .chart-line { stroke-dasharray:600; stroke-dashoffset:600; animation:draw 2s ease forwards; }
+    @keyframes draw { to{ stroke-dashoffset:0; } }
+    .stream-bar { animation:stream 8s linear infinite; }
+    @media(prefers-reduced-motion:reduce){ .dot-live,.dot-critical{ animation:none; } .chart-line{ animation:none; stroke-dashoffset:0; } .stream-bar{ animation:none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(#3B82F6 1px,transparent 1px);background-size:32px 32px"></div>
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+      <div>
+        <div class="flex items-center gap-2 mb-6"><span class="dot-live"></span><span class="text-normal font-mono text-xs tracking-wider uppercase">Sistema Online</span></div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Monitoramento em <span class="text-updating">tempo real.</span></h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">Dashboards ao vivo com alertas inteligentes, indicadores de status e visualização de dados em streaming contínuo.</p>
+        <a href="#precos" class="inline-flex items-center gap-2 bg-updating hover:bg-blue-600 text-white px-8 py-4 rounded-lg text-sm font-semibold tracking-wide transition-colors duration-200">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Começar agora
+        </a>
+      </div>
+      <div class="hidden md:block">
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs text-muted">CPU / Memória / Rede</span>
+            <div class="flex items-center gap-1.5"><span class="dot-live"></span><span class="text-xs text-normal font-mono">LIVE</span></div>
+          </div>
+          <svg viewBox="0 0 320 100" class="w-full h-24">
+            <polyline class="chart-line" points="0,80 30,60 60,70 90,30 120,50 150,20 180,45 210,25 240,55 270,15 300,40 320,30" fill="none" stroke="#22C55E" stroke-width="2"/>
+            <polyline class="chart-line" points="0,90 30,75 60,85 90,60 120,70 150,55 180,65 210,50 240,72 270,45 300,60 320,55" fill="none" stroke="#3B82F6" stroke-width="2" style="animation-delay:.3s"/>
+            <polyline class="chart-line" points="0,70 30,85 60,55 90,75 120,40 150,65 180,35 210,60 240,30 270,70 300,50 320,45" fill="none" stroke="#FFA500" stroke-width="1.5" stroke-dasharray="4 4" style="animation-delay:.6s"/>
+          </svg>
+          <div class="grid grid-cols-3 gap-3 mt-4">
+            <div class="bg-bg rounded-lg p-3 text-center"><p class="font-mono text-normal text-lg font-bold">42%</p><p class="text-[10px] text-muted">CPU</p></div>
+            <div class="bg-bg rounded-lg p-3 text-center"><p class="font-mono text-updating text-lg font-bold">6.2 GB</p><p class="text-[10px] text-muted">RAM</p></div>
+            <div class="bg-bg rounded-lg p-3 text-center"><p class="font-mono text-warning text-lg font-bold">87 ms</p><p class="text-[10px] text-muted">Latência</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-updating text-sm font-mono tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Visibilidade total do sistema.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-lg bg-normal/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-normal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Streaming ao Vivo</h3>
+          <p class="text-muted text-sm leading-relaxed">Dados fluem em tempo real com gráficos animados e atualização contínua sem refresh manual.</p>
+        </div>
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-lg bg-critical/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-critical" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Alertas Críticos</h3>
+          <p class="text-muted text-sm leading-relaxed">Notificações instantâneas com prioridade visual — alertas pulsantes que exigem atenção imediata.</p>
+        </div>
+        <div class="card p-8">
+          <div class="w-12 h-12 rounded-lg bg-updating/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-updating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Status em Tempo Real</h3>
+          <p class="text-muted text-sm leading-relaxed">Indicadores de conexão, saúde do sistema e auto-refresh com feedback visual constante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-updating text-sm font-mono tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Confiança de quem monitora.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8">
+          <div class="flex items-center gap-2 mb-4"><span class="dot-live"></span><span class="text-xs text-normal font-mono">Uptime 99.99%</span></div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"Reduzimos o tempo de resposta a incidentes em 80%. Os alertas pulsantes são impossíveis de ignorar."</p>
+          <div class="flex items-center gap-3 border-t border-border pt-4">
+            <div class="w-9 h-9 rounded-full bg-updating/20 flex items-center justify-center"><svg class="w-4 h-4 text-updating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">Rafael Mendes</p><p class="text-xs text-muted">SRE Lead, CloudBR</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex items-center gap-2 mb-4"><span class="dot-warning"></span><span class="text-xs text-warning font-mono">3 alertas/mês</span></div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"O dashboard ao vivo nos deu visibilidade que nunca tivemos. Agora prevenimos problemas antes de acontecerem."</p>
+          <div class="flex items-center gap-3 border-t border-border pt-4">
+            <div class="w-9 h-9 rounded-full bg-warning/20 flex items-center justify-center"><svg class="w-4 h-4 text-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">Juliana Costa</p><p class="text-xs text-muted">CTO, DataPulse</p></div>
+          </div>
+        </div>
+        <div class="card p-8">
+          <div class="flex items-center gap-2 mb-4"><span class="dot-live"></span><span class="text-xs text-normal font-mono">24/7 Online</span></div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"A visualização streaming é hipnotizante e funcional. Nossa equipe de NOC não desgruda da tela."</p>
+          <div class="flex items-center gap-3 border-t border-border pt-4">
+            <div class="w-9 h-9 rounded-full bg-normal/20 flex items-center justify-center"><svg class="w-4 h-4 text-normal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">André Oliveira</p><p class="text-xs text-muted">DevOps, Infra+</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-updating text-sm font-mono tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Monitore sem limites.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-8 text-center">
+          <div class="flex items-center justify-center gap-2 mb-6"><span class="dot-live"></span><span class="font-mono text-xs text-normal">STARTER</span></div>
+          <p class="text-4xl font-bold font-mono mb-1">R$ 99<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Até 5 servidores</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 dashboards</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Alertas por e-mail</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Retenção 7 dias</div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-border text-sm font-semibold hover:border-updating hover:text-updating transition-colors duration-200">Começar grátis</button>
+        </div>
+        <div class="card p-8 text-center relative border-updating" style="box-shadow:0 0 30px rgba(59,130,246,.15)">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-updating text-white text-xs font-bold px-4 py-1 rounded-full">Popular</div>
+          <div class="flex items-center justify-center gap-2 mb-6 mt-2"><span class="dot-live"></span><span class="font-mono text-xs text-normal">PRO</span></div>
+          <p class="text-4xl font-bold font-mono mb-1">R$ 299<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Até 50 servidores</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-updating flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dashboards ilimitados</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-updating flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Alertas SMS + Slack</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-updating flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Retenção 90 dias</div>
+          </div>
+          <button class="w-full py-3 rounded-lg bg-updating hover:bg-blue-600 text-white text-sm font-semibold transition-colors duration-200">Escolher Pro</button>
+        </div>
+        <div class="card p-8 text-center">
+          <div class="flex items-center justify-center gap-2 mb-6"><span class="dot-live"></span><span class="font-mono text-xs text-normal">ENTERPRISE</span></div>
+          <p class="text-4xl font-bold font-mono mb-1">Custom</p>
+          <p class="text-xs text-muted mb-8">Infraestrutura ilimitada</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SSO + RBAC</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99%</div>
+            <div class="flex items-center gap-3 bg-bg rounded-lg px-4 py-3"><svg class="w-4 h-4 text-normal flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte dedicado 24/7</div>
+          </div>
+          <button class="w-full py-3 rounded-lg border border-border text-sm font-semibold hover:border-updating hover:text-updating transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="card p-12 md:p-16 text-center relative overflow-hidden">
+        <div class="absolute top-4 right-4 flex items-center gap-2"><span class="dot-critical"></span><span class="font-mono text-xs text-critical">ALERTA ATIVO</span></div>
+        <div class="absolute top-4 left-4 flex items-center gap-2"><span class="dot-live"></span><span class="font-mono text-xs text-normal">CONECTADO</span></div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 mt-4">Nunca mais perca um incidente.</h2>
+        <p class="text-muted max-w-lg mx-auto mb-8">Comece a monitorar sua infraestrutura em minutos. Setup zero, dados em tempo real desde o primeiro segundo.</p>
+        <button class="inline-flex items-center gap-2 bg-updating hover:bg-blue-600 text-white px-10 py-4 rounded-lg text-sm font-semibold transition-colors duration-200">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Ativar monitoramento
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-border">
+    <div class="wrap grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-updating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span class="font-bold text-lg">Pulse</span>
+        </div>
+        <p class="text-muted text-xs leading-relaxed">Monitoramento em tempo real<br>para infraestrutura moderna.</p>
+        <div class="flex items-center gap-2 mt-3"><span class="dot-live"></span><span class="font-mono text-[10px] text-normal">Todos os sistemas operacionais</span></div>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Produto</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Integrações</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Status</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3 text-muted">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Termos</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">SLA</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-8 wrap">&copy; 2024 Pulse. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

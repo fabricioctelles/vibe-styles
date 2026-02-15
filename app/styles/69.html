@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Deco / Golden Age</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Playfair Display', 'serif'], body: ['Cormorant Garamond', 'serif'] },
+          colors: {
+            gold: '#D4AF37', cream: '#F2E6CF', navy: '#0A0E27', dark: '#050507',
+            bronze: '#8C7348', teal: '#2B3A42', silver: '#4A4A4A',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', serif; background: #050507; color: #F2E6CF; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .gold-border { border: 1px solid #D4AF37; }
+    .gold-glow { box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+    .gold-text { background: linear-gradient(135deg, #D4AF37, #F2E6CF, #D4AF37); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+    .ornament-frame { border: 1px solid #D4AF37; position: relative; }
+    .ornament-frame::before, .ornament-frame::after {
+      content: ''; position: absolute; width: 20px; height: 20px; border-color: #D4AF37;
+    }
+    .ornament-frame::before { top: -1px; left: -1px; border-top: 2px solid #D4AF37; border-left: 2px solid #D4AF37; }
+    .ornament-frame::after { bottom: -1px; right: -1px; border-bottom: 2px solid #D4AF37; border-right: 2px solid #D4AF37; }
+    .deco-divider { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 2rem 0; }
+    .deco-divider .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); }
+    .shimmer { animation: shimmer 3s ease-in-out infinite; }
+    @keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .geo-pattern {
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212,175,55,0.05) 10px, rgba(212,175,55,0.05) 20px),
+        repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,175,55,0.05) 10px, rgba(212,175,55,0.05) 20px);
+    }
+    .card-hover { transition: all 300ms ease; }
+    .card-hover:hover { box-shadow: 0 0 30px rgba(212,175,55,0.4); transform: translateY(-4px); }
+    .sunburst { background: radial-gradient(ellipse at center, rgba(212,175,55,0.15) 0%, transparent 70%); }
+    .fan-clip { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+    @media (prefers-reduced-motion: reduce) { .shimmer { animation: none; } .card-hover:hover { transform: none; } }
+  </style>
+</head>
+<body class="min-h-screen geo-pattern">
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden py-24 md:py-32 text-center">
+    <div class="absolute inset-0 sunburst"></div>
+    <div class="wrap relative z-10">
+      <div class="deco-divider">
+        <span class="line"></span>
+        <svg class="w-8 h-8 text-gold shimmer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>
+        <span class="line"></span>
+      </div>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold tracking-wide gold-text shimmer mb-6">A Era Dourada</h1>
+      <p class="font-body text-xl md:text-2xl text-cream/80 max-w-2xl mx-auto mb-4">Elegância atemporal encontra design moderno. Descubra o luxo dos anos 1920 reimaginado para o mundo digital.</p>
+      <div class="deco-divider">
+        <span class="line"></span>
+        <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z"/></svg>
+        <span class="line"></span>
+      </div>
+      <a href="#pricing" class="inline-block mt-8 px-10 py-4 gold-border gold-glow text-gold font-serif text-lg tracking-widest uppercase card-hover cursor-pointer hover:bg-gold/10">Explorar Agora</a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <h2 class="font-serif text-3xl md:text-4xl text-center gold-text mb-4">Nossos Serviços</h2>
+      <div class="deco-divider mb-12">
+        <span class="line"></span>
+        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="1" transform="rotate(45 12 12)"/></svg>
+        <span class="line"></span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="ornament-frame p-8 text-center card-hover cursor-pointer bg-navy/40">
+          <svg class="w-12 h-12 mx-auto mb-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z"/><path d="M12 12L20 7.5"/><path d="M12 12V21"/><path d="M12 12L4 7.5"/></svg>
+          <h3 class="font-serif text-xl text-gold mb-3">Design Geométrico</h3>
+          <p class="text-cream/70 font-body text-lg">Padrões simétricos e formas geométricas que capturam a essência do Art Deco com precisão artesanal.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="ornament-frame p-8 text-center card-hover cursor-pointer bg-navy/40">
+          <svg class="w-12 h-12 mx-auto mb-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <h3 class="font-serif text-xl text-gold mb-3">Brilho Dourado</h3>
+          <p class="text-cream/70 font-body text-lg">Acentos metálicos e gradientes dourados que trazem opulência e sofisticação a cada detalhe.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="ornament-frame p-8 text-center card-hover cursor-pointer bg-navy/40">
+          <svg class="w-12 h-12 mx-auto mb-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          <h3 class="font-serif text-xl text-gold mb-3">Tipografia Clássica</h3>
+          <p class="text-cream/70 font-body text-lg">Fontes serifadas elegantes que evocam a grandiosidade da era Gatsby com legibilidade moderna.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 relative">
+    <div class="absolute inset-0 sunburst opacity-50"></div>
+    <div class="wrap relative z-10">
+      <h2 class="font-serif text-3xl md:text-4xl text-center gold-text mb-4">Depoimentos</h2>
+      <div class="deco-divider mb-12">
+        <span class="line"></span>
+        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="1" transform="rotate(45 12 12)"/></svg>
+        <span class="line"></span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="ornament-frame p-8 bg-navy/40 card-hover">
+          <svg class="w-8 h-8 text-gold/60 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7H7a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2H4"/><path d="M21 7h-4a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2h-1" opacity="0.6"/></svg>
+          <p class="text-cream/80 font-body text-lg italic mb-6">A experiência foi absolutamente magnífica. Cada detalhe transmite a sofisticação e o luxo que esperávamos.</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full gold-border flex items-center justify-center text-gold font-serif text-sm">MR</div>
+            <div><p class="text-gold font-serif text-sm">Marina Rodrigues</p><p class="text-cream/50 text-xs">Diretora Criativa</p></div>
+          </div>
+        </div>
+        <div class="ornament-frame p-8 bg-navy/40 card-hover">
+          <svg class="w-8 h-8 text-gold/60 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7H7a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2H4"/><path d="M21 7h-4a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2h-1" opacity="0.6"/></svg>
+          <p class="text-cream/80 font-body text-lg italic mb-6">Um trabalho impecável que captura perfeitamente a elegância atemporal. Superou todas as nossas expectativas.</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full gold-border flex items-center justify-center text-gold font-serif text-sm">CA</div>
+            <div><p class="text-gold font-serif text-sm">Carlos Almeida</p><p class="text-cream/50 text-xs">CEO, Luxe Corp</p></div>
+          </div>
+        </div>
+        <div class="ornament-frame p-8 bg-navy/40 card-hover">
+          <svg class="w-8 h-8 text-gold/60 mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7H7a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2H4"/><path d="M21 7h-4a4 4 0 00-4 4v0a2 2 0 002 2h2a2 2 0 012 2v1a2 2 0 01-2 2h-1" opacity="0.6"/></svg>
+          <p class="text-cream/80 font-body text-lg italic mb-6">A atenção aos detalhes geométricos e os acentos dourados criaram uma identidade visual verdadeiramente única.</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full gold-border flex items-center justify-center text-gold font-serif text-sm">BF</div>
+            <div><p class="text-gold font-serif text-sm">Beatriz Ferreira</p><p class="text-cream/50 text-xs">Arquiteta de Interiores</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="py-20">
+    <div class="wrap">
+      <h2 class="font-serif text-3xl md:text-4xl text-center gold-text mb-4">Planos Exclusivos</h2>
+      <div class="deco-divider mb-12">
+        <span class="line"></span>
+        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="1" transform="rotate(45 12 12)"/></svg>
+        <span class="line"></span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Tier 1 -->
+        <div class="ornament-frame p-8 text-center bg-navy/40 card-hover">
+          <p class="font-serif text-sm tracking-[0.3em] uppercase text-gold/70 mb-2">Clássico</p>
+          <p class="font-serif text-5xl text-gold mb-1">R$97</p>
+          <p class="text-cream/50 text-sm mb-6">/mês</p>
+          <ul class="space-y-3 text-cream/70 font-body text-lg mb-8 text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Design responsivo</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 páginas incluídas</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+          </ul>
+          <button class="w-full py-3 gold-border text-gold font-serif tracking-widest uppercase text-sm card-hover cursor-pointer hover:bg-gold/10">Começar</button>
+        </div>
+        <!-- Tier 2 (Featured) -->
+        <div class="ornament-frame p-8 text-center bg-navy/60 card-hover gold-glow relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1 bg-gold text-dark font-serif text-xs tracking-[0.2em] uppercase">Popular</div>
+          <p class="font-serif text-sm tracking-[0.3em] uppercase text-gold/70 mb-2 mt-2">Gatsby</p>
+          <p class="font-serif text-5xl text-gold mb-1">R$197</p>
+          <p class="text-cream/50 text-sm mb-6">/mês</p>
+          <ul class="space-y-3 text-cream/70 font-body text-lg mb-8 text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Design premium Art Deco</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 páginas incluídas</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário 24/7</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Animações personalizadas</li>
+          </ul>
+          <button class="w-full py-3 bg-gold text-dark font-serif tracking-widest uppercase text-sm card-hover cursor-pointer hover:bg-gold/90 font-bold">Escolher Gatsby</button>
+        </div>
+        <!-- Tier 3 -->
+        <div class="ornament-frame p-8 text-center bg-navy/40 card-hover">
+          <p class="font-serif text-sm tracking-[0.3em] uppercase text-gold/70 mb-2">Opulência</p>
+          <p class="font-serif text-5xl text-gold mb-1">R$397</p>
+          <p class="text-cream/50 text-sm mb-6">/mês</p>
+          <ul class="space-y-3 text-cream/70 font-body text-lg mb-8 text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do plano Gatsby</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Páginas ilimitadas</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Consultoria de design</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Identidade visual completa</li>
+          </ul>
+          <button class="w-full py-3 gold-border text-gold font-serif tracking-widest uppercase text-sm card-hover cursor-pointer hover:bg-gold/10">Começar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 sunburst"></div>
+    <div class="wrap relative z-10 text-center">
+      <div class="ornament-frame max-w-2xl mx-auto p-12 bg-navy/50">
+        <svg class="w-10 h-10 mx-auto mb-6 text-gold shimmer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>
+        <h2 class="font-serif text-3xl md:text-4xl gold-text mb-4">Pronto Para o Luxo?</h2>
+        <p class="text-cream/70 font-body text-xl mb-8">Transforme sua presença digital com a elegância e sofisticação da era dourada. Comece sua jornada hoje.</p>
+        <a href="#" class="inline-block px-12 py-4 bg-gold text-dark font-serif text-lg tracking-widest uppercase card-hover cursor-pointer hover:bg-gold/90 font-bold">Iniciar Projeto</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-gold/20">
+    <div class="wrap">
+      <div class="deco-divider mb-8">
+        <span class="line"></span>
+        <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z"/></svg>
+        <span class="line"></span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 text-center md:text-left mb-8">
+        <div>
+          <h4 class="font-serif text-gold text-lg mb-3">A Era Dourada</h4>
+          <p class="text-cream/50 font-body">Design Art Deco para o mundo moderno. Elegância, simetria e luxo em cada pixel.</p>
+        </div>
+        <div>
+          <h4 class="font-serif text-gold text-lg mb-3">Links</h4>
+          <ul class="space-y-2 text-cream/50 font-body">
+            <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Sobre Nós</a></li>
+            <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Portfólio</a></li>
+            <li><a href="#" class="hover:text-gold transition-colors duration-300 cursor-pointer">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-gold text-lg mb-3">Contato</h4>
+          <ul class="space-y-2 text-cream/50 font-body">
+            <li class="flex items-center justify-center md:justify-start gap-2"><svg class="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>[email]</li>
+            <li class="flex items-center justify-center md:justify-start gap-2"><svg class="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>[phone_number]</li>
+          </ul>
+        </div>
+      </div>
+      <div class="deco-divider">
+        <span class="line"></span>
+        <svg class="w-4 h-4 text-gold/50" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="1" transform="rotate(45 12 12)"/></svg>
+        <span class="line"></span>
+      </div>
+      <p class="text-center text-cream/30 text-sm font-body mt-4">&copy; 2024 A Era Dourada. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

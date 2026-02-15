@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode (OLED)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            oled: '#000000', dark: '#121212', midnight: '#0A0E27',
+            neon: { green: '#39FF14', blue: '#0080FF', gold: '#FFD700', purple: '#BF00FF' },
+            txt: '#FFFFFF', muted: '#9CA3AF',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #000; color: #FFF; color-scheme: dark; }
+    a, button, [role="button"] { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .glow-g { text-shadow: 0 0 10px #39FF14, 0 0 30px rgba(57,255,20,.3); }
+    .glow-b { text-shadow: 0 0 10px #0080FF, 0 0 30px rgba(0,128,255,.3); }
+    .glow-d { text-shadow: 0 0 10px #FFD700, 0 0 30px rgba(255,215,0,.3); }
+    .glow-p { text-shadow: 0 0 10px #BF00FF, 0 0 30px rgba(191,0,255,.3); }
+    .cd { background: #121212; border: 1px solid rgba(255,255,255,.06); border-radius: 12px; transition: border-color .2s, box-shadow .2s; }
+    .cd:hover { border-color: rgba(0,128,255,.3); box-shadow: 0 0 20px rgba(0,128,255,.08); }
+    .bn { background: #0080FF; color: #FFF; border: none; border-radius: 8px; font-weight: 600; transition: box-shadow .2s, transform .15s; }
+    .bn:hover { box-shadow: 0 0 20px rgba(0,128,255,.5); }
+    .bn:active { transform: scale(.97); }
+    .bo { background: transparent; border: 1px solid rgba(255,255,255,.15); color: #FFF; border-radius: 8px; font-weight: 500; transition: border-color .2s, box-shadow .2s; }
+    .bo:hover { border-color: #39FF14; box-shadow: 0 0 15px rgba(57,255,20,.15); }
+    .dv { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); }
+    .ri { background: rgba(255,255,255,.03); }
+    @media (prefers-reduced-motion: reduce) { .bn, .bo, .cd { transition: none; } .bn:active { transform: none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-20 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(0,128,255,.08) 0%,transparent 70%)"></div>
+    <div class="wrap w-full text-center relative z-10">
+      <p class="text-sm tracking-widest uppercase mb-5 text-neon-blue glow-b">OLED Optimized</p>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">Escuridão que<br><span class="text-neon-blue glow-b">ilumina ideias.</span></h1>
+      <p class="text-muted text-lg max-w-xl mx-auto leading-relaxed mb-10">Interface otimizada para telas OLED. Preto absoluto, acentos vibrantes e conforto visual máximo — dia e noite.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#precos" class="bn px-8 py-4 text-sm tracking-wide inline-block">Começar agora</a>
+        <a href="#recursos" class="bo px-8 py-4 text-sm tracking-wide inline-block">Ver recursos</a>
+      </div>
+    </div>
+  </section>
+  <div class="dv"></div>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3 text-neon-green glow-g">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Projetado para o escuro.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="cd p-8">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-5" style="background:rgba(57,255,20,.1)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Economia de Energia</h3>
+          <p class="text-muted text-sm leading-relaxed">Pixels desligados em telas OLED. Preto puro #000 reduz consumo em até 60%.</p>
+        </div>
+        <div class="cd p-8">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-5" style="background:rgba(0,128,255,.1)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2m-9-11h2m18 0h2m-3.64-6.36l-1.42 1.42M6.06 17.94l-1.42 1.42m0-12.72l1.42 1.42m11.88 11.88l1.42 1.42"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Conforto Visual</h3>
+          <p class="text-muted text-sm leading-relaxed">Emissão mínima de luz branca. Contraste 7:1+ para leitura sem fadiga ocular.</p>
+        </div>
+        <div class="cd p-8">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-5" style="background:rgba(191,0,255,.1)">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Alto Contraste</h3>
+          <p class="text-muted text-sm leading-relaxed">Acentos neon sobre preto absoluto. Cada elemento se destaca com clareza total.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="dv"></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3 text-neon-gold glow-d">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Quem já mergulhou no escuro.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="cd p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"Meus olhos agradecem. Trabalho 12h por dia e desde que migrei para o dark OLED, a fadiga sumiu."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(57,255,20,.1)">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Rafael Mendes</p><p class="text-xs text-muted">Dev Full Stack, NightCode</p></div>
+          </div>
+        </div>
+        <div class="cd p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"A bateria do meu celular dura quase o dobro. O preto puro OLED faz diferença real no dia a dia."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(0,128,255,.1)">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Juliana Costa</p><p class="text-xs text-muted">UX Lead, Vortex Labs</p></div>
+          </div>
+        </div>
+        <div class="cd p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FFD700"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"Os acentos neon sobre preto puro são hipnotizantes. Nossos usuários ficam mais tempo na plataforma."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(191,0,255,.1)">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Lucas Ferreira</p><p class="text-xs text-muted">CEO, Nebula Stream</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="dv"></div>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-sm tracking-widest uppercase mb-3 text-neon-purple glow-p">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Escolha sua intensidade.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="cd p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-bold mb-1">R$ 49<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para projetos pessoais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Temas básicos
+            </div>
+          </div>
+          <button class="bo w-full py-3 text-sm tracking-wide">Começar grátis</button>
+        </div>
+        <div class="p-8 text-center relative rounded-xl" style="background:#121212;border:1px solid rgba(0,128,255,.4);box-shadow:0 0 30px rgba(0,128,255,.1)">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold tracking-wide bg-neon-blue text-white">Popular</div>
+          <p class="text-neon-blue text-sm tracking-widest uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-bold mb-1">R$ 149<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes em crescimento</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg" style="background:rgba(0,128,255,.06)">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg" style="background:rgba(0,128,255,.06)">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg" style="background:rgba(0,128,255,.06)">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Todos os temas + neon
+            </div>
+          </div>
+          <button class="bn w-full py-3 text-sm tracking-wide">Escolher Pro</button>
+        </div>
+        <div class="cd p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-bold mb-1">R$ 399<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para operações em escala</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg ri">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9% garantido
+            </div>
+          </div>
+          <button class="bo w-full py-3 text-sm tracking-wide">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="dv"></div>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <div class="p-12 md:p-16 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#0A0E27,#121212);border:1px solid rgba(0,128,255,.15)">
+        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 30% 50%,rgba(191,0,255,.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(0,128,255,.08) 0%,transparent 50%)"></div>
+        <div class="relative z-10">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Abrace a escuridão.</h2>
+          <p class="text-muted max-w-md mx-auto mb-8">Seus olhos, sua bateria e seus usuários vão agradecer. Comece com o modo escuro definitivo.</p>
+          <button class="bn px-10 py-4 text-sm tracking-wide">Ativar modo escuro</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="cd p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <p class="font-bold text-lg mb-3 text-neon-blue glow-b">OLED.</p>
+          <p class="text-muted text-xs leading-relaxed">Interfaces escuras<br>desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Recursos</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Sobre</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-xs mt-8">&copy; 2024 OLED. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

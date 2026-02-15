@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storytelling-Driven</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: {
+      fontFamily: { narrative: ['Playfair Display','serif'], body: ['Inter','sans-serif'] },
+      colors: { warm:'#B45309', ember:'#DC2626', calm:'#0D9488', success:'#16A34A', accent:'#7C3AED', dawn:'#FEF3C7', dusk:'#1E1B4B' }
+    }}}
+  </script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;color:#1E293B;overflow-x:hidden}
+    a,button,.card{cursor:pointer}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+    .chapter{min-height:100vh;display:flex;align-items:center;scroll-snap-align:start;position:relative;overflow:hidden}
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal.visible:nth-child(2){transition-delay:.12s}
+    .reveal.visible:nth-child(3){transition-delay:.24s}
+    .card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);transition:transform .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+    .tl-dot{width:16px;height:16px;border-radius:50%;border:3px solid #7C3AED;background:#fff;flex-shrink:0}
+    .skip-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;background:rgba(30,27,75,.8);color:#fff;padding:.5rem 1rem;border-radius:999px;font-size:.75rem;backdrop-filter:blur(8px);transition:opacity .3s}
+    .parallax-bg{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .float{animation:float 4s ease-in-out infinite}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    .hero-anim{opacity:0;transform:translateY(30px);animation:fadeUp .8s ease forwards}
+    .hero-anim:nth-child(2){animation-delay:.2s}.hero-anim:nth-child(3){animation-delay:.4s}.hero-anim:nth-child(4){animation-delay:.6s}
+    @media(prefers-reduced-motion:reduce){.float{animation:none}.hero-anim,.reveal{animation:none;opacity:1;transform:none;transition:none}}
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- SKIP BUTTON -->
+<a href="#footer" class="skip-btn" id="skipBtn">Pular para o final <svg class="w-3 h-3 inline ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></a>
+
+<!-- CHAPTER 1: HERO — The Beginning -->
+<section class="chapter bg-gradient-to-br from-dusk via-indigo-900 to-purple-900 text-white">
+  <div class="parallax-bg opacity-20" style="background:radial-gradient(circle at 30% 40%,#7C3AED 0%,transparent 50%),radial-gradient(circle at 70% 60%,#DC2626 0%,transparent 50%)"></div>
+  <div class="wrap relative z-10 py-20 text-center">
+    <p class="hero-anim text-accent/80 font-narrative text-sm tracking-[.3em] uppercase mb-4">Capítulo 1 — O Começo</p>
+    <h1 class="hero-anim font-narrative text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">Toda grande mudança<br>começa com uma história.</h1>
+    <p class="hero-anim text-indigo-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">Nascemos da frustração de ver empresas perderem tempo com ferramentas que não entendem suas necessidades. Decidimos reescrever essa narrativa.</p>
+    <div class="hero-anim flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#features" class="inline-block bg-accent text-white font-semibold px-8 py-4 rounded-full hover:bg-purple-600 transition-colors">Descubra nossa jornada</a>
+      <a href="#pricing" class="inline-block border-2 border-white/20 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">Ver planos</a>
+    </div>
+    <!-- Timeline teaser -->
+    <div class="mt-16 flex items-center justify-center gap-3 text-indigo-300 text-sm">
+      <span class="w-2 h-2 rounded-full bg-accent"></span>
+      <span class="w-8 h-px bg-indigo-500"></span>
+      <span class="w-2 h-2 rounded-full bg-ember"></span>
+      <span class="w-8 h-px bg-indigo-500"></span>
+      <span class="w-2 h-2 rounded-full bg-calm"></span>
+      <span class="w-8 h-px bg-indigo-500"></span>
+      <span class="w-2 h-2 rounded-full bg-success"></span>
+    </div>
+    <div class="mt-8 float">
+      <svg class="w-6 h-6 mx-auto text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 2: FEATURES — The Discovery -->
+<section id="features" class="chapter bg-gradient-to-b from-slate-50 to-white">
+  <div class="wrap py-20">
+    <p class="reveal text-warm font-narrative text-sm tracking-[.3em] uppercase text-center mb-3">Capítulo 2 — A Descoberta</p>
+    <h2 class="reveal font-narrative text-3xl md:text-5xl font-bold text-center mb-4">O que nos torna diferentes.</h2>
+    <p class="reveal text-slate-500 text-center max-w-xl mx-auto mb-14">Cada funcionalidade foi construída ouvindo histórias reais de quem precisa de resultados, não de promessas.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="reveal card p-8 border-t-4 border-warm">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-warm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="font-narrative text-xl font-bold mb-2">Automação Inteligente</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">Fluxos que aprendem com seu uso e se adaptam ao ritmo da sua equipe, eliminando tarefas repetitivas.</p>
+      </div>
+      <div class="reveal card p-8 border-t-4 border-ember">
+        <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="font-narrative text-xl font-bold mb-2">Velocidade Real</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">Resultados em minutos, não em semanas. Nossa infraestrutura foi projetada para quem não pode esperar.</p>
+      </div>
+      <div class="reveal card p-8 border-t-4 border-calm">
+        <div class="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-calm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="font-narrative text-xl font-bold mb-2">Suporte Humano</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">Pessoas reais que entendem seu contexto. Sem robôs, sem filas, sem respostas genéricas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 3: TESTIMONIALS — The Proof -->
+<section class="chapter bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+  <div class="wrap py-20">
+    <p class="reveal text-ember font-narrative text-sm tracking-[.3em] uppercase text-center mb-3">Capítulo 3 — As Vozes</p>
+    <h2 class="reveal font-narrative text-3xl md:text-5xl font-bold text-center mb-4">Histórias de quem viveu a transformação.</h2>
+    <p class="reveal text-slate-500 text-center max-w-xl mx-auto mb-14">Cada depoimento é um capítulo escrito por quem confiou na nossa jornada.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="reveal card p-8 relative">
+        <svg class="w-8 h-8 text-warm/20 absolute top-6 right-6" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6 italic font-narrative">"Antes, nossa equipe gastava 20 horas por semana em processos manuais. Hoje, esse tempo é investido em inovação."</p>
+        <div class="flex items-center gap-3 border-t border-slate-200 pt-4">
+          <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center"><svg class="w-5 h-5 text-warm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-sm font-semibold">Mariana Lopes</p><p class="text-xs text-slate-500">COO, NovaTech</p></div>
+        </div>
+      </div>
+      <div class="reveal card p-8 relative">
+        <svg class="w-8 h-8 text-ember/20 absolute top-6 right-6" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6 italic font-narrative">"A plataforma não é só uma ferramenta — é um parceiro que cresce junto com a gente. Nosso faturamento dobrou em 8 meses."</p>
+        <div class="flex items-center gap-3 border-t border-slate-200 pt-4">
+          <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center"><svg class="w-5 h-5 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-sm font-semibold">Felipe Andrade</p><p class="text-xs text-slate-500">CEO, ScaleUp Brasil</p></div>
+        </div>
+      </div>
+      <div class="reveal card p-8 relative">
+        <svg class="w-8 h-8 text-calm/20 absolute top-6 right-6" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6 italic font-narrative">"Finalmente encontramos uma solução que entende o mercado brasileiro. O suporte em português faz toda a diferença."</p>
+        <div class="flex items-center gap-3 border-t border-slate-200 pt-4">
+          <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center"><svg class="w-5 h-5 text-calm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-sm font-semibold">Camila Ribeiro</p><p class="text-xs text-slate-500">Head de Produto, EduFlow</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 4: PRICING — The Choice -->
+<section id="pricing" class="chapter bg-gradient-to-b from-white to-indigo-50">
+  <div class="wrap py-20">
+    <p class="reveal text-accent font-narrative text-sm tracking-[.3em] uppercase text-center mb-3">Capítulo 4 — A Escolha</p>
+    <h2 class="reveal font-narrative text-3xl md:text-5xl font-bold text-center mb-4">Escolha o próximo capítulo da sua empresa.</h2>
+    <p class="reveal text-slate-500 text-center max-w-xl mx-auto mb-14">Cada plano é uma porta para uma nova fase. Sem letras miúdas, sem surpresas.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <div class="reveal card p-8 text-center">
+        <p class="text-slate-400 font-narrative text-sm tracking-widest uppercase mb-4">Início</p>
+        <p class="text-4xl font-extrabold mb-1">R$ 79<span class="text-base font-normal text-slate-400">/mês</span></p>
+        <p class="text-xs text-slate-400 mb-8">Para quem está começando a história</p>
+        <ul class="space-y-3 mb-8 text-sm text-left text-slate-700">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Até 5 usuários</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Automações básicas</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+        </ul>
+        <button class="w-full py-3 rounded-full border-2 border-accent text-accent font-semibold text-sm hover:bg-accent hover:text-white transition-colors">Começar agora</button>
+      </div>
+      <div class="reveal card p-8 text-center border-2 border-accent relative shadow-xl shadow-accent/10">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-bold px-4 py-1 rounded-full">Mais escolhido</span>
+        <p class="text-accent font-narrative text-sm tracking-widest uppercase mb-4 mt-2">Crescimento</p>
+        <p class="text-4xl font-extrabold mb-1">R$ 249<span class="text-base font-normal text-slate-400">/mês</span></p>
+        <p class="text-xs text-slate-400 mb-8">Para equipes que querem escalar</p>
+        <ul class="space-y-3 mb-8 text-sm text-left text-slate-700">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Até 30 usuários</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Automações avançadas com IA</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário 24/7</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Relatórios personalizados</li>
+        </ul>
+        <button class="w-full py-3 rounded-full bg-accent text-white font-semibold text-sm hover:bg-purple-700 transition-colors">Escolher plano</button>
+      </div>
+      <div class="reveal card p-8 text-center">
+        <p class="text-slate-400 font-narrative text-sm tracking-widest uppercase mb-4">Legado</p>
+        <p class="text-4xl font-extrabold mb-1">Custom</p>
+        <p class="text-xs text-slate-400 mb-8">Para quem escreve história em grande escala</p>
+        <ul class="space-y-3 mb-8 text-sm text-left text-slate-700">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Usuários ilimitados</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gerente de sucesso dedicado</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99% garantido</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Integrações sob medida</li>
+        </ul>
+        <button class="w-full py-3 rounded-full border-2 border-accent text-accent font-semibold text-sm hover:bg-accent hover:text-white transition-colors">Falar com vendas</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 5: CTA — The Next Step -->
+<section class="chapter bg-gradient-to-br from-dusk via-purple-900 to-indigo-900 text-white relative">
+  <div class="parallax-bg opacity-10" style="background:radial-gradient(circle at 50% 50%,#7C3AED 0%,transparent 60%)"></div>
+  <div class="wrap relative z-10 py-20 text-center max-w-2xl mx-auto">
+    <p class="reveal text-purple-300 font-narrative text-sm tracking-[.3em] uppercase mb-4">Capítulo 5 — O Próximo Passo</p>
+    <div class="reveal flex justify-center mb-8">
+      <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center float">
+        <svg class="w-8 h-8 text-purple-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/></svg>
+      </div>
+    </div>
+    <h2 class="reveal font-narrative text-3xl md:text-5xl font-extrabold mb-6">Sua história não precisa<br>terminar aqui.</h2>
+    <p class="reveal text-indigo-200 max-w-lg mx-auto mb-10 leading-relaxed">Junte-se a centenas de empresas que decidiram reescrever seu futuro. O próximo capítulo começa com um clique.</p>
+    <div class="reveal flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="inline-block bg-white text-dusk font-semibold px-8 py-4 rounded-full hover:bg-indigo-100 transition-colors">Começar minha jornada</a>
+      <a href="#" class="inline-block border-2 border-white/20 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">Agendar conversa</a>
+    </div>
+    <!-- Timeline summary -->
+    <div class="reveal mt-16 flex items-center justify-center gap-2 text-xs text-indigo-300">
+      <span class="tl-dot" style="border-color:#7C3AED"></span><span class="hidden sm:inline">Começo</span>
+      <span class="w-8 md:w-16 h-px bg-indigo-600"></span>
+      <span class="tl-dot" style="border-color:#B45309"></span><span class="hidden sm:inline">Descoberta</span>
+      <span class="w-8 md:w-16 h-px bg-indigo-600"></span>
+      <span class="tl-dot" style="border-color:#DC2626"></span><span class="hidden sm:inline">Prova</span>
+      <span class="w-8 md:w-16 h-px bg-indigo-600"></span>
+      <span class="tl-dot" style="border-color:#0D9488"></span><span class="hidden sm:inline">Escolha</span>
+      <span class="w-8 md:w-16 h-px bg-indigo-600"></span>
+      <span class="tl-dot" style="border-color:#16A34A;background:#16A34A"></span><span class="hidden sm:inline font-semibold text-white">Você está aqui</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" class="py-12 bg-slate-950 text-white">
+  <div class="wrap">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          <span class="font-narrative font-bold text-lg">Narrativa</span>
+        </div>
+        <p class="text-slate-400 text-xs leading-relaxed">Reescrevendo o futuro das empresas brasileiras, um capítulo por vez.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-4 text-slate-300">Produto</p>
+        <ul class="space-y-2 text-slate-400 text-xs">
+          <li><a href="#features" class="hover:text-white transition-colors">Recursos</a></li>
+          <li><a href="#pricing" class="hover:text-white transition-colors">Preços</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Integrações</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-4 text-slate-300">Empresa</p>
+        <ul class="space-y-2 text-slate-400 text-xs">
+          <li><a href="#" class="hover:text-white transition-colors">Nossa história</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-4 text-slate-300">Legal</p>
+        <ul class="space-y-2 text-slate-400 text-xs">
+          <li><a href="#" class="hover:text-white transition-colors">Privacidade</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 mt-10 pt-6 text-center">
+      <p class="text-slate-500 text-xs">&copy; 2024 Narrativa. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Intersection Observer for scroll reveals -->
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Hide skip button near footer
+  const skipObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { document.getElementById('skipBtn').style.opacity = e.isIntersecting ? '0' : '1'; });
+  }, { threshold: 0.1 });
+  skipObs.observe(document.getElementById('footer'));
+</script>
+</body>
+</html>

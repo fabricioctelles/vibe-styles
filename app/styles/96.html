@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusXR — Realidade Mista</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        indigo: '#1F1F2E', cyan: '#00FFFF', magenta: '#FF00FF',
+        ngreen: '#00FF00', nyellow: '#FFFF00', hotpink: '#FF0080', skycyan: '#00CCFF'
+      },
+      fontFamily: { heading: ['Orbitron','sans-serif'], body: ['Exo 2','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+  :root { --dark-indigo: #1F1F2E; --neon-cyan: #00FFFF; --neon-magenta: #FF00FF; --perspective: 1000px; --grid-opacity: 0.15; --holographic-shimmer: 3s; }
+  body { font-family: 'Exo 2', sans-serif; background: var(--dark-indigo); color: #fff; perspective: var(--perspective); }
+  .grid-bg { background-image:
+    linear-gradient(rgba(0,255,255,var(--grid-opacity)) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,var(--grid-opacity)) 1px, transparent 1px);
+    background-size: 60px 60px; }
+  @keyframes holoShimmer { 0%,100% { opacity:.3; filter: hue-rotate(0deg); } 50% { opacity:.7; filter: hue-rotate(30deg); } }
+  @keyframes gridScroll { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
+  @keyframes float3d { 0%,100% { transform: rotateX(2deg) rotateY(-2deg) translateY(0); } 50% { transform: rotateX(-2deg) rotateY(2deg) translateY(-8px); } }
+  @keyframes pulseNeon { 0%,100% { box-shadow: 0 0 8px var(--neon-cyan), 0 0 20px rgba(0,255,255,.2); } 50% { box-shadow: 0 0 16px var(--neon-cyan), 0 0 40px rgba(0,255,255,.35); } }
+  @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+  .holo-shimmer { animation: holoShimmer var(--holographic-shimmer) ease-in-out infinite; }
+  .grid-animate { animation: gridScroll 4s linear infinite; }
+  .float-3d { animation: float3d 6s ease-in-out infinite; transform-style: preserve-3d; }
+  .pulse-neon { animation: pulseNeon 2.5s ease-in-out infinite; }
+  .fade-up { animation: fadeUp .8s ease both; }
+</style>
+</head>
+<body class="min-h-screen overflow-x-hidden relative grid-bg grid-animate">
+
+<!-- Scanline overlay -->
+<div class="fixed inset-0 pointer-events-none z-50 overflow-hidden opacity-[0.03]">
+  <div class="w-full h-1 bg-cyan" style="animation: scanline 4s linear infinite;"></div>
+</div>
+
+<!-- Holographic gradient overlay -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-10" style="background: linear-gradient(135deg, #FF00FF 0%, transparent 40%, #00FFFF 70%, transparent 100%);"></div>
+
+<div class="relative z-10">
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center px-4 py-20 relative">
+  <!-- Floating holographic ring -->
+  <svg class="absolute top-16 right-8 md:right-20 w-24 md:w-36 holo-shimmer pointer-events-none" viewBox="0 0 120 120" fill="none">
+    <ellipse cx="60" cy="60" rx="50" ry="20" stroke="#00FFFF" stroke-width="1" opacity=".5" transform="rotate(-15 60 60)"/>
+    <ellipse cx="60" cy="60" rx="50" ry="20" stroke="#FF00FF" stroke-width="1" opacity=".4" transform="rotate(15 60 60)"/>
+    <circle cx="60" cy="60" r="6" fill="#00FFFF" opacity=".6"/>
+  </svg>
+  <!-- Floating geometric left -->
+  <svg class="absolute bottom-20 left-4 md:left-16 w-20 md:w-28 float-3d pointer-events-none opacity-30" viewBox="0 0 100 100" fill="none">
+    <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" stroke="#FF00FF" stroke-width="1.5" fill="none"/>
+    <polygon points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="#00FFFF" stroke-width="1" fill="none" opacity=".6"/>
+  </svg>
+  <div class="max-w-4xl mx-auto text-center fade-up">
+    <div class="inline-flex items-center gap-2 border border-cyan/30 rounded-full px-5 py-2 mb-8 pulse-neon" style="background: rgba(0,255,255,0.05);">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <span class="text-cyan font-medium text-sm tracking-widest uppercase font-heading">Realidade Expandida</span>
+    </div>
+    <h1 class="font-heading font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight" style="text-shadow: 0 0 30px rgba(0,255,255,.3), 0 0 60px rgba(255,0,255,.15);">
+      Além da <span class="text-cyan">Realidade</span><br>Dentro do <span class="text-magenta">Futuro</span>
+    </h1>
+    <p class="font-body font-light text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10">
+      Experiências imersivas que fundem o mundo físico e digital. Tecnologia espacial para transformar a forma como você vê, cria e interage.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="cursor-pointer inline-flex items-center gap-2 font-heading font-semibold text-sm px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #00FFFF, #FF00FF); color: #1F1F2E;">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Entrar no Nexus
+      </a>
+      <a href="#features" class="cursor-pointer inline-flex items-center gap-2 border border-cyan/40 text-cyan font-heading font-semibold text-sm px-8 py-4 rounded-lg hover:bg-cyan/10 transition-colors duration-300">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        Explorar Dimensões
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="px-4 py-20 relative">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center mb-3" style="text-shadow: 0 0 20px rgba(0,255,255,.25);">Dimensões <span class="text-cyan">Imersivas</span></h2>
+    <p class="text-sm text-white/40 text-center mb-14 tracking-widest uppercase font-heading">Tecnologia espacial de próxima geração</p>
+    <div class="grid md:grid-cols-3 gap-8" style="perspective: 800px;">
+      <div class="cursor-pointer rounded-xl p-8 border border-cyan/20 transition-all duration-300 hover:-translate-y-2 hover:border-cyan/50 relative overflow-hidden group" style="background: linear-gradient(145deg, rgba(0,255,255,0.05), rgba(31,31,46,0.9));">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(135deg, rgba(0,255,255,0.08), transparent);"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 border border-cyan/30" style="background: rgba(0,255,255,0.1); box-shadow: 0 0 15px rgba(0,255,255,.15);">
+            <svg class="w-7 h-7 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <h3 class="font-heading font-semibold text-lg text-white mb-3">Mapeamento Espacial</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Escaneie e reconstrua ambientes em 3D com precisão milimétrica. Sobreponha dados holográficos ao mundo real.</p>
+        </div>
+      </div>
+      <div class="cursor-pointer rounded-xl p-8 border border-magenta/20 transition-all duration-300 hover:-translate-y-2 hover:border-magenta/50 relative overflow-hidden group" style="background: linear-gradient(145deg, rgba(255,0,255,0.05), rgba(31,31,46,0.9));">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(135deg, rgba(255,0,255,0.08), transparent);"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 border border-magenta/30" style="background: rgba(255,0,255,0.1); box-shadow: 0 0 15px rgba(255,0,255,.15);">
+            <svg class="w-7 h-7 text-magenta" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-heading font-semibold text-lg text-white mb-3">Projeção Holográfica</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Interfaces flutuantes que respondem ao gesto e ao olhar. Visualize dados complexos em camadas dimensionais.</p>
+        </div>
+      </div>
+      <div class="cursor-pointer rounded-xl p-8 border border-skycyan/20 transition-all duration-300 hover:-translate-y-2 hover:border-skycyan/50 relative overflow-hidden group" style="background: linear-gradient(145deg, rgba(0,204,255,0.05), rgba(31,31,46,0.9));">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(135deg, rgba(0,204,255,0.08), transparent);"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 border border-skycyan/30" style="background: rgba(0,204,255,0.1); box-shadow: 0 0 15px rgba(0,204,255,.15);">
+            <svg class="w-7 h-7 text-skycyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <h3 class="font-heading font-semibold text-lg text-white mb-3">Colaboração Imersiva</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Reúna equipes em espaços virtuais compartilhados. Interaja com avatares e objetos 3D em tempo real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="px-4 py-20 relative">
+  <svg class="absolute top-10 left-6 w-20 holo-shimmer pointer-events-none opacity-20" viewBox="0 0 80 80" fill="none">
+    <rect x="10" y="10" width="60" height="60" rx="4" stroke="#FF00FF" stroke-width="1" stroke-dasharray="4 4" transform="rotate(10 40 40)"/>
+    <rect x="20" y="20" width="40" height="40" rx="2" stroke="#00FFFF" stroke-width="1" stroke-dasharray="4 4" transform="rotate(-5 40 40)"/>
+  </svg>
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center mb-3" style="text-shadow: 0 0 20px rgba(255,0,255,.2);">Vozes do <span class="text-magenta">Metaverso</span></h2>
+    <p class="text-sm text-white/40 text-center mb-14 tracking-widest uppercase font-heading">Experiências que transcendem dimensões</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="rounded-xl p-6 border border-cyan/15 relative" style="background: linear-gradient(180deg, rgba(0,255,255,0.04), rgba(31,31,46,0.8));">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #00FFFF, transparent);"></div>
+        <svg class="absolute top-4 right-4 w-7 h-7 text-cyan/15" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">"O mapeamento espacial da NexusXR revolucionou nossos projetos de arquitetura. Visualizamos edifícios inteiros em escala real antes de construir."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center border border-cyan/30" style="background: rgba(0,255,255,0.1);"><span class="font-heading text-cyan text-xs font-bold">RA</span></div>
+          <div><p class="font-semibold text-white text-sm">Rafael Andrade</p><p class="text-white/30 text-xs">Diretor, ArqVirtual</p></div>
+        </div>
+      </div>
+      <div class="rounded-xl p-6 border border-magenta/15 relative" style="background: linear-gradient(180deg, rgba(255,0,255,0.04), rgba(31,31,46,0.8));">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #FF00FF, transparent);"></div>
+        <svg class="absolute top-4 right-4 w-7 h-7 text-magenta/15" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">"Treinamos 500 cirurgiões com simulações holográficas. A taxa de precisão aumentou 40% comparado aos métodos tradicionais."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center border border-magenta/30" style="background: rgba(255,0,255,0.1);"><span class="font-heading text-magenta text-xs font-bold">CM</span></div>
+          <div><p class="font-semibold text-white text-sm">Camila Mendes</p><p class="text-white/30 text-xs">CTO, MedXR Brasil</p></div>
+        </div>
+      </div>
+      <div class="rounded-xl p-6 border border-skycyan/15 relative" style="background: linear-gradient(180deg, rgba(0,204,255,0.04), rgba(31,31,46,0.8));">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #00CCFF, transparent);"></div>
+        <svg class="absolute top-4 right-4 w-7 h-7 text-skycyan/15" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">"Nossas reuniões remotas ganharam outra dimensão — literalmente. A colaboração imersiva eliminou a distância entre nossos 12 escritórios."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center border border-skycyan/30" style="background: rgba(0,204,255,0.1);"><span class="font-heading text-skycyan text-xs font-bold">LS</span></div>
+          <div><p class="font-semibold text-white text-sm">Lucas Silveira</p><p class="text-white/30 text-xs">CEO, Ponte Digital</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="px-4 py-20 relative">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center mb-3" style="text-shadow: 0 0 20px rgba(0,255,255,.25);">Planos <span class="text-cyan">Dimensionais</span></h2>
+    <p class="text-sm text-white/40 text-center mb-14 tracking-widest uppercase font-heading">Escolha sua camada de imersão</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Tier 1 -->
+      <div class="cursor-pointer rounded-xl p-8 text-center border border-cyan/15 transition-all duration-300 hover:-translate-y-2 hover:border-cyan/40 relative overflow-hidden" style="background: linear-gradient(180deg, rgba(0,255,255,0.04), rgba(31,31,46,0.9));">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(0,255,255,.4), transparent);"></div>
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 border border-cyan/30" style="background: rgba(0,255,255,0.08);">
+          <svg class="w-6 h-6 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </div>
+        <span class="text-cyan/70 text-xs font-heading font-semibold tracking-widest uppercase">Observer</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$149</span><span class="text-white/30 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-cyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Até 5 ambientes VR</li>
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-cyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Mapeamento básico</li>
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-cyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte por chat</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border border-cyan/30 text-cyan font-heading font-semibold text-sm py-3 rounded-lg hover:bg-cyan/10 transition-colors duration-300">Iniciar</a>
+      </div>
+      <!-- Tier 2 -->
+      <div class="cursor-pointer rounded-xl p-8 text-center border border-magenta/30 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden md:scale-105" style="background: linear-gradient(180deg, rgba(255,0,255,0.08), rgba(31,31,46,0.95)); box-shadow: 0 0 30px rgba(255,0,255,.12);">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #FF00FF, transparent);"></div>
+        <div class="absolute -top-px left-1/2 -translate-x-1/2 text-xs font-heading font-bold tracking-widest px-4 py-1 rounded-b-lg" style="background: linear-gradient(135deg, #00FFFF, #FF00FF); color: #1F1F2E;">RECOMENDADO</div>
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 mt-2 border border-magenta/30" style="background: rgba(255,0,255,0.1);">
+          <svg class="w-6 h-6 text-magenta" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        </div>
+        <span class="text-magenta/80 text-xs font-heading font-semibold tracking-widest uppercase">Architect</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$399</span><span class="text-white/30 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-magenta flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Ambientes ilimitados</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-magenta flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Projeção holográfica</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-magenta flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte prioritário 24h</li>
+          <li class="flex items-center gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-magenta flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Colaboração em tempo real</li>
+        </ul>
+        <a href="#" class="cursor-pointer block font-heading font-semibold text-sm py-3 rounded-lg transition-all duration-300 hover:opacity-90" style="background: linear-gradient(135deg, #00FFFF, #FF00FF); color: #1F1F2E;">Imergir Agora</a>
+      </div>
+      <!-- Tier 3 -->
+      <div class="cursor-pointer rounded-xl p-8 text-center border border-skycyan/15 transition-all duration-300 hover:-translate-y-2 hover:border-skycyan/40 relative overflow-hidden" style="background: linear-gradient(180deg, rgba(0,204,255,0.04), rgba(31,31,46,0.9));">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(0,204,255,.4), transparent);"></div>
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 border border-skycyan/30" style="background: rgba(0,204,255,0.08);">
+          <svg class="w-6 h-6 text-skycyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <span class="text-skycyan/70 text-xs font-heading font-semibold tracking-widest uppercase">Omniverso</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$899</span><span class="text-white/30 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-skycyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Tudo do Architect</li>
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-skycyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Especialista dedicado</li>
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-skycyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>SLA 99.99%</li>
+          <li class="flex items-center gap-2 text-sm text-white/50"><svg class="w-4 h-4 text-skycyan flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>API espacial completa</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border border-skycyan/30 text-skycyan font-heading font-semibold text-sm py-3 rounded-lg hover:bg-skycyan/10 transition-colors duration-300">Transcender</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="px-4 py-20 relative">
+  <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-80 pointer-events-none opacity-10 holo-shimmer" viewBox="0 0 200 200" fill="none">
+    <circle cx="100" cy="100" r="90" stroke="#00FFFF" stroke-width="0.5"/><circle cx="100" cy="100" r="70" stroke="#FF00FF" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="50" stroke="#00CCFF" stroke-width="0.5"/><circle cx="100" cy="100" r="30" stroke="#00FFFF" stroke-width="0.5"/>
+    <line x1="10" y1="100" x2="190" y2="100" stroke="#00FFFF" stroke-width="0.3" opacity=".5"/><line x1="100" y1="10" x2="100" y2="190" stroke="#FF00FF" stroke-width="0.3" opacity=".5"/>
+  </svg>
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    <h2 class="font-heading font-bold text-3xl md:text-5xl mb-6" style="text-shadow: 0 0 30px rgba(0,255,255,.3), 0 0 60px rgba(255,0,255,.15);">Pronto para <span class="text-cyan">Cruzar</span> a <span class="text-magenta">Fronteira</span>?</h2>
+    <p class="font-light text-white/50 text-lg mb-10 max-w-xl mx-auto">A linha entre o real e o virtual está desaparecendo. Dê o primeiro passo para o outro lado e transforme sua visão em realidade mista.</p>
+    <a href="#" class="cursor-pointer inline-flex items-center gap-3 font-heading font-bold text-lg px-10 py-4 rounded-lg transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #00FFFF, #FF00FF); color: #1F1F2E; box-shadow: 0 0 30px rgba(0,255,255,.2), 0 0 60px rgba(255,0,255,.15);">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Ativar o Nexus
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 px-4 py-12" style="background: rgba(31,31,46,0.6);">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5" stroke="#00FFFF" stroke-width="1.5" fill="none"/><polygon points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5" stroke="#FF00FF" stroke-width="1" fill="none" opacity=".6"/></svg>
+      <span class="font-heading font-semibold text-white text-sm">NexusXR</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="#" class="cursor-pointer text-sm text-white/30 hover:text-cyan transition-colors duration-200">Termos</a>
+      <a href="#" class="cursor-pointer text-sm text-white/30 hover:text-cyan transition-colors duration-200">Privacidade</a>
+      <a href="#" class="cursor-pointer text-sm text-white/30 hover:text-cyan transition-colors duration-200">Contato</a>
+    </div>
+    <p class="text-xs text-white/20">&copy; 2025 NexusXR. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

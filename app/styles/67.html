@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chromatic Aberration — RGB Split</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { mono: ['Share Tech Mono', 'monospace'], display: ['Orbitron', 'sans-serif'] },
+          colors: {
+            bg: '#000000', surface: '#0a0a0a', card: '#111111',
+            red: '#FF0000', green: '#00FF00', blue: '#0000FF',
+            cyan: '#00FFFF', muted: '#888888', txt: '#e0e0e0', heading: '#ffffff',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --rgb-offset: 2px; --red-channel: #FF0000; --green-channel: #00FF00; --blue-channel: #0000FF; --glitch-duration: 0.3s; --scanline-opacity: 0.1; }
+    body { background: #000; color: #e0e0e0; font-family: 'Share Tech Mono', monospace; overflow-x: hidden; }
+    .rgb-text { text-shadow: -2px 0 var(--red-channel), 2px 0 #00FFFF; }
+    .rgb-text-sm { text-shadow: -1px 0 var(--red-channel), 1px 0 #00FFFF; }
+    .scanlines { position: relative; }
+    .scanlines::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px); pointer-events: none; z-index: 1; }
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 1px); }
+      40% { transform: translate(2px, -1px); }
+      60% { transform: translate(-1px, -2px); }
+      80% { transform: translate(1px, 2px); }
+    }
+    @keyframes glitchClip {
+      0% { clip-path: inset(40% 0 61% 0); } 20% { clip-path: inset(92% 0 1% 0); }
+      40% { clip-path: inset(43% 0 1% 0); } 60% { clip-path: inset(25% 0 58% 0); }
+      80% { clip-path: inset(54% 0 7% 0); } 100% { clip-path: inset(58% 0 43% 0); }
+    }
+    @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.98; } 75% { opacity: 0.96; } }
+    .glitch-hover:hover { animation: glitch var(--glitch-duration) steps(2) infinite; }
+    .glitch-title { position: relative; display: inline-block; }
+    .glitch-title::before, .glitch-title::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .glitch-title::before { color: var(--red-channel); z-index: -1; animation: glitchClip 3s infinite linear alternate-reverse; left: -2px; }
+    .glitch-title::after { color: #00FFFF; z-index: -1; animation: glitchClip 2s infinite linear alternate; left: 2px; }
+    .card-glitch { border: 1px solid #222; transition: all 0.3s; position: relative; overflow: hidden; }
+    .card-glitch::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px); pointer-events: none; }
+    .card-glitch:hover { border-color: var(--red-channel); box-shadow: -2px 0 var(--red-channel), 2px 0 #00FFFF; transform: translate(1px, -1px); }
+    .noise-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: flicker 0.15s infinite; }
+    .btn-rgb { position: relative; background: transparent; border: 2px solid #fff; color: #fff; transition: all 0.3s; }
+    .btn-rgb:hover { box-shadow: -3px 0 var(--red-channel), 3px 0 #00FFFF, 0 0 20px rgba(255,0,0,0.3), 0 0 20px rgba(0,255,255,0.3); text-shadow: -2px 0 var(--red-channel), 2px 0 #00FFFF; }
+    .vhs-line { height: 1px; background: linear-gradient(90deg, transparent, var(--red-channel), var(--green-channel), #00FFFF, transparent); opacity: 0.4; }
+    @media (prefers-reduced-motion: reduce) {
+      .glitch-title::before, .glitch-title::after, .glitch-hover:hover, .noise-overlay { animation: none !important; }
+      .card-glitch:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="scanlines min-h-screen">
+  <div class="noise-overlay"></div>
+
+  <!-- Hero -->
+  <section class="relative flex flex-col items-center justify-center min-h-screen px-4 text-center">
+    <div class="vhs-line w-full mb-8"></div>
+    <p class="text-muted text-sm tracking-[0.3em] uppercase mb-4 font-mono">// sistema de distorção ativo</p>
+    <h1 class="glitch-title font-display text-4xl sm:text-6xl lg:text-8xl font-black text-white leading-tight mb-6" data-text="CHROMATIC">CHROMATIC</h1>
+    <h2 class="rgb-text font-display text-2xl sm:text-3xl lg:text-5xl font-bold text-white mb-6">ABERRAÇÃO DIGITAL</h2>
+    <p class="text-muted max-w-xl mx-auto text-sm sm:text-base mb-10 leading-relaxed">Tecnologia de ponta com estética retro-analógica. Onde o erro se torna arte e a distorção revela a verdade.</p>
+    <a href="#features" class="btn-rgb px-8 py-3 font-display text-sm tracking-widest uppercase cursor-pointer inline-block">Explorar Agora</a>
+    <div class="vhs-line w-full mt-12"></div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="px-4 py-20 max-w-6xl mx-auto">
+    <h2 class="rgb-text font-display text-2xl sm:text-3xl font-bold text-white text-center mb-4">RECURSOS</h2>
+    <p class="text-muted text-center mb-12 text-sm">Ferramentas construídas sobre imperfeição controlada</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-glitch bg-card p-6 cursor-pointer glitch-hover">
+        <div class="mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3 class="rgb-text-sm text-white font-display text-lg mb-2">Distorção RGB</h3>
+        <p class="text-muted text-sm leading-relaxed">Separação de canais de cor em tempo real com controle preciso de offset e intensidade.</p>
+      </div>
+      <div class="card-glitch bg-card p-6 cursor-pointer glitch-hover">
+        <div class="mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3 class="rgb-text-sm text-white font-display text-lg mb-2">Efeito VHS</h3>
+        <p class="text-muted text-sm leading-relaxed">Linhas de varredura, ruído analógico e tremulação autêntica da era das fitas magnéticas.</p>
+      </div>
+      <div class="card-glitch bg-card p-6 cursor-pointer glitch-hover">
+        <div class="mb-4"><svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3 class="rgb-text-sm text-white font-display text-lg mb-2">Glitch Engine</h3>
+        <p class="text-muted text-sm leading-relaxed">Motor de falhas controladas com timing aleatório e clipping de camadas para efeitos únicos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="px-4 py-20 max-w-6xl mx-auto">
+    <div class="vhs-line w-full mb-12"></div>
+    <h2 class="rgb-text font-display text-2xl sm:text-3xl font-bold text-white text-center mb-12">DEPOIMENTOS</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-glitch bg-card p-6">
+        <p class="text-muted text-sm mb-4 italic leading-relaxed">"A estética de aberração cromática transformou completamente nosso projeto visual. Cada pixel conta uma história."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 border border-red flex items-center justify-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-white text-sm font-display">RAFAEL M.</p><p class="text-muted text-xs">Diretor Criativo</p></div>
+        </div>
+      </div>
+      <div class="card-glitch bg-card p-6">
+        <p class="text-muted text-sm mb-4 italic leading-relaxed">"O motor de glitch é incrivelmente preciso. Conseguimos efeitos que antes levavam horas em pós-produção."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 border border-cyan flex items-center justify-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-white text-sm font-display">CAMILA S.</p><p class="text-muted text-xs">VFX Artist</p></div>
+        </div>
+      </div>
+      <div class="card-glitch bg-card p-6">
+        <p class="text-muted text-sm mb-4 italic leading-relaxed">"Nosso público adora a vibe retro-tech. As scan lines e o ruído dão autenticidade que nenhum filtro consegue."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 border border-green flex items-center justify-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><p class="text-white text-sm font-display">LUCAS T.</p><p class="text-muted text-xs">Produtor Digital</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="px-4 py-20 max-w-6xl mx-auto">
+    <h2 class="rgb-text font-display text-2xl sm:text-3xl font-bold text-white text-center mb-4">PLANOS</h2>
+    <p class="text-muted text-center mb-12 text-sm">Escolha seu nível de distorção</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-glitch bg-card p-6 text-center cursor-pointer glitch-hover">
+        <h3 class="font-display text-lg text-white mb-2">SIGNAL</h3>
+        <div class="vhs-line w-full my-4"></div>
+        <p class="font-display text-3xl text-white rgb-text-sm mb-1">R$49</p><p class="text-muted text-xs mb-6">/mês</p>
+        <ul class="text-sm text-muted space-y-2 mb-6 text-left">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>RGB Split básico</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 presets de glitch</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Scan lines estáticas</li>
+        </ul>
+        <a href="#" class="btn-rgb px-6 py-2 text-xs tracking-widest uppercase cursor-pointer inline-block font-display">Iniciar</a>
+      </div>
+      <div class="card-glitch bg-card p-6 text-center cursor-pointer glitch-hover border-red" style="border-color:#FF0000; box-shadow: -2px 0 #FF0000, 2px 0 #00FFFF;">
+        <p class="text-xs tracking-widest uppercase text-red mb-2 font-display">Popular</p>
+        <h3 class="font-display text-lg text-white mb-2">STATIC</h3>
+        <div class="vhs-line w-full my-4"></div>
+        <p class="font-display text-3xl text-white rgb-text mb-1">R$129</p><p class="text-muted text-xs mb-6">/mês</p>
+        <ul class="text-sm text-muted space-y-2 mb-6 text-left">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>RGB Split avançado</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>25 presets + custom</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>VHS + noise overlay</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Animações de glitch</li>
+        </ul>
+        <a href="#" class="btn-rgb px-6 py-2 text-xs tracking-widest uppercase cursor-pointer inline-block font-display" style="border-color:#FF0000;">Assinar</a>
+      </div>
+      <div class="card-glitch bg-card p-6 text-center cursor-pointer glitch-hover">
+        <h3 class="font-display text-lg text-white mb-2">NOISE</h3>
+        <div class="vhs-line w-full my-4"></div>
+        <p class="font-display text-3xl text-white rgb-text-sm mb-1">R$299</p><p class="text-muted text-xs mb-6">/mês</p>
+        <ul class="text-sm text-muted space-y-2 mb-6 text-left">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Static</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API de distorção</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Renderização em tempo real</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
+        </ul>
+        <a href="#" class="btn-rgb px-6 py-2 text-xs tracking-widest uppercase cursor-pointer inline-block font-display">Contratar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-4 py-20 text-center">
+    <div class="vhs-line w-full mb-12"></div>
+    <h2 class="glitch-title font-display text-3xl sm:text-5xl font-black text-white mb-6" data-text="ENTRE NA DISTORÇÃO">ENTRE NA DISTORÇÃO</h2>
+    <p class="text-muted max-w-lg mx-auto mb-10 text-sm leading-relaxed">Abrace a imperfeição. Comece a criar visuais que desafiam a realidade com aberração cromática e efeitos de glitch.</p>
+    <a href="#" class="btn-rgb px-10 py-4 font-display text-sm tracking-widest uppercase cursor-pointer inline-block">Começar Gratuitamente</a>
+    <div class="vhs-line w-full mt-12"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="px-4 py-12 max-w-6xl mx-auto">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-muted">
+      <p class="font-display text-white rgb-text-sm tracking-widest">CHROMATIC</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white transition-colors cursor-pointer">Termos</a>
+        <a href="#" class="hover:text-white transition-colors cursor-pointer">Privacidade</a>
+        <a href="#" class="hover:text-white transition-colors cursor-pointer">Contato</a>
+      </div>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-white transition-colors cursor-pointer" aria-label="GitHub"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+        <a href="#" class="hover:text-white transition-colors cursor-pointer" aria-label="Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-8 opacity-50">© 2024 Chromatic. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

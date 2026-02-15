@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inclusive Design — Acessibilidade Universal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Atkinson Hyperlegible', 'sans-serif'] },
+          colors: {
+            primary: '#0D47A1',
+            accent: '#E65100',
+            surface: '#FFFFFF',
+            bg: '#F5F5F5',
+            txt: '#1A1A1A',
+            muted: '#424242',
+            success: '#1B5E20',
+            ring: '#0D47A1',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Atkinson Hyperlegible', sans-serif; background: #F5F5F5; color: #1A1A1A; font-size: 18px; line-height: 1.6; }
+    a, button, [role="button"], .clickable, [tabindex="0"] { cursor: pointer; }
+    :focus-visible { outline: 4px solid #0D47A1; outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .btn-primary { background: #0D47A1; color: #FFFFFF; border: 3px solid #0D47A1; border-radius: 8px; padding: 14px 32px; font-weight: 700; font-size: 1rem; transition: background 200ms, color 200ms; }
+    .btn-primary:hover { background: #1565C0; border-color: #1565C0; }
+    .btn-outline { background: transparent; color: #0D47A1; border: 3px solid #0D47A1; border-radius: 8px; padding: 14px 32px; font-weight: 700; font-size: 1rem; transition: background 200ms, color 200ms; }
+    .btn-outline:hover { background: #0D47A1; color: #FFFFFF; }
+    .card { background: #FFFFFF; border: 2px solid #424242; border-radius: 12px; padding: 2rem; }
+    .card-highlight { background: #0D47A1; color: #FFFFFF; border: 3px solid #1A1A1A; border-radius: 12px; padding: 2rem; }
+    .indicator { display: inline-flex; align-items: center; gap: 6px; }
+    .indicator svg { flex-shrink: 0; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; background: #0D47A1; color: #fff; padding: 12px 24px; border-radius: 0 0 8px 8px; font-weight: 700; z-index: 100; }
+    .skip-link:focus { top: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  </style>
+</head>
+<body class="antialiased">
+  <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+  <main id="main" role="main">
+
+    <!-- HERO -->
+    <section aria-labelledby="hero-title" class="min-h-[85vh] flex items-center py-20">
+      <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 font-bold">Design Inclusivo</p>
+          <h1 id="hero-title" class="text-4xl md:text-5xl font-bold leading-tight mb-6">Tecnologia para <span class="underline decoration-4 decoration-accent">todos</span>.</h1>
+          <p class="text-muted text-lg max-w-lg leading-relaxed mb-10">Interfaces acessíveis com contraste WCAG AAA, navegação por teclado, leitores de tela e indicadores visuais além da cor.</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#precos" class="btn-primary inline-block" role="button">Ver planos</a>
+            <a href="#recursos" class="btn-outline inline-block" role="button">Conhecer recursos</a>
+          </div>
+        </div>
+        <div class="hidden md:flex justify-center" aria-hidden="true">
+          <div class="card p-10 w-80 space-y-5">
+            <div class="flex items-center gap-3">
+              <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <span class="font-bold text-lg">Contraste 7:1+</span>
+            </div>
+            <div class="h-3 bg-bg rounded-full border border-muted"><div class="h-full w-4/5 bg-primary rounded-full"></div></div>
+            <div class="flex items-center gap-3">
+              <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#1B5E20" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="indicator font-bold"><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#1B5E20"/><path d="M4 8l3 3 5-5" stroke="#fff" stroke-width="2" fill="none"/></svg> Aprovado AAA</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#E65100" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="font-bold">Foco visível 4px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="recursos" aria-labelledby="feat-title" class="py-20 bg-white">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-muted text-sm tracking-widest uppercase mb-3 font-bold">Recursos</p>
+          <h2 id="feat-title" class="text-3xl md:text-4xl font-bold">Acessibilidade de verdade.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card text-center">
+            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bg border-2 border-primary flex items-center justify-center">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Alto Contraste</h3>
+            <p class="text-muted leading-relaxed">Razão de contraste 7:1 ou superior em todos os textos. Legibilidade garantida em qualquer condição de luz.</p>
+          </div>
+          <div class="card text-center">
+            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bg border-2 border-primary flex items-center justify-center">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Navegação por Teclado</h3>
+            <p class="text-muted leading-relaxed">Tab, Enter e setas. Cada elemento interativo é alcançável e operável sem mouse, com foco visível de 4px.</p>
+          </div>
+          <div class="card text-center">
+            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bg border-2 border-primary flex items-center justify-center">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Indicadores Visuais</h3>
+            <p class="text-muted leading-relaxed">Símbolos, padrões e ícones além da cor. Informação nunca depende apenas de vermelho/verde para ser compreendida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section aria-labelledby="test-title" class="py-20">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-muted text-sm tracking-widest uppercase mb-3 font-bold">Depoimentos</p>
+          <h2 id="test-title" class="text-3xl md:text-4xl font-bold">Inclusão que transforma.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <article class="card">
+            <blockquote>
+              <p class="text-muted leading-relaxed mb-6">"Pela primeira vez, nosso app é realmente utilizável por todos os colaboradores. A acessibilidade deixou de ser um extra."</p>
+            </blockquote>
+            <div class="flex items-center gap-3 border-t-2 border-bg pt-4">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div><p class="font-bold">Renata Oliveira</p><p class="text-muted text-sm">Diretora de TI, Saúde+</p></div>
+            </div>
+          </article>
+          <article class="card">
+            <blockquote>
+              <p class="text-muted leading-relaxed mb-6">"O contraste alto e os indicadores visuais reduziram erros de preenchimento em 60%. Resultado mensurável."</p>
+            </blockquote>
+            <div class="flex items-center gap-3 border-t-2 border-bg pt-4">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div><p class="font-bold">Marcos Ferreira</p><p class="text-muted text-sm">UX Lead, FinTech Brasil</p></div>
+            </div>
+          </article>
+          <article class="card">
+            <blockquote>
+              <p class="text-muted leading-relaxed mb-6">"Navego tudo pelo teclado com leitor de tela. É raro encontrar um produto que realmente funcione assim."</p>
+            </blockquote>
+            <div class="flex items-center gap-3 border-t-2 border-bg pt-4">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div><p class="font-bold">Juliana Santos</p><p class="text-muted text-sm">Analista, Gov Digital</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="precos" aria-labelledby="price-title" class="py-20 bg-white">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-muted text-sm tracking-widest uppercase mb-3 font-bold">Planos</p>
+          <h2 id="price-title" class="text-3xl md:text-4xl font-bold">Acessível em todos os sentidos.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card">
+            <p class="text-sm tracking-widest uppercase font-bold text-muted mb-3">Básico</p>
+            <p class="text-4xl font-bold mb-1">R$ 89<span class="text-base font-normal text-muted">/mês</span></p>
+            <p class="text-muted text-sm mb-6">Para projetos iniciais</p>
+            <ul class="space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>1 projeto ativo</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>Auditoria WCAG AA</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>Suporte por e-mail</span></li>
+            </ul>
+            <button class="btn-outline w-full" aria-label="Escolher plano Básico">Escolher</button>
+          </div>
+          <div class="card-highlight relative">
+            <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-bold px-4 py-1 rounded-full border-2 border-white">Recomendado</span>
+            <p class="text-sm tracking-widest uppercase font-bold text-white/80 mb-3 mt-2">Profissional</p>
+            <p class="text-4xl font-bold mb-1">R$ 249<span class="text-base font-normal text-white/80">/mês</span></p>
+            <p class="text-white/80 text-sm mb-6">Para equipes comprometidas</p>
+            <ul class="space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#FFFFFF"/><path d="M5 10l3 3 7-7" stroke="#0D47A1" stroke-width="2" fill="none"/></svg><span>10 projetos ativos</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#FFFFFF"/><path d="M5 10l3 3 7-7" stroke="#0D47A1" stroke-width="2" fill="none"/></svg><span>Auditoria WCAG AAA</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#FFFFFF"/><path d="M5 10l3 3 7-7" stroke="#0D47A1" stroke-width="2" fill="none"/></svg><span>Suporte prioritário</span></li>
+            </ul>
+            <button class="bg-white text-primary font-bold w-full py-3.5 rounded-lg border-3 border-white hover:bg-bg transition-colors duration-200" aria-label="Escolher plano Profissional">Escolher</button>
+          </div>
+          <div class="card">
+            <p class="text-sm tracking-widest uppercase font-bold text-muted mb-3">Empresa</p>
+            <p class="text-4xl font-bold mb-1">R$ 599<span class="text-base font-normal text-muted">/mês</span></p>
+            <p class="text-muted text-sm mb-6">Para operações em escala</p>
+            <ul class="space-y-3 mb-8" role="list">
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>Projetos ilimitados</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>Consultoria dedicada</span></li>
+              <li class="flex items-center gap-3"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="4" fill="#1B5E20"/><path d="M5 10l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span>SLA 99.9% garantido</span></li>
+            </ul>
+            <button class="btn-outline w-full" aria-label="Escolher plano Empresa">Escolher</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section aria-labelledby="cta-title" class="py-20">
+      <div class="wrap text-center">
+        <div class="bg-primary rounded-2xl p-12 md:p-16 border-4 border-txt">
+          <h2 id="cta-title" class="text-3xl md:text-4xl font-bold text-white mb-4">Design para todos começa aqui.</h2>
+          <p class="text-white/90 max-w-lg mx-auto mb-8 text-lg">Construa produtos que respeitam cada pessoa. Acessibilidade não é recurso opcional — é fundamento.</p>
+          <a href="#precos" class="inline-block bg-white text-primary font-bold px-10 py-4 rounded-lg border-3 border-white hover:bg-bg transition-colors duration-200" role="button">Começar agora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo" class="py-12 bg-white border-t-2 border-muted/20">
+    <div class="wrap">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <p class="font-bold text-xl mb-3">Inclusivo.</p>
+          <p class="text-muted leading-relaxed">Design universal<br>acessível desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted" role="list">
+            <li><a href="#recursos" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Recursos</a></li>
+            <li><a href="#precos" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Documentação</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted" role="list">
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Sobre nós</a></li>
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted" role="list">
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Termos de uso</a></li>
+            <li><a href="#" class="hover:text-primary underline-offset-4 hover:underline transition-colors duration-200">Acessibilidade</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-sm mt-10">&copy; 2024 Inclusivo. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

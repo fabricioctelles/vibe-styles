@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion-Driven — Animação & Movimento</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            brand: '#6C2BD9',
+            accent: '#F43F5E',
+            dark: '#0B0F1A',
+            muted: '#94A3B8',
+            surface: '#141929',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B0F1A; color: #F1F5F9; scroll-behavior: smooth; }
+    a, button, [role="button"] { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Entrance animations */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.from-left { transform: translateX(-40px); }
+    .reveal.from-right { transform: translateX(40px); }
+    .reveal.visible { opacity: 1; transform: translate(0, 0); }
+    .reveal.delay-1 { transition-delay: 0.15s; }
+    .reveal.delay-2 { transition-delay: 0.3s; }
+    .reveal.delay-3 { transition-delay: 0.45s; }
+
+    /* Parallax layer */
+    .parallax-bg { transition: transform 0.1s linear; will-change: transform; }
+
+    /* Gradient text */
+    .grad-text { background: linear-gradient(135deg, #A78BFA, #F43F5E, #FBBF24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Glow button */
+    .glow-btn {
+      background: linear-gradient(135deg, #6C2BD9, #F43F5E);
+      box-shadow: 0 0 24px rgba(108,43,217,0.4);
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .glow-btn:hover { box-shadow: 0 0 40px rgba(244,63,94,0.5); transform: translateY(-2px); }
+
+    /* Card hover */
+    .motion-card {
+      background: rgba(20,25,41,0.8);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .motion-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(108,43,217,0.2); border-color: rgba(108,43,217,0.3); }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; will-change: transform;
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .glow-btn { transition: none; }
+      .glow-btn:hover { transform: none; }
+      .motion-card { transition: none; }
+      .motion-card:hover { transform: none; }
+      .orb { animation: none; }
+      .parallax-bg { transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center py-20 overflow-hidden">
+    <div class="orb w-72 h-72 bg-brand top-10 -left-20"></div>
+    <div class="orb w-96 h-96 bg-accent top-40 right-0" style="animation-delay:-3s"></div>
+    <div class="wrap w-full relative z-10 text-center">
+      <p class="reveal text-muted text-sm tracking-widest uppercase mb-5">Motion-Driven Design</p>
+      <h1 class="reveal delay-1 text-4xl md:text-7xl font-extrabold leading-tight mb-6">
+        Movimento que<br><span class="grad-text">conta histórias.</span>
+      </h1>
+      <p class="reveal delay-2 text-muted text-lg max-w-xl mx-auto leading-relaxed mb-10">
+        Animações intencionais que guiam o olhar, criam ritmo e transformam interfaces estáticas em experiências vivas.
+      </p>
+      <a href="#precos" class="reveal delay-3 glow-btn inline-block px-10 py-4 rounded-full text-sm font-semibold tracking-wide text-white">
+        Explorar planos
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-24 relative">
+    <div class="orb w-64 h-64 bg-purple-600 bottom-0 left-1/2 parallax-bg" style="animation-delay:-5s"></div>
+    <div class="wrap">
+      <div class="text-center mb-16">
+        <p class="reveal text-muted text-sm tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="reveal delay-1 text-3xl md:text-5xl font-bold">Cada pixel em <span class="grad-text">movimento.</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal motion-card rounded-2xl p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-xl bg-brand/20 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Scroll Reveal</h3>
+          <p class="text-muted text-sm leading-relaxed">Elementos surgem com fluidez conforme você rola, criando uma narrativa visual progressiva.</p>
+        </div>
+        <div class="reveal delay-1 motion-card rounded-2xl p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-xl bg-accent/20 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Microinterações</h3>
+          <p class="text-muted text-sm leading-relaxed">Feedback visual instantâneo em cada clique e hover, com transições de 300-400ms.</p>
+        </div>
+        <div class="reveal delay-2 motion-card rounded-2xl p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Efeito Parallax</h3>
+          <p class="text-muted text-sm leading-relaxed">Camadas que se movem em velocidades diferentes, adicionando profundidade e imersão.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-24 relative">
+    <div class="wrap">
+      <div class="text-center mb-16">
+        <p class="reveal text-muted text-sm tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="reveal delay-1 text-3xl md:text-5xl font-bold">Quem já sentiu o <span class="grad-text">ritmo.</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal motion-card rounded-2xl p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"As animações de scroll transformaram nosso site. A taxa de conversão subiu 34% no primeiro mês."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand/30 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Lucas Ferreira</p><p class="text-xs text-muted">CEO, Pulso Digital</p></div>
+          </div>
+        </div>
+        <div class="reveal delay-1 motion-card rounded-2xl p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"O parallax e as microinterações deram vida ao nosso produto. Usuários passam 2x mais tempo na página."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-accent/30 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Marina Costa</p><p class="text-xs text-muted">Design Lead, Vortex</p></div>
+          </div>
+        </div>
+        <div class="reveal delay-2 motion-card rounded-2xl p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="#FBBF24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Sutil e impactante. As transições de página deram ao app uma sensação premium incrível."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-yellow-500/30 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Rafael Mendes</p><p class="text-xs text-muted">CTO, NovaTech</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-24 relative">
+    <div class="orb w-80 h-80 bg-accent -right-20 top-20 parallax-bg" style="animation-delay:-2s"></div>
+    <div class="wrap relative z-10">
+      <div class="text-center mb-16">
+        <p class="reveal text-muted text-sm tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="reveal delay-1 text-3xl md:text-5xl font-bold">Escolha seu <span class="grad-text">ritmo.</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal motion-card rounded-2xl p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 89<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para projetos pessoais</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 animações prontas</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Scroll reveal básico</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+          </ul>
+          <button class="glow-btn w-full py-3 rounded-full text-sm font-semibold text-white">Começar</button>
+        </div>
+        <div class="reveal delay-1 rounded-2xl p-8 text-center relative border border-brand/40" style="background:linear-gradient(160deg,rgba(108,43,217,0.15),rgba(244,63,94,0.1))">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-brand to-accent text-white">Popular</div>
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 249<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes em crescimento</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Animações ilimitadas</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Parallax + page transitions</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
+          </ul>
+          <button class="glow-btn w-full py-3 rounded-full text-sm font-semibold text-white">Escolher plano</button>
+        </div>
+        <div class="reveal delay-2 motion-card rounded-2xl p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 599<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para operações em escala</p>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Pro</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado</li>
+            <li class="flex items-center gap-3"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9% garantido</li>
+          </ul>
+          <button class="glow-btn w-full py-3 rounded-full text-sm font-semibold text-white">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24">
+    <div class="wrap">
+      <div class="reveal rounded-3xl p-12 md:p-16 text-center relative overflow-hidden" style="background:linear-gradient(135deg,#6C2BD9,#F43F5E)">
+        <div class="orb w-60 h-60 bg-white/10 -top-10 -left-10" style="filter:blur(60px)"></div>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 relative z-10">Dê vida às suas interfaces.</h2>
+        <p class="text-white/70 max-w-lg mx-auto mb-8 relative z-10">Movimento intencional que encanta usuários e eleva a experiência do seu produto.</p>
+        <button class="relative z-10 bg-white text-dark px-10 py-4 rounded-full text-sm font-semibold tracking-wide hover:bg-white/90 transition-colors duration-300">Começar agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/5">
+    <div class="wrap grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <p class="font-bold text-lg mb-3 grad-text">Motion.</p>
+        <p class="text-muted text-xs leading-relaxed">Design orientado por<br>movimento desde 2024.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3">Produto</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Recursos</a></li>
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Preços</a></li>
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Sobre</a></li>
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Blog</a></li>
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase mb-3">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Privacidade</a></li>
+          <li><a href="#" class="hover:text-white transition-colors duration-300">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-8">&copy; 2024 Motion. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Intersection Observer + Parallax -->
+  <script>
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      const parallaxEls = document.querySelectorAll('.parallax-bg');
+      window.addEventListener('scroll', () => {
+        const sy = window.scrollY;
+        parallaxEls.forEach(el => { el.style.transform = `translateY(${sy * 0.15}px)`; });
+      }, { passive: true });
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

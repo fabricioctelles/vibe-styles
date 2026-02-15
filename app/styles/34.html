@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predictive Analytics — BI Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: {
+            surface: '#0B1120', card: '#111827', border: '#1E293B',
+            forecast: '#8B5CF6', anomaly: '#F59E0B', ai: '#6366F1',
+            confidence: '#8B5CF6', trend: '#10B981', actual: '#3B82F6',
+            muted: '#94A3B8', txt: '#E2E8F0', heading: '#F8FAFC',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0B1120; color: #E2E8F0; }
+    a, button, [role="button"], .clickable, .toggle-track { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .glass { background: rgba(17,24,39,0.7); backdrop-filter: blur(16px); border: 1px solid #1E293B; border-radius: 16px; }
+    @keyframes drawForecast { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
+    @keyframes fadeConfidence { from { opacity: 0; } to { opacity: 0.2; } }
+    @keyframes pulseAnomaly { 0%,100% { r: 5; opacity: 1; } 50% { r: 9; opacity: 0.5; } }
+    .forecast-line { stroke-dasharray: 5 5; animation: drawForecast 2s ease forwards; }
+    .confidence-band { animation: fadeConfidence 1.5s ease forwards; fill-opacity: 0; animation-fill-mode: forwards; }
+    .anomaly-dot { animation: pulseAnomaly 1.8s ease-in-out infinite; }
+    .toggle-track { width: 48px; height: 26px; border-radius: 13px; background: #1E293B; position: relative; transition: background 0.3s; }
+    .toggle-track.active { background: #6366F1; }
+    .toggle-thumb { width: 20px; height: 20px; border-radius: 50%; background: #F8FAFC; position: absolute; top: 3px; left: 3px; transition: transform 0.3s; }
+    .toggle-track.active .toggle-thumb { transform: translateX(22px); }
+    .prob-bar { background: linear-gradient(90deg, #6366F1, #8B5CF6); border-radius: 4px; height: 6px; }
+    @media (prefers-reduced-motion: reduce) { .forecast-line, .confidence-band, .anomaly-dot { animation: none; } .confidence-band { fill-opacity: 0.2; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 glass px-4 py-2 text-xs font-mono text-ai mb-6">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+          Powered by AI
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-heading">Preveja o futuro dos seus <span class="text-transparent bg-clip-text bg-gradient-to-r from-forecast to-ai">dados.</span></h1>
+        <p class="text-muted text-lg max-w-lg leading-relaxed mb-10">Análise preditiva com IA que identifica tendências, detecta anomalias e projeta cenários com intervalos de confiança precisos.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-ai to-forecast text-white font-semibold rounded-xl transition-transform duration-200 hover:scale-105">
+            Começar agora
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#recursos" class="inline-flex items-center gap-2 px-8 py-4 glass text-txt font-semibold rounded-xl transition-colors duration-200 hover:border-forecast/50">Ver recursos</a>
+        </div>
+      </div>
+      <div class="hidden lg:block">
+        <div class="glass p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-muted">Receita Projetada — Q4 2025</span>
+            <span class="text-xs font-mono text-trend">Precisão: 94.2%</span>
+          </div>
+          <svg viewBox="0 0 400 180" class="w-full">
+            <defs><linearGradient id="confGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.3"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,140 L50,120 L100,125 L150,100 L200,90 L200,90 L250,60 L300,50 L350,30 L400,20 L400,80 L350,70 L300,85 L250,95 L200,90 L200,90 L150,100 L100,125 L50,120 L0,140Z" class="confidence-band" fill="url(#confGrad)" style="animation-fill-mode:forwards;fill-opacity:0.2"/>
+            <polyline points="0,140 50,120 100,125 150,100 200,90" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="200,90 250,75 300,65 350,50 400,40" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="forecast-line" stroke-dasharray="5 5"/>
+            <line x1="200" y1="10" x2="200" y2="170" stroke="#1E293B" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="195" y="178" fill="#94A3B8" font-size="8" text-anchor="end">Atual</text>
+            <text x="205" y="178" fill="#8B5CF6" font-size="8">Previsão</text>
+            <circle cx="150" cy="100" r="5" fill="#F59E0B" class="anomaly-dot"/>
+            <text x="160" y="97" fill="#F59E0B" font-size="7">Anomalia</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20">
+    <div class="wrap">
+      <p class="text-center text-ai text-sm font-mono tracking-widest uppercase mb-3">Recursos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-14">Inteligência que antecipa.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8 hover:border-forecast/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-xl bg-forecast/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-forecast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Linhas de Previsão</h3>
+          <p class="text-muted text-sm leading-relaxed">Projeções tracejadas com bandas de confiança que mostram cenários otimista, realista e pessimista.</p>
+        </div>
+        <div class="glass p-8 hover:border-anomaly/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-xl bg-anomaly/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-anomaly" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Detecção de Anomalias</h3>
+          <p class="text-muted text-sm leading-relaxed">Alertas pulsantes em tempo real quando valores fogem do padrão esperado pela IA.</p>
+        </div>
+        <div class="glass p-8 hover:border-ai/40 transition-colors duration-200">
+          <div class="w-12 h-12 rounded-xl bg-ai/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Insights com IA</h3>
+          <p class="text-muted text-sm leading-relaxed">Cards inteligentes com recomendações acionáveis, probabilidades e datas de previsão.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <p class="text-center text-ai text-sm font-mono tracking-widest uppercase mb-3">Depoimentos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-14">Quem já prevê melhor.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"A detecção de anomalias nos salvou de uma fraude de R$ 2M. O alerta pulsou 3 horas antes do impacto."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-forecast to-ai flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Rafael Mendes</p><p class="text-xs text-muted">CFO, NovaPay</p></div>
+          </div>
+        </div>
+        <div class="glass p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"As bandas de confiança mudaram como apresentamos projeções ao board. Transparência total nos cenários."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-trend to-actual flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Juliana Costa</p><p class="text-xs text-muted">Head de BI, Logix</p></div>
+          </div>
+        </div>
+        <div class="glass p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-anomaly" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Os toggles de cenário são geniais. Testamos 5 hipóteses em segundos e a IA já sugere a melhor ação."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-anomaly to-red-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">André Takahashi</p><p class="text-xs text-muted">Data Lead, Vortex</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <p class="text-center text-ai text-sm font-mono tracking-widest uppercase mb-3">Planos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-4">Escolha seu nível de previsão.</h2>
+      <p class="text-center text-muted mb-14 max-w-lg mx-auto">Todos os planos incluem detecção de anomalias e insights com IA.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8 text-center">
+          <p class="text-muted text-sm font-mono tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 197<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Até 5 modelos preditivos</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Previsões diárias</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 banda de confiança</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Alertas por e-mail</div>
+          </div>
+          <button class="w-full py-3 rounded-xl border border-border text-sm font-semibold text-txt hover:border-forecast/50 transition-colors duration-200">Começar</button>
+        </div>
+        <div class="relative glass p-8 text-center border-forecast/50">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-ai to-forecast text-white text-xs font-semibold rounded-full">Popular</div>
+          <p class="text-forecast text-sm font-mono tracking-widest uppercase mb-4 mt-2">Pro</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 497<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Modelos ilimitados</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Previsões em tempo real</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 cenários simultâneos</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Detecção de anomalias IA</div>
+          </div>
+          <button class="w-full py-3 rounded-xl bg-gradient-to-r from-ai to-forecast text-white text-sm font-semibold hover:opacity-90 transition-opacity duration-200">Escolher Pro</button>
+        </div>
+        <div class="glass p-8 text-center">
+          <p class="text-muted text-sm font-mono tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-bold text-heading mb-1">Custom</p>
+          <p class="text-xs text-muted mb-8">Para grandes operações</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API dedicada</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Cenários ilimitados</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-trend flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99% + suporte 24/7</div>
+          </div>
+          <button class="w-full py-3 rounded-xl border border-border text-sm font-semibold text-txt hover:border-forecast/50 transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="glass p-12 md:p-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-ai/10 to-forecast/10"></div>
+        <div class="relative">
+          <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Pare de reagir. Comece a prever.</h2>
+          <p class="text-muted max-w-md mx-auto mb-8">Junte-se a mais de 2.000 empresas que já usam análise preditiva para tomar decisões melhores.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <button class="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-ai to-forecast text-white font-semibold rounded-xl hover:opacity-90 transition-opacity duration-200">
+              Teste grátis por 14 dias
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <p class="text-xs text-muted mt-4">Sem cartão de crédito. Cancele quando quiser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-border">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-forecast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span class="font-bold text-heading">Predict</span>
+        </div>
+        <p class="text-muted text-xs leading-relaxed">Análise preditiva com IA para decisões mais inteligentes.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Produto</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Integrações</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors duration-200">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-10">&copy; 2025 Predict. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

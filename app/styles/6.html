@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibrant & Block-based</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ['Space Grotesk', 'sans-serif'], body: ['Inter', 'sans-serif'] },
+          colors: {
+            neon: '#39FF14', purple: '#BF00FF', pink: '#FF1493',
+            cyan: '#00FFFF', sun: '#FFAA00', orange: '#FF7F00',
+            lime: '#CCFF00', dark: '#0A0A0A', surface: '#141414',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #fff; scroll-snap-type: y mandatory; overflow-y: scroll; }
+    section { scroll-snap-align: start; }
+    .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .block-grid { display: grid; gap: 48px; max-width: 1200px; margin: 0 auto; }
+    .hover-block { transition: transform 250ms ease, box-shadow 250ms ease; }
+    .hover-block:hover { transform: translateY(-6px); box-shadow: 0 0 30px rgba(57,255,20,0.3); }
+    @keyframes patternMove { 0% { background-position: 0 0; } 100% { background-position: 80px 80px; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .animated-bg {
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(57,255,20,0.04) 35px, rgba(57,255,20,0.04) 36px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(191,0,255,0.04) 35px, rgba(191,0,255,0.04) 36px);
+      animation: patternMove 4s linear infinite;
+    }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .animated-bg { animation: none; }
+      .float-anim { animation: none; }
+      .hover-block { transition: none; }
+      .hover-block:hover { transform: none; }
+      body { scroll-snap-type: none; }
+    }
+  </style>
+</head>
+<body class="antialiased animated-bg">
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-6 py-20">
+    <div class="block-grid grid-cols-1 md:grid-cols-2 w-full items-center">
+      <div>
+        <p class="text-neon uppercase tracking-[0.3em] text-sm font-semibold mb-6">Plataforma criativa</p>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-8">
+          <span class="text-white">Crie sem</span><br>
+          <span class="bg-gradient-to-r from-neon via-cyan to-purple bg-clip-text text-transparent">limites.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-md leading-relaxed mb-10">
+          Ferramentas vibrantes para mentes criativas. Transforme ideias ousadas em experiências digitais inesquecíveis.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-block bg-neon text-dark px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-lime transition-colors duration-250 rounded-none">Começar grátis</a>
+          <a href="#features" class="inline-block border-2 border-purple text-purple px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-purple hover:text-white transition-colors duration-250">Ver recursos</a>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <svg class="float-anim" viewBox="0 0 300 300" width="280" height="280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="120" height="120" fill="#BF00FF" rx="4"/>
+          <rect x="160" y="20" width="120" height="55" fill="#39FF14" rx="4"/>
+          <rect x="160" y="95" width="120" height="55" fill="#FFAA00" rx="4"/>
+          <rect x="20" y="160" width="80" height="120" fill="#00FFFF" rx="4"/>
+          <rect x="120" y="160" width="160" height="55" fill="#FF1493" rx="4"/>
+          <rect x="120" y="235" width="75" height="45" fill="#FF7F00" rx="4"/>
+          <rect x="215" y="235" width="65" height="45" fill="#CCFF00" rx="4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="px-6 py-20">
+    <div class="block-grid">
+      <div class="text-center mb-4">
+        <p class="text-purple uppercase tracking-[0.3em] text-sm font-semibold mb-4">Recursos</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-bold">Tudo que você precisa</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="bg-surface border-2 border-neon/30 p-8 hover-block">
+          <div class="w-14 h-14 bg-neon/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="font-heading text-2xl font-bold mb-3 text-neon">Design Ousado</h3>
+          <p class="text-gray-400 leading-relaxed">Templates vibrantes com paletas neon e layouts em bloco que capturam atenção instantaneamente.</p>
+        </div>
+        <div class="bg-surface border-2 border-purple/30 p-8 hover-block">
+          <div class="w-14 h-14 bg-purple/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="font-heading text-2xl font-bold mb-3 text-purple">Ultra Rápido</h3>
+          <p class="text-gray-400 leading-relaxed">Performance otimizada com carregamento instantâneo. Seus projetos voam na velocidade da luz.</p>
+        </div>
+        <div class="bg-surface border-2 border-pink/30 p-8 hover-block">
+          <div class="w-14 h-14 bg-pink/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FF1493" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="font-heading text-2xl font-bold mb-3 text-pink">100% Responsivo</h3>
+          <p class="text-gray-400 leading-relaxed">Adapta-se perfeitamente a qualquer tela. Do mobile ao ultrawide, sempre impecável.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="px-6 py-20">
+    <div class="block-grid">
+      <div class="text-center mb-4">
+        <p class="text-cyan uppercase tracking-[0.3em] text-sm font-semibold mb-4">Depoimentos</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-bold">Quem já usa, aprova</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="bg-surface p-8 border-l-4 border-neon">
+          <p class="text-lg leading-relaxed mb-6 text-gray-300">"A energia visual dos templates transformou completamente nossa marca. Nosso engajamento triplicou."</p>
+          <p class="font-heading font-bold text-neon">Lucas Ferreira</p>
+          <p class="text-gray-500 text-sm">Fundador, NeonLab</p>
+        </div>
+        <div class="bg-surface p-8 border-l-4 border-purple">
+          <p class="text-lg leading-relaxed mb-6 text-gray-300">"Nunca vi uma plataforma tão ousada e funcional ao mesmo tempo. Resultado incrível em minutos."</p>
+          <p class="font-heading font-bold text-purple">Camila Santos</p>
+          <p class="text-gray-500 text-sm">Diretora Criativa, Pulso</p>
+        </div>
+        <div class="bg-surface p-8 border-l-4 border-pink">
+          <p class="text-lg leading-relaxed mb-6 text-gray-300">"As cores vibrantes e o layout em blocos deram personalidade única ao nosso produto digital."</p>
+          <p class="font-heading font-bold text-pink">André Oliveira</p>
+          <p class="text-gray-500 text-sm">CTO, Bloco Studio</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-20">
+    <div class="block-grid">
+      <div class="text-center mb-4">
+        <p class="text-sun uppercase tracking-[0.3em] text-sm font-semibold mb-4">Planos</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-bold">Escolha sua energia</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="bg-surface border-2 border-gray-800 p-8 hover-block">
+          <p class="text-cyan uppercase tracking-[0.3em] text-sm font-semibold mb-4">Starter</p>
+          <p class="font-heading text-5xl font-bold mb-2 text-white">R$ 49<span class="text-lg font-normal text-gray-500">/mês</span></p>
+          <p class="text-gray-500 text-sm mb-8">Ideal para criadores solo</p>
+          <ul class="space-y-3 mb-10 text-sm text-gray-300">
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>3 projetos ativos</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Templates básicos</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+          </ul>
+          <a href="#" class="block text-center border-2 border-cyan text-cyan py-3 text-sm font-bold uppercase tracking-widest hover:bg-cyan hover:text-dark transition-colors duration-250">Começar</a>
+        </div>
+        <div class="bg-gradient-to-b from-purple/20 to-surface border-2 border-purple p-8 hover-block relative">
+          <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-purple text-white text-xs font-bold uppercase tracking-widest px-4 py-1">Popular</span>
+          <p class="text-purple uppercase tracking-[0.3em] text-sm font-semibold mb-4">Pro</p>
+          <p class="font-heading text-5xl font-bold mb-2 text-white">R$ 149<span class="text-lg font-normal text-gray-500">/mês</span></p>
+          <p class="text-gray-500 text-sm mb-8">Para equipes criativas</p>
+          <ul class="space-y-3 mb-10 text-sm text-gray-300">
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Todos os templates</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#BF00FF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
+          </ul>
+          <a href="#" class="block text-center bg-purple text-white py-3 text-sm font-bold uppercase tracking-widest hover:bg-pink transition-colors duration-250">Escolher Pro</a>
+        </div>
+        <div class="bg-surface border-2 border-gray-800 p-8 hover-block">
+          <p class="text-sun uppercase tracking-[0.3em] text-sm font-semibold mb-4">Enterprise</p>
+          <p class="font-heading text-5xl font-bold mb-2 text-white">R$ 399<span class="text-lg font-normal text-gray-500">/mês</span></p>
+          <p class="text-gray-500 text-sm mb-8">Para grandes operações</p>
+          <ul class="space-y-3 mb-10 text-sm text-gray-300">
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFAA00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Pro</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFAA00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API dedicada</li>
+            <li class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FFAA00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gerente de conta</li>
+          </ul>
+          <a href="#" class="block text-center border-2 border-sun text-sun py-3 text-sm font-bold uppercase tracking-widest hover:bg-sun hover:text-dark transition-colors duration-250">Falar com vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-6 py-24">
+    <div class="block-grid text-center">
+      <div class="bg-gradient-to-br from-purple/20 via-surface to-neon/10 border-2 border-neon/40 p-12 md:p-20">
+        <h2 class="font-heading text-4xl md:text-6xl font-bold mb-6">
+          Pronto para <span class="text-neon">brilhar</span>?
+        </h2>
+        <p class="text-gray-400 text-lg md:text-xl max-w-lg mx-auto mb-10">Junte-se a milhares de criadores que já transformaram suas ideias em experiências vibrantes.</p>
+        <a href="#" class="inline-block bg-neon text-dark px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-lime transition-colors duration-250">Criar conta grátis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-12 border-t border-gray-800">
+    <div class="block-grid grid-cols-1 md:grid-cols-4 gap-12 text-sm">
+      <div>
+        <p class="font-heading text-2xl font-bold mb-4 bg-gradient-to-r from-neon to-purple bg-clip-text text-transparent">Vibrant.</p>
+        <p class="text-gray-500 leading-relaxed">Energia criativa<br>desde 2024.</p>
+      </div>
+      <div>
+        <p class="font-bold uppercase tracking-widest text-xs mb-4 text-neon">Produto</p>
+        <ul class="space-y-2 text-gray-500">
+          <li><a href="#" class="hover:text-neon transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-neon transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="hover:text-neon transition-colors duration-200">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold uppercase tracking-widest text-xs mb-4 text-purple">Empresa</p>
+        <ul class="space-y-2 text-gray-500">
+          <li><a href="#" class="hover:text-purple transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-purple transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-purple transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold uppercase tracking-widest text-xs mb-4 text-pink">Legal</p>
+        <ul class="space-y-2 text-gray-500">
+          <li><a href="#" class="hover:text-pink transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-pink transition-colors duration-200">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="block-grid mt-12 pt-8 border-t border-gray-800">
+      <p class="text-gray-600 text-xs">&copy; 2024 Vibrant. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

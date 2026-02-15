@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduQuadro — Aprenda de Verdade</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        board: '#2D5016',
+        'board-dark': '#1E3A0E',
+        chalk: '#FFFFFF',
+        'chalk-yellow': '#FFFF00',
+        'chalk-red': '#FF6B6B',
+        'chalk-teal': '#4ECDC4',
+      },
+      fontFamily: {
+        chalk: ['Caveat', 'cursive'],
+        hand: ['Patrick Hand', 'cursive'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { background: #2D5016; font-family: 'Patrick Hand', cursive; }
+  .chalk-texture { position: relative; }
+  .chalk-texture::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    opacity: 0.15; z-index: 1;
+  }
+  .chalk-text { text-shadow: 0 0 4px rgba(255,255,255,0.15), 1px 1px 0 rgba(255,255,255,0.05); }
+  .chalk-line {
+    background-image: url("data:image/svg+xml,%3Csvg width='400' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2 Q50 0 100 2 T200 2 T300 2 T400 2' stroke='%23ffffff' stroke-width='1.5' fill='none' opacity='0.4'/%3E%3C/svg%3E");
+    background-repeat: repeat-x; background-position: center; height: 4px;
+  }
+  .hand-drawn-border {
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  }
+  .smudge { position: relative; }
+  .smudge::after {
+    content: ''; position: absolute; width: 60px; height: 20px; border-radius: 50%;
+    background: rgba(255,255,255,0.04); filter: blur(8px); top: -10px; right: 10px;
+  }
+  @keyframes chalkDraw { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+  .chalk-draw { stroke-dasharray: 200; animation: chalkDraw 1.5s ease forwards; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .chalk-btn:hover { background: rgba(255,255,255,0.15); }
+  .chalk-card:hover { background: rgba(255,255,255,0.07); transform: rotate(-0.5deg); }
+</style>
+</head>
+<body class="text-chalk chalk-texture min-h-screen">
+
+<!-- Hero -->
+<section class="relative px-6 py-20 md:py-28 text-center max-w-5xl mx-auto fade-up">
+  <div class="smudge inline-block mb-6">
+    <svg class="w-16 h-16 mx-auto chalk-draw" viewBox="0 0 64 64" fill="none" stroke="#FFFF00" stroke-width="2" stroke-linecap="round"><path d="M32 8v48M16 20l16-12 16 12M12 36h40M20 48h24"/></svg>
+  </div>
+  <h1 class="font-chalk text-5xl md:text-7xl chalk-text leading-tight mb-4">Aprenda de <span class="text-chalk-yellow">Verdade</span></h1>
+  <p class="font-hand text-xl md:text-2xl opacity-80 max-w-2xl mx-auto mb-8">A plataforma que transforma o aprendizado em algo tão natural quanto rabiscar no quadro-negro. Simples, direto e eficaz.</p>
+  <a href="#precos" class="cursor-pointer inline-block px-8 py-3 hand-drawn-border text-chalk-yellow font-chalk text-2xl chalk-btn transition-all duration-200 hover:scale-[1.02]">Comece Agora</a>
+  <div class="chalk-line max-w-md mx-auto mt-12"></div>
+</section>
+
+<!-- Features -->
+<section class="px-6 py-16 max-w-6xl mx-auto">
+  <h2 class="font-chalk text-4xl md:text-5xl text-center chalk-text mb-14">Por que <span class="text-chalk-teal">Escolher</span> a Gente?</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="chalk-card hand-drawn-border p-8 transition-all duration-300 cursor-pointer smudge">
+      <svg class="w-12 h-12 mb-4" viewBox="0 0 48 48" fill="none" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M16 24l6 6 10-12"/></svg>
+      <h3 class="font-chalk text-2xl text-chalk-yellow mb-2">Método Comprovado</h3>
+      <p class="font-hand opacity-75 text-lg">Técnicas baseadas em ciência cognitiva que realmente fixam o conteúdo na memória de longo prazo.</p>
+    </div>
+    <div class="chalk-card hand-drawn-border p-8 transition-all duration-300 cursor-pointer smudge">
+      <svg class="w-12 h-12 mb-4" viewBox="0 0 48 48" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M24 14v12l8 4"/></svg>
+      <h3 class="font-chalk text-2xl text-chalk-yellow mb-2">No Seu Ritmo</h3>
+      <p class="font-hand opacity-75 text-lg">Estude quando e onde quiser. Aulas gravadas, exercícios práticos e suporte disponível 24 horas.</p>
+    </div>
+    <div class="chalk-card hand-drawn-border p-8 transition-all duration-300 cursor-pointer smudge">
+      <svg class="w-12 h-12 mb-4" viewBox="0 0 48 48" fill="none" stroke="#FFFF00" stroke-width="2" stroke-linecap="round"><path d="M12 36V20l12-10 12 10v16"/><path d="M20 36v-10h8v10"/></svg>
+      <h3 class="font-chalk text-2xl text-chalk-yellow mb-2">Comunidade Ativa</h3>
+      <p class="font-hand opacity-75 text-lg">Conecte-se com milhares de alunos, tire dúvidas em tempo real e participe de grupos de estudo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="px-6 py-16 max-w-6xl mx-auto">
+  <div class="chalk-line max-w-xs mx-auto mb-14"></div>
+  <h2 class="font-chalk text-4xl md:text-5xl text-center chalk-text mb-14">O que Dizem os <span class="text-chalk-red">Alunos</span></h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="hand-drawn-border p-6 smudge">
+      <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 32 32" fill="#FFFFFF"><path d="M6 18h6l-2 8h4l4-12V6H6v12zm14 0h6l-2 8h4l4-12V6H20v12z"/></svg>
+      <p class="font-hand text-lg opacity-80 mb-4">"Nunca pensei que aprender programação seria tão intuitivo. O método do quadro-negro digital é genial!"</p>
+      <p class="font-chalk text-chalk-teal text-xl">— Marina S.</p>
+    </div>
+    <div class="hand-drawn-border p-6 smudge">
+      <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 32 32" fill="#FFFFFF"><path d="M6 18h6l-2 8h4l4-12V6H6v12zm14 0h6l-2 8h4l4-12V6H20v12z"/></svg>
+      <p class="font-hand text-lg opacity-80 mb-4">"Passei no concurso depois de 3 meses usando a plataforma. O conteúdo é direto ao ponto e muito bem explicado."</p>
+      <p class="font-chalk text-chalk-teal text-xl">— Carlos R.</p>
+    </div>
+    <div class="hand-drawn-border p-6 smudge">
+      <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 32 32" fill="#FFFFFF"><path d="M6 18h6l-2 8h4l4-12V6H6v12zm14 0h6l-2 8h4l4-12V6H20v12z"/></svg>
+      <p class="font-hand text-lg opacity-80 mb-4">"A sensação de estar numa sala de aula de verdade, mas no conforto de casa. Recomendo demais!"</p>
+      <p class="font-chalk text-chalk-teal text-xl">— Juliana M.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="precos" class="px-6 py-16 max-w-6xl mx-auto">
+  <div class="chalk-line max-w-xs mx-auto mb-14"></div>
+  <h2 class="font-chalk text-4xl md:text-5xl text-center chalk-text mb-14">Escolha Seu <span class="text-chalk-yellow">Plano</span></h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="hand-drawn-border p-8 text-center chalk-card transition-all duration-300 cursor-pointer">
+      <h3 class="font-chalk text-3xl mb-2">Básico</h3>
+      <p class="font-chalk text-5xl text-chalk-teal my-4">R$0</p>
+      <p class="font-hand opacity-60 mb-6">por mês</p>
+      <ul class="font-hand text-lg space-y-2 text-left mb-8 opacity-80">
+        <li>— 5 cursos gratuitos</li>
+        <li>— Fórum da comunidade</li>
+        <li>— Certificado digital</li>
+      </ul>
+      <a href="#" class="cursor-pointer inline-block w-full py-3 hand-drawn-border font-chalk text-xl chalk-btn transition-all duration-200">Começar Grátis</a>
+    </div>
+    <div class="hand-drawn-border p-8 text-center chalk-card transition-all duration-300 cursor-pointer relative" style="border-color: rgba(255,255,0,0.5);">
+      <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-chalk-yellow text-board font-chalk text-sm px-4 py-1 rounded-full">Popular</span>
+      <h3 class="font-chalk text-3xl mb-2">Pro</h3>
+      <p class="font-chalk text-5xl text-chalk-yellow my-4">R$49</p>
+      <p class="font-hand opacity-60 mb-6">por mês</p>
+      <ul class="font-hand text-lg space-y-2 text-left mb-8 opacity-80">
+        <li>— Todos os cursos</li>
+        <li>— Mentoria em grupo</li>
+        <li>— Projetos práticos</li>
+        <li>— Suporte prioritário</li>
+      </ul>
+      <a href="#" class="cursor-pointer inline-block w-full py-3 bg-chalk-yellow/20 hand-drawn-border font-chalk text-xl text-chalk-yellow chalk-btn transition-all duration-200" style="border-color: rgba(255,255,0,0.5);">Assinar Pro</a>
+    </div>
+    <div class="hand-drawn-border p-8 text-center chalk-card transition-all duration-300 cursor-pointer">
+      <h3 class="font-chalk text-3xl mb-2">Turma</h3>
+      <p class="font-chalk text-5xl text-chalk-red my-4">R$149</p>
+      <p class="font-hand opacity-60 mb-6">por mês</p>
+      <ul class="font-hand text-lg space-y-2 text-left mb-8 opacity-80">
+        <li>— Tudo do Pro</li>
+        <li>— Mentoria individual</li>
+        <li>— Aulas ao vivo semanais</li>
+        <li>— Acesso vitalício</li>
+      </ul>
+      <a href="#" class="cursor-pointer inline-block w-full py-3 hand-drawn-border font-chalk text-xl chalk-btn transition-all duration-200">Falar com Equipe</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="px-6 py-20 text-center max-w-4xl mx-auto">
+  <div class="chalk-line max-w-xs mx-auto mb-14"></div>
+  <svg class="w-12 h-12 mx-auto mb-6 chalk-draw" viewBox="0 0 48 48" fill="none" stroke="#FFFF00" stroke-width="2" stroke-linecap="round"><path d="M8 40l6-16L36 8l4 4-16 22z"/><path d="M28 14l6 6"/><path d="M8 40l4-2 2 2-2 2z"/></svg>
+  <h2 class="font-chalk text-4xl md:text-6xl chalk-text mb-4">Pronto para <span class="text-chalk-teal">Rabiscar</span> seu Futuro?</h2>
+  <p class="font-hand text-xl opacity-75 mb-8 max-w-xl mx-auto">Junte-se a mais de 50 mil alunos que já transformaram suas carreiras com a gente. O quadro-negro é seu.</p>
+  <a href="#" class="cursor-pointer inline-block px-10 py-4 bg-chalk-yellow/20 hand-drawn-border text-chalk-yellow font-chalk text-2xl chalk-btn transition-all duration-200 hover:scale-[1.02]" style="border-color: rgba(255,255,0,0.5);">Criar Minha Conta</a>
+</section>
+
+<!-- Footer -->
+<footer class="px-6 py-10 max-w-6xl mx-auto">
+  <div class="chalk-line mb-10"></div>
+  <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="font-chalk text-2xl chalk-text">EduQuadro</div>
+    <div class="flex gap-6">
+      <a href="#" class="cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-200">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" class="cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-200">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="#FFFFFF"/></svg>
+      </a>
+      <a href="#" class="cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-200">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M22.54 6.42a8.1 8.1 0 01-2.36.65 4.1 4.1 0 001.8-2.27 8.2 8.2 0 01-2.6 1 4.1 4.1 0 00-7 3.74A11.6 11.6 0 013.15 4.9a4.1 4.1 0 001.27 5.48A4.07 4.07 0 012.8 9.7v.05a4.1 4.1 0 003.29 4.02 4.1 4.1 0 01-1.85.07 4.1 4.1 0 003.83 2.85A8.23 8.23 0 012 19.54a11.6 11.6 0 006.29 1.84c7.55 0 11.68-6.26 11.68-11.68l-.01-.53A8.35 8.35 0 0022.54 6.42z"/></svg>
+      </a>
+    </div>
+    <p class="font-hand opacity-50 text-sm">&copy; 2024 EduQuadro. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>

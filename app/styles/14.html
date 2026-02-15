@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Glass — Flowing Iridescent UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Sora', 'sans-serif'] },
+          colors: {
+            dark: '#0a0a1a',
+            glass: { light: 'rgba(255,255,255,0.08)', mid: 'rgba(255,255,255,0.05)' },
+            iri: { pink: '#ff6ec7', cyan: '#00f0ff', violet: '#b44aff', blue: '#4a7aff' },
+            txt: '#e8eaff',
+            muted: '#8b8fad',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Sora', sans-serif; background: #0a0a1a; color: #e8eaff; overflow-x: hidden; }
+    a, button, [role="button"] { cursor: pointer; }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .bg-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: blobMorph 8s ease-in-out infinite alternate; }
+    .blob-1 { width: 500px; height: 500px; background: linear-gradient(135deg, #ff6ec7, #b44aff); top: -10%; left: -5%; }
+    .blob-2 { width: 400px; height: 400px; background: linear-gradient(135deg, #00f0ff, #4a7aff); bottom: 10%; right: -5%; animation-delay: -3s; animation-duration: 10s; }
+    .blob-3 { width: 350px; height: 350px; background: linear-gradient(135deg, #b44aff, #00f0ff); top: 50%; left: 40%; animation-delay: -5s; animation-duration: 12s; }
+    @keyframes blobMorph {
+      0% { border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%; transform: translate(0,0) scale(1); }
+      50% { border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%; }
+      100% { border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%; transform: translate(30px,-20px) scale(1.05); }
+    }
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; transition: border-color 400ms ease, box-shadow 400ms ease; }
+    .glass:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(180,74,255,0.1), 0 0 60px rgba(0,240,255,0.05); }
+    .iri-border { position: relative; overflow: hidden; }
+    .iri-border::before { content: ''; position: absolute; inset: -1px; border-radius: 20px; padding: 1px; background: linear-gradient(135deg, #ff6ec7, #00f0ff, #b44aff, #4a7aff, #ff6ec7); background-size: 300% 300%; animation: iriShift 6s ease infinite; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.5; z-index: 1; pointer-events: none; }
+    @keyframes iriShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .chromatic { position: relative; text-shadow: -2px 0 #ff6ec7, 2px 0 #00f0ff; animation: chromaShift 4s ease-in-out infinite alternate; }
+    @keyframes chromaShift { 0% { text-shadow: -2px 0 #ff6ec7, 2px 0 #00f0ff; } 100% { text-shadow: -3px 1px #ff6ec7, 3px -1px #00f0ff; } }
+    .btn-liquid { background: linear-gradient(135deg, rgba(180,74,255,0.4), rgba(0,240,255,0.4)); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; color: #fff; transition: transform 400ms cubic-bezier(.25,.8,.25,1), box-shadow 400ms ease, background 400ms ease; }
+    .btn-liquid:hover { transform: scale(1.03); box-shadow: 0 0 25px rgba(180,74,255,0.35), 0 0 50px rgba(0,240,255,0.15); background: linear-gradient(135deg, rgba(180,74,255,0.55), rgba(0,240,255,0.55)); }
+    .morph-icon { animation: morphShape 5s ease-in-out infinite alternate; }
+    @keyframes morphShape { 0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } 50% { border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; } 100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; } }
+    .hue-cycle { animation: hueRotate 10s linear infinite; }
+    @keyframes hueRotate { to { filter: hue-rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .blob, .chromatic, .morph-icon, .hue-cycle, .iri-border::before { animation: none; } .btn-liquid { transition: none; } .chromatic { text-shadow: none; } }
+  </style>
+</head>
+<body class="antialiased relative">
+
+  <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+
+  <div class="relative z-10">
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-20">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-muted text-sm tracking-widest uppercase mb-5">Liquid Glass UI</p>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 chromatic">Interfaces que fluem.</h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">
+          Design translúcido com animações fluidas. Cada elemento se transforma como vidro líquido sob luz iridescente.
+        </p>
+        <a href="#precos" class="btn-liquid inline-block px-8 py-4 text-sm font-semibold tracking-wide">
+          Explorar planos
+        </a>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="glass iri-border p-10 w-72 h-72 flex flex-col items-center justify-center gap-5">
+          <div class="morph-icon w-20 h-20 flex items-center justify-center bg-gradient-to-br from-iri-pink/30 to-iri-cyan/30 hue-cycle" style="animation: morphShape 5s ease-in-out infinite alternate, hueRotate 10s linear infinite;">
+            <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="#e8eaff" stroke-width="1.5" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z"/></svg>
+          </div>
+          <div class="w-full h-3 rounded-full bg-white/5 overflow-hidden"><div class="h-full w-3/4 rounded-full bg-gradient-to-r from-iri-pink to-iri-violet"></div></div>
+          <div class="w-full h-3 rounded-full bg-white/5 overflow-hidden"><div class="h-full w-1/2 rounded-full bg-gradient-to-r from-iri-cyan to-iri-blue"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Fluidez com propósito.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass iri-border p-8 text-center">
+          <div class="morph-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-iri-pink/20 to-iri-violet/20" style="animation-delay:-1s">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#b44aff" stroke-width="1.5" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Animações Fluidas</h3>
+          <p class="text-muted text-sm leading-relaxed">Transições suaves de 400-600ms com curvas naturais que imitam o comportamento de líquidos.</p>
+        </div>
+        <div class="glass iri-border p-8 text-center">
+          <div class="morph-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-iri-cyan/20 to-iri-blue/20" style="animation-delay:-2.5s">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Blur Dinâmico</h3>
+          <p class="text-muted text-sm leading-relaxed">Backdrop-filter com blur e saturação que cria profundidade translúcida em cada camada.</p>
+        </div>
+        <div class="glass iri-border p-8 text-center">
+          <div class="morph-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-iri-violet/20 to-iri-pink/20" style="animation-delay:-4s">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#ff6ec7" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Efeito Iridescente</h3>
+          <p class="text-muted text-sm leading-relaxed">Gradientes holográficos com hue-rotate contínuo que simulam reflexos de luz em vidro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Quem já mergulhou.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-8">
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"O efeito de vidro líquido trouxe uma identidade visual única. Nossos usuários ficam hipnotizados."</p>
+          <div class="flex items-center gap-3">
+            <div class="morph-icon w-10 h-10 flex items-center justify-center bg-gradient-to-br from-iri-pink/30 to-iri-violet/30" style="animation-delay:-1s">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#e8eaff" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Marina Costa</p><p class="text-xs text-muted">Design Lead, Prisma</p></div>
+          </div>
+        </div>
+        <div class="glass p-8">
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"As animações morphing dão vida à interface. É como se o app respirasse junto com o usuário."</p>
+          <div class="flex items-center gap-3">
+            <div class="morph-icon w-10 h-10 flex items-center justify-center bg-gradient-to-br from-iri-cyan/30 to-iri-blue/30" style="animation-delay:-3s">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#e8eaff" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Rafael Mendes</p><p class="text-xs text-muted">CTO, Fluxo Digital</p></div>
+          </div>
+        </div>
+        <div class="glass p-8">
+          <p class="text-sm text-muted leading-relaxed italic mb-6">"Aberração cromática sutil e gradientes iridescentes. O resultado é premium e futurista."</p>
+          <div class="flex items-center gap-3">
+            <div class="morph-icon w-10 h-10 flex items-center justify-center bg-gradient-to-br from-iri-violet/30 to-iri-cyan/30" style="animation-delay:-5s">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#e8eaff" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold">Juliana Alves</p><p class="text-xs text-muted">Head de UX, Onda</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-muted text-sm tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Escolha sua frequência.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Essencial</p>
+          <p class="text-4xl font-bold mb-1">R$ 79<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para projetos pessoais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Componentes básicos</div>
+          </div>
+          <button class="btn-liquid w-full py-3 text-sm font-semibold tracking-wide">Começar</button>
+        </div>
+        <div class="glass iri-border p-8 text-center relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-semibold tracking-wide rounded-full bg-gradient-to-r from-iri-pink to-iri-cyan text-dark">Popular</div>
+          <p class="text-muted text-sm tracking-widest uppercase mb-4 mt-2">Profissional</p>
+          <p class="text-4xl font-bold mb-1 chromatic">R$ 197<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes em crescimento</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#b44aff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#b44aff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#b44aff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Componentes premium</div>
+          </div>
+          <button class="btn-liquid w-full py-3 text-sm font-semibold tracking-wide">Escolher plano</button>
+        </div>
+        <div class="glass p-8 text-center">
+          <p class="text-muted text-sm tracking-widest uppercase mb-4">Empresa</p>
+          <p class="text-4xl font-bold mb-1">R$ 497<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para operações em escala</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado</div>
+            <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA garantido 99.9%</div>
+          </div>
+          <button class="btn-liquid w-full py-3 text-sm font-semibold tracking-wide">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <div class="glass iri-border p-12 md:p-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 chromatic">Mergulhe no futuro.</h2>
+        <p class="text-muted max-w-md mx-auto mb-8">Interfaces translúcidas com animações fluidas que transformam a experiência do seu produto.</p>
+        <button class="btn-liquid px-10 py-4 text-sm font-semibold tracking-wide">Começar agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="glass p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <p class="font-bold text-lg mb-3 chromatic">Liquid.</p>
+          <p class="text-muted text-xs leading-relaxed">Design iridescente<br>desde 2024.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Produto</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-iri-cyan transition-colors duration-300">Recursos</a></li>
+            <li><a href="#" class="hover:text-iri-cyan transition-colors duration-300">Preços</a></li>
+            <li><a href="#" class="hover:text-iri-cyan transition-colors duration-300">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-iri-pink transition-colors duration-300">Sobre</a></li>
+            <li><a href="#" class="hover:text-iri-pink transition-colors duration-300">Blog</a></li>
+            <li><a href="#" class="hover:text-iri-pink transition-colors duration-300">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-3">Legal</p>
+          <ul class="space-y-2 text-muted text-xs">
+            <li><a href="#" class="hover:text-iri-violet transition-colors duration-300">Privacidade</a></li>
+            <li><a href="#" class="hover:text-iri-violet transition-colors duration-300">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-xs mt-8">&copy; 2024 Liquid. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  </div>
+</body>
+</html>

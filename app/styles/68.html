@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vintage Analog / Retro Film</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Special+Elite&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Playfair Display','serif'], body: ['Lora','serif'], mono: ['Special Elite','cursive'] },
+          colors: {
+            cream: '#F5E6C8', sepia: '#D4A574', teal: '#4A7B7C', pink: '#E8B4B8',
+            film: '#2C1810', paper: '#EDE0CC', shadow: '#3A4A6B', leak: '#FFB347',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Lora',serif; background:#F5E6C8; color:#2C1810; overflow-x:hidden; }
+    a,button,[role="button"],.clickable { cursor:pointer; }
+    .wrap { max-width:1100px; margin:0 auto; padding:0 1.5rem; }
+
+    /* Film grain SVG filter */
+    .grain-overlay { position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.12; mix-blend-mode:multiply; }
+    .grain-overlay svg { width:100%; height:100%; }
+
+    /* Light leak */
+    .light-leak { position:fixed; inset:0; pointer-events:none; z-index:998;
+      background: radial-gradient(ellipse at 15% 20%, rgba(255,200,100,0.18) 0%, transparent 50%),
+                  radial-gradient(ellipse at 85% 70%, rgba(232,180,184,0.15) 0%, transparent 45%);
+    }
+
+    /* VHS tracking */
+    @keyframes vhsTrack { 0%,95%{transform:skewX(0)} 96%{transform:skewX(-1deg)} 98%{transform:skewX(0.5deg)} 100%{transform:skewX(0)} }
+    .vhs-glitch { animation: vhsTrack 8s ease-in-out infinite; }
+
+    /* Polaroid frame */
+    .polaroid { background:#FEFCF3; padding:12px 12px 40px; box-shadow:2px 3px 12px rgba(44,24,16,0.2); transform:rotate(-1.5deg); transition:transform 0.3s; }
+    .polaroid:nth-child(2) { transform:rotate(1.2deg); }
+    .polaroid:nth-child(3) { transform:rotate(-0.8deg); }
+    .polaroid:hover { transform:rotate(0deg) scale(1.03); }
+
+    /* Fade-in */
+    @keyframes fadeWarm { from{opacity:0;filter:sepia(60%)} to{opacity:1;filter:sepia(20%)} }
+    .fade-warm { animation: fadeWarm 1.2s ease-out forwards; }
+
+    /* Vintage filter on sections */
+    .vintage-filter { filter: sepia(20%) contrast(1.1) saturate(0.8); }
+
+    /* Tape label */
+    .tape-label { background:#D4A574; color:#2C1810; font-family:'Special Elite',cursive; padding:4px 16px; display:inline-block; transform:rotate(-2deg); box-shadow:1px 1px 0 rgba(0,0,0,0.15); }
+
+    /* Pricing card */
+    .price-card { background:#FEFCF3; border:2px solid #D4A574; transition:all 0.3s; }
+    .price-card:hover { box-shadow:4px 6px 20px rgba(44,24,16,0.2); transform:translateY(-4px); }
+    .price-card.featured { border-color:#4A7B7C; background:linear-gradient(180deg,#FEFCF3 0%,#E8E0D0 100%); }
+
+    /* Scratched line */
+    .scratch-line { height:2px; background:repeating-linear-gradient(90deg,#D4A574 0,#D4A574 8px,transparent 8px,transparent 14px); }
+  </style>
+</head>
+<body class="fade-warm">
+
+<!-- Film Grain Overlay -->
+<div class="grain-overlay">
+  <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+</div>
+<!-- Light Leak Overlay -->
+<div class="light-leak"></div>
+
+<!-- HERO -->
+<section class="relative py-20 md:py-32 vintage-filter">
+  <div class="wrap text-center">
+    <span class="tape-label text-sm mb-6 inline-block">Est. 1978 — Analógico</span>
+    <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold mt-6 leading-tight" style="color:#2C1810;">
+      Capture Momentos<br>Como Antigamente
+    </h1>
+    <p class="font-body text-lg md:text-xl mt-6 max-w-2xl mx-auto" style="color:#5A4030;">
+      Reviva a magia da fotografia analógica. Grãos de filme, cores desbotadas e aquele calor nostálgico que só o vintage traz.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+      <button class="cursor-pointer bg-teal text-cream px-8 py-3 font-display font-semibold text-lg rounded-sm hover:opacity-90 transition-opacity">
+        Comece Agora
+      </button>
+      <button class="cursor-pointer border-2 border-sepia text-film px-8 py-3 font-display font-semibold text-lg rounded-sm hover:bg-sepia hover:text-cream transition-colors">
+        Ver Galeria
+      </button>
+    </div>
+    <!-- Decorative film strip -->
+    <div class="flex justify-center gap-2 mt-14 opacity-60">
+      <div class="w-8 h-10 bg-film rounded-sm"></div><div class="w-8 h-10 bg-sepia rounded-sm"></div>
+      <div class="w-8 h-10 bg-teal rounded-sm"></div><div class="w-8 h-10 bg-pink rounded-sm"></div>
+      <div class="w-8 h-10 bg-film rounded-sm"></div><div class="w-8 h-10 bg-sepia rounded-sm"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-16 md:py-24">
+  <div class="wrap">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-4">Recursos Analógicos</h2>
+    <div class="scratch-line max-w-xs mx-auto mb-12"></div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6 vintage-filter">
+          <svg class="w-10 h-10 mb-4" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 3V1m8 2V1"/></svg>
+          <h3 class="font-display text-xl font-semibold mb-2" style="color:#2C1810;">Filtros de Filme</h3>
+          <p class="text-sm" style="color:#5A4030;">Grãos autênticos, sépia quente e cores desbotadas que recriam a estética de câmeras dos anos 70 e 80.</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6 vintage-filter">
+          <svg class="w-10 h-10 mb-4" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="1.5"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/><path d="M12 7l-2 5h4l-2 5"/></svg>
+          <h3 class="font-display text-xl font-semibold mb-2" style="color:#2C1810;">Vazamentos de Luz</h3>
+          <p class="text-sm" style="color:#5A4030;">Efeitos de light leak orgânicos que adicionam aquele brilho dourado e imperfeição charmosa às suas fotos.</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6 vintage-filter">
+          <svg class="w-10 h-10 mb-4" viewBox="0 0 24 24" fill="none" stroke="#E8B4B8" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M4 12h16M8 6h2m4 0h2M8 18h2m4 0h2"/><circle cx="12" cy="12" r="2"/></svg>
+          <h3 class="font-display text-xl font-semibold mb-2" style="color:#2C1810;">Moldura Polaroid</h3>
+          <p class="text-sm" style="color:#5A4030;">Enquadre suas memórias em molduras polaroid clássicas com bordas texturizadas e anotações à mão.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-16 md:py-24" style="background:#EDE0CC;">
+  <div class="wrap">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-4">Depoimentos</h2>
+    <div class="scratch-line max-w-xs mx-auto mb-12"></div>
+    <div class="grid md:grid-cols-3 gap-8 vhs-glitch">
+      <!-- Testimonial 1 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6">
+          <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 24 24" fill="#D4A574"><path d="M11 7H7a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4H4m16-15h-4a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4h-1"/></svg>
+          <p class="text-sm italic mb-4" style="color:#5A4030;">Essas ferramentas trouxeram de volta a alma das minhas fotografias. Cada imagem parece ter uma história dos anos 80.</p>
+          <p class="font-mono text-xs" style="color:#4A7B7C;">— Marina Costa, Fotógrafa</p>
+        </div>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6">
+          <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 24 24" fill="#D4A574"><path d="M11 7H7a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4H4m16-15h-4a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4h-1"/></svg>
+          <p class="text-sm italic mb-4" style="color:#5A4030;">O efeito VHS é incrível. Meus clientes adoram o visual nostálgico e autêntico que consigo entregar agora.</p>
+          <p class="font-mono text-xs" style="color:#4A7B7C;">— Rafael Mendes, Cineasta</p>
+        </div>
+      </div>
+      <!-- Testimonial 3 -->
+      <div class="polaroid cursor-pointer">
+        <div class="bg-cream p-6">
+          <svg class="w-8 h-8 mb-3 opacity-40" viewBox="0 0 24 24" fill="#D4A574"><path d="M11 7H7a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4H4m16-15h-4a4 4 0 00-4 4v1a3 3 0 003 3h1a2 2 0 012 2v1a4 4 0 01-4 4h-1"/></svg>
+          <p class="text-sm italic mb-4" style="color:#5A4030;">Finalmente encontrei algo que captura aquela sensação de fita cassete e foto revelada. Pura nostalgia.</p>
+          <p class="font-mono text-xs" style="color:#4A7B7C;">— Juliana Alves, Designer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="py-16 md:py-24">
+  <div class="wrap">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-4">Planos</h2>
+    <div class="scratch-line max-w-xs mx-auto mb-12"></div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Tier 1 -->
+      <div class="price-card p-8 text-center cursor-pointer">
+        <span class="tape-label text-xs mb-4">Básico</span>
+        <div class="mt-6 mb-2 font-display text-4xl font-bold" style="color:#2C1810;">R$29</div>
+        <p class="text-sm mb-6" style="color:#5A4030;">/mês</p>
+        <ul class="text-sm space-y-3 text-left mb-8" style="color:#5A4030;">
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            5 filtros de filme clássicos
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Grão de filme básico
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Exportação em alta resolução
+          </li>
+        </ul>
+        <button class="cursor-pointer w-full border-2 border-sepia text-film py-2.5 font-display font-semibold rounded-sm hover:bg-sepia hover:text-cream transition-colors">Escolher</button>
+      </div>
+      <!-- Tier 2 (Featured) -->
+      <div class="price-card featured p-8 text-center cursor-pointer relative">
+        <span class="tape-label text-xs mb-4" style="background:#4A7B7C;color:#F5E6C8;">Popular</span>
+        <div class="mt-6 mb-2 font-display text-4xl font-bold" style="color:#2C1810;">R$59</div>
+        <p class="text-sm mb-6" style="color:#5A4030;">/mês</p>
+        <ul class="text-sm space-y-3 text-left mb-8" style="color:#5A4030;">
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            20 filtros analógicos
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Vazamentos de luz e VHS
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Molduras polaroid
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Suporte prioritário
+          </li>
+        </ul>
+        <button class="cursor-pointer w-full bg-teal text-cream py-2.5 font-display font-semibold rounded-sm hover:opacity-90 transition-opacity">Escolher</button>
+      </div>
+      <!-- Tier 3 -->
+      <div class="price-card p-8 text-center cursor-pointer">
+        <span class="tape-label text-xs mb-4">Estúdio</span>
+        <div class="mt-6 mb-2 font-display text-4xl font-bold" style="color:#2C1810;">R$99</div>
+        <p class="text-sm mb-6" style="color:#5A4030;">/mês</p>
+        <ul class="text-sm space-y-3 text-left mb-8" style="color:#5A4030;">
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Todos os filtros ilimitados
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Editor de grão avançado
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Presets personalizados
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#4A7B7C" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            API para integração
+          </li>
+        </ul>
+        <button class="cursor-pointer w-full border-2 border-sepia text-film py-2.5 font-display font-semibold rounded-sm hover:bg-sepia hover:text-cream transition-colors">Escolher</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-16 md:py-24 relative overflow-hidden" style="background:#2C1810;">
+  <div class="absolute inset-0 opacity-20" style="background:radial-gradient(ellipse at 30% 50%,rgba(255,179,71,0.4),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(232,180,184,0.3),transparent 50%);"></div>
+  <div class="wrap text-center relative z-10">
+    <h2 class="font-display text-3xl md:text-5xl font-bold mb-6" style="color:#F5E6C8;">Rebobine o Tempo</h2>
+    <p class="text-lg max-w-xl mx-auto mb-10" style="color:#D4A574;">Junte-se a milhares de criadores que redescobriram a beleza imperfeita do analógico. Comece sua jornada vintage hoje.</p>
+    <button class="cursor-pointer bg-cream text-film px-10 py-4 font-display font-semibold text-lg rounded-sm hover:bg-sepia hover:text-cream transition-colors">
+      Começar Gratuitamente
+    </button>
+    <p class="text-xs mt-4 opacity-50" style="color:#F5E6C8;">Sem cartão de crédito. Cancele quando quiser.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10" style="background:#231510;">
+  <div class="wrap">
+    <div class="grid sm:grid-cols-3 gap-8 text-sm" style="color:#D4A574;">
+      <div>
+        <h4 class="font-display font-semibold text-base mb-3" style="color:#F5E6C8;">Vintage Analog</h4>
+        <p class="opacity-70 leading-relaxed">Revivendo a estética analógica para a era digital. Cada pixel conta uma história.</p>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold text-base mb-3" style="color:#F5E6C8;">Links</h4>
+        <ul class="space-y-2 opacity-70">
+          <li><a class="cursor-pointer hover:opacity-100 transition-opacity">Sobre Nós</a></li>
+          <li><a class="cursor-pointer hover:opacity-100 transition-opacity">Blog</a></li>
+          <li><a class="cursor-pointer hover:opacity-100 transition-opacity">Suporte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-semibold text-base mb-3" style="color:#F5E6C8;">Contato</h4>
+        <ul class="space-y-2 opacity-70">
+          <li><a class="cursor-pointer hover:opacity-100 transition-opacity">contato@vintageanalog.com</a></li>
+          <li><a class="cursor-pointer hover:opacity-100 transition-opacity">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="scratch-line mt-8 mb-6"></div>
+    <p class="text-xs text-center opacity-40" style="color:#D4A574;">&copy; 2024 Vintage Analog. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>

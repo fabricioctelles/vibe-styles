@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoundFlow — Plataforma Musical</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        dark: '#2C2C2C', red: '#E74C3C', blue: '#3498DB', purple: '#9B59B6',
+        amber: '#F39C12', green: '#27AE60', slate: '#34495E'
+      },
+      fontFamily: { sans: ['Poppins', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+  @keyframes floatNote { 0%,100%{transform:translateY(0) rotate(0deg);opacity:.7} 50%{transform:translateY(-20px) rotate(10deg);opacity:1} }
+  @keyframes waveBar { 0%,100%{height:10px} 50%{height:var(--h,30px)} }
+  @keyframes pulseGlow { 0%,100%{box-shadow:0 0 8px rgba(231,76,60,.3)} 50%{box-shadow:0 0 24px rgba(52,152,219,.5)} }
+  .float-note { animation: floatNote 3s ease-in-out infinite; }
+  .float-note-delay { animation: floatNote 4s ease-in-out 1s infinite; }
+  .float-note-slow { animation: floatNote 5s ease-in-out 0.5s infinite; }
+  .wave-bar { animation: waveBar 1.2s ease-in-out infinite; border-radius: 4px; }
+  .pulse-card { animation: pulseGlow 3s ease-in-out infinite; }
+  .wave-bg { background: linear-gradient(135deg, #FFFFFF 0%, #f0f4ff 50%, #fdf2f8 100%); }
+  .gradient-text { background: linear-gradient(135deg, #E74C3C, #3498DB, #9B59B6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body class="font-sans text-dark wave-bg overflow-x-hidden">
+
+<!-- Floating Musical Notes Background -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <svg class="absolute top-10 left-[8%] w-8 h-8 text-red/30 float-note" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+  <svg class="absolute top-32 right-[12%] w-6 h-6 text-blue/30 float-note-delay" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+  <svg class="absolute top-[60%] left-[5%] w-10 h-10 text-purple/20 float-note-slow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+  <svg class="absolute top-[45%] right-[7%] w-7 h-7 text-amber/25 float-note" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+</div>
+
+<!-- HERO -->
+<section class="relative z-10 min-h-[90vh] flex items-center justify-center px-4 py-20">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="flex justify-center gap-1 mb-6">
+      <span class="wave-bar w-1.5 bg-red rounded" style="--h:28px"></span>
+      <span class="wave-bar w-1.5 bg-blue rounded" style="--h:40px;animation-delay:.15s"></span>
+      <span class="wave-bar w-1.5 bg-purple rounded" style="--h:22px;animation-delay:.3s"></span>
+      <span class="wave-bar w-1.5 bg-amber rounded" style="--h:36px;animation-delay:.45s"></span>
+      <span class="wave-bar w-1.5 bg-green rounded" style="--h:18px;animation-delay:.6s"></span>
+      <span class="wave-bar w-1.5 bg-red rounded" style="--h:32px;animation-delay:.75s"></span>
+      <span class="wave-bar w-1.5 bg-blue rounded" style="--h:26px;animation-delay:.9s"></span>
+    </div>
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight"><span class="gradient-text">Sinta o Ritmo</span><br>da Inovação Musical</h1>
+    <p class="text-lg md:text-xl text-slate max-w-2xl mx-auto mb-10">Transforme sua criatividade em melodias incríveis. A plataforma completa para produção, colaboração e distribuição musical.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#" class="cursor-pointer inline-flex items-center gap-2 bg-red text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-red/90 transition-colors duration-200">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Comece Agora
+      </a>
+      <a href="#" class="cursor-pointer inline-flex items-center gap-2 border-2 border-blue text-blue px-8 py-4 rounded-full font-bold text-lg hover:bg-blue hover:text-white transition-colors duration-200">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Saiba Mais
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="relative z-10 px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-black text-center mb-4 gradient-text">Recursos em Harmonia</h2>
+    <p class="text-center text-slate mb-14 max-w-xl mx-auto">Ferramentas poderosas que trabalham juntas como uma orquestra perfeita.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="pulse-card bg-white/80 backdrop-blur rounded-2xl p-8 border border-red/20 hover:border-red/50 transition-colors duration-200 cursor-pointer">
+        <div class="w-14 h-14 bg-red/10 rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-7 h-7 text-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Produção Intuitiva</h3>
+        <p class="text-slate text-sm leading-relaxed">Estúdio virtual com mais de 500 instrumentos e efeitos. Crie faixas profissionais direto do navegador.</p>
+      </div>
+      <div class="pulse-card bg-white/80 backdrop-blur rounded-2xl p-8 border border-blue/20 hover:border-blue/50 transition-colors duration-200 cursor-pointer" style="animation-delay:.5s">
+        <div class="w-14 h-14 bg-blue/10 rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-7 h-7 text-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Colaboração em Tempo Real</h3>
+        <p class="text-slate text-sm leading-relaxed">Convide músicos de qualquer lugar do mundo. Editem juntos, ao vivo, com sincronização perfeita.</p>
+      </div>
+      <div class="pulse-card bg-white/80 backdrop-blur rounded-2xl p-8 border border-purple/20 hover:border-purple/50 transition-colors duration-200 cursor-pointer" style="animation-delay:1s">
+        <div class="w-14 h-14 bg-purple/10 rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-7 h-7 text-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Análise de Frequência</h3>
+        <p class="text-slate text-sm leading-relaxed">Visualize ondas sonoras, espectros e padrões rítmicos com ferramentas de análise em tempo real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="relative z-10 px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-black text-center mb-4 gradient-text">O Que Dizem Nossos Artistas</h2>
+    <p class="text-center text-slate mb-14 max-w-xl mx-auto">Milhares de músicos já transformaram sua arte com nossa plataforma.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 border border-amber/20">
+        <div class="flex gap-1 mb-4">
+          <span class="wave-bar w-1 bg-amber" style="--h:16px"></span>
+          <span class="wave-bar w-1 bg-amber" style="--h:24px;animation-delay:.1s"></span>
+          <span class="wave-bar w-1 bg-amber" style="--h:12px;animation-delay:.2s"></span>
+          <span class="wave-bar w-1 bg-amber" style="--h:20px;animation-delay:.3s"></span>
+          <span class="wave-bar w-1 bg-amber" style="--h:14px;animation-delay:.4s"></span>
+        </div>
+        <p class="text-slate text-sm leading-relaxed mb-6">"A qualidade sonora é impressionante. Produzi meu álbum inteiro usando apenas esta plataforma. O resultado ficou profissional."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-amber/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
+          </div>
+          <div><p class="font-bold text-sm">Mariana Costa</p><p class="text-xs text-slate">Produtora Musical</p></div>
+        </div>
+      </div>
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 border border-green/20">
+        <div class="flex gap-1 mb-4">
+          <span class="wave-bar w-1 bg-green" style="--h:20px"></span>
+          <span class="wave-bar w-1 bg-green" style="--h:14px;animation-delay:.15s"></span>
+          <span class="wave-bar w-1 bg-green" style="--h:28px;animation-delay:.25s"></span>
+          <span class="wave-bar w-1 bg-green" style="--h:16px;animation-delay:.35s"></span>
+          <span class="wave-bar w-1 bg-green" style="--h:22px;animation-delay:.45s"></span>
+        </div>
+        <p class="text-slate text-sm leading-relaxed mb-6">"A colaboração em tempo real mudou tudo. Agora gravo com minha banda mesmo estando em cidades diferentes. Incrível!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-green" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
+          </div>
+          <div><p class="font-bold text-sm">Rafael Mendes</p><p class="text-xs text-slate">Guitarrista & Compositor</p></div>
+        </div>
+      </div>
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 border border-red/20">
+        <div class="flex gap-1 mb-4">
+          <span class="wave-bar w-1 bg-red" style="--h:18px"></span>
+          <span class="wave-bar w-1 bg-red" style="--h:26px;animation-delay:.12s"></span>
+          <span class="wave-bar w-1 bg-red" style="--h:14px;animation-delay:.24s"></span>
+          <span class="wave-bar w-1 bg-red" style="--h:22px;animation-delay:.36s"></span>
+          <span class="wave-bar w-1 bg-red" style="--h:30px;animation-delay:.48s"></span>
+        </div>
+        <p class="text-slate text-sm leading-relaxed mb-6">"As ferramentas de análise de frequência me ajudaram a entender melhor minha mixagem. Meu som nunca esteve tão limpo."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-red/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-red" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
+          </div>
+          <div><p class="font-bold text-sm">Juliana Alves</p><p class="text-xs text-slate">DJ & Engenheira de Som</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="relative z-10 px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-black text-center mb-4 gradient-text">Escolha Seu Ritmo</h2>
+    <p class="text-center text-slate mb-14 max-w-xl mx-auto">Planos que acompanham o seu compasso criativo.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 border border-gray-200 hover:border-blue/50 transition-colors duration-200 cursor-pointer">
+        <div class="flex gap-1 mb-4 h-8 items-end">
+          <span class="wave-bar w-1 bg-blue/40" style="--h:12px"></span><span class="wave-bar w-1 bg-blue/40" style="--h:18px;animation-delay:.2s"></span><span class="wave-bar w-1 bg-blue/40" style="--h:10px;animation-delay:.4s"></span>
+        </div>
+        <h3 class="text-lg font-bold mb-1">Solo</h3>
+        <p class="text-4xl font-black text-blue mb-1">Grátis</p>
+        <p class="text-xs text-slate mb-6">Para sempre</p>
+        <ul class="space-y-3 mb-8 text-sm text-slate">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>5 projetos ativos</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>50 instrumentos</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Exportação MP3</li>
+        </ul>
+        <a href="#" class="cursor-pointer block text-center border-2 border-blue text-blue py-3 rounded-full font-bold hover:bg-blue hover:text-white transition-colors duration-200">Começar Grátis</a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border-2 border-red shadow-xl relative hover:shadow-2xl transition-shadow duration-200 cursor-pointer">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red text-white text-xs font-bold px-4 py-1 rounded-full">Popular</span>
+        <div class="flex gap-1 mb-4 h-8 items-end">
+          <span class="wave-bar w-1 bg-red" style="--h:16px"></span><span class="wave-bar w-1 bg-red" style="--h:28px;animation-delay:.15s"></span><span class="wave-bar w-1 bg-red" style="--h:20px;animation-delay:.3s"></span><span class="wave-bar w-1 bg-red" style="--h:32px;animation-delay:.45s"></span>
+        </div>
+        <h3 class="text-lg font-bold mb-1">Banda</h3>
+        <p class="text-4xl font-black text-red mb-1">R$49<span class="text-lg font-semibold text-slate">/mês</span></p>
+        <p class="text-xs text-slate mb-6">Cobrado mensalmente</p>
+        <ul class="space-y-3 mb-8 text-sm text-slate">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-red flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-red flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>500+ instrumentos</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-red flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Colaboração em tempo real</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-red flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Exportação WAV & FLAC</li>
+        </ul>
+        <a href="#" class="cursor-pointer block text-center bg-red text-white py-3 rounded-full font-bold hover:bg-red/90 transition-colors duration-200">Assinar Agora</a>
+      </div>
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 border border-gray-200 hover:border-purple/50 transition-colors duration-200 cursor-pointer">
+        <div class="flex gap-1 mb-4 h-8 items-end">
+          <span class="wave-bar w-1 bg-purple" style="--h:20px"></span><span class="wave-bar w-1 bg-purple" style="--h:34px;animation-delay:.1s"></span><span class="wave-bar w-1 bg-purple" style="--h:16px;animation-delay:.2s"></span><span class="wave-bar w-1 bg-purple" style="--h:28px;animation-delay:.3s"></span><span class="wave-bar w-1 bg-purple" style="--h:38px;animation-delay:.4s"></span>
+        </div>
+        <h3 class="text-lg font-bold mb-1">Orquestra</h3>
+        <p class="text-4xl font-black text-purple mb-1">R$129<span class="text-lg font-semibold text-slate">/mês</span></p>
+        <p class="text-xs text-slate mb-6">Cobrado mensalmente</p>
+        <ul class="space-y-3 mb-8 text-sm text-slate">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tudo do plano Banda</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Masterização com IA</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Distribuição global</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-purple flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário 24/7</li>
+        </ul>
+        <a href="#" class="cursor-pointer block text-center border-2 border-purple text-purple py-3 rounded-full font-bold hover:bg-purple hover:text-white transition-colors duration-200">Escolher Orquestra</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="relative z-10 px-4 py-20">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="bg-gradient-to-r from-red via-blue to-purple rounded-3xl p-12 md:p-16 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        <svg class="absolute top-4 left-8 w-12 h-12 text-white float-note" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+        <svg class="absolute bottom-6 right-10 w-8 h-8 text-white float-note-delay" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-4 relative z-10">Pronto Para Criar Sua Obra-Prima?</h2>
+      <p class="text-white/80 mb-8 max-w-lg mx-auto relative z-10">Junte-se a mais de 50.000 artistas que já estão compondo o futuro da música.</p>
+      <a href="#" class="cursor-pointer inline-flex items-center gap-2 bg-white text-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-colors duration-200 relative z-10">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Criar Conta Gratuita
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="relative z-10 px-4 py-12 border-t border-gray-200">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-7 h-7 text-red" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+          <span class="font-black text-xl">SoundFlow</span>
+        </div>
+        <p class="text-sm text-slate">A plataforma musical que transforma ideias em melodias.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-3">Produto</h4>
+        <ul class="space-y-2 text-sm text-slate">
+          <li><a href="#" class="cursor-pointer hover:text-red transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-red transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-red transition-colors duration-200">Integrações</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-3">Empresa</h4>
+        <ul class="space-y-2 text-sm text-slate">
+          <li><a href="#" class="cursor-pointer hover:text-blue transition-colors duration-200">Sobre Nós</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-blue transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-blue transition-colors duration-200">Carreiras</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-3">Suporte</h4>
+        <ul class="space-y-2 text-sm text-slate">
+          <li><a href="#" class="cursor-pointer hover:text-purple transition-colors duration-200">Central de Ajuda</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-purple transition-colors duration-200">Contato</a></li>
+          <li><a href="#" class="cursor-pointer hover:text-purple transition-colors duration-200">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-200 pt-6 text-center text-sm text-slate">
+      <p>&copy; 2025 SoundFlow. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

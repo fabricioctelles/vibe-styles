@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isometric Gaming / Voxel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pixel: ['"Press Start 2P"', 'monospace'], body: ['Nunito', 'sans-serif'] },
+          colors: {
+            sky: '#E8F0FE', brown: '#5D4037', mint: '#69F0AE', peach: '#FFCCBC',
+            pyellow: '#FFF59D', aqua: '#80DEEA', pink: '#F48FB1', lavender: '#B39DDB',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --iso-rotate-x: 60deg; --iso-rotate-z: 45deg; --voxel-size: 40px; --float-distance: 10px; --float-duration: 3s; --pastel-bg: #E8F0FE; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: var(--pastel-bg); color: #3E2723; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .pixel-title { font-family: 'Press Start 2P', monospace; }
+
+    /* Isometric transform */
+    .iso { transform: rotateX(var(--iso-rotate-x)) rotateZ(var(--iso-rotate-z)); transform-style: preserve-3d; }
+
+    /* Voxel block base */
+    .voxel-block {
+      border-radius: 0; position: relative;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.15), 8px 8px 0 rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .voxel-block:hover {
+      transform: translateY(-6px);
+      box-shadow: 4px 8px 0 rgba(0,0,0,0.2), 8px 14px 0 rgba(0,0,0,0.1);
+    }
+
+    /* Float animation */
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * var(--float-distance))); } }
+    .float-anim { animation: float var(--float-duration) ease-in-out infinite; }
+    .float-delay-1 { animation-delay: 0.5s; }
+    .float-delay-2 { animation-delay: 1s; }
+    .float-delay-3 { animation-delay: 1.5s; }
+
+    /* Bounce on click */
+    @keyframes bounce-click { 0% { transform: scale(1); } 50% { transform: scale(0.93); } 100% { transform: scale(1); } }
+    .bounce-click:active { animation: bounce-click 0.25s ease; }
+
+    /* Step-down progression */
+    .step-down > *:nth-child(1) { transform: translateY(0); }
+    .step-down > *:nth-child(2) { transform: translateY(20px); }
+    .step-down > *:nth-child(3) { transform: translateY(40px); }
+
+    /* Isometric platform for hero */
+    .iso-platform {
+      width: 200px; height: 200px; background: #69F0AE;
+      transform: rotateX(60deg) rotateZ(45deg);
+      box-shadow: 0 10px 0 #4CAF50, 0 20px 0 #388E3C;
+      border-radius: 0;
+    }
+
+    @media (max-width: 768px) {
+      .step-down > * { transform: translateY(0) !important; }
+      .iso-platform { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+
+  <!-- HERO -->
+  <section class="relative py-16 md:py-24 overflow-hidden" style="background: linear-gradient(135deg, #E8F0FE 0%, #80DEEA 50%, #B39DDB 100%);">
+    <div class="wrap text-center relative z-10">
+      <div class="flex justify-center mb-8">
+        <div class="float-anim" style="perspective: 600px;">
+          <div class="iso-platform mx-auto flex items-center justify-center">
+            <svg class="w-12 h-12 text-white" style="transform: rotateZ(-45deg) rotateX(-60deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+        </div>
+      </div>
+      <h1 class="pixel-title text-xl md:text-3xl text-brown mb-6 leading-relaxed">Construa Mundos<br>Bloco a Bloco</h1>
+      <p class="text-lg md:text-xl text-brown/80 max-w-2xl mx-auto mb-8 font-semibold">A plataforma de criação isométrica que transforma suas ideias em universos voxel incríveis. Simples, divertido e poderoso.</p>
+      <button class="bounce-click voxel-block bg-mint text-brown font-bold px-8 py-4 text-lg cursor-pointer inline-flex items-center gap-3 hover:bg-green-300 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Comece Agora Grátis
+      </button>
+    </div>
+    <!-- Decorative floating blocks -->
+    <div class="absolute top-10 left-10 w-12 h-12 bg-pyellow float-anim float-delay-1 voxel-block opacity-60 hidden md:block"></div>
+    <div class="absolute top-32 right-16 w-8 h-8 bg-pink float-anim float-delay-2 voxel-block opacity-60 hidden md:block"></div>
+    <div class="absolute bottom-20 left-1/4 w-10 h-10 bg-peach float-anim float-delay-3 voxel-block opacity-60 hidden md:block"></div>
+    <div class="absolute bottom-10 right-1/3 w-6 h-6 bg-lavender float-anim voxel-block opacity-60 hidden md:block"></div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-16 md:py-24 bg-white/60">
+    <div class="wrap">
+      <h2 class="pixel-title text-sm md:text-lg text-center text-brown mb-4">Recursos</h2>
+      <p class="text-center text-brown/70 mb-12 text-lg font-semibold">Ferramentas poderosas para criadores de mundos</p>
+      <div class="grid md:grid-cols-3 gap-8 step-down">
+        <!-- Feature 1 -->
+        <div class="voxel-block bg-pyellow p-8 cursor-pointer bounce-click">
+          <div class="w-14 h-14 bg-brown/10 flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-7 h-7 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <h3 class="font-extrabold text-brown text-xl mb-3">Editor Voxel 3D</h3>
+          <p class="text-brown/70 font-semibold">Crie estruturas tridimensionais com blocos coloridos. Interface intuitiva de arrastar e soltar com visualização isométrica em tempo real.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="voxel-block bg-aqua p-8 cursor-pointer bounce-click">
+          <div class="w-14 h-14 bg-brown/10 flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-7 h-7 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="font-extrabold text-brown text-xl mb-3">Multiplayer Criativo</h3>
+          <p class="text-brown/70 font-semibold">Convide amigos para construir juntos. Colaboração em tempo real com até 50 jogadores no mesmo mundo voxel.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="voxel-block bg-peach p-8 cursor-pointer bounce-click">
+          <div class="w-14 h-14 bg-brown/10 flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-7 h-7 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-extrabold text-brown text-xl mb-3">Texturas Personalizadas</h3>
+          <p class="text-brown/70 font-semibold">Importe suas próprias texturas ou escolha entre mais de 500 blocos pré-fabricados. Pixel art nunca foi tão fácil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-16 md:py-24" style="background: linear-gradient(180deg, #E8F0FE 0%, #FFF59D 100%);">
+    <div class="wrap">
+      <h2 class="pixel-title text-sm md:text-lg text-center text-brown mb-4">Depoimentos</h2>
+      <p class="text-center text-brown/70 mb-12 text-lg font-semibold">O que nossos criadores dizem</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="voxel-block bg-white p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-mint flex items-center justify-center" style="border-radius:0;">
+              <svg class="w-5 h-5 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div><p class="font-bold text-brown">Lucas Ferreira</p><p class="text-sm text-brown/60">Game Designer</p></div>
+          </div>
+          <p class="text-brown/70 font-semibold">"A melhor ferramenta de criação voxel que já usei. A projeção isométrica é perfeita e a interface é super intuitiva."</p>
+        </div>
+        <div class="voxel-block bg-white p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-pink flex items-center justify-center" style="border-radius:0;">
+              <svg class="w-5 h-5 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div><p class="font-bold text-brown">Marina Costa</p><p class="text-sm text-brown/60">Artista Pixel</p></div>
+          </div>
+          <p class="text-brown/70 font-semibold">"Finalmente uma plataforma que entende pixel art 3D. Meus mundos ficam incríveis com as texturas personalizadas."</p>
+        </div>
+        <div class="voxel-block bg-white p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-lavender flex items-center justify-center" style="border-radius:0;">
+              <svg class="w-5 h-5 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div><p class="font-bold text-brown">Rafael Souza</p><p class="text-sm text-brown/60">Streamer</p></div>
+          </div>
+          <p class="text-brown/70 font-semibold">"O modo multiplayer é sensacional! Minha comunidade adora construir junto nas lives. Recomendo demais."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="py-16 md:py-24 bg-white/60">
+    <div class="wrap">
+      <h2 class="pixel-title text-sm md:text-lg text-center text-brown mb-4">Planos</h2>
+      <p class="text-center text-brown/70 mb-12 text-lg font-semibold">Escolha o mundo perfeito para você</p>
+      <div class="grid md:grid-cols-3 gap-8 step-down">
+        <!-- Free -->
+        <div class="voxel-block bg-sky p-8 text-center cursor-pointer bounce-click">
+          <div class="w-16 h-16 bg-aqua mx-auto flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-8 h-8 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <h3 class="pixel-title text-xs text-brown mb-2">Explorador</h3>
+          <p class="text-3xl font-extrabold text-brown mb-1">Grátis</p>
+          <p class="text-brown/60 mb-6 font-semibold">Para sempre</p>
+          <ul class="text-left text-brown/70 space-y-3 mb-8 font-semibold">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>1 mundo ativo</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>100 blocos básicos</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Exportar em PNG</li>
+          </ul>
+          <button class="bounce-click voxel-block bg-aqua text-brown font-bold w-full py-3 cursor-pointer hover:bg-cyan-300 transition-colors">Começar</button>
+        </div>
+        <!-- Pro -->
+        <div class="voxel-block bg-mint p-8 text-center cursor-pointer bounce-click relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brown text-white px-4 py-1 pixel-title text-[8px]" style="border-radius:0;">POPULAR</div>
+          <div class="w-16 h-16 bg-pyellow mx-auto flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-8 h-8 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <h3 class="pixel-title text-xs text-brown mb-2">Construtor</h3>
+          <p class="text-3xl font-extrabold text-brown mb-1">R$29<span class="text-base font-semibold">/mês</span></p>
+          <p class="text-brown/60 mb-6 font-semibold">Cobrado mensalmente</p>
+          <ul class="text-left text-brown/70 space-y-3 mb-8 font-semibold">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-brown flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>10 mundos ativos</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-brown flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>500+ blocos e texturas</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-brown flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Multiplayer (10 jogadores)</li>
+          </ul>
+          <button class="bounce-click voxel-block bg-brown text-white font-bold w-full py-3 cursor-pointer hover:bg-amber-900 transition-colors">Assinar Agora</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="voxel-block bg-lavender p-8 text-center cursor-pointer bounce-click">
+          <div class="w-16 h-16 bg-pink mx-auto flex items-center justify-center mb-5" style="border-radius:0;">
+            <svg class="w-8 h-8 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="pixel-title text-xs text-brown mb-2">Arquiteto</h3>
+          <p class="text-3xl font-extrabold text-brown mb-1">R$79<span class="text-base font-semibold">/mês</span></p>
+          <p class="text-brown/60 mb-6 font-semibold">Cobrado mensalmente</p>
+          <ul class="text-left text-brown/70 space-y-3 mb-8 font-semibold">
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-lavender flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Mundos ilimitados</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-lavender flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Todas as texturas + IA</li>
+            <li class="flex items-center gap-2"><svg class="w-5 h-5 text-lavender flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Multiplayer (50 jogadores)</li>
+          </ul>
+          <button class="bounce-click voxel-block bg-pink text-brown font-bold w-full py-3 cursor-pointer hover:bg-pink-400 transition-colors">Falar com Vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-24 relative overflow-hidden" style="background: linear-gradient(135deg, #69F0AE 0%, #80DEEA 50%, #B39DDB 100%);">
+    <div class="wrap text-center relative z-10">
+      <div class="flex justify-center gap-4 mb-8">
+        <div class="w-10 h-10 bg-pyellow voxel-block float-anim"></div>
+        <div class="w-14 h-14 bg-peach voxel-block float-anim float-delay-1"></div>
+        <div class="w-10 h-10 bg-pink voxel-block float-anim float-delay-2"></div>
+      </div>
+      <h2 class="pixel-title text-sm md:text-xl text-brown mb-6 leading-relaxed">Pronto para Construir<br>Seu Universo?</h2>
+      <p class="text-lg text-brown/80 max-w-xl mx-auto mb-8 font-semibold">Junte-se a mais de 50.000 criadores que já estão construindo mundos voxel incríveis. Comece grátis, sem cartão de crédito.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="bounce-click voxel-block bg-brown text-white font-bold px-8 py-4 text-lg cursor-pointer inline-flex items-center justify-center gap-3 hover:bg-amber-900 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Criar Conta Grátis
+        </button>
+        <button class="bounce-click voxel-block bg-white/80 text-brown font-bold px-8 py-4 text-lg cursor-pointer inline-flex items-center justify-center gap-3 hover:bg-white transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Ver Demo
+        </button>
+      </div>
+    </div>
+    <div class="absolute top-6 left-8 w-8 h-8 bg-white/30 voxel-block float-anim float-delay-3 hidden md:block"></div>
+    <div class="absolute bottom-8 right-12 w-12 h-12 bg-white/20 voxel-block float-anim float-delay-1 hidden md:block"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 bg-brown text-white/80">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-mint flex items-center justify-center" style="border-radius:0;">
+            <svg class="w-5 h-5 text-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <span class="pixel-title text-[10px] text-white">VoxelCraft</span>
+        </div>
+        <div class="flex gap-6 text-sm font-semibold">
+          <a href="#" class="cursor-pointer hover:text-mint transition-colors">Sobre</a>
+          <a href="#" class="cursor-pointer hover:text-mint transition-colors">Blog</a>
+          <a href="#" class="cursor-pointer hover:text-mint transition-colors">Suporte</a>
+          <a href="#" class="cursor-pointer hover:text-mint transition-colors">Termos</a>
+        </div>
+        <p class="text-sm text-white/50">&copy; 2025 VoxelCraft. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

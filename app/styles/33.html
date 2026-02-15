@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparative Analysis Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            primary: '#3B82F6', compare: '#A855F7', pos: '#22C55E', neg: '#EF4444',
+            neutral: '#6B7280', surface: '#F8FAFC', card: '#FFFFFF', dark: '#0F172A', muted: '#64748B'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    @keyframes growBar { from { width: 0; } }
+    .bar-animate { animation: growBar 1s ease-out forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; }
+    @keyframes pulse-arrow { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .arrow-pulse { animation: pulse-arrow 2s ease-in-out infinite; }
+    .badge { padding: 4px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    .badge-pos { background: #DCFCE7; color: #16A34A; }
+    .badge-neg { background: #FEE2E2; color: #DC2626; }
+    .zebra tr:nth-child(even) { background: #F1F5F9; }
+    .zebra tr:hover { background: #E2E8F0; }
+    @media (prefers-reduced-motion: reduce) { .bar-animate, .fade-up, .arrow-pulse { animation: none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20 bg-gradient-to-br from-slate-50 via-blue-50/40 to-purple-50/30">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="fade-up">
+        <div class="badge badge-pos mb-5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          +34% vs mês anterior
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">Compare. Analise. <span class="text-primary">Decida.</span></h1>
+        <p class="text-muted text-lg max-w-md leading-relaxed mb-10">
+          Dashboard de análise comparativa que transforma dados complexos em decisões claras. Métricas lado a lado, deltas em tempo real.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl text-sm font-semibold hover:bg-blue-600 transition-colors duration-200">
+            Ver planos
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#recursos" class="inline-flex items-center gap-2 border border-slate-200 bg-white px-8 py-4 rounded-xl text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200">
+            Explorar recursos
+          </a>
+        </div>
+      </div>
+      <div class="hidden md:block fade-up" style="animation-delay:0.2s">
+        <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/60 border border-slate-100 p-6 space-y-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-muted uppercase tracking-wider">Receita Mensal</span>
+            <span class="text-xs text-muted bg-slate-100 px-2 py-1 rounded-md">Jan vs Fev</span>
+          </div>
+          <div class="flex items-end gap-6">
+            <div class="flex-1">
+              <p class="text-xs text-muted mb-1">Janeiro</p>
+              <p class="text-2xl font-bold text-primary">R$ 84.200</p>
+              <div class="mt-2 h-3 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full bar-animate" style="width:68%"></div></div>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs text-muted mb-1">Fevereiro</p>
+              <p class="text-2xl font-bold text-compare">R$ 112.800</p>
+              <div class="mt-2 h-3 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-compare rounded-full bar-animate" style="width:91%;animation-delay:0.3s"></div></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <svg class="w-4 h-4 text-pos arrow-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+            <span class="text-sm font-semibold text-pos">+33.9%</span>
+            <span class="text-xs text-muted">crescimento período</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Comparações que revelam insights.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 group">
+          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors duration-200">
+            <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="8" height="18" rx="2"/><rect x="14" y="3" width="8" height="18" rx="2"/><path d="M6 8h0"/><path d="M6 12h0"/><path d="M18 8h0"/><path d="M18 12h0"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Métricas Lado a Lado</h3>
+          <p class="text-muted text-sm leading-relaxed">Compare períodos, regiões ou variantes A/B com visualização paralela e deltas automáticos.</p>
+          <div class="mt-5 flex items-center gap-4 text-xs">
+            <span class="badge badge-pos"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>+12%</span>
+            <span class="badge badge-neg"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/></svg>-3%</span>
+            <span class="text-muted">Indicadores em tempo real</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md hover:border-compare/30 transition-all duration-200 group">
+          <div class="w-14 h-14 rounded-xl bg-purple-50 flex items-center justify-center mb-6 group-hover:bg-compare/10 transition-colors duration-200">
+            <svg class="w-7 h-7 text-compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Benchmarks Inteligentes</h3>
+          <p class="text-muted text-sm leading-relaxed">Linhas de referência automáticas mostram onde você está em relação à média do setor e metas.</p>
+          <div class="mt-5 flex items-center gap-2">
+            <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-compare rounded-full bar-animate" style="width:78%"></div></div>
+            <span class="text-xs font-semibold text-compare">78%</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md hover:border-pos/30 transition-all duration-200 group">
+          <div class="w-14 h-14 rounded-xl bg-green-50 flex items-center justify-center mb-6 group-hover:bg-pos/10 transition-colors duration-200">
+            <svg class="w-7 h-7 text-pos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Relatórios Comparativos</h3>
+          <p class="text-muted text-sm leading-relaxed">Exporte comparações completas com tabelas A/B, destaques de vencedores e análise de variação.</p>
+          <div class="mt-5">
+            <span class="text-xs text-muted bg-slate-100 px-3 py-1 rounded-md">PDF · CSV · Dashboard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 bg-gradient-to-b from-white to-slate-50">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Quem já compara melhor.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+          <div class="flex items-center gap-1 mb-4 stars"><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Antes levávamos horas cruzando planilhas. Agora comparamos campanhas em segundos com deltas visuais claros."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">Renata Oliveira</p><p class="text-xs text-muted">Head de Marketing, DataFlow</p></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+          <div class="flex items-center gap-1 mb-4 stars"><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Os testes A/B ficaram muito mais intuitivos. A tabela comparativa com destaque de vencedor é genial."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-compare/10 flex items-center justify-center"><svg class="w-5 h-5 text-compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">Lucas Mendes</p><p class="text-xs text-muted">Product Manager, Nexus Labs</p></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+          <div class="flex items-center gap-1 mb-4 stars"><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Comparar performance regional ficou trivial. Os benchmarks automáticos economizam horas de análise toda semana."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-pos/10 flex items-center justify-center"><svg class="w-5 h-5 text-pos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-sm font-semibold">Fernanda Costa</p><p class="text-xs text-muted">Diretora de BI, Vértice</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Escolha seu nível de análise.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Starter -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Starter</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 97<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Ideal para analistas individuais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>5 comparações/mês
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Deltas automáticos
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Exportação CSV
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-xl border-2 border-slate-200 text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200">Começar grátis</button>
+        </div>
+        <!-- Pro -->
+        <div class="bg-gradient-to-b from-primary to-blue-600 rounded-2xl p-8 text-center text-white relative shadow-lg shadow-primary/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-compare text-white text-xs font-bold px-4 py-1 rounded-full">Popular</div>
+          <p class="text-blue-200 text-sm font-semibold tracking-widest uppercase mb-4 mt-2">Profissional</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 247<span class="text-base font-normal text-blue-200">/mês</span></p>
+          <p class="text-xs text-blue-200 mb-8">Para equipes de analytics</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Comparações ilimitadas
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Testes A/B completos
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Benchmarks do setor
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-xl bg-white text-primary text-sm font-semibold hover:bg-blue-50 transition-colors duration-200">Escolher plano</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-extrabold mb-1">R$ 697<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para operações em escala</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Profissional
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API dedicada
+            </div>
+            <div class="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+              <svg class="w-4 h-4 text-pos flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9% garantido
+            </div>
+          </div>
+          <button class="w-full py-3 rounded-xl border-2 border-slate-200 text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="bg-gradient-to-r from-primary to-compare rounded-2xl p-12 md:p-16 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <svg class="w-full h-full" viewBox="0 0 400 200" fill="none"><line x1="0" y1="150" x2="100" y2="80" stroke="white" stroke-width="2"/><line x1="100" y1="80" x2="200" y2="120" stroke="white" stroke-width="2"/><line x1="200" y1="120" x2="300" y2="40" stroke="white" stroke-width="2"/><line x1="300" y1="40" x2="400" y2="60" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <svg class="w-4 h-4 arrow-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+            Resultados em até 7 dias
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Pare de adivinhar. Comece a comparar.</h2>
+          <p class="text-blue-100 max-w-lg mx-auto mb-8">Transforme dados brutos em decisões estratégicas com análise comparativa visual e intuitiva.</p>
+          <button class="bg-white text-primary px-10 py-4 rounded-xl text-sm font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg shadow-black/10">
+            Testar gratuitamente
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-slate-100">
+    <div class="wrap">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm mb-10">
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-2 mb-4"><svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span class="font-bold text-lg">CompareBI</span></div>
+          <p class="text-muted text-xs leading-relaxed">Análise comparativa inteligente para decisões baseadas em dados.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-4">Produto</p>
+          <ul class="space-y-2 text-muted text-xs"><li><a href="#" class="hover:text-primary transition-colors duration-200">Recursos</a></li><li><a href="#" class="hover:text-primary transition-colors duration-200">Preços</a></li><li><a href="#" class="hover:text-primary transition-colors duration-200">Integrações</a></li></ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-4">Empresa</p>
+          <ul class="space-y-2 text-muted text-xs"><li><a href="#" class="hover:text-primary transition-colors duration-200">Sobre</a></li><li><a href="#" class="hover:text-primary transition-colors duration-200">Blog</a></li><li><a href="#" class="hover:text-primary transition-colors duration-200">Contato</a></li></ul>
+        </div>
+        <div>
+          <p class="font-semibold text-xs tracking-widest uppercase mb-4">Legal</p>
+          <ul class="space-y-2 text-muted text-xs"><li><a href="#" class="hover:text-primary transition-colors duration-200">Privacidade</a></li><li><a href="#" class="hover:text-primary transition-colors duration-200">Termos de uso</a></li></ul>
+        </div>
+      </div>
+      <div class="border-t border-slate-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-muted text-xs">&copy; 2024 CompareBI. Todos os direitos reservados.</p>
+        <span class="badge badge-pos text-xs"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>99.9% uptime</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tactile Digital — Deformable UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Nunito', 'sans-serif'], display: ['Quicksand', 'sans-serif'] },
+          colors: {
+            chrome: '#C0C0C0', jelly: '#FF9ECD', soft: '#87CEEB',
+            surface: '#F0F2F5', card: '#FFFFFF', deep: '#1A1A2E',
+            muted: '#6B7280', heading: '#1F2937', txt: '#374151',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: linear-gradient(160deg, #F0F2F5 0%, #E8EDF5 50%, #F5F0F8 100%); color: #374151; }
+    a, button, [role="button"], .tactile { cursor: pointer; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Tactile Jelly Button */
+    .jelly-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; border-radius: 20px; border: none; font-weight: 700; font-size: 1rem;
+      background: linear-gradient(135deg, #FF9ECD 0%, #FF7EB3 100%);
+      color: #fff; position: relative; overflow: hidden;
+      box-shadow: 0 8px 25px rgba(255,158,205,0.35), inset 0 2px 4px rgba(255,255,255,0.4);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+    }
+    .jelly-btn::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+      border-radius: 20px 20px 0 0; pointer-events: none;
+    }
+    .jelly-btn:active { transform: scale(0.92) scaleY(0.95); box-shadow: 0 4px 12px rgba(255,158,205,0.25), inset 0 4px 8px rgba(0,0,0,0.1); filter: brightness(0.95); }
+    .jelly-btn:hover { transform: scale(1.04); box-shadow: 0 12px 35px rgba(255,158,205,0.45), inset 0 2px 4px rgba(255,255,255,0.4); }
+
+    .jelly-btn-alt {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; border-radius: 20px; border: 2px solid #FF9ECD; font-weight: 700; font-size: 1rem;
+      background: rgba(255,255,255,0.7); color: #FF7EB3; position: relative;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+    }
+    .jelly-btn-alt:active { transform: scale(0.92) scaleY(0.95); filter: brightness(0.95); }
+    .jelly-btn-alt:hover { transform: scale(1.04); box-shadow: 0 10px 30px rgba(255,158,205,0.2); }
+
+    /* Clay Card */
+    .clay-card {
+      background: #FFFFFF; border-radius: 24px; padding: 2rem;
+      box-shadow: 8px 8px 24px rgba(0,0,0,0.08), -4px -4px 16px rgba(255,255,255,0.9), inset 0 2px 4px rgba(255,255,255,0.6);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+      position: relative; overflow: hidden;
+    }
+    .clay-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 100%);
+      border-radius: 24px 24px 0 0; pointer-events: none;
+    }
+    .clay-card:hover { transform: scale(1.03) translateY(-4px); box-shadow: 12px 12px 32px rgba(0,0,0,0.1), -6px -6px 20px rgba(255,255,255,0.95); }
+    .clay-card:active { transform: scale(0.97); box-shadow: 4px 4px 12px rgba(0,0,0,0.06), inset 0 4px 10px rgba(0,0,0,0.05); }
+
+    /* Chrome Icon Bubble */
+    .chrome-bubble {
+      width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 50%, #A8A8A8 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.6);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .chrome-bubble:hover { transform: scale(1.1) rotate(-3deg); }
+    .chrome-bubble:active { transform: scale(0.9); }
+
+    /* Pricing Tier */
+    .pricing-card {
+      background: #FFFFFF; border-radius: 28px; padding: 2.5rem 2rem;
+      box-shadow: 6px 6px 20px rgba(0,0,0,0.07), -3px -3px 12px rgba(255,255,255,0.8), inset 0 1px 3px rgba(255,255,255,0.5);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+      position: relative; overflow: hidden;
+    }
+    .pricing-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 35%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .pricing-card:hover { transform: scale(1.03) translateY(-6px); box-shadow: 10px 10px 30px rgba(0,0,0,0.1), -5px -5px 18px rgba(255,255,255,0.9); }
+    .pricing-card.featured {
+      background: linear-gradient(160deg, #FFF0F7 0%, #FFF 40%, #F0F7FF 100%);
+      border: 2px solid #FF9ECD;
+      box-shadow: 8px 8px 28px rgba(255,158,205,0.15), -4px -4px 16px rgba(255,255,255,0.9);
+    }
+
+    /* Testimonial */
+    .testi-card {
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-radius: 22px; padding: 1.75rem;
+      box-shadow: 6px 6px 18px rgba(0,0,0,0.06), -3px -3px 10px rgba(255,255,255,0.7);
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .testi-card:hover { transform: scale(1.02) translateY(-3px); }
+    .testi-card:active { transform: scale(0.97); }
+
+    @keyframes jellyBounce { 0%{transform:scale(0.6)} 50%{transform:scale(1.08)} 70%{transform:scale(0.96)} 100%{transform:scale(1)} }
+    .jelly-in { animation: jellyBounce 600ms cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .float { animation: float 3s ease-in-out infinite; }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms!important; transition-duration:0.01ms!important; } }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- HERO -->
+  <section class="wrap pt-16 pb-20 text-center">
+    <div class="inline-block mb-6 jelly-in" style="animation-delay:0.1s">
+      <div class="chrome-bubble mx-auto">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 0 8 0"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+      </div>
+    </div>
+    <h1 class="font-extrabold text-4xl md:text-6xl text-heading leading-tight mb-4 jelly-in" style="animation-delay:0.2s; font-family:'Quicksand',sans-serif;">
+      Interfaces que você<br class="hidden md:block"> <span class="text-transparent bg-clip-text bg-gradient-to-r from-jelly to-soft">sente ao tocar</span>
+    </h1>
+    <p class="text-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 jelly-in" style="animation-delay:0.35s">
+      Botões gelatinosos, superfícies de argila e feedback tátil. Uma nova era de design digital que responde ao seu toque como matéria real.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4 jelly-in" style="animation-delay:0.5s">
+      <button class="jelly-btn tactile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        Comece Agora
+      </button>
+      <button class="jelly-btn-alt tactile">Saiba Mais</button>
+    </div>
+    <!-- Floating shapes -->
+    <div class="relative mt-12 flex justify-center gap-6">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-jelly/30 to-jelly/10 float" style="animation-delay:0s"></div>
+      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-soft/40 to-soft/10 float" style="animation-delay:0.5s"></div>
+      <div class="w-14 h-14 rounded-3xl bg-gradient-to-br from-chrome/30 to-chrome/10 float" style="animation-delay:1s"></div>
+    </div>
+  </section>
+  <!-- FEATURES -->
+  <section class="wrap pb-20">
+    <h2 class="text-center font-extrabold text-2xl md:text-3xl text-heading mb-3" style="font-family:'Quicksand',sans-serif;">Recursos Táteis</h2>
+    <p class="text-center text-muted mb-12 max-w-xl mx-auto">Cada elemento responde ao toque com física de mola, deformação e retorno elástico.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="clay-card tactile">
+        <div class="chrome-bubble mb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m6.34 6.34 2.83 2.83"/><path d="M2 12h4"/><path d="m6.34 17.66 2.83-2.83"/><path d="M12 18v4"/><path d="m17.66 17.66-2.83-2.83"/><path d="M18 12h4"/><path d="m17.66 6.34-2.83 2.83"/></svg>
+        </div>
+        <h3 class="font-bold text-lg text-heading mb-2">Botões Gelatinosos</h3>
+        <p class="text-muted text-sm leading-relaxed">Pressione e veja a deformação suave com retorno elástico. Cada clique tem feedback visual imediato.</p>
+      </div>
+      <div class="clay-card tactile">
+        <div class="chrome-bubble mb-4" style="background: linear-gradient(135deg, #FFD4E8 0%, #FF9ECD 50%, #FF7EB3 100%);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <h3 class="font-bold text-lg text-heading mb-2">Superfícies de Argila</h3>
+        <p class="text-muted text-sm leading-relaxed">Cards com profundidade 3D, sombras suaves e brilho cromado que simulam materiais físicos reais.</p>
+      </div>
+      <div class="clay-card tactile">
+        <div class="chrome-bubble mb-4" style="background: linear-gradient(135deg, #B8E4F9 0%, #87CEEB 50%, #6BB8D9 100%);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg text-heading mb-2">Física de Mola</h3>
+        <p class="text-muted text-sm leading-relaxed">Animações com curvas cubic-bezier que imitam molas reais. Movimento natural e satisfatório.</p>
+      </div>
+    </div>
+  </section>
+  <!-- TESTIMONIALS -->
+  <section class="wrap pb-20">
+    <h2 class="text-center font-extrabold text-2xl md:text-3xl text-heading mb-3" style="font-family:'Quicksand',sans-serif;">O Que Dizem</h2>
+    <p class="text-center text-muted mb-12 max-w-xl mx-auto">Designers e desenvolvedores que adotaram o design tátil.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="testi-card tactile">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-jelly to-jelly/60 flex items-center justify-center text-white font-bold text-sm">MC</div>
+          <div><p class="font-bold text-heading text-sm">Marina Costa</p><p class="text-muted text-xs">Designer de Produto</p></div>
+        </div>
+        <p class="text-txt text-sm leading-relaxed">"Os botões gelatinosos mudaram completamente a experiência dos nossos usuários. O feedback tátil digital é viciante."</p>
+      </div>
+      <div class="testi-card tactile">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-soft to-soft/60 flex items-center justify-center text-white font-bold text-sm">RL</div>
+          <div><p class="font-bold text-heading text-sm">Rafael Lima</p><p class="text-muted text-xs">Dev Frontend</p></div>
+        </div>
+        <p class="text-txt text-sm leading-relaxed">"A física de mola nas animações trouxe uma camada de realismo que nunca vi em interfaces web. Impressionante."</p>
+      </div>
+      <div class="testi-card tactile">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-chrome to-chrome/60 flex items-center justify-center text-white font-bold text-sm">AS</div>
+          <div><p class="font-bold text-heading text-sm">Ana Souza</p><p class="text-muted text-xs">UX Lead</p></div>
+        </div>
+        <p class="text-txt text-sm leading-relaxed">"Superfícies de argila com brilho cromado dão uma sensação premium. Nosso NPS subiu 23 pontos após a implementação."</p>
+      </div>
+    </div>
+  </section>
+  <!-- PRICING -->
+  <section class="wrap pb-20">
+    <h2 class="text-center font-extrabold text-2xl md:text-3xl text-heading mb-3" style="font-family:'Quicksand',sans-serif;">Planos Flexíveis</h2>
+    <p class="text-center text-muted mb-12 max-w-xl mx-auto">Escolha o plano que se molda às suas necessidades — literalmente.</p>
+    <div class="grid md:grid-cols-3 gap-6 items-start">
+      <div class="pricing-card tactile text-center">
+        <p class="text-muted font-semibold text-sm uppercase tracking-wider mb-2">Básico</p>
+        <p class="text-4xl font-extrabold text-heading mb-1">R$49<span class="text-base font-normal text-muted">/mês</span></p>
+        <p class="text-muted text-sm mb-6">Ideal para projetos pessoais</p>
+        <ul class="text-sm text-txt space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            5 componentes táteis
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Animações de mola
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Suporte por email
+          </li>
+        </ul>
+        <button class="jelly-btn-alt tactile w-full justify-center">Começar</button>
+      </div>
+      <div class="pricing-card featured tactile text-center md:-mt-4 md:mb-0">
+        <div class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-jelly to-jelly/80 text-white text-xs font-bold mb-4">Popular</div>
+        <p class="text-muted font-semibold text-sm uppercase tracking-wider mb-2">Profissional</p>
+        <p class="text-4xl font-extrabold text-heading mb-1">R$129<span class="text-base font-normal text-muted">/mês</span></p>
+        <p class="text-muted text-sm mb-6">Para equipes em crescimento</p>
+        <ul class="text-sm text-txt space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9ECD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Componentes ilimitados
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9ECD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Física de mola avançada
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9ECD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Materiais cromados
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9ECD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Suporte prioritário
+          </li>
+        </ul>
+        <button class="jelly-btn tactile w-full justify-center">Escolher Plano</button>
+      </div>
+      <div class="pricing-card tactile text-center">
+        <p class="text-muted font-semibold text-sm uppercase tracking-wider mb-2">Enterprise</p>
+        <p class="text-4xl font-extrabold text-heading mb-1">R$349<span class="text-base font-normal text-muted">/mês</span></p>
+        <p class="text-muted text-sm mb-6">Para grandes organizações</p>
+        <ul class="text-sm text-txt space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Tudo do Profissional
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Design system completo
+          </li>
+          <li class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            SLA dedicado
+          </li>
+        </ul>
+        <button class="jelly-btn-alt tactile w-full justify-center">Falar com Vendas</button>
+      </div>
+    </div>
+  </section>
+  <!-- CTA -->
+  <section class="wrap pb-20">
+    <div class="clay-card tactile text-center py-14 px-6" style="background: linear-gradient(160deg, #FFF5FA 0%, #FFFFFF 40%, #F0F7FF 100%);">
+      <h2 class="font-extrabold text-2xl md:text-4xl text-heading mb-4" style="font-family:'Quicksand',sans-serif;">
+        Pronto para sentir a <span class="text-transparent bg-clip-text bg-gradient-to-r from-jelly to-soft">diferença?</span>
+      </h2>
+      <p class="text-muted text-lg max-w-lg mx-auto mb-8">Comece a criar interfaces táteis que seus usuários vão querer tocar de novo e de novo.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="jelly-btn tactile text-lg px-8">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Criar Conta Grátis
+        </button>
+        <button class="jelly-btn-alt tactile text-lg px-8">Ver Demonstração</button>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer class="wrap pb-12 pt-4">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted">
+      <div class="flex items-center gap-2 font-bold text-heading">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-jelly to-soft flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 0 8 0"/></svg>
+        </div>
+        Tactile UI
+      </div>
+      <p>&copy; 2025 Tactile Digital. Todos os direitos reservados.</p>
+      <div class="flex gap-4">
+        <a href="#" class="tactile hover:text-jelly transition-colors duration-200" aria-label="Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        </a>
+        <a href="#" class="tactile hover:text-jelly transition-colors duration-200" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        </a>
+        <a href="#" class="tactile hover:text-jelly transition-colors duration-200" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

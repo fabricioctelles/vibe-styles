@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oceano Digital — Soluções Aquáticas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        aqua: '#E0F6FF', navy: '#0B3C5D', ocean: '#006994', cerulean: '#0277BD',
+        darkblue: '#01579B', teal: '#004D73', steel: '#005885', cobalt: '#0D47A1'
+      },
+      fontFamily: { heading: ['Outfit','sans-serif'], body: ['Inter','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #E0F6FF 0%, #006994 50%, #0B3C5D 100%); color: #E0F6FF; }
+  @keyframes bubbleRise { 0% { transform: translateY(100vh) scale(0.4); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
+  @keyframes wave { 0%,100% { d: path("M0,40 C120,10 240,70 360,40 C480,10 600,70 720,40 L720,80 L0,80Z"); } 50% { d: path("M0,50 C120,70 240,10 360,50 C480,70 600,10 720,50 L720,80 L0,80Z"); } }
+  @keyframes coralSway { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+  @keyframes fishSwim { 0% { transform: translateX(-60px); opacity:0; } 15% { opacity:1; } 85% { opacity:1; } 100% { transform: translateX(calc(100vw + 60px)); opacity:0; } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes shimmer { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+  .bubble { position: fixed; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(224,246,255,0.15)); border: 1px solid rgba(255,255,255,0.2); pointer-events: none; z-index: 1; animation: bubbleRise linear infinite; }
+  .bubble:nth-child(1) { width:12px; height:12px; left:8%; animation-duration:7s; animation-delay:0s; }
+  .bubble:nth-child(2) { width:8px; height:8px; left:22%; animation-duration:9s; animation-delay:1.5s; }
+  .bubble:nth-child(3) { width:16px; height:16px; left:45%; animation-duration:6s; animation-delay:3s; }
+  .bubble:nth-child(4) { width:6px; height:6px; left:65%; animation-duration:10s; animation-delay:0.5s; }
+  .bubble:nth-child(5) { width:10px; height:10px; left:80%; animation-duration:8s; animation-delay:2s; }
+  .bubble:nth-child(6) { width:14px; height:14px; left:35%; animation-duration:7.5s; animation-delay:4s; }
+  .bubble:nth-child(7) { width:7px; height:7px; left:90%; animation-duration:9.5s; animation-delay:1s; }
+  .coral-sway { animation: coralSway 3s ease-in-out infinite; transform-origin: bottom center; }
+  .fish-swim { animation: fishSwim 14s linear infinite; }
+  .fade-up { animation: fadeUp .8s ease both; }
+  .shimmer { animation: shimmer 3s ease-in-out infinite; }
+  .card-ocean { transition: transform .3s, box-shadow .3s; }
+  .card-ocean:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(11,60,93,0.4); }
+  @media (prefers-reduced-motion: reduce) { .bubble, .coral-sway, .fish-swim, .shimmer { animation: none; } }
+</style>
+</head>
+<body class="min-h-screen overflow-x-hidden relative">
+
+<!-- Bubbles -->
+<div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+
+<!-- Swimming fish -->
+<svg class="fixed top-[30%] left-0 w-12 fish-swim opacity-40 pointer-events-none z-[1]" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M36 12c0 0-8-10-24-10C8 2 4 6 4 12s4 10 8 10c16 0 24-10 24-10z" fill="#E0F6FF" opacity=".5"/><path d="M0 12l8-6v12L0 12z" fill="#E0F6FF" opacity=".3"/><circle cx="30" cy="10" r="1.5" fill="#0B3C5D"/>
+</svg>
+<svg class="fixed top-[65%] left-0 w-8 opacity-25 pointer-events-none z-[1]" style="animation: fishSwim 20s linear 5s infinite" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M36 12c0 0-8-10-24-10C8 2 4 6 4 12s4 10 8 10c16 0 24-10 24-10z" fill="#0277BD" opacity=".5"/><path d="M0 12l8-6v12L0 12z" fill="#0277BD" opacity=".3"/><circle cx="30" cy="10" r="1.5" fill="#E0F6FF"/>
+</svg>
+
+<div class="relative z-10">
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center px-4 py-20 relative">
+  <!-- Decorative coral left -->
+  <svg class="absolute bottom-0 left-4 md:left-12 w-16 md:w-24 coral-sway opacity-40" viewBox="0 0 80 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 140 L40 60 C40 40 20 30 20 10 C20 0 30 0 35 10 C38 18 40 30 40 60" stroke="#0277BD" stroke-width="2.5" fill="none"/>
+    <path d="M40 80 C50 60 65 50 65 30 C65 20 55 18 52 28 C48 40 40 60 40 80" stroke="#006994" stroke-width="2" fill="none"/>
+    <path d="M40 100 C30 80 15 70 15 50 C15 40 25 38 28 48 C32 60 40 80 40 100" stroke="#0277BD" stroke-width="2" fill="none"/>
+    <circle cx="20" cy="8" r="4" fill="#0277BD" opacity=".5"/><circle cx="65" cy="28" r="3" fill="#006994" opacity=".5"/><circle cx="15" cy="48" r="3.5" fill="#0277BD" opacity=".4"/>
+  </svg>
+  <!-- Decorative seaweed right -->
+  <svg class="absolute bottom-0 right-4 md:right-16 w-12 md:w-20 coral-sway opacity-30" style="animation-delay:.5s" viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 120 C30 100 15 80 15 60 C15 40 30 30 30 10" stroke="#E0F6FF" stroke-width="2" fill="none" opacity=".5"/>
+    <path d="M30 120 C30 95 45 75 45 55 C45 35 30 25 30 5" stroke="#0277BD" stroke-width="2" fill="none" opacity=".4"/>
+    <ellipse cx="15" cy="58" rx="6" ry="10" fill="#006994" opacity=".2"/><ellipse cx="45" cy="53" rx="5" ry="8" fill="#0277BD" opacity=".2"/>
+  </svg>
+  <div class="max-w-4xl mx-auto text-center fade-up">
+    <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
+      <svg class="w-4 h-4 text-aqua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c.5 4-2 8-6 9 4 1 6.5 5 6 9 .5-4 2-8 6-9-4-1-6.5-5-6-9z"/></svg>
+      <span class="text-aqua font-medium text-sm tracking-wide">Mergulhe no Futuro</span>
+    </div>
+    <h1 class="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+      Navegue nas <span class="text-aqua">Profundezas</span> da Inovação
+    </h1>
+    <p class="font-body font-light text-lg md:text-xl text-aqua/70 max-w-2xl mx-auto mb-10">
+      Soluções digitais que fluem como as correntes oceânicas. Tecnologia profunda para resultados que emergem com força.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="cursor-pointer inline-flex items-center gap-2 bg-cerulean text-white font-semibold px-8 py-4 rounded-full hover:bg-ocean transition-colors duration-200">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        Mergulhar Agora
+      </a>
+      <a href="#features" class="cursor-pointer inline-flex items-center gap-2 border-2 border-aqua/40 text-aqua font-semibold px-8 py-4 rounded-full hover:bg-aqua/10 transition-colors duration-200">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+        Explorar Recursos
+      </a>
+    </div>
+    <!-- Wave divider -->
+    <svg class="mx-auto mt-14 w-64 md:w-80 shimmer" viewBox="0 0 360 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,20 C60,5 120,35 180,20 C240,5 300,35 360,20" stroke="#E0F6FF" stroke-width="1.5" fill="none" opacity=".4"/>
+      <path d="M0,28 C60,13 120,43 180,28 C240,13 300,43 360,28" stroke="#0277BD" stroke-width="1" fill="none" opacity=".3"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Wave separator -->
+<div class="relative h-16 -mt-4">
+  <svg class="w-full h-full" viewBox="0 0 720 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C120,10 240,70 360,40 C480,10 600,70 720,40 L720,80 L0,80Z" fill="rgba(11,60,93,0.3)"/>
+  </svg>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="px-4 py-20 bg-navy/30 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center text-white mb-3">Nosso <span class="text-aqua">Ecossistema</span> Marinho</h2>
+    <p class="text-sm text-aqua/50 text-center mb-14 tracking-wide">Tecnologia inspirada nas profundezas do oceano</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card-ocean bg-navy/50 border border-aqua/15 backdrop-blur-sm rounded-2xl p-8 cursor-pointer">
+        <div class="w-14 h-14 rounded-full bg-cerulean/20 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-aqua" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 7.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-white mb-3">Iluminação Abissal</h3>
+        <p class="text-aqua/60 text-sm leading-relaxed">Insights que brilham nas profundezas dos seus dados. Análises que revelam o que ninguém mais consegue enxergar.</p>
+      </div>
+      <div class="card-ocean bg-navy/50 border border-aqua/15 backdrop-blur-sm rounded-2xl p-8 cursor-pointer">
+        <div class="w-14 h-14 rounded-full bg-ocean/30 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-cerulean" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-white mb-3">Correntes Globais</h3>
+        <p class="text-aqua/60 text-sm leading-relaxed">Conectamos fluxos de informação ao redor do mundo. Suas operações navegam sem fronteiras, como as marés.</p>
+      </div>
+      <div class="card-ocean bg-navy/50 border border-aqua/15 backdrop-blur-sm rounded-2xl p-8 cursor-pointer">
+        <div class="w-14 h-14 rounded-full bg-cerulean/20 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-aqua" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-white mb-3">Blindagem Coralina</h3>
+        <p class="text-aqua/60 text-sm leading-relaxed">Proteção robusta como um recife de coral. Segurança em camadas que cresce e se adapta a cada nova ameaça.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="px-4 py-20 relative">
+  <svg class="absolute top-10 right-8 w-16 coral-sway opacity-20 pointer-events-none" viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 100 L30 50 C30 30 15 20 15 5" stroke="#0277BD" stroke-width="2" fill="none"/><path d="M30 70 C40 50 50 40 50 20" stroke="#006994" stroke-width="1.5" fill="none"/>
+    <circle cx="15" cy="4" r="3" fill="#0277BD" opacity=".4"/><circle cx="50" cy="18" r="2.5" fill="#006994" opacity=".4"/>
+  </svg>
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center text-white mb-3">Vozes do <span class="text-aqua">Oceano</span></h2>
+    <p class="text-sm text-aqua/50 text-center mb-14 tracking-wide">O que nossos parceiros descobriram nas profundezas</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-navy/40 border border-aqua/10 backdrop-blur-sm rounded-2xl p-6 relative">
+        <svg class="absolute top-4 right-4 w-8 h-8 text-cerulean/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-aqua/70 text-sm leading-relaxed mb-6">"A Oceano Digital transformou nossa infraestrutura. Reduzimos 55% dos custos e ganhamos uma visibilidade que antes era impossível."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-cerulean/20 flex items-center justify-center"><span class="font-heading text-aqua text-sm font-bold">RM</span></div>
+          <div><p class="font-semibold text-white text-sm">Renata Moreira</p><p class="text-aqua/40 text-xs">CTO, AquaTech</p></div>
+        </div>
+      </div>
+      <div class="bg-navy/40 border border-aqua/10 backdrop-blur-sm rounded-2xl p-6 relative">
+        <svg class="absolute top-4 right-4 w-8 h-8 text-cerulean/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-aqua/70 text-sm leading-relaxed mb-6">"Cada solução parece ter sido moldada pelas correntes para se encaixar perfeitamente. O suporte é profundo e sempre presente."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-ocean/30 flex items-center justify-center"><span class="font-heading text-aqua text-sm font-bold">PS</span></div>
+          <div><p class="font-semibold text-white text-sm">Pedro Santos</p><p class="text-aqua/40 text-xs">CEO, MaréData</p></div>
+        </div>
+      </div>
+      <div class="bg-navy/40 border border-aqua/10 backdrop-blur-sm rounded-2xl p-6 relative">
+        <svg class="absolute top-4 right-4 w-8 h-8 text-cerulean/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+        <p class="text-aqua/70 text-sm leading-relaxed mb-6">"Implementamos a blindagem coralina e os ataques caíram 90% em dois meses. Segurança que evolui como um ecossistema vivo."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-cerulean/20 flex items-center justify-center"><span class="font-heading text-aqua text-sm font-bold">LC</span></div>
+          <div><p class="font-semibold text-white text-sm">Larissa Costa</p><p class="text-aqua/40 text-xs">CISO, Recife Digital</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave separator -->
+<div class="relative h-12">
+  <svg class="w-full h-full" viewBox="0 0 720 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C90,10 180,50 270,30 C360,10 450,50 540,30 C630,10 720,50 720,30 L720,60 L0,60Z" fill="rgba(11,60,93,0.25)"/>
+  </svg>
+</div>
+
+<!-- PRICING -->
+<section id="pricing" class="px-4 py-20 bg-navy/30 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading font-bold text-3xl md:text-4xl text-center text-white mb-3">Planos das <span class="text-aqua">Profundezas</span></h2>
+    <p class="text-sm text-aqua/50 text-center mb-14 tracking-wide">Escolha a profundidade ideal para sua jornada</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Tier 1 -->
+      <div class="card-ocean bg-navy/50 border border-aqua/15 backdrop-blur-sm rounded-2xl p-8 text-center cursor-pointer">
+        <div class="w-12 h-12 rounded-full bg-cerulean/20 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-aqua" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c.5 4-2 8-6 9 4 1 6.5 5 6 9 .5-4 2-8 6-9-4-1-6.5-5-6-9z"/></svg>
+        </div>
+        <span class="text-cerulean text-xs font-semibold tracking-widest uppercase">Superfície</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$89</span><span class="text-aqua/40 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Até 3 projetos</li>
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Relatório mensal</li>
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte por e-mail</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border-2 border-aqua/30 text-aqua font-semibold py-3 rounded-full hover:bg-aqua/10 transition-colors duration-200">Navegar</a>
+      </div>
+      <!-- Tier 2 -->
+      <div class="card-ocean bg-cerulean border border-aqua/20 rounded-2xl p-8 text-center relative md:scale-105 cursor-pointer">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-aqua text-navy font-semibold text-xs px-4 py-1 rounded-full">RECOMENDADO</div>
+        <div class="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-aqua" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 7.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <span class="text-aqua text-xs font-semibold tracking-widest uppercase">Recife</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$219</span><span class="text-white/50 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg class="w-4 h-4 text-aqua flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Projetos ilimitados</li>
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg class="w-4 h-4 text-aqua flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Suporte prioritário 24h</li>
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg class="w-4 h-4 text-aqua flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Painel de profundidade</li>
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg class="w-4 h-4 text-aqua flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Consultoria mensal</li>
+        </ul>
+        <a href="#" class="cursor-pointer block bg-aqua text-navy font-semibold py-3 rounded-full hover:bg-white transition-colors duration-200">Mergulhar</a>
+      </div>
+      <!-- Tier 3 -->
+      <div class="card-ocean bg-navy/50 border border-aqua/15 backdrop-blur-sm rounded-2xl p-8 text-center cursor-pointer">
+        <div class="w-12 h-12 rounded-full bg-ocean/30 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-cerulean" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <span class="text-cerulean text-xs font-semibold tracking-widest uppercase">Abissal</span>
+        <div class="my-5"><span class="font-heading font-bold text-4xl text-white">R$549</span><span class="text-aqua/40 text-sm">/mês</span></div>
+        <ul class="space-y-3 mb-8 text-left">
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Tudo do Recife</li>
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Especialista dedicado</li>
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>SLA 99.9%</li>
+          <li class="flex items-center gap-2 text-sm text-aqua/70"><svg class="w-4 h-4 text-cerulean flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Estratégia sob medida</li>
+        </ul>
+        <a href="#" class="cursor-pointer block border-2 border-aqua/30 text-aqua font-semibold py-3 rounded-full hover:bg-aqua/10 transition-colors duration-200">Explorar Abismo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="px-4 py-20 relative">
+  <svg class="absolute bottom-0 left-6 w-14 coral-sway opacity-20 pointer-events-none" viewBox="0 0 50 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M25 90 L25 45 C25 25 10 15 10 3" stroke="#0277BD" stroke-width="2" fill="none"/><path d="M25 60 C35 40 45 30 45 12" stroke="#006994" stroke-width="1.5" fill="none"/>
+    <circle cx="10" cy="2" r="2.5" fill="#0277BD" opacity=".4"/><circle cx="45" cy="10" r="2" fill="#006994" opacity=".4"/>
+  </svg>
+  <div class="max-w-3xl mx-auto text-center">
+    <svg class="mx-auto mb-8 w-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="36" stroke="#0277BD" stroke-width="1.5" stroke-dasharray="6 4" opacity=".3"/>
+      <path d="M40 20 C25 25 20 40 25 52 C30 64 50 64 55 52 C60 40 55 25 40 20Z" fill="#006994" opacity=".3"/>
+      <path d="M40 20 L40 58" stroke="#E0F6FF" stroke-width="1" opacity=".5"/>
+      <circle cx="40" cy="38" r="6" fill="#0277BD" opacity=".4"/><circle cx="40" cy="38" r="3" fill="#E0F6FF" opacity=".6"/>
+    </svg>
+    <h2 class="font-heading font-bold text-3xl md:text-5xl text-white mb-6">Pronto para <span class="text-aqua">Submergir</span>?</h2>
+    <p class="font-light text-aqua/60 text-lg mb-10 max-w-xl mx-auto">Todo oceano de possibilidades começa com a primeira onda. Mergulhe hoje e descubra o que existe além da superfície.</p>
+    <a href="#" class="cursor-pointer inline-flex items-center gap-3 bg-cerulean text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-ocean transition-colors duration-200">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+      Mergulhar Agora
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-aqua/10 px-4 py-12 bg-navy/40 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-6 h-6 text-cerulean" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c.5 4-2 8-6 9 4 1 6.5 5 6 9 .5-4 2-8 6-9-4-1-6.5-5-6-9z"/></svg>
+      <span class="font-heading font-semibold text-white">Oceano Digital</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="#" class="cursor-pointer text-sm text-aqua/50 hover:text-aqua transition-colors duration-200">Termos</a>
+      <a href="#" class="cursor-pointer text-sm text-aqua/50 hover:text-aqua transition-colors duration-200">Privacidade</a>
+      <a href="#" class="cursor-pointer text-sm text-aqua/50 hover:text-aqua transition-colors duration-200">Contato</a>
+    </div>
+    <p class="text-xs text-aqua/30">&copy; 2025 Oceano Digital. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parallax Storytelling — Narrativa Imersiva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: {
+            deep: '#0a0a1a', chapter: '#111128', accent: '#c084fc', warm: '#f59e0b',
+            forest: '#22c55e', sky: '#38bdf8', muted: '#94a3b8', heading: '#f1f5f9',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #cbd5e1; overflow-x: hidden; }
+    a, button, [role="button"] { cursor: pointer; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .chapter { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+    .parallax-bg { position: absolute; inset: 0; z-index: 0; transition: transform 0.1s linear; will-change: transform; }
+    .reveal { opacity: 0; transform: translateY(60px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .sticky-scene { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; opacity: 0.4; }
+    .gradient-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; will-change: transform; }
+    .skip-btn { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .parallax-bg, .gradient-orb { transition: none; transform: none !important; }
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .float { animation: float 4s ease-in-out infinite; }
+    @keyframes pulse-glow { 0%,100% { opacity: 0.15; } 50% { opacity: 0.3; } }
+    .pulse-orb { animation: pulse-glow 5s ease-in-out infinite; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- SKIP BUTTON -->
+  <a href="#precos" class="skip-btn inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-xs text-muted hover:text-heading hover:border-accent/50 transition-all duration-300">
+    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    Pular para preços
+  </a>
+
+  <!-- HERO — Chapter 1 -->
+  <section class="chapter" style="background: linear-gradient(180deg, #0a0a1a 0%, #111128 100%);">
+    <div class="parallax-bg" data-speed="0.3">
+      <div class="star" style="top:10%;left:15%;"></div><div class="star" style="top:20%;left:70%;width:3px;height:3px;opacity:0.6;"></div>
+      <div class="star" style="top:40%;left:40%;"></div><div class="star" style="top:60%;left:80%;width:3px;height:3px;"></div>
+      <div class="star" style="top:75%;left:25%;"></div><div class="star" style="top:30%;left:55%;opacity:0.6;"></div>
+      <div class="star" style="top:85%;left:60%;"></div><div class="star" style="top:15%;left:90%;width:3px;height:3px;opacity:0.5;"></div>
+      <div class="gradient-orb pulse-orb" style="width:500px;height:500px;background:radial-gradient(circle,#7c3aed,transparent);top:-10%;right:-10%;"></div>
+      <div class="gradient-orb pulse-orb" style="width:400px;height:400px;background:radial-gradient(circle,#38bdf8,transparent);bottom:-10%;left:-5%;animation-delay:2s;"></div>
+    </div>
+    <div class="wrap relative z-10 text-center">
+      <div class="reveal">
+        <p class="text-accent text-sm font-medium tracking-[0.3em] uppercase mb-6">Capítulo 01 — O Início</p>
+        <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-black text-heading leading-[1.05] mb-6">Cada scroll<br>conta uma<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-sky to-forest">história.</span></h1>
+        <p class="text-muted text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">Narrativas imersivas que se revelam camada por camada, guiando seu público por uma jornada cinematográfica.</p>
+        <a href="#recursos" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-sky text-deep font-semibold rounded-full hover:opacity-90 transition-opacity duration-300">
+          Comece a jornada
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+      <div class="mt-16 reveal" style="transition-delay:0.3s;">
+        <svg class="w-6 h-6 mx-auto text-muted float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES — Chapter 2 -->
+  <section id="recursos" class="chapter" style="background: linear-gradient(180deg, #111128 0%, #0f1a2e 100%);">
+    <div class="parallax-bg" data-speed="0.2">
+      <div class="gradient-orb pulse-orb" style="width:600px;height:600px;background:radial-gradient(circle,#c084fc,transparent);top:20%;left:-15%;"></div>
+    </div>
+    <div class="wrap relative z-10 py-24">
+      <div class="reveal text-center mb-16">
+        <p class="text-sky text-sm font-medium tracking-[0.3em] uppercase mb-4">Capítulo 02 — Recursos</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-heading">Camadas de poder.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-accent/40 transition-colors duration-300">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Seções em Camadas</h3>
+          <p class="text-muted text-sm leading-relaxed">Backgrounds em múltiplas velocidades criam profundidade real enquanto o usuário navega pela narrativa.</p>
+        </div>
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-sky/40 transition-colors duration-300" style="transition-delay:0.15s;">
+          <div class="w-12 h-12 rounded-xl bg-sky/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Revelação Progressiva</h3>
+          <p class="text-muted text-sm leading-relaxed">Conteúdo aparece no momento certo, mantendo atenção e criando ritmo cinematográfico perfeito.</p>
+        </div>
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-forest/40 transition-colors duration-300" style="transition-delay:0.3s;">
+          <div class="w-12 h-12 rounded-xl bg-forest/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-forest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-heading mb-2">Transições Cinéticas</h3>
+          <p class="text-muted text-sm leading-relaxed">Gradientes e movimentos suaves entre capítulos guiam o olhar e constroem expectativa natural.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — Chapter 3 -->
+  <section class="chapter" style="background: linear-gradient(180deg, #0f1a2e 0%, #1a0a2e 100%);">
+    <div class="parallax-bg" data-speed="0.15">
+      <div class="gradient-orb pulse-orb" style="width:500px;height:500px;background:radial-gradient(circle,#f59e0b,transparent);bottom:10%;right:-10%;opacity:0.1;"></div>
+    </div>
+    <div class="wrap relative z-10 py-24">
+      <div class="reveal text-center mb-16">
+        <p class="text-warm text-sm font-medium tracking-[0.3em] uppercase mb-4">Capítulo 03 — Vozes</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-heading">Quem já viveu a história.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"O efeito parallax transformou nosso storytelling. A taxa de engajamento subiu 340% no primeiro mês."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-sky flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Marina Oliveira</p><p class="text-xs text-muted">Diretora Criativa, Lumina</p></div>
+          </div>
+        </div>
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8" style="transition-delay:0.15s;">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Cada seção é um capítulo. Nossos clientes ficam imersos do início ao fim. Nunca tivemos bounce rate tão baixo."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-forest to-sky flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Thiago Nascimento</p><p class="text-xs text-muted">Head de Produto, Vértice</p></div>
+          </div>
+        </div>
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8" style="transition-delay:0.3s;">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-warm" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"A revelação progressiva é perfeita para apresentar dados complexos. Nosso relatório anual virou experiência."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-warm to-accent flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Camila Ferreira</p><p class="text-xs text-muted">CMO, DataFlow</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING — Chapter 4 -->
+  <section id="precos" class="chapter" style="background: linear-gradient(180deg, #1a0a2e 0%, #0a1a1a 100%);">
+    <div class="parallax-bg" data-speed="0.25">
+      <div class="gradient-orb pulse-orb" style="width:500px;height:500px;background:radial-gradient(circle,#22c55e,transparent);top:-5%;left:30%;opacity:0.1;"></div>
+    </div>
+    <div class="wrap relative z-10 py-24">
+      <div class="reveal text-center mb-16">
+        <p class="text-forest text-sm font-medium tracking-[0.3em] uppercase mb-4">Capítulo 04 — Investimento</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-heading mb-4">Escolha seu capítulo.</h2>
+        <p class="text-muted max-w-md mx-auto">Cada plano desbloqueia um novo nível de narrativa imersiva.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center">
+          <p class="text-muted text-sm tracking-[0.2em] uppercase mb-4">Narrador</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 149<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Até 3 páginas parallax</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 camadas de profundidade</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Animações de revelação</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Responsivo mobile</div>
+          </div>
+          <button class="w-full py-3 rounded-full border border-white/20 text-sm font-semibold text-heading hover:border-accent/50 transition-colors duration-300">Começar</button>
+        </div>
+        <div class="reveal relative bg-white/5 backdrop-blur-sm border border-accent/50 rounded-2xl p-8 text-center" style="transition-delay:0.15s;">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-accent to-sky text-deep text-xs font-bold rounded-full">Popular</div>
+          <p class="text-accent text-sm tracking-[0.2em] uppercase mb-4 mt-2">Cineasta</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 397<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Páginas ilimitadas</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 camadas de profundidade</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Transições cinematográficas</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Scroll-snap inteligente</div>
+          </div>
+          <button class="w-full py-3 rounded-full bg-gradient-to-r from-accent to-sky text-deep text-sm font-bold hover:opacity-90 transition-opacity duration-300">Escolher Cineasta</button>
+        </div>
+        <div class="reveal bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center" style="transition-delay:0.3s;">
+          <p class="text-muted text-sm tracking-[0.2em] uppercase mb-4">Estúdio</p>
+          <p class="text-4xl font-bold text-heading mb-1">Custom</p>
+          <p class="text-xs text-muted mb-8">Para grandes produções</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Camadas ilimitadas</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API de narrativa</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-forest flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte dedicado 24/7</div>
+          </div>
+          <button class="w-full py-3 rounded-full border border-white/20 text-sm font-semibold text-heading hover:border-accent/50 transition-colors duration-300">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — Chapter 5 -->
+  <section class="chapter" style="min-height:70vh;background: linear-gradient(180deg, #0a1a1a 0%, #0a0a1a 100%);">
+    <div class="parallax-bg" data-speed="0.2">
+      <div class="gradient-orb pulse-orb" style="width:700px;height:700px;background:radial-gradient(circle,#7c3aed,transparent);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.12;"></div>
+    </div>
+    <div class="wrap relative z-10 text-center py-24">
+      <div class="reveal">
+        <p class="text-accent text-sm font-medium tracking-[0.3em] uppercase mb-6">Capítulo Final</p>
+        <h2 class="font-display text-4xl md:text-6xl font-bold text-heading mb-6">Sua história<br>começa agora.</h2>
+        <p class="text-muted text-lg max-w-lg mx-auto mb-10">Junte-se a mais de 1.500 marcas que transformaram suas páginas em experiências cinematográficas inesquecíveis.</p>
+        <a href="#" class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-accent via-sky to-forest text-deep font-bold rounded-full hover:opacity-90 transition-opacity duration-300">
+          Criar minha narrativa
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="text-xs text-muted mt-5">14 dias grátis. Sem cartão de crédito.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/10" style="background:#0a0a1a;">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span class="font-display font-bold text-heading text-lg">Parallax</span>
+        </div>
+        <p class="text-muted text-xs leading-relaxed">Narrativas imersivas que transformam scroll em experiência.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-[0.15em] uppercase text-heading mb-3">Produto</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Templates</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-[0.15em] uppercase text-heading mb-3">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-[0.15em] uppercase text-heading mb-3">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-heading transition-colors duration-200">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-10">&copy; 2025 Parallax. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- SCROLL SCRIPTS -->
+  <script>
+    // Intersection Observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Parallax on scroll
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        document.querySelectorAll('.parallax-bg').forEach(bg => {
+          const speed = parseFloat(bg.dataset.speed) || 0.3;
+          const offset = scrollY * speed;
+          bg.style.transform = `translateY(${offset}px)`;
+        });
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

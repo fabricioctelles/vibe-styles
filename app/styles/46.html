@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dimensional Layering — LayerStack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            base: '#F5F5F5', surface: '#FFFFFF', dim: '#E0E0E0',
+            accent: '#4F46E5', accentLight: '#818CF8', accentDark: '#3730A3',
+            txt: '#1E293B', muted: '#64748B', heading: '#0F172A',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F5F5F5; color: #1E293B; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .elev-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .elev-2 { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .elev-3 { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .elev-4 { box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .layer-1 { position: relative; z-index: 1; }
+    .layer-2 { position: relative; z-index: 2; }
+    .layer-3 { position: relative; z-index: 3; }
+    .layer-4 { position: relative; z-index: 4; }
+    .float-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .float-card:hover { transform: translateY(-6px); }
+    .overlap-left { transform: translateX(20px) rotate(-2deg); }
+    .overlap-right { transform: translateX(-20px) rotate(2deg); }
+    .overlap-center { transform: translateY(-16px) scale(1.04); }
+    .blur-layer { backdrop-filter: blur(8px); background: rgba(255,255,255,0.7); }
+    @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes slideLayer { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .anim-float { animation: floatUp 4s ease-in-out infinite; }
+    .anim-slide { animation: slideLayer 0.6s ease forwards; }
+    @media (prefers-reduced-motion: reduce) { .anim-float, .anim-slide { animation: none; } .float-card:hover { transform: none; } }
+    @media (max-width: 768px) { .overlap-left, .overlap-right { transform: none; } .overlap-center { transform: none; } }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center py-20 overflow-hidden">
+    <div class="absolute inset-0 layer-1">
+      <div class="absolute top-20 -left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-0 w-96 h-96 bg-accentLight/10 rounded-full blur-3xl"></div>
+    </div>
+    <div class="absolute top-32 right-10 w-40 h-40 rounded-2xl bg-white elev-2 layer-2 opacity-40 rotate-12 hidden lg:block"></div>
+    <div class="absolute bottom-20 left-16 w-28 h-28 rounded-xl bg-accent/10 elev-1 layer-2 opacity-50 -rotate-6 hidden lg:block anim-float"></div>
+    <div class="wrap w-full layer-4">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white elev-2 text-xs font-medium text-accent mb-6">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Design Dimensional
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-heading">Construa interfaces com <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accentLight">profundidade real.</span></h1>
+        <p class="text-muted text-lg max-w-lg leading-relaxed mb-10">Camadas, sombras e hierarquia espacial que transformam telas planas em experiências tridimensionais.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-xl elev-3 hover:bg-accentDark transition-colors duration-200">
+            Começar agora
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#recursos" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-heading font-semibold rounded-xl elev-2 hover:elev-3 transition-all duration-200">Ver recursos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="py-24 relative">
+    <div class="wrap">
+      <p class="text-center text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recursos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-16">Camadas que criam significado.</h2>
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div class="float-card bg-white rounded-2xl p-8 elev-2 layer-2 md:overlap-left">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 elev-1">
+            <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-heading mb-2">Hierarquia Espacial</h3>
+          <p class="text-muted text-sm leading-relaxed">Quatro níveis de elevação que guiam o olhar do usuário naturalmente entre camadas de conteúdo.</p>
+        </div>
+        <div class="float-card bg-white rounded-2xl p-8 elev-4 layer-4 md:overlap-center border-2 border-accent/20">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 elev-1">
+            <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-heading mb-2">Cards Sobrepostos</h3>
+          <p class="text-muted text-sm leading-relaxed">Elementos que se sobrepõem intencionalmente criando profundidade e foco visual imediato.</p>
+        </div>
+        <div class="float-card bg-white rounded-2xl p-8 elev-2 layer-2 md:overlap-right">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 elev-1">
+            <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-heading mb-2">Sombras Dinâmicas</h3>
+          <p class="text-muted text-sm leading-relaxed">Escala de sombras em 4 níveis que reage à interação, reforçando a sensação tridimensional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-24 relative">
+    <div class="absolute inset-0 layer-1"><div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl"></div></div>
+    <div class="wrap layer-3">
+      <p class="text-center text-accent text-sm font-semibold tracking-widest uppercase mb-3">Depoimentos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-16">Quem já projeta em camadas.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="float-card bg-white rounded-2xl p-8 elev-2 layer-2">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"As camadas de elevação mudaram completamente como nossos usuários percebem a hierarquia de informação."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-accentLight flex items-center justify-center elev-1">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Mariana Silva</p><p class="text-xs text-muted">Design Lead, Nexo</p></div>
+          </div>
+        </div>
+        <div class="float-card bg-white rounded-2xl p-8 elev-3 layer-3 md:-mt-4">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"O efeito de profundidade nos cards sobrepostos trouxe uma sofisticação que nossos clientes adoraram."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accentDark to-accent flex items-center justify-center elev-1">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Lucas Ferreira</p><p class="text-xs text-muted">CTO, Planum</p></div>
+          </div>
+        </div>
+        <div class="float-card bg-white rounded-2xl p-8 elev-2 layer-2">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-sm text-muted leading-relaxed mb-6">"Finalmente um sistema de design que entende que interfaces precisam de dimensão, não só cor."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accentLight to-purple-400 flex items-center justify-center elev-1">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-semibold text-heading">Camila Rocha</p><p class="text-xs text-muted">PM, Stratify</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-24 relative">
+    <div class="wrap">
+      <p class="text-center text-accent text-sm font-semibold tracking-widest uppercase mb-3">Planos</p>
+      <h2 class="text-center text-3xl md:text-4xl font-bold text-heading mb-4">Escolha sua camada de acesso.</h2>
+      <p class="text-center text-muted mb-16 max-w-lg mx-auto">Todos os planos incluem hierarquia espacial e sombras dinâmicas.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <div class="float-card bg-white rounded-2xl p-8 text-center elev-2 layer-2">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Básico</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 79<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para projetos iniciais</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>2 níveis de elevação</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 projetos ativos</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</div>
+          </div>
+          <button class="w-full py-3 rounded-xl border-2 border-dim text-sm font-semibold text-heading hover:border-accent/50 transition-colors duration-200">Começar</button>
+        </div>
+        <div class="float-card relative bg-white rounded-2xl p-8 text-center elev-4 layer-4 border-2 border-accent/30 md:scale-105">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-semibold rounded-full elev-2">Popular</div>
+          <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-4 mt-2">Profissional</p>
+          <p class="text-4xl font-bold text-heading mb-1">R$ 199<span class="text-base font-normal text-muted">/mês</span></p>
+          <p class="text-xs text-muted mb-8">Para equipes em crescimento</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>4 níveis de elevação</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Parallax e backdrop blur</div>
+          </div>
+          <button class="w-full py-3 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accentDark transition-colors duration-200 elev-2">Escolher Pro</button>
+        </div>
+        <div class="float-card bg-white rounded-2xl p-8 text-center elev-2 layer-2">
+          <p class="text-muted text-sm font-semibold tracking-widest uppercase mb-4">Enterprise</p>
+          <p class="text-4xl font-bold text-heading mb-1">Custom</p>
+          <p class="text-xs text-muted mb-8">Para grandes operações</p>
+          <div class="space-y-3 mb-8 text-sm text-left">
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API de componentes 3D</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Design tokens custom</div>
+            <div class="flex items-center gap-3 text-muted"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99% + suporte 24/7</div>
+          </div>
+          <button class="w-full py-3 rounded-xl border-2 border-dim text-sm font-semibold text-heading hover:border-accent/50 transition-colors duration-200">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 relative">
+    <div class="absolute inset-0 layer-1"><div class="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div></div>
+    <div class="wrap layer-3">
+      <div class="relative bg-white rounded-3xl p-12 md:p-16 text-center elev-4 overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent/5 rounded-full blur-2xl layer-1"></div>
+        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-accentLight/10 rounded-full blur-xl layer-1"></div>
+        <div class="relative layer-2">
+          <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">Adicione profundidade ao seu produto.</h2>
+          <p class="text-muted max-w-md mx-auto mb-8">Junte-se a mais de 1.500 equipes que já projetam com hierarquia dimensional.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <button class="inline-flex items-center gap-2 px-10 py-4 bg-accent text-white font-semibold rounded-xl elev-3 hover:bg-accentDark transition-colors duration-200">
+              Teste grátis por 14 dias
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <p class="text-xs text-muted mt-4">Sem cartão de crédito. Cancele quando quiser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-dim layer-2">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span class="font-bold text-heading">LayerStack</span>
+        </div>
+        <p class="text-muted text-xs leading-relaxed">Interfaces com profundidade e hierarquia espacial.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Produto</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Recursos</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Preços</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Integrações</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Empresa</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Sobre</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Blog</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-xs tracking-widest uppercase text-heading mb-3">Legal</p>
+        <ul class="space-y-2 text-muted text-xs">
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors duration-200">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-muted text-xs mt-10">&copy; 2025 LayerStack. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>

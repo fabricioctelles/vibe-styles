@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora UI — Northern Lights Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['DM Sans', 'sans-serif'] },
+          colors: {
+            aurora: { blue: '#0080FF', magenta: '#FF1493', cyan: '#00FFFF', purple: '#8B5CF6', orange: '#FF6B2B' },
+            surface: { dark: '#0A0E1A', card: 'rgba(255,255,255,0.06)' },
+            txt: { main: '#F1F5F9', muted: '#94A3B8' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #0A0E1A; color: #F1F5F9; overflow-x: hidden; }
+    a, button, [role="button"] { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .aurora-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 50% at 20% 20%,rgba(0,128,255,.25),transparent), radial-gradient(ellipse 60% 40% at 80% 30%,rgba(255,20,147,.2),transparent), radial-gradient(ellipse 70% 50% at 50% 80%,rgba(0,255,255,.15),transparent), radial-gradient(ellipse 50% 30% at 70% 60%,rgba(139,92,246,.18),transparent);
+      filter: saturate(1.2) blur(60px); animation: auroraPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes auroraPulse { 0%{opacity:.7;transform:scale(1) translateY(0)} 50%{opacity:1;transform:scale(1.05) translateY(-20px)} 100%{opacity:.8;transform:scale(1) translateY(10px)} }
+
+    .glass { background: rgba(255,255,255,.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; }
+    .glass-strong { background: rgba(255,255,255,.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; }
+    .aurora-btn { background: linear-gradient(135deg,#0080FF,#FF1493,#00FFFF); background-size: 200% 200%; animation: gradShift 8s ease infinite; border: none; border-radius: 12px; color: #fff; font-weight: 600; transition: box-shadow 200ms ease, transform 200ms ease; }
+    .aurora-btn:hover { box-shadow: 0 0 30px rgba(0,128,255,.4), 0 0 60px rgba(255,20,147,.2); transform: translateY(-1px); }
+    .aurora-btn-outline { background: transparent; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; color: #F1F5F9; font-weight: 500; transition: border-color 200ms ease, background 200ms ease; }
+    .aurora-btn-outline:hover { border-color: rgba(0,128,255,.5); background: rgba(0,128,255,.08); }
+    @keyframes gradShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .iridescent { background: linear-gradient(135deg,rgba(0,128,255,.15),rgba(139,92,246,.15),rgba(255,20,147,.15),rgba(0,255,255,.15)); background-size: 300% 300%; animation: iriShift 12s ease infinite; }
+    @keyframes iriShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .glow-text { background: linear-gradient(90deg,#0080FF,#FF1493,#00FFFF,#8B5CF6); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradShift 8s ease infinite; }
+    .card-hover { transition: transform 200ms ease, box-shadow 200ms ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 40px rgba(0,128,255,.15); }
+    .icon-glow { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,rgba(0,128,255,.2),rgba(139,92,246,.2)); border: 1px solid rgba(255,255,255,.1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-bg, .aurora-btn, .iridescent, .glow-text { animation: none; }
+      .card-hover:hover { transform: none; }
+      .aurora-btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="antialiased relative">
+  <div class="aurora-bg" aria-hidden="true"></div>
+  <div class="relative z-10">
+
+    <!-- HERO -->
+    <section class="min-h-[88vh] flex items-center py-20">
+      <div class="wrap w-full text-center">
+        <p class="text-txt-muted text-sm tracking-widest uppercase mb-5">Aurora UI — Design Luminoso</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+          Interfaces que <span class="glow-text">brilham</span><br>como a aurora boreal.
+        </h1>
+        <p class="text-txt-muted text-lg max-w-xl mx-auto leading-relaxed mb-10">
+          Gradientes vibrantes, transições fluidas e efeitos iridescentes que transformam cada pixel em uma experiência atmosférica.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#precos" class="aurora-btn px-8 py-4 text-sm tracking-wide">Explorar planos</a>
+          <a href="#recursos" class="aurora-btn-outline px-8 py-4 text-sm tracking-wide">Ver recursos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="recursos" class="py-20">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-txt-muted text-sm tracking-widest uppercase mb-3">Recursos</p>
+          <h2 class="text-3xl md:text-4xl font-bold">Luz, cor e movimento.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass card-hover p-8">
+            <div class="icon-glow mb-6">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Gradientes Mesh</h3>
+            <p class="text-txt-muted text-sm leading-relaxed">Fundos com múltiplos pontos de cor que se mesclam organicamente, criando profundidade atmosférica.</p>
+          </div>
+          <div class="glass card-hover p-8">
+            <div class="icon-glow mb-6">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF1493" stroke-width="1.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Efeito Iridescente</h3>
+            <p class="text-txt-muted text-sm leading-relaxed">Superfícies que mudam de cor sutilmente conforme o contexto, inspiradas na aurora boreal.</p>
+          </div>
+          <div class="glass card-hover p-8">
+            <div class="icon-glow mb-6">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Animações Fluidas</h3>
+            <p class="text-txt-muted text-sm leading-relaxed">Loops suaves de 8-12 segundos que mantêm a interface viva sem distrair o usuário.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-txt-muted text-sm tracking-widest uppercase mb-3">Depoimentos</p>
+          <h2 class="text-3xl md:text-4xl font-bold">Quem já viu a aurora.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass card-hover p-8">
+            <div class="iridescent rounded-xl p-4 mb-6 border border-white/5">
+              <p class="text-sm text-txt-muted leading-relaxed italic">"Os gradientes deram vida ao nosso produto. Cada tela parece uma obra de arte em movimento."</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="icon-glow w-10 h-10">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold">Marina Costa</p>
+                <p class="text-xs text-txt-muted">Design Lead, Nebula</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass card-hover p-8">
+            <div class="iridescent rounded-xl p-4 mb-6 border border-white/5">
+              <p class="text-sm text-txt-muted leading-relaxed italic">"A experiência visual é hipnotizante. Nosso bounce rate caiu 40% depois da redesign com Aurora."</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="icon-glow w-10 h-10">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold">Rafael Mendes</p>
+                <p class="text-xs text-txt-muted">CTO, Prisma Labs</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass card-hover p-8">
+            <div class="iridescent rounded-xl p-4 mb-6 border border-white/5">
+              <p class="text-sm text-txt-muted leading-relaxed italic">"Sutil o suficiente para não cansar, vibrante o bastante para impressionar. Equilíbrio perfeito."</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="icon-glow w-10 h-10">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold">Juliana Alves</p>
+                <p class="text-xs text-txt-muted">Head de Produto, Flux</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="precos" class="py-20">
+      <div class="wrap">
+        <div class="text-center mb-14">
+          <p class="text-txt-muted text-sm tracking-widest uppercase mb-3">Planos</p>
+          <h2 class="text-3xl md:text-4xl font-bold">Escolha sua intensidade.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass card-hover p-8 text-center">
+            <p class="text-txt-muted text-sm tracking-widest uppercase mb-4">Starter</p>
+            <p class="text-4xl font-bold mb-1">R$ 89<span class="text-base font-normal text-txt-muted">/mês</span></p>
+            <p class="text-xs text-txt-muted mb-8">Para projetos pessoais</p>
+            <div class="space-y-3 mb-8 text-sm text-left">
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Componentes base
+              </div>
+            </div>
+            <button class="aurora-btn-outline w-full py-3 text-sm">Começar</button>
+          </div>
+          <div class="glass-strong card-hover p-8 text-center relative iridescent border border-white/10">
+            <div class="aurora-btn absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs rounded-full">Popular</div>
+            <p class="text-txt-muted text-sm tracking-widest uppercase mb-4 mt-2">Pro</p>
+            <p class="text-4xl font-bold mb-1">R$ 219<span class="text-base font-normal text-txt-muted">/mês</span></p>
+            <p class="text-xs text-txt-muted mb-8">Para equipes em crescimento</p>
+            <div class="space-y-3 mb-8 text-sm text-left">
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF1493" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF1493" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF1493" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Componentes premium
+              </div>
+            </div>
+            <button class="aurora-btn w-full py-3 text-sm">Escolher plano</button>
+          </div>
+          <div class="glass card-hover p-8 text-center">
+            <p class="text-txt-muted text-sm tracking-widest uppercase mb-4">Enterprise</p>
+            <p class="text-4xl font-bold mb-1">R$ 549<span class="text-base font-normal text-txt-muted">/mês</span></p>
+            <p class="text-xs text-txt-muted mb-8">Para operações em escala</p>
+            <div class="space-y-3 mb-8 text-sm text-left">
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado
+              </div>
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA garantido 99.9%
+              </div>
+            </div>
+            <button class="aurora-btn-outline w-full py-3 text-sm">Falar com vendas</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20">
+      <div class="wrap text-center">
+        <div class="glass-strong iridescent p-12 md:p-16 border border-white/10">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Ilumine sua interface.</h2>
+          <p class="text-txt-muted max-w-md mx-auto mb-8">Gradientes vivos, animações fluidas e efeitos luminosos que transformam qualquer produto digital.</p>
+          <button class="aurora-btn px-10 py-4 text-sm tracking-wide">Começar agora</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12">
+      <div class="wrap">
+        <div class="glass p-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+          <div>
+            <p class="font-bold text-lg mb-3 glow-text">Aurora.</p>
+            <p class="text-txt-muted text-xs leading-relaxed">Design luminoso<br>desde 2024.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-xs tracking-widest uppercase mb-3">Produto</p>
+            <ul class="space-y-2 text-txt-muted text-xs">
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Recursos</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Preços</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Changelog</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-xs tracking-widest uppercase mb-3">Empresa</p>
+            <ul class="space-y-2 text-txt-muted text-xs">
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Sobre</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Blog</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Contato</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-xs tracking-widest uppercase mb-3">Legal</p>
+            <ul class="space-y-2 text-txt-muted text-xs">
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Privacidade</a></li>
+              <li><a href="#" class="hover:text-white transition-colors duration-200">Termos</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-center text-txt-muted text-xs mt-8">&copy; 2024 Aurora. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro-Futurism — Synthwave UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { retro: ['"Press Start 2P"', 'monospace'], vt: ['"VT323"', 'monospace'] },
+          colors: {
+            neon: { blue: '#0080FF', pink: '#FF006E', cyan: '#00FFFF', purple: '#5D34D0' },
+            deep: '#1A1A2E',
+            silver: '#C0C0C0',
+            gold: '#FFD700',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'VT323', monospace; background: #0a0a14; color: #C0C0C0; overflow-x: hidden; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* CRT Scanlines */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+      opacity: 0.3;
+    }
+
+    /* Neon glow text */
+    .glow-blue { color: #0080FF; text-shadow: 0 0 7px #0080FF, 0 0 20px #0080FF, 0 0 40px #0080FF; }
+    .glow-pink { color: #FF006E; text-shadow: 0 0 7px #FF006E, 0 0 20px #FF006E, 0 0 40px #FF006E; }
+    .glow-cyan { color: #00FFFF; text-shadow: 0 0 7px #00FFFF, 0 0 20px #00FFFF, 0 0 40px #00FFFF; }
+
+    /* Neon border card */
+    .neon-card {
+      background: rgba(26,26,46,0.85); border: 1px solid #0080FF;
+      box-shadow: 0 0 8px rgba(0,128,255,0.3), inset 0 0 8px rgba(0,128,255,0.05);
+      transition: box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .neon-card:hover { border-color: #00FFFF; box-shadow: 0 0 16px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.08); }
+
+    .neon-card-pink {
+      background: rgba(26,26,46,0.85); border: 1px solid #FF006E;
+      box-shadow: 0 0 8px rgba(255,0,110,0.3), inset 0 0 8px rgba(255,0,110,0.05);
+    }
+
+    /* Neon button */
+    .neon-btn {
+      background: transparent; border: 2px solid #0080FF; color: #0080FF;
+      text-shadow: 0 0 6px #0080FF; box-shadow: 0 0 10px rgba(0,128,255,0.3), inset 0 0 10px rgba(0,128,255,0.1);
+      transition: all 200ms ease; font-family: 'Press Start 2P', monospace;
+    }
+    .neon-btn:hover { background: #0080FF; color: #0a0a14; text-shadow: none; box-shadow: 0 0 20px rgba(0,128,255,0.6); }
+
+    .neon-btn-pink {
+      border-color: #FF006E; color: #FF006E; text-shadow: 0 0 6px #FF006E;
+      box-shadow: 0 0 10px rgba(255,0,110,0.3), inset 0 0 10px rgba(255,0,110,0.1);
+    }
+    .neon-btn-pink:hover { background: #FF006E; color: #0a0a14; text-shadow: none; box-shadow: 0 0 20px rgba(255,0,110,0.6); }
+
+    /* Glitch animation */
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -1px); filter: hue-rotate(90deg); }
+      60% { transform: translate(-1px, -2px); }
+      80% { transform: translate(1px, 1px); filter: hue-rotate(0deg); }
+    }
+    .glitch { animation: glitch 3s infinite; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; overflow: hidden;
+    }
+    .glitch::before { color: #00FFFF; clip-path: inset(0 0 60% 0); animation: glitch-top 2.5s infinite; }
+    .glitch::after { color: #FF006E; clip-path: inset(60% 0 0 0); animation: glitch-bottom 3s infinite; }
+    @keyframes glitch-top { 0%,100%{transform:translate(0)} 33%{transform:translate(-3px,0)} 66%{transform:translate(3px,0)} }
+    @keyframes glitch-bottom { 0%,100%{transform:translate(0)} 33%{transform:translate(3px,0)} 66%{transform:translate(-3px,0)} }
+
+    /* Grid pattern background */
+    .grid-bg {
+      background-image: linear-gradient(rgba(0,128,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,128,255,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Flicker */
+    @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.85} 75%{opacity:0.95} }
+    .flicker { animation: flicker 4s infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .glitch, .glitch::before, .glitch::after, .flicker { animation: none; }
+    }
+  </style>
+</head>
+<body class="antialiased grid-bg">
+
+  <!-- HERO -->
+  <section class="min-h-[88vh] flex items-center py-20 relative">
+    <div class="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="font-retro text-[10px] tracking-widest uppercase mb-5 glow-cyan flicker">// SISTEMA ATIVO</p>
+        <h1 class="font-retro text-2xl md:text-4xl leading-relaxed mb-6 glow-pink relative glitch" data-text="O futuro é retrô.">O futuro é retrô.</h1>
+        <p class="text-xl md:text-2xl max-w-md leading-relaxed mb-10 text-silver">
+          Interfaces com estética dos anos 80, neon vibrante e efeitos CRT. Bem-vindo ao synthwave digital.
+        </p>
+        <a href="#precos" class="neon-btn inline-block px-6 py-3 text-[10px] tracking-wider">INICIAR TRANSMISSÃO</a>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="neon-card p-8 w-64 h-64 flex flex-col items-center justify-center gap-4">
+          <svg class="w-16 h-16 glow-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 8h2m2 0h2" stroke-linecap="round"/></svg>
+          <div class="w-full h-2 bg-deep rounded overflow-hidden"><div class="h-full w-3/4 bg-neon-blue rounded" style="box-shadow:0 0 8px #0080FF"></div></div>
+          <div class="w-full h-2 bg-deep rounded overflow-hidden"><div class="h-full w-1/2 bg-neon-pink rounded" style="box-shadow:0 0 8px #FF006E"></div></div>
+          <p class="font-retro text-[8px] glow-blue mt-2">TERMINAL v1.984</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="font-retro text-[10px] tracking-widest uppercase mb-3 glow-cyan">Módulos</p>
+        <h2 class="font-retro text-lg md:text-2xl glow-pink">Recursos do sistema.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="neon-card p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-5 border border-neon-cyan flex items-center justify-center" style="box-shadow:0 0 10px rgba(0,255,255,0.3)">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="font-retro text-[11px] mb-3 glow-blue">Velocidade Neon</h3>
+          <p class="text-lg text-silver leading-relaxed">Performance ultrarrápida com renderização otimizada para interfaces de alta frequência.</p>
+        </div>
+        <div class="neon-card p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-5 border border-neon-pink flex items-center justify-center" style="box-shadow:0 0 10px rgba(255,0,110,0.3)">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FF006E" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3 class="font-retro text-[11px] mb-3 glow-pink">Grid Cyberpunk</h3>
+          <p class="text-lg text-silver leading-relaxed">Layouts geométricos com precisão de pixel e alinhamento perfeito em qualquer resolução.</p>
+        </div>
+        <div class="neon-card p-8 text-center">
+          <div class="w-14 h-14 mx-auto mb-5 border border-neon-purple flex items-center justify-center" style="box-shadow:0 0 10px rgba(93,52,208,0.3)">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#5D34D0" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="font-retro text-[11px] mb-3" style="color:#5D34D0;text-shadow:0 0 7px #5D34D0,0 0 20px #5D34D0">Camadas Synth</h3>
+          <p class="text-lg text-silver leading-relaxed">Múltiplas camadas de efeitos visuais que criam profundidade e atmosfera retrô.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="font-retro text-[10px] tracking-widest uppercase mb-3 glow-cyan">Transmissões</p>
+        <h2 class="font-retro text-lg md:text-2xl glow-pink">Sinais recebidos.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="neon-card p-8">
+          <div class="border border-neon-blue/30 p-4 mb-6" style="background:rgba(0,128,255,0.03)">
+            <p class="text-lg text-silver leading-relaxed italic">"A estética synthwave trouxe uma identidade única ao nosso produto. Usuários ficam hipnotizados."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 border border-neon-cyan flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="font-retro text-[9px] glow-blue">Rafael Neon</p>
+              <p class="text-sm text-silver/60">Dev Lead, CyberPulse</p>
+            </div>
+          </div>
+        </div>
+        <div class="neon-card p-8">
+          <div class="border border-neon-pink/30 p-4 mb-6" style="background:rgba(255,0,110,0.03)">
+            <p class="text-lg text-silver leading-relaxed italic">"O efeito CRT e os neons deram ao dashboard um visual que ninguém esquece. Puro anos 80."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 border border-neon-pink flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FF006E" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="font-retro text-[9px] glow-pink">Marina Synth</p>
+              <p class="text-sm text-silver/60">UX Designer, RetroWave</p>
+            </div>
+          </div>
+        </div>
+        <div class="neon-card p-8">
+          <div class="border border-neon-purple/30 p-4 mb-6" style="background:rgba(93,52,208,0.03)">
+            <p class="text-lg text-silver leading-relaxed italic">"Nossos clientes amam a vibe cyberpunk. A taxa de conversão subiu 40% após o redesign."</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 border border-neon-purple flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#5D34D0" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="font-retro text-[9px]" style="color:#5D34D0;text-shadow:0 0 5px #5D34D0">Thiago Grid</p>
+              <p class="text-sm text-silver/60">CTO, NeonForge</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <div class="text-center mb-14">
+        <p class="font-retro text-[10px] tracking-widest uppercase mb-3 glow-cyan">Protocolos</p>
+        <h2 class="font-retro text-lg md:text-2xl glow-pink">Selecione seu nível.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="neon-card p-8 text-center">
+          <p class="font-retro text-[10px] tracking-widest uppercase mb-4 glow-blue">Básico</p>
+          <p class="font-retro text-2xl glow-cyan mb-1">R$ 79<span class="text-sm text-silver/50">/mês</span></p>
+          <p class="text-sm text-silver/50 mb-8">Acesso inicial</p>
+          <div class="space-y-3 mb-8 text-left">
+            <div class="border border-neon-blue/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 projeto ativo
+            </div>
+            <div class="border border-neon-blue/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte por terminal
+            </div>
+            <div class="border border-neon-blue/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#0080FF" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Efeitos básicos
+            </div>
+          </div>
+          <button class="neon-btn w-full py-3 text-[9px] tracking-wider">CONECTAR</button>
+        </div>
+        <div class="neon-card-pink p-8 text-center relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-[8px] font-retro tracking-wide border border-neon-pink bg-deep glow-pink">POPULAR</div>
+          <p class="font-retro text-[10px] tracking-widest uppercase mb-4 mt-2 glow-pink">Pro</p>
+          <p class="font-retro text-2xl glow-cyan mb-1">R$ 197<span class="text-sm text-silver/50">/mês</span></p>
+          <p class="text-sm text-silver/50 mb-8">Acesso completo</p>
+          <div class="space-y-3 mb-8 text-left">
+            <div class="border border-neon-pink/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF006E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 projetos ativos
+            </div>
+            <div class="border border-neon-pink/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF006E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário
+            </div>
+            <div class="border border-neon-pink/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#FF006E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Todos os efeitos
+            </div>
+          </div>
+          <button class="neon-btn neon-btn-pink w-full py-3 text-[9px] tracking-wider">ATIVAR PROTOCOLO</button>
+        </div>
+        <div class="neon-card p-8 text-center">
+          <p class="font-retro text-[10px] tracking-widest uppercase mb-4" style="color:#5D34D0;text-shadow:0 0 7px #5D34D0">Empresa</p>
+          <p class="font-retro text-2xl glow-cyan mb-1">R$ 497<span class="text-sm text-silver/50">/mês</span></p>
+          <p class="text-sm text-silver/50 mb-8">Acesso ilimitado</p>
+          <div class="space-y-3 mb-8 text-left">
+            <div class="border border-neon-purple/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5D34D0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Projetos ilimitados
+            </div>
+            <div class="border border-neon-purple/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5D34D0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gerente dedicado
+            </div>
+            <div class="border border-neon-purple/20 px-4 py-3 flex items-center gap-3 text-lg text-silver">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5D34D0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9%
+            </div>
+          </div>
+          <button class="neon-btn w-full py-3 text-[9px] tracking-wider" style="border-color:#5D34D0;color:#5D34D0;text-shadow:0 0 6px #5D34D0;box-shadow:0 0 10px rgba(93,52,208,0.3),inset 0 0 10px rgba(93,52,208,0.1)">FALAR COM VENDAS</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="wrap text-center">
+      <div class="neon-card-pink p-12 md:p-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5" style="background-image:linear-gradient(rgba(255,0,110,0.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,0,110,0.2) 1px,transparent 1px);background-size:20px 20px"></div>
+        <div class="relative">
+          <h2 class="font-retro text-lg md:text-2xl glow-pink mb-6">Pronto para o futuro?</h2>
+          <p class="text-xl text-silver max-w-lg mx-auto mb-8">Entre na dimensão synthwave. Interfaces que transportam seus usuários para uma era de neon e possibilidades infinitas.</p>
+          <button class="neon-btn neon-btn-pink px-8 py-4 text-[10px] tracking-wider">INICIAR AGORA</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap">
+      <div class="neon-card p-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <p class="font-retro text-sm glow-cyan mb-3">RETRO.</p>
+          <p class="text-sm text-silver/50 leading-relaxed">Synthwave design<br>desde 1984.</p>
+        </div>
+        <div>
+          <p class="font-retro text-[8px] tracking-widest uppercase mb-3 glow-blue">Produto</p>
+          <ul class="space-y-2 text-silver/60 text-lg">
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Recursos</a></li>
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Preços</a></li>
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-retro text-[8px] tracking-widest uppercase mb-3 glow-blue">Empresa</p>
+          <ul class="space-y-2 text-silver/60 text-lg">
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Sobre</a></li>
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-retro text-[8px] tracking-widest uppercase mb-3 glow-blue">Legal</p>
+          <ul class="space-y-2 text-silver/60 text-lg">
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Privacidade</a></li>
+            <li><a href="#" class="hover:text-neon-cyan transition-colors duration-200">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-silver/30 text-sm mt-8 font-retro text-[8px]">&copy; 2024 RETRO. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data-Dense Dashboard — BI/Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            base: '#F5F5F5', txt: '#333333', muted: '#6B7280',
+            success: '#22C55E', warning: '#F59E0B', alert: '#EF4444',
+            info: '#3B82F6', panel: '#FFFFFF',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F5F5F5; color: #333; font-size: 13px; }
+    a, button, [role="button"], .clickable, th.sortable { cursor: pointer; }
+    .card { background: #fff; border: 1px solid #E5E7EB; border-radius: 6px; padding: 12px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 12px; }
+    .grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 8px 10px; text-align: left; white-space: nowrap; }
+    th { background: #F9FAFB; font-weight: 600; border-bottom: 2px solid #E5E7EB; position: sticky; top: 0; }
+    td { border-bottom: 1px solid #F3F4F6; }
+    tbody tr:hover { background: #F0F7FF; }
+    .kpi-spark { width: 60px; height: 24px; }
+    .bar { border-radius: 3px; height: 100%; transition: width .4s ease; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: pulse-dot 1.5s infinite; }
+    @media (max-width: 768px) { .grid-12 { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } .bar { transition: none; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="py-16 md:py-24">
+    <div class="wrap text-center">
+      <div class="inline-flex items-center gap-2 bg-info/10 text-info text-xs font-semibold px-3 py-1 rounded-full mb-6">
+        <div class="live-dot"></div> Dados em tempo real
+      </div>
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-4">Máxima densidade de dados.<br class="hidden md:block"> Clareza total.</h1>
+      <p class="text-muted max-w-lg mx-auto mb-8 text-sm leading-relaxed">Dashboards analíticos que mostram tudo o que importa em uma única tela. KPIs, tabelas, gráficos — sem desperdício de espaço.</p>
+      <div class="flex justify-center gap-3">
+        <a href="#precos" class="bg-info text-white px-6 py-3 rounded text-sm font-semibold hover:bg-blue-600 transition-colors cursor-pointer">Ver planos</a>
+        <a href="#features" class="card px-6 py-3 text-sm font-semibold hover:border-info transition-colors cursor-pointer">Explorar recursos</a>
+      </div>
+      <!-- Mini KPI row preview -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-12 max-w-3xl mx-auto">
+        <div class="card flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-success/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div><p class="text-[10px] text-muted">Receita</p><p class="font-bold text-sm">R$ 1.2M</p></div>
+        </div>
+        <div class="card flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-info/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div><p class="text-[10px] text-muted">Usuários</p><p class="font-bold text-sm">48.392</p></div>
+        </div>
+        <div class="card flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-warning/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><p class="text-[10px] text-muted">Tempo Médio</p><p class="font-bold text-sm">4m 32s</p></div>
+        </div>
+        <div class="card flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-alert/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div><p class="text-[10px] text-muted">Alertas</p><p class="font-bold text-sm text-alert">7</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-xs tracking-widest uppercase mb-2 text-center">Recursos</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-10">Cada pixel conta.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div class="card">
+          <div class="w-9 h-9 rounded bg-info/10 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Grid 12 Colunas</h3>
+          <p class="text-muted text-xs leading-relaxed">Layout denso com gap de 8px. Widgets se reorganizam automaticamente em qualquer resolução.</p>
+        </div>
+        <div class="card">
+          <div class="w-9 h-9 rounded bg-success/10 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Tabelas Ordenáveis</h3>
+          <p class="text-muted text-xs leading-relaxed">Headers fixos, linhas de 36px, highlight no hover e overflow automático para datasets grandes.</p>
+        </div>
+        <div class="card">
+          <div class="w-9 h-9 rounded bg-warning/10 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Exportação Rápida</h3>
+          <p class="text-muted text-xs leading-relaxed">Exporte qualquer widget como CSV, PDF ou imagem com um clique. Filtros aplicados inclusos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA TABLE PREVIEW -->
+  <section class="py-8">
+    <div class="wrap">
+      <div class="card overflow-auto" style="max-height:260px">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold text-sm">Transações Recentes</h3>
+          <button class="text-xs text-info font-medium hover:underline cursor-pointer flex items-center gap-1">
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar
+          </button>
+        </div>
+        <table>
+          <thead><tr><th class="sortable">ID</th><th class="sortable">Cliente</th><th class="sortable">Valor</th><th>Status</th><th class="sortable">Data</th></tr></thead>
+          <tbody>
+            <tr><td class="text-muted">#4821</td><td>Ana Souza</td><td class="font-medium">R$ 2.340</td><td><span class="bg-success/10 text-success text-[10px] font-semibold px-2 py-0.5 rounded-full">Pago</span></td><td class="text-muted">12 Jan 2025</td></tr>
+            <tr><td class="text-muted">#4820</td><td>Carlos Mendes</td><td class="font-medium">R$ 890</td><td><span class="bg-warning/10 text-warning text-[10px] font-semibold px-2 py-0.5 rounded-full">Pendente</span></td><td class="text-muted">12 Jan 2025</td></tr>
+            <tr><td class="text-muted">#4819</td><td>Juliana Reis</td><td class="font-medium">R$ 5.120</td><td><span class="bg-success/10 text-success text-[10px] font-semibold px-2 py-0.5 rounded-full">Pago</span></td><td class="text-muted">11 Jan 2025</td></tr>
+            <tr><td class="text-muted">#4818</td><td>Roberto Alves</td><td class="font-medium">R$ 1.750</td><td><span class="bg-alert/10 text-alert text-[10px] font-semibold px-2 py-0.5 rounded-full">Falhou</span></td><td class="text-muted">11 Jan 2025</td></tr>
+            <tr><td class="text-muted">#4817</td><td>Fernanda Costa</td><td class="font-medium">R$ 3.200</td><td><span class="bg-success/10 text-success text-[10px] font-semibold px-2 py-0.5 rounded-full">Pago</span></td><td class="text-muted">10 Jan 2025</td></tr>
+            <tr><td class="text-muted">#4816</td><td>Marcos Oliveira</td><td class="font-medium">R$ 670</td><td><span class="bg-warning/10 text-warning text-[10px] font-semibold px-2 py-0.5 rounded-full">Pendente</span></td><td class="text-muted">10 Jan 2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-xs tracking-widest uppercase mb-2 text-center">Depoimentos</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-10">Quem usa, comprova.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div class="card">
+          <div class="flex items-center gap-1 mb-3">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-muted leading-relaxed mb-4">"Conseguimos monitorar 200+ métricas em uma única tela. A densidade de informação é impressionante sem perder legibilidade."</p>
+          <div class="flex items-center gap-2 border-t border-gray-100 pt-3">
+            <div class="w-7 h-7 rounded-full bg-info/10 flex items-center justify-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-xs font-semibold">Renata Vieira</p><p class="text-[10px] text-muted">Head de BI, DataFlow</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-1 mb-3">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-muted leading-relaxed mb-4">"Os filtros e a ordenação nas tabelas economizam horas do nosso time. Exportar relatórios ficou trivial."</p>
+          <div class="flex items-center gap-2 border-t border-gray-100 pt-3">
+            <div class="w-7 h-7 rounded-full bg-success/10 flex items-center justify-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-xs font-semibold">Lucas Ferreira</p><p class="text-[10px] text-muted">Analista Sênior, Nexus</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-1 mb-3">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#E5E7EB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-xs text-muted leading-relaxed mb-4">"Substituímos 3 ferramentas por esse dashboard. A visão consolidada acelerou nossas decisões em 40%."</p>
+          <div class="flex items-center gap-2 border-t border-gray-100 pt-3">
+            <div class="w-7 h-7 rounded-full bg-warning/10 flex items-center justify-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><p class="text-xs font-semibold">Patrícia Gomes</p><p class="text-[10px] text-muted">COO, Métrica Labs</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-16">
+    <div class="wrap">
+      <p class="text-muted text-xs tracking-widest uppercase mb-2 text-center">Planos</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-10">Escale seus dados.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div class="card text-center">
+          <p class="text-xs text-muted tracking-widest uppercase mb-3">Starter</p>
+          <p class="text-3xl font-bold mb-1">R$ 149<span class="text-sm font-normal text-muted">/mês</span></p>
+          <p class="text-[10px] text-muted mb-6">Até 5 dashboards</p>
+          <div class="space-y-2 text-xs text-left mb-6">
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>5 dashboards</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 widgets por painel</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Exportação CSV</div>
+          </div>
+          <button class="w-full py-2.5 rounded text-xs font-semibold border border-gray-200 hover:border-info hover:text-info transition-colors cursor-pointer">Começar grátis</button>
+        </div>
+        <div class="card text-center border-info border-2 relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-info text-white text-[10px] font-bold px-3 py-0.5 rounded-full">Popular</span>
+          <p class="text-xs text-muted tracking-widest uppercase mb-3 mt-1">Business</p>
+          <p class="text-3xl font-bold mb-1">R$ 399<span class="text-sm font-normal text-muted">/mês</span></p>
+          <p class="text-[10px] text-muted mb-6">Dashboards ilimitados</p>
+          <div class="space-y-2 text-xs text-left mb-6">
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-info/5 rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboards ilimitados</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-info/5 rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>50 widgets por painel</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-info/5 rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Exportação PDF + CSV</div>
+          </div>
+          <button class="w-full py-2.5 rounded text-xs font-semibold bg-info text-white hover:bg-blue-600 transition-colors cursor-pointer">Assinar agora</button>
+        </div>
+        <div class="card text-center">
+          <p class="text-xs text-muted tracking-widest uppercase mb-3">Enterprise</p>
+          <p class="text-3xl font-bold mb-1">Custom</p>
+          <p class="text-[10px] text-muted mb-6">Sob medida para sua operação</p>
+          <div class="space-y-2 text-xs text-left mb-6">
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Business</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SSO + API dedicada</div>
+            <div class="flex items-center gap-2 py-1.5 px-2 bg-base rounded"><svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99%</div>
+          </div>
+          <button class="w-full py-2.5 rounded text-xs font-semibold border border-gray-200 hover:border-info hover:text-info transition-colors cursor-pointer">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="wrap">
+      <div class="card bg-gradient-to-r from-blue-600 to-blue-500 border-0 text-white text-center py-12 px-6 rounded-lg">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3">Pronto para ver tudo em uma tela?</h2>
+        <p class="text-blue-100 text-sm max-w-md mx-auto mb-6">Comece gratuitamente. Sem cartão de crédito. Configure seu primeiro dashboard em menos de 5 minutos.</p>
+        <button class="bg-white text-info px-8 py-3 rounded text-sm font-semibold hover:bg-blue-50 transition-colors cursor-pointer">Criar conta grátis</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-gray-200">
+    <div class="wrap">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs mb-6">
+        <div>
+          <p class="font-bold text-sm mb-2">DenseBI</p>
+          <p class="text-muted text-[11px] leading-relaxed">Dashboards analíticos<br>de alta densidade.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[10px] tracking-widest uppercase mb-2">Produto</p>
+          <ul class="space-y-1.5 text-muted">
+            <li><a href="#" class="hover:text-txt transition-colors">Recursos</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors">Preços</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors">Integrações</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[10px] tracking-widest uppercase mb-2">Empresa</p>
+          <ul class="space-y-1.5 text-muted">
+            <li><a href="#" class="hover:text-txt transition-colors">Sobre</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[10px] tracking-widest uppercase mb-2">Legal</p>
+          <ul class="space-y-1.5 text-muted">
+            <li><a href="#" class="hover:text-txt transition-colors">Privacidade</a></li>
+            <li><a href="#" class="hover:text-txt transition-colors">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-muted text-[10px]">&copy; 2025 DenseBI. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

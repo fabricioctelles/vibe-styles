@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero Interface — AI-Driven Invisible UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            surface: '#FAFAFA', muted: '#F0F0F0', warm: '#F5F1E8',
+            txt: '#1A1A1A', sub: '#6B7280', hint: '#9CA3AF',
+            ok: '#86EFAC', err: '#FCA5A5', accent: '#A78BFA'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #FAFAFA; color: #1A1A1A; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .ghost-btn { background: transparent; border: 1px solid transparent; border-radius: 999px; padding: .75rem 2rem;
+      transition: border-color .3s, background .3s, box-shadow .3s; }
+    .ghost-btn:hover { border-color: #E5E7EB; background: rgba(0,0,0,.02); box-shadow: 0 0 20px rgba(167,139,250,.08); }
+    .ai-card { background: #FAFAFA; border: 1px solid transparent; border-radius: 16px;
+      transition: border-color .4s, box-shadow .4s, background .4s; }
+    .ai-card:hover { border-color: #E5E7EB; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.04); }
+    .pulse-ring { animation: pulse-ring 3s ease-in-out infinite; }
+    @keyframes pulse-ring { 0%,100% { transform: scale(1); opacity: .3; } 50% { transform: scale(1.15); opacity: .08; } }
+    .voice-wave span { display: inline-block; width: 3px; border-radius: 3px; background: #A78BFA;
+      animation: wave 1.2s ease-in-out infinite; }
+    .voice-wave span:nth-child(2) { animation-delay: .15s; }
+    .voice-wave span:nth-child(3) { animation-delay: .3s; }
+    .voice-wave span:nth-child(4) { animation-delay: .45s; }
+    .voice-wave span:nth-child(5) { animation-delay: .6s; }
+    @keyframes wave { 0%,100% { height: 8px; } 50% { height: 24px; } }
+    .suggestion { opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .4s; }
+    .ai-card:hover .suggestion { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; } .pulse-ring { animation: none; }
+      .voice-wave span { animation: none; height: 12px; } .suggestion { transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- HERO -->
+  <section class="min-h-[90vh] flex items-center py-20">
+    <div class="wrap w-full text-center">
+      <div class="flex justify-center mb-10">
+        <div class="relative w-20 h-20 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full bg-accent/10 pulse-ring"></div>
+          <div class="voice-wave flex items-center gap-[3px]">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <p class="text-hint text-xs tracking-[.25em] uppercase mb-5">Zero Interface</p>
+      <h1 class="text-4xl md:text-6xl font-light leading-tight mb-6 tracking-tight">A interface que <span class="font-semibold">desaparece</span>.</h1>
+      <p class="text-sub text-lg max-w-lg mx-auto leading-relaxed mb-10">
+        Controles invisíveis. IA preditiva. Voz e gestos substituem cliques. A tecnologia sai do caminho para você fluir.
+      </p>
+      <div class="flex justify-center gap-4">
+        <button class="ghost-btn text-sm font-medium text-txt">Experimentar grátis</button>
+        <button class="ghost-btn text-sm font-medium text-sub">Ver como funciona</button>
+      </div>
+      <p class="text-hint text-xs mt-8 flex items-center justify-center gap-2">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        Diga "começar" para ativar
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="wrap">
+      <p class="text-hint text-xs tracking-[.25em] uppercase text-center mb-3">Recursos</p>
+      <h2 class="text-3xl md:text-4xl font-light text-center mb-14 tracking-tight">Menos interface. <span class="font-semibold">Mais intenção.</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="ai-card p-8 group">
+          <div class="w-10 h-10 rounded-full bg-accent/8 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+          </div>
+          <h3 class="text-base font-semibold mb-2">Comandos por Voz</h3>
+          <p class="text-sub text-sm leading-relaxed">Fale naturalmente. A IA entende contexto, sotaque e intenção sem menus ou botões.</p>
+          <p class="suggestion text-xs text-accent mt-4 flex items-center gap-1.5">
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Tente: "mostre relatórios de ontem"
+          </p>
+        </div>
+        <div class="ai-card p-8 group">
+          <div class="w-10 h-10 rounded-full bg-ok/20 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><circle cx="18" cy="3" r="3" fill="#86EFAC" stroke="none"/></svg>
+          </div>
+          <h3 class="text-base font-semibold mb-2">IA Preditiva</h3>
+          <p class="text-sub text-sm leading-relaxed">Sugestões inteligentes aparecem antes de você pedir. A interface antecipa suas necessidades.</p>
+          <p class="suggestion text-xs text-green-600 mt-4 flex items-center gap-1.5">
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Previsão: 94% de precisão
+          </p>
+        </div>
+        <div class="ai-card p-8 group">
+          <div class="w-10 h-10 rounded-full bg-warm flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-yellow-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3v12"/><path d="M18 9a3 3 0 100-6 3 3 0 000 6z"/><path d="M6 21a3 3 0 100-6 3 3 0 000 6z"/><path d="M18 9a9 9 0 01-9 9"/></svg>
+          </div>
+          <h3 class="text-base font-semibold mb-2">Gestos Naturais</h3>
+          <p class="text-sub text-sm leading-relaxed">Deslize, aperte e acene. Controles gestuais que tornam toque e mouse opcionais.</p>
+          <p class="suggestion text-xs text-yellow-700 mt-4 flex items-center gap-1.5">
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Deslize para navegar
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20" style="background:#F5F1E8">
+    <div class="wrap">
+      <p class="text-hint text-xs tracking-[.25em] uppercase text-center mb-3">Depoimentos</p>
+      <h2 class="text-3xl md:text-4xl font-light text-center mb-14 tracking-tight">Quem já <span class="font-semibold">sentiu a diferença</span>.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white/60 backdrop-blur rounded-2xl p-8">
+          <p class="text-sub text-sm leading-relaxed mb-6">"Nossos usuários pararam de procurar botões. Eles simplesmente falam o que querem e acontece."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
+              <svg class="w-4 h-4 text-sub" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-medium">Renata Alves</p><p class="text-xs text-hint">CPO, Nexo AI</p></div>
+          </div>
+        </div>
+        <div class="bg-white/60 backdrop-blur rounded-2xl p-8">
+          <p class="text-sub text-sm leading-relaxed mb-6">"A interface preditiva reduziu 60% dos cliques. Menos fricção, mais conversão."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
+              <svg class="w-4 h-4 text-sub" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-medium">Lucas Ferreira</p><p class="text-xs text-hint">CTO, Fluxo Digital</p></div>
+          </div>
+        </div>
+        <div class="bg-white/60 backdrop-blur rounded-2xl p-8">
+          <p class="text-sub text-sm leading-relaxed mb-6">"Parece mágica. A IA sabe o que preciso antes de eu formular o pensamento."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
+              <svg class="w-4 h-4 text-sub" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div><p class="text-sm font-medium">Mariana Costa</p><p class="text-xs text-hint">Head de Produto, Aura</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="py-20">
+    <div class="wrap">
+      <p class="text-hint text-xs tracking-[.25em] uppercase text-center mb-3">Planos</p>
+      <h2 class="text-3xl md:text-4xl font-light text-center mb-14 tracking-tight">Escolha o nível de <span class="font-semibold">invisibilidade</span>.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="ai-card p-8 text-center">
+          <p class="text-hint text-xs tracking-[.2em] uppercase mb-4">Básico</p>
+          <p class="text-4xl font-light mb-1">R$ 49<span class="text-sm text-hint font-normal">/mês</span></p>
+          <p class="text-xs text-hint mb-8">Comandos de voz essenciais</p>
+          <div class="space-y-3 text-sm text-left mb-8">
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Até 500 comandos/mês</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 gestos personalizados</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Sugestões básicas de IA</div>
+          </div>
+          <button class="ghost-btn w-full text-sm font-medium">Começar</button>
+        </div>
+        <div class="relative bg-white border border-gray-100 rounded-2xl p-8 text-center shadow-[0_8px_40px_rgba(167,139,250,.08)]">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-semibold tracking-wider uppercase px-4 py-1 rounded-full">Popular</span>
+          <p class="text-hint text-xs tracking-[.2em] uppercase mb-4 mt-1">Pro</p>
+          <p class="text-4xl font-light mb-1">R$ 149<span class="text-sm text-hint font-normal">/mês</span></p>
+          <p class="text-xs text-hint mb-8">IA preditiva completa</p>
+          <div class="space-y-3 text-sm text-left mb-8">
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Comandos ilimitados</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Gestos ilimitados</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-accent flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>IA preditiva avançada</div>
+          </div>
+          <button class="bg-accent text-white rounded-full w-full py-3 text-sm font-medium hover:bg-accent/90 transition-colors">Escolher Pro</button>
+        </div>
+        <div class="ai-card p-8 text-center">
+          <p class="text-hint text-xs tracking-[.2em] uppercase mb-4">Empresa</p>
+          <p class="text-4xl font-light mb-1">R$ 399<span class="text-sm text-hint font-normal">/mês</span></p>
+          <p class="text-xs text-hint mb-8">Zero interface total</p>
+          <div class="space-y-3 text-sm text-left mb-8">
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Pro</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>API dedicada</div>
+            <div class="flex items-center gap-3 text-sub"><svg class="w-4 h-4 text-ok flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.9% garantido</div>
+          </div>
+          <button class="ghost-btn w-full text-sm font-medium">Falar com vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20" style="background:#F0F0F0">
+    <div class="wrap text-center">
+      <div class="relative inline-flex items-center justify-center w-14 h-14 mb-8">
+        <div class="absolute inset-0 rounded-full bg-accent/10 pulse-ring"></div>
+        <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-light mb-4 tracking-tight">Pronto para a interface <span class="font-semibold">invisível</span>?</h2>
+      <p class="text-sub max-w-md mx-auto mb-8">Deixe a IA conduzir. Menos cliques, mais resultados. Comece gratuitamente.</p>
+      <button class="bg-txt text-white rounded-full px-10 py-4 text-sm font-medium hover:bg-txt/90 transition-colors">Começar agora</button>
+      <p class="text-hint text-xs mt-5">Sem cartão de crédito. Cancele quando quiser.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <p class="font-semibold mb-3">Zero.</p>
+        <p class="text-hint text-xs leading-relaxed">Interface invisível<br>movida por IA.</p>
+      </div>
+      <div>
+        <p class="text-hint text-xs tracking-[.2em] uppercase mb-3">Produto</p>
+        <ul class="space-y-2 text-sub text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors">Recursos</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors">Preços</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors">Documentação</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-hint text-xs tracking-[.2em] uppercase mb-3">Empresa</p>
+        <ul class="space-y-2 text-sub text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors">Sobre</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors">Blog</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-hint text-xs tracking-[.2em] uppercase mb-3">Legal</p>
+        <ul class="space-y-2 text-sub text-xs">
+          <li><a href="#" class="hover:text-txt transition-colors">Privacidade</a></li>
+          <li><a href="#" class="hover:text-txt transition-colors">Termos</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-hint text-xs mt-10">&copy; 2024 Zero. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.ai-card, .reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
