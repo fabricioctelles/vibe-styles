@@ -6,6 +6,7 @@
 
 <p align="center">
   <a href="https://vibe.ft.ia.br/">🌐 Demo ao Vivo</a> ·
+  <a href="https://github.com/fabricioctelles/vibe-styles">💻 GitHub</a> ·
   <a href="#-categorias">📂 Categorias</a> ·
   <a href="#-como-usar">🚀 Como Usar</a> ·
   <a href="#-catálogo-completo">📋 Catálogo</a> ·
@@ -13,6 +14,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/fabricioctelles/vibe-styles/stargazers"><img src="https://img.shields.io/github/stars/fabricioctelles/vibe-styles?style=for-the-badge&logo=github&labelColor=1E293B&color=8B5CF6" alt="GitHub Stars"></a>
   <img src="https://img.shields.io/badge/estilos-98-8B5CF6?style=for-the-badge&labelColor=1E293B" alt="98 Estilos">
   <img src="https://img.shields.io/badge/categorias-4-10B981?style=for-the-badge&labelColor=1E293B" alt="4 Categorias">
   <img src="https://img.shields.io/badge/stack-HTML%20%2B%20Tailwind%20%2B%20JS-38BDF8?style=for-the-badge&labelColor=1E293B" alt="Stack">
@@ -464,10 +466,6 @@ O projeto possui um guia detalhado para expansão da coleção em [`docs/como-ad
 
 ---
 
-<p align="center">
-  Feito com 💜 por <a href="https://ft.ia.br">ft.ia.br</a> com a ajuda do [Kiro](https://kiro.dev) </br> 
-  <img src="app/assets/logo-fabricio.png" alt="Vibe Styles Logo" width="80" height="80" style="border-radius: 16px;">
-</p>
 <p align="center">
   Feito com 💜 por <a href="https://ft.ia.br">ft.ia.br</a> com a ajuda do <a href="https://kiro.dev">Kiro</a><br>
   <img src="app/assets/logo-fabricio.png" alt="Vibe Styles Logo" width="80" height="80" style="border-radius: 16px;">
