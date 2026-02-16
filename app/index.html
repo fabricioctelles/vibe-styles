@@ -274,6 +274,89 @@
     </div>
   </main>
   <script>
+    /**
+     * DataLoader — Módulo responsável por carregar o JSON centralizado
+     * e construir o cache em memória para consulta instantânea.
+     * Requisitos: 2.1, 2.2, 3.1
+     */
+    const DataLoader = {
+      cache: {},        // Map: id → { id, name, type, prompt }
+      styles: [],       // Array ordenado para Combo e SlugRouter
+      loaded: false,
+
+      /**
+       * Carrega o data.json via fetch e popula cache e styles.
+       * Deve ser chamado uma única vez na inicialização do app.
+       */
+      async init() {
+        const res = await fetch('/data/data.json');
+        if (!res.ok) throw new Error('Falha ao carregar dados');
+        const data = await res.json();
+
+        data.forEach(item => {
+          this.cache[item.id] = item;
+        });
+        this.styles = data.sort((a, b) => a.id - b.id);
+        this.loaded = true;
+      },
+
+      /**
+       * Retorna o objeto prompt do estilo com o ID dado, ou null se não encontrado.
+       * @param {number} id - ID do estilo
+       * @returns {object|null} Objeto prompt estruturado ou null
+       */
+      getPrompt(id) {
+        const entry = this.cache[id];
+        return entry ? entry.prompt : null;
+      },
+
+      /**
+       * Retorna o objeto completo do estilo (id, name, type, prompt) ou null.
+       * @param {number} id - ID do estilo
+       * @returns {object|null} Objeto estilo ou null
+       */
+      getStyle(id) {
+        return this.cache[id] || null;
+      },
+
+      /**
+       * Reconstrói o texto completo do prompt a partir do objeto estruturado,
+       * mantendo compatibilidade com o formato original dos arquivos .txt.
+       * @param {object} promptObj - Objeto prompt estruturado
+       * @returns {string} Texto completo do prompt
+       */
+      buildPromptText(promptObj) {
+        const lines = [];
+        lines.push(promptObj.header);
+        lines.push('');
+        lines.push('## Estilo');
+        lines.push(`- Nome: ${promptObj.estilo.nome}`);
+        lines.push(`- Tipo: ${promptObj.estilo.tipo}`);
+        lines.push(`- Keywords: ${promptObj.estilo.keywords}`);
+        lines.push(`- Cores Primárias: ${promptObj.estilo.coresPrimarias}`);
+        lines.push(`- Cores Secundárias: ${promptObj.estilo.coresSecundarias}`);
+        lines.push(`- Efeitos: ${promptObj.estilo.efeitos}`);
+        lines.push(`- Era: ${promptObj.estilo.era}`);
+        lines.push(`- Light/Dark: ${promptObj.estilo.lightDark}`);
+        lines.push('');
+        lines.push('## AI Prompt Keywords (SIGA FIELMENTE)');
+        lines.push(promptObj.aiPromptKeywords);
+        lines.push('');
+        lines.push('## CSS/Technical');
+        lines.push(promptObj.cssTechnical);
+        lines.push('');
+        lines.push('## Design System Variables');
+        lines.push(promptObj.designSystemVariables);
+        lines.push('');
+        lines.push('## Checklist');
+        lines.push(promptObj.checklist);
+        lines.push('');
+        lines.push('## REGRAS DE EXECUÇÃO');
+        lines.push(promptObj.regrasDeExecucao);
+        return lines.join('\n');
+      }
+    };
+
     const STYLES = [
       // General (sorted by ID)
       { id: 1, name: "Minimalism & Swiss Style", type: "General" },
