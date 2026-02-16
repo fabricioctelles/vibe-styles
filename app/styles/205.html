@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LuxeMaison - Produtos premium de luxo para quem busca excelência e sofisticação. Design suíço, qualidade incomparável.">
+    <meta name="keywords" content="luxo, premium, design suíço, produtos exclusivos, alta qualidade, sofisticação">
+    <meta name="author" content="LuxeMaison">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="LuxeMaison - Excelência em Produtos Premium">
+    <meta property="og:description" content="Descubra a sofisticação do design suíço aplicado a produtos de luxo exclusivos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://luxemaison.com.br">
+    <meta property="og:image" content="https://luxemaison.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LuxeMaison">
+    <meta name="twitter:description" content="Excelência em produtos premium de luxo">
+
+    <title>LuxeMaison - Excelência em Produtos Premium</title>
+
+    <style>
+        :root {
+            --swiss-white: #FFFFFF;
+            --swiss-black: #000000;
+            --swiss-lead: #2F4F4F;
+            --swiss-gold: #B8860B;
+            --swiss-beige: #F5F5DC;
+            --swiss-navy: #000080;
+            --swiss-green: #006400;
+            --swiss-brown: #A52A2A;
+
+            --font-primary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            --font-secondary: 'Univers', 'Akzidenz-Grotesk', 'Helvetica', sans-serif;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+
+            --transition-fast: 150ms ease;
+            --transition-normal: 250ms ease;
+            --transition-slow: 400ms ease;
+
+            --border-thin: 1px solid var(--swiss-black);
+            --border-medium: 2px solid var(--swiss-black);
+            --border-thick: 3px solid var(--swiss-black);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            letter-spacing: 0.01em;
+        }
+
+        /* Swiss Grid Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(47, 79, 79, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(47, 79, 79, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a {
+            color: var(--swiss-black);
+            text-decoration: none;
+            transition: color var(--transition-normal) ease;
+        }
+
+        a:hover {
+            color: var(--swiss-lead);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            padding: 16px 32px;
+            font-family: var(--font-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--swiss-black);
+            color: var(--swiss-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--swiss-lead);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            border: var(--border-thin);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--swiss-lead);
+            color: var(--swiss-white);
+            border-color: var(--swiss-lead);
+        }
+
+        .btn-gold {
+            background-color: var(--swiss-gold);
+            color: var(--swiss-white);
+        }
+
+        .btn-gold:hover {
+            background-color: #9A7209;
+            transform: translateY(-2px);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-bottom: var(--border-thin);
+            z-index: 1000;
+            transition: all var(--transition-normal) ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-secondary);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--swiss-black);
+        }
+
+        .navbar-logo span {
+            color: var(--swiss-gold);
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .navbar-menu a {
+            font-family: var(--font-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--swiss-gold);
+            transition: width var(--transition-normal) ease;
+        }
+
+        .navbar-menu a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-cta {
+                display: block;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (max-width: 767px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, var(--swiss-white) 0%, var(--swiss-beige) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -25%;
+            width: 75%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 48%, rgba(184, 134, 11, 0.05) 48%, rgba(184, 134, 11, 0.05) 52%, transparent 52%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-family: var(--font-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--swiss-gold);
+            margin-bottom: var(--spacing-md);
+            padding: 8px 16px;
+            border: 1px solid var(--swiss-gold);
+        }
+
+        .hero-title {
+            font-family: var(--font-secondary);
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+            color: var(--swiss-black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            line-height: 1.6;
+            color: var(--swiss-lead);
+            margin-bottom: var(--spacing-lg);
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--swiss-lead) 0%, var(--swiss-black) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-visual::after {
+            content: 'PREMIUM';
+            position: absolute;
+            font-family: var(--font-secondary);
+            font-size: 180px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 0.1em;
+        }
+
+        .swiss-cross {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .swiss-cross::before,
+        .swiss-cross::after {
+            content: '';
+            position: absolute;
+            background-color: var(--swiss-gold);
+        }
+
+        .swiss-cross::before {
+            width: 40px;
+            height: 120px;
+            left: 40px;
+        }
+
+        .swiss-cross::after {
+            width: 120px;
+            height: 40px;
+            top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .hero-visual {
+                height: 300px;
+                order: -1;
+            }
+
+            .hero-visual::after {
+                font-size: 100px;
+            }
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--swiss-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: var(--font-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--swiss-gold);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-secondary);
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--swiss-lead);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background-color: var(--swiss-white);
+            border: var(--border-thin);
+            padding: var(--spacing-md);
+            transition: all var(--transition-normal) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--swiss-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-normal) ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--swiss-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--swiss-beige);
+            border-radius: 50%;
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--swiss-lead);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .feature-title {
+            font-family: var(--font-secondary);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .feature-description {
+            font-size: 16px;
+            color: var(--swiss-lead);
+            line-height: 1.6;
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--swiss-beige);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .testimonial-card {
+            background-color: var(--swiss-white);
+            border: var(--border-thin);
+            padding: var(--spacing-md);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: Georgia, serif;
+            font-size: 80px;
+            color: var(--swiss-gold);
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--swiss-lead);
+            margin-bottom: var(--spacing-md);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background-color: var(--swiss-lead);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--swiss-white);
+            font-family: var(--font-secondary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-family: var(--font-secondary);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--swiss-lead);
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--swiss-white);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-card {
+            background-color: var(--swiss-white);
+            border: var(--border-thin);
+            padding: var(--spacing-md);
+            text-align: center;
+            transition: all var(--transition-normal) ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: var(--border-thick);
+            border-color: var(--swiss-gold);
+            padding: var(--spacing-lg);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--swiss-gold);
+            color: var(--swiss-white);
+            padding: 8px 16px;
+            font-family: var(--font-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--swiss-lead);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pricing-price {
+            font-family: var(--font-secondary);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--swiss-black);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pricing-price span {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--swiss-lead);
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            color: var(--swiss-lead);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: var(--spacing-md);
+            text-align: left;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--swiss-beige);
+            font-size: 15px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--swiss-gold);
+            stroke-width: 2;
+            fill: none;
+            flex-shrink: 0;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--swiss-black);
+            color: var(--swiss-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 98%, rgba(184, 134, 11, 0.1) 98%, rgba(184, 134, 11, 0.1) 100%);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: var(--font-secondary);
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--swiss-lead);
+            color: var(--swiss-white);
+            padding: var(--spacing-lg) 0 var(--spacing-md);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+        }
+
+        .footer-brand {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-logo {
+            font-family: var(--font-secondary);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-logo span {
+            color: var(--swiss-gold);
+        }
+
+        .footer-description {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .footer-title {
+            font-family: var(--font-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--swiss-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            transition: color var(--transition-normal) ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--swiss-gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal) ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--swiss-gold);
+            border-color: var(--swiss-gold);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--swiss-white);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-legal a:hover {
+            color: var(--swiss-gold);
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Micro-interactions */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Section transitions */
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">Luxe<span>Maison</span></a>
+            <ul class="navbar-menu">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#pricing">Planos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="navbar-cta">
+                <a href="#pricing" class="btn btn-primary">Começar</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-tag">Design Suíço Premium</span>
+                    <h1 class="hero-title">Excelência em Cada Detalhe</h1>
+                    <p class="hero-subtitle">Descubra a sofisticação do design suíço aplicado a produtos premium de luxo. Qualidade incomparável para quem não aceita menos que o extraordinário.</p>
+                    <div class="hero-actions">
+                        <a href="#pricing" class="btn btn-primary">
+                            Explorar Coleção
+                            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="#features" class="btn btn-secondary">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="swiss-cross"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Características</span>
+                <h2 class="section-title">Diferenciais Exclusivos</h2>
+                <p class="section-subtitle">Cada produto é criado com maestria, combinando tradição suíça e inovação contemporânea.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Qualidade Premium</h3>
+                    <p class="feature-description">Materiais selecionados rigorosamente e processos de fabricação que atendem aos mais altos padrões internacionais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Design Suíço</h3>
+                    <p class="feature-description">Estética minimalista e funcional, influenciada pela tradição do design suíço, com espaçamentos precisos e tipografia impecável.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Atendimento VIP</h3>
+                    <p class="feature-description">Suporte personalizado 24/7 com consultores especializados prontos para atender todas as suas necessidades.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Exclusividade</h3>
+                    <p class="feature-description">Produtos fabricados em edições limitadas, garantindo exclusividade e valorização do seu investimento.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Garantia Estendida</h3>
+                    <p class="feature-description">Garantia de 5 anos em todos os produtos, cobrindo defeitos de fabricação e assegurando sua tranquilidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Personalização</h3>
+                    <p class="feature-description">Serviço de personalização exclusivo, permitindo que cada produto reflita sua identidade única.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Depoimentos</span>
+                <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+                <p class="section-subtitle">Histórias reais de clientes que transformaram suas expectativas em realidade.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">A qualidade dos produtos superou todas as minhas expectativas. O design suíço é evidente em cada detalhe, e o atendimento foi impecável do início ao fim.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MS</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Marina Silva</div>
+                            <div class="testimonial-role">CEO, TechBrasil</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content">Nunca vi produtos tão bem acabados. A precisão e elegância do design transformaram completamente minha percepção de luxo. Vale cada centavo investido.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RC</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Roberto Costa</div>
+                            <div class="testimonial-role">Arquiteto Renomado</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content">O serviço de personalização é excepcional. Consegui criar peças únicas que refletem exatamente minha personalidade. Recomendo para todos que buscam exclusividade.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AF</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Ana Ferreira</div>
+                            <div class="testimonial-role">Designer de Interiores</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Planos</span>
+                <h2 class="section-title">Escolha Seu Plano</h2>
+                <p class="section-subtitle">Opções flexíveis para diferentes necessidades e orçamentos.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Essencial</div>
+                    <div class="pricing-price">R$ 297<span>/mês</span></div>
+                    <div class="pricing-period">Plano mensal</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso a produtos premium
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por email
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Garantia de 1 ano
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Frete padrão grátis
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%">Começar Agora</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-tier">Premium</div>
+                    <div class="pricing-price">R$ 597<span>/mês</span></div>
+                    <div class="pricing-period">Plano trimestral</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso completo à coleção
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritário 24/7
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Garantia estendida de 5 anos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Frete expresso grátis
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Personalização básica
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-gold" style="width: 100%">Assinar Premium</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Elite</div>
+                    <div class="pricing-price">R$ 997<span>/mês</span></div>
+                    <div class="pricing-period">Plano anual</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do Premium
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Consultor dedicado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso a edições limitadas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Personalização completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Eventos exclusivos
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%">Entrar para Elite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-container">
+                <h2 class="cta-title">Pronto para Elevar Seu Padrão?</h2>
+                <p class="cta-subtitle">Junte-se a milhares de clientes satisfeitos que já descobriram a excelência dos produtos premium LuxeMaison.</p>
+                <div class="cta-actions">
+                    <a href="#pricing" class="btn btn-gold">
+                        Começar Agora
+                        <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-secondary">Falar com Consultor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">Luxe<span>Maison</span></div>
+                    <p class="footer-description">Excelência em produtos premium de luxo. Design suíço, qualidade incomparável e atendimento personalizado para clientes exigentes.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#testimonials">Depoimentos</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">contato@luxemaison.com.br</a></li>
+                        <li><a href="#">+55 (11) 9999-9999</a></li>
+                        <li><a href="#">São Paulo, SP</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 LuxeMaison. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Section visibility on scroll
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navbarMenu = document.querySelector('.navbar-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navbarMenu.style.display = navbarMenu.style.display === 'flex' ? 'none' : 'flex';
+            if (navbarMenu.style.display === 'flex') {
+                navbarMenu.style.flexDirection = 'column';
+                navbarMenu.style.position = 'absolute';
+                navbarMenu.style.top = '100%';
+                navbarMenu.style.left = '0';
+                navbarMenu.style.right = '0';
+                navbarMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbarMenu.style.padding = '20px';
+                navbarMenu.style.borderBottom = '1px solid #000';
+            }
+        });
+    </script>
+</body>
+</html>

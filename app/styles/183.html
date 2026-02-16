@@ -1,1545 +1,1691 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Bem-vindo ao Dino's Diner - Experiência autêntica da década de 1950. Sanduíches clássicos, milkshakes cremosos e a melhor atmosfera retrôamericana.">
-  <meta name="keywords" content="diner, retrô, 1950s, americana, lanchonete, milkshake, hamburger, nostálgico">
-  <meta name="author" content="Dino's Diner">
-  <meta name="robots" content="index, follow">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Dino's Diner - Sabor retrô autêntico">
-  <meta property="og:description" content="Venha experimentar a nostálgia dos anos 50 no mais autêntico diner brasileiro">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dinosdiner.com.br">
-  <meta property="og:image" content="/assets/og-diner.jpg">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dino's Diner - Sabor retrô autêntico">
-  <meta name="twitter:description" content="Venha experimentar a nostálgia dos anos 50 no mais autêntico diner brasileiro">
-  
-  <title>Dino's Diner | Sabor retrô autêntico desde 1954</title>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Bebas+Neue&display=swap" rel="stylesheet">
-  
-  <style>
-    /* ===== VARIÁVEIS DO DESIGN SYSTEM ===== */
-    :root {
-      --mint-diner: #9ED9CC;
-      --ketchup-red: #E84E45;
-      --chrome: #E0E0E0;
-      --check-black: #000000;
-      --milkshake-pink: #FFC1CC;
-      --font-diner: 'Lobster', cursive;
-      --font-display: 'Bebas Neue', sans-serif;
-    }
-    
-    /* ===== RESET E BASE ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: var(--font-diner);
-      background-color: var(--mint-diner);
-      color: var(--check-black);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    
-    /* ===== CHECKERBOARD PATTERN ===== */
-    .checkerboard {
-      background-image: 
-        linear-gradient(45deg, var(--check-black) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--check-black) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--check-black) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--check-black) 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    }
-    
-    .checkerboard-light {
-      background-image: 
-        linear-gradient(45deg, var(--chrome) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--chrome) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--chrome) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--chrome) 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-      background-color: #f5f5f5;
-    }
-    
-    /* ===== HALFTONE PATTERN ===== */
-    .halftone {
-      background-image: radial-gradient(circle, var(--check-black) 1px, transparent 1px);
-      background-size: 8px 8px;
-    }
-    
-    /* ===== NEON SIGN EFFECT ===== */
-    .neon-text {
-      text-shadow: 
-        0 0 5px var(--ketchup-red),
-        0 0 10px var(--ketchup-red),
-        0 0 20px var(--ketchup-red),
-        0 0 40px var(--ketchup-red);
-      animation: flicker 2s infinite alternate;
-    }
-    
-    .neon-text-pink {
-      text-shadow: 
-        0 0 5px var(--milkshake-pink),
-        0 0 10px var(--milkshake-pink),
-        0 0 20px var(--milkshake-pink);
-    }
-    
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.8;
-      }
-    }
-    
-    /* ===== CHROME EFFECT ===== */
-    .chrome-text {
-      background: linear-gradient(180deg, #ffffff 0%, var(--chrome) 50%, #999999 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-    }
-    
-    .chrome-box {
-      background: linear-gradient(135deg, #ffffff 0%, var(--chrome) 25%, #999999 50%, var(--chrome) 75%, #ffffff 100%);
-      border: 2px solid #666;
-      box-shadow: 
-        inset 0 1px 0 rgba(255,255,255,0.8),
-        inset 0 -1px 0 rgba(0,0,0,0.1),
-        0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    /* ===== SPLIT SCREEN LAYOUT ===== */
-    .split-screen {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-    
-    @media (min-width: 768px) {
-      .split-screen {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    
-    /* ===== BORDERS ===== */
-    .double-border {
-      border: 5px double var(--ketchup-red);
-    }
-    
-    .single-border {
-      border: 3px solid var(--check-black);
-    }
-    
-    /* ===== NAVBAR ===== */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: linear-gradient(180deg, var(--ketchup-red) 0%, #c73e32 100%);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    
-    .navbar-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .nav-logo {
-      font-family: var(--font-diner);
-      font-size: 2rem;
-      color: white;
-      text-decoration: none;
-      text-shadow: 2px 2px 0 var(--check-black);
-      transition: transform 0.3s ease;
-    }
-    
-    .nav-logo:hover {
-      transform: scale(1.05);
-    }
-    
-    .nav-links {
-      display: none;
-      list-style: none;
-      gap: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-      }
-    }
-    
-    .nav-links a {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      color: white;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--milkshake-pink);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
-    .nav-links a:hover {
-      color: var(--milkshake-pink);
-    }
-    
-    .mobile-menu-btn {
-      display: block;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-    
-    @media (min-width: 768px) {
-      .mobile-menu-btn {
-        display: none;
-      }
-    }
-    
-    /* ===== HERO SECTION ===== */
-    .hero {
-      min-height: 100vh;
-      padding-top: 80px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero-mint {
-      background: var(--mint-diner);
-      position: relative;
-    }
-    
-    .hero-mint::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: radial-gradient(circle, var(--check-black) 1px, transparent 1px);
-      background-size: 15px 15px;
-      opacity: 0.05;
-    }
-    
-    .hero-pink {
-      background: linear-gradient(135deg, var(--milkshake-pink) 0%, #ff9eb5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      width: 100%;
-    }
-    
-    .hero-badge {
-      display: inline-block;
-      background: var(--ketchup-red);
-      color: white;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      letter-spacing: 3px;
-      padding: 0.5rem 1.5rem;
-      margin-bottom: 1.5rem;
-      transform: rotate(-2deg);
-      box-shadow: 3px 3px 0 var(--check-black);
-    }
-    
-    .hero-title {
-      font-family: var(--font-diner);
-      font-size: 3.5rem;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      color: var(--check-black);
-    }
-    
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 5rem;
-      }
-    }
-    
-    .hero-subtitle {
-      font-family: var(--font-diner);
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 2rem;
-      max-width: 500px;
-    }
-    
-    @media (min-width: 768px) {
-      .hero-subtitle {
-        font-size: 1.8rem;
-      }
-    }
-    
-    /* ===== BUTTONS ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .btn-primary {
-      background: var(--ketchup-red);
-      color: white;
-      box-shadow: 4px 4px 0 var(--check-black);
-    }
-    
-    .btn-primary:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--check-black);
-      background: #d4433a;
-    }
-    
-    .btn-secondary {
-      background: var(--chrome);
-      color: var(--check-black);
-      box-shadow: 4px 4px 0 var(--check-black);
-    }
-    
-    .btn-secondary:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--check-black);
-      background: white;
-    }
-    
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    /* ===== FEATURES SECTION ===== */
-    .features {
-      padding: 6rem 2rem;
-      background: var(--mint-diner);
-      position: relative;
-    }
-    
-    .features::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 20px;
-      background: linear-gradient(135deg, var(--ketchup-red) 25%, transparent 25%) -10px 0,
-                  linear-gradient(225deg, var(--ketchup-red) 25%, transparent 25%) -10px 0,
-                  linear-gradient(315deg, var(--ketchup-red) 25%, transparent 25%),
-                  linear-gradient(45deg, var(--ketchup-red) 25%, transparent 25%);
-      background-size: 20px 20px;
-      background-color: var(--milkshake-pink);
-    }
-    
-    .section-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-    
-    .section-title {
-      font-family: var(--font-diner);
-      font-size: 3rem;
-      color: var(--check-black);
-      margin-bottom: 1rem;
-    }
-    
-    .section-subtitle {
-      font-size: 1.3rem;
-      color: #444;
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .features-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    .feature-card {
-      background: white;
-      border: 4px solid var(--check-black);
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--ketchup-red),
-        var(--ketchup-red) 10px,
-        var(--milkshake-pink) 10px,
-        var(--milkshake-pink) 20px
-      );
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 8px 8px 0 var(--check-black);
-    }
-    
-    .feature-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 1.5rem;
-      background: var(--mint-diner);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid var(--check-black);
-    }
-    
-    .feature-icon svg {
-      width: 40px;
-      height: 40px;
-      color: var(--ketchup-red);
-    }
-    
-    .feature-title {
-      font-family: var(--font-diner);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: var(--check-black);
-    }
-    
-    .feature-text {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.6;
-    }
-    
-    /* ===== TESTIMONIALS SECTION ===== */
-    .testimonials {
-      padding: 6rem 2rem;
-      background: linear-gradient(180deg, var(--milkshake-pink) 0%, var(--chrome) 100%);
-      position: relative;
-    }
-    
-    .testimonials::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: radial-gradient(circle, var(--check-black) 1px, transparent 1px);
-      background-size: 12px 12px;
-      opacity: 0.03;
-    }
-    .testimonial-card {
-      background: white;
-      border: 3px solid var(--check-black);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      box-shadow: 6px 6px 0 var(--check-black);
-    }
-    
-    .testimonial-card::before {
-      content: '"';
-      position: absolute;
-      top: -20px;
-      left: 20px;
-      font-family: var(--font-diner);
-      font-size: 5rem;
-      color: var(--ketchup-red);
-      line-height: 1;
-    }
-    
-    .testimonial-text {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 1.5rem;
-      font-style: italic;
-      line-height: 1.6;
-    }
-    
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .testimonial-avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--mint-diner);
-      border: 2px solid var(--check-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .testimonial-name {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      color: var(--check-black);
-    }
-    
-    .testimonial-role {
-      font-size: 0.95rem;
-      color: #666;
-    }
-    
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .testimonials-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    /* ===== PRICING SECTION ===== */
-    .pricing {
-      padding: 6rem 2rem;
-      background: var(--mint-diner);
-      position: relative;
-    }
-    
-    .pricing::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 20px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--check-black),
-        var(--check-black) 20px,
-        var(--chrome) 20px,
-        var(--chrome) 40px
-      );
-    }
-    
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .pricing-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    .pricing-card {
-      background: white;
-      border: 4px solid var(--check-black);
-      padding: 0;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    
-    .pricing-card:hover {
-      transform: scale(1.02);
-    }
-    
-    .pricing-card.featured {
-      background: var(--ketchup-red);
-      border-color: var(--check-black);
-      transform: scale(1.05);
-    }
-    
-    .pricing-card.featured:hover {
-      transform: scale(1.07);
-    }
-    
-    .pricing-header {
-      padding: 2rem;
-      text-align: center;
-      border-bottom: 3px dashed var(--check-black);
-      background: repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 5px,
-        rgba(0,0,0,0.02) 5px,
-        rgba(0,0,0,0.02) 10px
-      );
-    }
-    
-    .pricing-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    
-    .pricing-card.featured .pricing-title {
-      color: white;
-    }
-    
-    .pricing-price {
-      font-family: var(--font-diner);
-      font-size: 3.5rem;
-      color: var(--ketchup-red);
-      line-height: 1;
-    }
-    
-    .pricing-card.featured .pricing-price {
-      color: white;
-    }
-    
-    .pricing-period {
-      font-size: 1rem;
-      color: #666;
-    }
-    
-    .pricing-card.featured .pricing-period {
-      color: var(--milkshake-pink);
-    }
-    
-    .pricing-body {
-      padding: 2rem;
-    }
-    
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 2rem;
-    }
-    
-    .pricing-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #eee;
-      font-size: 1rem;
-    }
-    
-    .pricing-features li:last-child {
-      border-bottom: none;
-    }
-    
-    .pricing-features svg {
-      width: 20px;
-      height: 20px;
-      color: var(--ketchup-red);
-      flex-shrink: 0;
-    }
-    
-    .pricing-card.featured .pricing-features li {
-      color: white;
-      border-color: rgba(255,255,255,0.3);
-    }
-    
-    .pricing-card.featured .pricing-features svg {
-      color: var(--milkshake-pink);
-    }
-    
-    .pricing-btn {
-      display: block;
-      width: 100%;
-      padding: 1rem;
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-align: center;
-      background: var(--check-black);
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .pricing-btn:hover {
-      background: var(--ketchup-red);
-      color: white;
-    }
-    
-    .pricing-card.featured .pricing-btn {
-      background: white;
-      color: var(--ketchup-red);
-    }
-    
-    .pricing-card.featured .pricing-btn:hover {
-      background: var(--milkshake-pink);
-      color: var(--check-black);
-    }
-    
-    /* ===== CTA SECTION ===== */
-    .cta {
-      padding: 8rem 2rem;
-      background: linear-gradient(135deg, var(--ketchup-red) 0%, #c73e32 100%);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: radial-gradient(circle, white 1px, transparent 1px);
-      background-size: 20px 20px;
-      opacity: 0.1;
-    }
-    
-    .cta-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .cta-title {
-      font-family: var(--font-diner);
-      font-size: 3.5rem;
-      color: white;
-      margin-bottom: 1.5rem;
-      text-shadow: 3px 3px 0 var(--check-black);
-    }
-    
-    @media (min-width: 768px) {
-      .cta-title {
-        font-size: 4.5rem;
-      }
-    }
-    
-    .cta-text {
-      font-size: 1.5rem;
-      color: var(--milkshake-pink);
-      margin-bottom: 2.5rem;
-    }
-    
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1.25rem 3rem;
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      background: var(--milkshake-pink);
-      color: var(--check-black);
-      text-decoration: none;
-      border: 3px solid var(--check-black);
-      box-shadow: 6px 6px 0 var(--check-black);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .cta-btn:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 9px 9px 0 var(--check-black);
-      background: white;
-    }
-    
-    /* ===== FOOTER ===== */
-    .footer {
-      background: var(--check-black);
-      color: var(--chrome);
-      padding: 4rem 2rem 2rem;
-    }
-    
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-    
-    @media (min-width: 768px) {
-      .footer-grid {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-      }
-    }
-    
-    .footer-brand {
-      max-width: 300px;
-    }
-    
-    .footer-logo {
-      font-family: var(--font-diner);
-      font-size: 2.5rem;
-      color: var(--ketchup-red);
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px var(--ketchup-red);
-    }
-    
-    .footer-desc {
-      font-size: 1rem;
-      color: #999;
-      line-height: 1.6;
-    }
-    
-    .footer-title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--milkshake-pink);
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-links {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 0.75rem;
-    }
-    
-    .footer-links a {
-      color: var(--chrome);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-    
-    .footer-links a:hover {
-      color: var(--ketchup-red);
-      transform: translateX(5px);
-    }
-    
-    .social-links {
-      display: flex;
-      gap: 1rem;
-    }
-    
-    .social-link {
-      width: 45px;
-      height: 45px;
-      background: var(--chrome);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    
-    .social-link:hover {
-      background: var(--ketchup-red);
-      transform: translateY(-3px);
-    }
-    
-    .social-link svg {
-      width: 22px;
-      height: 22px;
-      color: var(--check-black);
-    }
-    
-    .social-link:hover svg {
-      color: white;
-    }
-    
-    .footer-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid #333;
-      text-align: center;
-    }
-    
-    .footer-copyright {
-      font-size: 0.95rem;
-      color: #666;
-    }
-    
-    /* ===== VISUAL ELEMENTS ===== */
-    .diner-table {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      aspect-ratio: 1;
-      margin: 0 auto;
-    }
-    
-    .milkshake-glass {
-      position: absolute;
-      bottom: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 140px;
-      background: linear-gradient(90deg, 
-        rgba(255,193,204,0.3) 0%,
-        rgba(255,193,204,0.8) 30%,
-        rgba(255,193,204,0.9) 70%,
-        rgba(255,193,204,0.3) 100%
-      );
-      border: 3px solid var(--check-black);
-      border-radius: 5px 5px 15px 15px;
-    }
-    
-    .milkshake-glass::before {
-      content: '';
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 40px;
-      background: var(--milkshake-pink);
-      border: 3px solid var(--check-black);
-      border-radius: 50% 50% 5px 5px;
-    }
-    
-    .milkshake-glass::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 15px;
-      height: 80px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.4;
-    }
-    
-    .cherry {
-      position: absolute;
-      top: -45px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 25px;
-      height: 25px;
-      background: var(--ketchup-red);
-      border-radius: 50%;
-      border: 2px solid var(--check-black);
-    }
-    
-    .cherry::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      width: 2px;
-      height: 12px;
-      background: #228B22;
-      transform: rotate(-30deg);
-    }
-    
-    .burger-plate {
-      position: absolute;
-      bottom: 15%;
-      right: 10%;
-      width: 150px;
-      height: 20px;
-      background: var(--chrome);
-      border: 2px solid var(--check-black);
-      border-radius: 50%;
-      box-shadow: 0 5px 0 #999;
-    }
-    
-    .burger {
-      position: absolute;
-      bottom: 18%;
-      right: 8%;
-      width: 120px;
-    }
-    
-    .bun-top {
-      width: 120px;
-      height: 40px;
-      background: linear-gradient(180deg, #d4903a 0%, #c47d2a 100%);
-      border: 3px solid var(--check-black);
-      border-radius: 60px 60px 5px 5px;
-      position: relative;
-    }
-    
-    .bun-top::before {
-      content: '';
-      position: absolute;
-      top: 8px;
-      left: 15px;
-      width: 8px;
-      height: 8px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 50%;
-      box-shadow: 
-        25px 5px 0 rgba(255,255,255,0.4),
-        50px 8px 0 rgba(255,255,255,0.4),
-        75px 3px 0 rgba(255,255,255,0.4);
-    }
-    
-    .lettuce {
-      width: 130px;
-      height: 15px;
-      background: #32CD32;
-      border: 3px solid var(--check-black);
-      border-radius: 10px;
-      margin: -5px -8px;
-      position: relative;
-    }
-    
-    .meat {
-      width: 115px;
-      height: 25px;
-      background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
-      border: 3px solid var(--check-black);
-      border-radius: 5px;
-      margin: -5px auto;
-      width: calc(100% - 10px);
-    }
-    
-    .cheese {
-      width: 120px;
-      height: 8px;
-      background: #FFD700;
-      border: 2px solid var(--check-black);
-      margin: -5px auto;
-      width: calc(100% - 8px);
-      transform: rotate(-2deg);
-    }
-    
-    .bun-bottom {
-      width: 120px;
-      height: 25px;
-      background: linear-gradient(180deg, #c47d2a 0%, #d4903a 100%);
-      border: 3px solid var(--check-black);
-      border-radius: 5px 5px 20px 20px;
-    }
-    
-    /* ===== CHROME ARROW CONNECTOR ===== */
-    .chrome-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    
-    .arrow-line {
-      height: 4px;
-      flex: 1;
-      background: linear-gradient(90deg, 
-        transparent 0%,
-        var(--chrome) 10%,
-        var(--chrome) 90%,
-        transparent 100%
-      );
-    }
-    
-    .arrow-head {
-      width: 0;
-      height: 0;
-      border-left: 20px solid var(--chrome);
-      border-top: 15px solid transparent;
-      border-bottom: 15px solid transparent;
-    }
-    
-    /* ===== RESPONSIVE HELPER CLASSES ===== */
-    .hidden-mobile {
-      display: none;
-    }
-    
-    @media (min-width: 768px) {
-      .hidden-mobile {
-        display: block;
-      }
-    }
-    
-    .flex-mobile {
-      display: flex;
-    }
-    
-    @media (min-width: 768px) {
-      .flex-mobile {
-        display: none;
-      }
-    }
-    
-    /* ===== ANIMATIONS ===== */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .float-animation {
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    .spin-slow {
-      animation: spin 8s linear infinite;
-    }
-    
-    /* ===== UTILITY CLASSES ===== */
-    .cursor-pointer {
-      cursor: pointer;
-    }
-    
-    .transition-all {
-      transition: all 0.3s ease;
-    }
-    
-    .hover-lift:hover {
-      transform: translateY(-5px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RetroDiner Grill - O melhor sabor clássico americano com estética diner dos anos 50, xadrez e neon">
+    <meta name="keywords" content="diner, restaurante americano, retro, anos 50, hambúrgueres, milkshakes">
+    <meta name="author" content="RetroDiner Grill">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="RetroDiner Grill - Sabor Clássico Americano">
+    <meta property="og:description" content="Experimente o melhor da culinária americana dos anos 50 em nossa fábrica de sabor">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://retrdinergrill.com">
+    <meta property="og:image" content="https://retrdinergrill.com/og-image.jpg">
+
+    <title>RetroDiner Grill - Sabor Clássico Americano</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Condensed:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           ROOT VARIABLES - AMERICAN DINER THEME
+           ======================================== */
+        :root {
+            --mint-diner: #9ED9CC;
+            --ketchup-red: #E84E45;
+            --chrome: #E0E0E0;
+            --check-black: #000000;
+            --milkshake-pink: #FFC1CC;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --white: #FFFFFF;
+            --font-diner: 'Lobster', cursive;
+            --font-condensed: 'Roboto Condensed', sans-serif;
+            --font-display: 'Bebas Neue', cursive;
+            --border-check: 5px double var(--ketchup-red);
+            --shadow-diner: 0 8px 30px rgba(0, 0, 0, 0.15);
+            --shadow-neon: 0 0 20px rgba(232, 78, 69, 0.5);
+            --shadow-chrome: 0 4px 15px rgba(224, 224, 224, 0.8);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-condensed);
+            color: var(--text-primary);
+            background-color: var(--mint-diner);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Checkerboard Pattern Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    var(--chrome) 25%,
+                    transparent 25%,
+                    transparent 75%,
+                    var(--chrome) 75%,
+                    var(--chrome)
+                ),
+                repeating-linear-gradient(
+                    45deg,
+                    var(--chrome) 25%,
+                    var(--white) 25%,
+                    var(--white) 75%,
+                    var(--chrome) 75%,
+                    var(--chrome)
+                );
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================================
+           TYPOGRAPHY
+           ======================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-diner);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--ketchup-red);
+            text-shadow:
+                2px 2px 0 var(--white),
+                4px 4px 0 var(--check-black);
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            color: var(--ketchup-red);
+            text-align: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ketchup-red), var(--chrome), var(--ketchup-red));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* ========================================
+           BUTTONS - Diner Style
+           ======================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--check-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 6px 0 var(--check-black),
+                0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(3px);
+            box-shadow:
+                0 3px 0 var(--check-black),
+                0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, var(--ketchup-red) 0%, #c73e3a 100%);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(180deg, #ff5a52 0%, var(--ketchup-red) 100%);
+            box-shadow:
+                0 6px 0 var(--check-black),
+                0 8px 25px rgba(232, 78, 69, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(180deg, var(--chrome) 0%, #c0c0c0 100%);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(180deg, var(--white) 0%, var(--chrome) 100%);
+        }
+
+        .btn-neon {
+            background: linear-gradient(180deg, var(--ketchup-red) 0%, #c73e3a 100%);
+            color: var(--white);
+            box-shadow:
+                0 6px 0 var(--check-black),
+                0 0 20px rgba(232, 78, 69, 0.6),
+                0 0 40px rgba(232, 78, 69, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes neon-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 6px 0 var(--check-black),
+                    0 0 20px rgba(232, 78, 69, 0.6),
+                    0 0 40px rgba(232, 78, 69, 0.4);
+            }
+            50% {
+                box-shadow:
+                    0 6px 0 var(--check-black),
+                    0 0 30px rgba(232, 78, 69, 0.8),
+                    0 0 60px rgba(232, 78, 69, 0.6);
+            }
+        }
+
+        /* ========================================
+           NAVBAR - Diner Menu Style
+           ======================================== */
+        .navbar {
+            background: linear-gradient(180deg, var(--check-black) 0%, #1a1a1a 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--ketchup-red);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-diner);
+            font-size: 2rem;
+            color: var(--mint-diner);
+            text-shadow:
+                0 0 10px rgba(232, 78, 69, 0.8),
+                0 0 20px rgba(232, 78, 69, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--ketchup-red);
+            filter: drop-shadow(0 0 8px rgba(232, 78, 69, 0.8));
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--ketchup-red);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--mint-diner);
+            background: rgba(232, 78, 69, 0.1);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--white);
+        }
+
+        /* ========================================
+           HERO SECTION - Split Screen Diner
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            padding-top: 80px;
+            background: linear-gradient(135deg, var(--mint-diner) 0%, var(--milkshake-pink) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    var(--check-black) 25%,
+                    transparent 25%,
+                    transparent 75%,
+                    var(--check-black) 75%,
+                    var(--check-black)
+                ),
+                repeating-linear-gradient(
+                    45deg,
+                    var(--check-black) 25%,
+                    var(--white) 25%,
+                    var(--white) 75%,
+                    var(--check-black) 75%,
+                    var(--check-black)
+                );
+            background-position: 0 0, 20px 20px;
+            background-size: 40px 40px;
+            opacity: 0.05;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--ketchup-red);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(232, 78, 69, 0.4);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow:
+                3px 3px 0 var(--white),
+                6px 6px 0 var(--check-black);
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            background: var(--white);
+            padding: 1.5rem;
+            border: 8px solid var(--check-black);
+            border-radius: 20px;
+            box-shadow: var(--shadow-diner);
+            transform: rotate(-3deg);
+        }
+
+        .hero-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 4px double var(--ketchup-red);
+            border-radius: 25px;
+            pointer-events: none;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .chrome-arrow {
+            position: absolute;
+            top: 50%;
+            right: -60px;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--chrome) 0%, #f5f5f5 50%, var(--chrome) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-chrome);
+            border: 3px solid var(--check-black);
+            animation: bounce-arrow 2s ease-in-out infinite;
+        }
+
+        .chrome-arrow svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--check-black);
+        }
+
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(10px); }
+        }
+
+        /* ========================================
+           FEATURES SECTION
+           ======================================== */
+        .features {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--chrome) 100%);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--ketchup-red) 0px,
+                var(--ketchup-red) 20px,
+                var(--white) 20px,
+                var(--white) 40px
+            );
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border: 5px double var(--ketchup-red);
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-diner);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--check-black) 0px,
+                var(--check-black) 10px,
+                var(--white) 10px,
+                var(--white) 20px
+            );
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--mint-diner) 0%, #7bc4b5 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--ketchup-red);
+            box-shadow: 0 4px 15px rgba(232, 78, 69, 0.3);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--check-black);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .feature-card p {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--milkshake-pink) 0%, var(--mint-diner) 100%);
+            position: relative;
+        }
+
+        .testimonials::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--check-black) 0px,
+                var(--check-black) 20px,
+                var(--chrome) 20px,
+                var(--chrome) 40px
+            );
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2rem;
+            border: 4px solid var(--check-black);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: var(--shadow-diner);
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: var(--font-diner);
+            font-size: 4rem;
+            color: var(--ketchup-red);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-content {
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ketchup-red) 0%, #c73e3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--check-black);
+        }
+
+        .testimonial-avatar svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--white);
+        }
+
+        .testimonial-info h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+            color: var(--text-primary);
+        }
+
+        .testimonial-info span {
+            font-size: 0.9rem;
+            color: var(--ketchup-red);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           PRICING SECTION
+           ======================================== */
+        .pricing {
+            padding: 6rem 2rem;
+            background: var(--chrome);
+            position: relative;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--ketchup-red) 0px,
+                var(--ketchup-red) 15px,
+                var(--white) 15px,
+                var(--white) 30px
+            );
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border: 6px solid var(--check-black);
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-diner);
+            transition: var(--transition-smooth);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px double var(--ketchup-red);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border-color: var(--ketchup-red);
+            box-shadow:
+                var(--shadow-diner),
+                0 0 30px rgba(232, 78, 69, 0.4);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translateY(-5px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ketchup-red);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            border: 3px solid var(--check-black);
+        }
+
+        .pricing-tier {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-price .currency {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            vertical-align: super;
+            color: var(--ketchup-red);
+        }
+
+        .pricing-price .amount {
+            font-family: var(--font-diner);
+            font-size: 4rem;
+            color: var(--ketchup-red);
+            line-height: 1;
+        }
+
+        .pricing-price .period {
+            font-family: var(--font-condensed);
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 2px dashed var(--chrome);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--ketchup-red);
+            flex-shrink: 0;
+        }
+
+        /* ========================================
+           CTA SECTION
+           ======================================== */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--ketchup-red) 0%, #c73e3a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    transparent 20px,
+                    rgba(255, 255, 255, 0.05) 20px,
+                    rgba(255, 255, 255, 0.05) 40px
+                );
+            animation: pattern-move 20s linear infinite;
+        }
+
+        @keyframes pattern-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            color: var(--white);
+            text-shadow:
+                2px 2px 0 var(--check-black),
+                4px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta h2::after {
+            background: linear-gradient(90deg, var(--white), var(--chrome), var(--white));
+        }
+
+        .cta p {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-secondary {
+            background: var(--white);
+            color: var(--ketchup-red);
+        }
+
+        /* ========================================
+           FOOTER - Diner Menu Style
+           ======================================== */
+        .footer {
+            background: var(--check-black);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--ketchup-red) 0px,
+                var(--ketchup-red) 30px,
+                var(--mint-diner) 30px,
+                var(--mint-diner) 60px,
+                var(--milkshake-pink) 60px,
+                var(--milkshake-pink) 90px
+            );
+            margin-bottom: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-diner);
+            font-size: 2rem;
+            color: var(--mint-diner);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-logo svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--ketchup-red);
+        }
+
+        .footer-description {
+            color: var(--chrome);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--mint-diner);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--ketchup-red);
+            margin-top: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-link {
+            color: var(--chrome);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ketchup-red);
+            flex-shrink: 0;
+        }
+
+        .footer-link:hover {
+            color: var(--mint-diner);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--chrome);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            border: 2px solid var(--ketchup-red);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--check-black);
+        }
+
+        .social-link:hover {
+            background: var(--ketchup-red);
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 5px 20px rgba(232, 78, 69, 0.5);
+        }
+
+        .social-link:hover svg {
+            fill: var(--white);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 2px solid var(--chrome);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--chrome);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .footer-bottom a {
+            color: var(--mint-diner);
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: scale(1.03) translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--check-black);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition-smooth);
+                border-top: 4px solid var(--ketchup-red);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .chrome-arrow {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .features,
+            .testimonials,
+            .pricing,
+            .cta {
+                padding: 4rem 1.5rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+
+            .navbar-container {
+                padding: 0 1rem;
+            }
+
+            .navbar-logo {
+                font-size: 1.5rem;
+            }
+
+            .hero-container {
+                padding: 2rem 1rem;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-price .amount {
+                font-size: 3rem;
+            }
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+    </style>
 </head>
 <body>
-
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="#" class="nav-logo">🍔 Dino's Diner</a>
-      <ul class="nav-links">
-        <li><a href="#cardapio">Cardápio</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#depoimentos">Depoimentos</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-      <button class="mobile-menu-btn" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ===== HERO SECTION ===== -->
-  <section class="hero split-screen">
-    <div class="hero-mint hero-content">
-      <span class="hero-badge">Desde 1954</span>
-      <h1 class="hero-title">O sabor da<br>nostalgia!</h1>
-      <p class="hero-subtitle">Volte no tempo e experimente os sanduíches e milkshakes mais deliciosos da cidade. Ambiente autêntico, música ao vivo e aquela sensação de voltar aos anos 50.</p>
-      <div class="btn-group">
-        <a href="#cardapio" class="btn btn-primary cursor-pointer transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-            <path d="M7 2v20"></path>
-            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
-          </svg>
-          Ver Cardápio
-        </a>
-        <a href="#reserva" class="btn btn-secondary cursor-pointer transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          Reservar Mesa
-        </a>
-      </div>
-    </div>
-    <div class="hero-pink">
-      <div class="diner-table">
-        <div class="milkshake-glass float-animation">
-          <div class="cherry"></div>
-        </div>
-        <div class="burger">
-          <div class="bun-top"></div>
-          <div class="lettuce"></div>
-          <div class="cheese"></div>
-          <div class="meat"></div>
-          <div class="bun-bottom"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CHROME ARROW CONNECTOR ===== -->
-  <div class="chrome-arrow checkerboard-light">
-    <div class="arrow-line"></div>
-    <div class="arrow-head"></div>
-    <div class="arrow-line"></div>
-  </div>
-
-  <!-- ===== FEATURES SECTION ===== -->
-  <section class="features" id="cardapio">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title neon-text">Nossos Pratos</h2>
-        <p class="section-subtitle">Receitas tradicionais com ingredientes frescos e muito amor</p>
-      </div>
-      <div class="features-grid">
-        <!-- Card 1 -->
-        <div class="feature-card cursor-pointer transition-all hover-lift">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-              <path d="M7 2v20"></path>
-              <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">Classic Burger</h3>
-          <p class="feature-text">Pão artesanal, carne 100% bovina, queijo cheddar, alface, tomate, cebola e nosso segredo especial. O favorito dos clientes há mais de 70 anos!</p>
-        </div>
-        
-        <!-- Card 2 -->
-        <div class="feature-card cursor-pointer transition-all hover-lift">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a10 10 0 0 1 10 10c0 6-8 12-10 12S2 18 2 12A10 10 0 0 1 12 2Z"></path>
-              <path d="M12 8v4l2 2"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">Milkshake Premium</h3>
-          <p class="feature-text">Milkshakes cremosos feitos com sorvete artesanal e toppings irresistíveis. Sabores: chocolate, morango, baunilha, cookies & cream e manga!</p>
-        </div>
-        
-        <!-- Card 3 -->
-        <div class="feature-card cursor-pointer transition-all hover-lift">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">Batatas Fritas</h3>
-          <p class="feature-text">Batatas selecionadas, cortadas na hora e fritas até ficarem douradas e crocantes. Acompanhadas do nosso molho especial da casa!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TESTIMONIALS SECTION ===== -->
-  <section class="testimonials" id="depoimentos">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title chrome-text">O que dizem nossos clientes</h2>
-        <p class="section-subtitle">A satisfação deles é o nosso maior orgulho</p>
-      </div>
-      <div class="testimonials-grid">
-        <!-- Testimonial 1 -->
-        <div class="testimonial-card">
-          <p class="testimonial-text">"A melhor experiência retrô que já tive! O ambiente é incrível, parece que voltei aos anos 50. O milkshake de morango é espetacular!"</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div>
-              <p class="testimonial-name">Roberto Martins</p>
-              <p class="testimonial-role">Cliente desde 2019</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 2 -->
-        <div class="testimonial-card">
-          <p class="testimonial-text">"Trouxe minha família e todos amaram! As crianças ficaram encantadas com o ambiente e eu pude saborear o melhor burger da minha vida. Recomendadíssimo!"</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div>
-              <p class="testimonial-name">Carla Souza</p>
-              <p class="testimonial-role">Influenciadora gastronômica</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 3 -->
-        <div class="testimonial-card">
-          <p class="testimonial-text">"Sempre venho aqui com meus amigos. A atmosfera é única, a comida é deliciosa e o atendimento é excelente. O Dino's é um patrimônio da cidade!"</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div>
-              <p class="testimonial-name">Paulo Henrique</p>
-              <p class="testimonial-role">Fotógrafo profissional</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PRICING SECTION ===== -->
-  <section class="pricing" id="planos">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title neon-text-pink">Nossos Planos</h2>
-        <p class="section-subtitle">Escolha a melhor opção para você e sua família</p>
-      </div>
-      <div class="pricing-grid">
-        <!-- Plano Basic -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <h3 class="pricing-title">Quick Bite</h3>
-            <p class="pricing-price">R$ 29<span class="pricing-period">,90</span></p>
-            <p class="pricing-period">por pessoa</p>
-          </div>
-          <div class="pricing-body">
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
-                1 Hambúrguer classic
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Batata média
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Refrigerante 400ml
-              </li>
-            </ul>
-            <button class="pricing-btn cursor-pointer transition-all">Quero Este</button>
-          </div>
-        </div>
-        
-        <!-- Plano Featured -->
-        <div class="pricing-card featured">
-          <div class="pricing-header">
-            <h3 class="pricing-title">Dino's Special</h3>
-            <p class="pricing-price">R$ 49<span class="pricing-period">,90</span></p>
-            <p class="pricing-period">por pessoa</p>
-          </div>
-          <div class="pricing-body">
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                1 Burger premium
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Batata grande
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Milkshake 500ml
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Sobremesa sortida
-              </li>
-            </ul>
-            <button class="pricing-btn cursor-pointer transition-all">Mais Popular</button>
-          </div>
-        </div>
-        
-        <!-- Plano Family -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <h3 class="pricing-title">Family Pack</h3>
-            <p class="pricing-price">R$ 129<span class="pricing-period">,90</span></p>
-            <p class="pricing-period">até 4 pessoas</p>
-          </div>
-          <div class="pricing-body">
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                4 Hambúrgures premium
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                2 Batatas grandes
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                4 Milkshakes
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Sobremesa para família
-              </li>
-            </ul>
-            <button class="pricing-btn cursor-pointer transition-all">Quero Este</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA SECTION ===== -->
-  <section class="cta" id="reserva">
-    <div class="cta-content">
-      <h2 class="cta-title">Experimente agora!</h2>
-      <p class="cta-text">Não espere mais para viver essa experiência única. Sua mesa está esperando por você!</p>
-      <a href="#contato" class="cta-btn cursor-pointer transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-        </svg>
-        Ligar Agora
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer" id="contato">
-    <div class="footer-container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">🍔 Dino's Diner</div>
-          <p class="footer-desc">O mais autêntico diner brasileiro desde 1954. Tradição, sabor e nostalgia em cada prato que servimos.</p>
-        </div>
-        
-        <div>
-          <h4 class="footer-title">Navegação</h4>
-          <ul class="footer-links">
-            <li><a href="#cardapio" class="cursor-pointer transition-all">Cardápio</a></li>
-            <li><a href="#sobre" class="cursor-pointer transition-all">Sobre Nós</a></li>
-            <li><a href="#depoimentos" class="cursor-pointer transition-all">Depoimentos</a></li>
-            <li><a href="#contato" class="cursor-pointer transition-all">Contato</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 class="footer-title">Horário</h4>
-          <ul class="footer-links">
-            <li>Seg - Qui: 11h - 22h</li>
-            <li>Sex - Sáb: 11h - 00h</li>
-            <li>Domingo: 12h - 21h</li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 class="footer-title">Redes Sociais</h4>
-          <div class="social-links">
-            <a href="#" class="social-link cursor-pointer transition-all" aria-label="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
+                RetroDiner Grill
             </a>
-            <a href="#" class="social-link cursor-pointer transition-all" aria-label="Facebook">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </a>
-            <a href="#" class="social-link cursor-pointer transition-all" aria-label="WhatsApp">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-              </svg>
-            </a>
-          </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="nav-link">Início</a></li>
+                <li><a href="#recursos" class="nav-link">Recursos</a></li>
+                <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                <li><a href="#precos" class="nav-link">Preços</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
         </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p class="footer-copyright">© 2026 Dino's Diner. Todos os direitos reservados. Feito com ❤️ e muito ketchup.</p>
-      </div>
-    </div>
-  </footer>
+    </nav>
 
+    <!-- HERO SECTION -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-badge">Est. 1956</span>
+                <h1 class="hero-title">Sabor Clássico Americano</h1>
+                <p class="hero-description">Experimente o autêntico sabor dos anos 50 em nosso restaurante com estética retrô diner. Hambúrgueres artesanais, milkshakes cremosos e aquela vibe nostálgica que você ama.</p>
+                <div class="hero-buttons">
+                    <a href="#precos" class="btn btn-primary">Ver Menu</a>
+                    <a href="#recursos" class="btn btn-secondary">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background -->
+                        <rect width="400" height="300" fill="#9ED9CC"/>
+
+                        <!-- Diner Building -->
+                        <rect x="50" y="80" width="300" height="180" fill="#E0E0E0" stroke="#000" stroke-width="3"/>
+                        <rect x="70" y="100" width="260" height="140" fill="#FFC1CC"/>
+
+                        <!-- Windows -->
+                        <rect x="90" y="120" width="60" height="80" fill="#9ED9CC" stroke="#000" stroke-width="2"/>
+                        <rect x="170" y="120" width="60" height="80" fill="#9ED9CC" stroke="#000" stroke-width="2"/>
+                        <rect x="250" y="120" width="60" height="80" fill="#9ED9CC" stroke="#000" stroke-width="2"/>
+
+                        <!-- Door -->
+                        <rect x="175" y="150" width="50" height="70" fill="#E84E45" stroke="#000" stroke-width="2"/>
+                        <circle cx="215" cy="190" r="3" fill="#000"/>
+
+                        <!-- Roof -->
+                        <path d="M40 80 L200 40 L360 80" fill="#E84E45" stroke="#000" stroke-width="3"/>
+
+                        <!-- Neon Sign -->
+                        <rect x="130" y="50" width="140" height="30" fill="#E84E45" stroke="#000" stroke-width="2" rx="5"/>
+                        <text x="200" y="70" font-family="Arial Black, sans-serif" font-size="14" fill="#FFF" text-anchor="middle">OPEN 24H</text>
+
+                        <!-- Checkerboard Border -->
+                        <rect x="45" y="75" width="310" height="190" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="10,5"/>
+                    </svg>
+                </div>
+                <div class="chrome-arrow">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="recursos">
+        <div class="features-container">
+            <h2>Nossos Especiais</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-2v4.05h-2v-2h-2v2H9.5c-1.1 0-2 .9-2 2v8.66c-1.22.75-2.03 2.09-2.03 3.62 0 2.36 1.92 4.27 4.29 4.27 1.78 0 3.31-1.09 3.96-2.64l.66.06c.05.5.48.89.99.89h2.68c.55 0 1-.45 1-1zM13 17.05v-5.1c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v5.1h-4zm5 4.44h-2v-6.1h2v6.1zM9.5 7.05h3v2h-3v-2zm0 4h3v2h-3v-2zm2.27 7.66c-.43.26-.93.42-1.47.42-1.43 0-2.59-1.16-2.59-2.59 0-.89.46-1.68 1.16-2.14v4.31z"/>
+                        </svg>
+                    </div>
+                    <h3>Hambúrgueres Artesanais</h3>
+                    <p>100% carne bovina grelhada na brasa, com queijo cheddar derretido, vegetais frescos e nosso molho secreto da casa.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 4c-1.1 0-2 .9-2 2v1H8V6c0-1.1-.9-2-2-2s-2 .9-2 2v1c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2V6c0-1.1-.9-2-2-2zm-4 14h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V8h4v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V8h2v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Milkshakes Cremosos</h3>
+                    <p>Milkshakes preparados com sorvete artesanal, frutas frescas e coberturas variadas. Sabor inesquecível!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                        </svg>
+                    </div>
+                    <h3>Acompanhamentos Clássicos</h3>
+                    <p>Batatas fritas crocantes, onion rings, azeitonas e picles. Os acompanhamentos perfeitos para sua refeição.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="depoimentos">
+        <div class="testimonials-container">
+            <h2>O Que Nossos Clientes Dizem</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"O melhor hambúrguer que já comi! A estética retrô é incrível e me trouxe tantas lembranças da minha juventude nos anos 50."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>João Silva</h4>
+                            <span>Cliente Frequente</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Os milkshakes são simplesmente divinos! Minha família inteira ama vir aqui aos finais de semana. Atmosfera perfeita!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Maria Santos</h4>
+                            <span>Fã de Milkshakes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Atendimento excepcional e comida deliciosa! O combo xadrez é minha escolha favorita. Recomendo para todos!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Pedro Costa</h4>
+                            <span>Entusiasta Gastronômico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="precos">
+        <div class="pricing-container">
+            <h2>Nossos Combos</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">Combo Básico</h3>
+                    <div class="pricing-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">29</span>
+                        <span class="period">,90</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            1 Hambúrguer Clássico
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Batatas Médias
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Refrigerante Lata
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Serviço de Mesa
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn btn-secondary">Pedir Agora</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <h3 class="pricing-tier">Combo Xadrez</h3>
+                    <div class="pricing-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">49</span>
+                        <span class="period">,90</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            2 Hambúrgueres Premium
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Batatas Grandes + Onion Rings
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            2 Milkshakes
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Sobremesa Gratuita
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Serviço VIP
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn btn-primary">Pedir Agora</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">Combo Família</h3>
+                    <div class="pricing-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">89</span>
+                        <span class="period">,90</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            4 Hambúrgueres
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            2 Porções Batatas Grandes
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            4 Refrigerantes
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            2 Sobremesas
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn btn-secondary">Pedir Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="contato">
+        <div class="cta-container">
+            <h2>Pronto para uma Experiência Retrô?</h2>
+            <p>Venha nos visitar e viaje no tempo com sabores autênticos dos anos 50. Estamos esperando por você!</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-neon">Fazer Pedido</a>
+                <a href="#" class="btn btn-secondary">Ver Localização</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                        </svg>
+                        RetroDiner Grill
+                    </div>
+                    <p class="footer-description">Trazendo o melhor da culinária americana clássica desde 1956. Venha fazer parte da nossa história!</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            Início
+                        </a></li>
+                        <li><a href="#recursos" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                            </svg>
+                            Menu
+                        </a></li>
+                        <li><a href="#depoimentos" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            Depoimentos
+                        </a></li>
+                        <li><a href="#precos" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                            </svg>
+                            Preços
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            (11) 2345-6789
+                        </a></li>
+                        <li><a href="#" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            contato@retrdiner.com
+                        </a></li>
+                        <li><a href="#" class="footer-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            Rua Vintage, 1956 - São Paulo
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Redes Sociais</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.58-2.11-9.96-5.02-.42.72-.66 1.56-.66 2.46 0 1.68.85 3.16 2.14 4.02-.79-.02-1.53-.24-2.18-.6v.06c0 2.35 1.67 4.31 3.88 4.76-.4.1-.83.16-1.27.16-.31 0-.62-.03-.92-.08.63 1.96 2.45 3.39 4.61 3.43-1.69 1.32-3.83 2.1-6.15 2.1-.4 0-.8-.02-1.19-.07 2.19 1.4 4.78 2.22 7.57 2.22 9.07 0 14.02-7.52 14.02-14.02 0-.21 0-.43-.01-.64.96-.69 1.79-1.56 2.45-2.55z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.58 7.2a2.97 2.97 0 0 0-2.1-2.1C17.77 4.5 12 4.5 12 4.5s-5.77 0-7.48.6a2.97 2.97 0 0 0-2.1 2.1c-.6 1.71-.6 5.28-.6 5.28s0 3.57.6 5.28a2.97 2.97 0 0 0 2.1 2.1c1.71.6 7.48.6 7.48.6s5.77 0 7.48-.6a2.97 2.97 0 0 0 2.1-2.1c.6-1.71.6-5.28.6-5.28s0-3.57-.6-5.28zM9.75 15.02V9.98L15.5 12.5l-5.75 2.52z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © 2026 <a href="#">RetroDiner Grill</a>. Todos os direitos reservados. Feito com amor nos anos 50.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Toggle mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add scroll effect to navbar
+            let lastScroll = 0;
+            const navbar = document.querySelector('.navbar');
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
+                } else {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.4)';
+                }
+
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
 </body>
 </html>

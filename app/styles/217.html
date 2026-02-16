@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ateliê Criativo - Consultoria para Pequenos Negócios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET E BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --azul-turquesa: #40E0D0;
+            --amarelo-mostarda: #FFD700;
+            --branco: #FFFFFF;
+            --cinza-claro: #F0F0F0;
+            --rosa-coral: #FF7F50;
+            --verde-menta: #98FB98;
+            --roxo-lavanda: #E6E6FA;
+            --marrom-claro: #D2B48C;
+            --preco-suave: rgba(0, 0, 0, 0.7);
+            --sombra-papel: 3px 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background: var(--cinza-claro);
+            color: var(--preco-suave);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Textura de papel amassado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Efeito de borda desenhada à mão */
+        .hand-drawn {
+            position: relative;
+            background: var(--branco);
+            border-radius: 8px;
+            box-shadow: var(--sombra-papel);
+        }
+
+        .hand-drawn::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 3px solid transparent;
+            border-radius: 12px;
+            background:
+                linear-gradient(45deg, var(--azul-turquesa) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--azul-turquesa) 25%, transparent 25%),
+                linear-gradient(135deg, var(--azul-turquesa) 25%, transparent 25%),
+                linear-gradient(-135deg, var(--azul-turquesa) 25%, var(--branco) 25%);
+            background-size: 4px 4px;
+            opacity: 0.3;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Animação de desenho progressivo */
+        @keyframes drawLine {
+            0% {
+                stroke-dashoffset: 1000;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes sketchIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-2deg);
+            }
+            50% {
+                transform: scale(1.02) rotate(1deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scribble {
+            0%, 100% {
+                transform: rotate(-1deg);
+            }
+            50% {
+                transform: rotate(1deg);
+            }
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--branco);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px dashed var(--azul-turquesa);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--azul-turquesa);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: scribble 3s ease-in-out infinite;
+        }
+
+        .logo svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.1rem;
+            color: var(--preco-suave);
+            text-decoration: none;
+            position: relative;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--amarelo-mostarda);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--azul-turquesa);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--amarelo-mostarda);
+            color: var(--preco-suave) !important;
+            padding: 10px 25px !important;
+            border-radius: 25px;
+            font-weight: 600;
+            border: 2px solid var(--amarelo-mostarda);
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta:hover {
+            background: transparent !important;
+            color: var(--amarelo-mostarda) !important;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, var(--branco) 0%, var(--roxo-lavanda) 50%, var(--azul-turquesa) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(64, 224, 208, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: sketchIn 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--verde-menta);
+            color: var(--preco-suave);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 2px dashed var(--preco-suave);
+        }
+
+        .hero h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--preco-suave);
+        }
+
+        .hero h1 span {
+            color: var(--azul-turquesa);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: var(--amarelo-mostarda);
+            opacity: 0.4;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: var(--preco-suave);
+            margin-bottom: 35px;
+            max-width: 500px;
+            line-height: 1.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--azul-turquesa);
+            color: var(--branco);
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra-papel);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 5px 5px 15px rgba(64, 224, 208, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--preco-suave);
+            padding: 15px 35px;
+            border: 3px solid var(--amarelo-mostarda);
+            border-radius: 30px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--amarelo-mostarda);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background: var(--branco);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 3px dashed var(--azul-turquesa);
+            box-shadow: var(--sombra-papel);
+        }
+
+        .hero-image svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        /* Elementos decorativos */
+        .decorative-element {
+            position: absolute;
+            opacity: 0.2;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .decorative-element:nth-child(1) {
+            top: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .decorative-element:nth-child(2) {
+            bottom: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            animation-delay: 1s;
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features {
+            padding: 100px 0;
+            background: var(--branco);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--rosa-coral);
+            color: var(--branco);
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--preco-suave);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(0, 0, 0, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .feature-card {
+            background: var(--branco);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 2px solid transparent;
+            animation: sketchIn 0.8s ease-out backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--azul-turquesa), var(--amarelo-mostarda));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: var(--cinza-claro);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .feature-icon svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .feature-card:nth-child(1) .feature-icon {
+            background: rgba(64, 224, 208, 0.2);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: rgba(255, 127, 80, 0.2);
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: rgba(152, 251, 152, 0.2);
+        }
+
+        .feature-card:nth-child(5) .feature-icon {
+            background: rgba(230, 230, 250, 0.2);
+        }
+
+        .feature-card:nth-child(6) .feature-icon {
+            background: rgba(210, 180, 140, 0.2);
+        }
+
+        .feature-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--preco-suave);
+        }
+
+        .feature-description {
+            font-size: 1.05rem;
+            color: rgba(0, 0, 0, 0.65);
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+           ============================================ */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--roxo-lavanda) 0%, var(--branco) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: var(--branco);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: var(--sombra-papel);
+            transition: all 0.3s ease;
+            animation: sketchIn 0.8s ease-out backwards;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: 'Caveat', cursive;
+            font-size: 8rem;
+            color: var(--amarelo-mostarda);
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--preco-suave);
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--verde-menta);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--preco-suave);
+        }
+
+        .testimonial-info h4 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            color: var(--preco-suave);
+            margin-bottom: 3px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .testimonial-stars svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--amarelo-mostarda);
+        }
+
+        /* ============================================
+           PRICING SECTION
+           ============================================ */
+        .pricing {
+            padding: 100px 0;
+            background: var(--branco);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--sombra-papel);
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            animation: sketchIn 0.8s ease-out backwards;
+        }
+
+        .pricing-card:nth-child(1) { animation-delay: 0.1s; }
+        .pricing-card:nth-child(2) { animation-delay: 0.2s; }
+        .pricing-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--azul-turquesa);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--rosa-coral);
+            color: var(--branco);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Indie Flower', cursive;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: var(--cinza-claro);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .pricing-card:nth-child(1) .pricing-icon {
+            background: rgba(152, 251, 152, 0.3);
+        }
+
+        .pricing-card:nth-child(2) .pricing-icon {
+            background: rgba(64, 224, 208, 0.3);
+        }
+
+        .pricing-card:nth-child(3) .pricing-icon {
+            background: rgba(255, 215, 0, 0.3);
+        }
+
+        .pricing-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--preco-suave);
+            margin-bottom: 15px;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--azul-turquesa);
+            margin-bottom: 5px;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .pricing-price span {
+            font-size: 1.2rem;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 400;
+        }
+
+        .pricing-description {
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-features svg.check {
+            fill: var(--verde-menta);
+        }
+
+        .pricing-features svg.cross {
+            fill: var(--rosa-coral);
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .pricing-card:nth-child(1) .pricing-button {
+            background: var(--verde-menta);
+            color: var(--preco-suave);
+        }
+
+        .pricing-card:nth-child(2) .pricing-button {
+            background: var(--azul-turquesa);
+            color: var(--branco);
+        }
+
+        .pricing-card:nth-child(3) .pricing-button {
+            background: var(--amarelo-mostarda);
+            color: var(--preco-suave);
+        }
+
+        .pricing-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--azul-turquesa) 0%, var(--amarelo-mostarda) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--branco);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta p {
+            font-size: 1.4rem;
+            color: var(--branco);
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .cta-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            background: var(--branco);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-input:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            padding: 18px 40px;
+            background: var(--rosa-coral);
+            color: var(--branco);
+            border: none;
+            border-radius: 30px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--preco-suave);
+            color: var(--branco);
+            padding: 70px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--azul-turquesa);
+        }
+
+        .footer-brand p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--azul-turquesa);
+            transform: translateY(-3px);
+        }
+
+        .footer-social a svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--branco);
+        }
+
+        .footer-links h4 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--amarelo-mostarda);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--branco);
+            text-decoration: none;
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--azul-turquesa);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--branco);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto 35px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .cta-input,
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* ============================================
+           ANIMAÇÕES DE SCROLL
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cinza-claro);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--azul-turquesa);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #30c4b4;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                    <path d="M2 2l7.586 7.586"/>
+                    <circle cx="11" cy="11" r="2"/>
+                </svg>
+                Ateliê Criativo
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Serviços</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#pricing">Planos</a></li>
+                <li><a href="#contact" class="nav-cta">Começar Agora</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">Consultoria Criativa Artesanal</span>
+                    <h1>Transforme seu <span>Pequeno Negócio</span> com Criatividade</h1>
+                    <p class="hero-description">
+                        Consultoria personalizada para empreendedores que buscam destacar-se no mercado com autenticidade, criatividade e estratégias feitas à mão.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#pricing" class="btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            Ver Planos
+                        </a>
+                        <a href="#features" class="btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <div class="decorative-element">
+                            <svg viewBox="0 0 100 100" fill="var(--amarelo-mostarda)">
+                                <circle cx="50" cy="50" r="40"/>
+                            </svg>
+                        </div>
+                        <svg viewBox="0 0 200 200" fill="none" stroke="var(--azul-turquesa)" stroke-width="2">
+                            <!-- Lâmpada criativa -->
+                            <path d="M100 30c-20 0-36 16-36 36 0 12 6 22 15 28v12c0 4 3 7 7 7h28c4 0 7-3 7-7v-12c9-6 15-16 15-28 0-20-16-36-36-36z"/>
+                            <path d="M85 120h30" stroke-linecap="round"/>
+                            <path d="M90 130h20" stroke-linecap="round"/>
+                            <!-- Raio de luz -->
+                            <path d="M140 50l10-10" stroke="var(--amarelo-mostarda)" stroke-width="3"/>
+                            <path d="M150 70l15 0" stroke="var(--amarelo-mostarda)" stroke-width="3"/>
+                            <path d="M140 90l10 10" stroke="var(--amarelo-mostarda)" stroke-width="3"/>
+                            <!-- Estrelas -->
+                            <polygon points="60 40 63 47 70 47 65 52 67 60 60 55 53 60 55 52 50 47 57 47" fill="var(--rosa-coral)" stroke="none"/>
+                            <polygon points="160 60 162 65 168 65 164 69 165 75 160 71 155 75 156 69 152 65 158 65" fill="var(--verde-menta)" stroke="none"/>
+                            <!-- Lápis -->
+                            <path d="M40 140l10-10 20 20-10 10z" fill="var(--marrom-claro)" stroke="var(--preco-suave)"/>
+                            <path d="M50 130l5-5" stroke="var(--preco-suave)" stroke-width="2"/>
+                            <polygon points="35 145 40 150 45 145 40 140" fill="var(--rosa-coral)"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Nossos Serviços</span>
+                <h2 class="section-title">Criatividade que Gera Resultados</h2>
+                <p class="section-subtitle">
+                    Cada projeto é único como sua marca. Desenvolvemos soluções criativas personalizadas para pequenos negócios.
+                </p>
+            </div>
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--azul-turquesa)" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Identidade Visual</h3>
+                    <p class="feature-description">
+                        Crie uma marca memorável com logos, paletas e materiais que contam sua história de forma única.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--amarelo-mostarda)" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Social Media</h3>
+                    <p class="feature-description">
+                        Conteúdos criativos para suas redes sociais que engajam e convertem seguidores em clientes.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--rosa-coral)" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Copywriting Criativo</h3>
+                    <p class="feature-description">
+                        Textos que vendem, inspiram e conectam. Transforme sua comunicação com mensagens impactantes.
+                    </p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--verde-menta)" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Embalagens</h3>
+                    <p class="feature-description">
+                        Desenhe embalagens que se destacam nas prateleiras e encantam seus clientes antes mesmo do primeiro uso.
+                    </p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--roxo-lavanda)" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Presença Digital</h3>
+                    <p class="feature-description">
+                        Sites e landing pages que convertem visitantes em clientes com design autêntico e funcional.
+                    </p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--marrom-claro)" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Consultoria 360º</h3>
+                    <p class="feature-description">
+                        Análise completa do seu negócio com estratégias criativas integradas para todos os pontos de contato.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Histórias de Sucesso</span>
+                <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+                <p class="section-subtitle">
+                    Pequenos negócios que transformaram sua presença no mercado com nossa consultoria criativa.
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">
+                            A Ateliê Criativo transformou completamente minha loja de artesanato. O rebranding aumentou minhas vendas em 150% em apenas 3 meses. Finalmente minha marca reflete o amor que coloco em cada peça!
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MA</div>
+                            <div class="testimonial-info">
+                                <h4>Maria Antônia Silva</h4>
+                                <p>Artesã & Dona de Ateliê</p>
+                                <div class="testimonial-stars">
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">
+                            O atendimento foi excepcional! Eles entenderam exatamente a essência da minha cafeteria. O novo visual trouxe clientes novos e os antigos adoraram a transformação. Recomendo de olhos fechados!
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JC</div>
+                            <div class="testimonial-info">
+                                <h4>João Carlos Mendes</h4>
+                                <p>Proprietário de Cafeteria</p>
+                                <div class="testimonial-stars">
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">
+                            Minha loja de roupas infantis ficou incrível! As embalagens personalizadas são um sucesso total - as mães adoram e compartilham nas redes. O ROI foi imediato. Profissionalismo e criatividade em cada detalhe!
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">PL</div>
+                            <div class="testimonial-info">
+                                <h4>Patrícia Lima</h4>
+                                <p>Empreendedora de Moda Infantil</p>
+                                <div class="testimonial-stars">
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Investimento</span>
+                <h2 class="section-title">Planos para Cada Negócio</h2>
+                <p class="section-subtitle">
+                    Escolha o plano ideal para o momento do seu negócio. Todos incluem atendimento personalizado.
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <!-- Plan 1 -->
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--verde-menta)" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-title">Start Artesanal</h3>
+                    <div class="pricing-price">R$ 197<span>/mês</span></div>
+                    <p class="pricing-description">Perfeito para quem está começando</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Logo Básico
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Cartão de Visitas
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            4 Posts Social Media
+                        </li>
+                        <li>
+                            <svg class="cross" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Embalagens
+                        </li>
+                        <li>
+                            <svg class="cross" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Site Institucional
+                        </li>
+                    </ul>
+                    <a href="#contact" class="pricing-button">Começar Agora</a>
+                </div>
+                <!-- Plan 2 -->
+                <div class="pricing-card popular">
+                    <span class="pricing-badge">Mais Popular</span>
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--azul-turquesa)" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-title">Crescimento Criativo</h3>
+                    <div class="pricing-price">R$ 497<span>/mês</span></div>
+                    <p class="pricing-description">Ideal para negocios em expansão</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Identidade Visual Completa
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Material de Escritório
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            12 Posts Social Media
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Embalagem Personalizada
+                        </li>
+                        <li>
+                            <svg class="cross" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Site Institucional
+                        </li>
+                    </ul>
+                    <a href="#contact" class="pricing-button">Começar Agora</a>
+                </div>
+                <!-- Plan 3 -->
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--amarelo-mostarda)" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-title">Transformação Total</h3>
+                    <div class="pricing-price">R$ 997<span>/mês</span></div>
+                    <p class="pricing-description">Para negocios prontos para decolar</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Rebranding Completo
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Gestão de Redes Sociais
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Embalagens Premium
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Site One-Page
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            Consultoria Mensal
+                        </li>
+                    </ul>
+                    <a href="#contact" class="pricing-button">Começar Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto para Transformar seu Negócio?</h2>
+                <p>
+                    Receba uma consultoria inicial gratuita e descubra como a criatividade pode alavancar suas vendas.
+                </p>
+                <form class="cta-form" onsubmit="event.preventDefault(); alert('Obrigado pelo interesse! Entraremos em contato em breve.');">
+                    <input type="email" class="cta-input" placeholder="Seu melhor e-mail" required>
+                    <button type="submit" class="cta-button">
+                        Quero Consultoria Gratuita
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-left: 8px;">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Ateliê Criativo</h3>
+                    <p>
+                        Consultoria criativa especializada em pequenos negócios. Transformamos marcas com autenticidade, criatividade e estratégias personalizadas.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <rect x="2" y="9" width="4" height="12" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="4" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Identidade Visual</a></li>
+                        <li><a href="#">Social Media</a></li>
+                        <li><a href="#">Copywriting</a></li>
+                        <li><a href="#">Embalagens</a></li>
+                        <li><a href="#">Consultoria 360º</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Portfólio</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Cookies</a></li>
+                        <li><a href="#">Licenças</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Ateliê Criativo. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Serviço</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animação de scroll para elementos
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll para links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar muda de estilo no scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.background = '#FFFFFF';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Efeito de desenho nos cards ao passar o mouse
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotate(1deg)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Animação nos botões
+        document.querySelectorAll('.btn-primary, .btn-secondary, .pricing-button').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -28,8 +28,15 @@
             --transition-speed: 250ms;
             --grid-size: 50px;
         }
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--cad-blue);
             color: var(--line-white);
@@ -41,6 +48,8 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
+
+        /* ===== MEASUREMENT TICKS ===== */
         body::before {
             content: '';
             position: fixed;
@@ -48,10 +57,17 @@
             left: 0;
             width: 20px;
             height: 100vh;
-            background-image: repeating-linear-gradient(to bottom, transparent, transparent 24px, rgba(255,255,255,0.25) 24px, rgba(255,255,255,0.25) 25px);
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 24px,
+                rgba(255,255,255,0.25) 24px,
+                rgba(255,255,255,0.25) 25px
+            );
             z-index: 999;
             pointer-events: none;
         }
+
         body::after {
             content: '';
             position: fixed;
@@ -59,59 +75,1338 @@
             left: 0;
             width: 100%;
             height: 20px;
-            background-image: repeating-linear-gradient(to right, transparent, transparent 24px, rgba(255,255,255,0.25) 24px, rgba(255,255,255,0.25) 25px);
+            background-image: repeating-linear-gradient(
+                to right,
+                transparent,
+                transparent 24px,
+                rgba(255,255,255,0.25) 24px,
+                rgba(255,255,255,0.25) 25px
+            );
             z-index: 999;
             pointer-events: none;
         }
+
         a { color: var(--line-white); text-decoration: none; transition: color var(--transition-speed) ease; }
         a:hover { color: var(--alert-orange); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* NAVBAR */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
         .navbar {
-            position: fixed; top: 12px; left: 12px; right: 12px; z-index: 1000;
-            background: rgba(14, 42, 71, 0.92); backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
-            padding: 0 24px; display: flex; align-items: center;
-            justify-content: space-between; height: 60px;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            z-index: 1000;
+            background: rgba(14, 42, 71, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
         }
+
         .navbar-logo {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 18px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
+
         .navbar-logo svg { flex-shrink: 0; }
-        .navbar-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
         .navbar-links a {
-            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; position: relative; padding-bottom: 2px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 2px;
         }
+
         .navbar-links a::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
-            background: var(--alert-orange); transition: width var(--transition-speed) ease;
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--alert-orange);
+            transition: width var(--transition-speed) ease;
         }
+
         .navbar-links a:hover::after { width: 100%; }
+
         .btn-cta {
-            background: var(--alert-orange); color: var(--line-white); border: none;
-            padding: 10px 24px; font-family: var(--font-mono); font-size: 13px;
-            font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            background: var(--alert-orange);
+            color: var(--line-white);
+            border: none;
+            padding: 10px 24px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
             border-radius: 2px;
         }
-        .btn-cta:hover { background: var(--alert-orange-hover); box-shadow: 0 0 20px rgba(232, 93, 53, 0.4); }
+
+        .btn-cta:hover {
+            background: var(--alert-orange-hover);
+            box-shadow: 0 0 20px rgba(232, 93, 53, 0.4);
+        }
+
         .btn-outline {
-            background: transparent; color: var(--line-white);
-            border: 1px solid rgba(255,255,255,0.4); padding: 10px 24px;
-            font-family: var(--font-mono); font-size: 13px; font-weight: 700;
-            letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+            background: transparent;
+            color: var(--line-white);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 24px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
             transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
             border-radius: 2px;
         }
-        .btn-outline:hover { border-color: var(--guide-line); color: var(--guide-line); }
-        .hamburger {
-            display: none; flex-direction: column; gap: 5px;
-            cursor: pointer; background: none; border: none; padding: 4px;
+
+        .btn-outline:hover {
+            border-color: var(--guide-line);
+            color: var(--guide-line);
         }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
         .hamburger span {
-            display: block; width: 24px; height: 2px; background: var(--line-white);
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--line-white);
             transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
         }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 100px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 620px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--guide-line);
+            border: 1px solid var(--guide-line);
+            padding: 4px 14px;
+            margin-bottom: 24px;
+            border-radius: 2px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span { color: var(--alert-orange); }
+
+        .hero p {
+            font-size: 15px;
+            color: var(--dim);
+            margin-bottom: 36px;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== GEAR CSS ART ===== */
+        .hero-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 420px;
+            height: 420px;
+            z-index: 1;
+        }
+
+        .gear {
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+        }
+
+        .gear::before, .gear::after {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .gear-large {
+            width: 260px;
+            height: 260px;
+            top: 40px;
+            left: 80px;
+            animation: rotateGear 20s linear infinite;
+        }
+
+        .gear-large::before {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .gear-large::after {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .gear-large-inner {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gear-large-center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--alert-orange);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gear-large-center::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--alert-orange);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gear-tooth {
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+
+        .gear-small {
+            width: 140px;
+            height: 140px;
+            bottom: 30px;
+            right: 20px;
+            animation: rotateGearReverse 14s linear infinite;
+        }
+
+        .gear-small::before {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .gear-small::after {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .gear-small-center {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--guide-line);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gear-small-center::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--guide-line);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Connector line between gears */
+        .gear-connector {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+            top: 280px;
+            left: 210px;
+            transform: rotate(40deg);
+        }
+
+        /* Dimension annotations */
+        .dimension-line {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: var(--guide-line);
+            letter-spacing: 1px;
+        }
+
+        .dimension-line::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--guide-line);
+        }
+
+        .dim-1 { top: 20px; left: 0; }
+        .dim-2 { bottom: 10px; right: 0; }
+        .dim-3 { top: 180px; right: -10px; }
+
+        /* Crosshair */
+        .crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .crosshair::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        @keyframes rotateGear {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateGearReverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--guide-line);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--guide-line);
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--dim);
+            max-width: 560px;
+            margin-bottom: 60px;
+            line-height: 1.8;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(14, 42, 71, 0.6);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 4px;
+            padding: 36px 28px;
+            position: relative;
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 28px;
+            right: 28px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--alert-orange), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--alert-orange);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--dim);
+            line-height: 1.8;
+        }
+
+        .feature-ref {
+            font-size: 10px;
+            color: rgba(255,255,255,0.25);
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: rgba(14, 42, 71, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 32px 28px;
+            position: relative;
+            transition: border-color var(--transition-speed) ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .testimonial-quote {
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.9;
+            margin-bottom: 28px;
+            font-style: italic;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 36px;
+            color: var(--alert-orange);
+            display: block;
+            line-height: 1;
+            margin-bottom: 12px;
+            font-style: normal;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            background: var(--cad-blue-deeper);
+            color: var(--alert-orange);
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .testimonial-role {
+            font-size: 11px;
+            color: var(--dim);
+            margin-top: 2px;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-rating svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--guide-line);
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: rgba(14, 42, 71, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 40px 28px;
+            text-align: center;
+            position: relative;
+            transition: border-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--alert-orange);
+            background: rgba(14, 42, 71, 0.8);
+            transform: scale(1.04);
+            box-shadow: 0 8px 40px rgba(232, 93, 53, 0.15);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.04);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--alert-orange);
+            color: var(--line-white);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 2px;
+        }
+
+        .pricing-tier {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 16px;
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price span {
+            font-size: 16px;
+            color: var(--dim);
+            font-weight: 400;
+        }
+
+        .pricing-desc {
+            font-size: 12px;
+            color: var(--dim);
+            margin-bottom: 32px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 36px;
+        }
+
+        .pricing-features li {
+            font-size: 13px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--alert-orange);
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn-cta,
+        .pricing-card .btn-outline {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        /* ===== CTA FINAL ===== */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-section h2 span { color: var(--alert-orange); }
+
+        .cta-section p {
+            font-size: 14px;
+            color: var(--dim);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 60px 0 30px;
+            background: var(--cad-blue-deeper);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            color: var(--dim);
+            line-height: 1.8;
+            margin-top: 16px;
+            max-width: 280px;
+        }
+
+        .footer h4 {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--line-white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+
+        .footer-links a {
+            font-size: 13px;
+            color: var(--dim);
+            cursor: pointer;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .footer-links a:hover { color: var(--alert-orange); }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color var(--transition-speed) ease, background var(--transition-speed) ease;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--alert-orange);
+            background: rgba(232, 93, 53, 0.1);
+        }
+
+        .footer-social svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--line-white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            cursor: pointer;
+        }
+
+        .footer-bottom-links a:hover { color: var(--alert-orange); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 36px; }
+            .hero-visual { width: 300px; height: 300px; right: 2%; }
+            .gear-large { width: 180px; height: 180px; left: 60px; }
+            .gear-small { width: 100px; height: 100px; }
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+            .navbar-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(14, 42, 71, 0.96);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 0 0 4px 4px;
+                padding: 20px;
+                gap: 16px;
+            }
+            .hero { padding-top: 120px; padding-bottom: 60px; }
+            .hero h1 { font-size: 28px; }
+            .hero-visual { display: none; }
+            .section { padding: 60px 0; }
+            .section-title { font-size: 28px; }
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+            .pricing-card.featured:hover { transform: none; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .cta-section h2 { font-size: 28px; }
+            body::before, body::after { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 24px; }
+            .hero-buttons { flex-direction: column; }
+            .hero-buttons .btn-cta,
+            .hero-buttons .btn-outline { width: 100%; text-align: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-buttons .btn-cta,
+            .cta-buttons .btn-outline { width: 100%; text-align: center; }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Navegacao principal">
+        <div class="navbar-logo">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="26" height="26" rx="2" stroke="#FFFFFF" stroke-width="1.5"/>
+                <circle cx="14" cy="14" r="8" stroke="#E85D35" stroke-width="1.5"/>
+                <line x1="14" y1="2" x2="14" y2="26" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                <line x1="2" y1="14" x2="26" y2="14" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                <circle cx="14" cy="14" r="2" fill="#E85D35"/>
+            </svg>
+            BlueprintCAD
+        </div>
+        <ul class="navbar-links" id="navLinks">
+            <li><a href="#recursos" cursor="pointer">Recursos</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#precos">Precos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        <button class="btn-cta" style="display:inline-block;" onclick="document.getElementById('precos').scrollIntoView({behavior:'smooth'})">Comecar Agora</button>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">Plataforma CAD v4.2</div>
+                <h1>Precisao Tecnica em <span>Cada Projeto</span></h1>
+                <p>Ferramenta de design assistido por computador para engenheiros, arquitetos e projetistas. Crie plantas, esquemas mecanicos e modelos 3D com precisao milimetrica.</p>
+                <div class="hero-buttons">
+                    <button class="btn-cta" onclick="document.getElementById('precos').scrollIntoView({behavior:'smooth'})">Iniciar Teste Gratuito</button>
+                    <button class="btn-outline" onclick="document.getElementById('recursos').scrollIntoView({behavior:'smooth'})">Ver Recursos</button>
+                </div>
+            </div>
+
+            <!-- GEAR VISUAL -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="crosshair"></div>
+                <div class="gear gear-large">
+                    <div class="gear-large-inner"></div>
+                    <div class="gear-large-center"></div>
+                    <div class="gear-tooth" style="top:-4px;left:50%;transform:translateX(-50%)"></div>
+                    <div class="gear-tooth" style="bottom:-4px;left:50%;transform:translateX(-50%)"></div>
+                    <div class="gear-tooth" style="left:-10px;top:50%;transform:translateY(-50%) rotate(90deg)"></div>
+                    <div class="gear-tooth" style="right:-10px;top:50%;transform:translateY(-50%) rotate(90deg)"></div>
+                    <div class="gear-tooth" style="top:18px;right:18px;transform:rotate(45deg)"></div>
+                    <div class="gear-tooth" style="bottom:18px;left:18px;transform:rotate(45deg)"></div>
+                    <div class="gear-tooth" style="top:18px;left:18px;transform:rotate(-45deg)"></div>
+                    <div class="gear-tooth" style="bottom:18px;right:18px;transform:rotate(-45deg)"></div>
+                </div>
+                <div class="gear gear-small">
+                    <div class="gear-small-center"></div>
+                    <div class="gear-tooth" style="top:-4px;left:50%;transform:translateX(-50%)"></div>
+                    <div class="gear-tooth" style="bottom:-4px;left:50%;transform:translateX(-50%)"></div>
+                    <div class="gear-tooth" style="left:-10px;top:50%;transform:translateY(-50%) rotate(90deg)"></div>
+                    <div class="gear-tooth" style="right:-10px;top:50%;transform:translateY(-50%) rotate(90deg)"></div>
+                </div>
+                <div class="gear-connector"></div>
+                <div class="dimension-line dim-1">R130.00</div>
+                <div class="dimension-line dim-2">R70.00</div>
+                <div class="dimension-line dim-3">DIM 420x420</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="recursos">
+        <div class="container">
+            <div class="section-label">Modulo 01</div>
+            <h2 class="section-title">Recursos de Engenharia</h2>
+            <p class="section-subtitle">Ferramentas projetadas para atender as demandas de projetos tecnicos complexos com eficiencia e precisao.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Modelagem 3D Parametrica</h3>
+                    <p>Crie modelos tridimensionais com parametros ajustaveis. Altere dimensoes e o projeto inteiro se adapta automaticamente.</p>
+                    <div class="feature-ref">REF: MOD-3D-001</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="3" x2="9" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>Plantas Tecnicas 2D</h3>
+                    <p>Gere plantas baixas, cortes e elevacoes com cotagem automatica seguindo normas ABNT e padroes internacionais.</p>
+                    <div class="feature-ref">REF: PLT-2D-002</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <h3>Simulacao e Analise</h3>
+                    <p>Execute simulacoes de tensao, termica e fluidodinamica diretamente no ambiente de projeto sem exportar arquivos.</p>
+                    <div class="feature-ref">REF: SIM-AN-003</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="depoimentos">
+        <div class="container">
+            <div class="section-label">Modulo 02</div>
+            <h2 class="section-title">Depoimentos de Profissionais</h2>
+            <p class="section-subtitle">Engenheiros e arquitetos que transformaram seus fluxos de trabalho com a BlueprintCAD.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">A precisao das ferramentas de cotagem e a integracao com simulacoes termicas reduziram nosso tempo de projeto em 40%. Indispensavel para engenharia mecanica.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RC</div>
+                        <div>
+                            <div class="testimonial-name">Ricardo Campos</div>
+                            <div class="testimonial-role">Engenheiro Mecanico, Petrobras</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">Migrei do AutoCAD e nao me arrependo. A interface e mais intuitiva e a colaboracao em tempo real com a equipe mudou completamente nosso fluxo de trabalho.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AM</div>
+                        <div>
+                            <div class="testimonial-name">Ana Martins</div>
+                            <div class="testimonial-role">Arquiteta, Studio Vertice</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">O suporte a normas ABNT e a exportacao direta para formatos DWG e STEP facilitaram a integracao com nossos parceiros internacionais. Excelente ferramenta.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">FL</div>
+                        <div>
+                            <div class="testimonial-name">Fernando Lima</div>
+                            <div class="testimonial-role">Projetista Industrial, WEG</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section" id="precos">
+        <div class="container">
+            <div class="section-label">Modulo 03</div>
+            <h2 class="section-title">Planos e Licencas</h2>
+            <p class="section-subtitle">Escolha a licenca ideal para o tamanho e complexidade dos seus projetos tecnicos.</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Estudante</div>
+                    <div class="pricing-price">R$0<span>/mes</span></div>
+                    <div class="pricing-desc">Para estudantes e projetos pessoais</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Modelagem 2D completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            3 projetos simultaneos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Exportacao PDF e PNG
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Biblioteca basica de componentes
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por email
+                        </li>
+                    </ul>
+                    <button class="btn-outline" style="cursor:pointer">Criar Conta Gratuita</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-tier">Profissional</div>
+                    <div class="pricing-price">R$197<span>/mes</span></div>
+                    <div class="pricing-desc">Para escritorios e equipes de projeto</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Modelagem 2D e 3D parametrica
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Exportacao DWG, STEP e IGES
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Simulacao de tensao e termica
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Colaboracao em tempo real
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritario 24/7
+                        </li>
+                    </ul>
+                    <button class="btn-cta" style="cursor:pointer">Iniciar Teste de 14 Dias</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Corporativo</div>
+                    <div class="pricing-price">R$497<span>/mes</span></div>
+                    <div class="pricing-desc">Para grandes equipes e industrias</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Profissional
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            API de integracao completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Servidor dedicado on-premise
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Gerenciamento de equipes e permissoes
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Treinamento personalizado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            SLA garantido de 99.9%
+                        </li>
+                    </ul>
+                    <button class="btn-outline" style="cursor:pointer">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-section" id="contato">
+        <div class="container">
+            <div class="section-label" style="justify-content:center">Modulo 04</div>
+            <h2>Comece a Projetar com <span>Precisao</span></h2>
+            <p>Junte-se a mais de 12.000 engenheiros e arquitetos que ja utilizam a BlueprintCAD para transformar ideias em projetos tecnicos de alta qualidade.</p>
+            <div class="cta-buttons">
+                <button class="btn-cta" style="cursor:pointer">Iniciar Teste Gratuito</button>
+                <button class="btn-outline" style="cursor:pointer">Agendar Demonstracao</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="navbar-logo" style="margin-bottom:4px">
+                        <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="26" height="26" rx="2" stroke="#FFFFFF" stroke-width="1.5"/>
+                            <circle cx="14" cy="14" r="8" stroke="#E85D35" stroke-width="1.5"/>
+                            <line x1="14" y1="2" x2="14" y2="26" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                            <line x1="2" y1="14" x2="26" y2="14" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                            <circle cx="14" cy="14" r="2" fill="#E85D35"/>
+                        </svg>
+                        BlueprintCAD
+                    </div>
+                    <p>Plataforma de design assistido por computador para profissionais que exigem precisao tecnica em cada detalhe do projeto.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="LinkedIn" style="cursor:pointer">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+                        </a>
+                        <a href="#" aria-label="GitHub" style="cursor:pointer">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube" style="cursor:pointer">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0e2a47"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter / X" style="cursor:pointer">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Produto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#recursos" style="cursor:pointer">Recursos</a></li>
+                        <li><a href="#precos" style="cursor:pointer">Precos</a></li>
+                        <li><a href="#" style="cursor:pointer">Atualizacoes</a></li>
+                        <li><a href="#" style="cursor:pointer">Documentacao</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" style="cursor:pointer">Sobre Nos</a></li>
+                        <li><a href="#" style="cursor:pointer">Carreiras</a></li>
+                        <li><a href="#" style="cursor:pointer">Blog Tecnico</a></li>
+                        <li><a href="#contato" style="cursor:pointer">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" style="cursor:pointer">Central de Ajuda</a></li>
+                        <li><a href="#" style="cursor:pointer">Comunidade</a></li>
+                        <li><a href="#" style="cursor:pointer">Status do Sistema</a></li>
+                        <li><a href="#" style="cursor:pointer">API Reference</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 BlueprintCAD. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" style="cursor:pointer">Politica de Privacidade</a>
+                    <a href="#" style="cursor:pointer">Termos de Uso</a>
+                    <a href="#" style="cursor:pointer">contato@blueprintcad.com.br</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        (function() {
+            // Mobile menu toggle
+            var hamburger = document.getElementById('hamburger');
+            var navLinks = document.getElementById('navLinks');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    var isOpen = navLinks.classList.toggle('active');
+                    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    hamburger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+                });
+
+                // Close menu when clicking a link
+                var links = navLinks.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        hamburger.setAttribute('aria-label', 'Abrir menu');
+                    });
+                }
+            }
+
+            // Navbar background on scroll
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 60) {
+                        navbar.style.background = 'rgba(14, 42, 71, 0.98)';
+                    } else {
+                        navbar.style.background = 'rgba(14, 42, 71, 0.92)';
+                    }
+                });
+            }
+
+            // Scroll reveal animation
+            var observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            var animatedElements = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card');
+            animatedElements.forEach(function(el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease, box-shadow 0.25s ease';
+                observer.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>

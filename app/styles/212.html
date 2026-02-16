@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veritas News - Plataforma de jornalismo investigativo independente. Reportagens aprofundadas, análises de dados e compromisso com a verdade.">
+    <meta name="keywords" content="jornalismo investigativo, reportagens, análise de dados, veritas news, jornalismo independente">
+    <meta name="author" content="Veritas News">
+    <meta property="og:title" content="Veritas News - Jornalismo Investigativo Independente">
+    <meta property="og:description" content="Reportagens aprofundadas, análises de dados e compromisso com a verdade.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://veritasnews.com.br">
+    <meta property="og:image" content="https://veritasnews.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Veritas News - Jornalismo Investigativo Independente</title>
+    <style>
+        :root {
+            --dark-grey-bg: #2C3E50;
+            --white-text: #FFFFFF;
+            --dark-red: #8B0000;
+            --black-text: #000000;
+            --navy-blue: #001F3F;
+            --olive-green: #6B8E23;
+            --ochre-yellow: #CC7722;
+            --light-grey: #E0E0E0;
+            --font-serif-news: 'Georgia', 'Times New Roman', serif;
+            --font-sans-body: 'Arial', 'Helvetica', sans-serif;
+            --line-height-body: 1.8;
+            --border-subtle: 1px solid #C0C0C0;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans-body);
+            line-height: var(--line-height-body);
+            color: var(--black-text);
+            background-color: var(--white-text);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-grey-bg);
+            border-bottom: 1px solid var(--light-grey);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--white-text);
+        }
+
+        .navbar-logo svg {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+
+        .navbar-logo-text {
+            font-family: var(--font-serif-news);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: var(--light-grey);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a:hover {
+            color: var(--white-text);
+        }
+
+        .btn-subscribe {
+            background: var(--dark-red);
+            color: var(--white-text);
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+
+        .btn-subscribe:hover {
+            background: var(--navy-blue);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white-text);
+            margin: 5px 0;
+            transition: all var(--transition-speed) ease;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 80px;
+            background: var(--dark-grey-bg);
+            color: var(--white-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--dark-red);
+            color: var(--white-text);
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif-news);
+            font-size: 48px;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--ochre-yellow);
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: var(--light-grey);
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--white-text);
+            color: var(--dark-grey-bg);
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--light-grey);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white-text);
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--white-text);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white-text);
+            color: var(--dark-grey-bg);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .newspaper-layout {
+            background: var(--white-text);
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: rotate(-2deg);
+            position: relative;
+        }
+
+        .newspaper-header {
+            border-bottom: 3px solid var(--black-text);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .newspaper-title {
+            font-family: var(--font-serif-news);
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--black-text);
+        }
+
+        .newspaper-date {
+            font-size: 11px;
+            color: var(--light-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .newspaper-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .newspaper-column {
+            border-left: 1px solid var(--light-grey);
+            padding-left: 15px;
+        }
+
+        .newspaper-column:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .newspaper-headline {
+            font-family: var(--font-serif-news);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--black-text);
+            line-height: 1.4;
+        }
+
+        .newspaper-text {
+            font-size: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--dark-grey-bg);
+            color: var(--white-text);
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif-news);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark-grey-bg);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-section {
+            background: #F8F8F8;
+            border-top: var(--border-subtle);
+            border-bottom: var(--border-subtle);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white-text);
+            padding: 40px 30px;
+            border: 1px solid var(--light-grey);
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--dark-grey-bg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--dark-grey-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--white-text);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-serif-news);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark-grey-bg);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            background: var(--dark-grey-bg);
+            color: var(--white-text);
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif-news);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ochre-yellow);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--light-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background: var(--white-text);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #FAFAFA;
+            padding: 40px;
+            border-left: 4px solid var(--dark-red);
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-serif-news);
+            font-size: 15px;
+            font-style: italic;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 60px;
+            color: var(--light-grey);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: var(--font-serif-news);
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--dark-grey-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .author-avatar svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--white-text);
+        }
+
+        .author-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark-grey-bg);
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-section {
+            background: #F8F8F8;
+            border-top: var(--border-subtle);
+            border-bottom: var(--border-subtle);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--white-text);
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid var(--light-grey);
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--dark-red);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-red);
+            color: var(--white-text);
+            padding: 8px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-serif-news);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-grey-bg);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-price {
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--dark-grey-bg);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .pricing-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .pricing-desc {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #555;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--olive-green);
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn-primary,
+        .pricing-card .btn-secondary {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .pricing-card .btn-secondary {
+            border-color: var(--dark-grey-bg);
+            color: var(--dark-grey-bg);
+        }
+
+        .pricing-card .btn-secondary:hover {
+            background: var(--dark-grey-bg);
+            color: var(--white-text);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--navy-blue);
+            color: var(--white-text);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.02) 10px,
+                    rgba(255, 255, 255, 0.02) 20px
+                );
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-serif-news);
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 span {
+            color: var(--ochre-yellow);
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: var(--light-grey);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn-primary {
+            background: var(--white-text);
+            color: var(--navy-blue);
+        }
+
+        .cta-buttons .btn-secondary {
+            border-color: var(--white-text);
+            color: var(--white-text);
+        }
+
+        .cta-buttons .btn-secondary:hover {
+            background: var(--white-text);
+            color: var(--navy-blue);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark-grey-bg);
+            color: var(--white-text);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif-news);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--light-grey);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 280px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .footer-social a:hover {
+            background: var(--dark-red);
+            border-color: var(--dark-red);
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white-text);
+        }
+
+        .footer h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--white-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--light-grey);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--white-text);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--white-text);
+        }
+
+        /* ===== HIGHLIGHT EFFECT ===== */
+        .text-highlight {
+            position: relative;
+            display: inline;
+            cursor: pointer;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .text-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--dark-red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .text-highlight:hover::after {
+            transform: scaleX(1);
+        }
+
+        .text-highlight:hover {
+            color: var(--dark-red);
+        }
+
+        /* ===== INFOGRAPHIC ELEMENT ===== */
+        .infographic-bar {
+            height: 8px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+        .infographic-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--dark-red), var(--navy-blue));
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .navbar-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-grey-bg);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .hero {
+                padding-top: 140px;
+                padding-bottom: 60px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .newspaper-layout {
+                padding: 30px 20px;
+                transform: rotate(-1deg);
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn-primary,
+            .cta-buttons .btn-secondary {
+                width: 100%;
+            }
+
+            .pricing-card {
+                padding: 40px 24px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="14" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+                    <path d="M10 12h12M10 16h8M10 20h10" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="22" cy="10" r="4" fill="#8B0000"/>
+                </svg>
+                <span class="navbar-logo-text">VERITAS NEWS</span>
+            </a>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#reportagens">Reportagens</a></li>
+                <li><a href="#planos">Planos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+            </ul>
+            <button class="btn-subscribe">Assinar</button>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">JORNALISMO INVESTIGATIVO</div>
+                    <h1>A Verdade Além das <span>Superfícies</span></h1>
+                    <p class="hero-description">
+                        Reportagens aprofundadas, análises de dados e compromisso inabalável com a verdade.
+                        Nossa missão é investigar onde outros não ousam chegar.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="document.getElementById('planos').scrollIntoView({behavior:'smooth'})">
+                            Assinar Agora
+                        </button>
+                        <button class="btn-secondary" onclick="document.getElementById('recursos').scrollIntoView({behavior:'smooth'})">
+                            Explorar Reportagens
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="newspaper-layout">
+                        <div class="newspaper-header">
+                            <div class="newspaper-title">VERITAS TIMES</div>
+                            <div class="newspaper-date">Edição Especial • 15 de Fevereiro de 2026</div>
+                        </div>
+                        <div class="newspaper-columns">
+                            <div class="newspaper-column">
+                                <div class="newspaper-headline">Escândalo de CorrupçãoEnvolve Altos Esferas do Governo</div>
+                                <p class="newspaper-text">Investigação exclusiva revela rede de propinas que movimentou milhões...</p>
+                                <div class="infographic-bar">
+                                    <div class="infographic-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="newspaper-column">
+                                <div class="newspaper-headline">Mudanças Climáticas:O Brasil em 2030</div>
+                                <p class="newspaper-text">Estudo inédito projeta impactos econômicos e sociais...</p>
+                                <div class="infographic-bar">
+                                    <div class="infographic-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">847</div>
+                    <div class="stat-label">Reportagens Publicadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.3M</div>
+                    <div class="stat-label">Leitores Mensais</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Prêmios Jornalísticos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">156K</div>
+                    <div class="stat-label">Documentos Analisados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section features-section" id="recursos">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">NOSSO DIFERENCIAL</div>
+                <h2 class="section-title">Jornalismo de Verdade</h2>
+                <p class="section-subtitle">
+                    Metodologias rigorosas, equipe especializada e compromisso com a ética
+                    profissional. Descubra o que nos torna únicos.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </div>
+                    <h3>Investigação Aprofundada</h3>
+                    <p>
+                        Nossa equipe dedica meses a cada reportagem, cruzando dados,
+                        analisando documentos e entrevistando fontes exclusivas para
+                        revelar a verdade completa.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 3v18"/>
+                        </svg>
+                    </div>
+                    <h3>Análise de Dados</h3>
+                    <p>
+                        Utilizamos as mais modernas ferramentas de data journalism
+                        para transformar números complexos em insights claros e
+                        visualizações impactantes.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Proteção de Fontes</h3>
+                    <p>
+                        Garantimos anonimato total aos nossos informantes através
+                        de sistemas criptografados e protocolos de segurança
+                        militares. Sua identidade está segura conosco.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <h3>Documentação Exclusiva</h3>
+                    <p>
+                        Acesso a milhares de documentos públicos e privados,
+                        incluindo processos judiciais, contratos governamentais
+                        e arquivos corporativos confidenciais.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3>Cobertura em Tempo Real</h3>
+                    <p>
+                        Acompanhamento 24/7 de desenvolvimentos importantes,
+                        com atualizações ao vivo e alertas instantâneos para
+                        assinantes sobre breaking news relevantes.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Equipe Especializada</h3>
+                    <p>
+                        Jornalistas premiados, especialistas em economia,
+                        ciência política, direito e tecnologia trazem
+                        autoridade e profundidade a cada pauta.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="section testimonials-section" id="reportagens">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">O QUE DIZEM</div>
+                <h2 class="section-title">Reconhecimento e Confiança</h2>
+                <p class="section-subtitle">
+                    A opinião de especialistas, leitores e a comunidade
+                    jornalística sobre o nosso trabalho.
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        A Veritas News se tornou referência nacional em
+                        <span class="text-highlight">jornalismo investigativo</span>.
+                        Suas reportagens sobre corrupção corporate foram fundamentais
+                        para o avanço de inquéritos importantes.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Roberto Mendes</h4>
+                            <p>Procurador da República</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        Como acadêmica, encontro na Veritas uma fonte
+                        indispensável de dados verificáveis e análises
+                        <span class="text-highlight">isentas e rigorosas</span>.
+                        Suas séries sobre políticas públicas são material de estudo.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Profa. Helena Costa</h4>
+                            <p>Departamento de Ciência Política - USP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        Leio a Veritas diariamente há cinco anos. É
+                        reconfortante saber que ainda existe jornalismo
+                        que coloca a <span class="text-highlight">verdade acima de tudo</span>,
+                        sem concessões a interesses políticos ou corporativos.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Fernando Oliveira</h4>
+                            <p>Assinante Premium desde 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="section pricing-section" id="planos">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">ESCOLHA SEU PLANO</div>
+                <h2 class="section-title">Apoie o Jornalismo Independente</h2>
+                <p class="section-subtitle">
+                    Invista em informação de qualidade. Cada assinatura
+                    sustenta diretamente nossa equipe de reportagem.
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Básico</div>
+                    <div class="pricing-price">R$29<span>/mês</span></div>
+                    <p class="pricing-desc">Para quem quer se informar</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso a todas as reportagens
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Newsletter semanal
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Podcast exclusivo
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Aplicativo móvel
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Sem anúncios
+                        </li>
+                    </ul>
+                    <button class="btn-secondary">Começar Agora</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">MAIS POPULAR</div>
+                    <div class="pricing-tier">Premium</div>
+                    <div class="pricing-price">R$59<span>/mês</span></div>
+                    <p class="pricing-desc">Para leitores engajados</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Básico
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso a documentos originais
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Webinars com jornalistas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Alertas de breaking news
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Conteúdo antecipado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Badge de apoiador
+                        </li>
+                    </ul>
+                    <button class="btn-primary">Assinar Premium</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Institucional</div>
+                    <div class="pricing-price">R$199<span>/mês</span></div>
+                    <p class="pricing-desc">Para empresas e organizações</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Premium
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Licença para 50 usuários
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Alertas personalizados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            API de integração
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatórios customizados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte dedicado
+                        </li>
+                    </ul>
+                    <button class="btn-secondary">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section" id="sobre">
+        <div class="section-container">
+            <div class="cta-content">
+                <h2>A Verdade Merece Ser <span>Contada</span></h2>
+                <p>
+                    Junte-se a milhares de leitores que acreditam na importância
+                    de um jornalismo independente, rigoroso e comprometido
+                    com a verdade. Sua assinatura faz a diferença.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn-primary">Assinar Agora</button>
+                    <button class="btn-secondary">Conhecer Nossa Equipe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>VERITAS NEWS</h3>
+                    <p>
+                        Jornalismo investigativo independente desde 2018.
+                        Nosso compromisso é com a verdade, a transparência
+                        e o interesse público. Sem medo, sem favorecimentos.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2 0 1.6-1 3.2-2.4 4.1 1.1.2 2.3-.2 2.4-.2z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#2C3E50"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Editorias</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Política</a></li>
+                        <li><a href="#">Economia</a></li>
+                        <li><a href="#">Direitos Humanos</a></li>
+                        <li><a href="#">Meio Ambiente</a></li>
+                        <li><a href="#">Tecnologia</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Institucional</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Equipe Editorial</a></li>
+                        <li><a href="#">Código de Ética</a></li>
+                        <li><a href="#">Transparência</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Fale Conosco</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Cancelar Assinatura</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Veritas News. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Configurações de Cookies</a>
+                    <a href="#">Acessibilidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        (function() {
+            // Mobile menu toggle
+            var hamburger = document.getElementById('hamburger');
+            var navLinks = document.getElementById('navLinks');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    var isOpen = navLinks.classList.toggle('active');
+                    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    hamburger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+                });
+
+                // Close menu when clicking a link
+                var links = navLinks.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        hamburger.setAttribute('aria-label', 'Abrir menu');
+                    });
+                }
+            }
+
+            // Navbar background on scroll
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 50) {
+                        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                    } else {
+                        navbar.style.boxShadow = 'none';
+                    }
+                });
+            }
+
+            // Smooth scroll for all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        var target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Intersection Observer for fade-in animations
+            var observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            var animatedElements = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .stat-item');
+            animatedElements.forEach(function(el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Button click handlers
+            document.querySelectorAll('.btn-subscribe, .btn-primary, .btn-secondary').forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    if (this.getAttribute('onclick') === null) {
+                        // Add ripple effect
+                        var ripple = document.createElement('span');
+                        ripple.style.cssText = 'position:absolute;background:rgba(255,255,255,0.3);border-radius:50%;transform:scale(0);animation:ripple 0.6s linear;';
+                        ripple.style.width = '20px';
+                        ripple.style.height = '20px';
+                        ripple.style.left = (e.clientX - this.getBoundingClientRect().left - 10) + 'px';
+                        ripple.style.top = (e.clientY - this.getBoundingClientRect().top - 10) + 'px';
+                        this.style.position = 'relative';
+                        this.style.overflow = 'hidden';
+                        this.appendChild(ripple);
+                        setTimeout(function() {
+                            ripple.remove();
+                        }, 600);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

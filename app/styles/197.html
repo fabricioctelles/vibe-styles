@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog de crítica social e política com abordagem direta, ousada e sem filtros. Análises impactantes sobre os principais temas da sociedade contemporânea.">
+    <meta name="keywords" content="crítica social, política, blog, análise política, sociedade, neobrutalismo">
+    <meta name="author" content="Neobrutalismo Crítico">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Neobrutalismo Crítico - Blog de Crítica Social e Política">
+    <meta property="og:description" content="Análises diretas e ousadas sobre política e sociedade. Sem filtros, sem meias palavras.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://neobrutalismocritico.com.br">
+    <meta property="og:image" content="https://neobrutalismocritico.com.br/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Neobrutalismo Crítico - Blog de Crítica Social e Política">
+    <meta name="twitter:description" content="Análises diretas e ousadas sobre política e sociedade.">
+
+    <title>Neobrutalismo Crítico | Blog de Crítica Social e Política</title>
+
+    <style>
+        /* ========================================
+           DESIGN SYSTEM - NEOBRUTALISMO CRÍTICO
+           ======================================== */
+        :root {
+            --black-bg: #000000;
+            --white-bg: #FFFFFF;
+            --white-text: #FFFFFF;
+            --black-text: #000000;
+            --alert-red: #CC0000;
+            --lead-grey: #36454F;
+            --caution-yellow: #FFD700;
+            --dark-blue: #000080;
+            --military-green: #4B5320;
+            --burnt-orange: #CC5500;
+            --border-strong: 2px solid #CC0000;
+            --border-black: 2px solid #000000;
+            --border-white: 2px solid #FFFFFF;
+            --shadow-impact: 3px 3px 0px #36454F;
+            --shadow-strong: 4px 4px 0px #000000;
+            --font-condensed: "Roboto Condensed", "Arial Narrow", sans-serif;
+            --font-bold: "Impact", "Arial Black", sans-serif;
+        }
+
+        /* ========================================
+           RESET E BASE
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-condensed);
+            background: var(--white-bg);
+            color: var(--black-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        /* ========================================
+           TIPOGRAFIA
+           ======================================== */
+        .headline-bold {
+            font-family: var(--font-bold);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .text-highlight {
+            background: var(--alert-red);
+            color: var(--white-text);
+            padding: 0 8px;
+            display: inline-block;
+            transform: skewX(-5deg);
+        }
+
+        .text-underline-impact {
+            border-bottom: 4px solid var(--alert-red);
+            display: inline-block;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-bold);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* ========================================
+           COMPONENTES UI
+           ======================================== */
+        .btn-primary {
+            background: var(--alert-red);
+            color: var(--white-text);
+            border: var(--border-black);
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-strong);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background: var(--black-bg);
+            color: var(--white-text);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--alert-red);
+        }
+
+        .btn-secondary {
+            background: var(--white-bg);
+            color: var(--black-text);
+            border: var(--border-black);
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-strong);
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--caution-yellow);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--black-text);
+        }
+
+        .card-border {
+            border: var(--border-black);
+            box-shadow: var(--shadow-strong);
+            background: var(--white-bg);
+            transition: all 0.3s ease;
+        }
+
+        .card-border:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--alert-red);
+        }
+
+        .section-divider {
+            height: 4px;
+            background: var(--alert-red);
+            margin: 0;
+            border: none;
+        }
+
+        /* ========================================
+           NAVBAR
+           ======================================== */
+        .navbar {
+            background: var(--black-bg);
+            border-bottom: var(--border-strong);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-bold);
+            font-size: 1.8rem;
+            color: var(--white-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--alert-red);
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar-links a {
+            color: var(--white-text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--alert-red);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            background: var(--alert-red);
+            color: var(--white-text) !important;
+            padding: 12px 24px;
+            border: var(--border-white);
+        }
+
+        .navbar-cta:hover {
+            background: var(--white-text);
+            color: var(--black-bg) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: var(--border-white);
+            color: var(--white-text);
+            padding: 10px;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            background: var(--white-bg);
+            padding: 80px 30px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: var(--border-strong);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--black-text);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            color: var(--lead-grey);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Abstract 3D Element - CSS Only */
+        .abstract-3d {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: var(--border-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .cube-face.front {
+            background: var(--alert-red);
+            color: var(--white-text);
+            transform: translateZ(100px);
+        }
+
+        .cube-face.back {
+            background: var(--black-bg);
+            color: var(--white-text);
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .cube-face.right {
+            background: var(--white-bg);
+            color: var(--black-text);
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube-face.left {
+            background: var(--caution-yellow);
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube-face.top {
+            background: var(--lead-grey);
+            color: var(--white-text);
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube-face.bottom {
+            background: var(--burnt-orange);
+            color: var(--white-text);
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: var(--alert-red);
+            color: var(--white-text);
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: var(--border-black);
+            box-shadow: var(--shadow-strong);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-badge.badge-1 {
+            top: 20px;
+            right: 20px;
+            animation-delay: 0s;
+        }
+
+        .floating-badge.badge-2 {
+            bottom: 40px;
+            left: 0;
+            animation-delay: 1s;
+        }
+
+        .floating-badge.badge-3 {
+            top: 50%;
+            right: -40px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ========================================
+           FEATURES SECTION
+           ======================================== */
+        .features {
+            background: var(--black-bg);
+            padding: 80px 30px;
+        }
+
+        .features-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .features-header h2 {
+            font-size: 3rem;
+            color: var(--white-text);
+            margin-bottom: 16px;
+        }
+
+        .features-header p {
+            color: var(--white-text);
+            opacity: 0.8;
+            font-size: 1.2rem;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white-bg);
+            border: var(--border-strong);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-impact);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--alert-red);
+        }
+
+        .feature-card:hover {
+            transform: translate(-6px, -6px);
+            box-shadow: 10px 10px 0px var(--alert-red);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--black-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            border: var(--border-strong);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--alert-red);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--black-text);
+        }
+
+        .feature-card p {
+            color: var(--lead-grey);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
+        .testimonials {
+            background: var(--white-bg);
+            padding: 80px 30px;
+            border-top: var(--border-strong);
+            border-bottom: var(--border-strong);
+        }
+
+        .testimonials-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+        }
+
+        .testimonials-header h2 {
+            font-size: 3rem;
+            color: var(--black-text);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white-bg);
+            border: var(--border-black);
+            box-shadow: var(--shadow-strong);
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--alert-red);
+        }
+
+        .testimonial-quote {
+            font-size: 1.1rem;
+            color: var(--black-text);
+            margin-bottom: 24px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--lead-grey);
+            border: var(--border-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            color: var(--black-text);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--alert-red);
+            font-weight: 600;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            color: var(--alert-red);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        /* ========================================
+           PRICING SECTION
+           ======================================== */
+        .pricing {
+            background: var(--lead-grey);
+            padding: 80px 30px;
+        }
+
+        .pricing-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .pricing-header h2 {
+            font-size: 3rem;
+            color: var(--white-text);
+            margin-bottom: 16px;
+        }
+
+        .pricing-header p {
+            color: var(--white-text);
+            opacity: 0.9;
+            font-size: 1.2rem;
+        }
+
+        .pricing-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: var(--white-bg);
+            border: var(--border-black);
+            box-shadow: var(--shadow-strong);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            background: var(--alert-red);
+            transform: scale(1.05);
+            border: var(--border-white);
+            box-shadow: 8px 8px 0px var(--black-bg);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translate(-4px, -4px);
+        }
+
+        .pricing-card:hover:not(.featured) {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--alert-red);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--caution-yellow);
+            color: var(--black-text);
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: var(--border-black);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card.featured h3 {
+            color: var(--white-text);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card.featured .pricing-price {
+            color: var(--white-text);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            margin-bottom: 24px;
+            opacity: 0.8;
+        }
+
+        .pricing-card.featured .pricing-period {
+            color: var(--white-text);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pricing-card.featured .pricing-features li {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-features svg.check {
+            fill: var(--military-green);
+        }
+
+        .pricing-card.featured .pricing-features svg.check {
+            fill: var(--white-text);
+        }
+
+        .pricing-features svg.cross {
+            fill: var(--alert-red);
+        }
+
+        .pricing-card.featured .pricing-features svg.cross {
+            fill: var(--caution-yellow);
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: var(--border-black);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:not(.featured) .pricing-btn {
+            background: var(--black-bg);
+            color: var(--white-text);
+        }
+
+        .pricing-card:not(.featured) .pricing-btn:hover {
+            background: var(--alert-red);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: var(--white-bg);
+            color: var(--alert-red);
+        }
+
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--caution-yellow);
+            color: var(--black-text);
+        }
+
+        /* ========================================
+           CTA SECTION
+           ======================================== */
+        .cta {
+            background: var(--black-bg);
+            padding: 100px 30px;
+            position: relative;
+            overflow: hidden;
+            border-top: var(--border-strong);
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(204, 0, 0, 0.03) 10px,
+                rgba(204, 0, 0, 0.03) 20px
+            );
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 3.5rem;
+            color: var(--white-text);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .cta p {
+            font-size: 1.4rem;
+            color: var(--white-text);
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-primary {
+            background: var(--alert-red);
+            color: var(--white-text);
+            border: var(--border-white);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--white-bg);
+            color: var(--black-text);
+        }
+
+        .cta .btn-secondary {
+            background: transparent;
+            color: var(--white-text);
+            border: var(--border-white);
+        }
+
+        .cta .btn-secondary:hover {
+            background: var(--white-bg);
+            color: var(--black-text);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: var(--black-bg);
+            border-top: var(--border-strong);
+            padding: 60px 30px 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            color: var(--white-text);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: var(--white-text);
+            opacity: 0.7;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: var(--lead-grey);
+            border: var(--border-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--alert-red);
+            transform: translateY(-4px);
+        }
+
+        .footer-social svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--white-text);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            color: var(--white-text);
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--white-text);
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--alert-red);
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            color: var(--white-text);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            color: var(--white-text);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-legal a:hover {
+            color: var(--alert-red);
+            opacity: 1;
+        }
+
+        /* ========================================
+           RESPONSIVIDADE
+           ======================================== */
+        @media (max-width: 1200px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .hero-visual {
+                order: 1;
+                height: 400px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 2.5rem;
+            }
+
+            .cta p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            .abstract-3d {
+                width: 250px;
+                height: 250px;
+            }
+
+            .cube {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cube-face {
+                width: 120px;
+                height: 120px;
+                font-size: 2rem;
+            }
+
+            .cube-face.front { transform: translateZ(60px); }
+            .cube-face.back { transform: rotateY(180deg) translateZ(60px); }
+            .cube-face.right { transform: rotateY(90deg) translateZ(60px); }
+            .cube-face.left { transform: rotateY(-90deg) translateZ(60px); }
+            .cube-face.top { transform: rotateX(90deg) translateZ(60px); }
+            .cube-face.bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+            .features-header h2,
+            .testimonials-header h2,
+            .pricing-header h2 {
+                font-size: 2rem;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* ========================================
+           ANIMAÇÕES
+           ======================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* Micro-interações de destaque */
+        .highlight-on-hover {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-on-hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--alert-red);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-on-hover:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Estilo para imagens em P&B com detalhes em cor */
+        .bw-image-accent {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .bw-image-accent:hover {
+            filter: grayscale(0%);
+        }
+
+        /* Artigo com borda forte */
+        .article-block-border {
+            border: var(--border-black);
+            box-shadow: var(--shadow-strong);
+            background: var(--white-bg);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .article-block-border:hover {
+            border-color: var(--alert-red);
+            box-shadow: 6px 6px 0px var(--alert-red);
+            transform: translate(-2px, -2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.09 5.1 7.63 12 4.18zM4 8.82l7 3.5v7.36l-7-3.5V8.82zm9 10.86v-7.36l7-3.5v7.36l-7 3.5z"/>
+                </svg>
+                NEOBRUTALISMO CRÍTICO
+            </a>
+
+            <ul class="navbar-links">
+                <li><a href="#inicio" class="highlight-on-hover">Início</a></li>
+                <li><a href="#features" class="highlight-on-hover">Artigos</a></li>
+                <li><a href="#testimonials" class="highlight-on-hover">Autores</a></li>
+                <li><a href="#pricing" class="highlight-on-hover">Assinar</a></li>
+                <li><a href="#contato" class="navbar-cta">Inscreva-se</a></li>
+            </ul>
+
+            <button class="mobile-menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content animate-fade-in">
+                <h1 class="headline-bold">
+                    A VERDADE QUE
+                    <span class="text-highlight">NÃO MENTE</span>
+                </h1>
+                <p class="subtitle">
+                    Análises políticas e sociais sem filtros. Onde a crítica encontra a coragem de dizer o que ninguém quer ouvir.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#articles" class="btn-primary">
+                        Ler Artigos
+                    </a>
+                    <a href="#subscribe" class="btn-secondary">
+                        Assinar Newsletter
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual animate-fade-in delay-2">
+                <div class="abstract-3d">
+                    <div class="cube">
+                        <div class="cube-face front">VERDADE</div>
+                        <div class="cube-face back">CORAGEM</div>
+                        <div class="cube-face right">CRÍTICA</div>
+                        <div class="cube-face left">AÇÃO</div>
+                        <div class="cube-face top">LIBERDADE</div>
+                        <div class="cube-face bottom">JUSTIÇA</div>
+                    </div>
+                    <div class="floating-badge badge-1">SEM CENSURA</div>
+                    <div class="floating-badge badge-2">ANÁLISE PROFUNDA</div>
+                    <div class="floating-badge badge-3">JORNALISMO INDEPENDENTE</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="features-header">
+            <h2 class="headline-bold">NOSSO PROPOSTA</h2>
+            <p>Jornalismo que incomoda. Análises que transformam.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card animate-fade-in delay-1">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                </div>
+                <h3>Análise Radical</h3>
+                <p>Investigação profunda sem compromissos com partidos ou corporações. A verdade acima de tudo.</p>
+            </div>
+
+            <div class="feature-card animate-fade-in delay-2">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+                    </svg>
+                </div>
+                <h3>Debate Aberto</h3>
+                <p>Espaço para vozes divergentes. O contraditório como ferramenta de construção do conhecimento.</p>
+            </div>
+
+            <div class="feature-card animate-fade-in delay-3">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <h3>Alerta Cidadão</h3>
+                <p>Denúncias que importam. Acompanhamento rigoroso do poder público e iniciativas privadas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-header">
+            <h2 class="headline-bold">O QUE DIZEM NOSSOS LEITORES</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate-fade-in delay-1">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote">
+                    "Finalmente um jornal que não tem medo de dizer a verdade. A análise política é profunda e o linguajar é direto, sem firulas.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">MC</div>
+                    <div class="testimonial-info">
+                        <h4>Maria Costa</h4>
+                        <p>Professora Universitária</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card animate-fade-in delay-2">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote">
+                    "O Neobrutalismo Crítico mudou minha forma de ver a política. Artigos incisivos que trazem à tona o que a mídia tradicional esconde.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">JS</div>
+                    <div class="testimonial-info">
+                        <h4>João Santos</h4>
+                        <p>Advogado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card animate-fade-in delay-3">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote">
+                    "Jornalismo independente de verdade. Sem interesses corporativos, apenas a busca incansável pela informação honesta.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">AL</div>
+                    <div class="testimonial-info">
+                        <h4>Ana Lima</h4>
+                        <p>Activista Social</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-header">
+            <h2 class="headline-bold">ESCOLHA SEU ACESSO</h2>
+            <p>Jornalismo independente precisa de apoio independente.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card animate-fade-in delay-1">
+                <h3>LEITOR</h3>
+                <div class="pricing-price">R$0</div>
+                <p class="pricing-period">para sempre</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        3 artigos por mês
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Newsletter semanal
+                    </li>
+                    <li>
+                        <svg class="cross" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        Conteúdo exclusivo
+                    </li>
+                    <li>
+                        <svg class="cross" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        Comentários liberados
+                    </li>
+                </ul>
+                <button class="pricing-btn">Começar Grátis</button>
+            </div>
+
+            <div class="pricing-card featured animate-fade-in delay-2">
+                <div class="pricing-badge">MAIS POPULAR</div>
+                <h3>SÓCIO</h3>
+                <div class="pricing-price">R$29</div>
+                <p class="pricing-period">por mês</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Acesso ilimitado
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Conteúdo exclusivo
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Comentários liberados
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Eventos ao vivo
+                    </li>
+                </ul>
+                <button class="pricing-btn">Tornar-se Sócio</button>
+            </div>
+
+            <div class="pricing-card animate-fade-in delay-3">
+                <h3>INSTITUCIONAL</h3>
+                <div class="pricing-price">R$199</div>
+                <p class="pricing-period">por mês</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        10 contas de usuário
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        API de integração
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Relatórios customizados
+                    </li>
+                    <li>
+                        <svg class="check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Suporte dedicado
+                    </li>
+                </ul>
+                <button class="pricing-btn">Falar com Vendas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="subscribe">
+        <div class="cta-container">
+            <h2 class="headline-bold">PRONTO PARA A VERDADE?</h2>
+            <p>Junte-se a milhares de leitores que escolheram romper com o discurso oficial.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">ASSINAR AGORA</a>
+                <a href="#" class="btn-secondary">LER AMOSTRA GRÁTIS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>NEOBRUTALISMO CRÍTICO</h3>
+                    <p>
+                        Jornalismo independente comprometido com a verdade, a transparência e a crítica rigorosa do poder.
+                        Não aceitamos financiamento de partidos ou corporações.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#features">Artigos</a></li>
+                        <li><a href="#testimonials">Autores</a></li>
+                        <li><a href="#pricing">Assinar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Política Nacional</a></li>
+                        <li><a href="#">Economia</a></li>
+                        <li><a href="#">Direitos Humanos</a></li>
+                        <li><a href="#">Internacional</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="mailto:contato@neobrutalismocritico.com.br">contato@neobrutalismocritico.com.br</a></li>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2026 Neobrutalismo Crítico. Todos os direitos reservados.
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Código de Ética</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

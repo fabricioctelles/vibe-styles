@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EduLearn Pro - Plataforma de cursos online com metodologia suica. Aprenda com estrutura, clareza e eficacia.">
+    <meta name="keywords" content="cursos online, educacao, aprendizado, plataforma educacional, cursos profissionais">
+    <meta name="author" content="EduLearn Pro">
+    <meta property="og:title" content="EduLearn Pro - Aprendizado Estruturado">
+    <meta property="og:description" content="Plataforma de cursos online com metodologia suica. Aprenda com estrutura e clareza.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://edulearn.pro">
+    <meta property="og:image" content="https://edulearn.pro/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>EduLearn Pro - Aprendizado Estruturado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-blue-dark: #003366;
+            --color-gray-light: #F5F5F5;
+            --color-black: #000000;
+            --color-green-emerald: #2ECC40;
+            --color-orange: #FF8C00;
+            --color-purple: #8A2BE2;
+            --color-gray-medium: #6C757D;
+            --color-gray-border: #E0E0E0;
+            --shadow-sm: 0 2px 8px rgba(0, 51, 102, 0.1);
+            --shadow-md: 0 4px 16px rgba(0, 51, 102, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 51, 102, 0.15);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --grid-gap: 24px;
+            --border-radius: 4px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', sans-serif;
+            background-color: var(--color-gray-light);
+            color: var(--color-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--color-blue-dark);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--color-orange);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-blue-dark);
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            color: var(--color-gray-medium);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: #004488;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-white);
+            color: var(--color-blue-dark);
+            border: 2px solid var(--color-blue-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+        }
+
+        .btn-accent {
+            background-color: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        .btn-accent:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-lg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: all var(--transition-normal);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-blue-dark);
+        }
+
+        .navbar-logo svg {
+            color: var(--color-green-emerald);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-link {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+
+        .navbar-link:hover {
+            color: var(--color-blue-dark);
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-green-emerald);
+            transition: width var(--transition-normal);
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--color-blue-dark) 0%, #004488 100%);
+            color: var(--color-white);
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-green-emerald);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 8px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .hero-card-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-green-emerald), var(--color-blue-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: 700;
+        }
+
+        .hero-card-name {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .hero-card-role {
+            font-size: 0.875rem;
+            color: var(--color-gray-medium);
+        }
+
+        .hero-progress {
+            margin-bottom: 24px;
+        }
+
+        .hero-progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+        }
+
+        .hero-progress-bar {
+            height: 8px;
+            background-color: var(--color-gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .hero-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-green-emerald), var(--color-blue-dark));
+            border-radius: 4px;
+            width: 0;
+            animation: progressFill 2s ease-out forwards;
+        }
+
+        @keyframes progressFill {
+            to { width: 75%; }
+        }
+
+        .hero-card-courses {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-card-course {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background-color: var(--color-gray-light);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-normal);
+        }
+
+        .hero-card-course:hover {
+            background-color: #e8f4f8;
+            transform: translateX(4px);
+        }
+
+        .hero-card-course-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+        }
+
+        .hero-card-course-info h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .hero-card-course-info p {
+            font-size: 0.8rem;
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            background-color: var(--color-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            background-color: var(--color-gray-light);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            background-color: var(--color-white);
+            border-color: var(--color-green-emerald);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon.blue {
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+        }
+
+        .feature-icon.green {
+            background-color: var(--color-green-emerald);
+            color: var(--color-white);
+        }
+
+        .feature-icon.purple {
+            background-color: var(--color-purple);
+            color: var(--color-white);
+        }
+
+        .feature-icon.orange {
+            background-color: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        .feature-card h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-blue-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--color-gray-medium);
+            line-height: 1.7;
+        }
+
+        /* ===== COURSES ===== */
+        .courses {
+            background-color: var(--color-gray-light);
+        }
+
+        .courses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .courses-filter {
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: var(--color-white);
+            border: 2px solid var(--color-gray-border);
+            border-radius: var(--border-radius);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--color-blue-dark);
+            border-color: var(--color-blue-dark);
+            color: var(--color-white);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        .course-card {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .course-card-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--color-blue-dark), var(--color-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .course-card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            background-color: var(--color-green-emerald);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .course-card-icon {
+            font-size: 4rem;
+            color: var(--color-white);
+            opacity: 0.9;
+        }
+
+        .course-card-content {
+            padding: 24px;
+        }
+
+        .course-card-category {
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .course-card h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-blue-dark);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .course-card-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .course-card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--color-gray-medium);
+        }
+
+        .course-card-meta-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--color-green-emerald);
+        }
+
+        .course-card-progress {
+            margin-bottom: 16px;
+        }
+
+        .course-card-progress-bar {
+            height: 6px;
+            background-color: var(--color-gray-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .course-card-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-green-emerald), var(--color-blue-dark));
+            border-radius: 3px;
+        }
+
+        .course-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-gray-border);
+        }
+
+        .course-card-price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-blue-dark);
+        }
+
+        .course-card-price span {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--color-gray-medium);
+        }
+
+        .course-card-btn {
+            padding: 8px 20px;
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .course-card-btn:hover {
+            background-color: var(--color-orange);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background-color: var(--color-white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        .testimonial-card {
+            padding: 40px 32px;
+            background-color: var(--color-gray-light);
+            border-radius: 8px;
+            position: relative;
+            transition: all var(--transition-normal);
+        }
+
+        .testimonial-card:hover {
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            font-size: 4rem;
+            color: var(--color-blue-dark);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--color-black);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-blue-dark), var(--color-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .testimonial-info h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-blue-dark);
+        }
+
+        .testimonial-info p {
+            font-size: 0.875rem;
+            color: var(--color-gray-medium);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .testimonial-star {
+            width: 18px;
+            height: 18px;
+            color: var(--color-orange);
+        }
+
+        /* ===== PRICING ===== */
+        .pricing {
+            background: linear-gradient(135deg, var(--color-gray-light) 0%, var(--color-white) 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            padding: 48px 40px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--color-green-emerald);
+            background: linear-gradient(180deg, rgba(46, 204, 64, 0.05) 0%, var(--color-white) 100%);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 16px;
+            background-color: var(--color-green-emerald);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .pricing-name {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-gray-medium);
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .pricing-currency {
+            font-size: 1.5rem;
+            color: var(--color-blue-dark);
+            font-weight: 600;
+        }
+
+        .pricing-value {
+            font-family: 'Roboto', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--color-blue-dark);
+            line-height: 1;
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pricing-description {
+            font-size: 0.95rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pricing-feature:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pricing-feature-icon.check {
+            background-color: var(--color-green-emerald);
+            color: var(--color-white);
+        }
+
+        .pricing-feature-icon.cross {
+            background-color: var(--color-gray-medium);
+            color: var(--color-white);
+        }
+
+        .pricing-feature-text {
+            font-size: 0.95rem;
+            color: var(--color-black);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background-color: var(--color-green-emerald);
+        }
+
+        .pricing-card.featured .pricing-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--color-blue-dark);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .pricing-btn:hover {
+            background-color: #004488;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, var(--color-blue-dark) 0%, #004488 100%);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .cta p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 80px 0 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand svg {
+            color: var(--color-green-emerald);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social-link:hover {
+            background-color: var(--color-green-emerald);
+            transform: translateY(-2px);
+        }
+
+        .footer-column h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--color-white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 12px;
+        }
+
+        .footer-link a {
+            color: rgba(255,255,255,0.7);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-link a:hover {
+            color: var(--color-green-emerald);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-white);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .features-grid,
+            .courses-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 140px 0 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .features-grid,
+            .courses-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-header {
+                flex-direction: column;
+                gap: 24px;
+                align-items: stretch;
+            }
+
+            .courses-filter {
+                overflow-x: auto;
+                padding-bottom: 8px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        /* ===== UTILITY ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* ===== ICONS DEFINITION ===== */
+        .svg-icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* ===== GRID VISUAL EFFECT ===== */
+        .grid-bg {
+            position: relative;
+        }
+
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 51, 102, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 51, 102, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.09 5.1 7.63 12 4.18zM4 8.82l7 3.5v7.36l-7-3.5V8.82zm9 10.86v-7.36l7-3.5v7.36l-7 3.5z"/>
+                </svg>
+                EduLearn Pro
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="#recursos" class="navbar-link">Recursos</a></li>
+                <li><a href="#cursos" class="navbar-link">Cursos</a></li>
+                <li><a href="#depoimentos" class="navbar-link">Depoimentos</a></li>
+                <li><a href="#precos" class="navbar-link">Preços</a></li>
+            </ul>
+            <div class="navbar-actions">
+                <a href="#" class="btn btn-secondary">Entrar</a>
+                <a href="#" class="btn btn-primary">Começar</a>
+            </div>
+            <button class="navbar-toggle">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Aprendizado Estruturado para Resultados Reais</h1>
+                    <p>Domine novas habilidades com nossa metodologia suíça de ensino. Cursos projetados com precisão, clareza e foco em resultados práticos.</p>
+                    <div class="hero-buttons">
+                        <a href="#cursos" class="btn btn-accent">
+                            Explorar Cursos
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="btn btn-secondary">Começar Gratuitamente</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value">15k+</div>
+                            <div class="hero-stat-label">Estudantes Ativos</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value">120+</div>
+                            <div class="hero-stat-label">Cursos Premium</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value">98%</div>
+                            <div class="hero-stat-label">Taxa de Conclusão</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <div class="hero-card-header">
+                            <div class="hero-card-avatar">JS</div>
+                            <div>
+                                <div class="hero-card-name">João Silva</div>
+                                <div class="hero-card-role">Desenvolvedor Full Stack</div>
+                            </div>
+                        </div>
+                        <div class="hero-progress">
+                            <div class="hero-progress-label">
+                                <span>Seu Progresso</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="hero-progress-bar">
+                                <div class="hero-progress-fill"></div>
+                            </div>
+                        </div>
+                        <div class="hero-card-courses">
+                            <div class="hero-card-course">
+                                <div class="hero-card-course-icon">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                                <div class="hero-card-course-info">
+                                    <h4>JavaScript Avançado</h4>
+                                    <p>Concluído</p>
+                                </div>
+                            </div>
+                            <div class="hero-card-course">
+                                <div class="hero-card-course-icon">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="hero-card-course-info">
+                                    <h4>React.js Moderno</h4>
+                                    <p>Em andamento</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <h2 class="section-title">Por Que Escolher EduLearn Pro?</h2>
+            <p class="section-subtitle">Nossa plataforma foi projetada com a precisão e clareza do design suíço, garantindo uma experiência de aprendizado excepcional.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.09 5.1 7.63 12 4.18zM4 8.82l7 3.5v7.36l-7-3.5V8.82zm9 10.86v-7.36l7-3.5v7.36l-7 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Conteúdo Estruturado</h3>
+                    <p>Cada curso é organizado em módulos claros e progressivos, permitindo que você avance no seu ritmo com total compreensão.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                    </div>
+                    <h3>Acompanhamento de Progresso</h3>
+                    <p>Visualize sua evolução com gráficos intuitivos e métricas detalhadas. Acompanhe conquistas e mantenha-se motivado.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-4.5-1.5zM21 18.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Material Didático Premium</h3>
+                    <p>Acesse ebooks, exercícios práticos e projetos reais. Todo material desenvolvido por especialistas da indústria.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon orange">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+                        </svg>
+                    </div>
+                    <h3>Suporte Dedicado</h3>
+                    <p>Tire dúvidas diretamente com instrutores e interaja com uma comunidade ativa de aprendizes. Nunca estudou sozinho.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <h3>Certificados Reconhecidos</h3>
+                    <p>Receba certificados validados pelo mercado ao completar cursos. Destaque-se no seu perfil profissional.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Garantia de Satisfação</h3>
+                    <p>7 dias para testar sem compromisso. Se não ficar satisfeito, devolvemos 100% do seu investimento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="courses" id="cursos">
+        <div class="container">
+            <h2 class="section-title">Cursos em Destaque</h2>
+            <p class="section-subtitle">Explore nossa biblioteca de cursos e comece sua jornada de aprendizado hoje mesmo.</p>
+            <div class="courses-header">
+                <div class="courses-filter">
+                    <button class="filter-btn active">Todos</button>
+                    <button class="filter-btn">Desenvolvimento</button>
+                    <button class="filter-btn">Design</button>
+                    <button class="filter-btn">Negócios</button>
+                    <button class="filter-btn">Marketing</button>
+                </div>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <span class="course-card-badge">Novo</span>
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Desenvolvimento</div>
+                        <h3>React.js: Do Zero ao Profissional</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V7.91L16.17 12l-2.76 4.09z"/></svg>
+                                <span>42 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>18h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 297
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Design</div>
+                        <h3>UX Design: Fundamentos e Prática</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/></svg>
+                                <span>38 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>15h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 247
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <span class="course-card-badge">Popular</span>
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Negócios</div>
+                        <h3>Data Analytics para Negócios</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/></svg>
+                                <span>56 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>24h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 397
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Marketing</div>
+                        <h3>Marketing Digital Completo</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/></svg>
+                                <span>64 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>28h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 347
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Desenvolvimento</div>
+                        <h3>Python para Machine Learning</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/></svg>
+                                <span>72 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>32h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 497
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-image">
+                        <svg class="course-card-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                        </svg>
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-card-category">Design</div>
+                        <h3>Brand Design e Identidade Visual</h3>
+                        <div class="course-card-meta">
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V7.91L16.17 12l-5.58 6.09z"/></svg>
+                                <span>45 aulas</span>
+                            </div>
+                            <div class="course-card-meta-item">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                <span>20h</span>
+                            </div>
+                        </div>
+                        <div class="course-card-progress">
+                            <div class="course-card-progress-bar">
+                                <div class="course-card-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="course-card-footer">
+                            <div class="course-card-price">
+                                <span>R$</span> 297
+                            </div>
+                            <button class="course-card-btn">Matricular</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <h2 class="section-title">O Que Nossos Alunos Dizem</h2>
+            <p class="section-subtitle">Histórias reais de transformação e sucesso através da nossa plataforma de aprendizado.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">A estrutura dos cursos é impecável. Consegui aprender React.js em tempo recorde e já estou aplicando no meu trabalho. A metodologia realmente funciona!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MC</div>
+                            <div class="testimonial-info">
+                                <h4>Maria Clara Santos</h4>
+                                <p>Desenvolvedora Front-end</p>
+                                <div class="testimonial-stars">
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Investir nos cursos da EduLearn Pro foi a melhor decisão da minha carreira. O conteúdo é prático, atualizado e o suporte é excepcional. Recomendo!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RF</div>
+                            <div class="testimonial-info">
+                                <h4>Ricardo Ferreira</h4>
+                                <p>Gerente de Projetos</p>
+                                <div class="testimonial-stars">
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">A clareza e organização do conteúdo me permitiu avançar rapidamente. Os exercícios práticos e projetos reais fizeram toda a diferença no meu aprendizado.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AL</div>
+                            <div class="testimonial-info">
+                                <h4>Ana Luiza Costa</h4>
+                                <p>UX Designer</p>
+                                <div class="testimonial-stars">
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="testimonial-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="precos">
+        <div class="container">
+            <h2 class="section-title">Escolha Seu Plano</h2>
+            <p class="section-subtitle">Invista no seu futuro com planos flexíveis que se adaptam às suas necessidades de aprendizado.</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Básico</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-value">47</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Para quem está começando</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Acesso a 20 cursos básicos</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Certificado de conclusão</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon cross">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Suporte prioritário</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon cross">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Projetos práticos</span>
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Profissional</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-value">97</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Para aprendizes dedicados</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Acesso a todos os 120 cursos</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Certificados premium</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Suporte prioritário</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Projetos práticos guiados</span>
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-value">247</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Para times e empresas</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Tudo do Profissional</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Até 25 usuários</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Dashboard administrativo</span>
+                        </li>
+                        <li class="pricing-feature">
+                            <span class="pricing-feature-icon check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <span class="pricing-feature-text">Cursos personalizados</span>
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Falar com Consultor</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto Para Transformar Sua Carreira?</h2>
+                <p>Junte-se a mais de 15.000 estudantes que estão alcançando seus objetivos com a EduLearn Pro. Comece sua jornada hoje mesmo.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-accent">
+                        Começar Agora
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-secondary">Agendar Demonstração</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <svg class="icon icon-lg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.09 5.1 7.63 12 4.18zM4 8.82l7 3.5v7.36l-7-3.5V8.82zm9 10.86v-7.36l7-3.5v7.36l-7 3.5z"/>
+                    </svg>
+                    <h3>EduLearn Pro</h3>
+                    <p>Plataforma de aprendizado online com metodologia suíça. Conteúdo estruturado, clareza e resultados reais para sua carreira.</p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 4.56v14.88c0 2.4-2.16 4.56-4.56 4.56H4.56A4.56 4.56 0 010 19.44V4.56C0 2.16 2.16 0 4.56 0h14.88C21.84 0 24 2.16 24 4.56zM10.2 17.52c3.84 0 6-3.12 6-6 0-3.24-2.52-5.88-6-5.88-1.8 0-3.12.96-3.84 1.8V6H4.2v11.52h2.16v-1.2c.72.84 2.04 1.2 3.84 1.2zm-.48-2.4c-1.92 0-3.36-1.56-3.36-3.6s1.44-3.6 3.36-3.6 3.36 1.56 3.36 3.6-1.44 3.6-3.36 3.6zm8.64-7.92h-2.16v10.32h2.16V12c0-1.8.96-2.76 2.4-2.76.36 0 .72 0 1.08.12V7.2c-.24 0-.48-.12-.72-.12-1.2 0-2.16.72-2.76 1.56V7.2z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Plataforma</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Todos os Cursos</a></li>
+                        <li class="footer-link"><a href="#">Planos e Preços</a></li>
+                        <li class="footer-link"><a href="#">Para Empresas</a></li>
+                        <li class="footer-link"><a href="#">Certificações</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">Comunidade</a></li>
+                        <li class="footer-link"><a href="#">Central de Ajuda</a></li>
+                        <li class="footer-link"><a href="#">Tutoriais</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Institucional</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Sobre Nós</a></li>
+                        <li class="footer-link"><a href="#">Carreiras</a></li>
+                        <li class="footer-link"><a href="#">Parcerias</a></li>
+                        <li class="footer-link"><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 EduLearn Pro. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Filter buttons functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .course-card, .testimonial-card, .pricing-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

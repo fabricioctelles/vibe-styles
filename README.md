@@ -36,7 +36,11 @@ Tudo começou com um [post no Reddit](https://www.reddit.com/r/notebooklm/commen
 
 Isso me lembrou do [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), um skill que também mantém uma [lista curada de estilos de UI/UX](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/src/ui-ux-pro-max/data/styles.csv) com foco em implementação prática.
 
-Fiz o merge das duas listas e usei o [Kiro](https://kiro.dev) com multi-agentes para gerar os prompts dinâmicos e criar as quase 200 páginas de demonstração de forma automatizada.
+Usei também a [Manus AI](https://manus.im/app) para evoluir as listas, saltando de 89 para a casa dos 200 estilos.
+
+Fiz o merge das fontes e usei o [Kiro](https://kiro.dev) com multi-agentes para gerar os prompts dinâmicos e criar as quase 200 páginas de demonstração de forma automatizada.
+
+Testei também no [Cline](https://cline.bot/) e no [Claude Code](https://claude.com/product/claude-code) e deu super certo também.
 
 A intenção é ser simples e direto: ajudar você a escolher o estilo certo para o seu SaaS ou projetinho de fim de semana.
 
@@ -624,8 +628,12 @@ O projeto implementa uma estratégia de SEO completa:
 
 ## 🙏 Agradecimentos
 
-- **[Paolo Cortez](https://www.reddit.com/user/Paolo-Cortez/)** — Pela coleção original de estilos de infográficos para NotebookLM que inspirou este projeto. O [post no Reddit](https://www.reddit.com/r/notebooklm/comments/1r2p1bb/40_notebooklm_infographic_styles_specification/) foi o ponto de partida de tudo.
 - **[ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)** — Pelo skill com a lista curada de estilos de UI/UX, paletas, tipografia e guidelines de implementação que complementaram a base de estilos do projeto.
+
+- **[Manus AI](https://manus.im/app)** — Por gerar os novos prompts (acima do ID 89, todos gerados por ela)
+
+
+- **[Paolo Cortez](https://www.reddit.com/user/Paolo-Cortez/)** — Pela coleção original de estilos de infográficos para NotebookLM que inspirou alguns prompts desse projeto.
 
 ---
 

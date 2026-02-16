@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KawaiiWorld Shop - Sua loja favorita de produtos fofos com estética kawaii japonesa, pastéis, nuvens e sparkles.">
+    <meta name="keywords" content="kawaii, pastel, cute, pop, soft, pink, cloud, sparkle, loja, produtos fofos">
+    <meta name="author" content="KawaiiWorld Shop">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="KawaiiWorld Shop - Produtos Fofos e Kawaii">
+    <meta property="og:description" content="Descubra os produtos mais fofos com estética kawaii japonesa, pastéis, nuvens e sparkles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kawaiiworld.shop">
+    <meta property="og:image" content="https://kawaiiworld.shop/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KawaiiWorld Shop - Produtos Fofos e Kawaii">
+    <meta name="twitter:description" content="Descubra os produtos mais fofos com estética kawaii japonesa.">
+    <meta name="twitter:image" content="https://kawaiiworld.shop/twitter-image.jpg">
+
+    <title>KawaiiWorld Shop - Produtos Fofos e Kawaii</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        /* Design System Variables */
+        :root {
+            --pastel-pink: #FFD1DC;
+            --pastel-purple: #9D84B6;
+            --baby-blue: #B3E5FC;
+            --cream: #FFF9C4;
+            --mint: #B9F6CA;
+            --text-primary: #222222;
+            --text-secondary: #555555;
+            --font-cute: 'Varela Round', sans-serif;
+            --radius-cute: 25px;
+            --radius-small: 15px;
+            --shadow-pink: rgba(255,182,193,0.5);
+            --shadow-soft: rgba(157,132,182,0.2);
+            --gradient-rainbow: linear-gradient(135deg, #FFD1DC 0%, #B3E5FC 25%, #B9F6CA 50%, #FFF9C4 75%, #9D84B6 100%);
+            --gradient-pink: linear-gradient(135deg, #FFD1DC 0%, #FFB3C6 100%);
+            --gradient-purple: linear-gradient(135deg, #9D84B6 0%, #B8A5C9 100%);
+            --gradient-blue: linear-gradient(135deg, #B3E5FC 0%, #C5E9F9 100%);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-cute);
+            background-color: var(--pastel-pink);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Decorative Cloud Background */
+        .cloud-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .cloud-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .cloud-2 { top: 20%; right: 10%; animation-delay: 5s; }
+        .cloud-3 { top: 40%; left: 15%; animation-delay: 10s; }
+        .cloud-4 { top: 60%; right: 5%; animation-delay: 15s; }
+        .cloud-5 { top: 80%; left: 8%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(10px); }
+        }
+
+        /* Sparkle Animation */
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 1;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow-pink);
+            border-radius: 0 0 var(--radius-cute) var(--radius-cute);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: var(--radius-small);
+        }
+
+        .nav-links a:hover {
+            background: var(--gradient-pink);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white !important;
+            padding: 12px 24px !important;
+            border-radius: var(--radius-cute) !important;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-soft);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient-rainbow);
+            opacity: 0.1;
+            animation: rotate 30s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-purple);
+            color: white;
+            padding: 8px 20px;
+            border-radius: var(--radius-cute);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .hero h1 span {
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: var(--radius-cute);
+            font-family: var(--font-cute);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-soft);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            padding: 15px 35px;
+            border: 3px solid var(--pastel-purple);
+            border-radius: var(--radius-cute);
+            font-family: var(--font-cute);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-pink);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gradient-pink);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            margin-top: 50px;
+            border-radius: var(--radius-cute);
+            overflow: hidden;
+            box-shadow: 0 10px 40px var(--shadow-pink);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--gradient-pink);
+            padding: 40px 30px;
+            border-radius: var(--radius-cute);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--shadow-pink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow-pink);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--pastel-purple);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--gradient-blue);
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: var(--radius-cute);
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .author-info span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            fill: #FFD700;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: var(--gradient-pink);
+            padding: 40px 30px;
+            border-radius: var(--radius-cute);
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow-pink);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.featured {
+            background: var(--gradient-purple);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow-pink);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--mint);
+            color: var(--text-primary);
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .pricing-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--pastel-purple);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .pricing-card:not(.featured) h3 {
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .pricing-card:not(.featured) .pricing-price {
+            color: var(--pastel-purple);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+        }
+
+        .pricing-card:not(.featured) .pricing-period {
+            color: var(--text-secondary);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .pricing-card:not(.featured) .pricing-features li {
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .pricing-features li svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--mint);
+            flex-shrink: 0;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: var(--pastel-purple);
+            border: none;
+            border-radius: var(--radius-cute);
+            font-family: var(--font-cute);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: var(--mint);
+            color: var(--text-primary);
+        }
+
+        .pricing-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-soft);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: var(--gradient-rainbow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: var(--radius-cute);
+            font-family: var(--font-cute);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .cta-btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            padding: 15px 40px;
+            border: 3px solid var(--pastel-purple);
+            border-radius: var(--radius-cute);
+            font-family: var(--font-cute);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--pastel-pink);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--pastel-purple);
+            color: white;
+            padding: 60px 0 20px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-rainbow);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .footer-logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            transition: fill 0.3s ease;
+        }
+
+        .social-links a:hover svg {
+            fill: var(--pastel-purple);
+        }
+
+        .footer-nav h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav ul a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-nav ul a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-nav ul a svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-bottom p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px var(--shadow-pink);
+                border-radius: 0 0 var(--radius-cute) var(--radius-cute);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary, .cta-btn-primary, .cta-btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .features-grid, .testimonials-grid, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative Cloud Background -->
+    <div class="cloud-background">
+        <!-- Cloud 1 -->
+        <svg class="cloud cloud-1" width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="30" cy="55" rx="25" ry="20" fill="white"/>
+            <ellipse cx="60" cy="50" rx="35" ry="25" fill="white"/>
+            <ellipse cx="90" cy="55" rx="25" ry="20" fill="white"/>
+            <ellipse cx="45" cy="35" rx="20" ry="18" fill="white"/>
+            <ellipse cx="75" cy="35" rx="20" ry="18" fill="white"/>
+        </svg>
+
+        <!-- Cloud 2 -->
+        <svg class="cloud cloud-2" width="100" height="70" viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="25" cy="48" rx="20" ry="17" fill="white"/>
+            <ellipse cx="50" cy="43" rx="28" ry="22" fill="white"/>
+            <ellipse cx="75" cy="48" rx="20" ry="17" fill="white"/>
+            <ellipse cx="38" cy="30" rx="16" ry="15" fill="white"/>
+            <ellipse cx="62" cy="30" rx="16" ry="15" fill="white"/>
+        </svg>
+
+        <!-- Cloud 3 -->
+        <svg class="cloud cloud-3" width="140" height="90" viewBox="0 0 140 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="35" cy="62" rx="28" ry="22" fill="white"/>
+            <ellipse cx="70" cy="57" rx="40" ry="28" fill="white"/>
+            <ellipse cx="105" cy="62" rx="28" ry="22" fill="white"/>
+            <ellipse cx="52" cy="38" rx="22" ry="20" fill="white"/>
+            <ellipse cx="88" cy="38" rx="22" ry="20" fill="white"/>
+        </svg>
+
+        <!-- Cloud 4 -->
+        <svg class="cloud cloud-4" width="110" height="75" viewBox="0 0 110 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="28" cy="52" rx="22" ry="18" fill="white"/>
+            <ellipse cx="55" cy="47" rx="32" ry="24" fill="white"/>
+            <ellipse cx="82" cy="52" rx="22" ry="18" fill="white"/>
+            <ellipse cx="42" cy="32" rx="18" ry="16" fill="white"/>
+            <ellipse cx="68" cy="32" rx="18" ry="16" fill="white"/>
+        </svg>
+
+        <!-- Cloud 5 -->
+        <svg class="cloud cloud-5" width="130" height="85" viewBox="0 0 130 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="32" cy="58" rx="26" ry="21" fill="white"/>
+            <ellipse cx="65" cy="53" rx="38" ry="27" fill="white"/>
+            <ellipse cx="98" cy="58" rx="26" ry="21" fill="white"/>
+            <ellipse cx="48" cy="36" rx="20" ry="18" fill="white"/>
+            <ellipse cx="82" cy="36" rx="20" ry="18" fill="white"/>
+        </svg>
+    </div>
+
+    <!-- Sparkles -->
+    <div class="sparkle" style="top: 15%; left: 10%;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+            <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+        </svg>
+    </div>
+    <div class="sparkle" style="top: 25%; right: 15%; animation-delay: 0.5s;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFB6C1">
+            <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+        </svg>
+    </div>
+    <div class="sparkle" style="top: 45%; left: 20%; animation-delay: 1s;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#B9F6CA">
+            <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+        </svg>
+    </div>
+    <div class="sparkle" style="top: 65%; right: 10%; animation-delay: 1.5s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#B3E5FC">
+            <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+        </svg>
+    </div>
+    <div class="sparkle" style="top: 85%; left: 15%; animation-delay: 0.8s;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="#FFF9C4">
+            <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="25" cy="25" r="23" fill="#FFD1DC"/>
+                    <circle cx="25" cy="25" r="23" fill="url(#paint0_linear)"/>
+                    <path d="M17 20C17 17.2 19.2 15 22 15C24.8 15 27 17.2 27 20C27 22.8 24.8 25 22 25C19.2 25 17 22.8 17 20Z" fill="white"/>
+                    <path d="M33 20C33 17.2 35.2 15 38 15C40.8 15 43 17.2 43 20C43 22.8 40.8 25 38 25C35.2 25 33 22.8 33 20Z" fill="white"/>
+                    <path d="M20 30C20 30 22 32 25 32C28 32 30 30 30 30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M25 25V28" stroke="#9D84B6" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22 38C22 35.2 24.2 33 27 33C29.8 33 32 35.2 32 38" fill="#FFB6C1"/>
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="2" y1="25" x2="48" y2="25" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#FFD1DC"/>
+                            <stop offset="50%" stop-color="#FFB6C1"/>
+                            <stop offset="100%" stop-color="#FFD1DC"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                KawaiiWorld
+            </a>
+            <ul class="nav-links">
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#" class="nav-cta">Começar Agora</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <span class="hero-badge">Novidade Lançamento</span>
+            <h1>Bem-vindo ao <span>KawaiiWorld Shop</span></h1>
+            <p>Descubra os produtos mais fofos com estética kawaii japonesa, pastéis suaves, nuvens fofas e sparkles brilhantes. Tudo para você criar um mundo mais colorido!</p>
+            <div class="hero-buttons">
+                <a href="#precos" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L13.09 8.26L19 7L14.74 11.26L21 14L14.74 14.91L16 21L12 16.74L8 21L9.26 14.91L3 14L9.26 11.26L5 7L10.91 8.26L12 2Z"/>
+                    </svg>
+                    Ver Planos
+                </a>
+                <a href="#recursos" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Explorar Recursos
+                </a>
+            </div>
+            <div class="hero-image">
+                <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; background: linear-gradient(135deg, #FFD1DC 0%, #B3E5FC 50%, #B9F6CA 100%);">
+                    <!-- Cute Mascot -->
+                    <ellipse cx="200" cy="200" rx="80" ry="90" fill="white"/>
+                    <ellipse cx="200" cy="200" rx="80" ry="90" fill="url(#mascotGradient)"/>
+
+                    <!-- Eyes -->
+                    <ellipse cx="175" cy="180" rx="15" ry="20" fill="#333"/>
+                    <ellipse cx="225" cy="180" rx="15" ry="20" fill="#333"/>
+                    <circle cx="180" cy="175" r="5" fill="white"/>
+                    <circle cx="230" cy="175" r="5" fill="white"/>
+
+                    <!-- Blush -->
+                    <ellipse cx="150" cy="200" rx="15" ry="10" fill="#FFB6C1" opacity="0.6"/>
+                    <ellipse cx="250" cy="200" rx="15" ry="10" fill="#FFB6C1" opacity="0.6"/>
+
+                    <!-- Smile -->
+                    <path d="M185 215Q200 230 215 215" stroke="#333" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+                    <!-- Crown -->
+                    <path d="M160 130L175 145L200 125L225 145L240 130V150H160V130Z" fill="#FFD700"/>
+                    <circle cx="175" cy="140" r="5" fill="#FFB6C1"/>
+                    <circle cx="200" cy="135" r="5" fill="#B9F6CA"/>
+                    <circle cx="225" cy="140" r="5" fill="#B3E5FC"/>
+
+                    <!-- Sparkles around mascot -->
+                    <path d="M120 120L125 135L140 140L125 145L120 160L115 145L100 140L115 135L120 120Z" fill="#FFD700" opacity="0.8"/>
+                    <path d="M280 100L283 110L293 113L283 116L280 126L277 116L267 113L277 110L280 100Z" fill="#FFB6C1" opacity="0.8"/>
+                    <path d="M100 250L103 260L113 263L103 266L100 276L97 266L87 263L97 260L100 250Z" fill="#B9F6CA" opacity="0.8"/>
+
+                    <!-- Cloud decorations -->
+                    <ellipse cx="400" cy="320" rx="100" ry="40" fill="white" opacity="0.8"/>
+                    <ellipse cx="370" cy="310" rx="60" ry="30" fill="white" opacity="0.8"/>
+                    <ellipse cx="430" cy="310" rx="60" ry="30" fill="white" opacity="0.8"/>
+
+                    <ellipse cx="600" cy="350" rx="80" ry="35" fill="white" opacity="0.7"/>
+                    <ellipse cx="575" cy="342" rx="50" ry="25" fill="white" opacity="0.7"/>
+                    <ellipse cx="625" cy="342" rx="50" ry="25" fill="white" opacity="0.7"/>
+
+                    <!-- Rainbow -->
+                    <path d="M500 50Q650 50 750 150" stroke="#FFD1DC" stroke-width="20" fill="none" opacity="0.6"/>
+                    <path d="M500 70Q650 70 750 170" stroke="#B3E5FC" stroke-width="20" fill="none" opacity="0.6"/>
+                    <path d="M500 90Q650 90 750 190" stroke="#B9F6CA" stroke-width="20" fill="none" opacity="0.6"/>
+                    <path d="M500 110Q650 110 750 210" stroke="#FFF9C4" stroke-width="20" fill="none" opacity="0.6"/>
+
+                    <!-- Hearts -->
+                    <path d="M300 250C300 240 310 230 320 230C330 230 340 240 340 250C340 260 330 270 320 280C310 270 300 260 300 250Z" fill="#FFB6C1" opacity="0.8"/>
+                    <path d="M500 200C500 195 506 190 512 190C518 190 524 195 524 200C524 205 518 210 512 215C506 210 500 205 500 200Z" fill="#FFB6C1" opacity="0.6"/>
+
+                    <!-- Stars -->
+                    <path d="M450 80L455 95L470 100L455 105L450 120L445 105L430 100L445 95L450 80Z" fill="#FFD700" opacity="0.7"/>
+                    <path d="M680 180L683 188L691 191L683 194L680 202L677 194L669 191L677 188L680 180Z" fill="#FFD700" opacity="0.6"/>
+
+                    <defs>
+                        <linearGradient id="mascotGradient" x1="120" y1="200" x2="280" y2="200" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#FFD1DC"/>
+                            <stop offset="100%" stop-color="#FFB6C1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Por que escolher KawaiiWorld?</h2>
+                <p>Descubra os recursos que tornam nossa plataforma única e especial para você</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <h3>Designs Fofos</h3>
+                    <p>Produtos com estética kawaii autêntica, inspirados na cultura pop japonesa de Harajuku. Cada item é cuidadosamente diseñado para trazer alegria!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 17l-7-3.82L12 9.36l7 3.82L12 17z"/>
+                        </svg>
+                    </div>
+                    <h3>Qualidade Premium</h3>
+                    <p>Materiais de alta qualidade que garantem durabilidade e conforto. Todos os produtos passam por rigorosos testes de qualidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Variedade Imensa</h3>
+                    <p>Milhares de produtos disponíveis: acessórios,decoração, papelaria, roupas e muito mais. Sempre novidades chegando!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <h2>O que nossos clientes dizem</h2>
+                <p>Milhares de pessoas já transformaram suas vidas com KawaiiWorld</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <svg class="testimonial-quote" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                    </svg>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="#FFB6C1">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Maria Silva</h4>
+                            <span>Designer Gráfica</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Amei! Os produtos são lindos e a qualidade é excepcional. Minha clientela adorou os novos itens kawaii que adicionei ao meu portfólio!"</p>
+                    <div class="testimonial-rating">
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <svg class="testimonial-quote" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                    </svg>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="#B3E5FC">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ana Costa</h4>
+                            <span>Streamer</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Meu setup ficou incrível com os produtos kawaii! Os acessórios são super fofo e meus seguidores não param de elogiar. Recomendo muito!"</p>
+                    <div class="testimonial-rating">
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <svg class="testimonial-quote" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                    </svg>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="#B9F6CA">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <div class="author-info">
+                            <h4>Julia Santos</h4>
+                            <span>Estudante</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Finalmente uma loja que entende o que é estética kawaii de verdade! Os produtos chegaram super rápido e a embalagem era linda demais!"</p>
+                    <div class="testimonial-rating">
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="precos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Planos perfeitos para você</h2>
+                <p>Escolha o plano que melhor se adapta às suas necessidades kawaii</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l-5.5 9h11z"/>
+                            <circle cx="12" cy="17" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Starter Kawaii</h3>
+                    <div class="pricing-price">R$29</div>
+                    <div class="pricing-period">por mês</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            10 produtos por mês
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso à base básica
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte por email
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Downloads em HD
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">POPULAR</span>
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Pro Kawaii</h3>
+                    <div class="pricing-price">R$59</div>
+                    <div class="pricing-period">por mês</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            50 produtos por mês
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso à base completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Downloads em 4K
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Licença comercial
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso antecipado
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Ultimate Kawaii</h3>
+                    <div class="pricing-price">R$99</div>
+                    <div class="pricing-period">por mês</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Produtos ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso à base exclusiva
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte 24/7
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Downloads em 8K
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            API completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Personalização total
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-content">
+            <h2>Pronto para começar sua jornada kawaii?</h2>
+            <p>Junte-se a milhares de pessoas que já transformaram suas vidas com produtos fofos e coloridos. Comece hoje mesmo!</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L13.09 8.26L19 7L14.74 11.26L21 14L14.74 14.91L16 21L12 16.74L8 21L9.26 14.91L3 14L9.26 11.26L5 7L10.91 8.26L12 2Z"/>
+                    </svg>
+                    Criar Conta Grátis
+                </a>
+                <a href="#" class="cta-btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Falar com Consultor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="23" fill="white"/>
+                            <path d="M17 20C17 17.2 19.2 15 22 15C24.8 15 27 17.2 27 20C27 22.8 24.8 25 22 25C19.2 25 17 22.8 17 20Z" fill="#9D84B6"/>
+                            <path d="M33 20C33 17.2 35.2 15 38 15C40.8 15 43 17.2 43 20C43 22.8 40.8 25 38 25C35.2 25 33 22.8 33 20Z" fill="#9D84B6"/>
+                            <path d="M20 30C20 30 22 32 25 32C28 32 30 30 30 30" stroke="#9D84B6" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        KawaiiWorld
+                    </div>
+                    <p class="footer-description">Sua loja favorita de produtos fofos com estética kawaii japonesa, pastéis, nuvens e sparkles.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+                        </a>
+                        <a href="#" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-nav">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                                Início
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#recursos">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99z"/></svg>
+                                Recursos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#precos">
+                                <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                                Preços
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#depoimentos">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                                Depoimentos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-nav">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                                FAQ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Contato
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                Termos de Uso
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                                Privacidade
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span>contato@kawaiiworld.shop</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span>(11) 98765-4321</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>São Paulo, Brasil</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © 2026 KawaiiWorld Shop. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Termos de Serviço</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Mapa do Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add sparkle effect on click
+        document.addEventListener('click', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                width: 20px;
+                height: 20px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: sparkleClick 0.6s ease-out forwards;
+            `;
+            sparkle.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="#FFD700">
+                    <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41L12 0Z"/>
+                </svg>
+            `;
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 600);
+        });
+
+        // Add CSS for sparkle click animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleClick {
+                0% {
+                    opacity: 1;
+                    transform: scale(0) rotate(0deg);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1) rotate(180deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0.5) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Add floating animation to pricing cards
+        const pricingCards = document.querySelectorAll('.pricing-card');
+        pricingCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>

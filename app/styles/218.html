@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizado Criativo Artesanal - Plataforma de Cursos de Arte e Criatividade</title>
+    <meta name="description" content="Plataforma completa de cursos de arte e criatividade. Aprenda pintura, desenho, escultura e muito mais com mestres artesais.">
+    <style>
+        /* ============================================
+           RESET E BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --verde-menta: #98FB98;
+            --roxo-lavanda: #E6E6FA;
+            --amarelo-pastel: #FFFACD;
+            --branco: #FFFFFF;
+            --azul-ceu: #87CEEB;
+            --rosa-pessego: #FFDAB9;
+            --marrom-claro: #D2B48C;
+            --cinza-lapis: #A9A9A9;
+            --texto-escuro: #2C2C2C;
+            --sombra-suave: rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--texto-escuro);
+            background: linear-gradient(135deg, var(--roxo-lavanda) 0%, var(--branco) 50%, var(--verde-menta) 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           UTILITÁRIOS
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--texto-escuro);
+            font-weight: normal;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--verde-menta), var(--azul-ceu));
+            top: 50%;
+        }
+
+        .section-title::before {
+            left: -80px;
+        }
+
+        .section-title::after {
+            right: -80px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--cinza-lapis);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--sombra-suave);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--texto-escuro);
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .navbar-nav a {
+            text-decoration: none;
+            color: var(--texto-escuro);
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--verde-menta);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-nav a:hover {
+            color: var(--azul-ceu);
+        }
+
+        .navbar-cta {
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            color: var(--texto-escuro) !important;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(152, 251, 152, 0.4);
+        }
+
+        .navbar-cta::after {
+            display: none;
+        }
+
+        /* Menu Mobile Toggle */
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .navbar-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--texto-escuro);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(152, 251, 152, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(230, 230, 250, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 250, 205, 0.2) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--amarelo-pastel), var(--rosa-pessego));
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255, 218, 185, 0.4);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            color: var(--texto-escuro);
+            position: relative;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--cinza-lapis);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            color: var(--texto-escuro);
+            box-shadow: 0 5px 25px rgba(152, 251, 152, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(152, 251, 152, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--texto-escuro);
+            border: 2px solid var(--marrom-claro);
+        }
+
+        .btn-secondary:hover {
+            background: var(--marrom-claro);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, var(--verde-menta), var(--roxo-lavanda));
+        }
+
+        .hero-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-menta), var(--roxo-lavanda));
+            opacity: 0.3;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .hero-decoration.top-left {
+            top: -30px;
+            left: -30px;
+        }
+
+        .hero-decoration.bottom-right {
+            bottom: -30px;
+            right: -30px;
+        }
+
+        /* Elementos de arte flutuantes */
+        .art-element {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .art-element.brush {
+            top: 20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .art-element.paint {
+            bottom: 30px;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features {
+            background: linear-gradient(180deg, var(--branco) 0%, var(--roxo-lavanda) 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--branco);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--verde-menta), var(--azul-ceu), var(--rosa-pessego));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--verde-menta);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--amarelo-pastel), var(--rosa-pessego));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(360deg);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--texto-escuro);
+        }
+
+        .feature-card p {
+            color: var(--cinza-lapis);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+           ============================================ */
+        .testimonials {
+            background: linear-gradient(135deg, var(--amarelo-pastel) 0%, var(--rosa-pessego) 100%);
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .testimonials-slider {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: var(--branco);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            color: var(--verde-menta);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--texto-escuro);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--texto-escuro);
+            font-size: 1.2rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            color: var(--texto-escuro);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--cinza-lapis);
+        }
+
+        /* ============================================
+           PRICING SECTION
+           ============================================ */
+        .pricing {
+            background: linear-gradient(180deg, var(--branco) 0%, var(--verde-menta) 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: var(--branco);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--verde-menta);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-15px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            color: var(--texto-escuro);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--amarelo-pastel), var(--rosa-pessego));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-icon svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--texto-escuro);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--texto-escuro);
+            margin: 20px 0;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: var(--cinza-lapis);
+            font-weight: normal;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--texto-escuro);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--verde-menta);
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .pricing-card:not(.popular) .pricing-cta {
+            background: transparent;
+            color: var(--texto-escuro);
+            border: 2px solid var(--marrom-claro);
+        }
+
+        .pricing-card:not(.popular) .pricing-cta:hover {
+            background: var(--marrom-claro);
+            transform: translateY(-2px);
+        }
+
+        .pricing-card.popular .pricing-cta {
+            background: linear-gradient(135deg, var(--verde-menta), var(--azul-ceu));
+            color: var(--texto-escuro);
+        }
+
+        .pricing-card.popular .pricing-cta:hover {
+            box-shadow: 0 5px 25px rgba(152, 251, 152, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta {
+            background: linear-gradient(135deg, var(--roxo-lavanda) 0%, var(--azul-ceu) 50%, var(--verde-menta) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--texto-escuro);
+        }
+
+        .cta-description {
+            font-size: 1.3rem;
+            color: var(--texto-escuro);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cta-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 18px 25px;
+            border: 2px solid var(--branco);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-input:focus {
+            border-color: var(--verde-menta);
+            box-shadow: 0 0 20px rgba(152, 251, 152, 0.3);
+        }
+
+        .cta-button {
+            padding: 18px 40px;
+            background: var(--texto-escuro);
+            color: var(--branco);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .cta-button:hover {
+            background: var(--verde-menta);
+            color: var(--texto-escuro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--texto-escuro);
+            color: var(--branco);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand h3 svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-brand p {
+            color: var(--cinza-lapis);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--verde-menta);
+            transform: translateY(-3px);
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--branco);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--branco);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul a {
+            color: var(--cinza-lapis);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul a:hover {
+            color: var(--verde-menta);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: var(--cinza-lapis);
+        }
+
+        .footer-bottom p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--cinza-lapis);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--verde-menta);
+        }
+
+        /* ============================================
+           RESPONSIVIDADE
+           ============================================ */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-image {
+                height: 350px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--branco);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            }
+
+            .navbar-nav.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .pricing-card.popular:hover {
+                transform: translateY(-15px);
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .cta-input,
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        /* ============================================
+           ANIMAÇÕES ADICIONAIS
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efeito de pincelada nas bordas */
+        .brush-border {
+            position: relative;
+        }
+
+        .brush-border::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%2398FB98' stroke-width='3' fill='none'/%3E%3C/svg%3E") repeat-x;
+            background-size: 100px 10px;
+        }
+
+        /* Micro-interações de esboço */
+        .sketch-hover {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sketch-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .sketch-hover:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         NAVBAR
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" fill="#98FB98" opacity="0.3"/>
+                    <path d="M12 28 L12 12 L16 12 L16 24 L22 12 L26 12 L26 28 L22 28 L22 16 L16 28 L12 28 Z" fill="#2C2C2C"/>
+                    <circle cx="30" cy="30" r="6" fill="#E6E6FA"/>
+                    <path d="M28 28 L32 32" stroke="#98FB98" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Artesanal
+            </a>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#pricing">Planos</a></li>
+                <li><a href="#contact" class="navbar-cta">Começar Agora</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="hero-badge">Nova Turma Aberta</span>
+                <h1 class="hero-title">
+                    Desperte seu <span>Potencial Criativo</span> com Aprendizado Artesanal
+                </h1>
+                <p class="hero-description">
+                    Descubra técnicas únicas de arte e criatividade com mestres artesãos.
+                    Transforme sua visão em obras de arte memoráveis através de cursos
+                    personalizados e acompanhamento dedicado.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#pricing" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                        Explorar Cursos
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polygon points="10 8 16 12 10 16 10 8"/>
+                        </svg>
+                        Ver Demonstração
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <div class="hero-decoration top-left"></div>
+                    <div class="hero-decoration bottom-right"></div>
+                    <div class="hero-image">
+                        <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="500" height="500" fill="url(#heroGrad)"/>
+                            <circle cx="250" cy="250" r="150" fill="#FFFACD" opacity="0.5"/>
+                            <path d="M100 400 Q 250 300 400 400" stroke="#87CEEB" stroke-width="8" fill="none"/>
+                            <rect x="180" y="180" width="140" height="140" rx="10" fill="#FFDAB9"/>
+                            <circle cx="220" cy="220" r="15" fill="#98FB98"/>
+                            <circle cx="280" cy="220" r="15" fill="#98FB98"/>
+                            <path d="M220 270 Q 250 290 280 270" stroke="#2C2C2C" stroke-width="3" fill="none"/>
+                            <path d="M50 50 L 100 50 L 75 100 Z" fill="#E6E6FA" opacity="0.7"/>
+                            <path d="M400 80 L 450 80 L 425 130 Z" fill="#98FB98" opacity="0.7"/>
+                            <circle cx="80" cy="350" r="25" fill="#FFDAB9" opacity="0.6"/>
+                            <circle cx="420" cy="320" r="30" fill="#E6E6FA" opacity="0.6"/>
+                            <defs>
+                                <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#98FB98;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#E6E6FA;stop-opacity:0.3" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <!-- Elementos de arte flutuantes -->
+                    <div class="art-element brush">
+                        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="25" y="5" width="10" height="40" rx="2" fill="#D2B48C"/>
+                            <ellipse cx="30" cy="50" rx="15" ry="8" fill="#98FB98"/>
+                        </svg>
+                    </div>
+
+                    <div class="art-element paint">
+                        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="20" fill="#FFDAB9"/>
+                            <circle cx="25" cy="25" r="12" fill="#E6E6FA"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES SECTION
+         ============================================ -->
+    <section class="section features" id="features">
+        <div class="container">
+            <h2 class="section-title">Recursos Criativos</h2>
+            <p class="section-subtitle">
+                Ferramentas e experiências projetadas para transformar sua jornada artística
+            </p>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="8" width="24" height="24" rx="4" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M14 20 L18 24 L26 16" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Técnicas Artesanais</h3>
+                    <p>Aprenda métodos tradicionais e contemporâneos transmitidos por mestres artesãos com décadas de experiência.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="15" r="8" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M8 35 C 8 25, 32 25, 32 35" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="28" cy="12" r="4" fill="#98FB98"/>
+                        </svg>
+                    </div>
+                    <h3>Mentoria Personalizada</h3>
+                    <p>Receba feedback individualizado e orientação direta de artistas estabelecidos em suas respectivas áreas.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="10" width="28" height="20" rx="2" stroke="#2C2C2C" stroke-width="2"/>
+                            <circle cx="20" cy="20" r="6" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M20 14 L20 26 M14 20 L26 20" stroke="#2C2C2C" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Estúdio Virtual</h3>
+                    <p>Acesse um ambiente de trabalho colaborativo onde você pode compartilhar projetos e receber feedback em tempo real.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4 L 4 12 L 4 28 L 20 36 L 36 28 L 36 12 Z" stroke="#2C2C2C" stroke-width="2" fill="none"/>
+                            <circle cx="20" cy="20" r="8" fill="#E6E6FA"/>
+                        </svg>
+                    </div>
+                    <h3>Comunidade Artística</h3>
+                    <p>Conecte-se com artistas de todo o mundo, participe de desafios criativos e expanda seu network profissional.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="6" width="20" height="28" rx="2" stroke="#2C2C2C" stroke-width="2"/>
+                            <line x1="14" y1="14" x2="26" y2="14" stroke="#2C2C2C" stroke-width="2"/>
+                            <line x1="14" y1="20" x2="26" y2="20" stroke="#2C2C2C" stroke-width="2"/>
+                            <line x1="14" y1="26" x2="22" y2="26" stroke="#2C2C2C" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Certificação Reconhecida</h3>
+                    <p>Obtenha certificados válidos em todo o mercado, atestando suas habilidades recém-adquiridas.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="14" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M20 12 L 20 28 M12 20 L 28 20" stroke="#2C2C2C" stroke-width="2"/>
+                            <circle cx="30" cy="10" r="4" fill="#98FB98"/>
+                        </svg>
+                    </div>
+                    <h3>Acesso Vitalício</h3>
+                    <p>Tenha acesso permanente a todo o conteúdo do curso, incluindo atualizações futuras e novos módulos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS SECTION
+         ============================================ -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">O Que Dizem Nossos Artistas</h2>
+            <p class="section-subtitle">
+                Histórias reais de transformação criativa e crescimento artístico
+            </p>
+
+            <div class="testimonials-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        Os cursos transformaram completamente minha abordagem à pintura.
+                        A mentoria personalizada fez toda a diferença no meu desenvolvimento
+                        como artista profissional.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MA</div>
+                        <div class="testimonial-info">
+                            <h4>Maria Almeida</h4>
+                            <p>Pintora e Ilustradora</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        Encontrei minha voz artística através dos workshops de cerâmica.
+                        A comunidade é incrível e o suporte contínuo me motivou a
+                        abrir meu próprio ateliê.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JS</div>
+                        <div class="testimonial-info">
+                            <h4>João Santos</h4>
+                            <p>Ceramista e Escultor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        A plataforma oferece uma experiência única de aprendizado.
+                        Os vídeos em alta qualidade e os exercícios práticos me
+                        permitiram evoluir rapidamente na aquarela.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CP</div>
+                        <div class="testimonial-info">
+                            <h4>Carla Pereira</h4>
+                            <p>Aquarelista</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        Comecei como hobby e hoje vivo da arte. O curso de
+                        ilustração digital me deu todas as ferramentas necessárias
+                        para me tornar um profissional.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RL</div>
+                        <div class="testimonial-info">
+                            <h4>Ricardo Lima</h4>
+                            <p>Ilustrador Digital</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        Os workshops de fotografia artística expandiram minha
+                        visão criativa. Agora consigo capturar momentos únicos
+                        com uma perspectiva totalmente nova.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AO</div>
+                        <div class="testimonial-info">
+                            <h4>Ana Oliveira</h4>
+                            <p>Fotógrafa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        O curso de tapeçaria artesanal me conectou com tradições
+                        antigas e técnicas modernas. Cada módulo é uma descoberta
+                        fascinante.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">FM</div>
+                        <div class="testimonial-info">
+                            <h4>Fernando Martins</h4>
+                            <p>Tapeceiro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING SECTION
+         ============================================ -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Escolha Seu Plano Criativo</h2>
+            <p class="section-subtitle">
+                Invista em sua arte com opções flexíveis para cada jornada
+            </p>
+
+            <div class="pricing-grid">
+                <!-- Plano Básico -->
+                <div class="pricing-card fade-in">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="8" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M20 4 L 20 12 M20 28 L 20 36 M4 20 L 12 20 M28 20 L 36 20" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Explorador</h3>
+                    <div class="pricing-price">
+                        R$ 47<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Acesso a 3 cursos básicos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Comunidade online
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Downloads de materiais
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Suporte por email
+                        </li>
+                    </ul>
+                    <button class="pricing-cta sketch-hover">Começar Agora</button>
+                </div>
+
+                <!-- Plano Pro -->
+                <div class="pricing-card popular fade-in">
+                    <span class="pricing-badge">Mais Popular</span>
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="20,4 24,16 36,16 26,24 30,36 20,28 10,36 14,24 4,16 16,16" fill="#98FB98" stroke="#2C2C2C" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Artista Pro</h3>
+                    <div class="pricing-price">
+                        R$ 97<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Acesso ilimitado a cursos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Mentoria mensal
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Workshops exclusivos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Portfolio virtual
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <button class="pricing-cta sketch-hover">Assinar Pro</button>
+                </div>
+
+                <!-- Plano Master -->
+                <div class="pricing-card fade-in">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="12" r="8" stroke="#2C2C2C" stroke-width="2"/>
+                            <path d="M10 32 C 10 24, 30 24, 30 32" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="32" cy="8" r="4" fill="#E6E6FA" stroke="#2C2C2C" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <h3>Mestre Artesão</h3>
+                    <div class="pricing-price">
+                        R$ 197<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Todo o conteúdo Pro
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Mentoria semanal
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Cursos personalizados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Exposições virtuais
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Consultoria de carreira
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Acesso a galerias parceiras
+                        </li>
+                    </ul>
+                    <button class="pricing-cta sketch-hover">Tornar-se Mestre</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="section cta" id="contact">
+        <div class="container cta-content">
+            <h2 class="cta-title">Comece Sua Jornada Criativa Hoje</h2>
+            <p class="cta-description">
+                Junte-se a milhares de artistas que transformaram sua paixão em arte.
+                Inscreva-se gratuitamente e receba uma aula demonstrativa exclusiva.
+            </p>
+            <form class="cta-form" onsubmit="event.preventDefault(); alert('Obrigado por se inscrever! Em breve você receberá nossa aula demonstrativa.');">
+                <input type="email" class="cta-input" placeholder="Seu melhor e-mail" required>
+                <button type="submit" class="cta-button">
+                    Quero Minha Aula Grátis
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-left: 8px;">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="18" fill="#98FB98" opacity="0.3"/>
+                            <path d="M12 28 L12 12 L16 12 L16 24 L22 12 L26 12 L26 28 L22 28 L22 16 L16 28 L12 28 Z" fill="#FFFFFF"/>
+                        </svg>
+                        Artesanal
+                    </h3>
+                    <p>
+                        Transformando paixão em arte através de aprendizado criativo e
+                        mentoria especializada. Sua jornada artística começa aqui.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="4" fill="white"/>
+                                <line x1="12" y1="16" x2="12" y2="21" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cursos -->
+                <div class="footer-column">
+                    <h4>Cursos</h4>
+                    <ul>
+                        <li><a href="#">Pintura a Óleo</a></li>
+                        <li><a href="#">Aquarela</a></li>
+                        <li><a href="#">Cerâmica</a></li>
+                        <li><a href="#">Escultura</a></li>
+                        <li><a href="#">Fotografia Artística</a></li>
+                    </ul>
+                </div>
+
+                <!-- Recursos -->
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Blog Criativo</a></li>
+                        <li><a href="#">Galeria de Arte</a></li>
+                        <li><a href="#">Tutoriais Gratuitos</a></li>
+                        <li><a href="#">Materiais PDF</a></li>
+                        <li><a href="#">Calendário de Workshops</a></li>
+                    </ul>
+                </div>
+
+                <!-- Suporte -->
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Aprendizado Criativo Artesanal. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Serviço</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Acessibilidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarNav = document.getElementById('navbarNav');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarNav.classList.remove('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Pricing button click handlers
+        document.querySelectorAll('.pricing-cta').forEach(button => {
+            button.addEventListener('click', function() {
+                const plan = this.closest('.pricing-card').querySelector('h3').textContent;
+                alert(`Você selecionou o plano ${plan}! Redirecionando para o checkout...`);
+            });
+        });
+
+        // Add hover effect to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotateX(5deg)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / 700);
+            }
+        });
+
+        // Dynamic year in footer
+        const yearSpan = document.querySelector('.footer-bottom p');
+        if (yearSpan) {
+            const currentYear = new Date().getFullYear();
+            yearSpan.textContent = `© ${currentYear} Aprendizado Criativo Artesanal. Todos os direitos reservados.`;
+        }
+    </script>
+</body>
+</html>

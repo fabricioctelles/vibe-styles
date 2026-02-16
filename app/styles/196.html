@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Arte Digital Experimental - Explore o limite entre caos e beleza digital">
+    <meta name="keywords" content="arte digital, design experimental, brutalismo, portfolio criativo">
+    <meta name="author" content="Artista Digital Experimental">
+    <meta property="og:title" content="Portfólio de Arte Digital Experimental">
+    <meta property="og:description" content="Explore o limite entre caos e beleza digital">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/og-image.jpg">
+    <title>Portfólio de Arte Digital Experimental | Brutalismo Abstrato</title>
+
+    <style>
+        /* ========================================
+           DESIGN SYSTEM VARIABLES - BRUTALISMO
+           ======================================== */
+        :root {
+            --concrete-grey: #A9A9A9;
+            --black-text: #000000;
+            --blood-red: #8B0000;
+            --white-bg: #FFFFFF;
+            --cobalt-blue: #0047AB;
+            --ochre-yellow: #CC7722;
+            --moss-green: #6B8E23;
+            --burnt-orange: #CC5500;
+            --border-heavy: 4px solid #8B0000;
+            --shadow-art: 8px 8px 0px #000000;
+            --font-rough: "Arial Black", "Impact", sans-serif;
+            --font-body: "Arial", sans-serif;
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--concrete-grey);
+            color: var(--black-text);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Concrete texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-rough);
+            border: none;
+            outline: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: var(--font-rough);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            color: var(--black-text);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: 20px;
+            background: var(--blood-red);
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--blood-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            font-weight: bold;
+        }
+
+        /* ========================================
+           NAVBAR - BRUTALIST STYLE
+           ======================================== */
+        .navbar {
+            background: var(--white-bg);
+            border-bottom: var(--border-heavy);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 0px var(--black-text);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-rough);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: var(--black-text);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-logo:hover {
+            color: var(--blood-red);
+            transform: rotate(-2deg) scale(1.05);
+        }
+
+        .navbar-logo span {
+            color: var(--blood-red);
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar-links a {
+            font-family: var(--font-rough);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background: var(--blood-red);
+            color: var(--white-bg);
+            border: 3px solid var(--black-text);
+            transform: rotate(-1deg) translate(2px, -2px);
+            box-shadow: 4px 4px 0px var(--black-text);
+        }
+
+        .navbar-cta {
+            background: var(--cobalt-blue);
+            color: var(--white-bg) !important;
+            padding: 0.8rem 1.5rem !important;
+            border: 3px solid var(--black-text) !important;
+            transform: rotate(-1deg);
+        }
+
+        .navbar-cta:hover {
+            background: var(--blood-red) !important;
+            transform: rotate(-1deg) scale(1.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--black-text);
+            color: var(--white-bg);
+            border: 3px solid var(--blood-red);
+            padding: 0.5rem 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* ========================================
+           HERO SECTION - AGGRESSIVE BRUTALISM
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            padding-top: 100px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--concrete-grey) 0%, #888888 50%, var(--concrete-grey) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 400px;
+            height: 400px;
+            background: var(--blood-red);
+            opacity: 0.1;
+            transform: rotate(45deg);
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            transform: rotate(-1deg);
+        }
+
+        .hero-tagline {
+            font-family: var(--font-rough);
+            font-size: 1.2rem;
+            color: var(--blood-red);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: var(--white-bg);
+            padding: 0.5rem 1rem;
+            border: 3px solid var(--black-text);
+            transform: rotate(-2deg);
+        }
+
+        .hero-title {
+            font-family: var(--font-rough);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            color: var(--black-text);
+            margin-bottom: 1.5rem;
+            letter-spacing: -5px;
+            position: relative;
+        }
+
+        .hero-title .line1 {
+            display: block;
+            transform: rotate(-2deg) translateX(-20px);
+        }
+
+        .hero-title .line2 {
+            display: block;
+            color: var(--blood-red);
+            transform: rotate(1deg) translateX(20px);
+        }
+
+        .hero-title .line3 {
+            display: block;
+            font-size: 0.7em;
+            transform: rotate(-1deg);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            color: var(--black-text);
+            border-left: 5px solid var(--blood-red);
+            padding-left: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem;
+            transform: rotate(1deg);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            transform: rotate(-1deg);
+        }
+
+        .btn-primary {
+            background: var(--blood-red);
+            color: var(--white-bg);
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--black-text);
+            box-shadow: var(--shadow-art);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--cobalt-blue);
+            transform: rotate(-2deg) translate(-4px, -4px);
+            box-shadow: 12px 12px 0px var(--black-text);
+        }
+
+        .btn-secondary {
+            background: var(--white-bg);
+            color: var(--black-text);
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--black-text);
+            box-shadow: var(--shadow-art);
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--black-text);
+            color: var(--white-bg);
+            transform: rotate(2deg) translate(4px, 4px);
+            box-shadow: 12px 12px 0px var(--blood-red);
+        }
+
+        /* Hero Visual - Abstract 3D Element */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .abstract-shape {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: var(--blood-red);
+            transform: rotate(45deg);
+            box-shadow: 20px 20px 0px var(--black-text);
+            opacity: 0.8;
+            animation: morphing 8s infinite alternate;
+        }
+
+        .abstract-shape::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: var(--cobalt-blue);
+            transform: rotate(-15deg);
+            border: 4px solid var(--black-text);
+        }
+
+        .abstract-shape::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: var(--ochre-yellow);
+            transform: rotate(30deg);
+            border: 4px solid var(--black-text);
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: var(--moss-green);
+            top: 10%;
+            right: 10%;
+            transform: rotate(-20deg);
+            border: 4px solid var(--black-text);
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(2) {
+            background: var(--burnt-orange);
+            top: auto;
+            bottom: 20%;
+            right: auto;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            animation: float 5s infinite ease-in-out reverse;
+        }
+
+        @keyframes morphing {
+            0% {
+                border-radius: 0%;
+                transform: rotate(45deg) scale(1);
+            }
+            25% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            50% {
+                border-radius: 50%;
+                transform: rotate(225deg) scale(1.1);
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            }
+            100% {
+                border-radius: 0%;
+                transform: rotate(405deg) scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(-20deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(-10deg);
+            }
+        }
+
+        /* ========================================
+           FEATURES SECTION - BROKEN GRID
+           ======================================== */
+        .features {
+            padding: 8rem 0;
+            background: var(--white-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: 'ARTE';
+            position: absolute;
+            top: 50px;
+            right: -50px;
+            font-family: var(--font-rough);
+            font-size: 15rem;
+            color: var(--concrete-grey);
+            transform: rotate(90deg);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: var(--concrete-grey);
+            border: 4px solid var(--black-text);
+            padding: 3rem 2rem;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .feature-card:nth-child(1) {
+            transform: rotate(-2deg) translateY(-20px);
+            background: var(--blood-red);
+        }
+
+        .feature-card:nth-child(2) {
+            transform: rotate(1deg);
+            background: var(--cobalt-blue);
+            color: var(--white-bg);
+        }
+
+        .feature-card:nth-child(2) .feature-card-title,
+        .feature-card:nth-child(2) .feature-card-text {
+            color: var(--white-bg);
+        }
+
+        .feature-card:nth-child(3) {
+            transform: rotate(-1deg) translateY(20px);
+            background: var(--ochre-yellow);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: var(--shadow-art);
+            z-index: 10;
+        }
+
+        .feature-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--white-bg);
+            border: 4px solid var(--black-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transform: rotate(-5deg);
+        }
+
+        .feature-icon-wrapper svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--black-text);
+        }
+
+        .feature-card-title {
+            font-family: var(--font-rough);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--black-text);
+            letter-spacing: -1px;
+        }
+
+        .feature-card-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--black-text);
+        }
+
+        .feature-number {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-family: var(--font-rough);
+            font-size: 4rem;
+            color: var(--black-text);
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
+        .testimonials {
+            padding: 8rem 0;
+            background: var(--black-text);
+            color: var(--white-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--blood-red),
+                var(--blood-red) 50px,
+                var(--cobalt-blue) 50px,
+                var(--cobalt-blue) 100px,
+                var(--ochre-yellow) 100px,
+                var(--ochre-yellow) 150px
+            );
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .testimonials .section-title {
+            color: var(--white-bg);
+        }
+
+        .testimonials .section-subtitle {
+            color: var(--blood-red);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--concrete-grey);
+            border: 4px solid var(--white-bg);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:nth-child(1) {
+            transform: rotate(-1deg);
+        }
+
+        .testimonial-card:nth-child(2) {
+            transform: rotate(2deg) translateY(-30px);
+            border-color: var(--blood-red);
+        }
+
+        .testimonial-card:nth-child(3) {
+            transform: rotate(-2deg);
+        }
+
+        .testimonial-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 10px 10px 0px var(--blood-red);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: var(--font-rough);
+            font-size: 5rem;
+            color: var(--black-text);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--black-text);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--blood-red);
+            border: 3px solid var(--black-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-5deg);
+        }
+
+        .testimonial-avatar svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--white-bg);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-family: var(--font-rough);
+            font-size: 1.1rem;
+            color: var(--black-text);
+            text-transform: uppercase;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: var(--black-text);
+            opacity: 0.7;
+        }
+
+        /* ========================================
+           PRICING SECTION - BRUTALIST
+           ======================================== */
+        .pricing {
+            padding: 8rem 0;
+            background: var(--ochre-yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing::before {
+            content: 'PREÇO';
+            position: absolute;
+            bottom: -50px;
+            left: 50px;
+            font-family: var(--font-rough);
+            font-size: 10rem;
+            color: var(--black-text);
+            transform: rotate(-90deg);
+            opacity: 0.1;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--white-bg);
+            border: 4px solid var(--black-text);
+            padding: 3rem 2rem;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .pricing-card:nth-child(1) {
+            transform: rotate(-1deg);
+        }
+
+        .pricing-card:nth-child(2) {
+            transform: rotate(1deg) translateY(-40px) scale(1.1);
+            border-color: var(--blood-red);
+            background: var(--blood-red);
+            z-index: 10;
+        }
+
+        .pricing-card:nth-child(2) .pricing-card-title,
+        .pricing-card:nth-child(2) .pricing-price,
+        .pricing-card:nth-child(2) .pricing-feature {
+            color: var(--white-bg);
+        }
+
+        .pricing-card:nth-child(3) {
+            transform: rotate(-1deg);
+        }
+
+        .pricing-card:hover {
+            transform: rotate(0deg) translateY(-10px);
+            box-shadow: var(--shadow-art);
+        }
+
+        .pricing-card:nth-child(2):hover {
+            transform: rotate(0deg) translateY(-50px) scale(1.15);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--cobalt-blue);
+            color: var(--white-bg);
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-rough);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transform: rotate(15deg);
+            border: 3px solid var(--black-text);
+        }
+
+        .pricing-card-title {
+            font-family: var(--font-rough);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--black-text);
+            letter-spacing: -2px;
+        }
+
+        .pricing-price {
+            font-family: var(--font-rough);
+            font-size: 4rem;
+            color: var(--black-text);
+            margin-bottom: 2rem;
+            line-height: 1;
+        }
+
+        .pricing-price span {
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-feature {
+            padding: 0.8rem 0;
+            border-bottom: 2px solid var(--concrete-grey);
+            font-size: 1rem;
+            color: var(--black-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-feature svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-card:nth-child(2) .pricing-feature {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .pricing-btn {
+            width: 100%;
+            background: var(--black-text);
+            color: var(--white-bg);
+            padding: 1rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 3px solid var(--black-text);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:nth-child(2) .pricing-btn {
+            background: var(--white-bg);
+            color: var(--blood-red);
+        }
+
+        .pricing-btn:hover {
+            background: var(--white-bg);
+            color: var(--black-text);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:nth-child(2) .pricing-btn:hover {
+            background: var(--cobalt-blue);
+            color: var(--white-bg);
+        }
+
+        /* ========================================
+           CTA SECTION - AGGRESSIVE
+           ======================================== */
+        .cta {
+            padding: 8rem 0;
+            background: var(--cobalt-blue);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(45deg, transparent 48%, var(--black-text) 48%, var(--black-text) 52%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, var(--black-text) 48%, var(--black-text) 52%, transparent 52%);
+            background-size: 100px 100px;
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: var(--font-rough);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            text-transform: uppercase;
+            color: var(--white-bg);
+            margin-bottom: 1.5rem;
+            letter-spacing: -3px;
+            transform: rotate(-1deg);
+        }
+
+        .cta-text {
+            font-size: 1.4rem;
+            color: var(--white-bg);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            background: var(--blood-red);
+            color: var(--white-bg);
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--black-text);
+            box-shadow: var(--shadow-art);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-primary:hover {
+            background: var(--white-bg);
+            color: var(--blood-red);
+            transform: rotate(-2deg) translate(-6px, -6px);
+            box-shadow: 14px 14px 0px var(--black-text);
+        }
+
+        .cta-btn-secondary {
+            background: var(--white-bg);
+            color: var(--cobalt-blue);
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--black-text);
+            box-shadow: var(--shadow-art);
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--black-text);
+            color: var(--white-bg);
+            transform: rotate(2deg) translate(6px, 6px);
+            box-shadow: 14px 14px 0px var(--blood-red);
+        }
+
+        /* ========================================
+           FOOTER - COMPREHENSIVE
+           ======================================== */
+        .footer {
+            background: var(--black-text);
+            color: var(--white-bg);
+            padding: 5rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--blood-red), var(--cobalt-blue), var(--ochre-yellow), var(--moss-green));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            transform: rotate(-1deg);
+        }
+
+        .footer-logo {
+            font-family: var(--font-rough);
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--blood-red);
+        }
+
+        .footer-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            max-width: 300px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--concrete-grey);
+            border: 3px solid var(--blood-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            background: var(--blood-red);
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .footer-social-link svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--white-bg);
+        }
+
+        .footer-column-title {
+            font-family: var(--font-rough);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--blood-red);
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            font-size: 1rem;
+            color: var(--white-bg);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--blood-red);
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 2px solid var(--concrete-grey);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal-links a {
+            font-size: 0.9rem;
+            color: var(--white-bg);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal-links a:hover {
+            color: var(--blood-red);
+            opacity: 1;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-card:nth-child(2) {
+                transform: rotate(1deg) translateY(-20px) scale(1.05);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                transform: none;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            .abstract-shape {
+                width: 250px;
+                height: 250px;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card:nth-child(2) {
+                transform: none;
+                order: -1;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                transform: none !important;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn-primary,
+            .cta-btn-secondary {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .pricing-price {
+                font-size: 3rem;
+            }
+        }
+
+        /* ========================================
+           ANIMATIONS & TRANSITIONS
+           ======================================== */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Stagger animations for grid items */
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .pricing-card:nth-child(1) { animation-delay: 0.1s; }
+        .pricing-card:nth-child(2) { animation-delay: 0.2s; }
+        .pricing-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                ARTE<span>DIGITAL</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#pricing">Planos</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li><a href="#cta" class="navbar-cta">Começar</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content fade-in">
+                <span class="hero-tagline">Design Experimental</span>
+                <h1 class="hero-title">
+                    <span class="line1">Onde o</span>
+                    <span class="line2">CAOS</span>
+                    <span class="line3">encontra a beleza</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Explore o limite entre a arte tradicional e a revolução digital.
+                    Criamos experiências visuais que desafiam convenções e quebram barreiras criativas.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#cta" class="btn-primary">Explorar Portfolio</a>
+                    <a href="#features" class="btn-secondary">Saber Mais</a>
+                </div>
+            </div>
+            <div class="hero-visual slide-in-right">
+                <div class="abstract-shape"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-header">
+                <h2 class="section-title">Recursos Criativos</h2>
+                <p class="section-subtitle">Ferramentas que transformam visões em realidade</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <span class="feature-number">01</span>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Design Camadas</h3>
+                    <p class="feature-card-text">
+                        Sistema multicamadas que permite sobrepor elementos visuais de forma
+                        agressiva e controlada, criando profundidade e impacto visual imediato.
+                    </p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-number">02</span>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Performance Extrema</h3>
+                    <p class="feature-card-text">
+                        Otimização agressiva de código e assets para garantir carregamento
+                        instantâneo mesmo com elementos visuais complexos e texturas pesadas.
+                    </p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-number">03</span>
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Grid Quebrado</h3>
+                    <p class="feature-card-text">
+                        Layouts não convencionais que desafiam a estrutura tradicional,
+                        criando composições únicas que prendem a atenção e desafiam expectativas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2 class="section-title">O Que Dizem</h2>
+                <p class="section-subtitle">Artistas que revolucionaram seu trabalho</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        A abordagem brutalista transformou completamente minha percepção
+                        de design digital. Cada elemento conta uma história poderosa.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Marina Silva</h4>
+                            <p class="testimonial-role">Diretora de Arte, Studio X</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        Nunca vi uma ferramenta tão poderosa para expressar criatividade
+                        sem limites. Meu portfolio ganhou vida e reconhecimento internacional.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Rafael Costa</h4>
+                            <p class="testimonial-role">Artista Digital Independente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">
+                        A ruptura com padrões tradicionais abriu portas para projetos
+                        que eu nunca imaginei possível executar. Totalmente revolucionário.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Juliana Mendes</h4>
+                            <p class="testimonial-role">Creative Director, Agency NY</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="pricing-header">
+                <h2 class="section-title">Escolha Seu Plano</h2>
+                <p class="section-subtitle">Investimento proporcional ao seu impacto criativo</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <h3 class="pricing-card-title">Iniciante</h3>
+                    <div class="pricing-price">
+                        R$49<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            5 Projetos simultâneos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Templates básicos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Suporte por email
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Exportação em PNG
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Começar Agora</button>
+                </div>
+                <div class="pricing-card fade-in">
+                    <span class="pricing-badge">Popular</span>
+                    <h3 class="pricing-card-title">Profissional</h3>
+                    <div class="pricing-price">
+                        R$149<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Projetos ilimitados
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Acesso a templates premium
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Suporte prioritário 24/7
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Exportação em múltiplos formatos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            API completa para integrações
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Assinar Profissional</button>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3 class="pricing-card-title">Enterprise</h3>
+                    <div class="pricing-price">
+                        R$399<span>/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Tudo do Profissional
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Workspaces colaborativos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Gerente de conta dedicado
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Customização completa da plataforma
+                        </li>
+                        <li class="pricing-feature">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            SLA garantido de 99.99%
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="cta">
+        <div class="container cta-content">
+            <h2 class="cta-title">Pronto para Quebrar Regras?</h2>
+            <p class="cta-text">
+                Junte-se a milhares de artistas que estão redefinindo os limites
+                da criatividade digital. Sua revolução começa agora.
+            </p>
+            <div class="cta-buttons">
+                <a href="#pricing" class="cta-btn-primary">Começar Gratuitamente</a>
+                <a href="#contact" class="cta-btn-secondary">Agendar Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">ARTE<span>DIGITAL</span></a>
+                    <p class="footer-description">
+                        Revolucionando a forma como o mundo percebe arte digital.
+                        Criamos experiências que desafiam convenções e estabelecem
+                        novos padrões estéticos.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Dribbble">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-5.38c-3.72-.38-6.44-1.57-8.95-3.61m2.92-4.5c-2.88.51-4.94 2.6-7.38 5.13m-1.92-5.63c2.88 3.85 3.98 6.5 4.95 10.81"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#testimonials">Depoimentos</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                        <li><a href="#cta">Começar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Recursos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Showcase</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Contato</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contato@artedigital.com">contato@artedigital.com</a></li>
+                        <li><a href="tel:+5511999999999">+55 (11) 99999-9999</a></li>
+                        <li><a href="#">São Paulo, Brasil</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2026 Arte Digital. Todos os direitos reservados. Design Brutalista por artistas, para artistas.
+                </p>
+                <div class="footer-legal-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Acessibilidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIONS -->
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            navbarLinks.style.display = navbarLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add distortion effect on hover for feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Add parallax effect to hero abstract shape
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-visual');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Button click effects
+        document.querySelectorAll('button, .btn-primary, .btn-secondary, .pricing-btn, .cta-btn-primary, .cta-btn-secondary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255,255,255,0.5);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - rect.left - 50}px;
+                    top: ${e.clientY - rect.top - 50}px;
+                `;
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add CSS keyframe for ripple effect dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+            } else {
+                navbar.style.boxShadow = '0 4px 0px #000000';
+            }
+        });
+
+        // Counter animation for pricing (optional enhancement)
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Lazy load images when they come into viewport
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const navbarLinks = document.querySelector('.navbar-links');
+                if (window.innerWidth <= 768) {
+                    navbarLinks.style.display = 'none';
+                }
+            }
+        });
+
+        // Console signature
+        console.log('%c ARTE DIGITAL ', 'background: #8B0000; color: #fff; font-size: 20px; font-weight: bold; padding: 10px;');
+        console.log('%c Brutalismo Artístico Abstrato ', 'background: #A9A9A9; color: #000; font-size: 14px; padding: 5px;');
+        console.log('%c Onde o caos encontra a beleza digital ', 'color: #0047AB; font-size: 12px;');
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bento Eventos Dinâmicos - Descubra e Organize Eventos Incríveis</title>
+    <meta name="description" content="Plataforma inovadora para descobrir, organizar e participar de eventos. Interface dinâmica com grid bento para uma experiência única.">
+    <meta name="keywords" content="eventos, ingressos, descoberta, organização, bento grid, plataforma eventos">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bento Eventos Dinâmicos - Descubra e Organize Eventos Incríveis">
+    <meta property="og:description" content="Plataforma inovadora para descobrir, organizar e participar de eventos. Interface dinâmica com grid bento para uma experiência única.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vibe.ft.ia.br/styles/bento-eventos-dinamicos">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bento Eventos Dinâmicos - Descubra e Organize Eventos Incríveis">
+    <meta name="twitter:description" content="Plataforma inovadora para descobrir, organizar e participar de eventos. Interface dinâmica com grid bento para uma experiência única.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --vibrant-purple: #8A2BE2;
+            --vibrant-orange: #FF8C00;
+            --white-bg: #FFFFFF;
+            --dark-text: #333333;
+            --lime-green: #32CD32;
+            --electric-blue: #00BFFF;
+            --shock-pink: #FF00CC;
+            --light-gray: #F0F0F0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: var(--white-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        
+        .btn-primary {
+            background: var(--vibrant-purple);
+            color: var(--white-bg);
+        }
+        
+        .btn-secondary {
+            background: var(--vibrant-orange);
+            color: var(--white-bg);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .btn:hover {
+                transform: none;
+            }
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white-bg) 100%);
+        }
+        
+        .hero-content {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 200px);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .bento-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .bento-medium {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+        
+        .bento-small {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        
+        .event-card {
+            background: var(--white-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            height: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .event-image {
+            background: linear-gradient(45deg, var(--vibrant-purple), var(--vibrant-orange));
+            height: 60%;
+        }
+        
+        .event-image.small {
+            height: 50%;
+        }
+        
+        .event-image.medium {
+            height: 55%;
+        }
+        
+        .event-info {
+            padding: 15px;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .event-info h3, .event-info h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .event-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .price {
+            color: var(--vibrant-purple);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Descubra Eventos Incríveis com Nossa Interface Bento</h1>
+                <p class="hero-subtitle">Organize, descubra e participe de eventos de forma dinâmica e intuitiva. Nossa plataforma revoluciona a experiência de eventos.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Começar Agora</a>
+                    <a href="#" class="btn btn-secondary">Ver Demo</a>
+                </div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-item bento-large">
+                    <div class="event-card featured">
+                        <div class="event-image"></div>
+                        <div class="event-info">
+                            <h3>Festival de Música Eletrônica</h3>
+                            <p>15 de Março • São Paulo</p>
+                            <span class="price">R$ 120</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-item bento-small">
+                    <div class="event-card">
+                        <div class="event-image small"></div>
+                        <div class="event-info">
+                            <h4>Workshop Design</h4>
+                            <p>20 Mar</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-item bento-medium">
+                    <div class="event-card">
+                        <div class="event-image medium"></div>
+                        <div class="event-info">
+                            <h4>Conferência Tech</h4>
+                            <p>25 de Março • Online</p>
+                            <span class="price">Gratuito</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-item bento-small">
+                    <div class="event-card">
+                        <div class="event-image small"></div>
+                        <div class="event-info">
+                            <h4>Show Rock</h4>
+                            <p>30 Mar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">Recursos Inovadores</h2>
+            <p class="section-subtitle">Descubra como nossa plataforma transforma a experiência de eventos com tecnologia de ponta</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M3 7L12 13L21 7" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Interface Bento Dinâmica</h3>
+                    <p>Visualize eventos em um layout grid moderno e intuitivo que se adapta ao conteúdo e facilita a descoberta.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Organização Inteligente</h3>
+                    <p>Sistema avançado de categorização e filtros que organiza eventos por data, localização, tipo e preferências pessoais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Engajamento Máximo</h3>
+                    <p>Recursos interativos que conectam organizadores e participantes, criando uma comunidade ativa em torno dos eventos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>

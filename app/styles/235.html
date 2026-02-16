@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Super Oferta do Dia - Os melhores preços do mercado! Produtos frescos todos os dias com qualidade garantida.">
+    <meta name="keywords" content="supermercado, oferta, promoção, preço, mercado, produtos">
+    <meta property="og:title" content="Super Oferta do Dia - Melhores Preços">
+    <meta property="og:description" content="Os melhores preços do mercado! Produtos frescos todos os dias.">
+    <meta property="og:type" content="website">
+    <title>Super Oferta do Dia - Melhores Preços do Mercado!</title>
+
+    <!-- Fontes Google - Impact-style condensed fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           DESIGN SYSTEM - CARTAZISTA DE SUPERMERCADO
+           ======================================== */
+
+        :root {
+            /* Cores Primárias - Fluorescentes */
+            --color-pink-neon: #FF10F0;
+            --color-yellow-neon: #FFFF00;
+            --color-green-neon: #00FF00;
+            --color-orange: #FF6600;
+            --color-black: #000000;
+
+            /* Cores Secundárias */
+            --color-blue: #0066CC;
+            --color-red: #FF0000;
+            --color-purple-neon: #FF00FF;
+            --color-white: #FFFFFF;
+            --color-cream: #FFFAF0;
+
+            /* Tipografia - Vernacular Condensada */
+            --font-condensed: 'Anton', 'Impact', sans-serif;
+            --font-display: 'Oswald', sans-serif;
+            --font-wide: 'Bebas Neue', cursive;
+            --font-tall: 'Teko', sans-serif;
+
+            /* Sombras e Bordas - Estilo Pincel Atômico */
+            --shadow-hard: 5px 5px 0px #000;
+            --shadow-hard-lg: 8px 8px 0px #000;
+            --border-thick: 5px solid #000;
+            --border-medium: 4px solid #000;
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--color-black);
+            background: var(--color-cream);
+            overflow-x: hidden;
+        }
+
+        /* Textura de papel cartaz */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0, 0, 0, 0.015) 1px,
+                    rgba(0, 0, 0, 0.015) 2px
+                );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ========================================
+           UTILITIES
+           ======================================== */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .condensed {
+            font-family: var(--font-condensed);
+            letter-spacing: -0.5px;
+        }
+
+        /* Fita de Preço - Elemento icônico */
+        .price-ribbon {
+            position: relative;
+            background: var(--color-red);
+            color: var(--color-white);
+            padding: 0.5rem 1.5rem;
+            border: var(--border-medium);
+            box-shadow: var(--shadow-hard);
+            display: inline-block;
+        }
+
+        .price-ribbon::before,
+        .price-ribbon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: var(--border-medium);
+            background: var(--color-black);
+        }
+
+        .price-ribbon::before {
+            right: -20px;
+        }
+
+        .price-ribbon::after {
+            left: -20px;
+        }
+
+        /* Botões estilo cartaz */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 1rem 2rem;
+            font-family: var(--font-condensed);
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+            border: var(--border-medium);
+            box-shadow: var(--shadow-hard);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px #000;
+        }
+
+        .btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--color-pink-neon);
+            color: var(--color-black);
+        }
+
+        .btn-secondary {
+            background: var(--color-yellow-neon);
+            color: var(--color-black);
+        }
+
+        .btn-green {
+            background: var(--color-green-neon);
+            color: var(--color-black);
+        }
+
+        .btn-orange {
+            background: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        /* Títulos estilo cartazista */
+        .title-cartaz {
+            font-family: var(--font-condensed);
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: -1px;
+        }
+
+        /* Badge de oferta */
+        .offer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-yellow-neon);
+            color: var(--color-black);
+            font-family: var(--font-condensed);
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border: var(--border-medium);
+            box-shadow: var(--shadow-hard);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* ========================================
+           NAVBAR
+           ======================================== */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-yellow-neon);
+            border-bottom: var(--border-thick);
+            z-index: 100;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .navbar-logo-text {
+            font-family: var(--font-condensed);
+            font-size: 1.8rem;
+            color: var(--color-black);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .navbar-link {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-black);
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .navbar-link:hover {
+            border: 2px solid var(--color-black);
+            background: var(--color-white);
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: var(--border-medium);
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* ========================================
+           HERO SECTION - Cartaz de Oferta
+           ======================================== */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 70px;
+            background:
+                linear-gradient(135deg, var(--color-pink-neon) 0%, var(--color-purple-neon) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Padrão de listras no fundo */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 15px,
+                    rgba(255, 255, 255, 0.1) 15px,
+                    rgba(255, 255, 255, 0.1) 30px
+                );
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            padding: var(--spacing-lg);
+            background: var(--color-white);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-hard-lg);
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-title {
+            font-family: var(--font-condensed);
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--color-red);
+            line-height: 0.9;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -2px;
+        }
+
+        .hero-title span {
+            color: var(--color-black);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-wide);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--color-black);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 2px;
+        }
+
+        .hero-description {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-lg);
+            color: #333;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        /* Cartaz de preços - Hero visual */
+        .hero-pricing {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .price-card {
+            width: 100%;
+            max-width: 450px;
+            padding: var(--spacing-lg);
+            background: var(--color-yellow-neon);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-hard-lg);
+            transform: rotate(-1deg);
+        }
+
+        .price-card-header {
+            background: var(--color-red);
+            color: var(--color-white);
+            text-align: center;
+            padding: var(--spacing-sm);
+            border: var(--border-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .price-card-header-text {
+            font-family: var(--font-condensed);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .price-card-body {
+            text-align: center;
+        }
+
+        .price-product {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .price-amount {
+            font-family: var(--font-condensed);
+            font-size: 6rem;
+            color: var(--color-green-neon);
+            line-height: 1;
+            text-shadow: 4px 4px 0px #000;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .price-amount small {
+            font-size: 2rem;
+            vertical-align: super;
+        }
+
+        .price-unit {
+            font-family: var(--font-wide);
+            font-size: 2rem;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .price-card-footer {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .price-tag {
+            background: var(--color-green-neon);
+            color: var(--color-black);
+            padding: 0.5rem 1rem;
+            border: var(--border-medium);
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           FEATURES SECTION
+           ======================================== */
+
+        .features {
+            padding: var(--spacing-xl) 0;
+            background: var(--color-orange);
+            position: relative;
+        }
+
+        /* Borda decorativa */
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    var(--color-pink-neon),
+                    var(--color-pink-neon) 40px,
+                    var(--color-yellow-neon) 40px,
+                    var(--color-yellow-neon) 80px,
+                    var(--color-green-neon) 80px,
+                    var(--color-green-neon) 120px
+                );
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
+        }
+
+        .features-title {
+            font-family: var(--font-condensed);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-white);
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px #000;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            border: var(--border-thick);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-hard-lg);
+            transition: all 0.15s;
+        }
+
+        .feature-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 13px 13px 0px #000;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-green-neon);
+            border: var(--border-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-icon svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .feature-title {
+            font-family: var(--font-condensed);
+            font-size: 1.5rem;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+        }
+
+        .feature-description {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
+
+        .testimonials {
+            padding: var(--spacing-xl) 0;
+            background: var(--color-cream);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .testimonials-title {
+            font-family: var(--font-condensed);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-black);
+            text-transform: uppercase;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .testimonial-card {
+            background: var(--color-white);
+            border: var(--border-thick);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .testimonial-text {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--color-pink-neon);
+            border: var(--border-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--color-black);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-black);
+            text-transform: uppercase;
+        }
+
+        .testimonial-role {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* ========================================
+           PRICING SECTION - Tabela de Preços
+           ======================================== */
+
+        .pricing {
+            padding: var(--spacing-xl) 0;
+            background: var(--color-green-neon);
+            position: relative;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    var(--color-yellow-neon),
+                    var(--color-yellow-neon) 50px,
+                    var(--color-pink-neon) 50px,
+                    var(--color-pink-neon) 100px
+                );
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
+        }
+
+        .pricing-title {
+            font-family: var(--font-condensed);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-black);
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--color-white);
+            border: var(--border-thick);
+            padding: var(--spacing-lg);
+            text-align: center;
+            box-shadow: var(--shadow-hard-lg);
+        }
+
+        .pricing-card.featured {
+            background: var(--color-yellow-neon);
+            transform: scale(1.05);
+            padding: var(--spacing-xl);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--color-red);
+            color: var(--color-white);
+            font-family: var(--font-condensed);
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border: var(--border-medium);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-condensed);
+            font-size: 2rem;
+            color: var(--color-black);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+        }
+
+        .pricing-price {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pricing-currency {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #333;
+            vertical-align: super;
+        }
+
+        .pricing-amount {
+            font-family: var(--font-condensed);
+            font-size: 5rem;
+            color: var(--color-green-neon);
+            line-height: 1;
+            text-shadow: 3px 3px 0px #000;
+        }
+
+        .pricing-period {
+            font-family: var(--font-wide);
+            font-size: 1.2rem;
+            color: var(--color-black);
+        }
+
+        .pricing-features {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pricing-feature {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-black);
+            padding: 0.75rem 0;
+            border-bottom: 3px solid #000;
+        }
+
+        /* ========================================
+           CTA FINAL SECTION
+           ======================================== */
+
+        .cta {
+            padding: var(--spacing-xl) 0;
+            background:
+                linear-gradient(135deg, var(--color-red) 0%, var(--color-orange) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(0, 0, 0, 0.05) 20px,
+                    rgba(0, 0, 0, 0.05) 40px
+                );
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: var(--spacing-lg);
+        }
+
+        .cta-title {
+            font-family: var(--font-condensed);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px #000;
+        }
+
+        .cta-subtitle {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--color-white);
+            margin-bottom: var(--spacing-lg);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-primary {
+            background: var(--color-yellow-neon);
+            color: var(--color-black);
+        }
+
+        .cta .btn-secondary {
+            background: var(--color-green-neon);
+            color: var(--color-black);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+
+        .footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--spacing-xl) 0 var(--spacing-md);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-condensed);
+            font-size: 1.8rem;
+            color: var(--color-yellow-neon);
+        }
+
+        .footer-description {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #999;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--color-pink-neon);
+            border: 2px solid var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .footer-social-link:hover {
+            background: var(--color-yellow-neon);
+            transform: scale(1.1);
+        }
+
+        .footer-social-link svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--color-black);
+        }
+
+        .footer-column-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-green-neon);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .footer-link a:hover {
+            color: var(--color-yellow-neon);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-md);
+            border-top: 4px solid var(--color-pink-neon);
+        }
+
+        .footer-copyright {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .footer-legal a {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-yellow-neon);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                order: 2;
+            }
+
+            .hero-pricing {
+                order: 1;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-yellow-neon);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                border-bottom: var(--border-thick);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(-1deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(-1deg);
+            }
+        }
+
+        .price-card {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Selection styling */
+        ::selection {
+            background: var(--color-yellow-neon);
+            color: var(--color-black);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-pink-neon);
+            border: 2px solid var(--color-black);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVBAR
+         ======================================== -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="navbar-logo">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span class="navbar-logo-text">SUPER OFERTA</span>
+            </a>
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <div class="navbar-links" id="navbarLinks">
+                <a href="#produtos" class="navbar-link">Produtos</a>
+                <a href="#depoimentos" class="navbar-link">Depoimentos</a>
+                <a href="#precos" class="navbar-link">Preços</a>
+                <a href="#" class="navbar-link btn-primary" style="padding: 0.5rem 1rem;">Comprar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION - Cartaz de Oferta
+         ======================================== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badges">
+                        <span class="offer-badge">🔥 OFERTA DO DIA</span>
+                        <span class="price-ribbon">SOMENTE HOJE!</span>
+                    </div>
+                    <h1 class="hero-title">
+                        SUPER<br>
+                        <span>OFERTA</span>
+                    </h1>
+                    <p class="hero-subtitle">OS MELHORES PREÇOS DO MERCADO</p>
+                    <p class="hero-description">
+                        Produtos frescos todos os dias com qualidade garantida! Frutas, legumes, carnes, laticínios e muito mais com preços que você não encontra em outro lugar.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#precos" class="btn btn-primary">
+                            Ver Ofertas
+                        </a>
+                        <a href="#produtos" class="btn btn-green">
+                            Produtos
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-pricing">
+                    <div class="price-card">
+                        <div class="price-card-header">
+                            <span class="price-card-header-text">⚡ SUPER PROMOÇÃO ⚡</span>
+                        </div>
+                        <div class="price-card-body">
+                            <p class="price-product">FRUTAS SELECIONADAS</p>
+                            <div class="price-amount">
+                                <small>R$</small>9<small>,99</small>
+                            </div>
+                            <p class="price-unit">O QUILO</p>
+                            <div class="price-card-footer">
+                                <span class="price-tag">FRETE GRÁTIS</span>
+                                <span class="price-tag">FRESCO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FEATURES SECTION
+         ======================================== -->
+    <section class="features" id="produtos">
+        <div class="container">
+            <div class="features-header">
+                <h2 class="features-title">POR QUE COMPRAR CONOSCO?</h2>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Qualidade Premium</h3>
+                    <p class="feature-description">Produtos selecionados a dedo pelos melhores fornecedores. Só o que tem de melhor para sua família!</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Preços Imbatíveis</h3>
+                    <p class="feature-description">Trabalhamos direto com produtores para garantir os menores preços do mercado. Economize todo mês!</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14h-2V9h-2V7h4v10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Entrega Rápida</h3>
+                    <p class="feature-description">Receba seus produtos no mesmo dia! Entrega expressa para toda a região. Fresco na porta da sua casa!</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Garantia Total</h3>
+                    <p class="feature-description">Não gostou? Devolvemos seu dinheiro! Satisfação garantida ou seu dinheiro de volta sem burocracia.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Produtos Frescos</h3>
+                    <p class="feature-description">Hortifruti colhido no dia! Carnes frescas e laticínios com data de validade estendida. Qualidade garantida!</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">App Exclusivo</h3>
+                    <p class="feature-description">Baixe nosso app e receba ofertas exclusivas! Cupons de desconto e promoções relâmpago só para usuários do app!</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         TESTIMONIALS SECTION
+         ======================================== -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2 class="testimonials-title">O QUE NOSSOS CLIENTES DIZEM</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Os preços são realmente os melhores da cidade! Compro todo mês para minha família e economizo muito. Produtos sempre frescos e entrega no horário!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Maria Silva</div>
+                            <div class="testimonial-role">Cliente há 3 anos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Qualidade excepcional! As frutas e legumes sempre fresquinhos. E quando tem promoção, aproveito muito! Recomendo para todos!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">João Santos</div>
+                            <div class="testimonial-role">Cliente há 5 anos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">O app é super prático! Faço o pedido e recebo no mesmo dia. Os preços do hortifruti são imbatíveis. Muito obrigado por existirem!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Ana Oliveira</div>
+                            <div class="testimonial-role">Cliente há 2 anos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PRICING SECTION - Tabela de Preços
+         ======================================== -->
+    <section class="pricing" id="precos">
+        <div class="container">
+            <div class="pricing-header">
+                <h2 class="pricing-title">🏷️ PREÇOS QUE CABEM NO BOLSO!</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">Básico</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">49</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">Frete R$ 9,99</li>
+                        <li class="pricing-feature">Entrega em 24h</li>
+                        <li class="pricing-feature">5% de desconto</li>
+                        <li class="pricing-feature">Produtos selecionados</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Assinar</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">⚡ MAIS POPULAR ⚡</span>
+                    <h3 class="pricing-tier">Premium</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">79</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">FRETE GRÁTIS</li>
+                        <li class="pricing-feature">Entrega no mesmo dia</li>
+                        <li class="pricing-feature">15% de desconto</li>
+                        <li class="pricing-feature">Produtos premium</li>
+                        <li class="pricing-feature">Ofertas exclusivas</li>
+                    </ul>
+                    <a href="#" class="btn btn-orange" style="width: 100%; justify-content: center;">Assinar</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">Família</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">129</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">FRETE GRÁTIS</li>
+                        <li class="pricing-feature">Entrega expressa</li>
+                        <li class="pricing-feature">20% de desconto</li>
+                        <li class="pricing-feature">Produtos + frescos</li>
+                        <li class="pricing-feature">Prioridade total</li>
+                        <li class="pricing-feature">Suporte dedicado</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Assinar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CTA FINAL SECTION
+         ======================================== -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">🔥 NÃO PERCA ESTA OFERTA! 🔥</h2>
+                <p class="cta-subtitle">Promoção válida por tempo limitado! Aproveite agora e comece a economizar muito nas compras do mês!</p>
+                <div class="cta-buttons">
+                    <a href="#precos" class="btn btn-primary">
+                        COMEÇAR AGORA
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        BAIXAR O APP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-neon)" stroke-width="3">
+                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span class="footer-logo-text">SUPER OFERTA</span>
+                    </div>
+                    <p class="footer-description">
+                        Seu supermercado online com os melhores preços e qualidade garantida! Produtos frescos entregues na sua casa com rapidez e segurança.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Produtos</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Hortifruti</a></li>
+                        <li class="footer-link"><a href="#">Açougue</a></li>
+                        <li class="footer-link"><a href="#">Laticínios</a></li>
+                        <li class="footer-link"><a href="#">Padaria</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Institucional</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Sobre Nós</a></li>
+                        <li class="footer-link"><a href="#">Lojas</a></li>
+                        <li class="footer-link"><a href="#">Trabalhe Conosco</a></li>
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Ajuda</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Fale Conosco</a></li>
+                        <li class="footer-link"><a href="#">Entrega</a></li>
+                        <li class="footer-link"><a href="#">Política de Trocas</a></li>
+                        <li class="footer-link"><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 Super Oferta — Todos os direitos reservados
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         INTERACTIVE SCRIPTS
+         ======================================== -->
+    <script>
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarLinks = document.getElementById('navbarLinks');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease-in';
+
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 50);
+        });
+    </script>
+</body>
+</html>

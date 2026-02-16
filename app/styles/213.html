@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="História Viva - O Livro Digital Interativo que Transforma a Leitura em uma Experiência Imersiva">
+    <meta name="keywords" content="livro digital, história interativa, leitura imersiva, storytelling digital">
+    <meta property="og:title" content="História Viva - Livro Digital Interativo">
+    <meta property="og:description" content="Transforme a leitura em uma experiência imersiva com nosso livro digital interativo sobre história">
+    <meta property="og:type" content="website">
+    <title>História Viva - Livro Digital Interativo</title>
+
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           DESIGN SYSTEM - EDITORIAL INTERATIVO
+           ======================================== */
+
+        :root {
+            /* Cores Primárias */
+            --sepia-primary: #704214;
+            --sepia-dark: #5a3a10;
+            --sepia-light: #8B5A2B;
+            --white: #FFFFFF;
+            --black: #000000;
+            --dark-green: #006400;
+            --dark-green-light: #008000;
+
+            /* Cores Secundárias */
+            --antique-blue: #4682B4;
+            --burgundy: #800020;
+            --burnt-gold: #DAA520;
+            --light-gray: #E0E0E0;
+            --parchment: #F5F0E6;
+            --parchment-dark: #E8E0D0;
+
+            /* Tipografia */
+            --font-serif-display: 'Playfair Display', serif;
+            --font-serif-body: 'Old Standard TT', serif;
+            --font-serif-book: 'Crimson Text', serif;
+            --font-sans-interactive: system-ui, -apple-system, sans-serif;
+
+            /* Espaçamento */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+            --spacing-2xl: 6rem;
+
+            /* Transições */
+            --page-turn-duration: 0.6s;
+            --transition-smooth: all 0.6s ease-in-out;
+            --transition-quick: all 0.3s ease;
+
+            /* Sombras */
+            --shadow-book: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-page: 0 2px 10px rgba(112, 66, 20, 0.2);
+            --shadow-floating: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif-body);
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--sepia-primary);
+            background: var(--parchment);
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           UTILITIES
+           ======================================== */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 1rem 2rem;
+            font-family: var(--font-sans-interactive);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background: var(--sepia-primary);
+            color: var(--white);
+            box-shadow: var(--shadow-page);
+        }
+
+        .btn-primary:hover {
+            background: var(--sepia-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-floating);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sepia-primary);
+            border: 2px solid var(--sepia-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sepia-primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-family: var(--font-serif-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            color: var(--sepia-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--burnt-gold), var(--sepia-primary), var(--burnt-gold));
+        }
+
+        /* ========================================
+           NAVBAR - Estilo Capa de Livro
+           ======================================== */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--parchment);
+            border-bottom: 3px solid var(--sepia-primary);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-page);
+        }
+
+        .navbar.scrolled {
+            background: rgba(245, 240, 230, 0.98);
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            text-decoration: none;
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--sepia-primary);
+        }
+
+        .navbar-logo-text {
+            font-family: var(--font-serif-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--sepia-primary);
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .navbar-link {
+            font-family: var(--font-sans-interactive);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--sepia-primary);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition-quick);
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--burgundy);
+            transition: var(--transition-quick);
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            background: var(--burgundy);
+            color: var(--white) !important;
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 4px;
+        }
+
+        .navbar-cta::after {
+            display: none;
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+        }
+
+        .navbar-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--sepia-primary);
+        }
+
+        /* ========================================
+           HERO SECTION - Capa de Livro Animada
+           ======================================== */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(112, 66, 20, 0.15) 0%, transparent 50%),
+                var(--parchment);
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 0.5rem 1rem;
+            background: var(--burgundy);
+            color: var(--white);
+            font-family: var(--font-sans-interactive);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-title {
+            font-family: var(--font-serif-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--sepia-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--burgundy);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif-book);
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--sepia-light);
+            margin-bottom: var(--spacing-lg);
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        /* Book Cover Animation */
+        .hero-book {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bookFloat 4s ease-in-out infinite;
+        }
+
+        .book-cover {
+            position: relative;
+            width: 320px;
+            height: 460px;
+            perspective: 1500px;
+        }
+
+        .book-cover-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: var(--page-turn-duration);
+            animation: bookOpen 3s ease-in-out infinite alternate;
+        }
+
+        .book-front, .book-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 4px 16px 16px 4px;
+            box-shadow: var(--shadow-book);
+        }
+
+        .book-front {
+            background: linear-gradient(135deg, var(--sepia-primary) 0%, var(--sepia-dark) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border: 3px solid var(--burnt-gold);
+        }
+
+        .book-front::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(218, 165, 32, 0.5);
+        }
+
+        .book-title-embossed {
+            font-family: var(--font-serif-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--burnt-gold);
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .book-subtitle-embossed {
+            font-family: var(--font-serif-body);
+            font-size: 1rem;
+            color: var(--parchment);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .book-decoration {
+            position: absolute;
+            bottom: 2rem;
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--burnt-gold);
+            transform: rotate(45deg);
+        }
+
+        .book-spine {
+            position: absolute;
+            left: -20px;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(to right, var(--sepia-dark), var(--sepia-primary));
+            transform: rotateY(-90deg);
+            transform-origin: right;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .book-pages {
+            position: absolute;
+            right: -15px;
+            width: 15px;
+            height: 96%;
+            top: 2%;
+            background: repeating-linear-gradient(
+                to right,
+                var(--white),
+                var(--white) 2px,
+                var(--parchment-dark) 2px,
+                var(--parchment-dark) 4px
+            );
+            transform: rotateY(90deg);
+            transform-origin: left;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .float-element {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-element:nth-child(1) {
+            top: 10%;
+            right: 5%;
+            animation-delay: 0s;
+        }
+
+        .float-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .float-element:nth-child(3) {
+            bottom: 20%;
+            right: 5%;
+            animation-delay: 4s;
+        }
+
+        .float-element svg {
+            width: 60px;
+            height: 60px;
+            fill: var(--sepia-primary);
+        }
+
+        /* ========================================
+           FEATURES SECTION - Layout de Página
+           ======================================== */
+
+        .features {
+            padding: var(--spacing-2xl) 0;
+            background: var(--white);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sepia-primary), var(--burnt-gold), var(--sepia-primary));
+        }
+
+        .features-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .features-intro p {
+            font-family: var(--font-serif-book);
+            font-size: 1.1rem;
+            color: var(--sepia-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: var(--parchment);
+            border: 2px solid var(--sepia-primary);
+            padding: var(--spacing-lg);
+            position: relative;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(112, 66, 20, 0.05) 100%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) rotateY(2deg);
+            box-shadow: var(--shadow-floating);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--sepia-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            transition: var(--transition-quick);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--burgundy);
+            transform: scale(1.1);
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--white);
+        }
+
+        .feature-title {
+            font-family: var(--font-serif-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--sepia-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-description {
+            font-family: var(--font-serif-book);
+            font-size: 1rem;
+            color: var(--sepia-light);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION - Citações
+           ======================================== */
+
+        .testimonials {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(180deg, var(--parchment-dark) 0%, var(--parchment) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-left: 4px solid var(--sepia-primary);
+            padding: var(--spacing-lg);
+            position: relative;
+            box-shadow: var(--shadow-page);
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-floating);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: var(--font-serif-display);
+            font-size: 4rem;
+            color: var(--burnt-gold);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-family: var(--font-serif-book);
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--sepia-primary);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--sepia-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--white);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-family: var(--font-sans-interactive);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--sepia-primary);
+        }
+
+        .testimonial-role {
+            font-family: var(--font-serif-book);
+            font-size: 0.85rem;
+            color: var(--sepia-light);
+        }
+
+        /* ========================================
+           PRICING SECTION - Tabela de Preços
+           ======================================== */
+
+        .pricing {
+            padding: var(--spacing-2xl) 0;
+            background: var(--white);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--parchment);
+            border: 2px solid var(--light-gray);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--sepia-primary);
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--sepia-primary) 0%, var(--sepia-dark) 100%);
+            border-color: var(--burnt-gold);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-floating);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translateY(-4px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--burgundy);
+            color: var(--white);
+            font-family: var(--font-sans-interactive);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-serif-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--sepia-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pricing-card.featured .pricing-tier {
+            color: var(--white);
+        }
+
+        .pricing-price {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pricing-currency {
+            font-family: var(--font-serif-display);
+            font-size: 1.5rem;
+            color: var(--sepia-light);
+            vertical-align: super;
+        }
+
+        .pricing-card.featured .pricing-currency {
+            color: var(--parchment);
+        }
+
+        .pricing-amount {
+            font-family: var(--font-serif-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--sepia-primary);
+        }
+
+        .pricing-card.featured .pricing-amount {
+            color: var(--white);
+        }
+
+        .pricing-period {
+            font-family: var(--font-serif-book);
+            font-size: 1rem;
+            color: var(--sepia-light);
+        }
+
+        .pricing-card.featured .pricing-period {
+            color: var(--parchment);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pricing-feature {
+            font-family: var(--font-serif-book);
+            font-size: 0.95rem;
+            color: var(--sepia-primary);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(112, 66, 20, 0.1);
+        }
+
+        .pricing-card.featured .pricing-feature {
+            color: var(--parchment);
+            border-bottom-color: rgba(245, 240, 230, 0.3);
+        }
+
+        .pricing-feature svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--dark-green);
+            vertical-align: middle;
+            margin-right: var(--spacing-xs);
+        }
+
+        .pricing-card.featured .pricing-feature svg {
+            fill: var(--burnt-gold);
+        }
+
+        /* ========================================
+           CTA FINAL SECTION
+           ======================================== */
+
+        .cta {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--sepia-primary) 0%, var(--sepia-dark) 50%, var(--burgundy) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23DAA520' fill-opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-subtitle {
+            font-family: var(--font-serif-book);
+            font-size: 1.25rem;
+            color: var(--parchment);
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-primary {
+            background: var(--white);
+            color: var(--sepia-primary);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--parchment);
+        }
+
+        .cta .btn-secondary {
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .cta .btn-secondary:hover {
+            background: var(--white);
+            color: var(--sepia-primary);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+
+        .footer {
+            background: var(--black);
+            color: var(--parchment);
+            padding: var(--spacing-xl) 0 var(--spacing-md);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-logo svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--burnt-gold);
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-serif-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .footer-description {
+            font-family: var(--font-serif-book);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--light-gray);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-quick);
+        }
+
+        .footer-social-link:hover {
+            background: var(--burgundy);
+            transform: translateY(-2px);
+        }
+
+        .footer-social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
+        .footer-column-title {
+            font-family: var(--font-sans-interactive);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--burnt-gold);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            font-family: var(--font-serif-book);
+            font-size: 0.95rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition-quick);
+        }
+
+        .footer-link a:hover {
+            color: var(--burnt-gold);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-copyright {
+            font-family: var(--font-serif-book);
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .footer-legal a {
+            font-family: var(--font-serif-book);
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition-quick);
+        }
+
+        .footer-legal a:hover {
+            color: var(--burnt-gold);
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bookFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes bookOpen {
+            0% {
+                transform: rotateY(-10deg);
+            }
+            100% {
+                transform: rotateY(10deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes pageTurn {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(-90deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        /* Page Turn Effect on Scroll */
+        .page-transition {
+            opacity: 0;
+            transform: translateX(-50px) rotateY(-5deg);
+            transition: var(--page-turn-duration);
+        }
+
+        .page-transition.visible {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-book {
+                order: -1;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-4px);
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--parchment);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-page);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .book-cover {
+                width: 250px;
+                height: 360px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+        }
+
+        /* ========================================
+           INTERACTIVE ELEMENTS HIGHLIGHT
+           ======================================== */
+
+        .interactive-highlight {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .interactive-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--burgundy);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .interactive-highlight:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .interactive-highlight:hover {
+            color: var(--burgundy);
+        }
+
+        /* Text Selection */
+        ::selection {
+            background: var(--burnt-gold);
+            color: var(--white);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--parchment);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sepia-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sepia-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVBAR
+         ======================================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    <path d="M12 4L4 8v9c0 4.5 3.15 8.7 7 9.8V12l8-4V8l-7-4z" fill-opacity="0.3"/>
+                </svg>
+                <span class="navbar-logo-text">História Viva</span>
+            </a>
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <div class="navbar-links" id="navbarLinks">
+                <a href="#recursos" class="navbar-link">Recursos</a>
+                <a href="#depoimentos" class="navbar-link">Depoimentos</a>
+                <a href="#precos" class="navbar-link">Preços</a>
+                <a href="#" class="navbar-link navbar-cta">Começar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">Novo Lançamento 2026</span>
+                    <h1 class="hero-title">
+                        A História como
+                        <em>Nunca</em> Você Viu
+                    </h1>
+                    <p class="hero-subtitle">
+                        Mergulhe em séculos de conhecimento através de uma experiência interativa imersiva. Cada página é uma jornada através do tempo.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#precos" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+                            </svg>
+                            Explorar Agora
+                        </a>
+                        <a href="#recursos" class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                            Ver Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-book">
+                    <div class="book-cover">
+                        <div class="book-cover-inner">
+                            <div class="book-front">
+                                <span class="book-title-embossed">História Viva</span>
+                                <span class="book-subtitle-embossed">Uma Jornada Interativa</span>
+                                <div class="book-decoration"></div>
+                            </div>
+                            <div class="book-spine"></div>
+                            <div class="book-pages"></div>
+                        </div>
+                    </div>
+                    <div class="floating-elements">
+                        <div class="float-element">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            </svg>
+                        </div>
+                        <div class="float-element">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <div class="float-element">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FEATURES SECTION
+         ======================================== -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <h2 class="section-title page-transition">Recursos Exclusivos</h2>
+            <div class="features-intro page-transition">
+                <p>Descubra uma nova forma de aprender história com tecnologias de ponta e conteúdo curado por historiadores especializados.</p>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.45V6c-1.49-1.12-3.63-1.5-4.5-1.5zM21 18.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Capítulos Interativos</h3>
+                    <p class="feature-description">Navegue por diferentes períodos históricos com mapas interativos, linhas do tempo e documentos originais digitalizados.</p>
+                </article>
+
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Narrativa Envolvernte</h3>
+                    <p class="feature-description">Cada evento histórico é contado como uma história cativante, com personagens reais e contextos detalhados.</p>
+                </article>
+
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Áudio Imersivo</h3>
+                    <p class="feature-description">Trilhas sonoras épicas e narrações profissionais que transportam você para cada época histórica.</p>
+                </article>
+
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 6H8v3H6v-3H3v-2h3V8h2v2h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Galeria Visual</h3>
+                    <p class="feature-description">Mais de 500 imagens históricas em alta resolução, incluindo pinturas, fotografias e artefatos digitais.</p>
+                </article>
+
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21 7.43-5.46 10.26-7.67 10.26z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Personagens Históricos</h3>
+                    <p class="feature-description">Conheça as figuras que moldaram o mundo através de biografias detalhadas e perfis interativos.</p>
+                </article>
+
+                <article class="feature-card page-transition">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Quizzes e Desafios</h3>
+                    <p class="feature-description">Teste seu conhecimento com quizzes interativos ao final de cada capítulo e conquiste conquistas.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         TESTIMONIALS SECTION
+         ======================================== -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <h2 class="section-title page-transition">O Que Dizem Nossos Leitores</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card page-transition">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">Nunca imaginei que aprender história poderia ser tão envolvente. Os efeitos visuais e a narrativa me mantiveram grudado na tela por horas.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Marina Costa</div>
+                            <div class="testimonial-role">Professora de História</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card page-transition">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">Finalmente um recurso que meus alunos realmente amam! A interatividade transformou completamente minhas aulas.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Roberto Almeida</div>
+                            <div class="testimonial-role">Coordenador Pedagógico</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card page-transition">
+                    <span class="testimonial-quote">"</span>
+                    <p class="testimonial-text">A qualidade do conteúdo e o design imersivo são incomparáveis. É como ter um museu histórico na palma da mão.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Carla Mendes</div>
+                            <div class="testimonial-role">Estudante de Arqueologia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PRICING SECTION
+         ======================================== -->
+    <section class="pricing" id="precos">
+        <div class="container">
+            <h2 class="section-title page-transition">Escolha Seu Plano</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card page-transition">
+                    <div class="pricing-tier">Explorador</div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">29</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso a 50 capítulos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Galeria básica
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Quizzes mensais
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso em 1 dispositivo
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card featured page-transition">
+                    <span class="pricing-badge">Mais Popular</span>
+                    <div class="pricing-tier">Historiador</div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">59</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso completo a todos os capítulos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Galeria premium em 4K
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Áudio imersivo completo
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Quizzes ilimitados
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Acesso em 3 dispositivos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Certificado de conclusão
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Começar Agora</a>
+                </div>
+
+                <div class="pricing-card page-transition">
+                    <div class="pricing-tier">Acadêmico</div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">R$</span>
+                        <span class="pricing-amount">149</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Tudo do plano Historiador
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Licença para uso em sala
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Material didático exclusivo
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Dispositivos ilimitados
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Fale Conosco</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CTA FINAL SECTION
+         ======================================== -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Comece Sua Jornada Através da História</h2>
+                <p class="cta-subtitle">Junte-se a milhares de leitores que estão redescobrindo a história de forma interativa e envolvente.</p>
+                <div class="cta-buttons">
+                    <a href="#precos" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        Começar Gratuitamente
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Ver Demonstração
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                        </svg>
+                        <span class="footer-logo-text">História Viva</span>
+                    </div>
+                    <p class="footer-description">
+                        Transformando a educação histórica através de experiências digitais interativas e imersivas.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23.5 6.188c-1.125-2.5-4.813-2.875-11.5-2.875S1.125 3.688 0 6.188C0 12 0 12 0 12s0 0 0 5.813c1.125 2.5 4.813 2.875 11.5 2.875S22.375 20.313 23.5 17.813c0-5.813 0-5.813 0-5.813s0 0 0-5.813zM9.5 15.5V8.5l7 3.5-7 3.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Produto</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#recursos">Recursos</a></li>
+                        <li class="footer-link"><a href="#precos">Preços</a></li>
+                        <li class="footer-link"><a href="#">Para Escolas</a></li>
+                        <li class="footer-link"><a href="#">Atualizações</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Recursos</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">Documentação</a></li>
+                        <li class="footer-link"><a href="#">Tutoriais</a></li>
+                        <li class="footer-link"><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-column-title">Empresa</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Sobre Nós</a></li>
+                        <li class="footer-link"><a href="#">Carreiras</a></li>
+                        <li class="footer-link"><a href="#">Contato</a></li>
+                        <li class="footer-link"><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 História Viva. Todos os direitos reservados.
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         INTERACTIVE SCRIPTS
+         ======================================== -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarLinks = document.getElementById('navbarLinks');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarLinks.classList.remove('active');
+            });
+        });
+
+        // Page transition animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.page-transition').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Book cover 3D effect on mouse move (desktop only)
+        const bookCover = document.querySelector('.book-cover-inner');
+
+        if (bookCover && window.innerWidth > 968) {
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+
+                bookCover.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            // Reset on mouse leave
+            document.addEventListener('mouseleave', () => {
+                bookCover.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        }
+
+        // Interactive highlight effect for feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.cursor = 'pointer';
+            });
+        });
+
+        // Pricing card hover sound effect simulation (visual feedback)
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in';
+
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

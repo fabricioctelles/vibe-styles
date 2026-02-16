@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArqModerno - Portfólio de Arquitetura Modernista Brasileira</title>
+    <meta name="description" content="Portfólio de arquitetura com foco em projetos modernistas brasileiros">
+    <meta property="og:title" content="ArqModerno - Arquitetura Modernista Brasileira">
+    <meta property="og:description" content="Projetos de arquitetura inspirados no modernismo brasileiro">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --concrete-grey: #607D8B;
+            --white-bg: #FFFFFF;
+            --dark-text: #212121;
+            --deep-blue: #001F3F;
+            --emerald-green: #2ECC40;
+            --burnt-orange: #FF5722;
+            --gold-yellow: #FFD700;
+            --light-grey: #B0BEC5;
+            --font-main: 'Montserrat', sans-serif;
+            --font-display: 'Oswald', sans-serif;
+            --structure-reveal-transition: all 0.4s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--white-bg);
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        /* Modernist Grid */
+        .modernist-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0;
+            border: 2px solid var(--concrete-grey);
+        }
+
+        .grid-cell {
+            background: var(--white-bg);
+            border: 1px solid var(--light-grey);
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .grid-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--concrete-grey);
+            transform: scaleX(0);
+            transition: var(--structure-reveal-transition);
+        }
+
+        .grid-cell:hover::before {
+            transform: scaleX(1);
+        }
+
+        .grid-cell:hover {
+            border-color: var(--concrete-grey);
+            box-shadow: 4px 4px 0 var(--deep-blue);
+        }
+
+        /* Azulejo Accent */
+        .azulejo-accent {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--concrete-grey), var(--deep-blue));
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .grid-cell:hover .azulejo-accent {
+            opacity: 1;
+        }
+
+        /* Structure Reveal Animation */
+        @keyframes structureReveal {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-structure {
+            animation: structureReveal 0.6s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        /* Architectural Photo Frame */
+        .arch-photo-frame {
+            position: relative;
+            background: var(--white-bg);
+            border: 3px solid var(--concrete-grey);
+            padding: 8px;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .arch-photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 3px solid var(--deep-blue);
+            opacity: 0;
+            transition: var(--structure-reveal-transition);
+            z-index: -1;
+        }
+
+        .arch-photo-frame:hover::after {
+            opacity: 1;
+            transform: translate(6px, 6px);
+        }
+
+        .arch-photo-frame:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 var(--concrete-grey);
+        }
+
+        /* Hero Building Element */
+        .hero-building {
+            position: absolute;
+            width: 400px;
+            height: 500px;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.1;
+        }
+
+        .hero-building .floor {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--concrete-grey);
+            border: 2px solid var(--deep-blue);
+        }
+
+        .hero-building .floor-1 { width: 200px; height: 60px; bottom: 0; }
+        .hero-building .floor-2 { width: 180px; height: 80px; bottom: 60px; }
+        .hero-building .floor-3 { width: 160px; height: 100px; bottom: 140px; }
+        .hero-building .floor-4 { width: 140px; height: 120px; bottom: 240px; }
+        .hero-building .floor-5 { width: 120px; height: 80px; bottom: 360px; }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            color: var(--dark-text);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            transition: var(--structure-reveal-transition);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--concrete-grey);
+            transition: var(--structure-reveal-transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--deep-blue);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--structure-reveal-transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--concrete-grey);
+            transform: translateX(-100%);
+            transition: var(--structure-reveal-transition);
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(0);
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--dark-text);
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            border: 3px solid var(--dark-text);
+            cursor: pointer;
+            transition: var(--structure-reveal-transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-text);
+            color: var(--white-bg);
+            transform: translate(-3px, -3px);
+            box-shadow: 3px 3px 0 var(--concrete-grey);
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: var(--white-bg);
+            border: 3px solid var(--light-grey);
+            padding: 2.5rem;
+            position: relative;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--concrete-grey), var(--deep-blue));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            border-color: var(--white-bg);
+            transform: translate(-6px, -6px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--concrete-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--deep-blue);
+        }
+
+        /* Testimonial Card */
+        .testimonial-card {
+            background: var(--white-bg);
+            border: 3px solid var(--light-grey);
+            padding: 2.5rem;
+            position: relative;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--concrete-grey);
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--deep-blue);
+            box-shadow: 6px 6px 0 var(--concrete-grey);
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--white-bg);
+            border: 3px solid var(--light-grey);
+            padding: 3rem 2rem;
+            position: relative;
+            transition: var(--structure-reveal-transition);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--deep-blue);
+            background: linear-gradient(135deg, rgba(0, 31, 63, 0.02), rgba(96, 125, 139, 0.02));
+        }
+
+        .pricing-card.featured::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--deep-blue);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--deep-blue);
+            transform: translateY(-4px);
+            box-shadow: 4px 4px 0 var(--concrete-grey);
+        }
+
+        .price-amount {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--deep-blue);
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer-link {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--structure-reveal-transition);
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--concrete-grey);
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-grey);
+            transition: var(--structure-reveal-transition);
+        }
+
+        .social-icon:hover {
+            background: var(--deep-blue);
+            color: white;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, var(--concrete-grey), var(--deep-blue), var(--concrete-grey));
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-building {
+                width: 200px;
+                height: 300px;
+                right: -50px;
+            }
+
+            .modernist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white border-b-2 border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-10 h-10 bg-[#607D8B]"></div>
+                        <div class="absolute top-1 left-1 w-3 h-3 bg-[#001F3F]"></div>
+                        <div class="absolute bottom-1 right-1 w-2 h-2 bg-[#2ECC40]"></div>
+                    </div>
+                    <span class="font-display text-xl font-bold tracking-wider">ARQMODERNO</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#projetos" class="nav-link">Projetos</a>
+                    <a href="#servicos" class="nav-link">Serviços</a>
+                    <a href="#sobre" class="nav-link">Sobre</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="nav-link hidden sm:block">Cliente</a>
+                    <a href="#" class="btn-primary"><span>Orçamento</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[700px] flex items-center overflow-hidden">
+        <div class="hero-building">
+            <div class="floor floor-1"></div>
+            <div class="floor floor-2"></div>
+            <div class="floor floor-3"></div>
+            <div class="floor floor-4"></div>
+            <div class="floor floor-5"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="animate-structure">
+                    <span class="inline-block px-4 py-2 bg-[#607D8B] text-white text-sm font-bold mb-6 uppercase tracking-wider">
+                        Arquitetura Modernista
+                    </span>
+                    <h1 class="font-display text-5xl lg:text-7xl font-bold leading-none mb-6">
+                        PROJETOS<br>
+                        <span class="text-[#001F3F]">MODERNISTAS</span><br>
+                        BRASILEIROS
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
+                        Escritório de arquitetura especializado em projetos modernistas brasileiros. Design funcional, estética atemporal e sustentabilidade.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn-primary"><span>Ver Projetos</span></a>
+                        <a href="#" class="btn-secondary">Nossa História</a>
+                    </div>
+                </div>
+
+                <div class="animate-structure delay-200">
+                    <div class="arch-photo-frame">
+                        <div class="modernist-grid">
+                            <div class="grid-cell col-span-6 row-span-2 bg-gradient-to-br from-[#607D8B] to-[#001F3F] min-h-[200px]"></div>
+                            <div class="grid-cell col-span-6">
+                                <div class="azulejo-accent"></div>
+                                <h4 class="font-bold">Residencial</h4>
+                                <p class="text-sm text-gray-500">45 projetos</p>
+                            </div>
+                            <div class="grid-cell col-span-6 bg-[#B0BEC5]">
+                                <div class="azulejo-accent"></div>
+                                <h4 class="font-bold">Comercial</h4>
+                                <p class="text-sm text-white">32 projetos</p>
+                            </div>
+                            <div class="grid-cell col-span-4">
+                                <div class="azulejo-accent"></div>
+                                <h4 class="font-bold text-sm">Interiores</h4>
+                            </div>
+                            <div class="grid-cell col-span-4">
+                                <div class="azulejo-accent"></div>
+                                <h4 class="font-bold text-sm">Urbanismo</h4>
+                            </div>
+                            <div class="grid-cell col-span-4">
+                                <div class="azulejo-accent"></div>
+                                <h4 class="font-bold text-sm">Restauro</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features Section -->
+    <section id="projetos" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mb-4">Nossos Serviços</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Arquitetura moderna para necessidades contemporâneas</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card animate-structure delay-100">
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Projetos Residenciais</h3>
+                    <p class="text-gray-600 leading-relaxed">Casas modernistas com design funcional, integração com a natureza e materiais sustentáveis.</p>
+                </div>
+
+                <div class="feature-card animate-structure delay-200">
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Edifícios Comerciais</h3>
+                    <p class="text-gray-600 leading-relaxed">Projetos corporativos que combinam estética modernista com eficiência operacional.</p>
+                </div>
+
+                <div class="feature-card animate-structure delay-300">
+                    <div class="feature-icon">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Restauro Modernista</h3>
+                    <p class="text-gray-600 leading-relaxed">Preservação e revitalização de edifícios modernistas brasileiros com técnicas contemporâneas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Testimonials Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mb-4">Depoimentos</h2>
+                <p class="text-xl text-gray-600">O que dizem nossos clientes</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card animate-structure delay-100">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed relative z-10">"A visão modernista transformou completamente nossa casa. O projeto é funcional e esteticamente extraordinário."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-[#607D8B] flex items-center justify-center text-white font-bold mr-4 font-display text-xl">PS</div>
+                        <div>
+                            <p class="font-bold">Paulo Souza</p>
+                            <p class="text-sm text-gray-500">Empresário</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-structure delay-200">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed relative z-10">"Professionalismo impecável. O escritório capturou exatamente a essência do modernismo brasileiro."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-[#001F3F] flex items-center justify-center text-white font-bold mr-4 font-display text-xl">CM</div>
+                        <div>
+                            <p class="font-bold">Carla Mendes</p>
+                            <p class="text-sm text-gray-500">Arquiteta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-structure delay-300">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed relative z-10">"Nosso edifício corporativo agora é um marco da arquitetura moderna na cidade. Recomendo."</p>
+                    <div class="flex items-center">
+                        <div class="w-14 h-14 bg-[#2ECC40] flex items-center justify-center text-white font-bold mr-4 font-display text-xl">RL</div>
+                        <div>
+                            <p class="font-bold">Roberto Lima</p>
+                            <p class="text-sm text-gray-500">CEO TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Pricing Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mb-4">Honorários</h2>
+                <p class="text-xl text-gray-600">Transparência em cada projeto</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="pricing-card animate-structure delay-100">
+                    <h3 class="font-display text-xl font-bold mb-2">Consulta</h3>
+                    <p class="text-gray-500 mb-6">Avaliação inicial</p>
+                    <div class="mb-6">
+                        <span class="price-amount text-3xl">R$500</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Visita técnica</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Laudo preliminar</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Propostas iniciais</li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full text-center block text-sm">Agendar</a>
+                </div>
+
+                <div class="pricing-card featured animate-structure delay-200">
+                    <h3 class="font-display text-xl font-bold mb-2">Projeto Completo</h3>
+                    <p class="text-gray-500 mb-6">Do estudo à execução</p>
+                    <div class="mb-6">
+                        <span class="price-amount">12%</span>
+                        <span class="text-gray-500 text-sm">do orçamento</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Anteprojeto completo</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Projetos executivos</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Acompanhamento obra</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Documentação final</li>
+                    </ul>
+                    <a href="#" class="btn-primary w-full text-center block text-sm"><span>Solicitar</span></a>
+                </div>
+
+                <div class="pricing-card animate-structure delay-300">
+                    <h3 class="font-display text-xl font-bold mb-2">Consultoria</h3>
+                    <p class="text-gray-500 mb-6">Para escritórios</p>
+                    <div class="mb-6">
+                        <span class="price-amount text-3xl">Sob</span>
+                        <span class="text-gray-500 text-sm">Consulta</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Parceria técnica</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Revisão de projetos</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Treinamento equipe</li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full text-center block text-sm">Falar Conosco</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-[#001F3F] to-[#607D8B]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 class="font-display text-4xl lg:text-5xl font-bold mb-6">Construa Seu Legado<br>Arquitetônico</h2>
+            <p class="text-xl mb-8 leading-relaxed opacity-90">Projetos modernistas que resistem ao teste do tempo</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="bg-white text-[#001F3F] px-8 py-4 font-bold uppercase tracking-wider hover:bg-gray-100 transition-all">Solicitar Orçamento</a>
+                <a href="#" class="bg-transparent border-2 border-white text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-white hover:text-[#001F3F] transition-all">Ver Portfólio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#212121] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="relative">
+                            <div class="w-12 h-12 bg-[#607D8B]"></div>
+                            <div class="absolute top-1 left-1 w-4 h-4 bg-[#001F3F]"></div>
+                            <div class="absolute bottom-1 right-1 w-3 h-3 bg-[#2ECC40]"></div>
+                        </div>
+                        <span class="font-display text-xl font-bold tracking-wider">ARQMODERNO</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Escritório de arquitetura especializado em projetos modernistas brasileiros desde 2010.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold uppercase tracking-wider mb-6 text-sm">PROJETOS</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-300">Residencial</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Comercial</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Interiores</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Urbanismo</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold uppercase tracking-wider mb-6 text-sm">ESCRITÓRIO</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-300">Sobre Nós</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Equipe</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Prêmios</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Publicações</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold uppercase tracking-wider mb-6 text-sm">LEGAL</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-300">Privacidade</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Termos</a></li>
+                        <li><a href="#" class="footer-link text-gray-300">Licenças</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-6 md:mb-0">© 2026 ArqModerno. Todos os direitos reservados.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

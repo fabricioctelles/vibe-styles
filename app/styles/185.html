@@ -1,1057 +1,1583 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Versus Mode - O jogo de luta definitivo. Desafie rivais, domine técnicas especiais e conquiste o título de campeão mundial.">
-  <meta name="keywords" content="jogo de luta, versus, anime, fighting game, arcade, competitivo">
-  <meta name="author" content="Versus Mode">
-  <meta name="robots" content="index, follow">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Versus Mode - O Jogo de Luta Definitivo">
-  <meta property="og:description" content="Entre no aro e prove que você é o verdadeiro campeão! Gráficos cel-shaded e ação frenética te esperam.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://versusmode.com.br">
-  <meta property="og:image" content="https://versusmode.com.br/og-image.jpg">
-  <meta property="og:site_name" content="Versus Mode">
-  
-  <title>Versus Mode - O Jogo de Luta Definitivo</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-fight: #1a0f1f;
-      --bg-dark: #0d0812;
-      --p1-blue: #00ccff;
-      --p2-red: #ff0055;
-      --accent-gold: #ffcc00;
-      --energy-green: #00ff00;
-      --text-white: #ffffff;
-      --text-muted: #b8a0c8;
-      --font-bold: 'Russo One', sans-serif;
-      --font-tech: 'Orbitron', sans-serif;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: var(--font-bold);
-      background-color: var(--bg-fight);
-      color: var(--text-white);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent-gold);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #ffdd44;
-    }
-    
-    /* Utility Classes */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .section-padding {
-      padding: 80px 0;
-    }
-    
-    .text-gradient-gold {
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #ff8800 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .text-gradient-p1 {
-      background: linear-gradient(135deg, var(--p1-blue) 0%, #0088ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .text-gradient-p2 {
-      background: linear-gradient(135deg, var(--p2-red) 0%, #ff0022 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    /* Skewed Box */
-    .skew-box {
-      transform: skew(-10deg);
-      border: 2px solid var(--accent-gold);
-    }
-    
-    .skew-box-content {
-      transform: skew(10deg);
-    }
-    
-    /* Glow Effects */
-    .glow-gold {
-      box-shadow: 0 0 20px rgba(255, 204, 0, 0.5), 0 0 40px rgba(255, 204, 0, 0.3);
-    }
-    
-    .glow-p1 {
-      box-shadow: 0 0 20px rgba(0, 204, 255, 0.5), 0 0 40px rgba(0, 204, 255, 0.3);
-    }
-    
-    .glow-p2 {
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.5), 0 0 40px rgba(255, 0, 85, 0.3);
-    }
-    
-    /* Interactive Elements */
-    .interactive {
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .interactive:hover {
-      transform: translateY(-4px) scale(1.02);
-    }
-    
-    /* Button Styles */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      background: var(--accent-gold);
-      color: var(--bg-fight);
-      font-family: var(--font-bold);
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border: none;
-      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-primary:hover {
-      background: #ffdd44;
-      box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      background: transparent;
-      color: var(--text-white);
-      font-family: var(--font-bold);
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border: 2px solid var(--text-white);
-      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-secondary:hover {
-      background: var(--text-white);
-      color: var(--bg-fight);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-      transform: translateY(-2px);
-    }
-    
-    /* Card Styles */
-    .fight-card {
-      background: linear-gradient(180deg, rgba(26, 15, 31, 0.9) 0%, rgba(13, 8, 18, 0.95) 100%);
-      border: 2px solid rgba(255, 204, 0, 0.3);
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .fight-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--p1-blue), var(--accent-gold), var(--p2-red));
-    }
-    
-    .fight-card:hover {
-      border-color: var(--accent-gold);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 204, 0, 0.2);
-    }
-    
-    /* HUD Elements */
-    .hud-bar {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    
-    .hud-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-    
-    /* Split Screen Effect */
-    .split-screen {
-      position: relative;
-    }
-    
-    .split-screen::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--p1-blue), var(--accent-gold), var(--p2-red));
-      opacity: 0.6;
-    }
-    
-    /* Energy Particles */
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--accent-gold);
-      border-radius: 50%;
-      animation: particle-float 3s infinite ease-in-out;
-    }
-    
-    @keyframes particle-float {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
-    }
-    
-    /* Glitch Effect */
-    .glitch {
-      position: relative;
-      animation: glitch 2s infinite;
-    }
-    
-    @keyframes glitch {
-      0%, 90%, 100% { transform: translate(0); }
-      92% { transform: translate(-2px, 2px); }
-      94% { transform: translate(2px, -2px); }
-      96% { transform: translate(-2px, -2px); }
-      98% { transform: translate(2px, 2px); }
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .section-padding {
-        padding: 50px 0;
-      }
-      
-      .btn-primary, .btn-secondary {
-        padding: 12px 24px;
-        font-size: 12px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .container {
-        padding: 0 15px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FightClub Arena - Plataforma de jogos de luta com estética versus anime e elementos HUD arcade">
+    <meta name="keywords" content="anime, versus, fighting, game, split, dynamic, action, slash, arcade">
+    <meta name="author" content="FightClub Arena">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fightclubarena.com/">
+    <meta property="og:title" content="FightClub Arena - Batalhas Épicas te Esperam">
+    <meta property="og:description" content="Plataforma de jogos de luta com estética versus anime e elementos HUD arcade">
+    <meta property="og:image" content="https://fightclubarena.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fightclubarena.com/">
+    <meta property="twitter:title" content="FightClub Arena - Batalhas Épicas te Esperam">
+    <meta property="twitter:description" content="Plataforma de jogos de luta com estética versus anime e elementos HUD arcade">
+    <meta property="twitter:image" content="https://fightclubarena.com/twitter-image.jpg">
+
+    <title>FightClub Arena - Versus Mode Anime Aesthetic</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Bangers&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-fight: #1a0f1f;
+            --p1-blue: #00ccff;
+            --p2-red: #ff0055;
+            --accent-gold: #ffcc00;
+            --energy-green: #00ff00;
+            --text-white: #ffffff;
+            --font-bold: 'Russo One', sans-serif;
+            --font-comic: 'Bangers', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-fight);
+            color: var(--text-white);
+            font-family: var(--font-bold);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar Customizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-fight);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--p2-red), var(--p1-blue));
+            border-radius: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(90deg, rgba(0, 204, 255, 0.95) 0%, rgba(26, 15, 31, 0.95) 50%, rgba(255, 0, 85, 0.95) 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .navbar-logo {
+            font-family: var(--font-comic);
+            font-size: 2rem;
+            color: var(--accent-gold);
+            text-shadow: 3px 3px 0 var(--p2-red), -3px -3px 0 var(--p1-blue);
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.1) skew(-5deg);
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+            background: transparent;
+            display: inline-block;
+        }
+
+        .navbar-links a:hover {
+            background: var(--accent-gold);
+            color: var(--bg-fight);
+            transform: skew(-10deg) translateX(5px);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+        }
+
+        .navbar-cta {
+            background: var(--p2-red);
+            color: var(--text-white) !important;
+            padding: 0.7rem 1.5rem !important;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%) !important;
+            font-weight: bold;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .navbar-cta:hover {
+            background: var(--accent-gold);
+            color: var(--bg-fight) !important;
+            animation: pulse 0.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) skew(-10deg); }
+            50% { transform: scale(1.05) skew(-10deg); }
+        }
+
+        /* Hero Section - Split Screen */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .hero-left {
+            width: 50%;
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.3) 0%, rgba(26, 15, 31, 0.8) 100%);
+            clip-path: polygon(0 0, 55% 0, 45% 100%, 0% 100%);
+            position: relative;
+        }
+
+        .hero-right {
+            width: 50%;
+            background: linear-gradient(225deg, rgba(255, 0, 85, 0.3) 0%, rgba(26, 15, 31, 0.8) 100%);
+            clip-path: polygon(55% 0, 100% 0, 100% 100%, 45% 100%);
+            position: relative;
+        }
+
+        .hero-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(0, 204, 255, 0.1) 50px,
+                rgba(0, 204, 255, 0.1) 51px
+            );
+            animation: scanline 8s linear infinite;
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(255, 0, 85, 0.1) 50px,
+                rgba(255, 0, 85, 0.1) 51px
+            );
+            animation: scanline 8s linear infinite reverse;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--bg-fight);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            margin-bottom: 1.5rem;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-family: var(--font-comic);
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 4px 4px 0 var(--p2-red), -4px -4px 0 var(--p1-blue), 8px 8px 0 rgba(255, 204, 0, 0.3);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 4px 4px 0 var(--p2-red), -4px -4px 0 var(--p1-blue), 8px 8px 0 rgba(255, 204, 0, 0.3); }
+            100% { text-shadow: 4px 4px 0 var(--p1-blue), -4px -4px 0 var(--p2-red), 8px 8px 0 rgba(255, 204, 0, 0.5); }
+        }
+
+        .hero-title .versus {
+            display: inline-block;
+            color: var(--accent-gold);
+            font-size: 6rem;
+            transform: skew(-10deg);
+            animation: versusPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes versusPulse {
+            0%, 100% { transform: scale(1) skew(-10deg); }
+            50% { transform: scale(1.2) skew(-10deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--p2-red), var(--p1-blue));
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            border: 3px solid var(--accent-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            animation: shine 1s ease;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        .btn-primary:hover {
+            transform: skew(-10deg) scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            border: 3px solid var(--p1-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--p1-blue);
+            transform: skew(-10deg) scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+        }
+
+        /* HUD Elements */
+        .hud-element {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .hud-top-left {
+            top: 100px;
+            left: 20px;
+            width: 250px;
+            height: 60px;
+            background: rgba(0, 204, 255, 0.2);
+            border: 3px solid var(--p1-blue);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .hud-top-right {
+            top: 100px;
+            right: 20px;
+            width: 250px;
+            height: 60px;
+            background: rgba(255, 0, 85, 0.2);
+            border: 3px solid var(--p2-red);
+            clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .health-bar {
+            position: absolute;
+            top: 120px;
+            width: 300px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .health-bar-left {
+            left: 20px;
+            border-color: var(--p1-blue);
+        }
+
+        .health-bar-right {
+            right: 20px;
+            border-color: var(--p2-red);
+            clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+        }
+
+        .health-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .health-fill-left {
+            background: linear-gradient(90deg, var(--p1-blue), var(--energy-green));
+            width: 85%;
+            animation: healthPulse 2s ease-in-out infinite;
+        }
+
+        .health-fill-right {
+            background: linear-gradient(90deg, var(--energy-green), var(--p2-red));
+            width: 70%;
+            animation: healthPulse 2s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes healthPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-comic);
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            text-shadow: 3px 3px 0 var(--p2-red);
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '⚔';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            animation: swordSwing 2s ease-in-out infinite;
+        }
+
+        .section-title::before {
+            left: -60px;
+        }
+
+        .section-title::after {
+            right: -60px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        @keyframes swordSwing {
+            0%, 100% { transform: translateY(-50%) rotate(-15deg); }
+            50% { transform: translateY(-50%) rotate(15deg); }
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.1) 0%, rgba(26, 15, 31, 0.9) 50%, rgba(255, 0, 85, 0.1) 100%);
+            border: 3px solid var(--p1-blue);
+            padding: 2.5rem;
+            clip-path: polygon(10% 0, 100% 0, 95% 100%, 0% 100%);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:nth-child(2) {
+            border-color: var(--accent-gold);
+        }
+
+        .feature-card:nth-child(3) {
+            border-color: var(--p2-red);
+        }
+
+        .feature-card:hover {
+            transform: skew(-5deg) translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 204, 0, 0.2);
+            border-color: var(--accent-gold);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--p1-blue), var(--p2-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);
+            position: relative;
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--text-white);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: linear-gradient(135deg, var(--accent-gold), var(--p2-red));
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: linear-gradient(135deg, var(--p2-red), var(--energy-green));
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-comic);
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(255, 0, 85, 0.1), transparent);
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(26, 15, 31, 0.8);
+            border: 2px solid var(--p2-red);
+            padding: 2rem;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: skew(-3deg) scale(1.03);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(255, 0, 85, 0.3);
+        }
+
+        .testimonial-card:nth-child(2) {
+            border-color: var(--p1-blue);
+        }
+
+        .testimonial-card:nth-child(2):hover {
+            box-shadow: 0 15px 30px rgba(0, 204, 255, 0.3);
+        }
+
+        .testimonial-card:nth-child(3) {
+            border-color: var(--accent-gold);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--p1-blue), var(--p2-red));
+            clip-path: polygon(25% 0, 100% 0, 75% 100%, 0% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .testimonial-info h4 {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-info span {
+            color: var(--energy-green);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-quote {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            color: var(--p2-red);
+            font-family: var(--font-comic);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: linear-gradient(180deg, rgba(26, 15, 31, 0.9), rgba(0, 0, 0, 0.9));
+            border: 3px solid var(--p1-blue);
+            padding: 3rem 2rem;
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+            transition: all 0.4s ease;
+            position: relative;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: skew(-5deg) translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 204, 255, 0.3);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+            background: linear-gradient(180deg, rgba(255, 204, 0, 0.1), rgba(26, 15, 31, 0.9));
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 25px 50px rgba(255, 204, 0, 0.4);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--p2-red);
+        }
+
+        .pricing-card.popular:hover {
+            box-shadow: 0 25px 50px rgba(255, 0, 85, 0.3);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: var(--bg-fight);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            font-weight: bold;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-comic);
+            font-size: 2rem;
+            color: var(--p1-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .pricing-card.featured .pricing-tier {
+            color: var(--accent-gold);
+        }
+
+        .pricing-card.popular .pricing-tier {
+            color: var(--p2-red);
+        }
+
+        .pricing-price {
+            font-size: 4rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 0 var(--p2-red);
+        }
+
+        .pricing-price span {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-period {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pricing-features li::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: var(--energy-green);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            flex-shrink: 0;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            color: var(--text-white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--p1-blue);
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pricing-btn:hover {
+            background: var(--p1-blue);
+            transform: skew(-10deg);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            border-color: var(--accent-gold);
+        }
+
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-fight);
+        }
+
+        .pricing-card.popular .pricing-btn {
+            border-color: var(--p2-red);
+        }
+
+        .pricing-card.popular .pricing-btn:hover {
+            background: var(--p2-red);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 204, 255, 0.2) 0%, rgba(26, 15, 31, 0.5) 50%, rgba(255, 0, 85, 0.2) 100%);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: var(--font-comic);
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            text-shadow: 4px 4px 0 var(--p2-red), -4px -4px 0 var(--p1-blue);
+            margin-bottom: 1.5rem;
+            animation: ctaGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes ctaGlow {
+            0% { text-shadow: 4px 4px 0 var(--p2-red), -4px -4px 0 var(--p1-blue); }
+            100% { text-shadow: 4px 4px 0 var(--p1-blue), -4px -4px 0 var(--p2-red), 0 0 30px rgba(255, 204, 0, 0.5); }
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, rgba(26, 15, 31, 0.95), rgba(0, 0, 0, 0.98));
+            padding: 4rem 2rem 2rem;
+            border-top: 4px solid var(--accent-gold);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--p1-blue), var(--accent-gold), var(--p2-red));
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            text-align: left;
+        }
+
+        .footer-logo {
+            font-family: var(--font-comic);
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 var(--p2-red);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--p1-blue), var(--p2-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: skew(-10deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+        }
+
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--text-white);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-comic);
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--p1-blue);
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-title .versus {
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .navbar-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 180px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-title .versus {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .health-bar {
+                width: 150px;
+                height: 20px;
+            }
+
+            .hud-top-left,
+            .hud-top-right {
+                width: 150px;
+                height: 40px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand {
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-contact-item {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-title .versus {
+                font-size: 2rem;
+            }
+
+            .pricing-price {
+                font-size: 3rem;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Energy Effects */
+        .energy-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: energyFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-gold), 0 0 20px var(--accent-gold);
+        }
+
+        @keyframes energyFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0.5;
+            }
+        }
+
+        /* Slash Effect */
+        .slash-effect {
+            position: absolute;
+            width: 300px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            animation: slash 4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes slash {
+            0%, 100% {
+                transform: translateX(-100%) rotate(-45deg);
+                opacity: 0;
+            }
+            50% {
+                transform: translateX(100%) rotate(-45deg);
+                opacity: 0.7;
+            }
+        }
+    </style>
 </head>
 <body>
-  
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(13, 8, 18, 0.95); backdrop-filter: blur(10px); border-bottom: 2px solid rgba(255, 204, 0, 0.3);">
-    <div class="container">
-      <div class="flex items-center justify-between py-4">
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 interactive">
-          <div class="w-12 h-12 flex items-center justify-center" style="background: var(--accent-gold); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#1a0f1f"/>
-              <path d="M2 17L12 22L22 17" stroke="#1a0f1f" stroke-width="2" stroke-linecap="round"/>
-              <path d="M2 12L12 17L22 12" stroke="#1a0f1f" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="text-xl" style="font-family: var(--font-tech);">VERSUS<span style="color: var(--accent-gold);">MODE</span></span>
-        </a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#features" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="letter-spacing: 1px;">RECURSOS</a>
-          <a href="#characters" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="letter-spacing: 1px;">PERSONAGENS</a>
-          <a href="#testimonials" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="letter-spacing: 1px;">DEPOIMENTOS</a>
-          <a href="#pricing" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="letter-spacing: 1px;">PLANOS</a>
-          <a href="#download" class="btn-primary text-xs">BAIXAR</a>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden interactive p-2" aria-label="Menu">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-white)" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="navbar-logo">FIGHTCLUB ARENA</a>
+        <ul class="navbar-links">
+            <li><a href="#features">Recursos</a></li>
+            <li><a href="#testimonials">Depoimentos</a></li>
+            <li><a href="#pricing">Planos</a></li>
+            <li><a href="#contact" class="navbar-cta">LUTAR AGORA</a></li>
+        </ul>
+    </nav>
 
-  <!-- HERO SECTION -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden" style="background: linear-gradient(180deg, var(--bg-fight) 0%, var(--bg-dark) 100%);">
-    <!-- Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-      <!-- Grid Lines -->
-      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,204,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,204,0,0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
-      
-      <!-- VS Symbol Background -->
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[300px] font-bold opacity-[0.03]" style="font-family: var(--font-tech); color: var(--accent-gold);">VS</div>
-    </div>
-    
-    <div class="container relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Text Content -->
-        <div class="text-center lg:text-left">
-          <div class="inline-flex items-center gap-2 px-4 py-2 mb-6" style="background: rgba(255, 204, 0, 0.1); border: 1px solid var(--accent-gold);">
-            <span class="w-2 h-2 rounded-full animate-pulse" style="background: var(--accent-gold);"></span>
-            <span class="text-xs" style="color: var(--accent-gold); letter-spacing: 2px;">AGORA DISPONÍVEL</span>
-          </div>
-          
-          <h1 class="text-5xl md:text-7xl lg:text-8xl mb-6 glitch" style="font-family: var(--font-tech); line-height: 1;">
-            <span class="text-gradient-p1">CHOQUE</span><br>
-            <span class="text-gradient-gold">DE</span><br>
-            <span class="text-gradient-p2">TÍTULOS</span>
-          </h1>
-          
-          <p class="text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0" style="color: var(--text-muted);">
-            Entre no rinco e prove que você é o verdadeiro campeão! Gráficos cel-shaded,动作 fluida e mais de 50 lutadores únicos te esperam.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="#download" class="btn-primary glow-gold interactive">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              JOGAR GRÁTIS
-            </a>
-            <a href="#characters" class="btn-secondary interactive">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polygon points="10 8 16 12 10 16 10 8"/>
-              </svg>
-              VER TRAILER
-            </a>
-          </div>
-          
-          <!-- Stats -->
-          <div class="flex gap-8 mt-10 justify-center lg:justify-start">
-            <div>
-              <p class="text-3xl md:text-4xl font-bold text-gradient-gold">50+</p>
-              <p class="text-xs" style="color: var(--text-muted); letter-spacing: 1px;">LUTADORES</p>
-            </div>
-            <div>
-              <p class="text-3xl md:text-4xl font-bold text-gradient-gold">10M+</p>
-              <p class="text-xs" style="color: var(--text-muted); letter-spacing: 1px;">JOGADORES</p>
-            </div>
-            <div>
-              <p class="text-3xl md:text-4xl font-bold text-gradient-gold">4.9</p>
-              <p class="text-xs" style="color: var(--text-muted); letter-spacing: 1px;">AVALIAÇÃO</p>
-            </div>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-left"></div>
+            <div class="hero-right"></div>
         </div>
-        
-        <!-- Visual Element - Fighting Scene -->
-        <div class="relative">
-          <!-- Split Screen Character Display -->
-          <div class="relative h-[400px] md:h-[500px] split-screen">
-            <!-- Player 1 Side -->
-            <div class="absolute left-0 top-0 w-1/2 h-full flex items-center justify-center" style="background: linear-gradient(90deg, rgba(0, 204, 255, 0.1) 0%, transparent 100%);">
-              <div class="relative">
-                <!-- Character Silhouette P1 -->
-                <svg width="180" height="280" viewBox="0 0 180 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="p1Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style="stop-color:var(--p1-blue)"/>
-                      <stop offset="100%" style="stop-color:#0088ff"/>
-                    </linearGradient>
-                  </defs>
-                  <!-- Body -->
-                  <path d="M90 40 L70 60 L60 100 L50 180 L40 240 L60 250 L80 190 L90 160 L100 190 L120 250 L140 240 L130 180 L120 100 L110 60 L90 40Z" fill="url(#p1Gradient)" opacity="0.8"/>
-                  <!-- Head -->
-                  <circle cx="90" cy="50" r="25" fill="url(#p1Gradient)"/>
-                  <!-- Eyes -->
-                  <circle cx="82" cy="45" r="5" fill="#fff"/>
-                  <circle cx="98" cy="45" r="5" fill="#fff"/>
-                  <!-- Energy Aura -->
-                  <circle cx="90" cy="90" r="60" stroke="var(--p1-blue)" stroke-width="2" fill="none" opacity="0.3"/>
-                  <circle cx="90" cy="90" r="45" stroke="var(--p1-blue)" stroke-width="1" fill="none" opacity="0.5"/>
-                </svg>
-                <!-- Player Label -->
-                <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 -rotate-90">
-                  <span class="text-lg" style="color: var(--p1-blue); letter-spacing: 4px;">PLAYER 1</span>
+
+        <!-- HUD Elements -->
+        <div class="hud-element hud-top-left"></div>
+        <div class="hud-element hud-top-right"></div>
+        <div class="health-bar health-bar-left">
+            <div class="health-fill health-fill-left"></div>
+        </div>
+        <div class="health-bar health-bar-right">
+            <div class="health-fill health-fill-right"></div>
+        </div>
+
+        <!-- Energy Particles -->
+        <div class="energy-particle" style="top: 20%; left: 10%;"></div>
+        <div class="energy-particle" style="top: 30%; right: 15%; animation-delay: 1s;"></div>
+        <div class="energy-particle" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+        <div class="energy-particle" style="top: 70%; right: 25%; animation-delay: 0.5s;"></div>
+
+        <!-- Slash Effect -->
+        <div class="slash-effect" style="top: 40%; left: 0;"></div>
+        <div class="slash-effect" style="top: 60%; left: 0; animation-delay: 2s;"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">MODO VERSUS ANIME</div>
+            <h1 class="hero-title">
+                BATALHA ÉPICA
+                <span class="versus">VS</span>
+                ARENA
+            </h1>
+            <p class="hero-subtitle">
+                Entre na arena de combates mais intensa da internet. Desafie lutadores do mundo inteiro em batalhas épicas com estética anime e elementos HUD arcade.
+            </p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn-primary">COMEÇAR LUTA</a>
+                <a href="#features" class="btn-secondary">VER RECURSOS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2 class="section-title">RECURSOS DE COMBATE</h2>
+            <p class="section-subtitle">Domine a arena com ferramentas profissionais de batalha</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
                 </div>
-              </div>
+                <h3>Sistema Versus</h3>
+                <p>Batalhas head-to-head em tempo real com sistema de matchmaking avançado. Encontre oponentes do seu nível instantaneamente.</p>
             </div>
-            
-            <!-- Player 2 Side -->
-            <div class="absolute right-0 top-0 w-1/2 h-full flex items-center justify-center" style="background: linear-gradient(270deg, rgba(255, 0, 85, 0.1) 0%, transparent 100%);">
-              <div class="relative">
-                <!-- Character Silhouette P2 -->
-                <svg width="180" height="280" viewBox="0 0 180 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="p2Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style="stop-color:var(--p2-red)"/>
-                      <stop offset="100%" style="stop-color:#ff0022"/>
-                    </linearGradient>
-                  </defs>
-                  <!-- Body -->
-                  <path d="M90 40 L110 60 L120 100 L130 180 L140 240 L120 250 L100 190 L90 160 L80 190 L60 250 L40 240 L50 180 L60 100 L70 60 L90 40Z" fill="url(#p2Gradient)" opacity="0.8"/>
-                  <!-- Head -->
-                  <circle cx="90" cy="50" r="25" fill="url(#p2Gradient)"/>
-                  <!-- Eyes -->
-                  <circle cx="82" cy="45" r="5" fill="#fff"/>
-                  <circle cx="98" cy="45" r="5" fill="#fff"/>
-                  <!-- Energy Aura -->
-                  <circle cx="90" cy="90" r="60" stroke="var(--p2-red)" stroke-width="2" fill="none" opacity="0.3"/>
-                  <circle cx="90" cy="90" r="45" stroke="var(--p2-red)" stroke-width="1" fill="none" opacity="0.5"/>
-                </svg>
-                <!-- Player Label -->
-                <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 rotate-90">
-                  <span class="text-lg" style="color: var(--p2-red); letter-spacing: 4px;">PLAYER 2</span>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
                 </div>
-              </div>
+                <h3>Combos Especiais</h3>
+                <p>Execute combos devastadores com visualização dinâmica. Cada lutador possui habilidades únicas com efeitos cel-shaded.</p>
             </div>
-            
-            <!-- VS Badge Center -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-              <div class="w-20 h-20 flex items-center justify-center" style="background: var(--accent-gold); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-                <span class="text-3xl font-bold" style="color: var(--bg-fight); font-family: var(--font-tech);">VS</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- HUD Elements -->
-          <div class="absolute bottom-4 left-0 right-0 px-4">
-            <!-- Health Bars -->
-            <div class="flex items-center gap-2">
-              <div class="flex-1">
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs" style="color: var(--p1-blue);">RYU JR.</span>
-                  <span class="text-xs" style="color: var(--p1-blue);">100%</span>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
                 </div>
-                <div class="hud-bar">
-                  <div class="hud-bar-fill" style="width: 100%; background: linear-gradient(90deg, var(--p1-blue), #0088ff);"></div>
+                <h3>Ranking Global</h3>
+                <p>Suba no ranking mundial e conquiste troféus. Sistema de ligas com recompensas exclusivas para os melhores lutadores.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2 class="section-title">LUTADORES PRO</h2>
+            <p class="section-subtitle">Veja o que a comunidade está falando sobre a FightClub Arena</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Ryu_Silva</h4>
+                        <span>Lutador Diamante</span>
+                    </div>
                 </div>
-              </div>
-              <div class="w-16 text-center">
-                <span class="text-xl font-bold text-gradient-gold" style="font-family: var(--font-tech);">3</span>
-                <span class="text-xs" style="color: var(--text-muted);">RD</span>
-              </div>
-              <div class="flex-1">
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs" style="color: var(--p2-red);">KENJI</span>
-                  <span class="text-xs" style="color: var(--p2-red);">75%</span>
+                <p class="testimonial-quote">
+                    A melhor experiência de fighting game que já tive online. O sistema versus é fluido e a estética anime é simplesmente perfeita!
+                </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Sakura_BR</h4>
+                        <span>Campeã Regional</span>
+                    </div>
                 </div>
-                <div class="hud-bar">
-                  <div class="hud-bar-fill" style="width: 75%; background: linear-gradient(90deg, var(--p2-red), #ff0022);"></div>
+                <p class="testimonial-quote">
+                    Os combos especiais são incríveis! Cada lutador tem personalidade única. Já conquistei três ligas esse mês!
+                </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Ken_Master</h4>
+                        <span>Veterano Arcade</span>
+                    </div>
                 </div>
-              </div>
+                <p class="testimonial-quote">
+                    Ranking competitivo de verdade. Finalmente uma plataforma que valoriza skill e fair play. Comunidade amazing!
+                </p>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
-        <path d="M12 5v14M19 12l-7 7-7-7"/>
-      </svg>
-    </div>
-  </section>
+    </section>
 
-  <!-- FEATURES SECTION -->
-  <section id="features" class="section-padding relative" style="background: var(--bg-dark);">
-    <div class="container">
-      <!-- Section Header -->
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-2 mb-4" style="border: 1px solid var(--accent-gold);">
-          <span class="text-xs" style="color: var(--accent-gold); letter-spacing: 2px;">SISTEMA DE COMBATE</span>
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2 class="section-title">PLANOS DE COMBATE</h2>
+            <p class="section-subtitle">Escolha seu plano e domine a arena</p>
         </div>
-        <h2 class="text-4xl md:text-6xl mb-4">DOMINE A <span class="text-gradient-gold">ARTE</span></h2>
-        <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-muted);">
-          Cada movimento é uma declaração de guerra. Aprenda combos devastadores e derrote seus oponentes com estilo.
-        </p>
-      </div>
-      
-      <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
-        <div class="fight-card interactive">
-          <div class="w-16 h-16 mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--p1-blue), #0088ff); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl mb-4" style="color: var(--p1-blue);">COMBOS FLUIDOS</h3>
-          <p class="text-sm mb-6" style="color: var(--text-muted);">
-            Sistema de combate responsivo com mais de 200 combinações de golpes. Cada botão responde instantaneamente para que você nunca perca um turno.
-          </p>
-          <ul class="space-y-2">
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Teclas adaptativas</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Cancelamento de golpes</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Contra-ataque perfeito</span>
-            </li>
-          </ul>
-        </div>
-        
-        <!-- Feature 2 -->
-        <div class="fight-card interactive">
-          <div class="w-16 h-16 mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--accent-gold), #ff8800); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl mb-4 text-gradient-gold">ESPECIAIS PODEROSOS</h3>
-          <p class="text-sm mb-6" style="color: var(--text-muted);">
-            Cada personagem possui técnicas únicas e ataques especiais. Aprenda o timing perfeito e cause danos devastadores aos seus inimigos.
-          </p>
-          <ul class="space-y-2">
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">50+ especiais únicos</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Super movimentos</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Ultimate finish</span>
-            </li>
-          </ul>
-        </div>
-        
-        <!-- Feature 3 -->
-        <div class="fight-card interactive">
-          <div class="w-16 h-16 mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--p2-red), #ff0022); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl mb-4" style="color: var(--p2-red);">MULTIPLAYER ONLINE</h3>
-          <p class="text-sm mb-6" style="color: var(--text-muted);">
-            Desafie jogadores de todo o mundo em tempo real. Ranqueadas intensas, lobbies personalizados e torneios diários.
-          </p>
-          <ul class="space-y-2">
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Servidores globais</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Low latency</span>
-            </li>
-            <li class="flex items-center gap-2 text-sm">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Cross-play</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CHARACTERS SECTION -->
-  <section id="characters" class="section-padding" style="background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-fight) 100%);">
-    <div class="container">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-2 mb-4" style="border: 1px solid var(--p1-blue);">
-          <span class="text-xs" style="color: var(--p1-blue); letter-spacing: 2px;">ELITE LUTADORA</span>
-        </div>
-        <h2 class="text-4xl md:text-6xl mb-4">ESCOLHA SEU <span class="text-gradient-p1">CAMPEÃO</span></h2>
-        <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-muted);">
-          Cada lutador possui história única, estilo de combate próprio e habilidades especiais. Encontre seu perfeita combinação.
-        </p>
-      </div>
-      
-      <!-- Character Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Character 1 -->
-        <div class="group interactive">
-          <div class="relative h-[350px] mb-4 overflow-hidden" style="border: 2px solid var(--p1-blue); background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, transparent 100%);">
-            <!-- Character SVG -->
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Energy Aura -->
-              <ellipse cx="150" cy="200" rx="100" ry="120" stroke="var(--p1-blue)" stroke-width="1" fill="none" opacity="0.3"/>
-              <ellipse cx="150" cy="200" rx="70" ry="90" stroke="var(--p1-blue)" stroke-width="2" fill="none" opacity="0.5"/>
-              <!-- Character Body -->
-              <path d="M150 100 L130 130 L110 200 L100 280 L120 300 L150 250 L180 300 L200 280 L190 200 L170 130 L150 100Z" fill="var(--p1-blue)" opacity="0.7"/>
-              <!-- Head -->
-              <circle cx="150" cy="80" r="30" fill="var(--p1-blue)"/>
-              <!-- Eyes -->
-              <circle cx="140" cy="75" r="6" fill="#fff"/>
-              <circle cx="160" cy="75" r="6" fill="#fff"/>
-              <!-- Arms -->
-              <path d="M110 150 L80 180 L70 250" stroke="var(--p1-blue)" stroke-width="8" stroke-linecap="round"/>
-              <path d="M190 150 L220 180 L230 250" stroke="var(--p1-blue)" stroke-width="8" stroke-linecap="round"/>
-            </svg>
-            <!-- Hover Overlay -->
-            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(0, 204, 255, 0.2);">
-              <span class="px-6 py-3 text-sm font-bold skew-box" style="background: var(--p1-blue); color: var(--bg-fight);">SELECIONAR</span>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-tier">INICIANTE</h3>
+                <div class="pricing-price">R$0<span>/mês</span></div>
+                <p class="pricing-period">Comece gratuitamente</p>
+                <ul class="pricing-features">
+                    <li>5 batalhas diárias</li>
+                    <li>Acesso a 3 lutadores</li>
+                    <li>Ranking regional</li>
+                    <li>Básico de combos</li>
+                    <li>Suporte por email</li>
+                </ul>
+                <a href="#" class="pricing-btn">COMEÇAR FREE</a>
             </div>
-            <!-- Character Info -->
-            <div class="absolute bottom-0 left-0 right-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
-              <h3 class="text-xl" style="color: var(--p1-blue);">CYBER NINJA</h3>
-              <p class="text-xs" style="color: var(--text-muted);">Estilo: Técnico • Velocidade</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Character 2 -->
-        <div class="group interactive">
-          <div class="relative h-[350px] mb-4 overflow-hidden" style="border: 2px solid var(--accent-gold); background: linear-gradient(180deg, rgba(255,204,0,0.1) 0%, transparent 100%);">
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="150" cy="200" rx="100" ry="120" stroke="var(--accent-gold)" stroke-width="1" fill="none" opacity="0.3"/>
-              <ellipse cx="150" cy="200" rx="70" ry="90" stroke="var(--accent-gold)" stroke-width="2" fill="none" opacity="0.5"/>
-              <path d="M150 100 L120 140 L100 220 L90 300 L150 280 L210 300 L200 220 L180 140 L150 100Z" fill="var(--accent-gold)" opacity="0.7"/>
-              <circle cx="150" cy="80" r="30" fill="var(--accent-gold)"/>
-              <circle cx="140" cy="75" r="6" fill="#000"/>
-              <circle cx="160" cy="75" r="6" fill="#000"/>
-              <path d="M100 160 L60 200 L50 280" stroke="var(--accent-gold)" stroke-width="10" stroke-linecap="round"/>
-              <path d="M200 160 L240 200 L250 280" stroke="var(--accent-gold)" stroke-width="10" stroke-linecap="round"/>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(255,204,0,0.2);">
-              <span class="px-6 py-3 text-sm font-bold skew-box" style="background: var(--accent-gold); color: var(--bg-fight);">SELECIONAR</span>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
-              <h3 class="text-xl" style="color: var(--accent-gold);">DRAGÃO DE OURO</h3>
-              <p class="text-xs" style="color: var(--text-muted);">Estilo: Poder • Equilíbrio</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Character 3 -->
-        <div class="group interactive">
-          <div class="relative h-[350px] mb-4 overflow-hidden" style="border: 2px solid var(--p2-red); background: linear-gradient(180deg, rgba(255,0,85,0.1) 0%, transparent 100%);">
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="150" cy="200" rx="100" ry="120" stroke="var(--p2-red)" stroke-width="1" fill="none" opacity="0.3"/>
-              <ellipse cx="150" cy="200" rx="70" ry="90" stroke="var(--p2-red)" stroke-width="2" fill="none" opacity="0.5"/>
-              <path d="M150 110 L125 145 L105 210 L95 290 L150 270 L205 290 L195 210 L175 145 L150 110Z" fill="var(--p2-red)" opacity="0.7"/>
-              <circle cx="150" cy="85" r="28" fill="var(--p2-red)"/>
-              <circle cx="140" cy="80" r="5" fill="#fff"/>
-              <circle cx="160" cy="80" r="5" fill="#fff"/>
-              <path d="M105 155 L65 190 L55 270" stroke="var(--p2-red)" stroke-width="8" stroke-linecap="round"/>
-              <path d="M195 155 L235 190 L245 270" stroke="var(--p2-red)" stroke-width="8" stroke-linecap="round"/>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(255,0,85,0.2);">
-              <span class="px-6 py-3 text-sm font-bold skew-box" style="background: var(--p2-red); color: var(--text-white);">SELECIONAR</span>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
-              <h3 class="text-xl" style="color: var(--p2-red);">SAMURAI SOMBRA</h3>
-              <p class="text-xs" style="color: var(--text-muted);">Estilo: Agilidade • Critical</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- TESTIMONIALS SECTION -->
-  <section id="testimonials" class="section-padding" style="background: var(--bg-fight);">
-    <div class="container">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-2 mb-4" style="border: 1px solid var(--energy-green);">
-          <span class="text-xs" style="color: var(--energy-green); letter-spacing: 2px;">VENCEDORES</span>
-        </div>
-        <h2 class="text-4xl md:text-6xl mb-4">O QUE DIZEM OS <span class="text-gradient-gold">CAMPEÕES</span></h2>
-        <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-muted);">
-          Milhões de jogadores ao redor do mundo já experimentaram a emoção do Versus Mode. Veja o que eles têm a dizer.
-        </p>
-      </div>
-      
-      <!-- Testimonials Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Testimonial 1 -->
-        <div class="fight-card interactive">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-lg mb-6 italic" style="color: var(--text-muted);">"O melhor jogo de luta que já joguei. Os combos são extremamente satisfactorios e a comunidade é incrivel. Conquistei o rank Diamond em 2 semanas!"</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--p1-blue);">
-              <span class="font-bold text-lg" style="color: var(--bg-fight);">MR</span>
+            <div class="pricing-card featured">
+                <div class="pricing-badge">MAIS POPULAR</div>
+                <h3 class="pricing-tier">GUERREIRO</h3>
+                <div class="pricing-price">R$29<span>/mês</span></div>
+                <p class="pricing-period">Plano recomendado</p>
+                <ul class="pricing-features">
+                    <li>Batalhas ilimitadas</li>
+                    <li>Todos os 12 lutadores</li>
+                    <li>Ranking global</li>
+                    <li>Combos avançados</li>
+                    <li>Torneios semanais</li>
+                    <li>Suporte prioritário</li>
+                </ul>
+                <a href="#" class="pricing-btn">TORNAR-SE GUERREIRO</a>
             </div>
-            <div>
-              <p class="font-bold">Marcos Rodrigues</p>
-              <p class="text-xs" style="color: var(--text-muted);">Campeão Regional 2025</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 2 -->
-        <div class="fight-card interactive">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-lg mb-6 italic" style="color: var(--text-muted);">"Gráficos cel-shaded fantásticos! Cada personagem tem uma personalidade única. O modo história me manteve preso por horas. Recomendo fortemente!"</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--p2-red);">
-              <span class="font-bold text-lg" style="color: var(--text-white);">SA</span>
-            </div>
-            <div>
-              <p class="font-bold">Sofia Almeida</p>
-              <p class="text-xs" style="color: var(--text-muted);">Streamer Pro</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 3 -->
-        <div class="fight-card interactive">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-lg mb-6 italic" style="color: var(--text-muted);">"O multiplayer online é estável e divertivo. Nunca esperei tanto tempo para encontrar uma partida. Os torneios semanais são épicos!"</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--accent-gold);">
-              <span class="font-bold text-lg" style="color: var(--bg-fight);">JL</span>
-            </div>
-            <div>
-              <p class="font-bold">João Lima</p>
-              <p class="text-xs" style="color: var(--text-muted);">E-sports Player</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PRICING SECTION -->
-  <section id="pricing" class="section-padding" style="background: var(--bg-dark);">
-    <div class="container">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-2 mb-4" style="border: 1px solid var(--accent-gold);">
-          <span class="text-xs" style="color: var(--accent-gold); letter-spacing: 2px;">PLANOS</span>
+            <div class="pricing-card popular">
+                <h3 class="pricing-tier">LENDÁRIO</h3>
+                <div class="pricing-price">R$79<span>/mês</span></div>
+                <p class="pricing-period">Para profissionais</p>
+                <ul class="pricing-features">
+                    <li>Tudo do Guerreiro</li>
+                    <li>Lutadores exclusivos</li>
+                    <li>Acesso antecipado</li>
+                    <li>Customização total</li>
+                    <li>Torneios premium</li>
+                    <li>Suporte 24/7 VIP</li>
+                    <li>Creator de arenas</li>
+                </ul>
+                <a href="#" class="pricing-btn">TORNAR-SE LENDÁRIO</a>
+            </div>
         </div>
-        <h2 class="text-4xl md:text-6xl mb-4">ESCOLHA SEU <span class="text-gradient-gold">DESTINO</span></h2>
-        <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-muted);">
-          Comece gratis e evolua para desbloquear todo o potencial do seu lutador. Nenhum compromisso.
-        </p>
-      </div>
-      
-      <!-- Pricing Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Plan 1 - Free -->
-        <div class="fight-card interactive">
-          <div class="text-center mb-6">
-            <h3 class="text-2xl mb-2" style="color: var(--p1-blue);">INICIANTE</h3>
-            <p class="text-4xl font-bold">R$ 0<span class="text-lg font-normal" style="color: var(--text-muted);">/mês</span></p>
-            <p class="text-sm mt-2" style="color: var(--text-muted);">Perfeito para começar</p>
-          </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Acesso a 10 personagens</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Modo arcade completo</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Treino offline</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Anúncios inclusos</span>
-            </li>
-          </ul>
-          <a href="#" class="btn-secondary w-full justify-center">COMEÇAR GRÁTIS</a>
-        </div>
-        
-        <!-- Plan 2 - Popular -->
-        <div class="fight-card interactive glow-gold" style="border-color: var(--accent-gold);">
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-            <span class="px-4 py-1 text-xs font-bold" style="background: var(--accent-gold); color: var(--bg-fight); letter-spacing: 1px;">MAIS POPULAR</span>
-          </div>
-          <div class="text-center mb-6">
-            <h3 class="text-2xl mb-2 text-gradient-gold">GUERREIRO</h3>
-            <p class="text-4xl font-bold">R$ 29<span class="text-lg font-normal" style="color: var(--text-muted);">/mês</span></p>
-            <p class="text-sm mt-2" style="color: var(--text-muted);">Para jogadores dedicados</p>
-          </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Todos os 50+ personagens</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Multplayer online completo</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Sem anúncios</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Cosméticos exclusivos</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Torneios diários</span>
-            </li>
-          </ul>
-          <a href="#" class="btn-primary w-full justify-center glow-gold">ASSINAR AGORA</a>
-        </div>
-        
-        <!-- Plan 3 -->
-        <div class="fight-card interactive">
-          <div class="text-center mb-6">
-            <h3 class="text-2xl mb-2" style="color: var(--p2-red);">LENDÁRIO</h3>
-            <p class="text-4xl font-bold">R$ 79<span class="text-lg font-normal" style="color: var(--text-muted);">/mês</span></p>
-            <p class="text-sm mt-2" style="color: var(--text-muted);">Para verdadeiros mestres</p>
-          </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Tudo do plano Guerreiro</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Acesso antecipado a DLCs</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Coach IA personalizado</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Skin lendárias exclusivas</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="var(--energy-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span style="color: var(--text-muted);">Suporte prioritário 24/7</span>
-            </li>
-          </ul>
-          <a href="#" class="btn-secondary w-full justify-center" style="border-color: var(--p2-red); color: var(--p2-red);">ASSINAR AGORA</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FINAL CTA SECTION -->
-  <section id="download" class="section-padding relative overflow-hidden" style="background: linear-gradient(180deg, var(--bg-fight) 0%, var(--bg-dark) 100%);">
-    <!-- Background Effects -->
-    <div class="absolute inset-0">
-      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full" style="background: radial-gradient(circle, rgba(0,204,255,0.2) 0%, transparent 70%);"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full" style="background: radial-gradient(circle, rgba(255,0,85,0.2) 0%, transparent 70%);"></div>
-    </div>
-    
-    <div class="container relative z-10">
-      <div class="text-center">
-        <h2 class="text-4xl md:text-7xl mb-6" style="font-family: var(--font-tech);">
-          PRONTO PARA <span class="text-gradient-gold">LUTAR?</span>
-        </h2>
-        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto" style="color: var(--text-muted);">
-          Junte-se a mais de 10 milhões de guerreiros ao redor do mundo. Sua jornada começa agora.
-        </p>
-        
-        <!-- Download Buttons -->
-        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-          <a href="#" class="btn-primary glow-gold interactive text-lg px-10 py-5">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            BAIXAR PARA PC
-          </a>
-          <a href="#" class="btn-secondary interactive text-lg px-10 py-5">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-            </svg>
-            BAIXAR MOBILE
-          </a>
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-content">
+            <h2 class="cta-title">PRONTO PARA A LUTA?</h2>
+            <p class="cta-text">
+                Junte-se a milhares de lutadores e comece sua jornada na FightClub Arena.
+                Cadastre-se agora e receba um lutador exclusivo de bônus!
+            </p>
+            <div class="cta-buttons">
+                <a href="#pricing" class="btn-primary">CRIAR CONTA GRATUITA</a>
+                <a href="#features" class="btn-secondary">SAIBA MAIS</a>
+            </div>
         </div>
-        
-        <!-- Platforms -->
-        <div class="flex items-center justify-center gap-6">
-          <span class="text-sm" style="color: var(--text-muted);">Disponível em:</span>
-          <div class="flex gap-4">
-            <div class="w-10 h-10 flex items-center justify-center" style="background: rgba(255,255,255,0.1); border-radius: 8px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-            </div>
-            <div class="w-10 h-10 flex items-center justify-center" style="background: rgba(255,255,255,0.1); border-radius: 8px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            </div>
-            <div class="w-10 h-10 flex items-center justify-center" style="background: rgba(255,255,255,0.1); border-radius: 8px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer style="background: var(--bg-dark); border-top: 2px solid rgba(255, 204, 0, 0.3);">
-    <div class="container">
-      <!-- Main Footer Content -->
-      <div class="py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Brand -->
-        <div>
-          <a href="#" class="flex items-center gap-3 mb-4 interactive">
-            <div class="w-12 h-12 flex items-center justify-center" style="background: var(--accent-gold); clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#1a0f1f"/>
-                <path d="M2 17L12 22L22 17" stroke="#1a0f1f" stroke-width="2" stroke-linecap="round"/>
-                <path d="M2 12L12 17L22 12" stroke="#1a0f1f" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">FIGHTCLUB ARENA</div>
+                <p class="footer-tagline">
+                    A plataforma definitiva de jogos de luta com estética versus anime.
+                    Batalhas épicas, ranking global e comunidade apaixonada.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Discord">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path>
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <span class="text-xl" style="font-family: var(--font-tech);">VERSUS<span style="color: var(--accent-gold);">MODE</span></span>
-          </a>
-          <p class="text-sm mb-6" style="color: var(--text-muted);">
-            O jogo de luta definitivo. Gráficos cel-shaded, ação frenética e multiplayer online.
-          </p>
-          <!-- Social Icons -->
-          <div class="flex gap-4">
-            <a href="#" class="w-10 h-10 flex items-center justify-center interactive" style="background: rgba(255,255,255,0.1);" aria-label="Discord">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-              </svg>
-            </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center interactive" style="background: rgba(255,255,255,0.1);" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center interactive" style="background: rgba(255,255,255,0.1);" aria-label="YouTube">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center interactive" style="background: rgba(255,255,255,0.1);" aria-label="Twitch">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)">
-                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
-              </svg>
-            </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center interactive" style="background: rgba(255,255,255,0.1);" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-white)">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Product Links -->
-        <div>
-          <h4 class="text-sm font-bold mb-4 uppercase tracking-wider" style="color: var(--accent-gold);">Produto</h4>
-          <ul class="space-y-3">
-            <li><a href="#features" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Recursos</a></li>
-            <li><a href="#characters" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Personagens</a></li>
-            <li><a href="#pricing" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Planos</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Atualizações</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Requisitos</a></li>
-          </ul>
-        </div>
-        
-        <!-- Company Links -->
-        <div>
-          <h4 class="text-sm font-bold mb-4 uppercase tracking-wider" style="color: var(--accent-gold);">Empresa</h4>
-          <ul class="space-y-3">
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Sobre Nós</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Carreiras</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Imprensa</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Blog</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Contato</a></li>
-          </ul>
-        </div>
-        
-        <!-- Support Links -->
-        <div>
-          <h4 class="text-sm font-bold mb-4 uppercase tracking-wider" style="color: var(--accent-gold);">Suporte</h4>
-          <ul class="space-y-3">
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Central de Ajuda</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Comunidade</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Reportar Bug</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Status do Servidor</a></li>
-            <li><a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">FAQ</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <!-- Bottom Bar -->
-      <div class="py-6 border-t" style="border-color: rgba(255,255,255,0.1);">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-sm" style="color: var(--text-muted);">
-            &copy; 2026 Versus Mode. Todos os direitos reservados.
-          </p>
-          <div class="flex gap-6">
-            <a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Privacidade</a>
-            <a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Termos</a>
-            <a href="#" class="interactive text-sm hover:text-[var(--accent-gold)] transition-colors" style="color: var(--text-muted);">Cookies</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
 
+            <div class="footer-section">
+                <h4>Navegação</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Recursos</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#pricing">Planos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Comunidade</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Fórum</a></li>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Torneios</a></li>
+                    <li><a href="#">Líderes</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Wiki</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Suporte</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Termos de Serviço</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Regras da Arena</a></li>
+                    <li><a href="#">Status do Servidor</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>contato@fightclubarena.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>São Paulo, Brasil</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>+55 (11) 99999-9999</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FightClub Arena. Todos os direitos reservados.</p>
+            <p>Desenvolvido com paixão para a comunidade de fighting games.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de health bars
+        function animateHealthBars() {
+            const healthFills = document.querySelectorAll('.health-fill-left, .health-fill-right');
+            healthFills.forEach(fill => {
+                const currentWidth = parseFloat(fill.style.width) || parseFloat(getComputedStyle(fill).width);
+                const newWidth = Math.max(30, Math.min(100, currentWidth + (Math.random() * 10 - 5)));
+                fill.style.width = newWidth + '%';
+            });
+        }
+
+        setInterval(animateHealthBars, 3000);
+
+        // Efeito de energia nos cards ao passar o mouse
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.background = `
+                    radial-gradient(circle at ${x}px ${y}px,
+                        rgba(255, 204, 0, 0.15) 0%,
+                        transparent 50%),
+                    linear-gradient(135deg, rgba(0, 204, 255, 0.1) 0%, rgba(26, 15, 31, 0.9) 50%, rgba(255, 0, 85, 0.1) 100%)
+                `;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.background = '';
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'linear-gradient(90deg, rgba(0, 204, 255, 1) 0%, rgba(26, 15, 31, 1) 50%, rgba(255, 0, 85, 1) 100%)';
+            } else {
+                navbar.style.background = 'linear-gradient(90deg, rgba(0, 204, 255, 0.95) 0%, rgba(26, 15, 31, 0.95) 50%, rgba(255, 0, 85, 0.95) 100%)';
+            }
+        });
+
+        // Partículas de energia dinâmicas
+        function createEnergyParticle() {
+            const hero = document.querySelector('.hero');
+            const particle = document.createElement('div');
+            particle.className = 'energy-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            hero.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+
+        setInterval(createEnergyParticle, 500);
+    </script>
 </body>
 </html>

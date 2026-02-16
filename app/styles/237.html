@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azul Tile - Plataforma de Arte Digital Colaborativa</title>
+    <meta name="description" content="Plataforma de criação e compartilhamento de arte digital colaborativa com design inspirado no modernismo brasileiro">
+    <meta property="og:title" content="Azul Tile - Arte Digital Colaborativa">
+    <meta property="og:description" content="Crie e compartilhe arte digital em uma plataforma inspirada no modernismo brasileiro">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --cobalt-blue: #0047AB;
+            --white-bg: #FFFFFF;
+            --black-text: #000000;
+            --light-grey-bg: #F0F0F0;
+            --sun-yellow: #FFD700;
+            --emerald-green: #2ECC40;
+            --coral-red: #FF6F61;
+            --border-radius-sm: 4px;
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Bebas Neue', sans-serif;
+            --module-transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--white-bg);
+            color: var(--black-text);
+            overflow-x: hidden;
+        }
+
+        /* Azulejo Grid Pattern */
+        .azulejo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 2px;
+        }
+
+        .azulejo-tile {
+            aspect-ratio: 1;
+            background: var(--light-grey-bg);
+            border: 1px solid #E0E0E0;
+            border-radius: var(--border-radius-sm);
+            transition: var(--module-transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .azulejo-tile::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--cobalt-blue);
+            opacity: 0;
+            transition: var(--module-transition);
+        }
+
+        .azulejo-tile:hover::before {
+            opacity: 0.15;
+        }
+
+        .azulejo-tile:hover {
+            transform: scale(1.05);
+            border-color: var(--cobalt-blue);
+            box-shadow: 0 4px 12px rgba(0, 71, 171, 0.2);
+        }
+
+        /* Geometric Module */
+        .geometric-module {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--white-bg);
+            border: 1px solid #E0E0E0;
+            border-radius: var(--border-radius-sm);
+            transition: var(--module-transition);
+        }
+
+        .geometric-module::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--sun-yellow);
+            border-radius: 50%;
+            transition: var(--module-transition);
+        }
+
+        .geometric-module:hover::after {
+            transform: scale(1.5);
+            background: var(--emerald-green);
+        }
+
+        .geometric-module:hover {
+            border-color: var(--cobalt-blue);
+            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.15);
+        }
+
+        /* Pattern Rotate Hover */
+        .pattern-rotate-hover {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pattern-rotate-hover .pattern-overlay {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 71, 171, 0.03) 10px,
+                rgba(0, 71, 171, 0.03) 20px
+            );
+            opacity: 0;
+            transition: var(--module-transition);
+        }
+
+        .pattern-rotate-hover:hover .pattern-overlay {
+            opacity: 1;
+            animation: patternShift 0.6s ease-in-out;
+        }
+
+        @keyframes patternShift {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Assembly Animation */
+        @keyframes assembleIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-assemble {
+            animation: assembleIn 0.5s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        /* Hero Geometric Element */
+        .hero-geometric {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.1;
+        }
+
+        .hero-geometric .geo-shape {
+            position: absolute;
+            border: 2px solid var(--cobalt-blue);
+        }
+
+        .hero-geometric .shape-1 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: rotateShape 30s linear infinite;
+        }
+
+        .hero-geometric .shape-2 {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            border-radius: 8px;
+            animation: rotateShape 25s linear infinite reverse;
+        }
+
+        .hero-geometric .shape-3 {
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            border-radius: 50%;
+            animation: rotateShape 20s linear infinite;
+        }
+
+        @keyframes rotateShape {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: var(--black-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: var(--module-transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--cobalt-blue);
+            transition: var(--module-transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--cobalt-blue);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--module-transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #003380;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cobalt-blue);
+            padding: 0.875rem 2rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            border: 2px solid var(--cobalt-blue);
+            cursor: pointer;
+            transition: var(--module-transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--cobalt-blue);
+            color: white;
+        }
+
+        /* Card Styles */
+        .feature-card {
+            background: var(--white-bg);
+            border: 1px solid #E0E0E0;
+            border-radius: var(--border-radius-sm);
+            padding: 2rem;
+            transition: var(--module-transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--cobalt-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 71, 171, 0.1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--cobalt-blue), #0060D0);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--light-grey-bg);
+            border-radius: var(--border-radius-sm);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--cobalt-blue);
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            line-height: 1;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--white-bg);
+            border: 1px solid #E0E0E0;
+            border-radius: var(--border-radius-sm);
+            padding: 2.5rem;
+            transition: var(--module-transition);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--cobalt-blue);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--cobalt-blue);
+            color: white;
+            padding: 0.25rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--cobalt-blue);
+        }
+
+        .price-amount {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--cobalt-blue);
+            line-height: 1;
+        }
+
+        /* Footer */
+        .footer-link {
+            color: var(--black-text);
+            text-decoration: none;
+            transition: var(--module-transition);
+            opacity: 0.7;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--cobalt-blue);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-grey-bg);
+            border-radius: var(--border-radius-sm);
+            transition: var(--module-transition);
+        }
+
+        .social-icon:hover {
+            background: var(--cobalt-blue);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-geometric {
+                width: 200px;
+                height: 200px;
+                right: -50px;
+            }
+
+            .azulejo-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-[#0047AB] rounded-sm flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">Azul Tile</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#recursos" class="nav-link">Recursos</a>
+                    <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                    <a href="#planos" class="nav-link">Planos</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="nav-link hidden sm:block">Entrar</a>
+                    <a href="#" class="btn-primary">Começar Grátis</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[600px] flex items-center overflow-hidden">
+        <div class="hero-geometric">
+            <div class="geo-shape shape-1"></div>
+            <div class="geo-shape shape-2"></div>
+            <div class="geo-shape shape-3"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-assemble">
+                    <span class="inline-block px-4 py-2 bg-[#F0F0F0] rounded-sm text-sm font-semibold mb-6">
+                        🎨 Design Brasileiro Moderno
+                    </span>
+                    <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6" style="font-family: 'Bebas Neue', sans-serif;">
+                        Crie Arte Digital em Colaboração
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-lg">
+                        Uma plataforma inspirada no modernismo brasileiro onde artistas criam, compartilham e colaboram em projetos digitais únicos.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn-primary">Começar a Criar</a>
+                        <a href="#" class="btn-secondary">Ver Galeria</a>
+                    </div>
+                </div>
+
+                <div class="relative animate-assemble delay-200">
+                    <div class="azulejo-grid">
+                        <div class="azulejo-tile" style="background: #0047AB;"></div>
+                        <div class="azulejo-tile" style="background: #FFD700;"></div>
+                        <div class="azulejo-tile" style="background: #2ECC40;"></div>
+                        <div class="azulejo-tile" style="background: #FF6F61;"></div>
+                        <div class="azulejo-tile" style="background: #F0F0F0;"></div>
+                        <div class="azulejo-tile" style="background: #0047AB;"></div>
+                        <div class="azulejo-tile" style="background: #F0F0F0;"></div>
+                        <div class="azulejo-tile" style="background: #FFD700;"></div>
+                        <div class="azulejo-tile" style="background: #2ECC40;"></div>
+                        <div class="azulejo-tile" style="background: #F0F0F0;"></div>
+                        <div class="azulejo-tile" style="background: #FF6F61;"></div>
+                        <div class="azulejo-tile" style="background: #0047AB;"></div>
+                        <div class="azulejo-tile" style="background: #F0F0F0;"></div>
+                        <div class="azulejo-tile" style="background: #FFD700;"></div>
+                        <div class="azulejo-tile" style="background: #2ECC40;"></div>
+                        <div class="azulejo-tile" style="background: #F0F0F0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="recursos" class="py-20 bg-[#F0F0F0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4" style="font-family: 'Bebas Neue', sans-serif;">Recursos Criativos</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ferramentas poderosas para artistas digitais colaborarem</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card pattern-rotate-hover animate-assemble delay-100">
+                    <div class="pattern-overlay"></div>
+                    <div class="feature-icon">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Grid Modular</h3>
+                    <p class="text-gray-600">Crie composições únicas com nosso sistema de grid modular inspirado em azulejos brasileiros.</p>
+                </div>
+
+                <div class="feature-card pattern-rotate-hover animate-assemble delay-200">
+                    <div class="pattern-overlay"></div>
+                    <div class="feature-icon">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Colaboração em Tempo Real</h3>
+                    <p class="text-gray-600">Trabalhe com outros artistas simultaneamente em projetos colaborativos.</p>
+                </div>
+
+                <div class="feature-card pattern-rotate-hover animate-assemble delay-300">
+                    <div class="pattern-overlay"></div>
+                    <div class="feature-icon">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Padrões Geométricos</h3>
+                    <p class="text-gray-600">Biblioteca completa de padrões geométricos e formas abstratas para suas criações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4" style="font-family: 'Bebas Neue', sans-serif;">Depoimentos</h2>
+                <p class="text-gray-600">O que nossos artistas dizem</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <p class="text-gray-700 mb-6 relative z-10">"A plataforma transformou minha forma de criar arte digital. Os padrões modulares são incríveis!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#0047AB] flex items-center justify-center text-white font-bold mr-4">MC</div>
+                        <div>
+                            <p class="font-semibold">Marina Costa</p>
+                            <p class="text-sm text-gray-500">Artista Digital</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="text-gray-700 mb-6 relative z-10">"Finalmente uma plataforma que valoriza a estética brasileira. Colaboro com artistas do Brasil todo."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#FFD700] flex items-center justify-center text-white font-bold mr-4">RS</div>
+                        <div>
+                            <p class="font-semibold">Roberto Santos</p>
+                            <p class="text-sm text-gray-500">Designer Gráfico</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="text-gray-700 mb-6 relative z-10">"Os recursos de colaboração em tempo real são excepcionais. Minha equipe produtizou em 50%."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#2ECC40] flex items-center justify-center text-white font-bold mr-4">AL</div>
+                        <div>
+                            <p class="font-semibold">Ana Luíza</p>
+                            <p class="text-sm text-gray-500">Diretora de Arte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="planos" class="py-20 bg-[#F0F0F0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4" style="font-family: 'Bebas Neue', sans-serif;">Planos</h2>
+                <p class="text-gray-600">Escolha o plano ideal para você</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="pricing-card">
+                    <h3 class="text-xl font-bold mb-2">Iniciante</h3>
+                    <p class="text-gray-500 mb-6">Para começar a criar</p>
+                    <div class="mb-6">
+                        <span class="price-amount">R$0</span>
+                        <span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>5 projetos</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>10 padrões</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Comunidade</li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full text-center block">Começar</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3 class="text-xl font-bold mb-2">Pro</h3>
+                    <p class="text-gray-500 mb-6">Para artistas sérios</p>
+                    <div class="mb-6">
+                        <span class="price-amount">R$49</span>
+                        <span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Projetos ilimitados</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Todos os padrões</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Colaboração em tempo real</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Exportação HD</li>
+                    </ul>
+                    <a href="#" class="btn-primary w-full text-center block">Assinar Pro</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="text-xl font-bold mb-2">Equipe</h3>
+                    <p class="text-gray-500 mb-6">Para estúdios e agências</p>
+                    <div class="mb-6">
+                        <span class="price-amount">R$199</span>
+                        <span class="text-gray-500">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tudo do Pro</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Até 10 membros</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>API personalizada</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-[#2ECC40] mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Suporte prioritário</li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full text-center block">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6" style="font-family: 'Bebas Neue', sans-serif;">Comece a Criar Agora</h2>
+            <p class="text-xl text-gray-600 mb-8">Junte-se a milhares de artistas criando arte digital colaborativa</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="btn-primary">Criar Conta Grátis</a>
+                <a href="#" class="btn-secondary">Agendar Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#F0F0F0] py-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-[#0047AB] rounded-sm flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">Azul Tile</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Plataforma de arte digital colaborativa inspirada no modernismo brasileiro.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Produto</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-sm">Recursos</a></li>
+                        <li><a href="#" class="footer-link text-sm">Planos</a></li>
+                        <li><a href="#" class="footer-link text-sm">Integrações</a></li>
+                        <li><a href="#" class="footer-link text-sm">API</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Empresa</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-sm">Sobre</a></li>
+                        <li><a href="#" class="footer-link text-sm">Blog</a></li>
+                        <li><a href="#" class="footer-link text-sm">Carreiras</a></li>
+                        <li><a href="#" class="footer-link text-sm">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-sm">Privacidade</a></li>
+                        <li><a href="#" class="footer-link text-sm">Termos de Uso</a></li>
+                        <li><a href="#" class="footer-link text-sm">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-300 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2026 Azul Tile. Todos os direitos reservados.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

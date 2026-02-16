@@ -3,61 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RetroTech - Revolucione seus projetos com tecnologia retro 8-bit. Ambiente de desenvolvimento nostálgico e moderno ao mesmo tempo.">
-    <meta name="keywords" content="8-bit, retro, terminal, desenvolvimento, programacao, nostalgia, arcade, pixel art">
-    <meta name="author" content="RetroTech">
+    <meta name="description" content="PixelQuest Arcade - Plataforma de jogos retrô com estética 8-bit, pixel art e arcade dos anos 80. Jogue clássicos e descubra novos jogos retrô!">
+    <meta name="keywords" content="jogos retrô, 8-bit, pixel art, arcade, jogos vintage, console, games clássicos">
+    <meta name="author" content="PixelQuest Arcade">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://retro-tech.dev/">
-    <meta property="og:title" content="RetroTech - Tecnologia 8-Bit para o Futuro">
-    <meta property="og:description" content="Ambiente de desenvolvimento com estilo retro terminal. Programe com nostalgia e performance.">
-    <meta property="og:image" content="https://retro-tech.dev/og-image.png">
+    <meta property="og:url" content="https://pixelquestarcade.com/">
+    <meta property="og:title" content="PixelQuest Arcade - Jogos Retrô em 8-Bit">
+    <meta property="og:description" content="Plataforma de jogos retrô com estética 8-bit, pixel art e arcade dos anos 80. Jogue clássicos e descubra novos jogos retrô!">
+    <meta property="og:image" content="https://pixelquestarcade.com/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://retro-tech.dev/">
-    <meta property="twitter:title" content="RetroTech - Tecnologia 8-Bit">
-    <meta property="twitter:description" content="Desenvolva com o estilo dos anos 80">
+    <meta property="twitter:url" content="https://pixelquestarcade.com/">
+    <meta property="twitter:title" content="PixelQuest Arcade - Jogos Retrô em 8-Bit">
+    <meta property="twitter:description" content="Plataforma de jogos retrô com estética 8-bit, pixel art e arcade dos anos 80.">
+    <meta property="twitter:image" content="https://pixelquestarcade.com/twitter-image.png">
 
-    <title>RetroTech - Sistema 8-Bit Terminal</title>
+    <title>PixelQuest Arcade - Jogos Retrô em 8-Bit</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts - Press Start 2P -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <style>
+        /* ========================================
+           PIXELQUEST ARCADE - 8-BIT RETRO TERMINAL
+           ======================================== */
+
+        /* CSS RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* DESIGN SYSTEM VARIABLES */
         :root {
+            /* Core Colors */
             --bg-pixel: #050505;
             --pixel-green: #2CFF56;
             --pixel-yellow: #FFB200;
             --pixel-white: #FFFFFF;
-            --coin-yellow: #FFD700;
-            --heart-red: #FF0000;
+            --pixel-gold: #FFD700;
+            --pixel-red: #FF0000;
+            --pixel-dark: #0a0a0a;
+            --pixel-dim: #1a1a1a;
+
+            /* Typography */
             --font-pixel: 'Press Start 2P', cursive;
+            --font-size-xs: 8px;
+            --font-size-sm: 10px;
+            --font-size-md: 12px;
+            --font-size-lg: 16px;
+            --font-size-xl: 24px;
+            --font-size-2xl: 32px;
+            --font-size-3xl: 48px;
+
+            /* Spacing */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+
+            /* Borders */
             --border-thick: 4px solid var(--pixel-green);
-            --glow-green: 0 0 10px #2CFF56, 0 0 20px #2CFF56, 0 0 30px #2CFF56;
-            --glow-yellow: 0 0 10px #FFB200, 0 0 20px #FFB200;
+            --border-thin: 2px solid var(--pixel-green);
+            --border-yellow: 4px solid var(--pixel-yellow);
+            --border-white: 2px solid var(--pixel-white);
+
+            /* Effects */
+            --glow-green: 0 0 10px var(--pixel-green), 0 0 20px var(--pixel-green);
+            --glow-yellow: 0 0 10px var(--pixel-yellow), 0 0 20px var(--pixel-yellow);
+            --shadow-pixel: 4px 4px 0 var(--pixel-green);
+            --shadow-pixel-yellow: 4px 4px 0 var(--pixel-yellow);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* BASE STYLES */
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-pixel);
             background-color: var(--bg-pixel);
             color: var(--pixel-green);
-            line-height: 1.8;
+            line-height: 1.6;
+            font-size: var(--font-size-md);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* CRT Scanlines Effect */
+        /* CRT Scanline Overlay */
         body::before {
             content: '';
             position: fixed;
@@ -65,6 +107,8 @@
             left: 0;
             width: 100%;
             height: 100%;
+            pointer-events: none;
+            z-index: 9999;
             background: repeating-linear-gradient(
                 0deg,
                 rgba(0, 0, 0, 0.15),
@@ -72,11 +116,9 @@
                 transparent 1px,
                 transparent 2px
             );
-            pointer-events: none;
-            z-index: 9999;
         }
 
-        /* CRT Flicker Effect */
+        /* CRT Phosphor Glow */
         body::after {
             content: '';
             position: fixed;
@@ -84,551 +126,510 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
             pointer-events: none;
             z-index: 9998;
-            animation: flicker 0.15s infinite;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
         }
 
-        @keyframes flicker {
-            0% { opacity: 0.97; }
-            50% { opacity: 1; }
-            100% { opacity: 0.98; }
+        a {
+            color: var(--pixel-yellow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
+        a:hover {
+            color: var(--pixel-gold);
+            text-shadow: var(--glow-yellow);
+        }
+
+        /* CONTAINER */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--space-sm);
         }
 
-        /* Navigation */
-        nav {
-            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
-            border-bottom: var(--border-thick);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(44, 255, 86, 0.2);
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: var(--pixel-green);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--pixel-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            text-shadow: var(--glow-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { text-shadow: var(--glow-green); }
-            50% { text-shadow: 0 0 5px #2CFF56; }
-        }
-
-        .logo-text {
-            font-size: 1rem;
-            text-shadow: var(--glow-green);
-        }
-
-        .logo-text span {
-            color: var(--pixel-yellow);
-            text-shadow: var(--glow-yellow);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--pixel-green);
-            text-decoration: none;
-            font-size: 0.65rem;
-            transition: all 0.3s ease;
-            padding: 8px 12px;
-            border: 2px solid transparent;
-        }
-
-        .nav-links a:hover {
-            color: var(--pixel-yellow);
-            border: 2px solid var(--pixel-yellow);
-            text-shadow: var(--glow-yellow);
-        }
-
-        .nav-cta {
-            background: var(--pixel-yellow);
-            color: var(--bg-pixel);
-            padding: 12px 20px;
-            border: 3px solid var(--pixel-green);
-            font-family: var(--font-pixel);
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .nav-cta:hover {
-            background: var(--pixel-green);
-            color: var(--bg-pixel);
-            box-shadow: var(--glow-green);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: 2px solid var(--pixel-green);
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .menu-toggle svg {
-            width: 25px;
-            height: 25px;
-            fill: var(--pixel-green);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            background: linear-gradient(180deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
-            border-bottom: var(--border-thick);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '01000011 01001111 01000100 01000101>';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 0.5rem;
-            color: var(--pixel-green);
-            opacity: 0.3;
-            white-space: pre;
-        }
-
-        .hero::after {
-            content: '> INICIANDO SISTEMA...';
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 0.5rem;
-            color: var(--pixel-green);
-            opacity: 0.5;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            text-shadow: var(--glow-green);
-            line-height: 1.4;
-        }
-
-        .hero-text h1 .highlight {
-            color: var(--pixel-yellow);
-            text-shadow: var(--glow-yellow);
-            display: block;
-            margin-top: 10px;
-        }
-
-        .hero-text p {
-            font-size: 0.7rem;
-            margin-bottom: 35px;
-            opacity: 0.9;
-            max-width: 500px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: var(--pixel-green);
-            color: var(--bg-pixel);
-            padding: 18px 30px;
-            border: 3px solid var(--pixel-yellow);
-            font-family: var(--font-pixel);
-            font-size: 0.65rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        /* BUTTONS */
+        .btn {
             display: inline-block;
+            padding: var(--space-sm) var(--space-md);
+            font-family: var(--font-pixel);
+            font-size: var(--font-size-sm);
+            color: var(--bg-pixel);
+            background-color: var(--pixel-green);
+            border: var(--border-thick);
+            cursor: pointer;
+            transition: all 0.2s ease;
             text-transform: uppercase;
+            image-rendering: pixelated;
+            position: relative;
         }
 
-        .btn-primary:hover {
-            background: var(--pixel-yellow);
-            color: var(--bg-pixel);
-            box-shadow: var(--glow-yellow);
-            transform: translateY(-3px);
+        .btn:hover {
+            background-color: var(--pixel-yellow);
+            border-color: var(--pixel-yellow);
+            box-shadow: var(--shadow-pixel-yellow);
+            transform: translate(-2px, -2px);
+        }
+
+        .btn:active {
+            transform: translate(0, 0);
+            box-shadow: none;
         }
 
         .btn-secondary {
-            background: transparent;
+            background-color: transparent;
             color: var(--pixel-green);
-            padding: 18px 30px;
-            border: 3px solid var(--pixel-green);
-            font-family: var(--font-pixel);
-            font-size: 0.65rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
+            border: var(--border-thick);
         }
 
         .btn-secondary:hover {
-            background: var(--pixel-green);
+            background-color: var(--pixel-green);
             color: var(--bg-pixel);
-            box-shadow: var(--glow-green);
         }
 
-        .hero-visual {
-            text-align: center;
-            position: relative;
+        .btn-yellow {
+            background-color: var(--pixel-yellow);
+            border-color: var(--pixel-yellow);
         }
 
-        .terminal-frame {
-            border: var(--border-thick);
-            background: #0a0a0a;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(44, 255, 86, 0.3);
+        .btn-yellow:hover {
+            background-color: var(--pixel-gold);
+            border-color: var(--pixel-gold);
         }
 
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px dashed var(--pixel-green);
-        }
-
-        .terminal-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .terminal-btn {
-            width: 15px;
-            height: 15px;
-            border-radius: 0;
-            border: 2px solid;
-        }
-
-        .terminal-btn.red { background: var(--heart-red); border-color: #990000; }
-        .terminal-btn.yellow { background: var(--coin-yellow); border-color: #B8860B; }
-        .terminal-btn.green { background: var(--pixel-green); border-color: #1a9933; }
-
-        .terminal-title {
-            font-size: 0.5rem;
-            color: var(--pixel-green);
-        }
-
-        .terminal-content {
-            font-size: 0.55rem;
-            text-align: left;
-            line-height: 2;
-        }
-
-        .terminal-line {
-            margin: 8px 0;
-        }
-
-        .terminal-prompt {
-            color: var(--pixel-yellow);
-            margin-right: 10px;
-        }
-
-        .terminal-command {
-            color: var(--pixel-white);
-        }
-
-        .cursor {
-            animation: blink 1s infinite;
-        }
-
-        /* Binary rain decoration */
-        .binary-rain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .binary-column {
-            position: absolute;
-            top: -100%;
-            font-size: 0.5rem;
-            color: var(--pixel-green);
-            animation: rain 10s linear infinite;
-        }
-
-        @keyframes rain {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(200%); }
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: var(--bg-pixel);
-            border-bottom: var(--border-thick);
+        /* SECTION STYLES */
+        section {
+            padding: var(--space-2xl) 0;
             position: relative;
         }
 
         .section-title {
+            font-size: var(--font-size-2xl);
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: var(--space-xl);
+            color: var(--pixel-yellow);
+            text-shadow: var(--glow-yellow);
+            text-transform: uppercase;
         }
 
-        .section-title h2 {
-            font-size: 1.4rem;
+        .section-subtitle {
+            font-size: var(--font-size-sm);
+            text-align: center;
+            margin-bottom: var(--space-lg);
             color: var(--pixel-green);
-            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        /* ========================================
+           NAVBAR
+           ======================================== */
+        .navbar {
+            background-color: var(--bg-pixel);
+            border-bottom: var(--border-thick);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-sm);
+        }
+
+        .navbar-logo {
+            font-size: var(--font-size-md);
+            color: var(--pixel-yellow);
+            text-shadow: var(--glow-yellow);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .navbar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-md);
+        }
+
+        .nav-link {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            padding: var(--space-xs);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: var(--pixel-green);
+            background-color: rgba(44, 255, 86, 0.1);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--pixel-green);
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background:
+                linear-gradient(90deg, var(--pixel-green) 1px, transparent 1px),
+                linear-gradient(var(--pixel-green) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+            background-color: var(--bg-pixel);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 5, 0.85);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+
+        .hero-terminal {
+            border: var(--border-thick);
+            padding: var(--space-xl);
+            background-color: var(--bg-pixel);
+            box-shadow: var(--glow-green);
+            position: relative;
+        }
+
+        .hero-terminal::before {
+            content: '[ INSERT COIN ]';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--bg-pixel);
+            padding: 0 var(--space-sm);
+            font-size: var(--font-size-xs);
+            color: var(--pixel-yellow);
+        }
+
+        .hero-title {
+            font-size: var(--font-size-3xl);
+            color: var(--pixel-yellow);
+            text-shadow: var(--glow-yellow);
+            margin-bottom: var(--space-md);
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+
+        .hero-title span {
+            color: var(--pixel-green);
             text-shadow: var(--glow-green);
         }
 
-        .section-title h2::before {
-            content: '[ ';
-            color: var(--pixel-yellow);
+        .hero-subtitle {
+            font-size: var(--font-size-md);
+            color: var(--pixel-green);
+            margin-bottom: var(--space-lg);
+            opacity: 0.9;
         }
 
-        .section-title h2::after {
-            content: ' ]';
+        .hero-ascii {
+            font-size: var(--font-size-xs);
             color: var(--pixel-yellow);
+            margin-bottom: var(--space-md);
+            white-space: pre;
+            line-height: 1.2;
+            opacity: 0.7;
         }
 
-        .section-title p {
-            font-size: 0.6rem;
-            color: var(--pixel-white);
+        .hero-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: var(--border-thin);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: var(--font-size-xl);
+            color: var(--pixel-yellow);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+
+        .hero-stat-label {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
             opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
+        }
+
+        /* ========================================
+           FEATURES SECTION
+           ======================================== */
+        .features {
+            background-color: var(--pixel-dark);
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
         }
 
         .feature-card {
-            background: #0a0a0a;
-            border: 3px solid var(--pixel-green);
-            padding: 30px;
-            text-align: center;
+            border: var(--border-thick);
+            padding: var(--space-lg);
+            background-color: var(--bg-pixel);
             transition: all 0.3s ease;
             position: relative;
+            image-rendering: pixelated;
         }
 
         .feature-card::before {
-            content: '>';
+            content: '';
             position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 0.8rem;
-            color: var(--pixel-yellow);
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px dashed var(--pixel-yellow);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--glow-green);
-            border-color: var(--pixel-yellow);
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-pixel);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            border: 3px solid var(--pixel-yellow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-pixel);
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            display: block;
         }
 
         .feature-icon svg {
-            width: 35px;
-            height: 35px;
-            fill: var(--pixel-green);
+            width: 100%;
+            height: 100%;
         }
 
-        .feature-card h3 {
-            font-size: 0.8rem;
+        .feature-title {
+            font-size: var(--font-size-md);
             color: var(--pixel-yellow);
-            margin-bottom: 15px;
-            text-shadow: var(--glow-yellow);
+            margin-bottom: var(--space-sm);
+            text-align: center;
+            text-transform: uppercase;
         }
 
-        .feature-card p {
-            font-size: 0.5rem;
-            color: var(--pixel-white);
+        .feature-description {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            text-align: center;
             line-height: 1.8;
             opacity: 0.9;
         }
 
-        /* Testimonials Section */
+        .feature-binary {
+            font-size: 8px;
+            color: var(--pixel-green);
+            opacity: 0.3;
+            text-align: center;
+            margin-top: var(--space-md);
+            word-break: break-all;
+            line-height: 1;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
         .testimonials {
-            padding: 80px 0;
-            background: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
-            border-bottom: var(--border-thick);
+            background-color: var(--bg-pixel);
             position: relative;
         }
 
         .testimonials::before {
-            content: '====================================';
+            content: '';
             position: absolute;
-            top: 10px;
+            top: 0;
             left: 0;
-            right: 0;
-            font-size: 0.4rem;
-            color: var(--pixel-green);
-            opacity: 0.2;
-            text-align: center;
-            overflow: hidden;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--pixel-green),
+                var(--pixel-green) 20px,
+                var(--pixel-yellow) 20px,
+                var(--pixel-yellow) 40px
+            );
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
         }
 
         .testimonial-card {
-            background: #0a0a0a;
-            border: 3px solid var(--pixel-yellow);
-            padding: 30px;
+            border: var(--border-white);
+            padding: var(--space-lg);
+            background-color: var(--pixel-dim);
             position: relative;
             transition: all 0.3s ease;
         }
 
-        .testimonial-card::before {
-            content: '$';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            color: var(--pixel-green);
-            opacity: 0.3;
+        .testimonial-card:hover {
+            border-color: var(--pixel-yellow);
+            box-shadow: var(--shadow-pixel-yellow);
         }
 
-        .testimonial-card:hover {
-            transform: scale(1.03);
-            box-shadow: var(--glow-yellow);
+        .testimonial-quote {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-size: 48px;
+            color: var(--pixel-green);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
         }
 
         .testimonial-text {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            margin-bottom: var(--space-md);
+            padding-top: var(--space-md);
+            line-height: 1.8;
             font-style: italic;
-            color: var(--pixel-white);
-            margin-bottom: 25px;
-            font-size: 0.55rem;
-            line-height: 1.9;
-            padding-top: 20px;
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: var(--space-sm);
+            border-top: 1px solid var(--pixel-green);
+            padding-top: var(--space-sm);
         }
 
         .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--bg-pixel);
-            border: 3px solid var(--pixel-green);
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--pixel-yellow);
+            background-color: var(--pixel-green);
             display: flex;
             align-items: center;
             justify-content: center;
+            image-rendering: pixelated;
         }
 
         .testimonial-avatar svg {
-            width: 25px;
-            height: 25px;
-            fill: var(--pixel-yellow);
+            width: 24px;
+            height: 24px;
         }
 
-        .testimonial-info h4 {
-            color: var(--pixel-green);
-            font-size: 0.6rem;
-            margin-bottom: 5px;
+        .testimonial-info {
+            flex: 1;
         }
 
-        .testimonial-info span {
+        .testimonial-name {
+            font-size: var(--font-size-xs);
             color: var(--pixel-yellow);
-            font-size: 0.45rem;
+            display: block;
+            margin-bottom: 4px;
         }
 
-        /* Pricing Section */
+        .testimonial-level {
+            font-size: 8px;
+            color: var(--pixel-green);
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .testimonial-stars svg {
+            width: 12px;
+            height: 12px;
+            fill: var(--pixel-gold);
+        }
+
+        /* ========================================
+           PRICING SECTION
+           ======================================== */
         .pricing {
-            padding: 80px 0;
-            background: var(--bg-pixel);
-            border-bottom: var(--border-thick);
+            background-color: var(--pixel-dark);
             position: relative;
         }
 
-        .pricing::before {
-            content: 'BYTES> 00101010 10101010';
+        .pricing::after {
+            content: '>> HIGH SCORE TABLE <<';
             position: absolute;
-            bottom: 10px;
-            left: 20px;
-            font-size: 0.4rem;
+            top: 20px;
+            right: 20px;
+            font-size: var(--font-size-xs);
             color: var(--pixel-green);
             opacity: 0.3;
+            transform: rotate(-5deg);
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            align-items: center;
         }
 
         .pricing-card {
-            background: #0a0a0a;
-            border: 3px solid var(--pixel-green);
-            padding: 40px 25px;
+            border: var(--border-thick);
+            padding: var(--space-lg);
+            background-color: var(--bg-pixel);
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
@@ -636,683 +637,626 @@
 
         .pricing-card.featured {
             border-color: var(--pixel-yellow);
-            border-width: 4px;
             transform: scale(1.05);
+            box-shadow: var(--shadow-pixel-yellow);
         }
 
         .pricing-card.featured::before {
-            content: '★ POPULAR ★';
+            content: '★★★ TOP SCORE ★★★';
             position: absolute;
-            top: -15px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--pixel-yellow);
-            color: var(--bg-pixel);
-            padding: 5px 15px;
-            font-size: 0.45rem;
+            font-size: var(--font-size-xs);
+            color: var(--pixel-yellow);
+            white-space: nowrap;
+            animation: blink 1s infinite;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(44, 255, 86, 0.4);
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .pricing-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: var(--bg-pixel);
-            border: 3px solid var(--pixel-yellow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pricing-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: var(--pixel-yellow);
-        }
-
-        .pricing-card h3 {
-            font-size: 0.9rem;
+        .pricing-tier {
+            font-size: var(--font-size-md);
             color: var(--pixel-green);
-            margin-bottom: 15px;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+        }
+
+        .pricing-card.featured .pricing-tier {
+            color: var(--pixel-yellow);
         }
 
         .pricing-price {
-            font-size: 2rem;
+            font-size: var(--font-size-2xl);
             color: var(--pixel-yellow);
-            margin-bottom: 5px;
-            text-shadow: var(--glow-yellow);
+            margin-bottom: var(--space-xs);
         }
 
         .pricing-price span {
-            font-size: 0.5rem;
-            color: var(--pixel-white);
+            font-size: var(--font-size-md);
+            color: var(--pixel-green);
         }
 
-        .pricing-description {
-            color: var(--pixel-white);
-            margin-bottom: 25px;
-            font-size: 0.5rem;
-            opacity: 0.8;
+        .pricing-period {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            opacity: 0.7;
+            margin-bottom: var(--space-md);
         }
 
         .pricing-features {
             list-style: none;
-            margin-bottom: 30px;
+            margin-bottom: var(--space-md);
             text-align: left;
         }
 
-        .pricing-features li {
-            padding: 10px 0;
-            border-bottom: 1px dashed var(--pixel-green);
+        .pricing-feature {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            padding: var(--space-xs) 0;
+            border-bottom: 1px dashed rgba(44, 255, 86, 0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--pixel-white);
-            font-size: 0.5rem;
+            gap: var(--space-xs);
         }
 
-        .pricing-features li:last-child {
-            border-bottom: none;
-        }
-
-        .pricing-features svg {
-            width: 15px;
-            height: 15px;
-            fill: var(--pixel-green);
+        .pricing-feature svg {
+            width: 12px;
+            height: 12px;
             flex-shrink: 0;
+            fill: var(--pixel-green);
         }
 
-        .pricing-card .btn-primary {
+        .pricing-feature.feature-included svg {
+            fill: var(--pixel-green);
+        }
+
+        .pricing-feature.feature-excluded {
+            opacity: 0.5;
+        }
+
+        .pricing-feature.feature-excluded svg {
+            fill: var(--pixel-red);
+        }
+
+        .pricing-cta {
             width: 100%;
         }
 
-        /* CTA Section */
+        /* ========================================
+           CTA SECTION
+           ======================================== */
         .cta {
-            padding: 80px 0;
-            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
-            border-bottom: var(--border-thick);
+            background:
+                linear-gradient(90deg, var(--pixel-yellow) 1px, transparent 1px),
+                linear-gradient(var(--pixel-yellow) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: var(--pixel-dark);
             text-align: center;
             position: relative;
         }
 
-        .cta::before {
-            content: '> EXECUTE O COMANDO FINAL <';
+        .terminal-frame {
+            border: var(--border-thick);
+            padding: var(--space-xl);
+            background-color: var(--bg-pixel);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: var(--glow-green);
+        }
+
+        .terminal-frame::before,
+        .terminal-frame::after {
+            content: '+';
             position: absolute;
-            top: 15px;
-            left: 0;
-            right: 0;
-            font-size: 0.5rem;
-            color: var(--pixel-green);
-            text-align: center;
-            opacity: 0.5;
-        }
-
-        .cta h2 {
-            font-size: 1.5rem;
+            font-size: var(--font-size-lg);
             color: var(--pixel-yellow);
-            margin-bottom: 25px;
+        }
+
+        .terminal-frame::before {
+            top: 8px;
+            left: 8px;
+        }
+
+        .terminal-frame::after {
+            top: 8px;
+            right: 8px;
+        }
+
+        .cta-title {
+            font-size: var(--font-size-xl);
+            color: var(--pixel-yellow);
+            margin-bottom: var(--space-md);
             text-shadow: var(--glow-yellow);
+            text-transform: uppercase;
         }
 
-        .cta p {
-            font-size: 0.6rem;
-            color: var(--pixel-white);
-            margin-bottom: 35px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
+        .cta-text {
+            font-size: var(--font-size-sm);
+            color: var(--pixel-green);
+            margin-bottom: var(--space-lg);
+            line-height: 1.8;
         }
 
-        .cta-form {
+        .cta-buttons {
             display: flex;
-            gap: 15px;
+            gap: var(--space-md);
             justify-content: center;
             flex-wrap: wrap;
-            max-width: 500px;
-            margin: 0 auto;
         }
 
-        .cta-input {
-            flex: 1;
-            min-width: 220px;
-            padding: 15px 20px;
-            border: 3px solid var(--pixel-green);
-            background: var(--bg-pixel);
-            font-family: var(--font-pixel);
-            font-size: 0.55rem;
-            color: var(--pixel-green);
-        }
-
-        .cta-input::placeholder {
-            color: var(--pixel-green);
-            opacity: 0.5;
-        }
-
-        .cta-input:focus {
-            outline: none;
-            border-color: var(--pixel-yellow);
-            box-shadow: var(--glow-yellow);
-        }
-
-        .cta .btn-primary {
-            background: var(--pixel-yellow);
-            color: var(--bg-pixel);
-            border-color: var(--pixel-green);
-        }
-
-        .cta .btn-primary:hover {
-            background: var(--pixel-green);
-            color: var(--bg-pixel);
-        }
-
-        /* Footer */
-        footer {
-            background: #0a0a0a;
-            color: var(--pixel-green);
-            padding: 60px 0 30px;
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background-color: var(--bg-pixel);
             border-top: var(--border-thick);
+            padding: var(--space-xl) 0 var(--space-md);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
         }
 
-        .footer-brand .logo {
-            margin-bottom: 20px;
-            display: inline-flex;
+        .footer-section {
+            text-align: left;
         }
 
-        .footer-brand p {
-            color: var(--pixel-white);
-            line-height: 2;
-            margin-bottom: 20px;
-            font-size: 0.5rem;
+        .footer-logo {
+            font-size: var(--font-size-sm);
+            color: var(--pixel-yellow);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .footer-logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-description {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            line-height: 1.8;
             opacity: 0.8;
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-title {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-yellow);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            font-size: var(--font-size-xs);
+            color: var(--pixel-green);
+            padding: var(--space-xs) 0;
+            display: block;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--pixel-yellow);
+            padding-left: 8px;
         }
 
         .footer-social {
             display: flex;
-            gap: 15px;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
         }
 
-        .social-link {
+        .social-icon {
             width: 40px;
             height: 40px;
-            background: var(--bg-pixel);
             border: 2px solid var(--pixel-green);
+            background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
         }
 
-        .social-link:hover {
-            background: var(--pixel-green);
-            box-shadow: var(--glow-green);
+        .social-icon:hover {
+            background-color: var(--pixel-green);
+            border-color: var(--pixel-yellow);
         }
 
-        .social-link svg {
+        .social-icon svg {
             width: 18px;
             height: 18px;
             fill: var(--pixel-green);
             transition: fill 0.3s ease;
         }
 
-        .social-link:hover svg {
+        .social-icon:hover svg {
             fill: var(--bg-pixel);
         }
 
-        .footer-column h4 {
-            color: var(--pixel-yellow);
-            font-size: 0.7rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed var(--pixel-green);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column ul a {
-            color: var(--pixel-white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-column ul a:hover {
-            color: var(--pixel-yellow);
-            padding-left: 5px;
-        }
-
-        .footer-column ul a::before {
-            content: '>';
-            color: var(--pixel-green);
-        }
-
-        .footer-column ul a svg {
-            display: none;
-        }
-
         .footer-bottom {
+            border-top: var(--border-thin);
+            padding-top: var(--space-md);
             text-align: center;
-            padding-top: 30px;
-            border-top: 2px dashed var(--pixel-green);
         }
 
-        .footer-bottom p {
-            color: var(--pixel-white);
-            margin-bottom: 15px;
-            font-size: 0.5rem;
-            opacity: 0.7;
-        }
-
-        .footer-bottom-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .footer-bottom-links a {
-            color: var(--pixel-white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.45rem;
-            opacity: 0.7;
-        }
-
-        .footer-bottom-links a:hover {
-            color: var(--pixel-yellow);
-            opacity: 1;
-        }
-
-        /* ASCII Art Decorations */
-        .ascii-art {
-            font-size: 0.4rem;
-            white-space: pre;
+        .footer-copyright {
+            font-size: var(--font-size-xs);
             color: var(--pixel-green);
-            opacity: 0.3;
-            line-height: 1.2;
+            opacity: 0.7;
+            margin-bottom: var(--space-xs);
         }
 
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-text p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .features-grid,
-            .testimonials-grid,
-            .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .footer-credits {
+            font-size: 8px;
+            color: var(--pixel-green);
+            opacity: 0.5;
         }
 
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+            :root {
+                --font-size-3xl: 32px;
+                --font-size-2xl: 24px;
+                --font-size-xl: 20px;
+                --font-size-lg: 14px;
             }
 
-            .nav-links {
+            .nav-menu {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
+                background-color: var(--bg-pixel);
+                border-top: var(--border-thick);
                 flex-direction: column;
-                gap: 15px;
-                margin-top: 20px;
-                text-align: center;
+                padding: var(--space-md);
+                gap: var(--space-sm);
             }
 
-            .nav-links.active {
+            .nav-menu.active {
                 display: flex;
             }
 
-            .hero-text h1 {
-                font-size: 1.2rem;
+            .nav-toggle {
+                display: block;
             }
 
-            .features-grid,
-            .testimonials-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            .hero-content {
+                padding: var(--space-md);
+            }
+
+            .hero-terminal {
+                padding: var(--space-md);
+            }
+
+            .hero-title {
+                font-size: var(--font-size-2xl);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: var(--space-md);
             }
 
             .pricing-card.featured {
                 transform: scale(1);
             }
 
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-
-            .section-title h2 {
-                font-size: 1rem;
-            }
-
-            .cta h2 {
-                font-size: 1.1rem;
-            }
-
-            .terminal-frame {
-                padding: 20px;
-            }
-
-            .terminal-content {
-                font-size: 0.45rem;
+            .section-title {
+                font-size: var(--font-size-xl);
             }
         }
 
         @media (max-width: 480px) {
-            .hero-text h1 {
-                font-size: 0.9rem;
+            :root {
+                --font-size-md: 10px;
+                --font-size-sm: 8px;
+                --font-size-xs: 7px;
             }
 
-            .hero-text p {
-                font-size: 0.55rem;
+            .container {
+                padding: 0 var(--space-xs);
             }
 
-            .btn-primary,
-            .btn-secondary {
-                padding: 14px 20px;
-                font-size: 0.5rem;
+            section {
+                padding: var(--space-lg) 0;
             }
 
             .feature-card,
             .testimonial-card,
             .pricing-card {
-                padding: 25px 20px;
-            }
-
-            .pricing-price {
-                font-size: 1.5rem;
-            }
-
-            .cta-input {
-                min-width: 100%;
-            }
-
-            .hero::before,
-            .hero::after {
-                display: none;
+                padding: var(--space-md);
             }
         }
 
-        /* Animations */
-        @keyframes typing {
-            0% { width: 0; }
-            100% { width: 100%; }
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .text-center { text-align: center; }
+        .text-yellow { color: var(--pixel-yellow); }
+        .text-green { color: var(--pixel-green); }
+        .mt-1 { margin-top: var(--space-xs); }
+        .mt-2 { margin-top: var(--space-sm); }
+        .mt-3 { margin-top: var(--space-md); }
+        .mb-1 { margin-bottom: var(--space-xs); }
+        .mb-2 { margin-bottom: var(--space-sm); }
+        .mb-3 { margin-bottom: var(--space-md); }
+        .pixel-borders { border: var(--border-thick); }
+
+        /* Animation for floating elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 10px var(--pixel-green); }
-            50% { box-shadow: 0 0 20px var(--pixel-green), 0 0 30px var(--pixel-green); }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
         }
 
-        .typing-effect {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end);
+        /* Cursor blink effect */
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .cursor-blink::after {
+            content: '█';
+            animation: cursor-blink 1s infinite;
+            color: var(--pixel-green);
+            margin-left: 4px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <a href="#" class="logo">
-                <div class="logo-icon">▣</div>
-                <span class="logo-text">RETRO<span>TECH</span></span>
-            </a>
-
-            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="6" width="4" height="12" fill="currentColor"/>
+                    <rect x="8" y="4" width="4" height="16" fill="currentColor"/>
+                    <rect x="14" y="8" width="4" height="8" fill="currentColor"/>
+                    <rect x="20" y="2" width="2" height="20" fill="currentColor"/>
                 </svg>
+                PIXELQUEST
+            </a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                ☰
             </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#recursos">RECURSOS</a></li>
-                <li><a href="#depoimentos">DEPOIMENTOS</a></li>
-                <li><a href="#precos">PREÇOS</a></li>
-                <li><a href="#contato">CONTATO</a></li>
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">[ FEATURES ]</a></li>
+                <li><a href="#testimonials" class="nav-link">[ REVIEWS ]</a></li>
+                <li><a href="#pricing" class="nav-link">[ PRICING ]</a></li>
+                <li><a href="#contact" class="nav-link">[ CONTACT ]</a></li>
+                <li><a href="#play" class="nav-link btn">[ PLAY NOW ]</a></li>
             </ul>
-
-            <button class="nav-cta">INICIAR</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="binary-rain">
-            <div class="binary-column" style="left: 5%; animation-delay: 0s;">10101010101010101010101010101010</div>
-            <div class="binary-column" style="left: 15%; animation-delay: 2s;">01010101010101010101010101010101</div>
-            <div class="binary-column" style="left: 25%; animation-delay: 4s;">10101010101010101010101010101010</div>
-            <div class="binary-column" style="left: 35%; animation-delay: 1s;">01010101010101010101010101010101</div>
-            <div class="binary-column" style="left: 45%; animation-delay: 3s;">10101010101010101010101010101010</div>
-            <div class="binary-column" style="left: 55%; animation-delay: 5s;">01010101010101010101010101010101</div>
-            <div class="binary-column" style="left: 65%; animation-delay: 2s;">10101010101010101010101010101010</div>
-            <div class="binary-column" style="left: 75%; animation-delay: 4s;">01010101010101010101010101010101</div>
-            <div class="binary-column" style="left: 85%; animation-delay: 1s;">10101010101010101010101010101010</div>
-            <div class="binary-column" style="left: 95%; animation-delay: 3s;">01010101010101010101010101010101</div>
-        </div>
-
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>
-                        SISTEMA 8-BIT
-                        <span class="highlight">REVOLUCIONÁRIO</span>
-                    </h1>
-                    <p>
-                        Transforme sua experiência de desenvolvimento com o poder nostálgico 
-                        dos anos 80. Ambiente terminal com tecnologia moderna, performance 
-                        máxima e estilo pixel-perfect.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn-primary">INSTALAR AGORA</a>
-                        <a href="#" class="btn-secondary">VER DEMO</a>
-                    </div>
+        <div class="hero-content">
+            <div class="hero-terminal">
+                <div class="hero-ascii">████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     ██╗
+██╔════╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗██║     ██║
+███████╗█████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║███████║██║     ██║
+╚════██║██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     ██║
+███████║███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████╗███████╗
+╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝</div>
+                <h1 class="hero-title">
+                    <span>PIXEL</span>QUEST<br/>
+                    ARCADE
+                </h1>
+                <p class="hero-subtitle">
+                    >> Sua plataforma definitiva de jogos retrô 8-bit<BR/>
+                    >> Mais de 500 jogos clássicos dos anos 80<BR/>
+                    >> Jogue agora e conquiste o HIGH SCORE!
+                </p>
+                <div class="hero-buttons">
+                    <a href="#play" class="btn">[ ▶ JOGAR AGORA ]</a>
+                    <a href="#features" class="btn btn-secondary">[ ? COMO FUNCIONA ]</a>
                 </div>
-                <div class="hero-visual">
-                    <div class="terminal-frame">
-                        <div class="terminal-header">
-                            <div class="terminal-buttons">
-                                <div class="terminal-btn red"></div>
-                                <div class="terminal-btn yellow"></div>
-                                <div class="terminal-btn green"></div>
-                            </div>
-                            <span class="terminal-title">RETROTECH v1.0</span>
-                        </div>
-                        <div class="terminal-content">
-                            <div class="terminal-line">
-                                <span class="terminal-prompt">$</span>
-                                <span class="terminal-command">./init_system.sh</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span style="color: var(--pixel-yellow);">[OK] Carregando módulos...</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span style="color: var(--pixel-yellow);">[OK] Inicializando terminal 8-bit...</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span style="color: var(--pixel-yellow);">[OK] Configurando pixels...</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span style="color: var(--coin-yellow);">★ Sistema pronto para uso!</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span class="terminal-prompt">$</span>
-                                <span class="cursor">_</span>
-                            </div>
-                        </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">500+</span>
+                        <span class="hero-stat-label">JOGOS CLÁSSICOS</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">50K+</span>
+                        <span class="hero-stat-label">JOGADORES</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">1M+</span>
+                        <span class="hero-stat-label">HIGH SCORES</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="recursos">
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
         <div class="container">
-            <div class="section-title">
-                <h2>FUNCIONALIDADES PRINCIPAIS</h2>
-                <p>Descubra as ferramentas que vão transformar sua façon de programar</p>
-            </div>
+            <h2 class="section-title">>> FEATURES <<</h2>
+            <p class="section-subtitle">Descubra o poder do PixelQuest Arcade</p>
 
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                        <svg viewBox="0 0 64 64" fill="none">
+                            <rect x="8" y="16" width="48" height="32" fill="#2CFF56"/>
+                            <rect x="12" y="20" width="40" height="24" fill="#050505"/>
+                            <rect x="16" y="24" width="8" height="8" fill="#2CFF56"/>
+                            <rect x="28" y="24" width="8" height="8" fill="#2CFF56"/>
+                            <rect x="40" y="24" width="8" height="8" fill="#2CFF56"/>
+                            <rect x="16" y="36" width="8" height="8" fill="#FFB200"/>
+                            <rect x="28" y="36" width="8" height="8" fill="#2CFF56"/>
+                            <rect x="40" y="36" width="8" height="8" fill="#2CFF56"/>
                         </svg>
                     </div>
-                    <h3>COMPILADOR RETRO</h3>
-                    <p>
-                        Compilador otimizado com arquitetura 8-bit. Suporte a múltiplas 
-                        linguagens com sintaxe clássica e saída em bytecode nostálgico.
+                    <h3 class="feature-title">BIBLIOTECA ARCADE</h3>
+                    <p class="feature-description">
+                        Acesse mais de 500 jogos clássicos de arcade dos anos 80. Pac-Man, Space Invaders, Donkey Kong e muito mais!
                     </p>
+                    <div class="feature-binary">01001000 01001001 01000111 01001000 00100000 01010011 01000011 01001111 01010010 01000101</div>
                 </div>
 
                 <!-- Feature 2 -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3.5-3.5 1.41-1.41L10 14.17l4.59-4.59L16 11l-6 6z"/>
+                        <svg viewBox="0 0 64 64" fill="none">
+                            <rect x="16" y="8" width="32" height="48" fill="#2CFF56"/>
+                            <rect x="20" y="12" width="24" height="40" fill="#050505"/>
+                            <rect x="24" y="16" width="16" height="4" fill="#FFB200"/>
+                            <rect x="24" y="24" width="16" height="4" fill="#2CFF56"/>
+                            <rect x="24" y="32" width="16" height="4" fill="#2CFF56"/>
+                            <rect x="24" y="40" width="16" height="4" fill="#2CFF56"/>
+                            <circle cx="28" cy="48" r="2" fill="#FF0000"/>
+                            <circle cx="32" cy="48" r="2" fill="#2CFF56"/>
+                            <circle cx="36" cy="48" r="2" fill="#2CFF56"/>
                         </svg>
                     </div>
-                    <h3>TERMINAL CRT</h3>
-                    <p>
-                        Simulação autêntica de monitor CRT com scanlines, flicker e 
-                        efeito phosphor. Sinta a nostalgia dos anos 80 no seu código.
+                    <h3 class="feature-title">CONTROLE 8-BIT</h3>
+                    <p class="feature-description">
+                        Controles autênticos de joystick e botões arcade. Suporte para gamepads USB retrô e teclado.
                     </p>
+                    <div class="feature-binary">01000011 01001111 01001110 01010100 01010010 01001111 01001100 01000101 01010011 00100000 01010010 01000101 01010100 01010010 11000000</div>
                 </div>
 
                 <!-- Feature 3 -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <svg viewBox="0 0 64 64" fill="none">
+                            <polygon points="32,4 60,20 60,44 32,60 4,44 4,20" fill="#FFB200"/>
+                            <polygon points="32,12 52,24 52,40 32,52 12,40 12,24" fill="#2CFF56"/>
+                            <rect x="28" y="28" width="8" height="8" fill="#050505"/>
                         </svg>
                     </div>
-                    <h3>DEBUG 8-BIT</h3>
-                    <p>
-                        Sistema de debug com visualização em grade pixelada. Identifique 
-                        erros com precisão cirúrgica e estilo arcade.
+                    <h3 class="feature-title">SALA MULTIPLAYER</h3>
+                    <p class="feature-description">
+                        Jogue com amigos em tempo real. Competição global, rankings e torneios semanais com prêmios!
                     </p>
+                    <div class="feature-binary">01001101 01010101 01001100 01010100 01001001 01010000 01001100 01000001 01011001 01000101 01010010 00100000 01001111 01001110 01001100 01001001 01001110 01000101</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="depoimentos">
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
         <div class="container">
-            <div class="section-title">
-                <h2>USUARIOS CONQUISTADOS</h2>
-                <p>O que a comunidade diz sobre a experiência RetroTech</p>
-            </div>
+            <h2 class="section-title">>> PLAYER REVIEWS <<</h2>
+            <p class="section-subtitle">O que os gamers estão dizendo</p>
 
             <div class="testimonials-grid">
                 <!-- Testimonial 1 -->
                 <div class="testimonial-card">
+                    <span class="testimonial-quote">"</span>
                     <p class="testimonial-text">
-                        "Finalmente um ambiente que combina nostalgia com performance. 
-                        Minha produtividade aumentou 300% desde que migrei para o terminal 8-bit. 
-                        É simplesmente incrível!"
+                        Finalmente uma plataforma que respeita a autenticidade dos jogos retrô! Os controles são perfeitos e a biblioteca é incrível.
                     </p>
                     <div class="testimonial-author">
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <svg viewBox="0 0 24 24" fill="#050505">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 20c0-4 4-5 8-5s8 1 8 5"/>
                             </svg>
                         </div>
                         <div class="testimonial-info">
-                            <h4>ROBERTO BYTES</h4>
-                            <span>Desenvolvedor Full Stack</span>
+                            <span class="testimonial-name">RETRO_MASTER_99</span>
+                            <span class="testimonial-level">LEVEL 42 • 1560 HORAS</span>
+                        </div>
+                        <div class="testimonial-stars">
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 2 -->
                 <div class="testimonial-card">
+                    <span class="testimonial-quote">"</span>
                     <p class="testimonial-text">
-                        "O efeito CRT é perfeita! Me sinto jogando Atari enquanto codifico.
-                        A comunidade é extremamente ativa e os updates são frequentes.
-                        Recomendo para todos os nostálgicos!"
+                        A estética 8-bit é perfeita! Me sinto de volta aos anos 80. O sistema de rankings me mantém competitivo.
                     </p>
                     <div class="testimonial-author">
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <svg viewBox="0 0 24 24" fill="#050505">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 20c0-4 4-5 8-5s8 1 8 5"/>
                             </svg>
                         </div>
                         <div class="testimonial-info">
-                            <h4>PRISCILA PIXEL</h4>
-                            <span>Engenheira de Software</span>
+                            <span class="testimonial-name">PIXEL_NINJA</span>
+                            <span class="testimonial-level">LEVEL 87 • 3200 HORAS</span>
+                        </div>
+                        <div class="testimonial-stars">
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 3 -->
                 <div class="testimonial-card">
+                    <span class="testimonial-quote">"</span>
                     <p class="testimonial-text">
-                        "Melhor investimento que fiz no ano. O sistema de debug 8-bit 
-                        mudou completamente minha façon de resolver bugs. É genial!
-                        O suporte também é extremamente atencioso."
+                        Melhor investimento para um gamer retrô! Os torneios semanais são intensos. Já ganhei 3 vezes o high score mensal!
                     </p>
                     <div class="testimonial-author">
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <svg viewBox="0 0 24 24" fill="#050505">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 20c0-4 4-5 8-5s8 1 8 5"/>
                             </svg>
                         </div>
                         <div class="testimonial-info">
-                            <h4>MARCELO BITS</h4>
-                            <span>Tech Lead</span>
+                            <span class="testimonial-name">ARCADE_KING_BR</span>
+                            <span class="testimonial-level">LEVEL 99 • 5400 HORAS</span>
+                        </div>
+                        <div class="testimonial-stars">
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/></svg>
                         </div>
                     </div>
                 </div>
@@ -1320,357 +1264,268 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="precos">
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
         <div class="container">
-            <div class="section-title">
-                <h2>PLANOS DISPONIVEIS</h2>
-                <p>Escolha o plano ideal para suas necessidades de desenvolvimento</p>
-            </div>
+            <h2 class="section-title">>> CREDITS & TOKENS <<</h2>
+            <p class="section-subtitle">Escolha seu pacote de jogos</p>
 
             <div class="pricing-grid">
-                <!-- Basic Plan -->
+                <!-- Free Tier -->
                 <div class="pricing-card">
-                    <div class="pricing-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-                        </svg>
-                    </div>
-                    <h3>COIN</h3>
-                    <div class="pricing-price">
-                        R$29<span>/mês</span>
-                    </div>
-                    <p class="pricing-description">Perfeito para iniciantes no mundo 8-bit</p>
+                    <h3 class="pricing-tier">NOVICE</h3>
+                    <div class="pricing-price">R$0<span>/mês</span></div>
+                    <p class="pricing-period">GRÁTIO PARA SEMPRE</p>
                     <ul class="pricing-features">
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Terminal básico 8-bit
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            50 jogos grátis
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Efeitos CRT simples
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Rankings locais
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Suporte a 3 linguagens
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            1 jogo por dia
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Comunidade básica
+                        <li class="pricing-feature feature-excluded">
+                            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Sem multiplayer
+                        </li>
+                        <li class="pricing-feature feature-excluded">
+                            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Sem torneios
                         </li>
                     </ul>
-                    <a href="#" class="btn-primary">ESCOLHER COIN</a>
+                    <a href="#" class="btn btn-secondary pricing-cta">[ CRIAR CONTA ]</a>
                 </div>
 
-                <!-- Pro Plan -->
+                <!-- Pro Tier -->
                 <div class="pricing-card featured">
-                    <div class="pricing-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                        </svg>
-                    </div>
-                    <h3>STAR</h3>
-                    <div class="pricing-price">
-                        R$79<span>/mês</span>
-                    </div>
-                    <p class="pricing-description">Para desenvolvedores profesionales</p>
+                    <h3 class="pricing-tier">ARCADE PRO</h3>
+                    <div class="pricing-price">R$29<span>/mês</span></div>
+                    <p class="pricing-period">POUPAR R$60/ANO</p>
                     <ul class="pricing-features">
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Terminal completo 8-bit
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Todos os 500+ jogos
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Efeitos CRT avançados
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Rankings global
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Todas as linguagens
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Jogos ilimitados
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Debug pixelado
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Multiplayer online
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Comunidade VIP
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Torneios semanais
                         </li>
                     </ul>
-                    <a href="#" class="btn-primary">ESCOLHER STAR</a>
+                    <a href="#" class="btn pricing-cta">[ ASSINAR PRO ]</a>
                 </div>
 
-                <!-- Enterprise Plan -->
+                <!-- Enterprise Tier -->
                 <div class="pricing-card">
-                    <div class="pricing-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79s7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58s9.14-3.47 12.65 0L21 3v7.12z"/>
-                        </svg>
-                    </div>
-                    <h3>MEGA</h3>
-                    <div class="pricing-price">
-                        R$199<span>/mês</span>
-                    </div>
-                    <p class="pricing-description">Solução completa para equipes</p>
+                    <h3 class="pricing-tier">ARCADE VIP</h3>
+                    <div class="pricing-price">R$79<span>/mês</span></div>
+                    <p class="pricing-period">EXPERIÊNCIA SUPREMA</p>
                     <ul class="pricing-features">
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Tudo do plano Star
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Tudo do PRO
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Até 50 desenvolvedores
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Acesso antecipado
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Servidor dedicado
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Jogos beta exclusivos
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            API REST completa
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Itens exclusivos VIP
                         </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                            Suporte 24/7 prioritário
+                        <li class="pricing-feature feature-included">
+                            <svg viewBox="0 0 24 24"><polygon points="9,16.17 4.83,12 3.41,13.41 9,19 21,7 19.59,5.59"/></svg>
+                            Suporte prioritário
                         </li>
                     </ul>
-                    <a href="#" class="btn-primary">ESCOLHER MEGA</a>
+                    <a href="#" class="btn btn-secondary pricing-cta">[ TORNAR-SE VIP ]</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="contato">
+    <!-- CTA SECTION -->
+    <section class="cta" id="contact">
         <div class="container">
-            <h2>PRONTO PARA A AVENTURA?</h2>
-            <p>
-                Junte-se a milhares de desenvolvedores que já descobriram o poder 
-                do desenvolvimento 8-bit. Execute o comando abaixo e comece sua jornada!
-            </p>
-            <form class="cta-form" onsubmit="handleSubmit(event)">
-                <input
-                    type="email"
-                    class="cta-input"
-                    placeholder="SEU_EMAIL@DOMINIO.COM"
-                    required
-                >
-                <button type="submit" class="btn-primary">EXECUTAR></button>
-            </form>
+            <div class="terminal-frame">
+                <h2 class="cta-title">>> PRONTO PARA JOGAR? <<</h2>
+                <p class="cta-text">
+                    Junte-se a mais de 50.000 jogadores retrô e conquiste o HIGH SCORE!<br/>
+                    Crie sua conta grátis em menos de 1 minuto.<br/>
+                    Sem cartão de crédito necessário.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-yellow">[ ▶ COMEÇAR GRATIS ]</a>
+                    <a href="#" class="btn btn-secondary">[ ? DEMO ]</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
+    <!-- FOOTER -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <div class="logo-icon">▣</div>
-                        <span class="logo-text">RETRO<span>TECH</span></span>
-                    </a>
-                    <p>
-                        Transformando a experiência de desenvolvimento através da nostalgia 
-                        tecnológica. Tecnologia 8-bit para o futuro digital.
+                <!-- Brand Column -->
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="2" y="6" width="4" height="12"/>
+                            <rect x="8" y="4" width="4" height="16"/>
+                            <rect x="14" y="8" width="4" height="8"/>
+                            <rect x="20" y="2" width="2" height="20"/>
+                        </svg>
+                        PIXELQUEST
+                    </div>
+                    <p class="footer-description">
+                        A maior plataforma de jogos retrô 8-bit do Brasil. Mais de 500 jogos clássicos de arcade dos anos 80.
                     </p>
                     <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-link" aria-label="Discord">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-link" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        <a href="#" class="social-icon" aria-label="Discord">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="2"/>
+                                <path d="M19.07 4.93L17 3.27a9.07 9.07 0 0 0-10 0L4.93 4.93A9 9 0 0 0 2.84 12.2l.76 3.25a1 1 0 0 0 .78.75l3.25.76a9 9 0 0 0 7.24 2.09L17 18.73a9 9 0 0 0 2.09-7.24l.76-3.25a1 1 0 0 0-.78-.75l-3.25-.76a9 9 0 0 0-2.09-7.24z"/>
                             </svg>
                         </a>
                     </div>
                 </div>
 
-                <div class="footer-column">
-                    <h4>PRODUTO</h4>
-                    <ul>
-                        <li><a href="#recursos">Recursos</a></li>
-                        <li><a href="#precos">Preços</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#updates">Updates</a></li>
+                <!-- Games Column -->
+                <div class="footer-section">
+                    <h4 class="footer-title">[ JOGOS ]</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">» Action Games</a></li>
+                        <li><a href="#" class="footer-link">» Puzzle Games</a></li>
+                        <li><a href="#" class="footer-link">» Sports Games</a></li>
+                        <li><a href="#" class="footer-link">» Racing Games</a></li>
+                        <li><a href="#" class="footer-link">» Shooting Games</a></li>
+                        <li><a href="#" class="footer-link">» Todos os Jogos</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-column">
-                    <h4>EMPRESA</h4>
-                    <ul>
-                        <li><a href="#sobre">Sobre Nós</a></li>
-                        <li><a href="#carreiras">Carreiras</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#imprensa">Imprensa</a></li>
+                <!-- Community Column -->
+                <div class="footer-section">
+                    <h4 class="footer-title">[ COMUNIDADE ]</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">» Fórum</a></li>
+                        <li><a href="#" class="footer-link">» Rankings</a></li>
+                        <li><a href="#" class="footer-link">» Torneios</a></li>
+                        <li><a href="#" class="footer-link">» Clãs</a></li>
+                        <li><a href="#" class="footer-link">» Discord</a></li>
+                        <li><a href="#" class="footer-link">» Blog</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-column">
-                    <h4>SUPORTE</h4>
-                    <ul>
-                        <li><a href="#ajuda">Ajuda</a></li>
-                        <li><a href="#contato">Contato</a></li>
-                        <li><a href="#privacidade">Privacidade</a></li>
-                        <li><a href="#termos">Termos</a></li>
+                <!-- Support Column -->
+                <div class="footer-section">
+                    <h4 class="footer-title">[ SUPORTE ]</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">» FAQ / Ajuda</a></li>
+                        <li><a href="#" class="footer-link">» Contato</a></li>
+                        <li><a href="#" class="footer-link">» Termos de Uso</a></li>
+                        <li><a href="#" class="footer-link">» Privacidade</a></li>
+                        <li><a href="#" class="footer-link">» Cookies</a></li>
+                        <li><a href="#" class="footer-link">» Status</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 RetroTech. Todos os direitos reservados.</p>
-                <div class="footer-bottom-links">
-                    <a href="#privacidade">Privacidade</a>
-                    <a href="#termos">Termos</a>
-                    <a href="#cookies">Cookies</a>
-                </div>
+                <p class="footer-copyright">
+                    © 2026 PIXELQUEST ARCADE. TODOS OS DIREITOS RESERVADOS.
+                </p>
+                <p class="footer-credits">
+                    FEITO COM » 8-BIT LOVE « NO BRASIL | PRESS START 2P FONT
+                </p>
             </div>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT FOR INTERACTIVE ELEMENTS -->
     <script>
         // Mobile menu toggle
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        }
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
 
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input').value;
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
 
-            // Create retro success message
-            const form = event.target;
-            const successMessage = document.createElement('div');
-            successMessage.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: #0a0a0a;
-                color: #2CFF56;
-                padding: 40px 50px;
-                border: 4px solid #2CFF56;
-                box-shadow: 0 0 30px rgba(44, 255, 86, 0.5);
-                z-index: 10000;
-                text-align: center;
-                font-family: 'Press Start 2P', cursive;
-            `;
-            successMessage.innerHTML = `
-                <div style="font-size: 2rem; margin-bottom: 20px;">▣</div>
-                <p style="font-size: 0.7rem; margin-bottom: 10px;">[SUCESSO]</p>
-                <p style="font-size: 0.5rem; opacity: 0.8;">Sistema instalado em:</p>
-                <p style="font-size: 0.6rem; color: #FFB200;">${email}</p>
-            `;
-
-            document.body.appendChild(successMessage);
-
-            // Remove message after 3 seconds
-            setTimeout(() => {
-                successMessage.remove();
-            }, 3000);
-
-            // Reset form
-            form.reset();
-        }
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-
-                // Close mobile menu if open
-                const navLinks = document.getElementById('navLinks');
-                navLinks.classList.remove('active');
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
             });
         });
 
-        // Add scroll effect to navbar
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add CRT flicker effect on scroll
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
             const currentScroll = window.pageYOffset;
-
-            if (currentScroll > 100) {
-                nav.style.boxShadow = '0 8px 30px rgba(44, 255, 86, 0.3)';
-            } else {
-                nav.style.boxShadow = '0 4px 20px rgba(44, 255, 86, 0.2)';
+            if (Math.abs(currentScroll - lastScroll) > 50) {
+                document.body.style.opacity = '0.98';
+                setTimeout(() => {
+                    document.body.style.opacity = '1';
+                }, 50);
+                lastScroll = currentScroll;
             }
-
-            lastScroll = currentScroll;
         });
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards with initial styles
-        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
+        // Console easter egg
+        console.log('%c>> PIXELQUEST ARCADE <<', 'color: #2CFF56; font-family: monospace; font-size: 20px;');
+        console.log('%cINSERT COIN TO CONTINUE...', 'color: #FFB200; font-family: monospace;');
+        console.log('%c01001000 01001001 01000111 01001000 00100000 01010011 01000011 01001111 01010010 01000101', 'color: #2CFF56; font-family: monospace; font-size: 8px;');
     </script>
 </body>
 </html>
