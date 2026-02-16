@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origami Geométrico — Vibe Styles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper-white': '#FAFAFA',
+                        'fold-shadow': '#B0B0B0',
+                        'ink-black': '#1A1A1A',
+                        'accent-coral': '#FF6B6B',
+                        'sky-fold': '#87CEEB',
+                        'sage-paper': '#A8D5BA'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'fold': '4px 4px 0 #B0B0B0',
+                        'deep-fold': '10px 10px 20px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.8)'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #1A1A1A;
+            font-family: 'Poppins', sans-serif;
+            background-image: linear-gradient(135deg, #fdfdfd 25%, transparent 25%), linear-gradient(225deg, #fdfdfd 25%, transparent 25%), linear-gradient(45deg, #fdfdfd 25%, transparent 25%), linear-gradient(315deg, #fdfdfd 25%, #FAFAFA 25%);
+            background-size: 20px 20px;
+        }
+
+        .clip-polygon {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .clip-diamond {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .folded-card {
+            background: white;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .folded-card:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .crease-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #B0B0B0, transparent);
+            margin: 20px 0;
+        }
+
+        .paper-layer {
+            position: relative;
+        }
+
+        .paper-layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.02);
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-accent-coral selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="py-6 px-10 flex justify-between items-center relative z-20">
+        <div class="text-2xl font-bold uppercase tracking-wider text-ink-black flex items-center gap-2">
+            <div class="w-8 h-8 bg-accent-coral clip-diamond"></div>
+            ORIGAMI<span class="font-light">ARCH</span>
+        </div>
+        <div class="flex gap-8 text-sm font-medium">
+            <a href="#" class="hover:text-accent-coral transition-colors relative group">
+                Projetos
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-coral transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#" class="hover:text-accent-coral transition-colors relative group">Estúdio</a>
+            <a href="#" class="hover:text-accent-coral transition-colors relative group">Contato</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="min-h-screen flex items-center justify-center -mt-20 overflow-hidden relative">
+        <!-- Abstract Paper Background -->
+        <div
+            class="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-fold/10 clip-polygon transform rotate-12 md:translate-x-1/3">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sage-paper/10 clip-polygon transform -rotate-12 md:-translate-x-1/3 scale-y-[-1]">
+        </div>
+
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-ink-black">
+                    Precisão <br>
+                    <span class="text-accent-coral relative inline-block">
+                        Dobrada
+                        <span class="absolute top-full left-0 w-full h-2 bg-accent-coral/20 skew-x-12"></span>
+                    </span> <br>
+                    em Código.
+                </h1>
+                <p class="text-lg text-gray-500 mb-10 max-w-md">
+                    Transformamos conceitos complexos em estruturas digitais elegantes. Design paramétrico e arquitetura
+                    de informação.
+                </p>
+                <div class="flex gap-4">
+                    <button
+                        class="bg-ink-black text-white px-8 py-4 font-bold hover:bg-accent-coral transition-colors shadow-fold transform hover:-translate-y-1">
+                        Ver Portfolio
+                    </button>
+                    <button
+                        class="bg-white text-ink-black border border-gray-200 px-8 py-4 font-bold hover:shadow-fold transition-all">
+                        Contato
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3D Card Visual -->
+            <div class="relative perspective-1000">
+                <div class="folded-card p-2 bg-white w-full max-w-md mx-auto shadow-2xl skew-y-3">
+                    <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-auto grayscale contrast-125">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-accent-coral clip-polygon shadow-md"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Projects Grid -->
+    <section class="py-24 bg-white clip-polygon relative z-10 -mb-24 pb-48">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-2">Projetos Recentes</h2>
+                <div class="w-16 h-1 bg-accent-coral mx-auto skew-x-12"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="folded-card bg-paper-white p-6 border-b-4 border-sky-fold">
+                    <div class="text-4xl font-bold text-gray-100 mb-4 absolute top-2 right-4">01</div>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Parametric Tower</h3>
+                    <p class="text-sm text-gray-500 mb-4">Tokyo, Japan</p>
+                    <div class="h-40 overflow-hidden mb-4 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1486718448742-163732cd1544?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <a href="#"
+                        class="text-xs font-bold uppercase tracking-widest text-ink-black hover:text-accent-coral">Detalhes
+                        +</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="folded-card bg-paper-white p-6 border-b-4 border-accent-coral mt-8 md:mt-0">
+                    <div class="text-4xl font-bold text-gray-100 mb-4 absolute top-2 right-4">02</div>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Folded Museum</h3>
+                    <p class="text-sm text-gray-500 mb-4">Oslo, Norway</p>
+                    <div class="h-40 overflow-hidden mb-4 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <a href="#"
+                        class="text-xs font-bold uppercase tracking-widest text-ink-black hover:text-accent-coral">Detalhes
+                        +</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="folded-card bg-paper-white p-6 border-b-4 border-sage-paper md:mt-8">
+                    <div class="text-4xl font-bold text-gray-100 mb-4 absolute top-2 right-4">03</div>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Geometric Residence</h3>
+                    <p class="text-sm text-gray-500 mb-4">São Paulo, Brazil</p>
+                    <div class="h-40 overflow-hidden mb-4 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <a href="#"
+                        class="text-xs font-bold uppercase tracking-widest text-ink-black hover:text-accent-coral">Detalhes
+                        +</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink-black text-white pt-32 pb-12">
+        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-12 text-sm">
+            <div class="col-span-2">
+                <div class="text-2xl font-bold uppercase tracking-wider mb-4">
+                    ORIGAMI<span class="font-light text-gray-400">ARCH</span>
+                </div>
+                <p class="text-gray-500 max-w-xs">
+                    Arquitetura digital e design computacional. Moldando o futuro, um vértice de cada vez.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4 text-accent-coral">Escritório</h4>
+                <p class="text-gray-400">Av. Paulista, 1000<br>São Paulo - SP</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4 text-accent-coral">Social</h4>
+                <div class="flex gap-4 text-gray-400">
+                    <a href="#" class="hover:text-white">Instagram</a>
+                    <a href="#" class="hover:text-white">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-xs text-gray-600">
+            &copy; 2026 Origami Arch. All shapes reserved.
+        </div>
+    </footer>
+
+</body>
+
+</html>

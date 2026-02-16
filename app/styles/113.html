@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassette Futurism — Vibe Styles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'crt-green': '#33FF00',
+                        'phosphor-amber': '#FFB000',
+                        'charcoal': '#333333',
+                        'deep-navy': '#1B2838',
+                        'tape-red': '#CC0000',
+                        'off-white': '#E8E0D0'
+                    },
+                    fontFamily: {
+                        'mono': ['VT323', 'monospace'],
+                    },
+                    keyframes: {
+                        'scanline': {
+                            '0%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        'blink': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0 }
+                        }
+                    },
+                    animation: {
+                        'scanline': 'scanline 2s linear infinite',
+                        'blink': 'blink 1s step-end infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1B2838;
+            color: #33FF00;
+            font-family: 'VT323', monospace;
+            overflow-x: hidden;
+        }
+
+        .scanlines::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 50;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.97;
+            }
+
+            5% {
+                opacity: 0.95;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            15% {
+                opacity: 0.95;
+            }
+
+            20% {
+                opacity: 0.99;
+            }
+
+            100% {
+                opacity: 0.9;
+            }
+        }
+
+        .text-glow {
+            text-shadow: 0 0 4px #33FF00;
+        }
+
+        .text-glow-amber {
+            text-shadow: 0 0 4px #FFB000;
+        }
+
+        .pixel-border {
+            box-shadow:
+                -2px 0 0 0 #33FF00,
+                2px 0 0 0 #33FF00,
+                0 -2px 0 0 #33FF00,
+                0 2px 0 0 #33FF00;
+            margin: 4px;
+        }
+
+        .panel {
+            background-color: #222;
+            border: 2px solid #555;
+            box-shadow: inset 0 0 20px #000;
+        }
+    </style>
+</head>
+
+<body class="scanlines">
+
+    <!-- Navbar -->
+    <nav class="bg-charcoal border-b-2 border-phosphor-amber p-4 flex justify-between items-center relative z-40">
+        <div class="text-3xl text-phosphor-amber text-glow-amber uppercase tracking-widest">
+            SYNTH<span class="text-white">CORP</span>_v1.0
+        </div>
+        <div class="hidden md:flex gap-8 text-xl text-off-white">
+            <a href="#" class="hover:bg-crt-green hover:text-black px-2">[ CATALOG ]</a>
+            <a href="#" class="hover:bg-crt-green hover:text-black px-2">[ ARTISTS ]</a>
+            <a href="#" class="hover:bg-crt-green hover:text-black px-2">[ STUDIO ]</a>
+            <a href="#" class="hover:bg-crt-green hover:text-black px-2">[ LOGIN ]</a>
+        </div>
+        <div class="w-4 h-4 rounded-full bg-tape-red animate-pulse shadow-[0_0_10px_#CC0000]"></div>
+    </nav>
+
+    <!-- Hero -->
+    <main class="min-h-screen p-8 relative flex items-center justify-center">
+        <!-- Grid Background -->
+        <div
+            class="absolute inset-0 bg-[linear-gradient(rgba(51,255,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(51,255,0,0.1)_1px,transparent_1px)] bg-[size:40px_40px] perspective-[500px] transform rotateX(20deg)">
+        </div>
+
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 relative z-10 items-center">
+            <div class="panel p-8">
+                <div class="text-phosphor-amber mb-2">> GENERATING_WAVEFORM...</div>
+                <h1 class="text-6xl md:text-8xl mb-6 text-glow leading-none uppercase">
+                    Analog <br> Dreams
+                </h1>
+                <p class="text-xl text-off-white mb-8 border-l-4 border-tape-red pl-4">
+                    Lo-fi beats for hi-fi minds. The ultimate retro-future collection is now online.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button
+                        class="bg-crt-green text-black text-2xl px-6 py-2 uppercase hover:bg-white hover:text-crt-green transition-colors font-bold pixel-border">
+                        Download_Mix.exe
+                    </button>
+                    <button
+                        class="bg-transparent border-2 border-off-white text-off-white text-2xl px-6 py-2 uppercase hover:bg-off-white hover:text-black transition-colors font-bold">
+                        View_Specs
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="border-4 border-charcoal bg-black p-2 rounded-lg shadow-2xl">
+                    <div class="bg-gradient-to-b from-gray-800 to-black p-4 border-2 border-gray-600 rounded">
+                        <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
+                            <span class="text-off-white">A-SIDE</span>
+                            <span class="text-tape-red font-bold">REC ●</span>
+                        </div>
+                        <!-- Tape Wheels -->
+                        <div
+                            class="flex justify-center gap-8 py-8 bg-gray-900 rounded inner-shadow relative overflow-hidden">
+                            <div class="w-24 h-24 border-4 border-white rounded-full flex items-center justify-center animate-spin"
+                                style="animation-duration: 4s;">
+                                <div class="w-20 h-20 border-2 border-white rounded-full border-dashed"></div>
+                            </div>
+                            <div class="w-24 h-24 border-4 border-white rounded-full flex items-center justify-center animate-spin"
+                                style="animation-duration: 4s;">
+                                <div class="w-20 h-20 border-2 border-white rounded-full border-dashed"></div>
+                            </div>
+                            <!-- Tape Window -->
+                            <div
+                                class="absolute inset-x-12 top-1/2 h-1 bg-gradient-to-r from-transparent via-brown-500 to-transparent opacity-50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Data / Features -->
+    <section class="py-12 border-t-2 border-charcoal bg-black/50">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl text-phosphor-amber mb-8 uppercase text-glow-amber">> System_Status</h2>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="border border-crt-green p-6 hover:bg-crt-green/10 transition-colors">
+                    <div class="text-5xl mb-4">💾</div>
+                    <h3 class="text-2xl uppercase mb-2">Magnetic Storage</h3>
+                    <p class="text-off-white">High fidelity analog warmth preservation.</p>
+                </div>
+
+                <div class="border border-phosphor-amber p-6 hover:bg-phosphor-amber/10 transition-colors">
+                    <div class="text-5xl mb-4">🎚</div>
+                    <h3 class="text-2xl uppercase mb-2 text-phosphor-amber">Frequency Mod</h3>
+                    <p class="text-off-white">Synthesized soundscapes from the void.</p>
+                </div>
+
+                <div class="border border-tape-red p-6 hover:bg-tape-red/10 transition-colors">
+                    <div class="text-5xl mb-4">📺</div>
+                    <h3 class="text-2xl uppercase mb-2 text-tape-red">Vision Decoded</h3>
+                    <p class="text-off-white">Glitch visuals and CRT artifacts enabled.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Footer -->
+    <footer class="bg-black py-8 border-t-4 border-crt-green mt-12">
+        <div class="container mx-auto px-8 font-mono text-sm max-w-4xl">
+            <div class="mb-2">root@synthcorp:~# connecting to server...</div>
+            <div class="mb-2">root@synthcorp:~# connection established.</div>
+            <div class="mb-4">root@synthcorp:~# echo "Copyright 2026. All rights reserved."</div>
+
+            <div class="grid grid-cols-2 gap-4 mt-8 text-gray-500">
+                <div class="border border-gray-700 p-2">
+                    <div class="uppercase text-xs mb-1">Status</div>
+                    <div class="text-crt-green">ONLINE</div>
+                </div>
+                <div class="border border-gray-700 p-2">
+                    <div class="uppercase text-xs mb-1">Location</div>
+                    <div class="text-phosphor-amber">SECTOR 7G</div>
+                </div>
+            </div>
+
+            <div class="mt-8 animate-blink text-crt-green">_</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

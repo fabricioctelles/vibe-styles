@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir Detetive — Vibe Styles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'noir-black': '#0F0F0F',
+                        'smoke-grey': '#4A4A4A',
+                        'streetlamp-yellow': '#E8C547',
+                        'fog-white': '#D4D4D4',
+                        'blood-wine': '#5C0A0A'
+                    },
+                    fontFamily: {
+                        'typewriter': ['Special Elite', 'monospaced'],
+                    },
+                    backgroundImage: {
+                        'rain-texture': "url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')" // Simulating rain/blinds
+                    },
+                    animation: {
+                        'flicker': 'flicker 4s infinite'
+                    },
+                    keyframes: {
+                        'flicker': {
+                            '0%, 100%': { opacity: 1 },
+                            '41%': { opacity: 1 },
+                            '42%': { opacity: 0.8 },
+                            '43%': { opacity: 1 },
+                            '45%': { opacity: 0.3 },
+                            '46%': { opacity: 1 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #D4D4D4;
+            font-family: 'Special Elite', monospace;
+            overflow-x: hidden;
+            background-image: repeating-linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.5) 2px, transparent 2px, transparent 4px);
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .blinds-shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(0, 0, 0, 0.7) 20px,
+                    rgba(0, 0, 0, 0.7) 40px);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .text-shadow-glow {
+            text-shadow: 0 0 5px rgba(232, 197, 71, 0.5);
+        }
+
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: 40;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+
+<body class="selection:bg-streetlamp-yellow selection:text-black">
+
+    <div class="vignette"></div>
+    <div class="film-grain"></div>
+
+    <!-- Navbar -->
+    <nav class="p-6 border-b border-smoke-grey/50 relative z-30 bg-noir-black/90">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl text-streetlamp-yellow tracking-widest animate-flicker">
+                MIDNIGHT PRESS
+            </div>
+            <div class="hidden md:flex gap-8 text-sm uppercase text-gray-500">
+                <a href="#" class="hover:text-fog-white transition-colors">Casos</a>
+                <a href="#" class="hover:text-fog-white transition-colors">Autores</a>
+                <a href="#" class="hover:text-fog-white transition-colors">Confissões</a>
+            </div>
+            <button
+                class="bg-transparent border border-gray-600 px-4 py-2 hover:border-streetlamp-yellow hover:text-streetlamp-yellow transition-colors text-xs uppercase">
+                Login
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="min-h-screen relative flex items-center justify-center p-6 bg-fixed bg-cover"
+        style="background-image: url('https://images.unsplash.com/photo-1542259695-812450531557?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="blinds-shadow"></div>
+
+        <div
+            class="relative z-20 max-w-3xl text-center bg-black/50 p-12 border border-gray-800 backdrop-blur-sm shadow-2xl transform rotate-1">
+            <div class="w-16 h-1 bg-blood-wine mx-auto mb-6"></div>
+            <h1 class="text-5xl md:text-7xl mb-6 text-fog-white leading-tight">
+                A Verdade Nas <br> <span class="text-streetlamp-yellow text-shadow-glow">Sombras</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 leading-relaxed typewriter">
+                Era uma noite escura e chuvosa. A cidade dormia, mas os segredos permaneciam acordados. Os melhores
+                thrillers policiais estão aqui.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button
+                    class="bg-streetlamp-yellow text-black px-8 py-3 font-bold hover:bg-yellow-600 transition-colors uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(232,197,71,0.3)]">
+                    Iniciar Investigação
+                </button>
+                <button
+                    class="border border-gray-500 text-gray-300 px-8 py-3 hover:bg-white/5 transition-colors uppercase tracking-widest text-sm">
+                    Ler Amostra
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Latest Releases -->
+    <section class="py-24 px-6 bg-noir-black relative z-20 border-t border-smoke-grey/20">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-end mb-16 border-b border-smoke-grey/20 pb-4">
+                <h2 class="text-3xl text-fog-white">Arquivos Recentes</h2>
+                <div class="text-xs text-streetlamp-yellow uppercase tracking-widest">Confidencial</div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Book 1 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="relative aspect-[2/3] border border-gray-800 bg-gray-900 mb-6 shadow-lg group-hover:shadow-streetlamp-yellow/20 transition-all">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500">
+                        <div class="absolute top-4 right-4 bg-blood-wine text-white text-xs px-2 py-1 uppercase">Novo
+                        </div>
+                    </div>
+                    <h3 class="text-xl text-fog-white mb-1 group-hover:text-streetlamp-yellow transition-colors">O
+                        Último Suspiro</h3>
+                    <p class="text-sm text-gray-500">Raymond Chandler</p>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="group cursor-pointer md:-mt-8">
+                    <div
+                        class="relative aspect-[2/3] border border-gray-800 bg-gray-900 mb-6 shadow-lg group-hover:shadow-streetlamp-yellow/20 transition-all">
+                        <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500">
+                    </div>
+                    <h3 class="text-xl text-fog-white mb-1 group-hover:text-streetlamp-yellow transition-colors">Beco
+                        Sem Saída</h3>
+                    <p class="text-sm text-gray-500">Dashiell Hammett</p>
+                </div>
+
+                <!-- Book 3 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="relative aspect-[2/3] border border-gray-800 bg-gray-900 mb-6 shadow-lg group-hover:shadow-streetlamp-yellow/20 transition-all">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500">
+                    </div>
+                    <h3 class="text-xl text-fog-white mb-1 group-hover:text-streetlamp-yellow transition-colors">Fumaça
+                        & Espelhos</h3>
+                    <p class="text-sm text-gray-500">Agatha Christie</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote / Mood -->
+    <section class="py-32 relative bg-gray-900 z-10 text-center border-y border-gray-800">
+        <div class="blinds-shadow opacity-50"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <blockquote
+                class="text-2xl md:text-4xl text-gray-300 italic mb-8 max-w-4xl mx-auto leading-relaxed font-serif">
+                "Todo assassino é, provavelmente, o velho amigo de alguém."
+            </blockquote>
+            <cite class="text-streetlamp-yellow uppercase tracking-widest text-sm not-italic">— O Detetive</cite>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-noir-black pt-16 pb-8 relative z-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-12">
+                <input type="email" placeholder="Insira seu e-mail..."
+                    class="bg-transparent border-b border-gray-600 text-center text-white p-2 w-64 focus:outline-none focus:border-streetlamp-yellow transition-colors">
+                <button
+                    class="block mx-auto mt-4 text-xs text-gray-500 hover:text-white uppercase tracking-widest">Assinar
+                    Newsletter</button>
+            </div>
+
+            <div
+                class="w-8 h-8 rounded-full border border-gray-700 mx-auto flex items-center justify-center text-gray-500 mb-8">
+                ?</div>
+
+            <p class="text-xs text-gray-700">
+                &copy; 2026 Midnight Press. Todos os direitos reservados. Cuidado ao sair.
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
