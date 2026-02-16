@@ -724,10 +724,14 @@
         SlugRouter.init();
       } catch (err) {
         console.error('Erro ao inicializar app:', err);
-        // Exibe estado de erro no Combo
+        // Exibe mensagem informativa no Combo e desabilita interações
         const opt = document.createElement('option');
-        opt.textContent = 'Erro ao carregar estilos';
+        opt.textContent = '⚠ Falha ao carregar estilos — verifique sua conexão e recarregue a página';
         select.appendChild(opt);
+        select.disabled = true;
+        copyBtn.disabled = true;
+        copyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        copyBtn.title = 'Dados indisponíveis — recarregue a página';
       }
     }
 
