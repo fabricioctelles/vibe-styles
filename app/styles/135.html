@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nova Geração de Processadores para Servidores e Data Centers - Performance extrema, eficiência energética e segurança avançada.">
+  <meta name="keywords" content="processadores, servidores, data center, alta performance, chips, GPU, computação">
+  <meta name="author" content="HPC Technologies">
+  <meta property="og:title" content="Nova Geração de Processadores HPC">
+  <meta property="og:description" content="Processadores de última geração para servidores e data centers. Performance sem precedentes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hpc-processors.com">
+  <meta property="og:image" content="https://hpc-processors.com/og-image.jpg">
+  <title>HPC Processors - Nova Geração de Processadores para Servidores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --performance-red: #ED1C24;
+      --black: #000000;
+      --white: #FFFFFF;
+      --dark-grey: #333333;
+      --silver: #C0C0C0;
+      --electric-blue: #00BFFF;
+      --green: #00FF00;
+      --light-grey: #CCCCCC;
+      --glow-intensity: 0.5;
+      --border-accent: 3px solid #ED1C24;
+      --font-tech: 'Roboto', sans-serif;
+      --font-mono: 'Roboto Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-tech);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a, button, [role="button"] {
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(237, 28, 36, 0.2);
+      padding: 0 24px;
+      transition: background 0.3s ease;
+    }
+
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .navbar-logo {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .navbar-logo:hover {
+      color: var(--performance-red);
+    }
+
+    .navbar-logo .logo-accent {
+      color: var(--performance-red);
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--silver);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .navbar-links a:hover {
+      color: var(--performance-red);
+    }
+
+    .navbar-cta {
+      background: var(--performance-red);
+      color: var(--white);
+      padding: 10px 24px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(237, 28, 36, 0.3);
+    }
+
+    .navbar-cta:hover {
+      background: #ff2a32;
+      box-shadow: 0 0 25px rgba(237, 28, 36, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-toggle svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--white);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(237, 28, 36, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(237, 28, 36, 0.4), transparent);
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--performance-red);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border: 1px solid rgba(237, 28, 36, 0.4);
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .text-red {
+      color: var(--performance-red);
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--silver);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--performance-red);
+      color: var(--white);
+      padding: 14px 32px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(237, 28, 36, 0.3);
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #ff2a32;
+      box-shadow: 0 0 35px rgba(237, 28, 36, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: 2px solid var(--silver);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--performance-red);
+      color: var(--performance-red);
+      box-shadow: 0 0 15px rgba(237, 28, 36, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ===== HERO VISUAL (Chip Diagram) ===== */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .chip-diagram {
+      width: 340px;
+      height: 340px;
+      position: relative;
+    }
+
+    .chip-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px;
+      height: 140px;
+      border: 2px solid var(--performance-red);
+      background: rgba(237, 28, 36, 0.05);
+      box-shadow: inset 0 0 30px rgba(237, 28, 36, 0.1), 0 0 40px rgba(237, 28, 36, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: corePulse 3s ease-in-out infinite;
+    }
+
+    .chip-core-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--performance-red);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .chip-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(237, 28, 36, 0.2);
+      border-radius: 0;
+    }
+
+    .chip-ring-1 {
+      width: 200px;
+      height: 200px;
+      animation: ringRotate 20s linear infinite;
+    }
+
+    .chip-ring-2 {
+      width: 260px;
+      height: 260px;
+      border-color: rgba(0, 191, 255, 0.15);
+      animation: ringRotate 30s linear infinite reverse;
+    }
+
+    .chip-ring-3 {
+      width: 320px;
+      height: 320px;
+      border-color: rgba(192, 192, 192, 0.1);
+      animation: ringRotate 40s linear infinite;
+    }
+
+    .chip-pin {
+      position: absolute;
+      width: 4px;
+      height: 20px;
+      background: var(--silver);
+      opacity: 0.4;
+    }
+
+    .chip-pin.top { top: 0; left: 50%; transform: translateX(-50%); }
+    .chip-pin.bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+    .chip-pin.left { left: 0; top: 50%; transform: translateY(-50%) rotate(90deg); }
+    .chip-pin.right { right: 0; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+    .chip-pin.top-left { top: 10px; left: 10px; transform: rotate(45deg); }
+    .chip-pin.top-right { top: 10px; right: 10px; transform: rotate(-45deg); }
+    .chip-pin.bottom-left { bottom: 10px; left: 10px; transform: rotate(-45deg); }
+    .chip-pin.bottom-right { bottom: 10px; right: 10px; transform: rotate(45deg); }
+
+    .data-flow-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--performance-red);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(237, 28, 36, 0.8);
+      animation: flowDot 4s linear infinite;
+    }
+
+    .data-flow-dot:nth-child(2) { animation-delay: -1s; }
+    .data-flow-dot:nth-child(3) { animation-delay: -2s; }
+    .data-flow-dot:nth-child(4) { animation-delay: -3s; }
+
+    @keyframes corePulse {
+      0%, 100% { box-shadow: inset 0 0 30px rgba(237, 28, 36, 0.1), 0 0 40px rgba(237, 28, 36, 0.15); }
+      50% { box-shadow: inset 0 0 40px rgba(237, 28, 36, 0.2), 0 0 60px rgba(237, 28, 36, 0.3); }
+    }
+
+    @keyframes ringRotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes flowDot {
+      0% { top: 0; left: 50%; opacity: 0; }
+      10% { opacity: 1; }
+      50% { top: 50%; left: 0; }
+      90% { opacity: 1; }
+      100% { top: 100%; left: 50%; opacity: 0; }
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      padding: 100px 24px;
+      position: relative;
+    }
+
+    .section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(237, 28, 36, 0.2), transparent);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--performance-red);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--silver);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* ===== PERFORMANCE SECTION ===== */
+    .perf-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .perf-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(237, 28, 36, 0.15);
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .perf-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--performance-red);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .perf-stat:hover::before {
+      transform: scaleX(1);
+    }
+
+    .perf-stat:hover {
+      background: rgba(237, 28, 36, 0.05);
+      border-color: rgba(237, 28, 36, 0.4);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+      transform: translateY(-4px);
+    }
+
+    .perf-number {
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--performance-red);
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+      margin-bottom: 8px;
+    }
+
+    .perf-label {
+      font-size: 0.85rem;
+      color: var(--silver);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ===== FEATURES / CARDS ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: var(--border-accent);
+      padding: 36px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .feature-card:hover {
+      background: rgba(237, 28, 36, 0.04);
+      transform: translateY(-4px);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7), 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      color: var(--performance-red);
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .feature-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    /* ===== EFFICIENCY SECTION ===== */
+    .efficiency-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .efficiency-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bar-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .bar-header span:last-child {
+      font-family: var(--font-mono);
+      color: var(--performance-red);
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .bar-track {
+      height: 6px;
+      background: var(--dark-grey);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--performance-red), #ff4a50);
+      box-shadow: 0 0 10px rgba(237, 28, 36, 0.4);
+      transition: width 1.5s ease;
+    }
+
+    /* ===== SECURITY SECTION ===== */
+    .security-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .security-item {
+      display: flex;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(192, 192, 192, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .security-item:hover {
+      border-color: rgba(237, 28, 36, 0.3);
+      background: rgba(237, 28, 36, 0.03);
+      transform: translateY(-2px);
+    }
+
+    .security-item svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: var(--performance-red);
+      margin-top: 2px;
+    }
+
+    .security-item h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .security-item p {
+      font-size: 0.85rem;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+
+    /* ===== USE CASES ===== */
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .usecase-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(192, 192, 192, 0.08);
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .usecase-card:hover {
+      border-color: var(--performance-red);
+      background: rgba(237, 28, 36, 0.04);
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px rgba(237, 28, 36, 0.1);
+    }
+
+    .usecase-card svg {
+      width: 40px;
+      height: 40px;
+      color: var(--electric-blue);
+      margin-bottom: 16px;
+    }
+
+    .usecase-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .usecase-card p {
+      font-size: 0.85rem;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 3px solid var(--performance-red);
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .testimonial-card:hover {
+      background: rgba(237, 28, 36, 0.04);
+      transform: translateY(-4px);
+    }
+
+    .testimonial-quote {
+      font-size: 0.95rem;
+      color: var(--light-grey);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: var(--silver);
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(192, 192, 192, 0.1);
+      padding: 40px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      border-color: rgba(192, 192, 192, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--performance-red);
+      background: rgba(237, 28, 36, 0.06);
+      box-shadow: 0 0 30px rgba(237, 28, 36, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .pricing-card.featured::before {
+      content: 'MAIS POPULAR';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      background: var(--performance-red);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 4px 16px;
+      text-shadow: 0 0 8px rgba(237, 28, 36, 0.5);
+    }
+
+    .pricing-tier {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--silver);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .pricing-price {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price .currency {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--silver);
+    }
+
+    .pricing-price .period {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--silver);
+    }
+
+    .pricing-desc {
+      font-size: 0.85rem;
+      color: var(--silver);
+      margin-bottom: 28px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--light-grey);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(192, 192, 192, 0.06);
+    }
+
+    .pricing-features li svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--performance-red);
+    }
+
+    .pricing-btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid var(--silver);
+      color: var(--white);
+      background: transparent;
+    }
+
+    .pricing-btn:hover {
+      border-color: var(--performance-red);
+      color: var(--performance-red);
+      box-shadow: 0 0 15px rgba(237, 28, 36, 0.2);
+    }
+
+    .pricing-card.featured .pricing-btn {
+      background: var(--performance-red);
+      border-color: var(--performance-red);
+      box-shadow: 0 0 15px rgba(237, 28, 36, 0.3);
+    }
+
+    .pricing-card.featured .pricing-btn:hover {
+      background: #ff2a32;
+      box-shadow: 0 0 25px rgba(237, 28, 36, 0.6);
+      color: var(--white);
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-final {
+      text-align: center;
+      padding: 120px 24px;
+      position: relative;
+      background: linear-gradient(180deg, var(--black) 0%, rgba(237, 28, 36, 0.06) 50%, var(--black) 100%);
+    }
+
+    .cta-final h2 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-final p {
+      font-size: 1.1rem;
+      color: var(--silver);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid rgba(237, 28, 36, 0.2);
+      padding: 60px 24px 32px;
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--silver);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+
+    .footer-col h5 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: var(--silver);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--performance-red);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(192, 192, 192, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      border-color: var(--performance-red);
+      background: rgba(237, 28, 36, 0.1);
+    }
+
+    .footer-social a svg {
+      width: 18px;
+      height: 18px;
+      color: var(--silver);
+      transition: color 0.2s ease;
+    }
+
+    .footer-social a:hover svg {
+      color: var(--performance-red);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(192, 192, 192, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: var(--silver);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.75rem;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--performance-red);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .perf-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .efficiency-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .navbar-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.97);
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid rgba(237, 28, 36, 0.2);
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section {
+        padding: 60px 24px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid,
+      .usecases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .security-features {
+        grid-template-columns: 1fr;
+      }
+
+      .perf-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta-final h2 {
+        font-size: 2rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .perf-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ED1C24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        <span>HPC<span class="logo-accent">Pro</span></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#eficiencia">Eficiencia</a></li>
+        <li><a href="#seguranca">Seguranca</a></li>
+        <li><a href="#casos-de-uso">Casos de Uso</a></li>
+        <li><a href="#precos">Precos</a></li>
+      </ul>
+      <a href="#contato" class="navbar-cta">Solicitar Demo</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu de navegacao">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-badge">Nova Geracao 2026</span>
+        <h1>Poder de<br>Processamento<br><span class="text-red">Sem Limites.</span></h1>
+        <p class="hero-subtitle">
+          A nova geracao de processadores para servidores e data centers. Arquitetura revolucionaria com ate 256 nucleos, eficiencia energetica superior e seguranca integrada em hardware.
+        </p>
+        <div class="hero-buttons">
+          <a href="#precos" class="btn-primary">Ver Planos</a>
+          <a href="#performance" class="btn-secondary">Conhecer Specs</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="chip-diagram">
+          <div class="chip-ring chip-ring-3"></div>
+          <div class="chip-ring chip-ring-2"></div>
+          <div class="chip-ring chip-ring-1"></div>
+          <div class="chip-core">
+            <span class="chip-core-label">256 Cores</span>
+          </div>
+          <div class="chip-pin top"></div>
+          <div class="chip-pin bottom"></div>
+          <div class="chip-pin left"></div>
+          <div class="chip-pin right"></div>
+          <div class="chip-pin top-left"></div>
+          <div class="chip-pin top-right"></div>
+          <div class="chip-pin bottom-left"></div>
+          <div class="chip-pin bottom-right"></div>
+          <div class="data-flow-dot"></div>
+          <div class="data-flow-dot"></div>
+          <div class="data-flow-dot"></div>
+          <div class="data-flow-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section class="section" id="performance">
+    <div class="container">
+      <p class="section-label">Performance</p>
+      <h2 class="section-title">Numeros que Falam por Si.</h2>
+      <p class="section-desc">Benchmarks reais em cargas de trabalho corporativas. Desempenho comprovado em ambientes de producao com milhares de instancias simultaneas.</p>
+
+      <div class="perf-grid">
+        <div class="perf-stat">
+          <div class="perf-number">256</div>
+          <div class="perf-label">Nucleos por Chip</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">5.8</div>
+          <div class="perf-label">GHz Turbo Max</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">512</div>
+          <div class="perf-label">MB Cache L3</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">12</div>
+          <div class="perf-label">Canais DDR5</div>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Throughput Massivo</h3>
+          <p>Processamento paralelo com ate 512 threads simultaneas. Ideal para workloads de IA, HPC e virtualizacao em larga escala.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <h3>Arquitetura Chiplet</h3>
+          <p>Design modular com chiplets interconectados via Infinity Fabric de ultima geracao. Latencia ultra-baixa entre nucleos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>PCIe Gen 6</h3>
+          <p>Suporte nativo a PCIe 6.0 com 128 lanes. Largura de banda sem precedentes para GPUs, NVMe e aceleradores de IA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EFICIENCIA ENERGETICA -->
+  <section class="section" id="eficiencia" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+      <div class="efficiency-grid">
+        <div>
+          <p class="section-label">Eficiencia Energetica</p>
+          <h2 class="section-title">Mais Performance, Menos Watts.</h2>
+          <p class="section-desc">Processo de fabricacao em 3nm com gerenciamento inteligente de energia. Reducao de ate 45% no consumo comparado a geracao anterior, sem comprometer o desempenho.</p>
+          <div class="efficiency-bars">
+            <div class="bar-item">
+              <div class="bar-header">
+                <span>Performance por Watt</span>
+                <span>+67%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 87%;"></div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-header">
+                <span>Reducao de Consumo Idle</span>
+                <span>-45%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 72%;"></div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-header">
+                <span>Eficiencia em Carga Total</span>
+                <span>94.2%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 94%;"></div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-header">
+                <span>Reducao de Calor (TDP)</span>
+                <span>-38%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 65%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="120" stroke="#333" stroke-width="2"/>
+            <circle cx="150" cy="150" r="90" stroke="rgba(237,28,36,0.3)" stroke-width="1.5"/>
+            <circle cx="150" cy="150" r="60" stroke="rgba(0,191,255,0.2)" stroke-width="1"/>
+            <path d="M150 30 A120 120 0 1 1 60 230" stroke="#ED1C24" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M150 60 A90 90 0 1 1 80 210" stroke="#00BFFF" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <text x="150" y="140" text-anchor="middle" fill="#ED1C24" font-family="Roboto Mono, monospace" font-size="32" font-weight="900">3nm</text>
+            <text x="150" y="168" text-anchor="middle" fill="#C0C0C0" font-family="Roboto, sans-serif" font-size="12" letter-spacing="0.1em">PROCESSO</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURANCA -->
+  <section class="section" id="seguranca">
+    <div class="container">
+      <p class="section-label">Seguranca</p>
+      <h2 class="section-title">Protecao Integrada em Hardware.</h2>
+      <p class="section-desc">Camadas de seguranca diretamente no silicio. Criptografia acelerada por hardware, boot seguro e isolamento de memoria para proteger seus dados mais criticos.</p>
+
+      <div class="security-features">
+        <div class="security-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <h4>Secure Boot Avancado</h4>
+            <p>Cadeia de confianca desde o firmware ate o sistema operacional. Verificacao criptografica em cada etapa do boot.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div>
+            <h4>Criptografia AES-512</h4>
+            <p>Aceleracao nativa de criptografia com suporte a AES-512 e algoritmos pos-quanticos. Zero impacto na performance.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          <div>
+            <h4>Isolamento de Memoria</h4>
+            <p>Enclaves seguros com isolamento total de memoria entre VMs e containers. Protecao contra ataques side-channel.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <div>
+            <h4>Firmware Resiliente</h4>
+            <p>Recuperacao automatica de firmware comprometido. Atualizacoes seguras over-the-air com rollback automatico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS DE USO -->
+  <section class="section" id="casos-de-uso" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+      <p class="section-label">Casos de Uso</p>
+      <h2 class="section-title">Projetado para Suas Cargas de Trabalho.</h2>
+      <p class="section-desc">Do treinamento de modelos de IA a bancos de dados em tempo real, nossos processadores entregam performance consistente em qualquer cenario.</p>
+
+      <div class="usecases-grid">
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><path d="M8.56 13.68C5.09 14.84 3 17.02 3 19.5 3 22 7.03 24 12 24s9-2 9-4.5c0-2.48-2.09-4.66-5.56-5.82"/></svg>
+          <h4>Inteligencia Artificial</h4>
+          <p>Treinamento e inferencia de modelos de deep learning com aceleracao nativa para operacoes de tensor.</p>
+        </div>
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <h4>Bancos de Dados</h4>
+          <p>Performance excepcional para bancos relacionais e NoSQL com cache L3 massivo e largura de banda de memoria.</p>
+        </div>
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <h4>Virtualizacao</h4>
+          <p>Suporte a milhares de VMs simultaneas com isolamento de hardware e alocacao dinamica de recursos.</p>
+        </div>
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <h4>Cloud Nativo</h4>
+          <p>Otimizado para Kubernetes e microservicos. Escalonamento horizontal eficiente com baixa latencia entre pods.</p>
+        </div>
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          <h4>Analytics em Tempo Real</h4>
+          <p>Processamento de streaming de dados com latencia sub-milissegundo para decisoes em tempo real.</p>
+        </div>
+        <div class="usecase-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <h4>HPC Cientifico</h4>
+          <p>Simulacoes complexas, modelagem climatica e pesquisa genomica com computacao de alta performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="depoimentos">
+    <div class="container">
+      <p class="section-label">Depoimentos</p>
+      <h2 class="section-title">Confianca de Quem Opera em Escala.</h2>
+      <p class="section-desc">Empresas lideres em tecnologia ja utilizam nossos processadores em seus data centers de missao critica.</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"Migramos 12.000 servidores para a nova geracao HPC e reduzimos nosso custo de infraestrutura em 38%. A performance por watt e incomparavel."</p>
+          <p class="testimonial-author">Carlos Eduardo Silva</p>
+          <p class="testimonial-role">CTO, CloudScale Brasil</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"O tempo de treinamento dos nossos modelos de IA caiu de 14 dias para 3. Os 256 nucleos com aceleracao de tensor mudaram completamente nosso pipeline."</p>
+          <p class="testimonial-author">Dra. Fernanda Oliveira</p>
+          <p class="testimonial-role">Diretora de IA, DataMind Labs</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"A seguranca integrada em hardware nos permitiu atender requisitos de compliance que antes exigiam camadas extras de software. Solucao elegante e robusta."</p>
+          <p class="testimonial-author">Ricardo Mendes</p>
+          <p class="testimonial-role">CISO, FinTech Segura</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="precos" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+      <p class="section-label">Planos</p>
+      <h2 class="section-title">Escolha Sua Configuracao.</h2>
+      <p class="section-desc">Opcoes flexiveis para cada escala de operacao. Todos os planos incluem suporte tecnico especializado e garantia estendida.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="pricing-tier">Essencial</p>
+          <p class="pricing-price"><span class="currency">R$ </span>18.900<span class="period">/unidade</span></p>
+          <p class="pricing-desc">Para data centers em crescimento</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              64 nucleos / 128 threads
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              128 MB Cache L3
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              8 canais DDR5
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              PCIe Gen 5 (64 lanes)
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por e-mail
+            </li>
+          </ul>
+          <a href="#contato" class="pricing-btn">Solicitar Orcamento</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <p class="pricing-tier">Profissional</p>
+          <p class="pricing-price"><span class="currency">R$ </span>34.500<span class="period">/unidade</span></p>
+          <p class="pricing-desc">Para operacoes de alta demanda</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              128 nucleos / 256 threads
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              256 MB Cache L3
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              12 canais DDR5
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              PCIe Gen 6 (96 lanes)
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritario 24/7
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Seguranca avancada em hardware
+            </li>
+          </ul>
+          <a href="#contato" class="pricing-btn">Solicitar Orcamento</a>
+        </div>
+
+        <div class="pricing-card">
+          <p class="pricing-tier">Enterprise</p>
+          <p class="pricing-price"><span class="currency">R$ </span>62.000<span class="period">/unidade</span></p>
+          <p class="pricing-desc">Para infraestrutura de missao critica</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              256 nucleos / 512 threads
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              512 MB Cache L3
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              12 canais DDR5 + HBM3
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              PCIe Gen 6 (128 lanes)
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Engenheiro dedicado
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA 99.999% garantido
+            </li>
+          </ul>
+          <a href="#contato" class="pricing-btn">Solicitar Orcamento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final" id="contato">
+    <h2>Pronto para o Proximo Nivel<br>de Performance?</h2>
+    <p>Entre em contato com nossos especialistas e descubra como a nova geracao de processadores pode transformar sua infraestrutura.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Falar com Especialista</a>
+      <a href="#" class="btn-secondary">Baixar Datasheet</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="navbar-logo" style="margin-bottom:8px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ED1C24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          <span>HPC<span class="logo-accent">Pro</span></span>
+        </a>
+        <p>Processadores de alta performance para a proxima geracao de data centers e infraestrutura em nuvem.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Produto</h5>
+        <ul>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#eficiencia">Eficiencia</a></li>
+          <li><a href="#seguranca">Seguranca</a></li>
+          <li><a href="#precos">Precos</a></li>
+          <li><a href="#">Datasheet</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#">Sobre Nos</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Recursos</h5>
+        <ul>
+          <li><a href="#">Documentacao</a></li>
+          <li><a href="#">Benchmarks</a></li>
+          <li><a href="#">Estudos de Caso</a></li>
+          <li><a href="#">Webinars</a></li>
+          <li><a href="#">Suporte</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Politica de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Compliance</a></li>
+          <li><a href="#">LGPD</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 HPC Pro. Todos os direitos reservados.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Politica de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Mapa do Site</a>
+        <a href="#">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(0, 0, 0, 0.98)';
+        navbar.style.borderBottomColor = 'rgba(237, 28, 36, 0.4)';
+      } else {
+        navbar.style.background = 'rgba(0, 0, 0, 0.92)';
+        navbar.style.borderBottomColor = 'rgba(237, 28, 36, 0.2)';
+      }
+    });
+
+    // Animate performance bars on scroll
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const bars = entry.target.querySelectorAll('.bar-fill');
+          bars.forEach(function(bar) {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(function() {
+              bar.style.width = width;
+            }, 200);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const efficiencySection = document.getElementById('eficiencia');
+    if (efficiencySection) {
+      observer.observe(efficiencySection);
+    }
+
+    // Animate stat numbers on scroll
+    const statObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const stats = entry.target.querySelectorAll('.perf-number');
+          stats.forEach(function(stat) {
+            const finalValue = stat.textContent;
+            const numValue = parseFloat(finalValue);
+            if (isNaN(numValue)) return;
+            const isDecimal = finalValue.includes('.');
+            let current = 0;
+            const increment = numValue / 40;
+            const timer = setInterval(function() {
+              current += increment;
+              if (current >= numValue) {
+                current = numValue;
+                clearInterval(timer);
+              }
+              stat.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+            }, 30);
+          });
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const perfSection = document.getElementById('performance');
+    if (perfSection) {
+      statObserver.observe(perfSection);
+    }
+  </script>
+
+</body>
+</html>

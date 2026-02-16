@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlowHub - Plataforma de Gestão de Fluxo de Trabalho com visual neumórfico e layout hub-and-spoke. Otimize seus processos empresariais.">
+    <meta name="keywords" content="gestão de fluxo, workflow, automação, processos empresariais, neumorphic, schematic">
+    <meta name="author" content="FlowHub">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="FlowHub - Gestão de Fluxo de Trabalho">
+    <meta property="og:description" content="Plataforma B2B para gestão de processos empresariais com visual neumórfico">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowhub.com">
+    <meta property="og:image" content="https://flowhub.com/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FlowHub - Gestão de Fluxo de Trabalho">
+    <meta name="twitter:description" content="Plataforma B2B para gestão de processos empresariais">
+
+    <title>FlowHub - Plataforma de Gestão de Fluxo de Trabalho</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-light: #F4F6F8;
+            --text-dark: #2C2C2C;
+            --accent-red: #EB5757;
+            --shadow-neu-dark: #D1D9E6;
+            --shadow-neu-light: #FFFFFF;
+            --flow-line: #EB5757;
+            --surface-matte: #F4F6F8;
+            --gradient-start: #F4F6F8;
+            --gradient-end: #E8EDF2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container Base com Efeito Neumórfico */
+        .neu-container {
+            background: var(--surface-matte);
+            box-shadow: 10px 10px 20px var(--shadow-neu-dark),
+                        -10px -10px 20px var(--shadow-neu-light);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .neu-container:hover {
+            box-shadow: 15px 15px 30px var(--shadow-neu-dark),
+                        -15px -15px 30px var(--shadow-neu-light);
+        }
+
+        /* Botão Neumórfico */
+        .neu-button {
+            background: var(--bg-light);
+            color: var(--accent-red);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 8px 8px 16px var(--shadow-neu-dark),
+                        -8px -8px 16px var(--shadow-neu-light);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neu-button:hover {
+            box-shadow: 5px 5px 10px var(--shadow-neu-dark),
+                        -5px -5px 10px var(--shadow-neu-light);
+            transform: translateY(-2px);
+        }
+
+        .neu-button:active {
+            box-shadow: inset 5px 5px 10px var(--shadow-neu-dark),
+                        inset -5px -5px 10px var(--shadow-neu-light);
+            transform: translateY(0);
+        }
+
+        .neu-button-primary {
+            color: var(--accent-red);
+        }
+
+        /* Container Geral */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-light);
+            box-shadow: 0 4px 20px var(--shadow-neu-dark);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 5px 5px 10px var(--shadow-neu-dark),
+                        -5px -5px 10px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            box-shadow: 5px 5px 10px var(--shadow-neu-dark),
+                        -5px -5px 10px var(--shadow-neu-light);
+            color: var(--accent-red);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            position: relative;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-red);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 35px;
+            opacity: 0.85;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hub-container {
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+
+        .central-hub {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 15px 15px 30px var(--shadow-neu-dark),
+                        -15px -15px 30px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .central-hub svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--accent-red);
+        }
+
+        .flow-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--flow-line), transparent);
+            transform-origin: left center;
+            opacity: 0.6;
+        }
+
+        .spoke-node {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 8px 8px 16px var(--shadow-neu-dark),
+                        -8px -8px 16px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .spoke-node:hover {
+            box-shadow: 12px 12px 24px var(--shadow-neu-dark),
+                        -12px -12px 24px var(--shadow-neu-light);
+            transform: scale(1.1);
+        }
+
+        .spoke-node svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-dark);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 10px 10px 20px var(--shadow-neu-dark),
+                        -10px -10px 20px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            box-shadow: 15px 15px 30px var(--shadow-neu-dark),
+                        -15px -15px 30px var(--shadow-neu-light);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: var(--accent-red);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--gradient-end) 0%, var(--gradient-start) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .testimonial-card {
+            padding: 35px;
+            cursor: pointer;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 55px;
+            height: 55px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 6px 6px 12px var(--shadow-neu-dark),
+                        -6px -6px 12px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent-red);
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info p {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.6;
+        }
+
+        .testimonial-body {
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-style: italic;
+            opacity: 0.85;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .testimonial-rating svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent-red);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .pricing-card {
+            padding: 45px 35px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .pricing-card.featured {
+            box-shadow: 15px 15px 30px var(--shadow-neu-dark),
+                        -15px -15px 30px var(--shadow-neu-light);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent-red);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 8px 8px 16px var(--shadow-neu-dark),
+                        -8px -8px 16px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .pricing-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-red);
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+        }
+
+        .pricing-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-dark);
+            opacity: 0.6;
+        }
+
+        .pricing-description {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--shadow-neu-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent-red);
+            flex-shrink: 0;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 50px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 0 30px;
+            background: var(--bg-light);
+            border-top: 1px solid var(--shadow-neu-dark);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-red);
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            box-shadow: 6px 6px 12px var(--shadow-neu-dark),
+                        -6px -6px 12px var(--shadow-neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            box-shadow: 8px 8px 16px var(--shadow-neu-dark),
+                        -8px -8px 16px var(--shadow-neu-light);
+            transform: translateY(-3px);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-dark);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover svg {
+            fill: var(--accent-red);
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid var(--shadow-neu-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.6;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+            color: var(--accent-red);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 42px;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-light);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px var(--shadow-neu-dark);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .pricing-card {
+                padding: 30px 20px;
+            }
+
+            .cta-container {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3"/>
+                        <circle cx="12" cy="5" r="2" opacity="0.6"/>
+                        <circle cx="19" cy="12" r="2" opacity="0.6"/>
+                        <circle cx="12" cy="19" r="2" opacity="0.6"/>
+                        <circle cx="5" cy="12" r="2" opacity="0.6"/>
+                    </svg>
+                </div>
+                FlowHub
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <button class="neu-button">Entrar</button>
+                <button class="neu-button neu-button-primary">Começar</button>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Gerencie seus processos com <span>Fluxo Inteligente</span></h1>
+                <p>Plataforma B2B completa para gestão de fluxo de trabalho com visual neumórfico e layout hub-and-spoke. Otimize processos, automatize tarefas e aumente a produtividade.</p>
+                <div class="hero-buttons">
+                    <button class="neu-button neu-button-primary">Iniciar Teste Grátis</button>
+                    <button class="neu-button">Ver Demonstração</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5.000+</div>
+                        <div class="stat-label">Empresas Ativas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfação</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10M+</div>
+                        <div class="stat-label">Tarefas/Mês</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hub-container">
+                    <div class="central-hub">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3"/>
+                            <circle cx="12" cy="5" r="2"/>
+                            <circle cx="19" cy="12" r="2"/>
+                            <circle cx="12" cy="19" r="2"/>
+                            <circle cx="5" cy="12" r="2"/>
+                        </svg>
+                    </div>
+
+                    <div class="flow-line" style="width: 150px; transform: rotate(0deg);"></div>
+                    <div class="flow-line" style="width: 150px; transform: rotate(72deg);"></div>
+                    <div class="flow-line" style="width: 150px; transform: rotate(144deg);"></div>
+                    <div class="flow-line" style="width: 150px; transform: rotate(216deg);"></div>
+                    <div class="flow-line" style="width: 150px; transform: rotate(288deg);"></div>
+
+                    <div class="spoke-node" style="top: 10%; left: 50%; transform: translateX(-50%);">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <div class="spoke-node" style="top: 35%; right: 10%;">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="spoke-node" style="bottom: 35%; right: 10%;">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="spoke-node" style="bottom: 35%; left: 10%;">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                        </svg>
+                    </div>
+                    <div class="spoke-node" style="top: 35%; left: 10%;">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="section-header">
+            <h2>Recursos Poderosos</h2>
+            <p>Ferramentas completas para transformar a gestão de processos da sua empresa</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                </div>
+                <h3>Dashboard Hub-and-Spoke</h3>
+                <p>Visualização centralizada de todos os processos com layout intuitivo de hub e spokes, facilitando a navegação e gestão.</p>
+            </div>
+
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h3>Automação Inteligente</h3>
+                <p>Automatize tarefas repetitivas e fluxos de trabalho com regras personalizadas, economizando tempo e reduzindo erros.</p>
+            </div>
+
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                    </svg>
+                </div>
+                <h3>Colaboração em Tempo Real</h3>
+                <p>Trabalhe em equipe com atualizações simultâneas, comentários e notificações instantâneas em cada processo.</p>
+            </div>
+
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <h3>Analytics Avançado</h3>
+                <p>Relatórios detalhados e métricas em tempo real para monitorar performance e identificar oportunidades de melhoria.</p>
+            </div>
+
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+                    </svg>
+                </div>
+                <h3>Integrações Nativas</h3>
+                <p>Conecte-se com suas ferramentas favoritas como Slack, Google Workspace, Microsoft 365 e mais de 100 apps.</p>
+            </div>
+
+            <div class="feature-card neu-container">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                    </svg>
+                </div>
+                <h3>Segurança Enterprise</h3>
+                <p>Criptografia de ponta a ponta, conformidade com LGPD, autenticação 2FA e backups automáticos diários.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
+        <div class="section-header">
+            <h2>O Que Nossos Clientes Dizem</h2>
+            <p>Histórias reais de empresas que transformaram sua gestão com FlowHub</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card neu-container">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Mariana Silva</h4>
+                        <p>CEO, TechCorp Brasil</p>
+                    </div>
+                </div>
+                <div class="testimonial-body">
+                    "O FlowHub revolucionou nossa gestão de processos. A visualização hub-and-spoke tornou tudo mais intuitivo e aumentamos a produtividade em 40%."
+                </div>
+                <div class="testimonial-rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+            </div>
+
+            <div class="testimonial-card neu-container">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Carlos Mendes</h4>
+                        <p>Diretor de Operações, LogiTrans</p>
+                    </div>
+                </div>
+                <div class="testimonial-body">
+                    "Implementamos o FlowHub em 3 filiais e a comunicação melhorou drasticamente. O design neumórfico é lindo e facilita o uso diário."
+                </div>
+                <div class="testimonial-rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+            </div>
+
+            <div class="testimonial-card neu-container">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Ana Paula Costa</h4>
+                        <p>Gerente de Projetos, InovaTech</p>
+                    </div>
+                </div>
+                <div class="testimonial-body">
+                    "A automação de processos reduziu nosso tempo de execução em 60%. O suporte é excepcional e as atualizações constantes mostram comprometimento."
+                </div>
+                <div class="testimonial-rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="precos">
+        <div class="section-header">
+            <h2>Planos Flexíveis</h2>
+            <p>Escolha o plano ideal para o tamanho e necessidades da sua empresa</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card neu-container">
+                <div class="pricing-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h3>Starter</h3>
+                <div class="pricing-price">R$ 97<span>/mês</span></div>
+                <p class="pricing-description">Para pequenas empresas iniciando automação</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Até 5 usuários
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        10 processos ativos
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        1.000 tarefas/mês
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Analytics básico
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Suporte por email
+                    </li>
+                </ul>
+                <button class="neu-button neu-button-primary">Começar Agora</button>
+            </div>
+
+            <div class="pricing-card featured neu-container">
+                <div class="pricing-badge">Popular</div>
+                <div class="pricing-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <h3>Professional</h3>
+                <div class="pricing-price">R$ 297<span>/mês</span></div>
+                <p class="pricing-description">Para empresas em crescimento</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Até 25 usuários
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Processos ilimitados
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        10.000 tarefas/mês
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Analytics avançado
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Automação inteligente
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Suporte prioritário
+                    </li>
+                </ul>
+                <button class="neu-button neu-button-primary">Começar Agora</button>
+            </div>
+
+            <div class="pricing-card neu-container">
+                <div class="pricing-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                    </svg>
+                </div>
+                <h3>Enterprise</h3>
+                <div class="pricing-price">Sob Medida</div>
+                <p class="pricing-description">Para grandes corporações</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Usuários ilimitados
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Processos ilimitados
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Tarefas ilimitadas
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Analytics personalizado
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        API dedicada
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Suporte 24/7
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        SLA garantido
+                    </li>
+                </ul>
+                <button class="neu-button neu-button-primary">Falar com Consultor</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container neu-container">
+            <h2>Pronto para Transformar sua Gestão?</h2>
+            <p>Junte-se a mais de 5.000 empresas que já revolucionaram seus processos com FlowHub. Inicie seu teste gratuito de 14 dias hoje mesmo.</p>
+            <div class="cta-buttons">
+                <button class="neu-button neu-button-primary">Iniciar Teste Grátis</button>
+                <button class="neu-button">Agendar Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="3"/>
+                                <circle cx="12" cy="5" r="2" opacity="0.6"/>
+                                <circle cx="19" cy="12" r="2" opacity="0.6"/>
+                                <circle cx="12" cy="19" r="2" opacity="0.6"/>
+                                <circle cx="5" cy="12" r="2" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        FlowHub
+                    </a>
+                    <p>Plataforma completa de gestão de fluxo de trabalho com visual neumórfico e layout hub-and-spoke. Transforme a way sua empresa trabalha.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Produto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#precos">Preços</a></li>
+                        <li><a href="#">Integrações</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 FlowHub. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe elements
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px var(--shadow-neu-dark)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Spoke node animation
+        const spokeNodes = document.querySelectorAll('.spoke-node');
+        spokeNodes.forEach((node, index) => {
+            node.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // Add pulse animation to central hub
+        const centralHub = document.querySelector('.central-hub');
+        setInterval(() => {
+            centralHub.style.transform = 'translate(-50%, -50%) scale(1.05)';
+            setTimeout(() => {
+                centralHub.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 200);
+        }, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FitPulse - O app de treinos que transforma seu corpo e sua vida. Treinos personalizados, acompanhamento de progresso e resultados reais.">
+    <meta name="keywords" content="fitness, treino, academia, app de treinos, saúde, exercícios, musculação">
+    <meta name="author" content="FitPulse">
+    <meta property="og:title" content="FitPulse - Seu App de Treinos Definitivo">
+    <meta property="og:description" content="Treinos personalizados, acompanhamento de progresso e resultados reais. Baixe agora e transforme seu corpo.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>FitPulse - Seu App de Treinos Definitivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #E53E3E;
+            --orange: #FF6B00;
+            --dark: #1A1A1A;
+            --white: #FFFFFF;
+            --light-grey: #F7FAFC;
+            --yellow: #FFC107;
+            --radius-card: 12px;
+            --font-fitness: 'Poppins', sans-serif;
+            --shadow-card: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: 200ms ease;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-fitness);
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-fitness);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 16px 0;
+            transition: box-shadow var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .navbar-logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navbar-logo span {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #475569;
+            transition: color var(--transition);
+            cursor: pointer;
+        }
+
+        .navbar-links a:hover {
+            color: var(--red);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            transition: opacity var(--transition), transform var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid var(--dark);
+            border-radius: 50px;
+            transition: background var(--transition), color var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: transform var(--transition), opacity var(--transition);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 160px 0 100px;
+            background: var(--light-grey);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(229,62,62,0.1);
+            color: var(--red);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #475569;
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .hero-shape {
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            opacity: 0.15;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-shape-inner {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--yellow));
+            opacity: 0.2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-phone {
+            position: relative;
+            z-index: 2;
+            width: 220px;
+            height: 420px;
+            background: var(--dark);
+            border-radius: 36px;
+            border: 4px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 12px;
+            width: 80px;
+            height: 24px;
+            background: #333;
+            border-radius: 12px;
+        }
+
+        .phone-screen-title {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .phone-bar {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .phone-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--red), var(--orange));
+        }
+
+        .phone-stat {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.7rem;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .phone-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 6px solid var(--orange);
+            border-top-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .phone-circle span {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .stats .container {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 100px 0;
+            background: var(--light-grey);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(229,62,62,0.1);
+            color: var(--red);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius-card);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-card);
+            transition: transform var(--transition), box-shadow var(--transition);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--white);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: var(--light-grey);
+            border-radius: var(--radius-card);
+            padding: 36px 32px;
+            position: relative;
+            transition: transform var(--transition), box-shadow var(--transition);
+            cursor: pointer;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-stars svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--yellow);
+        }
+
+        .testimonial-card blockquote {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-info h4 {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .testimonial-info span {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .testimonial-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 4px 12px;
+            background: rgba(229,62,62,0.08);
+            color: var(--red);
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 50px;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing {
+            padding: 100px 0;
+            background: var(--light-grey);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: var(--radius-card);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            position: relative;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .pricing-card.featured {
+            background: var(--dark);
+            color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 20px;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 16px 0 8px;
+        }
+
+        .pricing-card.featured .price {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-card .price-period {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .pricing-card.featured .pricing-features li {
+            border-bottom-color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.85);
+        }
+
+        .pricing-features li svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li svg.check {
+            stroke: #22c55e;
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .pricing-card .btn-pricing {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: opacity var(--transition);
+            cursor: pointer;
+        }
+
+        .pricing-card .btn-pricing:hover {
+            opacity: 0.9;
+        }
+
+        .btn-pricing-outline {
+            background: transparent;
+            border: 2px solid var(--dark);
+            color: var(--dark);
+        }
+
+        .btn-pricing-outline:hover {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .btn-pricing-gradient {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            color: var(--white);
+            border: none;
+        }
+
+        /* ===== CTA FINAL ===== */
+        .cta-final {
+            padding: 100px 0;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            opacity: 0.08;
+        }
+
+        .cta-final .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-final h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .cta-final h2 .highlight {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-final p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-final .btn-primary {
+            font-size: 1.1rem;
+            padding: 16px 40px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #111111;
+            padding: 60px 0 0;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-top: 16px;
+            max-width: 300px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition);
+            cursor: pointer;
+        }
+
+        .footer-social a:hover {
+            background: linear-gradient(135deg, var(--red), var(--orange));
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            font-size: 0.9rem;
+            transition: color var(--transition);
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            transition: color var(--transition);
+            cursor: pointer;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--white);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.8rem; }
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: translateY(-4px); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .navbar-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 24px;
+                gap: 20px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            }
+            .mobile-toggle { display: flex; }
+            .hero .container { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { min-height: 320px; }
+            .hero-phone { width: 180px; height: 340px; border-radius: 28px; }
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+            .stats .container { gap: 40px; }
+            .section-header h2 { font-size: 2rem; }
+            .cta-final h2 { font-size: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 130px 0 60px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .stat-number { font-size: 2.2rem; }
+            .pricing-card .price { font-size: 2.4rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="16" stroke="#E53E3E" stroke-width="3"/>
+                    <path d="M12 18h12M18 12v12" stroke="#FF6B00" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span>FitPulse</span>
+            </a>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#pricing">Planos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <a href="#pricing" class="btn-primary navbar-cta">Comece Agora</a>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu de navegacao">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Mais de 500 mil downloads
+                </div>
+                <h1>Treine com <span class="highlight">intensidade</span> em qualquer lugar</h1>
+                <p>Treinos personalizados, acompanhamento de progresso em tempo real e uma comunidade que te motiva a ir mais longe. Seu shape começa aqui.</p>
+                <div class="hero-buttons">
+                    <a href="#pricing" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Baixar Gratis
+                    </a>
+                    <a href="#features" class="btn-secondary">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-shape"></div>
+                <div class="hero-shape-inner"></div>
+                <div class="hero-phone">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen-title">Treino de Hoje</div>
+                    <div class="phone-bar"><div class="phone-bar-fill" style="width:85%"></div></div>
+                    <div class="phone-stat">85% concluido</div>
+                    <div class="phone-bar"><div class="phone-bar-fill" style="width:60%"></div></div>
+                    <div class="phone-stat">Calorias: 420 kcal</div>
+                    <div class="phone-bar"><div class="phone-bar-fill" style="width:45%"></div></div>
+                    <div class="phone-stat">Tempo: 32 min</div>
+                    <div class="phone-circle"><span>75%</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container">
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">Mil usuarios ativos</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" data-target="1200">0</div>
+                <div class="stat-label">Treinos disponiveis</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-label">% de satisfacao</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" data-target="4">0</div>
+                <div class="stat-label">Milhoes de treinos feitos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Recursos</span>
+                <h2>Tudo que voce precisa para evoluir</h2>
+                <p>Ferramentas inteligentes que se adaptam ao seu nivel e objetivos para resultados reais.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                    </div>
+                    <h3>Progresso em Tempo Real</h3>
+                    <p>Acompanhe cada repeticao, serie e evolucao com graficos detalhados. Veja seu progresso semanal e mensal de forma clara e motivadora.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+                    </div>
+                    <h3>Treinos Personalizados</h3>
+                    <p>Algoritmo inteligente que cria treinos sob medida para seu objetivo, seja ganho de massa, emagrecimento ou condicionamento fisico.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Comunidade Ativa</h3>
+                    <p>Conecte-se com milhares de pessoas que compartilham seus objetivos. Desafios semanais, rankings e suporte mutuo para manter a motivacao.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Depoimentos</span>
+                <h2>Resultados que falam por si</h2>
+                <p>Veja o que nossos usuarios estao conquistando com o FitPulse todos os dias.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <blockquote>"Em 3 meses perdi 12kg e ganhei uma disposicao que nao tinha ha anos. O app me guia em cada treino como um personal trainer de verdade."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RM</div>
+                        <div class="testimonial-info">
+                            <h4>Rafael Mendes</h4>
+                            <span>Perdeu 12kg em 3 meses</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-result">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        -12kg
+                    </div>
+                </div>
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <blockquote>"Nunca fui de academia, mas o FitPulse me mostrou que da pra treinar em casa com qualidade. Os treinos sao objetivos e eficientes."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CS</div>
+                        <div class="testimonial-info">
+                            <h4>Camila Santos</h4>
+                            <span>Treina em casa ha 6 meses</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-result">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        +180 treinos
+                    </div>
+                </div>
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <blockquote>"O acompanhamento de progresso e incrivel. Ver os numeros subindo me da uma motivacao absurda pra continuar. Recomendo demais!"</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">LO</div>
+                        <div class="testimonial-info">
+                            <h4>Lucas Oliveira</h4>
+                            <span>Ganhou 8kg de massa magra</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-result">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        +8kg massa
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Planos</span>
+                <h2>Escolha seu plano ideal</h2>
+                <p>Comece gratis e evolua quando estiver pronto. Sem compromisso, cancele quando quiser.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card animate-on-scroll">
+                    <h3>Iniciante</h3>
+                    <div class="price">Gratis</div>
+                    <div class="price-period">Para sempre</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            5 treinos por semana
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acompanhamento basico
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Comunidade geral
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Videos demonstrativos
+                        </li>
+                    </ul>
+                    <button class="btn-pricing btn-pricing-outline">Comecar Gratis</button>
+                </div>
+                <div class="pricing-card featured animate-on-scroll">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">R$ 29<span style="font-size:1rem;font-weight:500">,90</span></div>
+                    <div class="price-period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Treinos ilimitados
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Planos personalizados com IA
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Analise de progresso avancada
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Desafios exclusivos
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritario
+                        </li>
+                    </ul>
+                    <button class="btn-pricing btn-pricing-gradient">Assinar Pro</button>
+                </div>
+                <div class="pricing-card animate-on-scroll">
+                    <h3>Elite</h3>
+                    <div class="price">R$ 59<span style="font-size:1rem;font-weight:500">,90</span></div>
+                    <div class="price-period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Pro
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Personal trainer virtual
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Plano nutricional completo
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Acesso antecipado a novidades
+                        </li>
+                        <li>
+                            <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Consultoria mensal ao vivo
+                        </li>
+                    </ul>
+                    <button class="btn-pricing btn-pricing-outline">Assinar Elite</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <div class="container">
+            <h2 class="animate-on-scroll">Pronto para <span class="highlight">transformar</span> seu corpo?</h2>
+            <p class="animate-on-scroll">Junte-se a mais de 500 mil pessoas que ja mudaram de vida com o FitPulse. Comece hoje, gratis.</p>
+            <a href="#pricing" class="btn-primary animate-on-scroll">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Baixar Agora - Gratis
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="navbar-logo" style="margin-bottom:0">
+                        <svg viewBox="0 0 36 36" fill="none" width="36" height="36">
+                            <circle cx="18" cy="18" r="16" stroke="#E53E3E" stroke-width="3"/>
+                            <path d="M12 18h12M18 12v12" stroke="#FF6B00" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        <span>FitPulse</span>
+                    </a>
+                    <p>Transformando vidas atraves do fitness inteligente. Treinos personalizados, progresso real e uma comunidade que te impulsiona.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Produto</h4>
+                    <ul>
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                        <li><a href="#">Treinos</a></li>
+                        <li><a href="#">Nutricao</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Sobre nos</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">contato@fitpulse.com.br</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>2024 FitPulse. Todos os direitos reservados.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Politica de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            const spans = mobileToggle.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                var spans = mobileToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Counter animation
+        function animateCounters() {
+            var counters = document.querySelectorAll('.stat-number[data-target]');
+            counters.forEach(function(counter) {
+                if (counter.dataset.animated) return;
+                var rect = counter.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    counter.dataset.animated = 'true';
+                    var target = parseInt(counter.dataset.target);
+                    var duration = 2000;
+                    var start = 0;
+                    var startTime = null;
+
+                    function step(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        var progress = Math.min((timestamp - startTime) / duration, 1);
+                        var eased = 1 - Math.pow(1 - progress, 3);
+                        counter.textContent = Math.floor(eased * target) + '+';
+                        if (progress < 1) {
+                            requestAnimationFrame(step);
+                        }
+                    }
+                    requestAnimationFrame(step);
+                }
+            });
+        }
+
+        // Scroll animations (Intersection Observer)
+        var observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // Trigger counter animation on scroll
+        window.addEventListener('scroll', animateCounters);
+        window.addEventListener('load', animateCounters);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                var target = document.querySelector(href);
+                if (target) {
+                    var offset = navbar.offsetHeight + 20;
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

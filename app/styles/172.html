@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HoloData Analytics - Plataforma de análise de dados com interface holográfica futurista e visualização 3D interativa">
+    <meta name="keywords" content="analytics, dados, holográfico, visualização, 3d, interface futurista, dashboard">
+    <meta name="author" content="HoloData Analytics">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="HoloData Analytics - Interface Holográfica de Dados">
+    <meta property="og:description" content="Transforme seus dados em insights visuais com nossa plataforma holográfica de última geração">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://holodataanalytics.com">
+    <meta property="og:image" content="https://holodataanalytics.com/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HoloData Analytics - Interface Holográfica de Dados">
+    <meta name="twitter:description" content="Transforme seus dados em insights visuais com nossa plataforma holográfica">
+
+    <title>HoloData Analytics - Plataforma de Análise Holográfica</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --bg-deep: #020712;
+            --bg-deep-secondary: #010408;
+            --holo-cyan: #00E5FF;
+            --holo-blue: #40C4FF;
+            --holo-cyan-dim: rgba(0, 229, 255, 0.3);
+            --holo-blue-dim: rgba(64, 196, 255, 0.3);
+            --glass-panel: rgba(255, 255, 255, 0.05);
+            --glass-panel-strong: rgba(255, 255, 255, 0.08);
+            --text-primary: #E1F5FE;
+            --text-secondary: #81D4FA;
+            --text-muted: #4FC3F7;
+            --border-glow: rgba(0, 229, 255, 0.4);
+            --shadow-glow: 0 0 20px rgba(0, 229, 255, 0.3);
+            --shadow-glow-strong: 0 0 40px rgba(0, 229, 255, 0.5);
+            --font-hud: 'Rajdhani', sans-serif;
+            --font-display: 'Orbitron', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: var(--font-hud);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Grid Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Floating Particles */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 229, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(64, 196, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: particleFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(10px, -10px); }
+            50% { transform: translate(-5px, 15px); }
+            75% { transform: translate(-15px, -5px); }
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        a {
+            color: var(--holo-cyan);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: var(--holo-blue);
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--holo-cyan);
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--holo-cyan);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.2), transparent);
+            transition: var(--transition-smooth);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: rgba(0, 229, 255, 0.2);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(64, 196, 255, 0.1));
+            border-color: var(--holo-cyan);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.3), rgba(64, 196, 255, 0.2));
+            box-shadow: var(--shadow-glow-strong);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--holo-blue);
+            color: var(--holo-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(64, 196, 255, 0.15);
+            border-color: var(--holo-cyan);
+            color: var(--holo-cyan);
+        }
+
+        /* ===== GLASS PANEL ===== */
+        .glass-panel {
+            background: var(--glass-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--holo-cyan);
+            transition: height 0.3s ease;
+        }
+
+        .glass-panel:hover::after {
+            height: 100%;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 7, 18, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--holo-cyan-dim);
+            padding: 1rem 0;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background: rgba(2, 7, 18, 0.95);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--holo-cyan);
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--holo-cyan);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--holo-cyan);
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-link:hover {
+            color: var(--holo-cyan);
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--holo-cyan);
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 20px 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--holo-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--holo-cyan), var(--holo-blue), var(--text-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.3));
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hologram-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1;
+        }
+
+        .hologram-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--holo-cyan-dim);
+            border-radius: 50%;
+            animation: rotate3d 20s linear infinite;
+        }
+
+        .hologram-base::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60%;
+            height: 60%;
+            border: 1px solid var(--holo-blue-dim);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate3d 15s linear infinite reverse;
+        }
+
+        .hologram-base::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30%;
+            height: 30%;
+            border: 1px solid var(--holo-cyan);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate3d 10s linear infinite;
+        }
+
+        @keyframes rotate3d {
+            from { transform: rotateX(60deg) rotateZ(0deg); }
+            to { transform: rotateX(60deg) rotateZ(360deg); }
+        }
+
+        .data-points {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .data-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--holo-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--holo-cyan), 0 0 20px var(--holo-cyan);
+            animation: floatPoint 3s ease-in-out infinite;
+        }
+
+        .data-point:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .data-point:nth-child(2) { top: 30%; left: 70%; animation-delay: 0.5s; }
+        .data-point:nth-child(3) { top: 50%; left: 40%; animation-delay: 1s; }
+        .data-point:nth-child(4) { top: 70%; left: 80%; animation-delay: 1.5s; }
+        .data-point:nth-child(5) { top: 20%; left: 50%; animation-delay: 2s; }
+        .data-point:nth-child(6) { top: 80%; left: 30%; animation-delay: 2.5s; }
+
+        @keyframes floatPoint {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 6rem 20px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--holo-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--glass-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            border-color: var(--holo-cyan);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--holo-cyan);
+            border-radius: 12px;
+            opacity: 0;
+            animation: pulseBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBorder {
+            0%, 100% { transform: scale(1); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.5));
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.75rem;
+            color: var(--holo-cyan);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            padding: 6rem 20px;
+            background: linear-gradient(180deg, transparent, rgba(0, 229, 255, 0.02), transparent);
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--glass-panel-strong);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--holo-cyan);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            opacity: 0.1;
+        }
+
+        .testimonial-quote svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--holo-cyan);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--holo-cyan), var(--holo-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg-deep);
+            border: 2px solid var(--holo-cyan);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .testimonial-info h4 {
+            margin-bottom: 0.25rem;
+            color: var(--holo-cyan);
+            font-size: 1rem;
+        }
+
+        .testimonial-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .testimonial-stars svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--holo-cyan);
+            filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.5));
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: 6rem 20px;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--glass-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--holo-cyan);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--holo-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .pricing-card.featured::after {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--holo-cyan);
+            color: var(--bg-deep);
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-currency {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--holo-cyan);
+        }
+
+        .pricing-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--holo-cyan);
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            font-family: var(--font-display);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            fill: var(--holo-cyan);
+            filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.5));
+        }
+
+        .pricing-cta {
+            text-align: center;
+        }
+
+        .pricing-cta .btn {
+            width: 100%;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 6rem 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content {
+            background: var(--glass-panel-strong);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+        }
+
+        .cta-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+        }
+
+        .cta-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-deep-secondary);
+            border-top: 1px solid var(--holo-cyan-dim);
+            padding: 4rem 20px 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--holo-cyan), transparent);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--holo-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo svg {
+            width: 35px;
+            height: 35px;
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5));
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--holo-cyan-dim);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-social a:hover {
+            background: rgba(0, 229, 255, 0.2);
+            border-color: var(--holo-cyan);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-3px);
+        }
+
+        .footer-social a svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--holo-cyan);
+        }
+
+        .footer-column h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--holo-cyan);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--holo-cyan-dim);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-legal a:hover {
+            color: var(--holo-cyan);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(2, 7, 18, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                border-bottom: 1px solid var(--holo-cyan-dim);
+            }
+
+            .navbar-menu.active {
+                transform: translateX(0);
+            }
+
+            .navbar-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 6rem 20px 3rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .cta-content {
+                padding: 3rem 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-amount {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-center { text-align: center; }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--holo-cyan), var(--holo-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 2L37 12V28L20 38L3 28V12L20 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M20 8L30 14V26L20 32L10 26V14L20 8Z" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <circle cx="20" cy="20" r="4" fill="currentColor"/>
+                    <path d="M20 12V28" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                    <path d="M12 20H28" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                </svg>
+                HoloData
+            </a>
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#features" class="navbar-link">Recursos</a></li>
+                <li><a href="#testimonials" class="navbar-link">Depoimentos</a></li>
+                <li><a href="#pricing" class="navbar-link">Planos</a></li>
+                <li><a href="#contact" class="navbar-link">Contato</a></li>
+            </ul>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0L9.856 3.5H14L11 6.5L12.5 10.5L8 8L3.5 10.5L5 6.5L2 3.5H6.144L8 0Z"/>
+                    </svg>
+                    Interface Holográfica de Nova Geração
+                </div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Analise Dados</span><br>
+                    em Dimensão 3D
+                </h1>
+                <p class="hero-description">
+                    Transforme seus dados complexos em visualizações holográficas interativas.
+                    Dashboard flutuante, painéis isométricos e insights em tempo real com tecnologia futurista.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#pricing" class="btn btn-primary">
+                        Começar Agora
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M6 3L11 8L6 13"/>
+                        </svg>
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="8" cy="8" r="6"/>
+                            <path d="M8 5V8L10 10"/>
+                        </svg>
+                        Ver Demo
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hologram-container">
+                    <div class="hologram-base"></div>
+                    <div class="data-points">
+                        <div class="data-point"></div>
+                        <div class="data-point"></div>
+                        <div class="data-point"></div>
+                        <div class="data-point"></div>
+                        <div class="data-point"></div>
+                        <div class="data-point"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Recursos Avançados</div>
+                <h2 class="section-title">Tecnologia Holográfica</h2>
+                <p class="section-description">
+                    Nossa plataforma combina visualização de dados de última geração com interface futurista imersiva
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18"/>
+                            <path d="M9 21V9"/>
+                            <circle cx="15" cy="15" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Painéis Flutuantes 3D</h3>
+                    <p>
+                        Organize seus dados em painéis holográficos flutuantes com visualização isométrica.
+                        Arraste, gire e interaja com seus widgets em espaço tridimensional.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Visualização em Camadas</h3>
+                    <p>
+                        Explore seus dados em múltiplas camadas sobrepostas com transparência ajustável.
+                        Identifique padrões ocultos através da sobreposição holográfica inteligente.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                            <path d="M12 18v-2"/>
+                        </svg>
+                    </div>
+                    <h3>Streaming em Tempo Real</h3>
+                    <p>
+                        Monitore dados em tempo real com atualizações fluidas a 60fps.
+                        Partículas luminosas indicam fluxo de dados instantâneo em cada métrica.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Depoimentos</div>
+                <h2 class="section-title">O Que Nossos Usuários Dizem</h2>
+                <p class="section-description">
+                    Empresas inovadoras que transformaram sua análise de dados com HoloData
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>
+                            "A interface holográfica do HoloData revolucionou como nossa equipe analisa métricas.
+                            Os painéis 3D flutuantes nos permitem identificar tendências que antes passavam despercebidas."
+                        </p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div class="testimonial-info">
+                            <h4>Marina Costa</h4>
+                            <span>Diretora de Analytics, TechCorp Brasil</span>
+                            <div class="testimonial-stars">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>
+                            "Implementamos o HoloData em nossa operação de logística e ganhamos 40% em eficiência.
+                            A visualização holográfica de rotas em tempo real simplesmente não tem comparação."
+                        </p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RS</div>
+                        <div class="testimonial-info">
+                            <h4>Ricardo Santos</h4>
+                            <span>CTO, LogiTech Solutions</span>
+                            <div class="testimonial-stars">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>
+                            "O suporte do HoloData é excepcional. Quando precisamos personalizar nossos dashboards
+                            com métricas específicas de fintech, a equipe implementou tudo em tempo recorde."
+                        </p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AL</div>
+                        <div class="testimonial-info">
+                            <h4>Ana Luiza Ferreira</h4>
+                            <span>Head de Data, FinanceHub</span>
+                            <div class="testimonial-stars">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Planos e Preços</div>
+                <h2 class="section-title">Escolha Seu Plano</h2>
+                <p class="section-description">
+                    Planos flexíveis para equipes de todos os tamanhos. Comece gratuitamente e escale conforme cresce.
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Starter</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-amount">0</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Perfeito para explorar a plataforma</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            1 painel holográfico
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            5 visualizações de dados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Atualização em tempo real
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Exportação em PNG
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte por email
+                        </li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#" class="btn btn-secondary">Começar Grátis</a>
+                    </div>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Professional</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-amount">97</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Para equipes em crescimento</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            10 painéis holográficos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Visualizações ilimitadas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Streaming em tempo real
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Exportação em PDF/Excel
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            API de integração
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#" class="btn btn-primary">Assinar Agora</a>
+                    </div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="pricing-currency">R$</span>
+                            <span class="pricing-amount">297</span>
+                            <span class="pricing-period">/mês</span>
+                        </div>
+                        <p class="pricing-description">Para grandes organizações</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Painéis ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Visualizações customizadas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            IA preditiva integrada
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            SSO e segurança avançada
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            SLA garantido
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                    </ul>
+                    <div class="pricing-cta">
+                        <a href="#" class="btn btn-secondary">Falar com Vendas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="contact">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2 class="cta-title">Pronto para Transformar Seus Dados?</h2>
+                <p class="cta-description">
+                    Junte-se a mais de 10.000 empresas que já estão utilizando visualização holográfica
+                    para tomar decisões mais inteligentes e rápidas.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#pricing" class="btn btn-primary">
+                        Começar Teste Gratuito
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M6 3L11 8L6 13"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="8" cy="8" r="6"/>
+                            <path d="M8 5V8L10 10"/>
+                        </svg>
+                        Agendar Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 2L37 12V28L20 38L3 28V12L20 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M20 8L30 14V26L20 32L10 26V14L20 8Z" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <circle cx="20" cy="20" r="4" fill="currentColor"/>
+                            <path d="M20 12V28" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                            <path d="M12 20H28" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        </svg>
+                        HoloData
+                    </div>
+                    <p class="footer-description">
+                        Revolucionando a análise de dados com visualização holográfica e interface futurista.
+                        Transforme informações em insights visuais impactantes.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Produto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                        <li><a href="#">Integrações</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Atualizações</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2026 HoloData Analytics. Todos os direitos reservados.
+                </p>
+                <div class="footer-legal">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.getElementById('navbarMenu');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        const navbarLinks = document.querySelectorAll('.navbar-link');
+        navbarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbarMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards, testimonial cards, and pricing cards
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add hover effect to feature cards with mouse movement
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

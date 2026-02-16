@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ProcessFlow Corporate - Plataforma empresarial de visualização de processos com layout radial e circular. Transforme a gestão de processos da sua empresa.">
+    <meta name="keywords" content="visualização de processos, gestão empresarial, diagramas radiais, processos corporativos, business intelligence">
+    <meta name="author" content="ProcessFlow Corporate">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://processflow.corporate/">
+    <meta property="og:title" content="ProcessFlow Corporate - Visualização de Processos Empresariais">
+    <meta property="og:description" content="Plataforma empresarial de visualização de processos com layout radial e circular.">
+    <meta property="og:image" content="https://processflow.corporate/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://processflow.corporate/">
+    <meta property="twitter:title" content="ProcessFlow Corporate - Visualização de Processos">
+    <meta property="twitter:description" content="Plataforma empresarial de visualização de processos com layout radial e circular.">
+    <meta property="twitter:image" content="https://processflow.corporate/twitter-image.jpg">
+
+    <title>ProcessFlow Corporate - Visualização de Processos Empresariais</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-white: #FFFFFF;
+            --text-grey: #333333;
+            --text-light: #666666;
+            --text-lighter: #999999;
+            --accent-teal: #008B8B;
+            --segment-1: #008B8B;
+            --segment-2: #20B2AA;
+            --segment-3: #48D1CC;
+            --segment-4: #5F9EA0;
+            --segment-5: #66CDAA;
+            --radius-circle: 50%;
+            --radius-small: 8px;
+            --radius-medium: 12px;
+            --radius-large: 16px;
+            --font-corp: 'Open Sans', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0, 139, 139, 0.1);
+            --shadow-md: 0 4px 16px rgba(0, 139, 139, 0.15);
+            --shadow-lg: 0 8px 32px rgba(0, 139, 139, 0.2);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-grey);
+            font-family: var(--font-corp);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--bg-white);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-grey);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .navbar-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: var(--text-grey);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--accent-teal);
+        }
+
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: var(--transition-normal);
+        }
+
+        .navbar-menu a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .navbar-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--text-grey);
+            margin: 5px 0;
+            transition: var(--transition-normal);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 20px 100px;
+            background: linear-gradient(180deg, var(--bg-white) 0%, #f8fcfc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 139, 139, 0.08) 0%, transparent 70%);
+            border-radius: var(--radius-circle);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(72, 209, 204, 0.06) 0%, transparent 70%);
+            border-radius: var(--radius-circle);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            padding-right: 20px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-grey);
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-medium);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: none;
+            font-family: var(--font-corp);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 139, 139, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 139, 139, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--accent-teal);
+            border: 2px solid var(--accent-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-teal);
+            color: white;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Hero Radial Diagram */
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .radial-diagram {
+            position: relative;
+            width: 450px;
+            height: 450px;
+        }
+
+        .radial-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+        }
+
+        .radial-center svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        .radial-segment {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .radial-segment:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .radial-segment svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .radial-segment-1 {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--segment-1);
+        }
+
+        .radial-segment-2 {
+            top: 60px;
+            right: 30px;
+            background: var(--segment-2);
+        }
+
+        .radial-segment-3 {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: var(--segment-3);
+        }
+
+        .radial-segment-4 {
+            bottom: 60px;
+            right: 30px;
+            background: var(--segment-4);
+        }
+
+        .radial-segment-5 {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--segment-5);
+        }
+
+        .radial-segment-6 {
+            bottom: 60px;
+            left: 30px;
+            background: var(--segment-2);
+        }
+
+        .radial-segment-7 {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background: var(--segment-1);
+        }
+
+        .radial-segment-8 {
+            top: 60px;
+            left: 30px;
+            background: var(--segment-4);
+        }
+
+        .radial-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            border: 2px dashed rgba(0, 139, 139, 0.3);
+            border-radius: var(--radius-circle);
+        }
+
+        .radial-line-outer {
+            width: 250px;
+            height: 250px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: var(--bg-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 139, 139, 0.1);
+            color: var(--accent-teal);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-grey);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 139, 139, 0.1);
+            transition: var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--segment-1), var(--segment-3));
+            transform: scaleX(0);
+            transition: var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .feature-icon-1 {
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+        }
+
+        .feature-icon-2 {
+            background: linear-gradient(135deg, var(--segment-2), var(--segment-3));
+        }
+
+        .feature-icon-3 {
+            background: linear-gradient(135deg, var(--segment-3), var(--segment-5));
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-grey);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Process Timeline */
+        .process-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #f8fcfc 0%, var(--bg-white) 100%);
+        }
+
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--segment-1), var(--segment-3), var(--segment-5));
+            border-radius: 2px;
+        }
+
+        .process-step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .process-step:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .process-content {
+            width: 45%;
+            padding: 30px;
+            background: white;
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 139, 139, 0.1);
+            transition: var(--transition-normal);
+        }
+
+        .process-content:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .process-number {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .process-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-grey);
+        }
+
+        .process-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 20px;
+            background: var(--bg-white);
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 139, 139, 0.1);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(0, 139, 139, 0.15);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-rating svg {
+            width: 20px;
+            height: 20px;
+            fill: #FFC107;
+        }
+
+        .testimonial-text {
+            color: var(--text-grey);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-circle);
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-grey);
+            margin-bottom: 3px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, var(--bg-white) 0%, #f8fcfc 100%);
+        }
+
+        .pricing-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid rgba(0, 139, 139, 0.1);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-teal);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .pricing-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .pricing-icon-basic {
+            background: linear-gradient(135deg, var(--segment-4), var(--segment-5));
+        }
+
+        .pricing-icon-pro {
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+        }
+
+        .pricing-icon-enterprise {
+            background: linear-gradient(135deg, var(--segment-2), var(--segment-3));
+        }
+
+        .pricing-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--text-grey);
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .pricing-price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-teal);
+        }
+
+        .pricing-price-period {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 139, 139, 0.08);
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent-teal);
+            flex-shrink: 0;
+        }
+
+        .pricing-features li.disabled {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .pricing-features li.disabled svg {
+            fill: var(--text-lighter);
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--radius-medium);
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: var(--transition-normal);
+            font-family: var(--font-corp);
+        }
+
+        .pricing-button-basic {
+            background: rgba(0, 139, 139, 0.1);
+            color: var(--accent-teal);
+        }
+
+        .pricing-button-basic:hover {
+            background: var(--accent-teal);
+            color: white;
+        }
+
+        .pricing-button-pro {
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-2));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 139, 139, 0.3);
+        }
+
+        .pricing-button-pro:hover {
+            box-shadow: 0 6px 20px rgba(0, 139, 139, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pricing-button-enterprise {
+            background: rgba(0, 139, 139, 0.1);
+            color: var(--accent-teal);
+        }
+
+        .pricing-button-enterprise:hover {
+            background: var(--accent-teal);
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            background: var(--bg-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 139, 139, 0.06) 0%, transparent 70%);
+            border-radius: var(--radius-circle);
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: var(--radius-circle);
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-icon svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-grey);
+        }
+
+        .cta-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a2e2e 0%, #2d4747 100%);
+            color: white;
+            padding: 70px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--segment-1), var(--segment-3));
+            border-radius: var(--radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+        }
+
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-circle);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+        }
+
+        .footer-social a:hover {
+            background: var(--segment-2);
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--segment-3);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .radial-diagram {
+                margin: 0 auto;
+                width: 380px;
+                height: 380px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow-md);
+                transform: translateY(-10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition-normal);
+            }
+
+            .navbar-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .radial-diagram {
+                width: 320px;
+                height: 320px;
+            }
+
+            .radial-center {
+                width: 100px;
+                height: 100px;
+            }
+
+            .radial-segment {
+                width: 80px;
+                height: 80px;
+            }
+
+            .radial-segment svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline::before {
+                left: 30px;
+            }
+
+            .process-step {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 70px;
+            }
+
+            .process-number {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+
+            .process-content {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .radial-diagram {
+                width: 280px;
+                height: 280px;
+            }
+
+            .radial-center {
+                width: 80px;
+                height: 80px;
+            }
+
+            .radial-center svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .radial-segment {
+                width: 60px;
+                height: 60px;
+            }
+
+            .radial-segment svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <div class="navbar-logo-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                ProcessFlow
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#processo">Como Funciona</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#planos">Planos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button class="navbar-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Nova Tecnologia Radial 2026
+                </div>
+                <h1 class="hero-title">
+                    Visualize Processos com <span>Layout Radial</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Transforme a gestão de processos da sua empresa com diagramas circulares interativos e visualizações em tempo real. A revolução corporativa chegou.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#planos" class="btn btn-primary">
+                        Começar Agora
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 7l5 5-5 5M6 12h12"/>
+                        </svg>
+                    </a>
+                    <a href="#recursos" class="btn btn-secondary">
+                        Ver Demo
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="radial-diagram">
+                    <div class="radial-line"></div>
+                    <div class="radial-line radial-line-outer"></div>
+                    <div class="radial-center">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-1">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-2">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-3">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-4">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-5">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-6">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16l-3.23-1.96-3.23 1.96.85-3.66L7.4 11.8l3.74-.32L12 8l.86 3.48 3.74.32-2.72 2.54.85 3.66z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-7">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                        </svg>
+                    </div>
+                    <div class="radial-segment radial-segment-8">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Recursos Exclusivos
+                </div>
+                <h2 class="section-title">Tudo que você precisa em um só lugar</h2>
+                <p class="section-subtitle">Nossa plataforma oferece ferramentas completas para visualização e gestão de processos empresariais com tecnologia de ponta.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-1">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Diagramas Radiais</h3>
+                    <p class="feature-description">Crie visualizações circulares impressionantes com nossa tecnologia proprietária de layout radial automatizado.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-2">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Análise em Tempo Real</h3>
+                    <p class="feature-description">Monitore seus processos com atualizações ao vivo e métricas instantâneas para decisões mais ágeis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-3">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Colaboração em Equipe</h3>
+                    <p class="feature-description">Trabalhe junto com sua equipe em tempo real com comentários, notificações e controle de versões.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section" id="processo">
+        <div class="process-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Como Funciona
+                </div>
+                <h2 class="section-title">Simples assim: 4 passos</h2>
+                <p class="section-subtitle">Da configuração inicial à visualização completa em minutos, não horas.</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-content">
+                        <h3>Importe seus dados</h3>
+                        <p>Conecte suas ferramentas existentes ou faça upload de planilhas. Nosso sistema inteligente organiza tudo automaticamente.</p>
+                    </div>
+                    <div class="process-number">1</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-content">
+                        <h3>Configure o layout radial</h3>
+                        <p>Personalize cores, segmentos e arranjos circulares com nosso editor intuitivo arraste-e-solte.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-content">
+                        <h3>Automatize processos</h3>
+                        <p>Defina regras e gatilhos para atualizações automáticas e notificações inteligentes.</p>
+                    </div>
+                    <div class="process-number">3</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <div class="process-content">
+                        <h3>Compartilhe e colabore</h3>
+                        <p>Convide sua equipe, defina permissões e acompanhe o progresso em tempo real com dashboards interativos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Depoimentos
+                </div>
+                <h2 class="section-title">O que nossos clientes dizem</h2>
+                <p class="section-subtitle">Histórias reais de empresas que transformaram sua gestão de processos.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p class="testimonial-text">O ProcessFlow revolucionou nossa forma de visualizar workflows. A interface radial é intuitiva e reduz o tempo de treinamento em 70%.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div class="testimonial-info">
+                            <h4>Mariana Costa</h4>
+                            <p>Diretora de Operações, TechCorp Brasil</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p class="testimonial-text">Finalmente uma ferramenta corporativa que não precisa de manual de 500 páginas. Nossa produtividade aumentou 40% no primeiro mês.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RS</div>
+                        <div class="testimonial-info">
+                            <h4>Roberto Santos</h4>
+                            <p>Gerente de Projetos, Indústria Beta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p class="testimonial-text">Os diagramas radiais facilitam muito a apresentação de processos complexos para stakeholders. Suporte técnico excepcional.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AF</div>
+                        <div class="testimonial-info">
+                            <h4>Amanda Ferreira</h4>
+                            <p>Consultora de Processos, Strategy Group</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="planos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                    </svg>
+                    Planos e Preços
+                </div>
+                <h2 class="section-title">Escolha o plano ideal</h2>
+                <p class="section-subtitle">Opções flexíveis para empresas de todos os tamanhos. Sem compromisso de longo prazo.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-icon pricing-icon-basic">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-name">Basic</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-price-amount">R$97</span>
+                        <span class="pricing-price-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Até 5 processos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Diagramas radiais básicos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            3 usuários
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Exportação PDF
+                        </li>
+                        <li class="disabled">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            Automação avançada
+                        </li>
+                        <li class="disabled">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            API completa
+                        </li>
+                    </ul>
+                    <a href="#" class="pricing-button pricing-button-basic">Começar Agora</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-icon pricing-icon-pro">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-name">Professional</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-price-amount">R$247</span>
+                        <span class="pricing-price-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Processos ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Diagramas avançados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            25 usuários
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Todas exportações
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Automação avançada
+                        </li>
+                        <li class="disabled">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            API completa
+                        </li>
+                    </ul>
+                    <a href="#" class="pricing-button pricing-button-pro">Começar Agora</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-icon pricing-icon-enterprise">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-name">Enterprise</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-price-amount">Sob Medida</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Tudo do Professional
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Usuários ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Suporte dedicado 24/7
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            API completa
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            On-site ou cloud
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            SLA garantido
+                        </li>
+                    </ul>
+                    <a href="#" class="pricing-button pricing-button-enterprise">Falar com Consultor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <div class="cta-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+            </div>
+            <h2 class="cta-title">Pronto para transformar seus processos?</h2>
+            <p class="cta-subtitle">Junte-se a mais de 10.000 empresas que já revolucionaram sua gestão com nossa plataforma radial de visualização de processos.</p>
+            <div class="cta-buttons">
+                <a href="#planos" class="btn btn-primary">
+                    Começar Teste Grátis
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7l5 5-5 5M6 12h12"/>
+                    </svg>
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    Agendar Demo
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2a9 9 0 00-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <span class="footer-logo-text">ProcessFlow</span>
+                    </div>
+                    <p class="footer-description">Plataforma líder em visualização de processos empresariais com tecnologia radial. Transforme a gestão da sua empresa.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Produto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#planos">Planos</a></li>
+                        <li><a href="#">Integrações</a></li>
+                        <li><a href="#">Atualizações</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">Copyright 2026 ProcessFlow Corporate. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar toggle
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbarToggle.contains(e.target) && !navbarMenu.contains(e.target)) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu
+                    navbarMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Animate radial segments on hover
+        const radialSegments = document.querySelectorAll('.radial-segment');
+        radialSegments.forEach(segment => {
+            segment.addEventListener('mouseenter', () => {
+                segment.style.transform = 'scale(1.15)';
+            });
+            segment.addEventListener('mouseleave', () => {
+                segment.style.transform = 'scale(1)';
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards and testimonial cards
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .process-step').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

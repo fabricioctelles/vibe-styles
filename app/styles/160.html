@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoryMap Quest — Plataforma de Narrativa Interativa e Gamificação</title>
+  <meta name="description" content="Crie histórias interativas, mapas narrativos e experiências gamificadas com estética Studio Ghibli. Aquarela digital, natureza mágica e jornadas imersivas.">
+  <meta name="keywords" content="narrativa interativa, gamificação, storytelling, mapas narrativos, ghibli, aquarela, histórias, gamificação educacional">
+  <meta property="og:title" content="StoryMap Quest — Plataforma de Narrativa Interativa">
+  <meta property="og:description" content="Crie histórias interativas com estética Studio Ghibli. Mapas narrativos, personagens e jornadas gamificadas.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FAF8F2;
+      --text-soft: #2B2B2B;
+      --accent-night: #212635;
+      --watercolor-green: #7CB342;
+      --watercolor-blue: #4FC3F7;
+      --watercolor-pink: #F48FB1;
+      --watercolor-yellow: #FFF59D;
+      --watercolor-orange: #FFB74D;
+      --watercolor-purple: #9575CD;
+      --shadow-soft: rgba(0, 0, 0, 0.1);
+      --shadow-medium: rgba(33, 38, 53, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-soft);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a, button, [role="button"], .interactive {
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Watercolor texture overlay */
+    .watercolor-texture {
+      position: relative;
+    }
+
+    .watercolor-texture::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(124, 179, 66, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(79, 195, 247, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(244, 143, 177, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(250, 248, 242, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px var(--shadow-soft);
+      padding: 16px 0;
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--accent-night);
+    }
+
+    .navbar-logo svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar-nav a {
+      color: var(--text-soft);
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .navbar-nav a:hover {
+      color: var(--watercolor-green);
+    }
+
+    .navbar-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--watercolor-green);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav a:hover::after {
+      width: 100%;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-align: center;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      color: white;
+      box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-night);
+      border: 2px solid var(--watercolor-green);
+    }
+
+    .btn-secondary:hover {
+      background: var(--watercolor-green);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--watercolor-blue);
+      border: 2px solid var(--watercolor-blue);
+    }
+
+    .btn-outline:hover {
+      background: var(--watercolor-blue);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-soft);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--accent-night);
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text p {
+      font-size: 1.15rem;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(124, 179, 66, 0.2);
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--watercolor-green);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      opacity: 0.8;
+    }
+
+    .hero-visual {
+      position: relative;
+      height: 500px;
+    }
+
+    .floating-element {
+      position: absolute;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px var(--shadow-soft);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) {
+      width: 200px;
+      height: 150px;
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+      width: 160px;
+      height: 160px;
+      background: linear-gradient(135deg, var(--watercolor-pink), var(--watercolor-yellow));
+      top: 50%;
+      right: 5%;
+      animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+      width: 180px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--watercolor-blue), var(--watercolor-purple));
+      bottom: 10%;
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    /* Cloud decorations */
+    .cloud {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: cloudFloat 20s linear infinite;
+    }
+
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 100px;
+      height: 40px;
+      top: 15%;
+      right: 10%;
+    }
+
+    .cloud-1::before {
+      width: 50px;
+      height: 50px;
+      top: -25px;
+      left: 15px;
+    }
+
+    .cloud-1::after {
+      width: 60px;
+      height: 60px;
+      top: -30px;
+      right: 15px;
+    }
+
+    .cloud-2 {
+      width: 80px;
+      height: 30px;
+      top: 60%;
+      left: 5%;
+      animation-delay: 5s;
+    }
+
+    .cloud-2::before {
+      width: 40px;
+      height: 40px;
+      top: -20px;
+      left: 10px;
+    }
+
+    .cloud-2::after {
+      width: 50px;
+      height: 50px;
+      top: -25px;
+      right: 10px;
+    }
+
+    @keyframes cloudFloat {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(30px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    /* Section */
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(124, 179, 66, 0.15);
+      color: var(--watercolor-green);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-night);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 20px var(--shadow-soft);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--watercolor-green), var(--watercolor-blue));
+      border-radius: 20px 20px 0 0;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px var(--shadow-medium);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .feature-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .feature-icon-green {
+      background: rgba(124, 179, 66, 0.15);
+    }
+
+    .feature-icon-green svg {
+      color: var(--watercolor-green);
+    }
+
+    .feature-icon-blue {
+      background: rgba(79, 195, 247, 0.15);
+    }
+
+    .feature-icon-blue svg {
+      color: var(--watercolor-blue);
+    }
+
+    .feature-icon-pink {
+      background: rgba(244, 143, 177, 0.15);
+    }
+
+    .feature-icon-pink svg {
+      color: var(--watercolor-pink);
+    }
+
+    .feature-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent-night);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      opacity: 0.85;
+      line-height: 1.7;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: linear-gradient(180deg, rgba(79, 195, 247, 0.05) 0%, rgba(124, 179, 66, 0.05) 100%);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 4px 20px var(--shadow-soft);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px var(--shadow-medium);
+    }
+
+    .testimonial-quote {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      font-size: 4rem;
+      color: var(--watercolor-green);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-info h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-night);
+      margin-bottom: 4px;
+    }
+
+    .testimonial-info p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      opacity: 0.7;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 4px 20px var(--shadow-soft);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px var(--shadow-medium);
+    }
+
+    .pricing-card.featured {
+      border: 3px solid var(--watercolor-green);
+      box-shadow: 0 8px 30px rgba(124, 179, 66, 0.2);
+    }
+
+    .pricing-card.featured::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      color: white;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .pricing-tier {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--watercolor-green);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card.featured .pricing-tier {
+      color: var(--watercolor-green);
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-night);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price span {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      opacity: 0.7;
+    }
+
+    .pricing-description {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .pricing-features li svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--watercolor-green);
+    }
+
+    .pricing-card .btn {
+      width: 100%;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-container {
+      background: linear-gradient(135deg, rgba(124, 179, 66, 0.1), rgba(79, 195, 247, 0.1));
+      border-radius: 32px;
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 40px var(--shadow-soft);
+    }
+
+    .cta-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-night);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .cta-title span {
+      background: linear-gradient(135deg, var(--watercolor-green), var(--watercolor-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-text {
+      font-size: 1.15rem;
+      color: var(--text-soft);
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--accent-night);
+      color: white;
+      padding: 80px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand {
+      max-width: 300px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      background: var(--watercolor-green);
+      transform: translateY(-3px);
+    }
+
+    .footer-social a svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    .footer-column h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--watercolor-green);
+      margin-bottom: 24px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column ul li a {
+      color: white;
+      opacity: 0.8;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+      opacity: 1;
+      color: var(--watercolor-green);
+    }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-visual {
+        height: 400px;
+      }
+
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .cta-title {
+        font-size: 2rem;
+      }
+
+      .cta-container {
+        padding: 40px 24px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .feature-card,
+      .testimonial-card,
+      .pricing-card {
+        padding: 32px 24px;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus styles */
+    a:focus,
+    button:focus {
+      outline: 2px solid var(--watercolor-green);
+      outline-offset: 2px;
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--watercolor-green);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="navbar-logo">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" fill="#7CB342" opacity="0.3"/>
+          <path d="M20 6C14 6 8 10 8 16C8 22 12 26 16 28C18 29 19 30 20 32C21 30 22 29 24 28C28 26 32 22 32 16C32 10 26 6 20 6Z" fill="#7CB342"/>
+          <circle cx="16" cy="16" r="2" fill="white"/>
+          <circle cx="24" cy="16" r="2" fill="white"/>
+          <path d="M18 20C19 21 21 21 22 20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        StoryMap Quest
+      </a>
+      <div class="navbar-nav">
+        <a href="#recursos">Recursos</a>
+        <a href="#historias">Histórias</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#planos">Planos</a>
+      </div>
+      <div class="navbar-actions">
+        <a href="#" class="btn btn-secondary">Entrar</a>
+        <a href="#planos" class="btn btn-primary">Começar Grátis</a>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero watercolor-texture">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Crie histórias que <span>encantam</span> e inspiram</h1>
+          <p>Transforme suas ideias em narrativas interativas com mapas visuais, personagens cativantes e jornadas gamificadas. Tudo com a magia da estética Studio Ghibli.</p>
+          <div class="hero-buttons">
+            <a href="#planos" class="btn btn-primary">Iniciar Jornada</a>
+            <a href="#recursos" class="btn btn-outline">Explorar Recursos</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-value">50k+</span>
+              <span class="hero-stat-label">Histórias Criadas</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">12k+</span>
+              <span class="hero-stat-label">Criadores Ativos</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">4.9</span>
+              <span class="hero-stat-label">Avaliação Média</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="floating-element"></div>
+          <div class="floating-element"></div>
+          <div class="floating-element"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Recursos</span>
+        <h2 class="section-title">Ferramentas mágicas para criar histórias</h2>
+        <p class="section-subtitle">Tudo que você precisa para construir narrativas interativas envolventes e experiências gamificadas memoráveis.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <h3>Mapas Narrativos</h3>
+          <p>Crie mapas visuais interativos com conexões orgânicas, caminhos ramificados e pontos de decisão que guiam sua história.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Personagens Vividos</h3>
+          <p>Desenvolva personagens com traços únicos, arcos de crescimento e sistemas de relacionamento dinâmicos entre eles.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <h3>Sistema de Gamificação</h3>
+          <p>Implemente conquistas, pontos de experiência, níveis e recompensas para manter sua audiência engajada e motivada.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <h3>Diálogos Interativos</h3>
+          <p>Crie conversas ramificadas com múltiplas escolhas, consequências duradouras e tom de voz adaptável para cada personagem.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <h3>Cenários Ilustrados</h3>
+          <p>Importe ou crie ilustrações em estilo aquarela para cada cenário, criando atmosferas únicas e imersivas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <h3>Biblioteca de Templates</h3>
+          <p>Comece com templates prontos de contos de fadas, aventuras épicas, mistérios e histórias de aprendizado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="depoimentos" class="section testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Depoimentos</span>
+        <h2 class="section-title">O que nossos criadores dizem</h2>
+        <p class="section-subtitle">Histórias reais de pessoas que transformaram suas ideias em experiências interativas inesquecíveis.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">StoryMap Quest revolucionou como ensino história. Meus alunos criam narrativas interativas sobre eventos históricos e o engajamento aumentou 200%. A estética Ghibli encanta todos!</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MC</div>
+            <div class="testimonial-info">
+              <h4>Marina Costa</h4>
+              <p>Professora de História, São Paulo</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Como escritor independente, encontrei na plataforma a ferramenta perfeita para dar vida aos meus contos. Os leitores amam poder escolher o destino dos personagens.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LS</div>
+            <div class="testimonial-info">
+              <h4>Lucas Santos</h4>
+              <p>Escritor de Fantasia, Rio de Janeiro</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-quote">"</span>
+          <p class="testimonial-text">Uso para treinamento corporativo com gamificação. A interface intuitiva e os visuais encantadores tornam o aprendizado uma experiência prazerosa e memorável.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">PO</div>
+            <div class="testimonial-info">
+              <h4>Patrícia Oliveira</h4>
+              <p>Gerente de RH, TechCorp Brasil</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="planos" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Planos</span>
+        <h2 class="section-title">Escolha sua jornada</h2>
+        <p class="section-subtitle">Comece gratuitamente e escale conforme suas histórias crescem. Sem compromisso, cancele a qualquer momento.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="pricing-tier">Explorador</p>
+          <p class="pricing-price">Grátis</p>
+          <p class="pricing-description">Perfeito para começar a criar suas primeiras histórias interativas.</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Até 3 histórias simultâneas
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              10 personagens por história
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Templates básicos
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Exportação em PDF
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Comunidade no Discord
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Começar Grátis</a>
+        </div>
+        <div class="pricing-card featured">
+          <p class="pricing-tier">Narrador</p>
+          <p class="pricing-price">R$ 47<span>/mês</span></p>
+          <p class="pricing-description">Para criadores sérios que querem construir histórias épicas.</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Histórias ilimitadas
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              100 personagens por história
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Todos os templates premium
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Gamificação completa
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Exportação interativa HTML
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary">Assinar Narrador</a>
+        </div>
+        <div class="pricing-card">
+          <p class="pricing-tier">Mestre</p>
+          <p class="pricing-price">R$ 127<span>/mês</span></p>
+          <p class="pricing-description">Para estúdios e equipes que criam experiências profissionais.</p>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Tudo do plano Narrador
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Colaboração em equipe
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              API personalizada
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              White-label
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Analytics avançado
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerente de conta dedicado
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Falar com Vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-container watercolor-texture">
+        <h2 class="cta-title">Pronto para começar sua <span>jornada mágica</span>?</h2>
+        <p class="cta-text">Junte-se a milhares de criadores que estão transformando ideias em histórias interativas inesquecíveis. Comece gratuitamente hoje mesmo.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary">Criar Minha História</a>
+          <a href="#" class="btn btn-outline">Ver Exemplos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" fill="#7CB342" opacity="0.3"/>
+              <path d="M20 6C14 6 8 10 8 16C8 22 12 26 16 28C18 29 19 30 20 32C21 30 22 29 24 28C28 26 32 22 32 16C32 10 26 6 20 6Z" fill="#7CB342"/>
+              <circle cx="16" cy="16" r="2" fill="white"/>
+              <circle cx="24" cy="16" r="2" fill="white"/>
+              <path d="M18 20C19 21 21 21 22 20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            StoryMap Quest
+          </div>
+          <p>Plataforma de criação de histórias interativas com estética Studio Ghibli. Transforme suas ideias em narrativas envolventes e experiências gamificadas.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub">
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#">Templates</a></li>
+            <li><a href="#">Integrações</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Documentação</a></li>
+            <li><a href="#">Tutoriais</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Comunidade</a></li>
+            <li><a href="#">Suporte</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Carreiras</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 StoryMap Quest. Todos os direitos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#">LGPD</a>
+          <a href="#">Cookies</a>
+          <a href="#">Acessibilidade</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

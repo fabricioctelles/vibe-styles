@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpatialX — Computação Espacial de Nova Geração</title>
+  <meta name="description" content="Descubra o futuro da computação espacial. Experiências imersivas, tecnologia de ponta e design premium em um dispositivo revolucionário.">
+  <meta property="og:title" content="SpatialX — Computação Espacial de Nova Geração">
+  <meta property="og:description" content="Descubra o futuro da computação espacial. Experiências imersivas, tecnologia de ponta e design premium.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://spatialx.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            'space-grey': '#1C1C1E',
+            'silver': '#E0E0E0',
+            'midnight': '#000080',
+            'starlight': '#F0EAD6',
+            'sand-pink': '#E8C3BA',
+            'deep-purple': '#581845',
+            'product-red': '#FF3B30',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --space-grey: #1C1C1E;
+      --silver: #E0E0E0;
+      --white: #FFFFFF;
+      --midnight-blue: #000080;
+      --frosted-blur: 20px;
+      --border-radius-lg: 12px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #E0E0E0;
+      background: linear-gradient(135deg, #1C1C1E, #000000);
+      overflow-x: hidden;
+    }
+    .container-main { max-width: 1200px; margin: 0 auto; }
+    a, button, [role="button"], .interactive { cursor: pointer; }
+
+    /* Frosted glass */
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+    }
+    .glass-nav {
+      background: rgba(28, 28, 30, 0.75);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Hover effects */
+    .hover-lift {
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 128, 0.15);
+      border-color: rgba(0, 0, 128, 0.3);
+    }
+    .hover-glow {
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .hover-glow:hover {
+      box-shadow: 0 0 30px rgba(0, 0, 128, 0.25);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #000080, #581845);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-radius: 12px;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 128, 0.4);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1.5px solid rgba(224, 224, 224, 0.3);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-radius: 12px;
+    }
+    .btn-outline:hover {
+      border-color: #E0E0E0;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Floating orb animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-15px) rotate(2deg); }
+      66% { transform: translateY(-8px) rotate(-1deg); }
+    }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.05); opacity: 0.3; }
+      100% { transform: scale(0.9); opacity: 0.6; }
+    }
+    .pulse-ring { animation: pulse-ring 4s ease-in-out infinite; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 40%, #000080 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Pricing highlight */
+    .pricing-highlight {
+      background: linear-gradient(135deg, rgba(0, 0, 128, 0.15), rgba(88, 24, 69, 0.15));
+      border: 1.5px solid rgba(0, 0, 128, 0.4);
+    }
+
+    /* Section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(224, 224, 224, 0.15), transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hover-lift, .hover-glow, .btn-primary, .btn-outline { transition: none; }
+      .hover-lift:hover { transform: none; }
+      .btn-primary:hover { transform: none; }
+      .float-anim { animation: none; }
+      .pulse-ring { animation: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-4 left-4 right-4 z-50 glass-nav rounded-2xl">
+    <div class="container-main px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 cursor-pointer">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#000080" stroke-width="2"/>
+          <circle cx="16" cy="16" r="6" fill="#000080"/>
+          <circle cx="16" cy="16" r="10" stroke="#E0E0E0" stroke-width="0.5" opacity="0.5"/>
+        </svg>
+        <span class="text-white font-semibold text-lg tracking-tight">SpatialX</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-silver/70">
+        <a href="#experiencia" class="hover:text-white transition-colors duration-300 cursor-pointer">Experiência</a>
+        <a href="#tecnologia" class="hover:text-white transition-colors duration-300 cursor-pointer">Tecnologia</a>
+        <a href="#aplicacoes" class="hover:text-white transition-colors duration-300 cursor-pointer">Aplicações</a>
+        <a href="#pre-venda" class="hover:text-white transition-colors duration-300 cursor-pointer">Pré-venda</a>
+      </div>
+      <a href="#pre-venda" class="btn-primary px-5 py-2.5 text-sm font-medium text-white cursor-pointer">
+        Reservar Agora
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-6 pt-28 pb-20 relative">
+    <div class="container-main w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-6">Computação Espacial</p>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
+          <span class="gradient-text">O futuro está</span><br>
+          <span class="text-white">ao seu redor.</span>
+        </h1>
+        <p class="text-lg text-silver/70 max-w-lg leading-relaxed mb-10">
+          Apresentamos o SpatialX — o dispositivo que dissolve a fronteira entre o digital e o real. Interaja com o mundo de forma intuitiva, imersiva e sem limites.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#pre-venda" class="btn-primary px-8 py-4 text-sm font-semibold text-white uppercase tracking-wider cursor-pointer inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Pré-venda
+          </a>
+          <a href="#experiencia" class="btn-outline px-8 py-4 text-sm font-semibold text-silver uppercase tracking-wider cursor-pointer inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Explorar
+          </a>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center items-center relative">
+        <div class="relative w-80 h-80">
+          <!-- Outer ring -->
+          <div class="absolute inset-0 rounded-full border border-midnight/40 pulse-ring"></div>
+          <!-- Middle ring -->
+          <div class="absolute inset-6 rounded-full border border-silver/10 pulse-ring" style="animation-delay: 1s;"></div>
+          <!-- Inner glass orb -->
+          <div class="absolute inset-12 rounded-full glass float-anim flex items-center justify-center" style="box-shadow: 0 0 60px rgba(0,0,128,0.2), inset 0 0 30px rgba(255,255,255,0.05);">
+            <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="30" stroke="#000080" stroke-width="1.5" opacity="0.6"/>
+              <circle cx="40" cy="40" r="18" stroke="#E0E0E0" stroke-width="1" opacity="0.4"/>
+              <circle cx="40" cy="40" r="6" fill="#000080"/>
+              <line x1="40" y1="10" x2="40" y2="22" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+              <line x1="40" y1="58" x2="40" y2="70" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+              <line x1="10" y1="40" x2="22" y2="40" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+              <line x1="58" y1="40" x2="70" y2="40" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+          </div>
+          <!-- Floating dots -->
+          <div class="absolute top-4 right-8 w-2 h-2 rounded-full bg-midnight float-anim" style="animation-delay: 0.5s;"></div>
+          <div class="absolute bottom-8 left-4 w-1.5 h-1.5 rounded-full bg-sand-pink/60 float-anim" style="animation-delay: 1.5s;"></div>
+          <div class="absolute top-1/2 right-0 w-1 h-1 rounded-full bg-silver/40 float-anim" style="animation-delay: 2s;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- EXPERIÊNCIA IMERSIVA -->
+  <section id="experiencia" class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-4">Experiência Imersiva</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Sinta o espaço digital.</h2>
+        <p class="text-silver/60 max-w-2xl mx-auto leading-relaxed">Cada interação foi projetada para ser natural. Gestos, olhar e voz se combinam em uma experiência que simplesmente funciona.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Rastreamento Ocular</h3>
+          <p class="text-silver/60 leading-relaxed">Navegue com o olhar. O sistema detecta para onde você olha com precisão milimétrica e responde instantaneamente.</p>
+        </div>
+        <div class="glass p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Gestos Intuitivos</h3>
+          <p class="text-silver/60 leading-relaxed">Toque, arraste e redimensione objetos virtuais com as mãos. Sem controles, sem aprendizado — apenas instinto.</p>
+        </div>
+        <div class="glass p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Comando por Voz</h3>
+          <p class="text-silver/60 leading-relaxed">Fale naturalmente. A IA integrada entende contexto, sotaque e intenção para executar comandos complexos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TECNOLOGIA -->
+  <section id="tecnologia" class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-4">Tecnologia</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Engenharia sem compromisso.</h2>
+        <p class="text-silver/60 max-w-2xl mx-auto leading-relaxed">Cada componente foi projetado do zero para entregar a experiência de computação espacial mais avançada do mundo.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass p-8 hover-lift flex gap-6">
+          <div class="w-12 h-12 rounded-xl bg-deep-purple/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E8C3BA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Chip SX-1 Neural</h3>
+            <p class="text-silver/60 text-sm leading-relaxed">Processador de 5nm com motor neural dedicado. 15 trilhões de operações por segundo para renderização espacial em tempo real.</p>
+          </div>
+        </div>
+        <div class="glass p-8 hover-lift flex gap-6">
+          <div class="w-12 h-12 rounded-xl bg-deep-purple/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E8C3BA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Display Micro-OLED 4K</h3>
+            <p class="text-silver/60 text-sm leading-relaxed">Dois displays com 23 milhões de pixels combinados. HDR com 10.000 nits de brilho e taxa de atualização de 120Hz.</p>
+          </div>
+        </div>
+        <div class="glass p-8 hover-lift flex gap-6">
+          <div class="w-12 h-12 rounded-xl bg-deep-purple/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E8C3BA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Mapeamento 3D LiDAR</h3>
+            <p class="text-silver/60 text-sm leading-relaxed">Scanner LiDAR de última geração mapeia seu ambiente em milissegundos, criando uma malha 3D precisa do espaço ao redor.</p>
+          </div>
+        </div>
+        <div class="glass p-8 hover-lift flex gap-6">
+          <div class="w-12 h-12 rounded-xl bg-deep-purple/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E8C3BA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Conectividade Ultra</h3>
+            <p class="text-silver/60 text-sm leading-relaxed">Wi-Fi 7, Bluetooth 5.4 e banda ultra-larga para latência imperceptível. Streaming espacial sem fio em qualidade máxima.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- APLICAÇÕES -->
+  <section id="aplicacoes" class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-4">Aplicações</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Infinitas possibilidades.</h2>
+        <p class="text-silver/60 max-w-2xl mx-auto leading-relaxed">Do trabalho ao entretenimento, o SpatialX transforma cada momento em uma experiência extraordinária.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8 hover-lift group">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6 group-hover:bg-midnight/30 transition-colors duration-300">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Produtividade</h3>
+          <p class="text-silver/60 leading-relaxed mb-4">Múltiplas telas virtuais ao seu redor. Organize seu espaço de trabalho em 360° com arrastar e soltar espacial.</p>
+          <span class="text-midnight text-sm font-medium">Escritório do futuro</span>
+        </div>
+        <div class="glass p-8 hover-lift group">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6 group-hover:bg-midnight/30 transition-colors duration-300">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Entretenimento</h3>
+          <p class="text-silver/60 leading-relaxed mb-4">Cinema pessoal com tela de 100 polegadas virtual. Jogos imersivos que transformam sua sala em outro mundo.</p>
+          <span class="text-midnight text-sm font-medium">Imersão total</span>
+        </div>
+        <div class="glass p-8 hover-lift group">
+          <div class="w-12 h-12 rounded-xl bg-midnight/20 flex items-center justify-center mb-6 group-hover:bg-midnight/30 transition-colors duration-300">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Colaboração</h3>
+          <p class="text-silver/60 leading-relaxed mb-4">Reuniões com avatares 3D realistas. Compartilhe modelos, documentos e ideias como se estivessem na mesma sala.</p>
+          <span class="text-midnight text-sm font-medium">Presença virtual</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- DEPOIMENTOS -->
+  <section class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-4">Depoimentos</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Quem já experimentou.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"A primeira vez que usei, esqueci que estava usando um dispositivo. É tão natural que parece mágica. Mudou completamente meu fluxo de trabalho."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-midnight/30 flex items-center justify-center text-white text-sm font-semibold">LC</div>
+            <div>
+              <p class="text-white font-medium text-sm">Lucas Carvalho</p>
+              <p class="text-silver/50 text-xs">Diretor de Criação, Studio Arc</p>
+            </div>
+          </div>
+        </div>
+        <div class="glass p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"Como arquiteta, poder caminhar dentro dos meus projetos em escala real antes de construir é revolucionário. O SpatialX é indispensável."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-deep-purple/30 flex items-center justify-center text-white text-sm font-semibold">AF</div>
+            <div>
+              <p class="text-white font-medium text-sm">Ana Ferreira</p>
+              <p class="text-silver/50 text-xs">Arquiteta, Ferreira & Associados</p>
+            </div>
+          </div>
+        </div>
+        <div class="glass p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-starlight" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-silver/80 leading-relaxed mb-6">"Ensinar medicina com modelos 3D que os alunos podem manipular no espaço real transformou minhas aulas. Tecnologia incrível."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-midnight/30 flex items-center justify-center text-white text-sm font-semibold">RS</div>
+            <div>
+              <p class="text-white font-medium text-sm">Dr. Roberto Santos</p>
+              <p class="text-silver/50 text-xs">Professor, USP Medicina</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRÉ-VENDA / PRICING -->
+  <section id="pre-venda" class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-midnight font-medium text-sm uppercase tracking-[0.25em] mb-4">Pré-venda</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Escolha sua experiência.</h2>
+        <p class="text-silver/60 max-w-2xl mx-auto leading-relaxed">Reserve agora com condições exclusivas de lançamento. Entrega prevista para o primeiro trimestre de 2026.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <!-- Tier 1 -->
+        <div class="glass p-8 hover-lift">
+          <p class="text-silver/50 uppercase tracking-[0.2em] text-xs font-medium mb-6">Explorer</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 18.990</p>
+          <p class="text-silver/40 text-sm mb-8">ou 12x de R$ 1.582</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Display Micro-OLED 4K
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              256 GB de armazenamento
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Rastreamento ocular + gestos
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              2 horas de bateria
+            </li>
+          </ul>
+          <a href="#" class="block text-center py-3.5 text-sm font-semibold uppercase tracking-wider border border-silver/20 rounded-xl text-silver hover:border-silver/50 hover:bg-white/5 transition-all duration-300 cursor-pointer">
+            Reservar
+          </a>
+        </div>
+        <!-- Tier 2 - Destaque -->
+        <div class="pricing-highlight rounded-xl p-8 hover-lift relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-midnight text-white text-xs font-semibold px-4 py-1 rounded-full uppercase tracking-wider">
+            Mais Popular
+          </div>
+          <p class="text-silver/50 uppercase tracking-[0.2em] text-xs font-medium mb-6">Pro</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 27.990</p>
+          <p class="text-silver/40 text-sm mb-8">ou 12x de R$ 2.332</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Tudo do Explorer, mais:
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              512 GB de armazenamento
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              LiDAR avançado + áudio espacial
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              4 horas de bateria
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              1 ano de SpatialX+ incluso
+            </li>
+          </ul>
+          <a href="#" class="block text-center py-3.5 text-sm font-semibold uppercase tracking-wider btn-primary text-white cursor-pointer">
+            Reservar Pro
+          </a>
+        </div>
+        <!-- Tier 3 -->
+        <div class="glass p-8 hover-lift">
+          <p class="text-silver/50 uppercase tracking-[0.2em] text-xs font-medium mb-6">Ultra</p>
+          <p class="text-4xl font-bold text-white mb-1">R$ 39.990</p>
+          <p class="text-silver/40 text-sm mb-8">ou 12x de R$ 3.332</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Tudo do Pro, mais:
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              1 TB de armazenamento
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Titânio escovado premium
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              6 horas de bateria
+            </li>
+            <li class="flex items-start gap-3 text-sm text-silver/70">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#000080" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte dedicado vitalício
+            </li>
+          </ul>
+          <a href="#" class="block text-center py-3.5 text-sm font-semibold uppercase tracking-wider border border-silver/20 rounded-xl text-silver hover:border-silver/50 hover:bg-white/5 transition-all duration-300 cursor-pointer">
+            Reservar Ultra
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA FINAL -->
+  <section class="px-6 py-28 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style="background: radial-gradient(circle, rgba(0,0,128,0.3) 0%, transparent 70%);"></div>
+    </div>
+    <div class="container-main text-center relative z-10">
+      <h2 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">O futuro não espera.</h2>
+      <p class="text-silver/60 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+        Seja um dos primeiros a experimentar a computação espacial. Vagas limitadas para o programa de pré-venda.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#pre-venda" class="btn-primary px-10 py-4 text-sm font-semibold text-white uppercase tracking-wider cursor-pointer inline-flex items-center gap-2">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          Garantir Minha Reserva
+        </a>
+        <a href="#" class="btn-outline px-10 py-4 text-sm font-semibold text-silver uppercase tracking-wider cursor-pointer">
+          Falar com Especialista
+        </a>
+      </div>
+      <p class="text-silver/30 text-xs mt-8">Reserva 100% reembolsável. Sem compromisso até a entrega.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 pt-16 pb-8 border-t border-white/5">
+    <div class="container-main">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div>
+          <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" stroke="#000080" stroke-width="2"/>
+              <circle cx="16" cy="16" r="6" fill="#000080"/>
+              <circle cx="16" cy="16" r="10" stroke="#E0E0E0" stroke-width="0.5" opacity="0.5"/>
+            </svg>
+            <span class="text-white font-semibold text-lg tracking-tight">SpatialX</span>
+          </a>
+          <p class="text-silver/40 text-sm leading-relaxed">Redefinindo a interação humana com a tecnologia através da computação espacial.</p>
+        </div>
+        <div>
+          <p class="text-white font-semibold text-xs uppercase tracking-[0.2em] mb-4">Produto</p>
+          <ul class="space-y-3 text-sm text-silver/50">
+            <li><a href="#experiencia" class="hover:text-white transition-colors duration-300 cursor-pointer">Experiência</a></li>
+            <li><a href="#tecnologia" class="hover:text-white transition-colors duration-300 cursor-pointer">Tecnologia</a></li>
+            <li><a href="#aplicacoes" class="hover:text-white transition-colors duration-300 cursor-pointer">Aplicações</a></li>
+            <li><a href="#pre-venda" class="hover:text-white transition-colors duration-300 cursor-pointer">Pré-venda</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white font-semibold text-xs uppercase tracking-[0.2em] mb-4">Empresa</p>
+          <ul class="space-y-3 text-sm text-silver/50">
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Sobre Nós</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Carreiras</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Imprensa</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white font-semibold text-xs uppercase tracking-[0.2em] mb-4">Legal</p>
+          <ul class="space-y-3 text-sm text-silver/50">
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Privacidade</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Garantia</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-300 cursor-pointer">Acessibilidade</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Social + Copyright -->
+      <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-silver/30 text-xs">&copy; 2026 SpatialX. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-5">
+          <!-- Twitter/X -->
+          <a href="#" class="text-silver/30 hover:text-white transition-colors duration-300 cursor-pointer" aria-label="Twitter">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768"/><path d="M20 4l-6.768 6.768"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#" class="text-silver/30 hover:text-white transition-colors duration-300 cursor-pointer" aria-label="Instagram">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" class="text-silver/30 hover:text-white transition-colors duration-300 cursor-pointer" aria-label="YouTube">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" class="text-silver/30 hover:text-white transition-colors duration-300 cursor-pointer" aria-label="LinkedIn">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

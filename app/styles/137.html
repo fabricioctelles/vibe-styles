@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CriaVisual IA - Ferramenta de Inteligência Artificial para criação de conteúdo visual. Gere imagens, edite com inteligência e integre com sua suíte criativa.">
+  <meta name="keywords" content="IA, inteligência artificial, criação visual, geração de imagens, edição inteligente, design, conteúdo visual">
+  <meta name="author" content="CriaVisual IA">
+  <meta property="og:title" content="CriaVisual IA - Criação de Conteúdo Visual com Inteligência Artificial">
+  <meta property="og:description" content="Transforme suas ideias em arte com o poder da IA. Gere, edite e integre conteúdo visual de forma intuitiva.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://criavisual.ai">
+  <meta property="og:image" content="https://criavisual.ai/og-image.png">
+  <title>CriaVisual IA - Criação de Conteúdo Visual com Inteligência Artificial</title>
+  <style>
+    :root {
+      --creative-red: #FF0000;
+      --dark-grey: #2D2D2D;
+      --white: #FFFFFF;
+      --cyan: #00FFFF;
+      --purple: #800080;
+      --orange: #FFA500;
+      --green: #00FF00;
+      --light-grey: #E0E0E0;
+      --border-radius-md: 8px;
+      --font-artistic: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-artistic);
+      background: var(--white);
+      color: var(--dark-grey);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    button, [role="button"], a {
+      cursor: pointer;
+    }
+
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--light-grey);
+      padding: 16px 0;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar-logo span {
+      color: var(--creative-red);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark-grey);
+      transition: color 0.3s ease-in-out;
+    }
+
+    .navbar-links a:hover {
+      color: var(--creative-red);
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--creative-red);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #cc0000;
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--dark-grey);
+      padding: 12px 28px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px solid var(--dark-grey);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-secondary:hover {
+      background: var(--dark-grey);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark-grey);
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 160px 0 100px;
+      background: linear-gradient(135deg, var(--white) 0%, #f8f8f8 50%, #f0f0f0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 5s ease-in-out infinite reverse;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--dark-grey);
+    }
+
+    .hero-content h1 .highlight {
+      background: linear-gradient(135deg, var(--creative-red), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: #666;
+      max-width: 480px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-visual-box {
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1;
+      position: relative;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--dark-grey) 0%, #1a1a1a 100%);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 0, 0, 0.15) 50%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .hero-ai-graphic {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-alt {
+      background: #f9f9f9;
+    }
+
+    .section-dark {
+      background: var(--dark-grey);
+      color: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header .label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--creative-red);
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 16px;
+    }
+
+    .section-dark .section-header h2 {
+      color: var(--white);
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section-dark .section-header p {
+      color: #aaa;
+    }
+
+    /* ===== CARDS GRID ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--border-radius-md);
+      padding: 36px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      border: 1px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      border-color: var(--creative-red);
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .card-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .card-icon-red { background: rgba(255, 0, 0, 0.1); }
+    .card-icon-cyan { background: rgba(0, 255, 255, 0.15); }
+    .card-icon-purple { background: rgba(128, 0, 128, 0.1); }
+    .card-icon-orange { background: rgba(255, 165, 0, 0.1); }
+    .card-icon-green { background: rgba(0, 200, 0, 0.1); }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark-grey);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ===== IMAGE GENERATION SECTION ===== */
+    .gen-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .gen-visual {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a1a, var(--dark-grey));
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .gen-visual .before-after {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .gen-visual .before-side,
+    .gen-visual .after-side {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .gen-visual .before-side {
+      background: linear-gradient(135deg, #333, #555);
+    }
+
+    .gen-visual .after-side {
+      background: linear-gradient(135deg, var(--creative-red), var(--purple));
+    }
+
+    .gen-visual .divider-line {
+      width: 3px;
+      background: var(--white);
+      position: relative;
+    }
+
+    .gen-visual .divider-line::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: var(--white);
+      border-radius: 50%;
+    }
+
+    .gen-text h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark-grey);
+    }
+
+    .gen-text p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .gen-text ul {
+      margin-bottom: 24px;
+    }
+
+    .gen-text ul li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .gen-text ul li svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--creative-red);
+    }
+
+    /* ===== EDITING SECTION ===== */
+    .edit-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .edit-feature {
+      text-align: center;
+      padding: 32px 20px;
+      border-radius: var(--border-radius-md);
+      background: var(--white);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .edit-feature:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .edit-feature .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .edit-feature .icon-circle svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .edit-feature h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark-grey);
+    }
+
+    .edit-feature p {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    /* ===== INTEGRATION SECTION ===== */
+    .integration-logos {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .integration-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 32px;
+      border-radius: var(--border-radius-md);
+      background: var(--white);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      min-width: 140px;
+    }
+
+    .integration-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .integration-item svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .integration-item span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark-grey);
+    }
+
+    /* ===== USE CASES ===== */
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .use-case-card {
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      background: var(--white);
+    }
+
+    .use-case-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .use-case-visual {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .use-case-visual svg {
+      width: 64px;
+      height: 64px;
+      opacity: 0.9;
+    }
+
+    .use-case-content {
+      padding: 24px;
+    }
+
+    .use-case-content h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark-grey);
+    }
+
+    .use-case-content p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--border-radius-md);
+      padding: 36px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      border-top: 3px solid var(--creative-red);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .testimonial-card blockquote {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .testimonial-info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--dark-grey);
+    }
+
+    .testimonial-info span {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--border-radius-md);
+      padding: 40px 32px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      text-align: center;
+      position: relative;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .pricing-card.featured {
+      background: var(--dark-grey);
+      color: var(--white);
+      border-color: var(--creative-red);
+      transform: scale(1.05);
+      box-shadow: 0 20px 50px rgba(255, 0, 0, 0.2);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-4px);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--creative-red);
+      color: var(--white);
+      padding: 4px 20px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .pricing-card .plan-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card.featured .plan-name {
+      color: #aaa;
+    }
+
+    .pricing-card .price {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pricing-card .price small {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.6;
+    }
+
+    .pricing-card .price-desc {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 28px;
+    }
+
+    .pricing-card ul {
+      text-align: left;
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    .pricing-card ul li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .pricing-card.featured ul li {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .pricing-card ul li svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .pricing-card .btn-primary {
+      width: 100%;
+      text-align: center;
+    }
+
+    .pricing-card .btn-outline {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 28px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px solid var(--dark-grey);
+      color: var(--dark-grey);
+      background: transparent;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .pricing-card .btn-outline:hover {
+      background: var(--dark-grey);
+      color: var(--white);
+    }
+
+    .pricing-card.featured .btn-outline {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .pricing-card.featured .btn-outline:hover {
+      background: var(--white);
+      color: var(--dark-grey);
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--dark-grey) 0%, #1a1a1a 100%);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-section .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.15rem;
+      color: #aaa;
+      max-width: 550px;
+      margin: 0 auto 36px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-cyan {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--dark-grey);
+      padding: 14px 32px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .btn-cyan:hover {
+      background: #00e0e0;
+      box-shadow: 0 8px 30px rgba(0, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #1a1a1a;
+      color: #ccc;
+      padding: 60px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-brand p {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p span {
+      color: var(--creative-red);
+    }
+
+    .footer-brand .desc {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .footer-social a:hover {
+      background: var(--creative-red);
+    }
+
+    .footer-social a svg {
+      width: 18px;
+      height: 18px;
+      fill: #ccc;
+    }
+
+    .footer-social a:hover svg {
+      fill: var(--white);
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      color: #888;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      color: #666;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--white);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content p { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual-box { max-width: 380px; margin: 0 auto; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .gen-grid { grid-template-columns: 1fr; }
+      .gen-visual { max-width: 500px; margin: 0 auto; }
+      .edit-features { grid-template-columns: repeat(2, 1fr); }
+      .use-cases-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-card.featured { transform: scale(1); }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .navbar-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        gap: 16px;
+      }
+      .hamburger { display: flex; }
+      .hero { padding: 120px 0 60px; }
+      .hero-content h1 { font-size: 2.4rem; }
+      .section { padding: 60px 0; }
+      .section-header h2 { font-size: 2rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .edit-features { grid-template-columns: 1fr 1fr; }
+      .use-cases-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .cta-section h2 { font-size: 2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 { font-size: 2rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .edit-features { grid-template-columns: 1fr; }
+      .integration-logos { gap: 16px; }
+      .integration-item { min-width: 120px; padding: 16px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="navbar-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        Cria<span>Visual</span> IA
+      </a>
+      <div class="navbar-links" id="navLinks">
+        <a href="#geracao">Geração</a>
+        <a href="#edicao">Edição</a>
+        <a href="#integracao">Integração</a>
+        <a href="#casos">Casos de Uso</a>
+        <a href="#precos">Preços</a>
+        <a href="#precos" class="btn-primary">Começar Grátis</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu de navegação">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <p style="font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--creative-red);margin-bottom:16px;">Inteligência Artificial Criativa</p>
+        <h1>Transforme ideias em <span class="highlight">arte visual</span> com IA</h1>
+        <p>Crie imagens impressionantes, edite com inteligência e integre com suas ferramentas favoritas. Tudo em uma plataforma intuitiva e poderosa.</p>
+        <div class="hero-buttons">
+          <a href="#precos" class="btn-primary">Começar Gratuitamente</a>
+          <a href="#geracao" class="btn-secondary">Ver Demonstração</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-box">
+          <svg class="hero-ai-graphic" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="60" stroke="#FF0000" stroke-width="2" opacity="0.6"/>
+            <circle cx="100" cy="100" r="40" stroke="#00FFFF" stroke-width="2" opacity="0.8"/>
+            <circle cx="100" cy="100" r="20" fill="#FF0000" opacity="0.9"/>
+            <line x1="100" y1="30" x2="100" y2="10" stroke="#00FFFF" stroke-width="1.5" opacity="0.5"/>
+            <line x1="100" y1="170" x2="100" y2="190" stroke="#00FFFF" stroke-width="1.5" opacity="0.5"/>
+            <line x1="30" y1="100" x2="10" y2="100" stroke="#00FFFF" stroke-width="1.5" opacity="0.5"/>
+            <line x1="170" y1="100" x2="190" y2="100" stroke="#00FFFF" stroke-width="1.5" opacity="0.5"/>
+            <rect x="70" y="70" width="60" height="60" rx="4" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+            <path d="M85 95 L95 85 L105 95 L115 80" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+            <circle cx="88" cy="82" r="4" fill="#FFA500" opacity="0.8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GERAÇÃO DE IMAGENS -->
+  <section class="section section-alt" id="geracao">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Geração de Imagens</span>
+        <h2>Crie visuais incríveis com um comando</h2>
+        <p>Descreva sua visão em texto e nossa IA transforma em imagens de alta qualidade em segundos.</p>
+      </div>
+      <div class="gen-grid">
+        <div class="gen-visual">
+          <div class="before-after">
+            <div class="before-side">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="12" y1="3" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div class="divider-line"></div>
+            <div class="after-side">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="gen-text">
+          <h3>De texto para imagem em segundos</h3>
+          <p>Nossa tecnologia de IA generativa entende contexto, estilo e composição para criar exatamente o que você imagina.</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Resolução até 4K com detalhes precisos
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Mais de 50 estilos artísticos disponíveis
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Geração em lote para produtividade máxima
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Controle total de composição e paleta
+            </li>
+          </ul>
+          <a href="#precos" class="btn-primary">Experimentar Agora</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDIÇÃO INTELIGENTE -->
+  <section class="section" id="edicao">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Edição Inteligente</span>
+        <h2>Edite com o poder da inteligência artificial</h2>
+        <p>Ferramentas de edição avançadas que entendem o contexto da sua imagem e aplicam ajustes profissionais automaticamente.</p>
+      </div>
+      <div class="edit-features">
+        <div class="edit-feature">
+          <div class="icon-circle" style="background:rgba(255,0,0,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h4>Remoção de Fundo</h4>
+          <p>Remova fundos com precisão de pixel em um clique.</p>
+        </div>
+        <div class="edit-feature">
+          <div class="icon-circle" style="background:rgba(0,255,255,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00CCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <h4>Expansão de Imagem</h4>
+          <p>Amplie os limites da imagem com preenchimento inteligente.</p>
+        </div>
+        <div class="edit-feature">
+          <div class="icon-circle" style="background:rgba(128,0,128,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#800080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h4>Ajuste de Estilo</h4>
+          <p>Transfira estilos artísticos entre imagens instantaneamente.</p>
+        </div>
+        <div class="edit-feature">
+          <div class="icon-circle" style="background:rgba(255,165,0,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFA500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h4>Upscale com IA</h4>
+          <p>Aumente a resolução sem perder qualidade ou nitidez.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRAÇÃO COM SUÍTE CRIATIVA -->
+  <section class="section section-alt" id="integracao">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Integração</span>
+        <h2>Conecte com sua suíte criativa</h2>
+        <p>Integração nativa com as ferramentas que você já usa. Exporte, importe e colabore sem fricção.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon card-icon-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Plugins Nativos</h3>
+          <p>Plugins para Photoshop, Figma, Sketch e Canva. Use a IA diretamente dentro do seu editor favorito.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00CCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>API Robusta</h3>
+          <p>API RESTful completa para integrar a geração de imagens em qualquer aplicação ou fluxo de trabalho.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon card-icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#800080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Colaboração em Tempo Real</h3>
+          <p>Trabalhe em equipe com edição simultânea, comentários e versionamento automático de projetos.</p>
+        </div>
+      </div>
+      <div class="integration-logos">
+        <div class="integration-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 7h4v4H7z"/><path d="M13 7h4"/><path d="M13 11h4"/><path d="M7 15h10"/><path d="M7 19h10"/></svg>
+          <span>Photoshop</span>
+        </div>
+        <div class="integration-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
+          <span>Figma</span>
+        </div>
+        <div class="integration-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+          <span>Sketch</span>
+        </div>
+        <div class="integration-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M12 8v8"/></svg>
+          <span>Canva</span>
+        </div>
+        <div class="integration-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>After Effects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS DE USO -->
+  <section class="section" id="casos">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Casos de Uso</span>
+        <h2>Para cada tipo de criador</h2>
+        <p>De designers independentes a grandes equipes de marketing, a CriaVisual IA se adapta ao seu fluxo.</p>
+      </div>
+      <div class="use-cases-grid">
+        <div class="use-case-card">
+          <div class="use-case-visual" style="background:linear-gradient(135deg, #FF0000, #FFA500);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="use-case-content">
+            <h3>Marketing Digital</h3>
+            <p>Crie banners, posts para redes sociais e materiais de campanha em escala com consistência visual.</p>
+          </div>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-visual" style="background:linear-gradient(135deg, #800080, #00FFFF);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          </div>
+          <div class="use-case-content">
+            <h3>Design de Produto</h3>
+            <p>Prototipe interfaces, gere mockups e explore variações visuais antes de implementar.</p>
+          </div>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-visual" style="background:linear-gradient(135deg, #00CCCC, #00FF00);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="use-case-content">
+            <h3>Criação de Conteúdo</h3>
+            <p>Ilustrações para blogs, thumbnails para vídeos e artes para newsletters em minutos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Depoimentos</span>
+        <h2>O que nossos criadores dizem</h2>
+        <p>Milhares de profissionais criativos já transformaram seu fluxo de trabalho com a CriaVisual IA.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="testimonial-card">
+          <blockquote>"A CriaVisual IA reduziu nosso tempo de produção de conteúdo visual em 70%. O que levava horas agora leva minutos."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg, #FF0000, #FFA500);">LC</div>
+            <div class="testimonial-info">
+              <strong>Lucas Carvalho</strong>
+              <span>Diretor Criativo, Agência Pixel</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"A qualidade das imagens geradas é impressionante. Nossos clientes não acreditam que foram criadas por IA."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg, #800080, #00FFFF);">AF</div>
+            <div class="testimonial-info">
+              <strong>Ana Ferreira</strong>
+              <span>Designer Freelancer</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"A integração com o Figma é perfeita. Gero variações de design sem sair do meu fluxo de trabalho habitual."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg, #00CCCC, #00FF00);">RM</div>
+            <div class="testimonial-info">
+              <strong>Roberto Mendes</strong>
+              <span>Lead Designer, TechFlow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREÇOS -->
+  <section class="section" id="precos">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Planos</span>
+        <h2>Escolha o plano ideal para você</h2>
+        <p>Comece gratuitamente e escale conforme sua criatividade cresce. Sem surpresas, sem taxas ocultas.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="plan-name">Iniciante</p>
+          <p class="price">R$ 0<small>/mês</small></p>
+          <p class="price-desc">Para explorar e experimentar</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              50 gerações por mês
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Resolução até 1080p
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              5 estilos artísticos
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por e-mail
+            </li>
+          </ul>
+          <a href="#" class="btn-outline">Começar Grátis</a>
+        </div>
+        <div class="pricing-card featured">
+          <span class="pricing-badge">Mais Popular</span>
+          <p class="plan-name">Profissional</p>
+          <p class="price">R$ 97<small>/mês</small></p>
+          <p class="price-desc">Para criadores e equipes</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerações ilimitadas
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Resolução até 4K
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Todos os 50+ estilos
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Plugins e API inclusa
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <a href="#" class="btn-primary">Assinar Agora</a>
+        </div>
+        <div class="pricing-card">
+          <p class="plan-name">Empresa</p>
+          <p class="price">R$ 297<small>/mês</small></p>
+          <p class="price-desc">Para operações em escala</p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Tudo do Profissional
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Modelos personalizados
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerente de conta dedicado
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA garantido 99.9%
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Treinamento da equipe
+            </li>
+          </ul>
+          <a href="#" class="btn-outline">Falar com Vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Pronto para criar sem limites?</h2>
+      <p>Junte-se a mais de 50.000 criadores que já usam a CriaVisual IA para transformar ideias em arte.</p>
+      <div class="cta-buttons">
+        <a href="#precos" class="btn-cyan">Começar Gratuitamente</a>
+        <a href="#" class="btn-ghost">Agendar Demonstração</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p>Cria<span>Visual</span> IA</p>
+          <p class="desc">Transformando a criação de conteúdo visual com inteligência artificial. Ferramentas poderosas para criadores de todos os níveis.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter / X">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#geracao">Geração de Imagens</a></li>
+            <li><a href="#edicao">Edição Inteligente</a></li>
+            <li><a href="#integracao">Integrações</a></li>
+            <li><a href="#precos">Preços</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Carreiras</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="#">Imprensa</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Documentação</a></li>
+            <li><a href="#">Tutoriais</a></li>
+            <li><a href="#">Central de Ajuda</a></li>
+            <li><a href="#">Comunidade</a></li>
+            <li><a href="#">Status do Sistema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CriaVisual IA. Todos os direitos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+          <a href="#">Cookies</a>
+          <a href="#">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      const spans = hamburger.querySelectorAll('span');
+      if (navLinks.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('active');
+        var spans = hamburger.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      var navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        e.preventDefault();
+        var target = document.querySelector(targetId);
+        if (target) {
+          var navbarHeight = document.querySelector('.navbar').offsetHeight;
+          var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    var observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card, .testimonial-card, .pricing-card, .use-case-card, .edit-feature, .integration-item').forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

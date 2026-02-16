@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DenimForge - Ferramentas artesanais de alta qualidade para profissionais e entusiastas. Durabilidade e precisao em cada detalhe.">
+    <meta name="keywords" content="ferramentas artesanais, craft, industrial, denim, qualidade, durabilidade">
+    <meta name="author" content="DenimForge">
+    <meta property="og:title" content="DenimForge - Ferramentas Artesanais de Alta Qualidade">
+    <meta property="og:description" content="Durabilidade e precisao em cada detalhe. Ferramentas feitas para durar geracoes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://denimforge.com.br">
+    <meta property="og:image" content="https://denimforge.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>DenimForge - Ferramentas Artesanais de Alta Qualidade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN SYSTEM VARIABLES ===== */
+        :root {
+            --denim-blue: #223C63;
+            --dark-wash: #1A2B45;
+            --thread-gold: #DCB35C;
+            --thread-gold-light: #f0c36d;
+            --leather: #8B4513;
+            --rivet-copper: #B87333;
+            --text-white: #FFFFFF;
+            --text-muted: #C8D6E5;
+            --font-slab: 'Roboto Slab', serif;
+            --stitch-style: dashed 2px;
+            --shadow-heavy: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-rivet: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.25s ease;
+            --radius-patch: 8px;
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-slab);
+            background-color: var(--denim-blue);
+            color: var(--text-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            /* Denim fabric texture via CSS */
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.015) 2px,
+                    rgba(255, 255, 255, 0.015) 4px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.01) 2px,
+                    rgba(255, 255, 255, 0.01) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0, 0, 0, 0.05) 1px,
+                    rgba(0, 0, 0, 0.05) 3px
+                );
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== DENIM TEXTURE MIXIN (patch background) ===== */
+        .patch {
+            background-color: var(--dark-wash);
+            border: var(--stitch-style) var(--thread-gold);
+            border-radius: var(--radius-patch);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            background-image:
+                repeating-linear-gradient(
+                    30deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255, 255, 255, 0.02) 3px,
+                    rgba(255, 255, 255, 0.02) 5px
+                );
+        }
+
+        /* Copper rivet decorations */
+        .rivet::before,
+        .rivet::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #d4955a, var(--rivet-copper) 40%, #7a5a2e 100%);
+            box-shadow: var(--shadow-rivet);
+        }
+
+        .rivet::before {
+            top: 10px;
+            left: 10px;
+        }
+
+        .rivet::after {
+            top: 10px;
+            right: 10px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: var(--font-slab);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: var(--stitch-style) transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: var(--thread-gold);
+            color: var(--dark-wash);
+            border-color: var(--thread-gold-light);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--thread-gold-light);
+            box-shadow: 0 4px 16px rgba(220, 179, 92, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--thread-gold);
+            border-color: var(--thread-gold);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(220, 179, 92, 0.1);
+            box-shadow: 0 4px 16px rgba(220, 179, 92, 0.15);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--thread-gold);
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            /* Embroidered text effect */
+            letter-spacing: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Stitch divider */
+        .stitch-divider {
+            width: 80px;
+            height: 0;
+            border-top: var(--stitch-style) var(--thread-gold);
+            margin: 16px auto;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            z-index: 1000;
+            background-color: rgba(26, 43, 69, 0.95);
+            backdrop-filter: blur(12px);
+            border: var(--stitch-style) var(--thread-gold);
+            border-radius: var(--radius-patch);
+            padding: 0 32px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--thread-gold);
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .navbar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .navbar-links a:hover {
+            color: var(--thread-gold);
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--thread-gold);
+            transition: width 0.25s ease;
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            padding: 10px 24px;
+            font-size: 0.85rem;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background-color: var(--thread-gold);
+            transition: var(--transition-smooth);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.4rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: var(--text-white);
+            /* Embroidered text effect */
+            text-shadow:
+                1px 1px 0 rgba(220, 179, 92, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text h1 span {
+            color: var(--thread-gold);
+            display: inline;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            font-weight: 300;
+            line-height: 1.8;
+            max-width: 520px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Denim visual element */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .denim-patch-hero {
+            width: 420px;
+            height: 420px;
+            background-color: var(--dark-wash);
+            border: 3px dashed var(--thread-gold);
+            border-radius: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 4px,
+                    rgba(255, 255, 255, 0.025) 4px,
+                    rgba(255, 255, 255, 0.025) 8px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 4px,
+                    rgba(255, 255, 255, 0.015) 4px,
+                    rgba(255, 255, 255, 0.015) 8px
+                );
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Corner rivets on hero patch */
+        .denim-patch-hero::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #d4955a, var(--rivet-copper) 40%, #7a5a2e 100%);
+            box-shadow: var(--shadow-rivet);
+        }
+
+        .denim-patch-hero::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #d4955a, var(--rivet-copper) 40%, #7a5a2e 100%);
+            box-shadow: var(--shadow-rivet);
+        }
+
+        .hero-rivet-bl,
+        .hero-rivet-br {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #d4955a, var(--rivet-copper) 40%, #7a5a2e 100%);
+            box-shadow: var(--shadow-rivet);
+            bottom: 16px;
+        }
+
+        .hero-rivet-bl { left: 16px; }
+        .hero-rivet-br { right: 16px; }
+
+        .hero-icon-center {
+            width: 120px;
+            height: 120px;
+            color: var(--thread-gold);
+            opacity: 0.8;
+        }
+
+        /* Floating stitch lines around hero */
+        .stitch-line-h {
+            position: absolute;
+            width: 60%;
+            border-top: var(--stitch-style) rgba(220, 179, 92, 0.3);
+        }
+
+        .stitch-line-h.top { top: 60px; left: 20%; }
+        .stitch-line-h.bottom { bottom: 60px; left: 20%; }
+
+        .stitch-line-v {
+            position: absolute;
+            height: 60%;
+            border-left: var(--stitch-style) rgba(220, 179, 92, 0.3);
+        }
+
+        .stitch-line-v.left-line { left: 60px; top: 20%; }
+        .stitch-line-v.right-line { right: 60px; top: 20%; }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--thread-gold-light);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(220, 179, 92, 0.2);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            color: var(--thread-gold);
+            background: rgba(220, 179, 92, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border: 1px dashed rgba(220, 179, 92, 0.3);
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--thread-gold);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            padding: 100px 0;
+            background-color: rgba(26, 43, 69, 0.5);
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 255, 255, 0.008) 20px,
+                    rgba(255, 255, 255, 0.008) 21px
+                );
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            padding: 36px 28px;
+            position: relative;
+        }
+
+        .testimonial-card .quote-mark {
+            font-size: 3.5rem;
+            color: var(--thread-gold);
+            opacity: 0.4;
+            line-height: 1;
+            font-family: Georgia, serif;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--leather), var(--rivet-copper));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            border: 2px solid var(--thread-gold);
+            flex-shrink: 0;
+        }
+
+        .testimonial-author-info strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-white);
+        }
+
+        .testimonial-author-info span {
+            font-size: 0.8rem;
+            color: var(--rivet-copper);
+            font-weight: 400;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: 100px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .pricing-card {
+            padding: 44px 32px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border-color: var(--thread-gold-light);
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(220, 179, 92, 0.03) 3px,
+                    rgba(220, 179, 92, 0.03) 5px
+                );
+            box-shadow: 0 12px 40px rgba(220, 179, 92, 0.15), var(--shadow-card);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--thread-gold);
+            color: var(--dark-wash);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--thread-gold);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--text-white);
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .price-period {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-bottom: 1px dashed rgba(220, 179, 92, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li svg {
+            width: 18px;
+            height: 18px;
+            color: var(--thread-gold);
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            background-color: rgba(26, 43, 69, 0.6);
+            background-image:
+                repeating-linear-gradient(
+                    135deg,
+                    transparent,
+                    transparent 6px,
+                    rgba(220, 179, 92, 0.015) 6px,
+                    rgba(220, 179, 92, 0.015) 12px
+                );
+        }
+
+        .cta-section h2 {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--text-white);
+            margin-bottom: 16px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-section h2 span {
+            color: var(--thread-gold);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            font-weight: 300;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 60px 0 0;
+            background-color: var(--dark-wash);
+            border-top: var(--stitch-style) var(--thread-gold);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--thread-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 6px 0;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: var(--thread-gold);
+            padding-left: 6px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px dashed var(--thread-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--thread-gold);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .footer-social a:hover {
+            background-color: rgba(220, 179, 92, 0.15);
+            padding-left: 0;
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-bottom {
+            border-top: 1px dashed rgba(220, 179, 92, 0.2);
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--thread-gold);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text .subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 74px;
+                left: 0;
+                right: 0;
+                background-color: rgba(26, 43, 69, 0.98);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+                border: var(--stitch-style) var(--thread-gold);
+                border-top: none;
+                border-radius: 0 0 var(--radius-patch) var(--radius-patch);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-text h1 {
+                font-size: 2.4rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+
+            .navbar {
+                top: 8px;
+                left: 8px;
+                right: 8px;
+                padding: 0 16px;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+                    <path d="M10 6V26" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/>
+                    <path d="M22 6V26" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/>
+                    <circle cx="7" cy="9" r="2" fill="#B87333"/>
+                    <circle cx="25" cy="9" r="2" fill="#B87333"/>
+                    <circle cx="7" cy="23" r="2" fill="#B87333"/>
+                    <circle cx="25" cy="23" r="2" fill="#B87333"/>
+                </svg>
+                DenimForge
+            </a>
+            <div class="navbar-links" id="navLinks">
+                <a href="#features">Recursos</a>
+                <a href="#testimonials">Depoimentos</a>
+                <a href="#pricing">Planos</a>
+                <a href="#contact">Contato</a>
+                <a href="#cta" class="btn btn-primary navbar-cta">Comece Agora</a>
+            </div>
+            <div class="mobile-toggle" id="mobileToggle" role="button" tabindex="0" aria-label="Abrir menu de navegacao">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Ferramentas Forjadas com <span>Precisao Artesanal</span></h1>
+                    <p class="subtitle">
+                        Construa projetos robustos com ferramentas que resistem ao tempo.
+                        Cada detalhe costurado com cuidado, cada funcionalidade rebitada com solidez.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#pricing" class="btn btn-primary">Conhecer Planos</a>
+                        <a href="#features" class="btn btn-secondary">Ver Recursos</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="denim-patch-hero">
+                        <div class="stitch-line-h top"></div>
+                        <div class="stitch-line-h bottom"></div>
+                        <div class="stitch-line-v left-line"></div>
+                        <div class="stitch-line-v right-line"></div>
+                        <span class="hero-rivet-bl"></span>
+                        <span class="hero-rivet-br"></span>
+                        <svg class="hero-icon-center" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recursos Sob Medida</h2>
+                <div class="stitch-divider"></div>
+                <p>Cada funcionalidade foi cuidadosamente projetada para entregar resultados duradouros e confiaveis.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card patch rivet">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Resistencia Total</h3>
+                    <p>Infraestrutura blindada com multiplas camadas de protecao. Seus dados seguros como rebites em jeans reforcado.</p>
+                </div>
+                <div class="feature-card patch rivet">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3>Entrega Rapida</h3>
+                    <p>Performance otimizada para resultados em tempo real. Velocidade de processamento que acompanha seu ritmo de trabalho.</p>
+                </div>
+                <div class="feature-card patch rivet">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Equipe Integrada</h3>
+                    <p>Colaboracao fluida entre todos os membros. Ferramentas de equipe costuradas para manter todos alinhados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS SECTION ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Dizem Nossos Clientes</h2>
+                <div class="stitch-divider"></div>
+                <p>Profissionais que confiam na DenimForge para construir projetos solidos e duradouros.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card patch">
+                    <div class="quote-mark">"</div>
+                    <blockquote>A DenimForge transformou completamente nosso fluxo de trabalho. A robustez das ferramentas nos deu confianca para escalar sem medo. Recomendo para qualquer equipe seria.</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RC</div>
+                        <div class="testimonial-author-info">
+                            <strong>Rafael Costa</strong>
+                            <span>CTO, TechBrasil</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card patch">
+                    <div class="quote-mark">"</div>
+                    <blockquote>Depois de testar diversas solucoes, a DenimForge se destacou pela durabilidade e suporte excepcional. Tres anos usando e nunca nos decepcionou.</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AM</div>
+                        <div class="testimonial-author-info">
+                            <strong>Ana Martins</strong>
+                            <span>Diretora de Produto, InovaSoft</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card patch">
+                    <div class="quote-mark">"</div>
+                    <blockquote>O nivel de detalhe e qualidade e impressionante. Cada atualizacao traz melhorias reais. A equipe por tras da DenimForge realmente entende o que precisamos.</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">LS</div>
+                        <div class="testimonial-author-info">
+                            <strong>Lucas Silveira</strong>
+                            <span>Engenheiro Senior, DataForge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING SECTION ===== -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Planos e Precos</h2>
+                <div class="stitch-divider"></div>
+                <p>Escolha o plano que melhor se encaixa no tamanho do seu projeto. Sem surpresas, sem custos ocultos.</p>
+            </div>
+            <div class="pricing-grid">
+                <!-- Plano Basico -->
+                <div class="pricing-card patch rivet">
+                    <h3>Aprendiz</h3>
+                    <div class="price">R$97</div>
+                    <div class="price-period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Ate 5 projetos ativos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            10 GB de armazenamento
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por e-mail
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatorios basicos
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Escolher Plano</a>
+                </div>
+                <!-- Plano Destaque -->
+                <div class="pricing-card patch rivet featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <h3>Artesao</h3>
+                    <div class="price">R$197</div>
+                    <div class="price-period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            100 GB de armazenamento
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritario 24/7
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatorios avancados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Integracoes premium
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Escolher Plano</a>
+                </div>
+                <!-- Plano Avancado -->
+                <div class="pricing-card patch rivet">
+                    <h3>Mestre Forjador</h3>
+                    <div class="price">R$397</div>
+                    <div class="price-period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Artesao
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Armazenamento ilimitado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            SLA garantido 99.9%
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            API personalizada
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Escolher Plano</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA FINAL ===== -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>Pronto para <span>Forjar</span> seu Proximo Projeto?</h2>
+            <div class="stitch-divider"></div>
+            <p>Junte-se a milhares de profissionais que escolheram ferramentas feitas para durar. Comece hoje mesmo, sem compromisso.</p>
+            <div class="hero-buttons" style="justify-content: center;">
+                <a href="#pricing" class="btn btn-primary">Comecar Gratuitamente</a>
+                <a href="#contact" class="btn btn-secondary">Falar com Especialista</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="navbar-logo">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                            <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+                            <path d="M10 6V26" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/>
+                            <path d="M22 6V26" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/>
+                            <circle cx="7" cy="9" r="2" fill="#B87333"/>
+                            <circle cx="25" cy="9" r="2" fill="#B87333"/>
+                            <circle cx="7" cy="23" r="2" fill="#B87333"/>
+                            <circle cx="25" cy="23" r="2" fill="#B87333"/>
+                        </svg>
+                        DenimForge
+                    </a>
+                    <p>Ferramentas artesanais de alta qualidade para profissionais que valorizam durabilidade e precisao em cada detalhe.</p>
+                    <div class="footer-social">
+                        <!-- Instagram -->
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                                <circle cx="12" cy="12" r="5"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <!-- X / Twitter -->
+                        <a href="#" aria-label="X">
+                            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Produto</h4>
+                    <a href="#features">Recursos</a>
+                    <a href="#pricing">Precos</a>
+                    <a href="#">Integracoes</a>
+                    <a href="#">Atualizacoes</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Empresa</h4>
+                    <a href="#">Sobre Nos</a>
+                    <a href="#">Carreiras</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Imprensa</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Suporte</h4>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">Documentacao</a>
+                    <a href="#">Status do Sistema</a>
+                    <a href="#">contato@denimforge.com.br</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 DenimForge. Todos os direitos reservados.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Politica de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Mobile menu toggle
+            var mobileToggle = document.getElementById('mobileToggle');
+            var navLinks = document.getElementById('navLinks');
+
+            if (mobileToggle && navLinks) {
+                mobileToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+
+                mobileToggle.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        navLinks.classList.toggle('active');
+                    }
+                });
+
+                // Close mobile menu when clicking a link
+                var links = navLinks.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                    });
+                }
+            }
+
+            // Navbar background on scroll
+            var navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 60) {
+                    navbar.style.backgroundColor = 'rgba(26, 43, 69, 0.98)';
+                    navbar.style.top = '8px';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(26, 43, 69, 0.95)';
+                    navbar.style.top = '16px';
+                }
+            });
+
+            // Smooth scroll for anchor links
+            var anchors = document.querySelectorAll('a[href^="#"]');
+            for (var j = 0; j < anchors.length; j++) {
+                anchors[j].addEventListener('click', function(e) {
+                    var targetId = this.getAttribute('href');
+                    if (targetId && targetId.length > 1) {
+                        var target = document.querySelector(targetId);
+                        if (target) {
+                            e.preventDefault();
+                            var offset = navbar.offsetHeight + 24;
+                            var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                            window.scrollTo({ top: top, behavior: 'smooth' });
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
+</body>
+</html>

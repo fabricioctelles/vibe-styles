@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SalesAI - Plataforma de IA para Otimização de Vendas com CRM inteligente e análise de dados avançada. Aumente suas conversões com inteligência artificial.">
+  <meta name="keywords" content="IA vendas, CRM inteligente, otimização de vendas, inteligência artificial, análise de dados, automação comercial">
+  <meta name="author" content="SalesAI">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="SalesAI - IA para Otimização de Vendas">
+  <meta property="og:description" content="Transforme seus dados em vendas com inteligência artificial. CRM inteligente, previsões precisas e automação completa.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://salesai.com.br">
+  <meta property="og:image" content="https://salesai.com.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <title>SalesAI - Plataforma de IA para Otimização de Vendas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --business-blue: #00A1E0;
+      --business-blue-dark: #0080B3;
+      --business-blue-light: #E6F6FC;
+      --white: #FFFFFF;
+      --dark-grey: #333333;
+      --light-grey: #F2F2F2;
+      --green: #008000;
+      --orange: #FFA500;
+      --purple: #800080;
+      --black: #000000;
+      --ai-glow: rgba(0, 161, 224, 0.3);
+      --ai-glow-strong: rgba(0, 161, 224, 0.5);
+      --font-business: 'Inter', Helvetica, Arial, sans-serif;
+      --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.08);
+      --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --radius: 4px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-business);
+      color: var(--dark-grey);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a, button, [role="button"], .clickable { cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--dark-grey);
+    }
+
+    .navbar-logo svg { flex-shrink: 0; }
+
+    .navbar-logo span { color: var(--business-blue); }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark-grey);
+      transition: color 0.2s ease;
+    }
+
+    .navbar-links a:hover { color: var(--business-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-business);
+      border: none;
+      border-radius: var(--radius);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--business-blue);
+      color: var(--white);
+      box-shadow: 0 2px 10px var(--ai-glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--business-blue-dark);
+      box-shadow: 0 4px 20px var(--ai-glow-strong);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--business-blue);
+      border: 2px solid var(--business-blue);
+    }
+
+    .btn-outline:hover {
+      background: var(--business-blue);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--business-blue);
+      box-shadow: var(--shadow-light);
+    }
+
+    .btn-white:hover {
+      background: var(--light-grey);
+      transform: translateY(-1px);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(170deg, var(--white) 0%, var(--business-blue-light) 50%, var(--white) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--ai-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--white);
+      border: 1px solid rgba(0, 161, 224, 0.2);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--business-blue);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-light);
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--dark-grey);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .highlight {
+      color: var(--business-blue);
+      position: relative;
+    }
+
+    .hero p.subtitle {
+      font-size: 1.15rem;
+      color: #666;
+      max-width: 500px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-visual-card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      padding: 28px;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .hero-visual-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--ai-glow) 0%, transparent 50%);
+      z-index: -1;
+      filter: blur(20px);
+    }
+
+    .visual-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .visual-header-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark-grey);
+    }
+
+    .visual-header-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: rgba(0, 128, 0, 0.1);
+      color: var(--green);
+      border-radius: 50px;
+    }
+
+    .visual-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 120px;
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .chart-bar:hover { opacity: 0.85; }
+
+    .visual-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .visual-stat {
+      text-align: center;
+      padding: 12px 8px;
+      background: var(--light-grey);
+      border-radius: var(--radius);
+    }
+
+    .visual-stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+    }
+
+    .visual-stat-label {
+      font-size: 0.7rem;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-grey {
+      background: var(--light-grey);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--business-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--dark-grey);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ===== FEATURES ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+      border-color: rgba(0, 161, 224, 0.2);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon-blue { background: rgba(0, 161, 224, 0.1); }
+    .feature-icon-green { background: rgba(0, 128, 0, 0.1); }
+    .feature-icon-purple { background: rgba(128, 0, 128, 0.1); }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.92rem;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--light-grey);
+    }
+
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--dark-grey);
+    }
+
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .pricing-card.featured {
+      background: var(--dark-grey);
+      color: var(--white);
+      border-color: var(--business-blue);
+      box-shadow: 0 8px 40px var(--ai-glow);
+      transform: scale(1.04);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.04) translateY(-4px);
+    }
+
+    .pricing-popular {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--business-blue);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 20px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pricing-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .pricing-card.featured .pricing-name { color: rgba(255, 255, 255, 0.6); }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #888;
+    }
+
+    .pricing-card.featured .pricing-price span { color: rgba(255, 255, 255, 0.5); }
+
+    .pricing-desc {
+      font-size: 0.88rem;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .pricing-card.featured .pricing-desc { color: rgba(255, 255, 255, 0.5); }
+
+    .pricing-features {
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .pricing-features li svg { flex-shrink: 0; }
+
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    .pricing-card.featured .btn-primary {
+      background: var(--white);
+      color: var(--dark-grey);
+    }
+
+    .pricing-card.featured .btn-primary:hover {
+      background: var(--light-grey);
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--dark-grey) 0%, #1a1a2e 100%);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--ai-glow) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section h2 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark-grey);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--business-blue); }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.2s ease;
+    }
+
+    .footer-col ul li a:hover { color: var(--business-blue); }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .footer-social a:hover {
+      background: var(--business-blue);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.2s ease;
+    }
+
+    .footer-bottom-links a:hover { color: var(--business-blue); }
+
+    /* ===== MOBILE NAV ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 24px;
+      box-shadow: var(--shadow-medium);
+      z-index: 999;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .mobile-menu.active { display: flex; }
+
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark-grey);
+      padding: 8px 0;
+      transition: color 0.2s ease;
+    }
+
+    .mobile-menu a:hover { color: var(--business-blue); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes bar-grow {
+      from { height: 0; }
+    }
+
+    .animate-float { animation: float 4s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 2.6rem; }
+      .section-title { font-size: 2rem; }
+      .pricing-card.featured { transform: scale(1); }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .mobile-toggle { display: block; }
+
+      .hero { padding: 110px 0 60px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero p.subtitle { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero h1 { font-size: 2.2rem; }
+
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+
+      .section { padding: 70px 0; }
+      .section-title { font-size: 1.8rem; }
+      .cta-section h2 { font-size: 2rem; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-bottom-links { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; }
+      .visual-stats { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="navbar-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#00A1E0"/>
+          <path d="M8 22V10l8 6-8 6z" fill="#fff"/>
+          <path d="M16 22V10l8 6-8 6z" fill="#fff" opacity="0.5"/>
+        </svg>
+        Sales<span>AI</span>
+      </a>
+      <div class="navbar-links">
+        <a href="#recursos">Recursos</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#precos">Planos</a>
+        <a href="#contato">Contato</a>
+        <a href="#precos" class="btn btn-primary">Comece Gratis</a>
+      </div>
+      <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Abrir menu de navegacao">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#recursos" onclick="toggleMenu()">Recursos</a>
+      <a href="#depoimentos" onclick="toggleMenu()">Depoimentos</a>
+      <a href="#precos" onclick="toggleMenu()">Planos</a>
+      <a href="#contato" onclick="toggleMenu()">Contato</a>
+      <a href="#precos" class="btn btn-primary" onclick="toggleMenu()">Comece Gratis</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Plataforma com IA integrada
+          </div>
+          <h1>Transforme dados em <span class="highlight">vendas inteligentes</span></h1>
+          <p class="subtitle">CRM com inteligencia artificial que analisa seus dados, preve tendencias e otimiza cada etapa do funil de vendas automaticamente.</p>
+          <div class="hero-buttons">
+            <a href="#precos" class="btn btn-primary">Testar Gratuitamente</a>
+            <a href="#recursos" class="btn btn-outline">Ver Recursos</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-visual-card animate-float">
+            <div class="visual-header">
+              <span class="visual-header-title">Painel de Vendas - IA</span>
+              <span class="visual-header-badge">+34% este mes</span>
+            </div>
+            <div class="visual-chart" id="heroChart"></div>
+            <div class="visual-stats">
+              <div class="visual-stat">
+                <div class="visual-stat-value">R$ 1.2M</div>
+                <div class="visual-stat-label">Receita Prevista</div>
+              </div>
+              <div class="visual-stat">
+                <div class="visual-stat-value">89%</div>
+                <div class="visual-stat-label">Taxa Conversao</div>
+              </div>
+              <div class="visual-stat">
+                <div class="visual-stat-value">2.4k</div>
+                <div class="visual-stat-label">Leads Ativos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section-grey" id="recursos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Recursos</span>
+        <h2 class="section-title">Inteligencia artificial a servico das suas vendas</h2>
+        <p class="section-desc">Ferramentas poderosas que automatizam processos, analisam dados e entregam insights acionaveis para sua equipe comercial.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-blue">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h3>Previsao de Vendas com IA</h3>
+          <p>Algoritmos de machine learning analisam historico e padroes para prever receita com ate 95% de precisao, antecipando oportunidades e riscos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-green">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#008000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>CRM Inteligente</h3>
+          <p>Gestao completa de contatos e pipeline com priorizacao automatica de leads por score de IA, garantindo foco nos negocios mais promissores.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-purple">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#800080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Automacao de Fluxos</h3>
+          <p>Crie fluxos de trabalho automatizados para follow-ups, nutricao de leads e tarefas repetitivas. Sua equipe foca no que realmente importa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</html>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="depoimentos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Depoimentos</span>
+        <h2 class="section-title">Empresas que ja transformaram suas vendas</h2>
+        <p class="section-desc">Veja como nossos clientes estao usando inteligencia artificial para bater metas e escalar resultados.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Depois de implementar o SalesAI, nossa taxa de conversao subiu 47% em tres meses. A previsao de vendas nos permite planejar com confianca e antecipar demandas do mercado."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: #00A1E0;">RC</div>
+            <div>
+              <div class="testimonial-name">Ricardo Campos</div>
+              <div class="testimonial-role">Diretor Comercial, TechNova</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"O CRM inteligente mudou completamente nossa operacao. A priorizacao automatica de leads economiza horas do time e os insights de IA sao incrivelmente precisos."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: #008000;">AM</div>
+            <div>
+              <div class="testimonial-name">Ana Martins</div>
+              <div class="testimonial-role">VP de Vendas, DataFlow</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFA500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Reduzimos o ciclo de vendas em 35% com a automacao de fluxos. A equipe agora foca em relacionamento enquanto a IA cuida das tarefas operacionais."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: #800080;">PL</div>
+            <div>
+              <div class="testimonial-name">Pedro Lima</div>
+              <div class="testimonial-role">CEO, Conecta Digital</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section-grey" id="precos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Planos</span>
+        <h2 class="section-title">Escolha o plano ideal para seu negocio</h2>
+        <p class="section-desc">Planos flexiveis que crescem com sua empresa. Comece gratuitamente e escale conforme sua necessidade.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="pricing-card">
+          <div class="pricing-name">Starter</div>
+          <div class="pricing-price">R$ 197<span>/mes</span></div>
+          <div class="pricing-desc">Para equipes pequenas iniciando com IA</div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Ate 1.000 contatos
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              CRM basico com IA
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              3 automacoes de fluxo
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Relatorios semanais
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por e-mail
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Comecar Agora</a>
+        </div>
+        <!-- Professional (Featured) -->
+        <div class="pricing-card featured">
+          <div class="pricing-popular">Mais Popular</div>
+          <div class="pricing-name">Professional</div>
+          <div class="pricing-price">R$ 497<span>/mes</span></div>
+          <div class="pricing-desc">Para equipes em crescimento acelerado</div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Ate 10.000 contatos
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              CRM completo com IA avancada
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Automacoes ilimitadas
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Previsao de vendas em tempo real
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritario 24/7
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary">Comecar Agora</a>
+        </div>
+        <!-- Enterprise -->
+        <div class="pricing-card">
+          <div class="pricing-name">Enterprise</div>
+          <div class="pricing-price">R$ 997<span>/mes</span></div>
+          <div class="pricing-desc">Para operacoes de grande escala</div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Contatos ilimitados
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              IA personalizada para seu negocio
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              API completa e integracoes
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerente de sucesso dedicado
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA garantido 99.9%
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Falar com Vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section" id="contato">
+    <div class="container cta-content">
+      <h2>Pronto para vender mais com inteligencia artificial?</h2>
+      <p>Junte-se a mais de 2.000 empresas que ja usam SalesAI para transformar dados em resultados. Comece gratuitamente hoje.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary" style="font-size: 1rem; padding: 16px 36px;">Comecar Gratuitamente</a>
+        <a href="#" class="btn btn-white" style="font-size: 1rem; padding: 16px 36px;">Agendar Demonstracao</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="#00A1E0"/>
+              <path d="M8 22V10l8 6-8 6z" fill="#fff"/>
+              <path d="M16 22V10l8 6-8 6z" fill="#fff" opacity="0.5"/>
+            </svg>
+            Sales<span>AI</span>
+          </div>
+          <p>Plataforma de inteligencia artificial para otimizacao de vendas. Transforme dados em decisoes inteligentes e acelere o crescimento do seu negocio.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#precos">Planos</a></li>
+            <li><a href="#">Integracoes</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre Nos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Carreiras</a></li>
+            <li><a href="#">Parceiros</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Central de Ajuda</a></li>
+            <li><a href="#">Documentacao</a></li>
+            <li><a href="#">Webinars</a></li>
+            <li><a href="#">Cases de Sucesso</a></li>
+            <li><a href="#">Status do Sistema</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Politica de Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">LGPD</a></li>
+            <li><a href="#">Cookies</a></li>
+            <li><a href="#">Seguranca</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SalesAI. Todos os direitos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Politica de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+          <a href="#">Mapa do Site</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      var menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Navbar scroll effect
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Hero chart bars
+    (function() {
+      var chart = document.getElementById('heroChart');
+      if (!chart) return;
+      var data = [40, 55, 35, 65, 50, 75, 60, 85, 70, 95, 80, 100];
+      var months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+      var maxVal = Math.max.apply(null, data);
+      data.forEach(function(val, i) {
+        var bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        var pct = (val / maxVal) * 100;
+        bar.style.height = pct + '%';
+        bar.style.background = i >= 9 ? '#00A1E0' : (i >= 6 ? 'rgba(0,161,224,0.5)' : '#E0E0E0');
+        bar.style.animation = 'bar-grow 0.8s ease-out ' + (i * 0.06) + 's both';
+        bar.title = months[i] + ': ' + val + '%';
+        chart.appendChild(bar);
+      });
+    })();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    (function() {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      var cards = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card');
+      cards.forEach(function(card) {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      cards.forEach(function(card) { observer.observe(card); });
+    })();
+  </script>
+
+</body>
+</html>

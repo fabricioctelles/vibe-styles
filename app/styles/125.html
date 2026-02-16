@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaVerse AI — Plataforma de Metaverso Social com IA</title>
+  <meta name="description" content="Explore mundos virtuais imersivos, crie avatares com IA e conecte-se com uma comunidade global no metaverso social do futuro.">
+  <meta property="og:title" content="MetaVerse AI — Plataforma de Metaverso Social com IA">
+  <meta property="og:description" content="Explore mundos virtuais imersivos, crie avatares com IA e conecte-se com uma comunidade global no metaverso social do futuro.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://metaverseai.com/og-image.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            'social-blue': '#0078F4',
+            'dark-purple': '#3A0CA3',
+            'electric-cyan': '#00FFFF',
+            'electric-magenta': '#FF00FF',
+            'electric-green': '#00FF00',
+            'deep-black': '#000000',
+            'soft-gray': '#E0E0E0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #FFFFFF; background: linear-gradient(180deg, #000000 0%, #3A0CA3 50%, #000000 100%); }
+    a, button, [role="button"] { cursor: pointer; }
+    .container-main { max-width: 1200px; margin: 0 auto; }
+    .text-glow { text-shadow: 0 0 10px rgba(0,120,244,0.5); }
+    .text-glow-cyan { text-shadow: 0 0 15px rgba(0,255,255,0.4); }
+    .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+    .glass-strong { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
+    .hover-lift { transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease; }
+    .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,120,244,0.3); border-color: rgba(0,120,244,0.4); }
+    .btn-glow { transition: box-shadow 250ms ease, transform 200ms ease; }
+    .btn-glow:hover { box-shadow: 0 0 25px rgba(0,120,244,0.5), 0 0 50px rgba(0,120,244,0.2); transform: translateY(-2px); }
+    .gradient-text { background: linear-gradient(135deg, #0078F4, #00FFFF, #FF00FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-border { position: relative; }
+    .gradient-border::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, #0078F4, #3A0CA3, #FF00FF); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(0,255,255,0.4); animation: float-particle 6s ease-in-out infinite; }
+    @keyframes float-particle { 0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; } 50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; } }
+    @keyframes pulse-glow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .hover-lift, .btn-glow { transition: none; }
+      .hover-lift:hover { transform: none; }
+      .btn-glow:hover { transform: none; }
+      .particle { animation: none; }
+      .animate-pulse-glow { animation: none; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-4 left-4 right-4 z-50 glass rounded-2xl">
+    <div class="container-main px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 cursor-pointer">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="#0078F4" stroke-width="2"/>
+          <path d="M10 16C10 12 12 8 16 8C20 8 22 12 22 16C22 20 20 24 16 24C12 24 10 20 10 16Z" fill="#0078F4" fill-opacity="0.3"/>
+          <circle cx="13" cy="14" r="2" fill="#00FFFF"/>
+          <circle cx="19" cy="14" r="2" fill="#FF00FF"/>
+          <path d="M13 19C13 19 14.5 21 16 21C17.5 21 19 19 19 19" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="text-xl font-bold text-glow">MetaVerse<span class="text-social-blue">AI</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#experiencias" class="text-soft-gray hover:text-electric-cyan transition-colors duration-200">Experiências</a>
+        <a href="#avatares" class="text-soft-gray hover:text-electric-cyan transition-colors duration-200">Avatares</a>
+        <a href="#comunidade" class="text-soft-gray hover:text-electric-cyan transition-colors duration-200">Comunidade</a>
+        <a href="#planos" class="text-soft-gray hover:text-electric-cyan transition-colors duration-200">Planos</a>
+      </div>
+      <a href="#planos" class="bg-social-blue hover:bg-social-blue/80 text-white px-5 py-2.5 rounded-xl text-sm font-semibold btn-glow transition-colors duration-200">
+        Entrar no Metaverso
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex items-center px-6 pt-28 pb-20 overflow-hidden">
+    <!-- Particles -->
+    <div class="particle" style="top:15%;left:10%;animation-delay:0s;"></div>
+    <div class="particle" style="top:25%;left:80%;animation-delay:1s;"></div>
+    <div class="particle" style="top:60%;left:20%;animation-delay:2s;"></div>
+    <div class="particle" style="top:70%;left:70%;animation-delay:0.5s;"></div>
+    <div class="particle" style="top:40%;left:50%;animation-delay:3s;"></div>
+    <div class="particle" style="top:80%;left:90%;animation-delay:1.5s;"></div>
+    <div class="particle" style="top:10%;left:60%;animation-delay:4s;width:4px;height:4px;background:rgba(255,0,255,0.3);"></div>
+    <div class="particle" style="top:50%;left:5%;animation-delay:2.5s;width:4px;height:4px;background:rgba(0,120,244,0.4);"></div>
+    <!-- Ambient glow -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-social-blue/10 rounded-full blur-[120px] animate-pulse-glow pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-electric-magenta/10 rounded-full blur-[100px] animate-pulse-glow pointer-events-none" style="animation-delay:1.5s;"></div>
+
+    <div class="container-main w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div>
+        <p class="text-electric-cyan uppercase tracking-[0.3em] text-sm font-medium mb-6">O futuro é social e imersivo</p>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
+          Seu mundo.<br><span class="gradient-text">Sua realidade.</span>
+        </h1>
+        <p class="text-lg text-soft-gray/80 max-w-lg leading-relaxed mb-10">
+          Crie, explore e conecte-se em mundos virtuais alimentados por inteligência artificial. Avatares expressivos, experiências imersivas e uma comunidade global te esperam.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#planos" class="inline-flex items-center gap-2 bg-social-blue text-white px-8 py-4 rounded-xl text-sm font-semibold uppercase tracking-wider btn-glow">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Começar Grátis
+          </a>
+          <a href="#experiencias" class="inline-flex items-center gap-2 glass text-white px-8 py-4 rounded-xl text-sm font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors duration-200">
+            Explorar Mundos
+          </a>
+        </div>
+        <div class="flex items-center gap-8 mt-12 text-sm text-soft-gray/60">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>2M+ usuários</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-electric-magenta" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>500+ mundos</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-social-blue" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>IA generativa</span>
+          </div>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center">
+        <svg viewBox="0 0 400 400" width="380" height="380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- VR Headset stylized -->
+          <defs>
+            <linearGradient id="vrGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0078F4"/><stop offset="50%" stop-color="#3A0CA3"/><stop offset="100%" stop-color="#FF00FF"/></linearGradient>
+            <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00FFFF" stop-opacity="0.6"/><stop offset="100%" stop-color="#FF00FF" stop-opacity="0.6"/></linearGradient>
+          </defs>
+          <circle cx="200" cy="200" r="150" stroke="url(#vrGrad)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.4"/>
+          <circle cx="200" cy="200" r="120" stroke="#0078F4" stroke-width="1" stroke-dasharray="4 8" opacity="0.3"/>
+          <!-- Headset body -->
+          <rect x="110" y="155" width="180" height="90" rx="20" fill="url(#vrGrad)" opacity="0.2" stroke="url(#vrGrad)" stroke-width="2"/>
+          <!-- Lenses -->
+          <circle cx="165" cy="200" r="28" fill="url(#lensGrad)" stroke="#00FFFF" stroke-width="1.5"/>
+          <circle cx="235" cy="200" r="28" fill="url(#lensGrad)" stroke="#FF00FF" stroke-width="1.5"/>
+          <!-- Lens reflections -->
+          <circle cx="158" cy="192" r="8" fill="white" opacity="0.15"/>
+          <circle cx="228" cy="192" r="8" fill="white" opacity="0.15"/>
+          <!-- Strap -->
+          <path d="M110 185 Q80 170 85 200 Q80 230 110 215" stroke="#0078F4" stroke-width="2" fill="none" opacity="0.5"/>
+          <path d="M290 185 Q320 170 315 200 Q320 230 290 215" stroke="#FF00FF" stroke-width="2" fill="none" opacity="0.5"/>
+          <!-- Floating elements -->
+          <circle cx="120" cy="120" r="6" fill="#00FFFF" opacity="0.5"/>
+          <circle cx="300" cy="130" r="4" fill="#FF00FF" opacity="0.5"/>
+          <circle cx="280" cy="290" r="5" fill="#0078F4" opacity="0.5"/>
+          <circle cx="100" cy="280" r="3" fill="#00FF00" opacity="0.4"/>
+          <!-- Connection lines -->
+          <line x1="120" y1="120" x2="155" y2="170" stroke="#00FFFF" stroke-width="0.5" opacity="0.3"/>
+          <line x1="300" y1="130" x2="260" y2="175" stroke="#FF00FF" stroke-width="0.5" opacity="0.3"/>
+          <!-- AI brain pattern -->
+          <path d="M185 280 Q200 260 215 280" stroke="#0078F4" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M175 290 Q200 265 225 290" stroke="#00FFFF" stroke-width="1" fill="none" opacity="0.3"/>
+          <circle cx="200" cy="300" r="3" fill="#0078F4" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIÊNCIAS -->
+  <section id="experiencias" class="px-6 py-24 relative">
+    <div class="absolute top-0 left-1/4 w-[300px] h-[300px] bg-dark-purple/20 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="container-main relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-electric-cyan uppercase tracking-[0.3em] text-sm font-medium mb-4">Experiências</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-glow">Mundos sem limites</h2>
+        <p class="text-soft-gray/60 mt-4 max-w-xl mx-auto">Explore ambientes imersivos criados por IA e pela comunidade. Cada mundo é uma nova aventura.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-social-blue/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-glow">Mundos Abertos</h3>
+          <p class="text-soft-gray/70 leading-relaxed">Explore cidades virtuais, paisagens alienígenas e cenários fantásticos gerados por IA em tempo real.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-electric-magenta/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-glow">Eventos ao Vivo</h3>
+          <p class="text-soft-gray/70 leading-relaxed">Shows, conferências e encontros sociais em realidade virtual com milhares de participantes simultâneos.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-electric-cyan/20 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-electric-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-glow">Criação com IA</h3>
+          <p class="text-soft-gray/70 leading-relaxed">Descreva o mundo dos seus sonhos e nossa IA generativa constrói ambientes 3D completos em minutos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVATARES -->
+  <section id="avatares" class="px-6 py-24 relative">
+    <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-electric-magenta/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="container-main relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 flex justify-center">
+          <svg viewBox="0 0 320 360" width="300" height="340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Avatar silhouette -->
+            <defs>
+              <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0078F4"/><stop offset="100%" stop-color="#FF00FF"/></linearGradient>
+              <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#3A0CA3"/><stop offset="100%" stop-color="#0078F4" stop-opacity="0.3"/></linearGradient>
+            </defs>
+            <!-- Head -->
+            <circle cx="160" cy="100" r="50" fill="url(#avatarGrad)" opacity="0.15" stroke="url(#avatarGrad)" stroke-width="2"/>
+            <!-- Eyes -->
+            <circle cx="142" cy="95" r="6" fill="#00FFFF" opacity="0.8"/>
+            <circle cx="178" cy="95" r="6" fill="#FF00FF" opacity="0.8"/>
+            <circle cx="142" cy="94" r="2.5" fill="#FFFFFF"/>
+            <circle cx="178" cy="94" r="2.5" fill="#FFFFFF"/>
+            <!-- Smile -->
+            <path d="M148 112 Q160 122 172 112" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Body -->
+            <path d="M110 160 Q110 145 130 140 L160 150 L190 140 Q210 145 210 160 L210 280 Q210 300 190 300 L130 300 Q110 300 110 280 Z" fill="url(#bodyGrad)" opacity="0.2" stroke="url(#avatarGrad)" stroke-width="1.5"/>
+            <!-- Digital pattern on body -->
+            <line x1="140" y1="170" x2="140" y2="290" stroke="#0078F4" stroke-width="0.5" opacity="0.3"/>
+            <line x1="160" y1="160" x2="160" y2="295" stroke="#0078F4" stroke-width="0.5" opacity="0.3"/>
+            <line x1="180" y1="170" x2="180" y2="290" stroke="#0078F4" stroke-width="0.5" opacity="0.3"/>
+            <line x1="115" y1="200" x2="205" y2="200" stroke="#0078F4" stroke-width="0.5" opacity="0.2"/>
+            <line x1="115" y1="230" x2="205" y2="230" stroke="#0078F4" stroke-width="0.5" opacity="0.2"/>
+            <line x1="115" y1="260" x2="205" y2="260" stroke="#0078F4" stroke-width="0.5" opacity="0.2"/>
+            <!-- Floating accessories -->
+            <circle cx="70" cy="130" r="8" stroke="#00FFFF" stroke-width="1" fill="none" opacity="0.4"/>
+            <circle cx="250" cy="150" r="6" stroke="#FF00FF" stroke-width="1" fill="none" opacity="0.4"/>
+            <rect x="60" y="220" width="12" height="12" rx="2" stroke="#0078F4" stroke-width="1" fill="none" opacity="0.3" transform="rotate(15 66 226)"/>
+            <polygon points="255,240 260,250 250,250" stroke="#00FF00" stroke-width="1" fill="none" opacity="0.3"/>
+            <!-- AI sparkle -->
+            <path d="M230 90 L233 97 L240 100 L233 103 L230 110 L227 103 L220 100 L227 97 Z" fill="#00FFFF" opacity="0.5"/>
+            <path d="M85 200 L87 205 L92 207 L87 209 L85 214 L83 209 L78 207 L83 205 Z" fill="#FF00FF" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="order-1 lg:order-2">
+          <p class="text-electric-magenta uppercase tracking-[0.3em] text-sm font-medium mb-4">Avatares com IA</p>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-glow">Seja quem você<br><span class="gradient-text">quiser ser.</span></h2>
+          <p class="text-soft-gray/70 leading-relaxed mb-8 max-w-lg">
+            Nossa IA cria avatares hiper-expressivos que capturam suas emoções em tempo real. Personalize cada detalhe — rosto, corpo, roupas e acessórios digitais únicos.
+          </p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-electric-cyan flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Expressões faciais em tempo real via webcam</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-electric-cyan flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Geração de roupas e acessórios por texto</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-electric-cyan flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Compatível com VR, AR e desktop</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-electric-cyan flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">NFTs de identidade digital exclusivos</span>
+            </li>
+          </ul>
+          <a href="#planos" class="inline-flex items-center gap-2 bg-gradient-to-r from-social-blue to-electric-magenta text-white px-8 py-4 rounded-xl text-sm font-semibold btn-glow">
+            Criar Meu Avatar
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMUNIDADE -->
+  <section id="comunidade" class="px-6 py-24 relative">
+    <div class="absolute top-1/3 left-0 w-[350px] h-[350px] bg-social-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="container-main relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-social-blue uppercase tracking-[0.3em] text-sm font-medium mb-4">Comunidade</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-glow">Conecte-se com o mundo</h2>
+        <p class="text-soft-gray/60 mt-4 max-w-xl mx-auto">Milhões de pessoas criando, explorando e socializando juntas em tempo real.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Testimonial 1 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-soft-gray/80 leading-relaxed mb-6">"Participei de um show ao vivo no metaverso e foi a experiência mais incrível que já tive online. A sensação de presença é real."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-social-blue to-electric-cyan flex items-center justify-center text-sm font-bold">LC</div>
+            <div>
+              <p class="font-semibold text-sm">Lucas Carvalho</p>
+              <p class="text-soft-gray/50 text-xs">Criador de Conteúdo VR</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-soft-gray/80 leading-relaxed mb-6">"A IA criou um avatar que parece exatamente comigo, mas em versão cyberpunk. Meus amigos ficaram impressionados com o nível de detalhe."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric-magenta to-dark-purple flex items-center justify-center text-sm font-bold">AS</div>
+            <div>
+              <p class="font-semibold text-sm">Ana Santos</p>
+              <p class="text-soft-gray/50 text-xs">Designer 3D, Studio Pixel</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="glass rounded-2xl p-8 hover-lift">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-4 h-4 text-electric-cyan" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-soft-gray/80 leading-relaxed mb-6">"Uso o MetaVerse AI para reuniões da empresa. A sensação de estar na mesma sala com colegas remotos mudou completamente nossa dinâmica."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric-cyan to-social-blue flex items-center justify-center text-sm font-bold">RF</div>
+            <div>
+              <p class="font-semibold text-sm">Roberto Ferreira</p>
+              <p class="text-soft-gray/50 text-xs">CTO, NovaTech Solutions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section id="planos" class="px-6 py-24 relative">
+    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-dark-purple/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="container-main relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-electric-magenta uppercase tracking-[0.3em] text-sm font-medium mb-4">Planos</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-glow">Escolha sua realidade</h2>
+        <p class="text-soft-gray/60 mt-4 max-w-xl mx-auto">Do explorador casual ao criador profissional, temos o plano ideal para você.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <!-- Tier 1: Explorer -->
+        <div class="glass rounded-2xl p-8 flex flex-col hover-lift">
+          <p class="text-electric-cyan uppercase tracking-[0.3em] text-xs font-medium mb-4">Explorer</p>
+          <p class="text-4xl font-bold mb-1">Grátis</p>
+          <p class="text-soft-gray/50 text-sm mb-8">Para começar a explorar</p>
+          <ul class="space-y-3 mb-10 flex-1 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">1 avatar básico</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Acesso a 50 mundos</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Chat por voz e texto</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Eventos públicos</span>
+            </li>
+          </ul>
+          <a href="#" class="block text-center border border-white/20 py-3.5 rounded-xl text-sm font-semibold hover:bg-white/10 transition-colors duration-200 cursor-pointer">
+            Começar Grátis
+          </a>
+        </div>
+        <!-- Tier 2: Creator (destaque) -->
+        <div class="relative rounded-2xl p-8 flex flex-col hover-lift bg-gradient-to-b from-social-blue/20 to-dark-purple/30 border border-social-blue/40" style="backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-social-blue to-electric-cyan text-deep-black text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+            Mais Popular
+          </div>
+          <p class="text-social-blue uppercase tracking-[0.3em] text-xs font-medium mb-4">Creator</p>
+          <p class="text-4xl font-bold mb-1">R$ 49<span class="text-lg font-normal text-soft-gray/50">/mês</span></p>
+          <p class="text-soft-gray/50 text-sm mb-8">Para criadores e sociais</p>
+          <ul class="space-y-3 mb-10 flex-1 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Avatares ilimitados com IA</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Acesso a todos os mundos</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Criação de mundos com IA</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Eventos privados (até 100)</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-social-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/80">Suporte prioritário</span>
+            </li>
+          </ul>
+          <a href="#" class="block text-center bg-social-blue text-white py-3.5 rounded-xl text-sm font-semibold btn-glow transition-colors duration-200 cursor-pointer">
+            Assinar Creator
+          </a>
+        </div>
+        <!-- Tier 3: Enterprise -->
+        <div class="glass rounded-2xl p-8 flex flex-col hover-lift">
+          <p class="text-electric-magenta uppercase tracking-[0.3em] text-xs font-medium mb-4">Enterprise</p>
+          <p class="text-4xl font-bold mb-1">R$ 199<span class="text-lg font-normal text-soft-gray/50">/mês</span></p>
+          <p class="text-soft-gray/50 text-sm mb-8">Para empresas e equipes</p>
+          <ul class="space-y-3 mb-10 flex-1 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Tudo do Creator</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Mundos corporativos privados</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Eventos para 10.000+ pessoas</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">API e integrações</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-soft-gray/70">Gerente de conta dedicado</span>
+            </li>
+          </ul>
+          <a href="#" class="block text-center border border-white/20 py-3.5 rounded-xl text-sm font-semibold hover:bg-white/10 transition-colors duration-200 cursor-pointer">
+            Falar com Vendas
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="px-6 py-28 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-social-blue/10 via-dark-purple/20 to-electric-magenta/10 pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-social-blue/10 rounded-full blur-[150px] animate-pulse-glow pointer-events-none"></div>
+    <div class="particle" style="top:20%;left:15%;animation-delay:0s;"></div>
+    <div class="particle" style="top:30%;left:85%;animation-delay:1.5s;"></div>
+    <div class="particle" style="top:70%;left:25%;animation-delay:3s;"></div>
+    <div class="particle" style="top:60%;left:75%;animation-delay:2s;width:4px;height:4px;background:rgba(255,0,255,0.4);"></div>
+    <div class="container-main text-center relative z-10">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        O metaverso está<br><span class="gradient-text">esperando por você.</span>
+      </h2>
+      <p class="text-soft-gray/60 text-lg max-w-xl mx-auto mb-10">
+        Junte-se a milhões de pessoas que já estão vivendo, criando e se conectando em realidades virtuais alimentadas por IA.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="inline-flex items-center gap-2 bg-gradient-to-r from-social-blue to-electric-magenta text-white px-10 py-4 rounded-xl text-sm font-semibold uppercase tracking-wider btn-glow">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Criar Conta Grátis
+        </a>
+        <a href="#" class="inline-flex items-center gap-2 glass text-white px-10 py-4 rounded-xl text-sm font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors duration-200">
+          Ver Demo em VR
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-12 border-t border-white/10">
+    <div class="container-main">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 text-sm">
+        <div>
+          <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="14" stroke="#0078F4" stroke-width="2"/>
+              <circle cx="13" cy="14" r="2" fill="#00FFFF"/>
+              <circle cx="19" cy="14" r="2" fill="#FF00FF"/>
+              <path d="M13 19C13 19 14.5 21 16 21C17.5 21 19 19 19 19" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="text-lg font-bold text-glow">MetaVerse<span class="text-social-blue">AI</span></span>
+          </a>
+          <p class="text-soft-gray/50 leading-relaxed">Construindo o futuro<br>social e imersivo.</p>
+          <div class="flex items-center gap-4 mt-6">
+            <!-- Twitter/X -->
+            <a href="#" class="text-soft-gray/40 hover:text-electric-cyan transition-colors duration-200 cursor-pointer" aria-label="Twitter">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Discord -->
+            <a href="#" class="text-soft-gray/40 hover:text-electric-cyan transition-colors duration-200 cursor-pointer" aria-label="Discord">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#" class="text-soft-gray/40 hover:text-electric-cyan transition-colors duration-200 cursor-pointer" aria-label="Instagram">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" class="text-soft-gray/40 hover:text-electric-cyan transition-colors duration-200 cursor-pointer" aria-label="YouTube">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-soft-gray/60">Plataforma</p>
+          <ul class="space-y-2.5 text-soft-gray/40">
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Mundos</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Avatares</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Eventos</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Marketplace</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-soft-gray/60">Empresa</p>
+          <ul class="space-y-2.5 text-soft-gray/40">
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Sobre</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Blog</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Carreiras</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-soft-gray/60">Legal</p>
+          <ul class="space-y-2.5 text-soft-gray/40">
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Privacidade</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-electric-cyan transition-colors duration-200 cursor-pointer">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-soft-gray/30 text-xs">&copy; 2026 MetaVerse AI. Todos os direitos reservados.</p>
+        <p class="text-soft-gray/20 text-xs">Feito com IA para humanos.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

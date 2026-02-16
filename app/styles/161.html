@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EdoWave Digital - Plataforma de arte digital com estética xilográfica japonesa ukiyo-e. Transforme suas ideias em obras de arte digitais.">
+    <meta name="keywords" content="ukiyo-e, arte digital, xilogravura, arte japonesa, design, criatividade">
+    <meta name="author" content="EdoWave Digital">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="EdoWave Digital - Arte Digital Ukiyo-e">
+    <meta property="og:description" content="Plataforma de arte digital com estética xilográfica japonesa ukiyo-e">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://edowave.digital">
+    <meta property="og:image" content="https://edowave.digital/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EdoWave Digital - Arte Digital Ukiyo-e">
+    <meta name="twitter:description" content="Plataforma de arte digital com estética xilográfica japonesa ukiyo-e">
+
+    <title>EdoWave Digital - Arte Digital com Estética Ukiyo-e</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper-washi: #F0E3CE;
+            --ink-sumi: #0D0D15;
+            --wave-blue: #2A4056;
+            --prussian-blue: #003153;
+            --sun-red: #E85D35;
+            --ochre: #CC7722;
+            --font-classic: 'Cinzel', serif;
+            --font-japanese: 'Noto Serif JP', serif;
+            --border-thick: 3px solid var(--ink-sumi);
+            --shadow-hard: 5px 5px 0px var(--wave-blue);
+            --shadow-large: 8px 8px 0px var(--wave-blue);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--paper-washi);
+            color: var(--ink-sumi);
+            font-family: var(--font-classic);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Washi Paper Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(13, 13, 21, 0.02) 2px,
+                    rgba(13, 13, 21, 0.02) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(13, 13, 21, 0.02) 2px,
+                    rgba(13, 13, 21, 0.02) 4px
+                );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--paper-washi);
+            border-bottom: var(--border-thick);
+            z-index: 100;
+            padding: 1rem 0;
+            box-shadow: 0 4px 0 var(--wave-blue);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--ink-sumi);
+        }
+
+        .nav-logo svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-logo-text {
+            font-family: var(--font-japanese);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--ink-sumi);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            border: 2px solid var(--sun-red);
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            transform: translateY(-2px);
+            box-shadow: 3px 3px 0 var(--ink-sumi);
+        }
+
+        .nav-cta {
+            background-color: var(--sun-red);
+            color: var(--paper-washi) !important;
+            padding: 0.75rem 1.5rem !important;
+            border: var(--border-thick) !important;
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--ink-sumi);
+            border-color: var(--ink-sumi) !important;
+            transform: translateY(-2px) translateX(-2px);
+            box-shadow: 5px 5px 0 var(--ochre) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: var(--border-thick);
+            padding: 0.5rem;
+            cursor: pointer;
+            background-color: var(--paper-washi);
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: var(--sun-red);
+        }
+
+        .mobile-menu-btn:hover svg {
+            stroke: var(--paper-washi);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: linear-gradient(180deg, var(--paper-washi) 0%, rgba(232, 93, 53, 0.1) 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            padding: 0.5rem 1.5rem;
+            border: var(--border-thick);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-hard);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .hero-title-accent {
+            color: var(--sun-red);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--wave-blue);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-family: var(--font-japanese);
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-classic);
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: var(--border-thick);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--ink-sumi);
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 var(--ochre);
+        }
+
+        .btn-secondary {
+            background-color: var(--paper-washi);
+            color: var(--ink-sumi);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--wave-blue);
+            color: var(--paper-washi);
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 var(--sun-red);
+        }
+
+        .hero-visual {
+            margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .wave-panel {
+            width: 280px;
+            height: 200px;
+            border: var(--border-thick);
+            box-shadow: var(--shadow-large);
+            position: relative;
+            overflow: hidden;
+            background-color: var(--wave-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wave-panel svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wave-panel-secondary {
+            background-color: var(--prussian-blue);
+        }
+
+        .wave-panel-accent {
+            background-color: var(--sun-red);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background-color: var(--ink-sumi);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(240, 227, 206, 0.03) 10px,
+                    rgba(240, 227, 206, 0.03) 20px
+                );
+            pointer-events: none;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            display: inline-block;
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--paper-washi);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--paper-washi);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            color: var(--paper-washi);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.85;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background-color: var(--paper-washi);
+            border: var(--border-thick);
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) translateX(-5px);
+            box-shadow: 12px 12px 0 var(--sun-red);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--wave-blue);
+            border: var(--border-thick);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-hard);
+        }
+
+        .feature-icon svg {
+            width: 35px;
+            height: 35px;
+            stroke: var(--paper-washi);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-description {
+            color: var(--wave-blue);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .feature-border {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid var(--ink-sumi);
+            pointer-events: none;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 2rem;
+            background-color: var(--paper-washi);
+            position: relative;
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--paper-washi);
+            border: var(--border-thick);
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 var(--prussian-blue);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: var(--border-thick);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--wave-blue);
+            font-style: italic;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: var(--prussian-blue);
+            border: var(--border-thick);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 3px 0 var(--ink-sumi);
+        }
+
+        .testimonial-avatar svg {
+            width: 25px;
+            height: 25px;
+            stroke: var(--paper-washi);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-role {
+            color: var(--sun-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 2rem;
+            background-color: var(--prussian-blue);
+            position: relative;
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--paper-washi);
+            border: var(--border-thick);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px) translateX(-5px);
+            box-shadow: 10px 10px 0 var(--sun-red);
+        }
+
+        .pricing-card.featured {
+            background-color: var(--ink-sumi);
+            border-color: var(--sun-red);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px) translateX(-5px);
+            box-shadow: 10px 10px 0 var(--ochre);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+            padding: 0.5rem 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            border: var(--border-thick);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .pricing-tier {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card.featured .pricing-tier {
+            color: var(--sun-red);
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-currency {
+            font-size: 1.5rem;
+            font-weight: 700;
+            vertical-align: top;
+        }
+
+        .pricing-amount {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--wave-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card.featured .pricing-period {
+            color: var(--paper-washi);
+            opacity: 0.8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-feature {
+            padding: 0.75rem 0;
+            border-bottom: 2px solid rgba(42, 64, 86, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-card.featured .pricing-feature {
+            border-bottom-color: rgba(240, 227, 206, 0.2);
+        }
+
+        .pricing-feature svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-card.featured .pricing-feature svg {
+            stroke: var(--sun-red);
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-family: var(--font-classic);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: var(--border-thick);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:not(.featured) .pricing-cta {
+            background-color: var(--wave-blue);
+            color: var(--paper-washi);
+        }
+
+        .pricing-card:not(.featured) .pricing-cta:hover {
+            background-color: var(--sun-red);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background-color: var(--sun-red);
+            color: var(--paper-washi);
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            background-color: var(--ochre);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hard);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background-color: var(--sun-red);
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(13, 13, 21, 0.05) 30px,
+                    rgba(13, 13, 21, 0.05) 60px
+                );
+            pointer-events: none;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--paper-washi);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .cta-description {
+            font-size: 1.25rem;
+            color: var(--paper-washi);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-white {
+            background-color: var(--paper-washi);
+            color: var(--sun-red);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .btn-white:hover {
+            background-color: var(--ink-sumi);
+            color: var(--paper-washi);
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 var(--ochre);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--paper-washi);
+            border: 3px solid var(--paper-washi);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--paper-washi);
+            color: var(--sun-red);
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 var(--ink-sumi);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--ink-sumi);
+            color: var(--paper-washi);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-japanese);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .footer-description {
+            color: var(--paper-washi);
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--wave-blue);
+            border: 2px solid var(--paper-washi);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            background-color: var(--sun-red);
+            transform: translateY(-3px);
+            box-shadow: 3px 3px 0 var(--paper-washi);
+        }
+
+        .footer-social-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--paper-washi);
+        }
+
+        .footer-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: var(--sun-red);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            color: var(--paper-washi);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--sun-red);
+            border-bottom-color: var(--sun-red);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .footer-contact-item svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--sun-red);
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(240, 227, 206, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--paper-washi);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px) translateX(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--paper-washi);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: var(--border-thick);
+                box-shadow: 0 8px 0 var(--wave-blue);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand {
+                max-width: 100%;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-contact-item {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-buttons,
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 6rem 1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .pricing-amount {
+                font-size: 3rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .feature-card,
+        .testimonial-card,
+        .pricing-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <svg viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="45" height="45" fill="#F0E3CE"/>
+                    <path d="M5 15C5 15 10 10 15 15C20 20 25 10 30 15C35 20 40 15 40 15V30C40 30 35 35 30 30C25 25 20 35 15 30C10 25 5 30 5 30V15Z" fill="#2A4056"/>
+                    <circle cx="22.5" cy="8" r="4" fill="#E85D35"/>
+                </svg>
+                <span class="nav-logo-text">江戸波</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D0D15" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#recursos" class="nav-link">Recursos</a></li>
+                <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                <li><a href="#precos" class="nav-link">Preços</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+                <li><a href="#comecar" class="nav-link nav-cta">Começar Agora</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Período Edo Digital</div>
+            <h1 class="hero-title">
+                <span class="hero-title-accent">Arte Ukiyo-e</span>
+                Para a Era Digital
+            </h1>
+            <p class="hero-subtitle">
+                Transforme suas ideias em obras de arte digitais com a estética clássica das xilogravuras japonesas. Contornos ousados, alto contraste e a beleza atemporal do Grande Onda.
+            </p>
+            <div class="hero-buttons">
+                <a href="#comecar" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Criar Arte Agora
+                </a>
+                <a href="#recursos" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    Ver Demo
+                </a>
+            </div>
+            <div class="hero-visual">
+                <div class="wave-panel">
+                    <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="280" height="200" fill="#2A4056"/>
+                        <path d="M0 100C50 80 100 120 140 100C180 80 230 120 280 100V200H0V100Z" fill="#F0E3CE"/>
+                        <path d="M0 110C50 90 100 130 140 110C180 90 230 130 280 110V120C230 140 180 100 140 120C100 140 50 100 0 120V110Z" fill="#003153"/>
+                    </svg>
+                </div>
+                <div class="wave-panel wave-panel-secondary">
+                    <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="280" height="200" fill="#003153"/>
+                        <circle cx="140" cy="100" r="50" fill="#E85D35"/>
+                        <path d="M140 100L180 140M140 100L100 140M140 100L140 50" stroke="#0D0D15" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="wave-panel wave-panel-accent">
+                    <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="280" height="200" fill="#E85D35"/>
+                        <rect x="70" y="50" width="140" height="100" fill="#F0E3CE" stroke="#0D0D15" stroke-width="3"/>
+                        <path d="M70 80H210M70 110H210M140 50V150" stroke="#0D0D15" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="section-header">
+            <span class="section-label">Nossos Recursos</span>
+            <h2 class="section-title">A Arte Tradicional<br>Reinventada</h2>
+            <p class="section-description">
+                Combine técnicas milenares de xilogravura com a tecnologia digital mais avançada. Crie arte que atravessa gerações.
+            </p>
+        </div>
+        <div class="features-grid">
+            <article class="feature-card">
+                <div class="feature-border"></div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                        <path d="M2 2l7.586 7.586"/>
+                        <circle cx="11" cy="11" r="2"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Pinceladas Tradicionais</h3>
+                <p class="feature-description">
+                    Algoritmos que recriam a textura autêntica de pincéis sumi-e sobre papel washi, com cada traço capturando a energia do movimento.
+                </p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-border"></div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18M9 21V9"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Painéis em Mangá</h3>
+                <p class="feature-description">
+                    Sistema de layout dinâmico inspirado em histórias em quadrinhos japonesas, criando narrativas visuais através de painéis sobrepostos.
+                </p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-border"></div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.74 5.88-5.74 5.88-5.74-5.88z"/>
+                        <path d="M5 19h14"/>
+                        <path d="M5 15h14"/>
+                        <path d="M5 11h14"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Alto Contraste</h3>
+                <p class="feature-description">
+                    Paletas de cores inspiradas nos pigmentos naturais do período Edo, com bloqueios de cor ousados que criam impacto visual imediato.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
+        <div class="section-header">
+            <span class="section-label">Depoimentos</span>
+            <h2 class="section-title">O Que Nossos Artistas<br>Dizem</h2>
+            <p class="section-description">
+                Artistas de todo o mundo estão usando EdoWave para criar arte digital com alma japonesa.
+            </p>
+        </div>
+        <div class="testimonials-grid">
+            <article class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    A textura de papel washi e os contornos grossos transformaram completamente meu fluxo de trabalho. É como ter um estúdio de xilogravura no meu computador.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Marina Tanaka</div>
+                        <div class="testimonial-role">Ilustradora Digital</div>
+                    </div>
+                </div>
+            </article>
+            <article class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    Os painéis em estilo mangá me permitiram criar histórias visuais que nunca imaginei serem possíveis. Minha audiência ama o formato narrativo.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Roberto Silva</div>
+                        <div class="testimonial-role">Criador de Conteúdo</div>
+                    </div>
+                </div>
+            </article>
+            <article class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    Como designer gráfico, procuro ferramentas que se destaquem. O estilo ukiyo-e do EdoWave dá aos meus projetos uma identidade visual única e memorável.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Ana Costa</div>
+                        <div class="testimonial-role">Designer Gráfico</div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="precos">
+        <div class="section-header">
+            <span class="section-label">Planos e Preços</span>
+            <h2 class="section-title">Escolha Seu Plano<br>Artístico</h2>
+            <p class="section-description">
+                Comece gratuitamente e evolua para recursos profissionais. Cada plano inclui acesso total à nossa biblioteca de estilos ukiyo-e.
+            </p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-tier">Aprendiz</div>
+                <div class="pricing-price">
+                    <span class="pricing-currency">R$</span>
+                    <span class="pricing-amount">0</span>
+                    <span class="pricing-period">/mês</span>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        10 projetos por mês
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        5 estilos básicos
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Exportação em PNG
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Comunidade no Discord
+                    </li>
+                </ul>
+                <button class="pricing-cta">Começar Grátis</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Mais Popular</div>
+                <div class="pricing-tier">Artesão</div>
+                <div class="pricing-price">
+                    <span class="pricing-currency">R$</span>
+                    <span class="pricing-amount">49</span>
+                    <span class="pricing-period">/mês</span>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Projetos ilimitados
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Todos os 25 estilos ukiyo-e
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Exportação em SVG e PDF
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Editor de painéis avançado
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Suporte prioritário
+                    </li>
+                </ul>
+                <button class="pricing-cta">Assinar Artesão</button>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-tier">Mestre</div>
+                <div class="pricing-price">
+                    <span class="pricing-currency">R$</span>
+                    <span class="pricing-amount">149</span>
+                    <span class="pricing-period">/mês</span>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Tudo do Artesão
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Estilos personalizados
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        API de desenvolvimento
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Workspace colaborativo
+                    </li>
+                    <li class="pricing-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Gerente de conta dedicado
+                    </li>
+                </ul>
+                <button class="pricing-cta">Falar com Vendas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="comecar">
+        <div class="cta-content">
+            <h2 class="cta-title">Pronto Para Criar<br>Sua Primeira Obra?</h2>
+            <p class="cta-description">
+                Junte-se a milhares de artistas que já estão transformando ideias em arte digital ukiyo-e. Comece gratuitamente hoje mesmo.
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-large btn-white">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    Criar Conta Grátis
+                </a>
+                <a href="#" class="btn btn-large btn-outline">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    Agendar Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <svg viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="45" height="45" fill="#F0E3CE"/>
+                        <path d="M5 15C5 15 10 10 15 15C20 20 25 10 30 15C35 20 40 15 40 15V30C40 30 35 35 30 30C25 25 20 35 15 30C10 25 5 30 5 30V15Z" fill="#2A4056"/>
+                        <circle cx="22.5" cy="8" r="4" fill="#E85D35"/>
+                    </svg>
+                    <span class="footer-logo-text">江戸波</span>
+                </div>
+                <p class="footer-description">
+                    EdoWave Digital transforma a estética clássica das xilogravuras ukiyo-e em ferramentas de criação digital para artistas modernos.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="footer-social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer-social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer-social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer-social-link" aria-label="Discord">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="12" r="1"/>
+                            <circle cx="15" cy="12" r="1"/>
+                            <path d="M7.5 7.5c3.5-1 5.5-1 9 0"/>
+                            <path d="M7 16.5c3.5 1 6.5 1 10 0"/>
+                            <path d="M15.5 17c0 1 1.5 2.5 3 2.5s2-1.5 2-2.5"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-section-title">Produto</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#recursos">Recursos</a></li>
+                    <li class="footer-link"><a href="#precos">Preços</a></li>
+                    <li class="footer-link"><a href="#">Galeria de Arte</a></li>
+                    <li class="footer-link"><a href="#">Tutoriais</a></li>
+                    <li class="footer-link"><a href="#">Atualizações</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-section-title">Empresa</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Sobre Nós</a></li>
+                    <li class="footer-link"><a href="#">Carreiras</a></li>
+                    <li class="footer-link"><a href="#">Blog</a></li>
+                    <li class="footer-link"><a href="#">Imprensa</a></li>
+                    <li class="footer-link"><a href="#">Parcerias</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-section-title">Contato</h4>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>contato@edowave.digital</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>São Paulo, Brasil</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <span>+55 (11) 9999-9999</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                © 2026 EdoWave Digital. Todos os direitos reservados.
+            </div>
+            <div class="footer-legal">
+                <a href="#">Privacidade</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 4px 0 var(--wave-blue), 0 8px 20px rgba(13, 13, 21, 0.2)';
+            } else {
+                navbar.style.boxShadow = '0 4px 0 var(--wave-blue)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Button Hover Effects
+        document.querySelectorAll('.btn, .pricing-cta, .nav-link').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+
+        // Card Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

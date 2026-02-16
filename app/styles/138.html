@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusAI - Modelo de Linguagem de Próxima Geração</title>
+  <meta name="description" content="NexusAI: O modelo de linguagem de próxima geração para desenvolvedores e empresas. API poderosa, segura e ética.">
+  <meta name="keywords" content="IA, inteligência artificial, modelo de linguagem, API, desenvolvedores, empresas, IA generativa">
+  <meta name="author" content="NexusAI">
+  <meta property="og:title" content="NexusAI - Modelo de Linguagem de Próxima Geração">
+  <meta property="og:description" content="O modelo de linguagem mais avançado para desenvolvedores e empresas. API poderosa, segura e ética.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexusai.com.br">
+  <meta property="og:image" content="https://nexusai.com.br/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ai-blue: #00A67E;
+      --white: #FFFFFF;
+      --dark-grey: #202124;
+      --light-grey: #F0F0F0;
+      --electric-green: #00FF00;
+      --purple: #800080;
+      --cyan: #00FFFF;
+      --black: #000000;
+      --ai-glow: rgba(0, 166, 126, 0.3);
+      --font-modern: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-modern);
+      color: var(--dark-grey);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { text-decoration: none; color: inherit; cursor: pointer; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--dark-grey);
+    }
+
+    .navbar-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .navbar-logo span {
+      color: var(--ai-blue);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark-grey);
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .navbar-links a:hover {
+      color: var(--ai-blue);
+    }
+
+    .navbar-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--ai-blue);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ai-blue);
+      color: var(--white);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 2px 8px var(--ai-glow);
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #008f6c;
+      box-shadow: 0 4px 20px var(--ai-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--dark-grey);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px solid var(--dark-grey);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: var(--dark-grey);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark-grey);
+      transition: all 0.3s ease;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--white) 0%, var(--light-grey) 50%, var(--white) 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 166, 126, 0.08);
+      border: 1px solid rgba(0, 166, 126, 0.2);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ai-blue);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--dark-grey);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--ai-blue);
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #5f6368;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Neural Network Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .neural-canvas {
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+
+    .neural-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 166, 126, 0.15);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+
+    .neural-ring:nth-child(1) {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .neural-ring:nth-child(2) {
+      width: 75%;
+      height: 75%;
+      top: 12.5%;
+      left: 12.5%;
+      animation-delay: 0.5s;
+      border-color: rgba(0, 166, 126, 0.25);
+    }
+
+    .neural-ring:nth-child(3) {
+      width: 50%;
+      height: 50%;
+      top: 25%;
+      left: 25%;
+      animation-delay: 1s;
+      border-color: rgba(0, 166, 126, 0.35);
+    }
+
+    .neural-ring:nth-child(4) {
+      width: 25%;
+      height: 25%;
+      top: 37.5%;
+      left: 37.5%;
+      animation-delay: 1.5s;
+      border-color: var(--ai-blue);
+    }
+
+    .neural-core {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ai-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 40px var(--ai-glow), 0 0 80px rgba(0, 166, 126, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .neural-core svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+    }
+
+    .neural-node {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--ai-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--ai-glow);
+    }
+
+    .neural-node:nth-child(6) { top: 10%; left: 48%; animation: float-node 3s ease-in-out infinite; }
+    .neural-node:nth-child(7) { top: 30%; left: 85%; animation: float-node 3.5s ease-in-out infinite 0.3s; }
+    .neural-node:nth-child(8) { top: 70%; left: 88%; animation: float-node 4s ease-in-out infinite 0.6s; }
+    .neural-node:nth-child(9) { top: 88%; left: 52%; animation: float-node 3.2s ease-in-out infinite 0.9s; }
+    .neural-node:nth-child(10) { top: 68%; left: 12%; animation: float-node 3.8s ease-in-out infinite 1.2s; }
+    .neural-node:nth-child(11) { top: 28%; left: 10%; animation: float-node 3.6s ease-in-out infinite 1.5s; }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    @keyframes float-node {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(-8px); opacity: 1; }
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ai-blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--dark-grey);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #5f6368;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    .section-center {
+      text-align: center;
+    }
+
+    .section-center .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== CAPABILITIES / FEATURES ===== */
+    .bg-light {
+      background: var(--light-grey);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 166, 126, 0.12);
+      border-color: rgba(0, 166, 126, 0.2);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 166, 126, 0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--ai-blue);
+      stroke: var(--ai-blue);
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.92rem;
+      color: #5f6368;
+      line-height: 1.65;
+    }
+
+    /* ===== API SECTION ===== */
+    .api-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .api-content h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 8px;
+    }
+
+    .api-content p {
+      font-size: 0.95rem;
+      color: #5f6368;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .api-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .api-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .api-feature-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      stroke: var(--ai-blue);
+    }
+
+    .api-feature-item span {
+      font-size: 0.95rem;
+      color: var(--dark-grey);
+      font-weight: 500;
+    }
+
+    .code-block {
+      background: var(--dark-grey);
+      border-radius: 12px;
+      padding: 28px;
+      overflow-x: auto;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .code-dot.red { background: #ff5f57; }
+    .code-dot.yellow { background: #febc2e; }
+    .code-dot.green { background: #28c840; }
+
+    .code-block pre {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: #e8eaed;
+    }
+
+    .code-keyword { color: var(--cyan); }
+    .code-string { color: #a8db8f; }
+    .code-comment { color: #5f6368; }
+    .code-func { color: #f0c674; }
+    .code-var { color: #e8eaed; }
+    .code-prop { color: #81a1c1; }
+
+    /* ===== USE CASES / TESTIMONIALS ===== */
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .usecase-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 32px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .usecase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .usecase-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 166, 126, 0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .usecase-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--ai-blue);
+    }
+
+    .usecase-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 8px;
+    }
+
+    .usecase-card p {
+      font-size: 0.9rem;
+      color: #5f6368;
+      line-height: 1.65;
+    }
+
+    /* ===== SECURITY ===== */
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .security-card {
+      text-align: center;
+      padding: 40px 24px;
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .security-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 166, 126, 0.1);
+    }
+
+    .security-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 166, 126, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .security-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--ai-blue);
+    }
+
+    .security-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark-grey);
+      margin-bottom: 8px;
+    }
+
+    .security-card p {
+      font-size: 0.9rem;
+      color: #5f6368;
+      line-height: 1.6;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-stars svg {
+      width: 16px;
+      height: 16px;
+      fill: #f59e0b;
+    }
+
+    .testimonial-card blockquote {
+      font-size: 0.95rem;
+      color: #5f6368;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--ai-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--dark-grey);
+    }
+
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: #5f6368;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card.featured {
+      background: var(--dark-grey);
+      color: var(--white);
+      border-color: var(--ai-blue);
+      box-shadow: 0 8px 40px var(--ai-glow);
+      transform: scale(1.04);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.04) translateY(-4px);
+    }
+
+    .pricing-popular {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ai-blue);
+      color: var(--white);
+      padding: 4px 20px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pricing-tier {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ai-blue);
+      margin-bottom: 16px;
+    }
+
+    .pricing-card.featured .pricing-tier {
+      color: rgba(0, 166, 126, 0.8);
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 0.6;
+    }
+
+    .pricing-desc {
+      font-size: 0.88rem;
+      opacity: 0.6;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features {
+      flex: 1;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      padding: 8px 0;
+    }
+
+    .pricing-features li svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .pricing-card .btn-pricing {
+      display: block;
+      text-align: center;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .pricing-card .btn-pricing-outline {
+      border: 2px solid var(--dark-grey);
+      color: var(--dark-grey);
+    }
+
+    .pricing-card .btn-pricing-outline:hover {
+      background: var(--dark-grey);
+      color: var(--white);
+    }
+
+    .pricing-card.featured .btn-pricing-fill {
+      background: var(--ai-blue);
+      color: var(--white);
+    }
+
+    .pricing-card.featured .btn-pricing-fill:hover {
+      background: #008f6c;
+      box-shadow: 0 4px 20px var(--ai-glow);
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-section {
+      background: var(--dark-grey);
+      color: var(--white);
+      text-align: center;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(ellipse, rgba(0, 166, 126, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(ellipse, rgba(0, 255, 255, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section .section-title {
+      color: var(--white);
+      font-size: 2.8rem;
+    }
+
+    .cta-section .section-subtitle {
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 40px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-cta-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--dark-grey);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-cta-white:hover {
+      background: var(--ai-blue);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--ai-glow);
+    }
+
+    .btn-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-cta-outline:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark-grey);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 64px 0 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--white);
+    }
+
+    .footer-logo span {
+      color: var(--ai-blue);
+    }
+
+    .footer-col h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col a {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.55);
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .footer-col a:hover {
+      color: var(--ai-blue);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      font-size: 0.8rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .footer-social a:hover {
+      background: var(--ai-blue);
+    }
+
+    .footer-social svg {
+      width: 18px;
+      height: 18px;
+      fill: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-social a:hover svg {
+      fill: var(--white);
+    }
+
+    /* ===== TYPING ANIMATION ===== */
+    .typing-text {
+      display: inline;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--ai-blue);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink-cursor 0.8s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ===== DATA FLOW ANIMATION ===== */
+    .data-flow-line {
+      position: absolute;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--ai-blue), transparent);
+      opacity: 0.15;
+      animation: data-flow 3s linear infinite;
+    }
+
+    @keyframes data-flow {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 2.8rem; }
+      .section-title { font-size: 2rem; }
+      .features-grid,
+      .usecases-grid,
+      .security-grid,
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-card.featured { transform: scale(1); }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+      .footer-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-brand { grid-column: 1 / -1; }
+      .api-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .navbar-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { display: none; }
+      .hero h1 { font-size: 2.3rem; }
+      .section { padding: 72px 0; }
+      .section-title { font-size: 1.8rem; }
+      .features-grid,
+      .usecases-grid,
+      .security-grid,
+      .testimonials-grid,
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: scale(1); }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .cta-section .section-title { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: 1.9rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .section-title { font-size: 1.55rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .btn-cta-white, .btn-cta-outline { width: 100%; justify-content: center; }
+    }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="navbar-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#00A67E"/>
+          <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="#fff" opacity="0.9"/>
+          <path d="M14 16L20 10L26 16L20 22L14 16Z" fill="#fff" opacity="0.6"/>
+        </svg>
+        Nexus<span>AI</span>
+      </a>
+      <div class="navbar-links" id="navLinks">
+        <a href="#capacidades">Capacidades</a>
+        <a href="#api">API</a>
+        <a href="#casos-de-uso">Casos de Uso</a>
+        <a href="#seguranca">Seguranca</a>
+        <a href="#precos">Precos</a>
+        <a href="#cta" class="btn-primary">Comece Gratis</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu de navegacao">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Novo: NexusAI v4.0 disponivel
+        </div>
+        <h1>
+          O Futuro da<br>
+          <span class="highlight">Inteligencia Artificial</span><br>
+          Comeca Aqui.
+        </h1>
+        <p>
+          Modelo de linguagem de proxima geracao projetado para desenvolvedores e empresas. 
+          Gere codigo, analise dados e automatize processos com precisao sem precedentes.
+        </p>
+        <div class="hero-buttons">
+          <a href="#cta" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            Acessar API Gratis
+          </a>
+          <a href="#capacidades" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Ver Demonstracao
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="neural-canvas">
+          <div class="neural-ring"></div>
+          <div class="neural-ring"></div>
+          <div class="neural-ring"></div>
+          <div class="neural-ring"></div>
+          <div class="neural-core">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/>
+              <path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/>
+              <path d="M12 22a4 4 0 0 1-4-4c0-1.95 1.4-3.58 3.25-3.93"/>
+              <path d="M12 22a4 4 0 0 0 4-4c0-1.95-1.4-3.58-3.25-3.93"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+          </div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPACIDADES DO MODELO -->
+  <section class="section bg-light" id="capacidades">
+    <div class="container">
+      <div class="section-center fade-up">
+        <p class="section-label">Capacidades</p>
+        <h2 class="section-title">Poder Computacional Sem Limites</h2>
+        <p class="section-subtitle">O NexusAI combina compreensao profunda de linguagem natural com capacidade de geracao de codigo, analise de dados e raciocinio logico avancado.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>Geracao de Codigo</h3>
+          <p>Gere codigo limpo e funcional em mais de 40 linguagens de programacao. Suporte a refatoracao, testes e documentacao automatica.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Compreensao Contextual</h3>
+          <p>Janela de contexto de 128K tokens permite analise de documentos extensos, bases de codigo completas e conversas longas sem perda de informacao.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h3>Analise de Dados</h3>
+          <p>Processe e interprete conjuntos de dados complexos. Gere insights, visualizacoes e relatorios automatizados com precisao estatistica.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>Automacao Inteligente</h3>
+          <p>Automatize fluxos de trabalho complexos com agentes de IA que planejam, executam e iteram sobre tarefas de forma autonoma.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3>Multimodalidade</h3>
+          <p>Processe texto, imagens e documentos em uma unica interface. Analise capturas de tela, diagramas e PDFs com compreensao visual avancada.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Seguranca Integrada</h3>
+          <p>Filtros de seguranca em multiplas camadas, deteccao de conteudo sensivel e conformidade com LGPD e regulamentacoes internacionais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API -->
+  <section class="section" id="api">
+    <div class="container">
+      <div class="api-grid">
+        <div class="api-content fade-up">
+          <p class="section-label">API para Desenvolvedores</p>
+          <h2 class="section-title">Integre em Minutos,<br>Escale sem Limites</h2>
+          <p>Nossa API RESTful foi projetada para ser simples de integrar e poderosa o suficiente para qualquer escala. SDKs oficiais para Python, Node.js, Go e mais.</p>
+          <div class="api-features-list">
+            <div class="api-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Latencia media de 120ms para respostas de streaming</span>
+            </div>
+            <div class="api-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>99.9% de uptime garantido com SLA empresarial</span>
+            </div>
+            <div class="api-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>SDKs oficiais para Python, Node.js, Go, Java e Rust</span>
+            </div>
+            <div class="api-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Webhooks, function calling e streaming nativo</span>
+            </div>
+          </div>
+          <a href="#" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Ver Documentacao
+          </a>
+        </div>
+        <div class="fade-up">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+            </div>
+            <pre><span class="code-keyword">import</span> <span class="code-var">NexusAI</span> <span class="code-keyword">from</span> <span class="code-string">'nexusai'</span>;
+
+<span class="code-keyword">const</span> <span class="code-var">client</span> = <span class="code-keyword">new</span> <span class="code-func">NexusAI</span>({
+  <span class="code-prop">apiKey</span>: process.env.<span class="code-var">NEXUS_API_KEY</span>,
+});
+
+<span class="code-keyword">const</span> <span class="code-var">resposta</span> = <span class="code-keyword">await</span> client.<span class="code-func">chat</span>({
+  <span class="code-prop">model</span>: <span class="code-string">'nexus-4-turbo'</span>,
+  <span class="code-prop">messages</span>: [{
+    <span class="code-prop">role</span>: <span class="code-string">'user'</span>,
+    <span class="code-prop">content</span>: <span class="code-string">'Analise este codigo e sugira melhorias de performance.'</span>
+  }],
+  <span class="code-prop">stream</span>: <span class="code-keyword">true</span>,
+});
+
+<span class="code-keyword">for await</span> (<span class="code-keyword">const</span> <span class="code-var">chunk</span> <span class="code-keyword">of</span> <span class="code-var">resposta</span>) {
+  process.stdout.<span class="code-func">write</span>(<span class="code-var">chunk</span>.<span class="code-prop">content</span>);
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS DE USO -->
+  <section class="section bg-light" id="casos-de-uso">
+    <div class="container">
+      <div class="section-center fade-up">
+        <p class="section-label">Casos de Uso</p>
+        <h2 class="section-title">Transforme Qualquer Setor</h2>
+        <p class="section-subtitle">Do desenvolvimento de software a analise financeira, o NexusAI se adapta as necessidades especificas de cada industria.</p>
+      </div>
+      <div class="usecases-grid">
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Desenvolvimento de Software</h3>
+          <p>Acelere o ciclo de desenvolvimento com geracao de codigo, revisao automatizada, debugging inteligente e documentacao automatica.</p>
+        </div>
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Financas e Fintech</h3>
+          <p>Analise de risco em tempo real, deteccao de fraudes, geracao de relatorios regulatorios e assistentes financeiros personalizados.</p>
+        </div>
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Saude e Pesquisa</h3>
+          <p>Analise de literatura medica, suporte a diagnostico, processamento de prontuarios e aceleracao de pesquisas clinicas.</p>
+        </div>
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h3>Educacao</h3>
+          <p>Tutores virtuais adaptativos, geracao de conteudo educacional, avaliacao automatizada e traducao academica especializada.</p>
+        </div>
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Atendimento ao Cliente</h3>
+          <p>Chatbots inteligentes com compreensao contextual, resolucao automatica de tickets e analise de sentimento em tempo real.</p>
+        </div>
+        <div class="usecase-card fade-up">
+          <div class="usecase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>E-commerce</h3>
+          <p>Recomendacoes personalizadas, descricoes de produtos automatizadas, otimizacao de busca e analise preditiva de vendas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURANCA E ETICA -->
+  <section class="section" id="seguranca">
+    <div class="container">
+      <div class="section-center fade-up">
+        <p class="section-label">Seguranca e Etica</p>
+        <h2 class="section-title">IA Responsavel por Design</h2>
+        <p class="section-subtitle">Construimos o NexusAI com seguranca, privacidade e etica como pilares fundamentais, nao como funcionalidades adicionais.</p>
+      </div>
+      <div class="security-grid">
+        <div class="security-card fade-up">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Privacidade de Dados</h3>
+          <p>Seus dados nunca sao usados para treinamento. Criptografia AES-256 em repouso e TLS 1.3 em transito. Conformidade total com LGPD.</p>
+        </div>
+        <div class="security-card fade-up">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Transparencia Total</h3>
+          <p>Modelo com rastreabilidade de decisoes, explicabilidade de respostas e auditorias regulares por terceiros independentes.</p>
+        </div>
+        <div class="security-card fade-up">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </div>
+          <h3>IA Etica</h3>
+          <p>Filtros contra vieses, conteudo prejudicial e desinformacao. Comite de etica dedicado e politicas de uso responsavel publicadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section bg-light" id="depoimentos">
+    <div class="container">
+      <div class="section-center fade-up">
+        <p class="section-label">Depoimentos</p>
+        <h2 class="section-title">Quem Ja Usa, Recomenda</h2>
+        <p class="section-subtitle">Milhares de desenvolvedores e empresas ja transformaram seus fluxos de trabalho com o NexusAI.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"O NexusAI reduziu nosso tempo de desenvolvimento em 60%. A qualidade do codigo gerado e impressionante e a API e extremamente facil de integrar."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RC</div>
+            <div>
+              <div class="testimonial-name">Ricardo Campos</div>
+              <div class="testimonial-role">CTO, TechFlow Brasil</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"A capacidade de analise de dados do NexusAI transformou nossa operacao. Geramos relatorios que antes levavam dias em questao de minutos."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AS</div>
+            <div>
+              <div class="testimonial-name">Ana Silva</div>
+              <div class="testimonial-role">Head de Dados, FinanceiraPlus</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"Implementamos o NexusAI no nosso atendimento ao cliente e a satisfacao subiu 45%. As respostas sao naturais e precisas."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">ML</div>
+            <div>
+              <div class="testimonial-name">Marcos Lima</div>
+              <div class="testimonial-role">VP de Operacoes, ServicoJa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECOS -->
+  <section class="section" id="precos">
+    <div class="container">
+      <div class="section-center fade-up">
+        <p class="section-label">Planos e Precos</p>
+        <h2 class="section-title">Escale Conforme Sua Necessidade</h2>
+        <p class="section-subtitle">Comece gratuitamente e evolua para planos empresariais conforme sua demanda cresce. Sem surpresas na fatura.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Plano Starter -->
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">Gratis <span></span></div>
+          <div class="pricing-desc">Para explorar e prototipar</div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              100K tokens por mes
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Acesso ao modelo nexus-4
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte via comunidade
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Playground interativo
+            </li>
+          </ul>
+          <a href="#" class="btn-pricing btn-pricing-outline">Comecar Gratis</a>
+        </div>
+        <!-- Plano Pro -->
+        <div class="pricing-card featured fade-up">
+          <div class="pricing-popular">Mais Popular</div>
+          <div class="pricing-tier">Pro</div>
+          <div class="pricing-price">R$ 197 <span>/mes</span></div>
+          <div class="pricing-desc">Para equipes e startups</div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              5M tokens por mes
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Acesso ao nexus-4-turbo
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritario 24/7
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Function calling e streaming
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Fine-tuning basico
+            </li>
+          </ul>
+          <a href="#" class="btn-pricing btn-pricing-fill">Assinar Pro</a>
+        </div>
+        <!-- Plano Enterprise -->
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-price">Sob Consulta</div>
+          <div class="pricing-desc">Para grandes organizacoes</div>
+          <ul class="pricing-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Tokens ilimitados
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Modelo dedicado e fine-tuning
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA 99.99% garantido
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Deploy on-premise disponivel
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00A67E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerente de conta dedicado
+            </li>
+          </ul>
+          <a href="#" class="btn-pricing btn-pricing-outline">Falar com Vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section" id="cta">
+    <div class="container section-center">
+      <p class="section-label" style="color: rgba(0,166,126,0.8);">Comece Agora</p>
+      <h2 class="section-title">Pronto para Construir o Futuro<br>com Inteligencia Artificial?</h2>
+      <p class="section-subtitle" style="margin-left:auto;margin-right:auto;">Junte-se a mais de 50.000 desenvolvedores e 2.000 empresas que ja utilizam o NexusAI para transformar seus produtos e processos.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-cta-white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          Criar Conta Gratis
+        </a>
+        <a href="#" class="btn-cta-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Falar com Especialista
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="#00A67E"/>
+              <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="#fff" opacity="0.9"/>
+              <path d="M14 16L20 10L26 16L20 22L14 16Z" fill="#fff" opacity="0.6"/>
+            </svg>
+            Nexus<span>AI</span>
+          </div>
+          <p>Modelo de linguagem de proxima geracao para desenvolvedores e empresas. Construindo o futuro da inteligencia artificial de forma responsavel.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#capacidades">Capacidades</a></li>
+            <li><a href="#api">API</a></li>
+            <li><a href="#precos">Precos</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Desenvolvedores</h4>
+          <ul>
+            <li><a href="#">Documentacao</a></li>
+            <li><a href="#">Guia de Inicio</a></li>
+            <li><a href="#">Referencia da API</a></li>
+            <li><a href="#">SDKs</a></li>
+            <li><a href="#">Exemplos</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre Nos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Carreiras</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="#">Imprensa</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Politica de Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Politica de Cookies</a></li>
+            <li><a href="#">Uso Responsavel</a></li>
+            <li><a href="#">LGPD</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 NexusAI. Todos os direitos reservados.</p>
+        <div class="footer-social">
+          <!-- GitHub -->
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <!-- Twitter/X -->
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      const spans = hamburger.querySelectorAll('span');
+      if (navLinks.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('active');
+        var spans = hamburger.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+
+    // Navbar scroll effect
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Scroll reveal animation
+    var fadeElements = document.querySelectorAll('.fade-up');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeElements.forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Typing animation for hero
+    var heroHighlight = document.querySelector('.hero h1 .highlight');
+    if (heroHighlight) {
+      var texts = ['Inteligencia Artificial', 'IA Generativa', 'Modelos de Linguagem'];
+      var textIndex = 0;
+      var charIndex = 0;
+      var isDeleting = false;
+      var typingSpeed = 80;
+
+      function typeEffect() {
+        var current = texts[textIndex];
+        if (isDeleting) {
+          heroHighlight.textContent = current.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          heroHighlight.textContent = current.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        if (!isDeleting && charIndex === current.length) {
+          setTimeout(function() { isDeleting = true; typeEffect(); }, 2000);
+          return;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+        }
+
+        var speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typeEffect, speed);
+      }
+
+      setTimeout(typeEffect, 2500);
+    }
+  </script>
+
+</body>
+</html>

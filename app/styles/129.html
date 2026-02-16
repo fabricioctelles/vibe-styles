@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EUV Litho — Tecnologia de Litografia EUV para Semicondutores</title>
+  <meta name="description" content="Soluções avançadas em litografia EUV para fabricação de semicondutores de última geração. Precisão nanométrica para a próxima era da tecnologia.">
+  <meta property="og:title" content="EUV Litho — Litografia EUV para Semicondutores">
+  <meta property="og:description" content="Soluções avançadas em litografia EUV para fabricação de semicondutores de última geração.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Source Sans 3"', 'sans-serif'] },
+          colors: {
+            'sci-blue': '#003366',
+            'silver': '#C0C0C0',
+            'charcoal': '#36454F',
+            'electric': '#00BFFF',
+            'neon-green': '#00FF00',
+            'accent-orange': '#FFA500',
+            'light-grey': '#D3D3D3',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', sans-serif; color: #003366; background: #FFFFFF; }
+    a, button, [role="button"] { cursor: pointer; }
+    .hover-lift { transition: transform 200ms ease, box-shadow 200ms ease; cursor: pointer; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,51,102,0.12); }
+    @media (prefers-reduced-motion: reduce) {
+      .hover-lift, .euv-beam, .pulse-ring { transition: none !important; animation: none !important; }
+      .hover-lift:hover { transform: none; }
+    }
+    .euv-beam { animation: beamPulse 3s ease-in-out infinite; }
+    @keyframes beamPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    .pulse-ring { animation: ringPulse 2.5s ease-in-out infinite; }
+    @keyframes ringPulse { 0%,100% { r: 58; opacity: 0.3; } 50% { r: 64; opacity: 0.6; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-4 left-4 right-4 z-50 bg-white/90 backdrop-blur-md border border-light-grey rounded-xl shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 font-bold text-xl text-sci-blue">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="#003366" stroke-width="2"/>
+          <circle cx="16" cy="16" r="8" stroke="#00BFFF" stroke-width="1.5"/>
+          <circle cx="16" cy="16" r="3" fill="#003366"/>
+          <line x1="16" y1="2" x2="16" y2="8" stroke="#003366" stroke-width="1.5"/>
+          <line x1="16" y1="24" x2="16" y2="30" stroke="#003366" stroke-width="1.5"/>
+          <line x1="2" y1="16" x2="8" y2="16" stroke="#003366" stroke-width="1.5"/>
+          <line x1="24" y1="16" x2="30" y2="16" stroke="#003366" stroke-width="1.5"/>
+        </svg>
+        EUV Litho
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal">
+        <a href="#recursos" class="hover:text-sci-blue transition-colors duration-200">Recursos</a>
+        <a href="#depoimentos" class="hover:text-sci-blue transition-colors duration-200">Depoimentos</a>
+        <a href="#precos" class="hover:text-sci-blue transition-colors duration-200">Planos</a>
+        <a href="#contato" class="inline-block bg-sci-blue text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-electric transition-colors duration-200">Solicitar Demo</a>
+      </div>
+      <button class="md:hidden text-sci-blue" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3 text-sm font-medium text-charcoal">
+      <a href="#recursos" class="block py-2 hover:text-sci-blue transition-colors duration-200">Recursos</a>
+      <a href="#depoimentos" class="block py-2 hover:text-sci-blue transition-colors duration-200">Depoimentos</a>
+      <a href="#precos" class="block py-2 hover:text-sci-blue transition-colors duration-200">Planos</a>
+      <a href="#contato" class="block bg-sci-blue text-white text-center px-5 py-2.5 rounded-lg font-semibold">Solicitar Demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-6 pt-28 pb-20 bg-gradient-to-br from-white via-white to-light-grey/40">
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-electric uppercase tracking-[0.25em] text-sm font-semibold mb-5">Precisão em escala nanométrica</p>
+        <h1 class="text-4xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6 text-sci-blue">
+          Litografia EUV<br>de próxima geração.
+        </h1>
+        <p class="text-lg text-charcoal max-w-lg leading-relaxed mb-10">
+          Plataformas de litografia por ultravioleta extremo que definem o futuro da fabricação de semicondutores. Resolução sub-7nm com produtividade industrial.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="inline-block bg-sci-blue text-white px-8 py-4 rounded-lg text-sm font-semibold uppercase tracking-wider hover:bg-electric transition-colors duration-200 hover-lift">
+            Ver Planos
+          </a>
+          <a href="#recursos" class="inline-block border-2 border-sci-blue text-sci-blue px-8 py-4 rounded-lg text-sm font-semibold uppercase tracking-wider hover:bg-sci-blue hover:text-white transition-colors duration-200">
+            Saiba Mais
+          </a>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <svg viewBox="0 0 400 400" width="380" height="380" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de sistema de litografia EUV">
+          <!-- Outer housing -->
+          <rect x="60" y="40" width="280" height="320" rx="12" stroke="#003366" stroke-width="2" fill="#F8FAFC"/>
+          <!-- EUV source -->
+          <rect x="160" y="60" width="80" height="40" rx="4" fill="#003366"/>
+          <text x="200" y="85" text-anchor="middle" fill="#FFF" font-size="11" font-family="Source Sans 3">EUV Source</text>
+          <!-- Beam path -->
+          <line x1="200" y1="100" x2="200" y2="160" stroke="#00BFFF" stroke-width="3" class="euv-beam"/>
+          <line x1="200" y1="160" x2="200" y2="220" stroke="#00BFFF" stroke-width="2" stroke-dasharray="6 3" class="euv-beam"/>
+          <!-- Mirror assembly -->
+          <ellipse cx="200" cy="160" rx="40" ry="12" stroke="#C0C0C0" stroke-width="2" fill="#C0C0C0" fill-opacity="0.2"/>
+          <text x="200" y="164" text-anchor="middle" fill="#36454F" font-size="9" font-family="Source Sans 3">Espelhos ML</text>
+          <!-- Reticle -->
+          <rect x="165" y="210" width="70" height="25" rx="3" stroke="#003366" stroke-width="1.5" fill="#003366" fill-opacity="0.08"/>
+          <text x="200" y="227" text-anchor="middle" fill="#003366" font-size="9" font-family="Source Sans 3">Retícula</text>
+          <!-- Projection optics -->
+          <circle cx="200" cy="275" r="25" stroke="#00BFFF" stroke-width="1.5" fill="#00BFFF" fill-opacity="0.08"/>
+          <circle cx="200" cy="275" r="15" stroke="#003366" stroke-width="1" fill="none"/>
+          <text x="200" y="279" text-anchor="middle" fill="#003366" font-size="8" font-family="Source Sans 3">Óptica</text>
+          <!-- Wafer -->
+          <rect x="140" y="320" width="120" height="20" rx="10" fill="#C0C0C0" fill-opacity="0.4" stroke="#36454F" stroke-width="1.5"/>
+          <text x="200" y="334" text-anchor="middle" fill="#36454F" font-size="9" font-family="Source Sans 3">Wafer 300mm</text>
+          <!-- Beam to wafer -->
+          <line x1="200" y1="300" x2="200" y2="320" stroke="#00FF00" stroke-width="2" class="euv-beam"/>
+          <!-- Specs labels -->
+          <text x="320" y="90" fill="#C0C0C0" font-size="9" font-family="Source Sans 3">13.5nm λ</text>
+          <text x="320" y="170" fill="#C0C0C0" font-size="9" font-family="Source Sans 3">0.33 NA</text>
+          <text x="320" y="280" fill="#C0C0C0" font-size="9" font-family="Source Sans 3">&lt;7nm nó</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="px-6 py-24 bg-sci-blue">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-14">
+        <p class="text-electric uppercase tracking-[0.25em] text-sm font-semibold mb-3">Recursos</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Engenharia de precisão absoluta.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-8 hover-lift">
+          <svg class="w-10 h-10 mb-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" stroke="#00BFFF" stroke-width="1.5"/>
+            <circle cx="20" cy="20" r="12" stroke="#00BFFF" stroke-width="1"/>
+            <circle cx="20" cy="20" r="6" stroke="#00BFFF" stroke-width="1"/>
+            <circle cx="20" cy="20" r="2" fill="#00BFFF"/>
+            <line x1="20" y1="2" x2="20" y2="10" stroke="#C0C0C0" stroke-width="1"/>
+            <line x1="20" y1="30" x2="20" y2="38" stroke="#C0C0C0" stroke-width="1"/>
+            <line x1="2" y1="20" x2="10" y2="20" stroke="#C0C0C0" stroke-width="1"/>
+            <line x1="30" y1="20" x2="38" y2="20" stroke="#C0C0C0" stroke-width="1"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3 text-white">Resolução Sub-7nm</h3>
+          <p class="text-silver leading-relaxed">Comprimento de onda de 13.5nm permite padronização em nós tecnológicos de 7nm, 5nm e 3nm com fidelidade excepcional.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-8 hover-lift">
+          <svg class="w-10 h-10 mb-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="8" width="32" height="24" rx="3" stroke="#00BFFF" stroke-width="1.5"/>
+            <line x1="4" y1="16" x2="36" y2="16" stroke="#C0C0C0" stroke-width="0.8"/>
+            <line x1="4" y1="24" x2="36" y2="24" stroke="#C0C0C0" stroke-width="0.8"/>
+            <line x1="14" y1="8" x2="14" y2="32" stroke="#C0C0C0" stroke-width="0.8"/>
+            <line x1="26" y1="8" x2="26" y2="32" stroke="#C0C0C0" stroke-width="0.8"/>
+            <circle cx="20" cy="20" r="5" stroke="#00FF00" stroke-width="1.5"/>
+            <path d="M17 20l2 2 4-4" stroke="#00FF00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3 text-white">Overlay &lt; 1.5nm</h3>
+          <p class="text-silver leading-relaxed">Sistema de alinhamento multi-camada com precisão de overlay inferior a 1.5nm, garantindo integridade estrutural do chip.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-8 hover-lift">
+          <svg class="w-10 h-10 mb-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="28" width="6" height="8" fill="#00BFFF" fill-opacity="0.6" rx="1"/>
+            <rect x="14" y="22" width="6" height="14" fill="#00BFFF" fill-opacity="0.7" rx="1"/>
+            <rect x="22" y="14" width="6" height="22" fill="#00BFFF" fill-opacity="0.85" rx="1"/>
+            <rect x="30" y="6" width="6" height="30" fill="#00BFFF" rx="1"/>
+            <path d="M8 26 L16 20 L24 12 L32 4" stroke="#FFA500" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="4" r="2" fill="#FFA500"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3 text-white">Throughput 170+ WPH</h3>
+          <p class="text-silver leading-relaxed">Produtividade de mais de 170 wafers por hora com fonte de luz EUV de alta potência, otimizando custo por chip.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="depoimentos" class="px-6 py-24 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-14">
+        <p class="text-electric uppercase tracking-[0.25em] text-sm font-semibold mb-3">Depoimentos</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-sci-blue">Confiança da indústria global.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="border border-light-grey rounded-xl p-8 hover-lift">
+          <svg class="w-8 h-8 mb-4 text-electric" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C9.591 11.69 11 13.166 11 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C19.591 11.69 21 13.166 21 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679z"/></svg>
+          <p class="text-charcoal leading-relaxed mb-6">"A transição para EUV nos permitiu alcançar o nó de 5nm com rendimento superior a 95%. A precisão do sistema é incomparável."</p>
+          <div class="border-t border-light-grey pt-4">
+            <p class="font-bold text-sci-blue">Dr. Marcos Tanaka</p>
+            <p class="text-silver text-sm">VP de Fabricação, NanoChip Brasil</p>
+          </div>
+        </div>
+        <div class="border border-light-grey rounded-xl p-8 hover-lift">
+          <svg class="w-8 h-8 mb-4 text-electric" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C9.591 11.69 11 13.166 11 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C19.591 11.69 21 13.166 21 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679z"/></svg>
+          <p class="text-charcoal leading-relaxed mb-6">"Reduzimos o custo por transistor em 30% com a migração para litografia EUV. O throughput superou nossas expectativas."</p>
+          <div class="border-t border-light-grey pt-4">
+            <p class="font-bold text-sci-blue">Eng. Carolina Ferreira</p>
+            <p class="text-silver text-sm">Diretora de Processo, SemiTech</p>
+          </div>
+        </div>
+        <div class="border border-light-grey rounded-xl p-8 hover-lift">
+          <svg class="w-8 h-8 mb-4 text-electric" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C9.591 11.69 11 13.166 11 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C19.591 11.69 21 13.166 21 15c0 1.933-1.567 3.5-3.5 3.5-1.196 0-2.217-.58-2.917-1.679z"/></svg>
+          <p class="text-charcoal leading-relaxed mb-6">"O suporte técnico e a estabilidade do sistema são excepcionais. Operamos 24/7 com uptime de 99.2% no último trimestre."</p>
+          <div class="border-t border-light-grey pt-4">
+            <p class="font-bold text-sci-blue">Dr. Ricardo Almeida</p>
+            <p class="text-silver text-sm">CTO, Quantum Foundry</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-24 bg-gradient-to-b from-light-grey/30 to-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-14 text-center">
+        <p class="text-electric uppercase tracking-[0.25em] text-sm font-semibold mb-3">Planos</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-sci-blue">Soluções para cada escala de produção.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <!-- Plan 1 -->
+        <div class="border border-light-grey rounded-xl p-8 bg-white hover-lift flex flex-col">
+          <p class="text-silver uppercase tracking-[0.2em] text-xs font-semibold mb-4">Pesquisa</p>
+          <p class="text-4xl font-bold text-sci-blue mb-2">R$ 18.900<span class="text-base font-normal text-silver">/mês</span></p>
+          <p class="text-charcoal text-sm mb-8">Para laboratórios e P&D</p>
+          <ul class="space-y-3 mb-10 text-sm text-charcoal flex-grow">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Acesso ao sistema EUV básico
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              50 horas de feixe/mês
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte técnico padrão
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Relatórios de metrologia
+            </li>
+          </ul>
+          <a href="#contato" class="block text-center border-2 border-sci-blue text-sci-blue py-3 rounded-lg text-sm font-semibold uppercase tracking-wider hover:bg-sci-blue hover:text-white transition-colors duration-200">Solicitar</a>
+        </div>
+        <!-- Plan 2 (Highlighted) -->
+        <div class="border-2 border-electric rounded-xl p-8 bg-sci-blue text-white relative hover-lift flex flex-col shadow-xl shadow-sci-blue/20">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-electric text-sci-blue text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full">Mais Popular</span>
+          <p class="text-electric uppercase tracking-[0.2em] text-xs font-semibold mb-4">Produção</p>
+          <p class="text-4xl font-bold mb-2">R$ 49.900<span class="text-base font-normal text-silver">/mês</span></p>
+          <p class="text-silver text-sm mb-8">Para fábricas em operação</p>
+          <ul class="space-y-3 mb-10 text-sm flex-grow">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Sistema EUV de alta potência
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Horas ilimitadas de feixe
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte 24/7 prioritário
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Overlay &lt; 1.5nm garantido
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Treinamento de equipe incluso
+            </li>
+          </ul>
+          <a href="#contato" class="block text-center bg-electric text-sci-blue py-3 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white transition-colors duration-200">Solicitar</a>
+        </div>
+        <!-- Plan 3 -->
+        <div class="border border-light-grey rounded-xl p-8 bg-white hover-lift flex flex-col">
+          <p class="text-silver uppercase tracking-[0.2em] text-xs font-semibold mb-4">Enterprise</p>
+          <p class="text-4xl font-bold text-sci-blue mb-2">Sob consulta</p>
+          <p class="text-charcoal text-sm mb-8">Para operações em larga escala</p>
+          <ul class="space-y-3 mb-10 text-sm text-charcoal flex-grow">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Múltiplos sistemas EUV
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              High-NA EUV disponível
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Engenheiro residente dedicado
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA 99.5% uptime
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Integração com fab completa
+            </li>
+          </ul>
+          <a href="#contato" class="block text-center border-2 border-sci-blue text-sci-blue py-3 rounded-lg text-sm font-semibold uppercase tracking-wider hover:bg-sci-blue hover:text-white transition-colors duration-200">Fale Conosco</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contato" class="px-6 py-24 bg-sci-blue relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00BFFF" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+      </svg>
+    </div>
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <svg class="w-16 h-16 mx-auto mb-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" stroke="#00BFFF" stroke-width="1.5" class="pulse-ring"/>
+        <circle cx="32" cy="32" r="18" stroke="#C0C0C0" stroke-width="1"/>
+        <circle cx="32" cy="32" r="8" fill="#00BFFF" fill-opacity="0.3" stroke="#00BFFF" stroke-width="1.5"/>
+        <circle cx="32" cy="32" r="3" fill="#00BFFF"/>
+      </svg>
+      <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">Pronto para o próximo nó tecnológico?</h2>
+      <p class="text-silver text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+        Entre em contato com nossos especialistas e descubra como a litografia EUV pode transformar sua linha de produção de semicondutores.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="inline-block bg-electric text-sci-blue px-10 py-4 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white transition-colors duration-200 hover-lift">
+          Agendar Demonstração
+        </a>
+        <a href="#" class="inline-block border-2 border-silver text-silver px-10 py-4 rounded-lg text-sm font-semibold uppercase tracking-wider hover:border-white hover:text-white transition-colors duration-200">
+          Baixar Whitepaper
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-16 bg-charcoal">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-sm">
+      <div>
+        <a href="#" class="flex items-center gap-2 font-bold text-xl text-white mb-4">
+          <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="#00BFFF" stroke-width="2"/>
+            <circle cx="16" cy="16" r="8" stroke="#C0C0C0" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="3" fill="#00BFFF"/>
+          </svg>
+          EUV Litho
+        </a>
+        <p class="text-silver leading-relaxed">Tecnologia de litografia EUV de ponta para a fabricação de semicondutores do futuro.</p>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs text-white mb-4">Produto</p>
+        <ul class="space-y-2 text-silver">
+          <li><a href="#recursos" class="hover:text-electric transition-colors duration-200">Recursos</a></li>
+          <li><a href="#precos" class="hover:text-electric transition-colors duration-200">Planos</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Documentação</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs text-white mb-4">Empresa</p>
+        <ul class="space-y-2 text-silver">
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Sobre Nós</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Carreiras</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Blog</a></li>
+          <li><a href="#contato" class="hover:text-electric transition-colors duration-200">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs text-white mb-4">Legal</p>
+        <ul class="space-y-2 text-silver">
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Privacidade</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Termos de Uso</a></li>
+          <li><a href="#" class="hover:text-electric transition-colors duration-200">Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-silver text-xs">&copy; 2026 EUV Litho. Todos os direitos reservados.</p>
+      <div class="flex items-center gap-5">
+        <!-- LinkedIn -->
+        <a href="#" aria-label="LinkedIn" class="text-silver hover:text-electric transition-colors duration-200">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="#" aria-label="X (Twitter)" class="text-silver hover:text-electric transition-colors duration-200">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <!-- YouTube -->
+        <a href="#" aria-label="YouTube" class="text-silver hover:text-electric transition-colors duration-200">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <!-- GitHub -->
+        <a href="#" aria-label="GitHub" class="text-silver hover:text-electric transition-colors duration-200">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

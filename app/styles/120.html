@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuralCloud AI — Plataforma de Desenvolvimento de IA na Nuvem</title>
+  <meta name="description" content="Desenvolva, treine e implante modelos de IA com infraestrutura de computação acelerada. Deep learning, redes neurais e data science na nuvem.">
+  <meta name="keywords" content="IA, inteligência artificial, deep learning, machine learning, nuvem, GPU, redes neurais, data science">
+  <meta property="og:title" content="NeuralCloud AI — Plataforma de IA na Nuvem">
+  <meta property="og:description" content="Infraestrutura de computação acelerada para treinar e implantar modelos de IA em escala.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['Roboto Mono', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            'accent-green': '#76B900',
+            'charcoal': '#2A2A2A',
+            'cool-grey': '#4A4A4A',
+            'deep-black': '#1A1A1A',
+            'electric-blue': '#00BFFF',
+            'circuit-green': '#6EFA5F',
+            'light-grey': '#BDBDBD',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #FFFFFF; background: #1A1A1A; }
+
+    .font-tech { font-family: 'Roboto Mono', monospace; }
+
+    .glow-text { text-shadow: 0 0 8px rgba(118, 185, 0, 0.3); }
+    .glow-text-blue { text-shadow: 0 0 8px rgba(0, 191, 255, 0.3); }
+
+    .card-inset {
+      background: #2A2A2A;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+      border-left: 3px solid #76B900;
+    }
+
+    .card-hover {
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(118, 185, 0, 0.15), inset 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    a, button, [role="button"], .interactive { cursor: pointer; }
+
+    .btn-primary {
+      background: #76B900;
+      color: #1A1A1A;
+      transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+    .btn-primary:hover {
+      background: #8AD400;
+      box-shadow: 0 0 20px rgba(118, 185, 0, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 2px solid #76B900;
+      color: #76B900;
+      background: transparent;
+      transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+    }
+    .btn-outline:hover {
+      background: rgba(118, 185, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .container-main { max-width: 1200px; margin: 0 auto; }
+
+    /* Neural network animation */
+    .neural-canvas {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+    }
+    .neural-node {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #76B900;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(118, 185, 0, 0.6);
+      animation: pulse-node 2s ease-in-out infinite;
+    }
+    .neural-node.blue {
+      background: #00BFFF;
+      box-shadow: 0 0 12px rgba(0, 191, 255, 0.6);
+      animation-delay: 0.5s;
+    }
+    .neural-node.circuit {
+      background: #6EFA5F;
+      box-shadow: 0 0 12px rgba(110, 250, 95, 0.6);
+      animation-delay: 1s;
+    }
+    @keyframes pulse-node {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(118, 185, 0, 0.4), transparent);
+      transform-origin: left center;
+      animation: flow-data 3s linear infinite;
+    }
+    .neural-line.blue {
+      background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.3), transparent);
+      animation-delay: 1.5s;
+    }
+    @keyframes flow-data {
+      0% { opacity: 0.2; }
+      50% { opacity: 0.8; }
+      100% { opacity: 0.2; }
+    }
+
+    /* Data flow gradient */
+    .gradient-flow {
+      background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 50%, #1A1A1A 100%);
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #4A4A4A, transparent);
+    }
+
+    /* Pricing highlight */
+    .pricing-highlight {
+      border: 2px solid #76B900;
+      box-shadow: 0 0 30px rgba(118, 185, 0, 0.15);
+      position: relative;
+    }
+    .pricing-highlight::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #76B900;
+      color: #1A1A1A;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 16px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1A1A1A; }
+    ::-webkit-scrollbar-thumb { background: #4A4A4A; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #76B900; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-hover { transition: none; }
+      .card-hover:hover { transform: none; }
+      .btn-primary:hover { transform: none; }
+      .btn-outline:hover { transform: none; }
+      .neural-node { animation: none; opacity: 0.8; }
+      .neural-line { animation: none; opacity: 0.4; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-4 left-4 right-4 z-50 bg-deep-black/90 backdrop-blur-md rounded-lg border border-cool-grey/30">
+    <div class="container-main px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 cursor-pointer">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none">
+          <path d="M16 2L4 9v14l12 7 12-7V9L16 2z" stroke="#76B900" stroke-width="2" fill="none"/>
+          <circle cx="16" cy="16" r="4" fill="#76B900"/>
+          <line x1="16" y1="12" x2="16" y2="4" stroke="#76B900" stroke-width="1.5"/>
+          <line x1="20" y1="14" x2="26" y2="10" stroke="#76B900" stroke-width="1.5"/>
+          <line x1="20" y1="18" x2="26" y2="22" stroke="#76B900" stroke-width="1.5"/>
+          <line x1="16" y1="20" x2="16" y2="28" stroke="#76B900" stroke-width="1.5"/>
+          <line x1="12" y1="18" x2="6" y2="22" stroke="#76B900" stroke-width="1.5"/>
+          <line x1="12" y1="14" x2="6" y2="10" stroke="#76B900" stroke-width="1.5"/>
+        </svg>
+        <span class="font-tech font-bold text-lg glow-text">NeuralCloud</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-tech">
+        <a href="#plataforma" class="text-light-grey hover:text-accent-green transition-colors duration-200">Plataforma</a>
+        <a href="#modelos" class="text-light-grey hover:text-accent-green transition-colors duration-200">Modelos</a>
+        <a href="#infraestrutura" class="text-light-grey hover:text-accent-green transition-colors duration-200">Infraestrutura</a>
+        <a href="#casos" class="text-light-grey hover:text-accent-green transition-colors duration-200">Casos de Uso</a>
+        <a href="#precos" class="text-light-grey hover:text-accent-green transition-colors duration-200">Preços</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hidden sm:inline-block text-sm font-tech text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Login</a>
+        <a href="#precos" class="btn-primary px-5 py-2 rounded text-sm font-tech font-semibold cursor-pointer">Começar Grátis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-6 pt-24 pb-20 gradient-flow">
+    <div class="container-main w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="font-tech text-accent-green uppercase tracking-[0.25em] text-sm mb-6 glow-text">Computação Acelerada por IA</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
+          Construa IA<br>
+          <span class="text-accent-green glow-text">sem limites.</span>
+        </h1>
+        <p class="text-lg text-light-grey max-w-lg leading-relaxed mb-10">
+          Plataforma completa para desenvolver, treinar e implantar modelos de deep learning com infraestrutura GPU de última geração na nuvem.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="btn-primary px-8 py-4 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+            Iniciar Agora
+          </a>
+          <a href="#plataforma" class="btn-outline px-8 py-4 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+            Ver Plataforma
+          </a>
+        </div>
+        <div class="flex items-center gap-8 mt-12 font-tech text-sm text-light-grey">
+          <div>
+            <span class="text-2xl font-bold text-white block">99.9%</span>
+            Uptime SLA
+          </div>
+          <div class="w-px h-10 bg-cool-grey"></div>
+          <div>
+            <span class="text-2xl font-bold text-white block">10x</span>
+            Mais rápido
+          </div>
+          <div class="w-px h-10 bg-cool-grey"></div>
+          <div>
+            <span class="text-2xl font-bold text-white block">50+</span>
+            Modelos pré-treinados
+          </div>
+        </div>
+      </div>
+      <div class="hidden lg:block">
+        <div class="neural-canvas" aria-hidden="true">
+          <!-- Layer 1 -->
+          <div class="neural-node" style="top:10%;left:10%"></div>
+          <div class="neural-node" style="top:30%;left:8%"></div>
+          <div class="neural-node blue" style="top:50%;left:12%"></div>
+          <div class="neural-node" style="top:70%;left:9%"></div>
+          <div class="neural-node circuit" style="top:90%;left:11%"></div>
+          <!-- Layer 2 -->
+          <div class="neural-node blue" style="top:20%;left:35%"></div>
+          <div class="neural-node" style="top:40%;left:33%"></div>
+          <div class="neural-node circuit" style="top:60%;left:36%"></div>
+          <div class="neural-node blue" style="top:80%;left:34%"></div>
+          <!-- Layer 3 -->
+          <div class="neural-node" style="top:15%;left:60%"></div>
+          <div class="neural-node circuit" style="top:35%;left:58%"></div>
+          <div class="neural-node blue" style="top:55%;left:62%"></div>
+          <div class="neural-node" style="top:75%;left:59%"></div>
+          <div class="neural-node blue" style="top:92%;left:61%"></div>
+          <!-- Layer 4 (output) -->
+          <div class="neural-node" style="top:30%;left:88%"></div>
+          <div class="neural-node circuit" style="top:50%;left:90%"></div>
+          <div class="neural-node" style="top:70%;left:87%"></div>
+          <!-- Connection lines -->
+          <div class="neural-line" style="top:12%;left:14%;width:20%;transform:rotate(5deg)"></div>
+          <div class="neural-line blue" style="top:32%;left:13%;width:19%;transform:rotate(4deg)"></div>
+          <div class="neural-line" style="top:52%;left:16%;width:17%;transform:rotate(-3deg)"></div>
+          <div class="neural-line" style="top:72%;left:13%;width:20%;transform:rotate(5deg)"></div>
+          <div class="neural-line blue" style="top:22%;left:39%;width:19%;transform:rotate(-2deg)"></div>
+          <div class="neural-line" style="top:42%;left:37%;width:20%;transform:rotate(-4deg)"></div>
+          <div class="neural-line" style="top:62%;left:40%;width:18%;transform:rotate(3deg)"></div>
+          <div class="neural-line blue" style="top:82%;left:38%;width:20%;transform:rotate(-8deg)"></div>
+          <div class="neural-line" style="top:17%;left:64%;width:22%;transform:rotate(6deg)"></div>
+          <div class="neural-line" style="top:37%;left:62%;width:24%;transform:rotate(-2deg)"></div>
+          <div class="neural-line blue" style="top:57%;left:66%;width:20%;transform:rotate(-4deg)"></div>
+          <div class="neural-line" style="top:77%;left:63%;width:22%;transform:rotate(-3deg)"></div>
+          <!-- Central glow -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-accent-green/5 blur-3xl"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PLATAFORMA -->
+  <section id="plataforma" class="px-6 py-24 bg-charcoal">
+    <div class="container-main">
+      <div class="mb-16">
+        <p class="font-tech text-accent-green uppercase tracking-[0.25em] text-sm mb-3 glow-text">Plataforma</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Tudo que você precisa para IA.</h2>
+        <p class="text-light-grey max-w-2xl">Ambiente integrado de desenvolvimento, treinamento e deploy com ferramentas otimizadas para cada etapa do pipeline de machine learning.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card-inset card-hover rounded-lg p-8">
+          <svg class="w-10 h-10 mb-6 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3">IDE Inteligente</h3>
+          <p class="text-light-grey leading-relaxed text-sm">Ambiente de desenvolvimento com autocompletar por IA, debugging visual de tensores e integração nativa com Jupyter Notebooks.</p>
+        </div>
+        <div class="card-inset card-hover rounded-lg p-8">
+          <svg class="w-10 h-10 mb-6 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3">Treinamento Distribuído</h3>
+          <p class="text-light-grey leading-relaxed text-sm">Escale treinamentos em múltiplas GPUs automaticamente. Suporte a PyTorch, TensorFlow e JAX com otimização de hiperparâmetros.</p>
+        </div>
+        <div class="card-inset card-hover rounded-lg p-8">
+          <svg class="w-10 h-10 mb-6 text-circuit-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <h3 class="text-xl font-bold mb-3">Deploy em 1 Clique</h3>
+          <p class="text-light-grey leading-relaxed text-sm">Publique modelos como APIs REST escaláveis com balanceamento de carga, versionamento e monitoramento em tempo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- MODELOS DE IA -->
+  <section id="modelos" class="px-6 py-24 bg-deep-black">
+    <div class="container-main">
+      <div class="mb-16">
+        <p class="font-tech text-electric-blue uppercase tracking-[0.25em] text-sm mb-3 glow-text-blue">Modelos de IA</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Modelos pré-treinados prontos para uso.</h2>
+        <p class="text-light-grey max-w-2xl">Biblioteca com mais de 50 modelos otimizados para visão computacional, NLP, geração de conteúdo e análise preditiva.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-charcoal rounded-lg p-6 border border-cool-grey/30 card-hover">
+          <div class="w-12 h-12 rounded-lg bg-accent-green/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">Visão Computacional</h3>
+          <p class="text-light-grey text-sm leading-relaxed mb-4">Detecção de objetos, segmentação e classificação de imagens com precisão de ponta.</p>
+          <span class="font-tech text-xs text-accent-green">12 modelos</span>
+        </div>
+        <div class="bg-charcoal rounded-lg p-6 border border-cool-grey/30 card-hover">
+          <div class="w-12 h-12 rounded-lg bg-electric-blue/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">Processamento de Linguagem</h3>
+          <p class="text-light-grey text-sm leading-relaxed mb-4">LLMs para geração de texto, tradução, sumarização e análise de sentimento.</p>
+          <span class="font-tech text-xs text-electric-blue">18 modelos</span>
+        </div>
+        <div class="bg-charcoal rounded-lg p-6 border border-cool-grey/30 card-hover">
+          <div class="w-12 h-12 rounded-lg bg-circuit-green/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-circuit-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 0110 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/><path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">Séries Temporais</h3>
+          <p class="text-light-grey text-sm leading-relaxed mb-4">Previsão de demanda, detecção de anomalias e análise preditiva em tempo real.</p>
+          <span class="font-tech text-xs text-circuit-green">10 modelos</span>
+        </div>
+        <div class="bg-charcoal rounded-lg p-6 border border-cool-grey/30 card-hover">
+          <div class="w-12 h-12 rounded-lg bg-accent-green/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">IA Generativa</h3>
+          <p class="text-light-grey text-sm leading-relaxed mb-4">Geração de imagens, áudio, código e conteúdo criativo com modelos de difusão.</p>
+          <span class="font-tech text-xs text-accent-green">14 modelos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- INFRAESTRUTURA -->
+  <section id="infraestrutura" class="px-6 py-24 bg-charcoal">
+    <div class="container-main">
+      <div class="mb-16">
+        <p class="font-tech text-accent-green uppercase tracking-[0.25em] text-sm mb-3 glow-text">Infraestrutura</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Poder computacional sem precedentes.</h2>
+        <p class="text-light-grey max-w-2xl">Data centers globais com GPUs de última geração, rede de alta velocidade e armazenamento otimizado para workloads de IA.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card-inset rounded-lg p-8 card-hover">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded bg-accent-green/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">GPUs de Última Geração</h3>
+              <p class="text-light-grey text-sm leading-relaxed">Clusters com GPUs H100 e A100 com até 80GB de memória HBM3. Interconexão NVLink para treinamento multi-GPU eficiente.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-inset rounded-lg p-8 card-hover">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded bg-electric-blue/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">Rede Global de Baixa Latência</h3>
+              <p class="text-light-grey text-sm leading-relaxed">Data centers em 12 regiões com latência inferior a 10ms. Rede InfiniBand de 400Gb/s para comunicação entre nós.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-inset rounded-lg p-8 card-hover">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded bg-circuit-green/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-circuit-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">Auto-Scaling Inteligente</h3>
+              <p class="text-light-grey text-sm leading-relaxed">Escalonamento automático baseado em demanda. Pague apenas pelo que usar com granularidade por segundo de GPU.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-inset rounded-lg p-8 card-hover">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded bg-accent-green/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">Segurança Enterprise</h3>
+              <p class="text-light-grey text-sm leading-relaxed">Criptografia end-to-end, isolamento de workloads, conformidade SOC 2 e LGPD. Seus dados e modelos protegidos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CASOS DE USO -->
+  <section id="casos" class="px-6 py-24 bg-deep-black">
+    <div class="container-main">
+      <div class="mb-16">
+        <p class="font-tech text-electric-blue uppercase tracking-[0.25em] text-sm mb-3 glow-text-blue">Casos de Uso</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">IA aplicada em escala real.</h2>
+        <p class="text-light-grey max-w-2xl">Empresas de todos os setores usam NeuralCloud para transformar dados em vantagem competitiva.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-charcoal rounded-lg overflow-hidden border border-cool-grey/30 card-hover">
+          <div class="h-2 bg-gradient-to-r from-accent-green to-circuit-green"></div>
+          <div class="p-8">
+            <svg class="w-10 h-10 mb-5 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+            <h3 class="text-xl font-bold mb-3">Saúde & Diagnóstico</h3>
+            <p class="text-light-grey text-sm leading-relaxed mb-4">Análise de imagens médicas com precisão superior a 97%. Detecção precoce de patologias e auxílio ao diagnóstico clínico.</p>
+            <p class="font-tech text-xs text-cool-grey">"Reduzimos o tempo de diagnóstico em 60%"</p>
+            <p class="font-tech text-xs text-accent-green mt-1">— Hospital São Lucas</p>
+          </div>
+        </div>
+        <div class="bg-charcoal rounded-lg overflow-hidden border border-cool-grey/30 card-hover">
+          <div class="h-2 bg-gradient-to-r from-electric-blue to-accent-green"></div>
+          <div class="p-8">
+            <svg class="w-10 h-10 mb-5 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+            </svg>
+            <h3 class="text-xl font-bold mb-3">Fintech & Risco</h3>
+            <p class="text-light-grey text-sm leading-relaxed mb-4">Modelos de detecção de fraude em tempo real, scoring de crédito com IA e análise preditiva de mercado financeiro.</p>
+            <p class="font-tech text-xs text-cool-grey">"Fraudes reduzidas em 85% no primeiro mês"</p>
+            <p class="font-tech text-xs text-electric-blue mt-1">— FinPay Brasil</p>
+          </div>
+        </div>
+        <div class="bg-charcoal rounded-lg overflow-hidden border border-cool-grey/30 card-hover">
+          <div class="h-2 bg-gradient-to-r from-circuit-green to-electric-blue"></div>
+          <div class="p-8">
+            <svg class="w-10 h-10 mb-5 text-circuit-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            <h3 class="text-xl font-bold mb-3">Logística & Supply Chain</h3>
+            <p class="text-light-grey text-sm leading-relaxed mb-4">Otimização de rotas, previsão de demanda e gestão inteligente de estoque com aprendizado por reforço.</p>
+            <p class="font-tech text-xs text-cool-grey">"Custos logísticos caíram 32% em 6 meses"</p>
+            <p class="font-tech text-xs text-circuit-green mt-1">— LogiTech Express</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-24 bg-charcoal">
+    <div class="container-main">
+      <div class="mb-16 text-center">
+        <p class="font-tech text-accent-green uppercase tracking-[0.25em] text-sm mb-3 glow-text">Preços</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Escale conforme sua necessidade.</h2>
+        <p class="text-light-grey max-w-2xl mx-auto">Planos flexíveis com cobrança por uso. Comece grátis e escale para produção sem fricção.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <!-- Starter -->
+        <div class="bg-deep-black rounded-lg p-8 border border-cool-grey/30 card-hover">
+          <p class="font-tech text-accent-green uppercase tracking-[0.2em] text-xs mb-6">Starter</p>
+          <p class="text-4xl font-bold mb-1">Grátis</p>
+          <p class="text-light-grey text-sm mb-8">Para experimentação e protótipos</p>
+          <ul class="space-y-4 mb-10 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              1 GPU T4 (16GB)
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              50h de computação/mês
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              10 modelos pré-treinados
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por comunidade
+            </li>
+          </ul>
+          <a href="#" class="btn-outline block text-center py-3 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+            Começar Grátis
+          </a>
+        </div>
+        <!-- Pro (highlighted) -->
+        <div class="bg-deep-black rounded-lg p-8 pricing-highlight card-hover">
+          <p class="font-tech text-accent-green uppercase tracking-[0.2em] text-xs mb-6">Pro</p>
+          <p class="text-4xl font-bold mb-1">R$ 497<span class="text-lg font-normal text-light-grey">/mês</span></p>
+          <p class="text-light-grey text-sm mb-8">Para equipes de ML em produção</p>
+          <ul class="space-y-4 mb-10 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              4 GPUs A100 (80GB)
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              500h de computação/mês
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Todos os modelos + fine-tuning
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritário 24/7
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              MLOps pipeline completo
+            </li>
+          </ul>
+          <a href="#" class="btn-primary block text-center py-3 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+            Assinar Pro
+          </a>
+        </div>
+        <!-- Enterprise -->
+        <div class="bg-deep-black rounded-lg p-8 border border-cool-grey/30 card-hover">
+          <p class="font-tech text-electric-blue uppercase tracking-[0.2em] text-xs mb-6">Enterprise</p>
+          <p class="text-4xl font-bold mb-1">Sob consulta</p>
+          <p class="text-light-grey text-sm mb-8">Para operações em larga escala</p>
+          <ul class="space-y-4 mb-10 text-sm">
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Clusters H100 dedicados
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Computação ilimitada
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Modelos customizados
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Engenheiro de ML dedicado
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 flex-shrink-0 text-electric-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA 99.99% + LGPD
+            </li>
+          </ul>
+          <a href="#" class="btn-outline block text-center py-3 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer" style="border-color:#00BFFF;color:#00BFFF;">
+            Falar com Vendas
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA FINAL -->
+  <section class="px-6 py-28 bg-deep-black relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" aria-hidden="true">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-accent-green/10 blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-electric-blue/10 blur-3xl"></div>
+    </div>
+    <div class="container-main text-center relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+        Pronto para acelerar<br>sua <span class="text-accent-green glow-text">jornada em IA</span>?
+      </h2>
+      <p class="text-light-grey text-lg max-w-xl mx-auto mb-10">
+        Junte-se a milhares de desenvolvedores e empresas que já constroem o futuro com NeuralCloud.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="btn-primary px-10 py-4 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+          Criar Conta Grátis
+        </a>
+        <a href="#" class="btn-outline px-10 py-4 rounded text-sm font-tech font-semibold uppercase tracking-wider cursor-pointer">
+          Agendar Demo
+        </a>
+      </div>
+      <p class="font-tech text-xs text-cool-grey mt-8">Sem cartão de crédito. Setup em menos de 2 minutos.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-16 bg-charcoal border-t border-cool-grey/30">
+    <div class="container-main">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
+              <path d="M16 2L4 9v14l12 7 12-7V9L16 2z" stroke="#76B900" stroke-width="2" fill="none"/>
+              <circle cx="16" cy="16" r="4" fill="#76B900"/>
+              <line x1="16" y1="12" x2="16" y2="4" stroke="#76B900" stroke-width="1.5"/>
+              <line x1="20" y1="14" x2="26" y2="10" stroke="#76B900" stroke-width="1.5"/>
+              <line x1="20" y1="18" x2="26" y2="22" stroke="#76B900" stroke-width="1.5"/>
+              <line x1="16" y1="20" x2="16" y2="28" stroke="#76B900" stroke-width="1.5"/>
+              <line x1="12" y1="18" x2="6" y2="22" stroke="#76B900" stroke-width="1.5"/>
+              <line x1="12" y1="14" x2="6" y2="10" stroke="#76B900" stroke-width="1.5"/>
+            </svg>
+            <span class="font-tech font-bold text-lg glow-text">NeuralCloud</span>
+          </a>
+          <p class="text-light-grey text-sm leading-relaxed max-w-xs mb-6">
+            Plataforma de computação acelerada para desenvolvimento, treinamento e deploy de modelos de inteligência artificial.
+          </p>
+          <!-- Social icons -->
+          <div class="flex items-center gap-4">
+            <a href="#" class="text-cool-grey hover:text-accent-green transition-colors duration-200 cursor-pointer" aria-label="GitHub">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href="#" class="text-cool-grey hover:text-accent-green transition-colors duration-200 cursor-pointer" aria-label="Twitter / X">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="text-cool-grey hover:text-accent-green transition-colors duration-200 cursor-pointer" aria-label="LinkedIn">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="text-cool-grey hover:text-accent-green transition-colors duration-200 cursor-pointer" aria-label="YouTube">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Produto -->
+        <div>
+          <p class="font-tech font-semibold uppercase tracking-[0.2em] text-xs text-accent-green mb-5">Produto</p>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#plataforma" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Plataforma</a></li>
+            <li><a href="#modelos" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Modelos de IA</a></li>
+            <li><a href="#infraestrutura" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Infraestrutura</a></li>
+            <li><a href="#precos" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Preços</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Changelog</a></li>
+          </ul>
+        </div>
+        <!-- Recursos -->
+        <div>
+          <p class="font-tech font-semibold uppercase tracking-[0.2em] text-xs text-accent-green mb-5">Recursos</p>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Documentação</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">API Reference</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Tutoriais</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Blog</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Status</a></li>
+          </ul>
+        </div>
+        <!-- Empresa -->
+        <div>
+          <p class="font-tech font-semibold uppercase tracking-[0.2em] text-xs text-accent-green mb-5">Empresa</p>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Sobre Nós</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Carreiras</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Contato</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Privacidade</a></li>
+            <li><a href="#" class="text-light-grey hover:text-white transition-colors duration-200 cursor-pointer">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Bottom bar -->
+      <div class="pt-8 border-t border-cool-grey/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-tech text-xs text-cool-grey">&copy; 2026 NeuralCloud AI. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-6 font-tech text-xs text-cool-grey">
+          <a href="#" class="hover:text-light-grey transition-colors duration-200 cursor-pointer">LGPD</a>
+          <a href="#" class="hover:text-light-grey transition-colors duration-200 cursor-pointer">Cookies</a>
+          <a href="#" class="hover:text-light-grey transition-colors duration-200 cursor-pointer">Segurança</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

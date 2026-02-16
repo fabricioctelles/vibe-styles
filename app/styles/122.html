@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Studio — Plataforma de IA Generativa para Desenvolvedores</title>
+  <meta name="description" content="Crie, integre e escale aplicações de IA generativa com a plataforma mais completa para desenvolvedores. APIs poderosas, modelos pré-treinados e documentação de classe mundial.">
+  <meta property="og:title" content="GenAI Studio — IA Generativa para Desenvolvedores">
+  <meta property="og:description" content="Crie, integre e escale aplicações de IA generativa com a plataforma mais completa para desenvolvedores.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Roboto', 'Arial', 'sans-serif'] },
+          colors: {
+            'brand-blue': '#4285F4',
+            'brand-red': '#EA4335',
+            'brand-yellow': '#FBBC05',
+            'brand-green': '#34A853',
+            'dark': '#3C4043',
+            'light-grey': '#F8F9FA',
+            'cyan': '#00BCD4',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', Arial, sans-serif; color: #3C4043; background: #FFFFFF; }
+    a, button, [role="button"], .clickable { cursor: pointer; }
+
+    .container-main { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Material shadow */
+    .shadow-material { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .shadow-material-lg { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+
+    /* Hover effects */
+    .card-hover { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(66,133,244,0.18); }
+
+    .btn-hover { transition: all 0.3s ease-in-out; }
+    .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(66,133,244,0.3); }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #4285F4, #34A853);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+
+    /* Pulse glow */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+    /* AI loading dots */
+    @keyframes ai-dot {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+    .ai-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; animation: ai-dot 1.4s ease-in-out infinite; }
+    .ai-dot:nth-child(1) { animation-delay: 0s; }
+    .ai-dot:nth-child(2) { animation-delay: 0.2s; }
+    .ai-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    /* Navbar glass */
+    .navbar-glass {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Gradient border card */
+    .gradient-border {
+      position: relative;
+      background: #fff;
+      border-radius: 12px;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4285F4, #FBBC05, #EA4335, #34A853);
+      z-index: -1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .float-anim, .pulse-glow, .ai-dot { animation: none; }
+      .card-hover:hover { transform: none; }
+      .btn-hover:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav class="navbar-glass fixed top-4 left-4 right-4 z-50 rounded-xl shadow-material-lg">
+    <div class="container-main flex items-center justify-between py-3">
+      <a href="#" class="flex items-center gap-2 cursor-pointer">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none">
+          <rect width="14" height="14" rx="3" fill="#4285F4"/>
+          <rect x="18" width="14" height="14" rx="3" fill="#EA4335"/>
+          <rect y="18" width="14" height="14" rx="3" fill="#FBBC05"/>
+          <rect x="18" y="18" width="14" height="14" rx="3" fill="#34A853"/>
+        </svg>
+        <span class="text-xl font-bold text-dark">GenAI<span class="text-brand-blue">Studio</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-dark">
+        <a href="#capacidades" class="hover:text-brand-blue transition-colors duration-200 cursor-pointer">Capacidades</a>
+        <a href="#integracoes" class="hover:text-brand-blue transition-colors duration-200 cursor-pointer">Integrações</a>
+        <a href="#casos" class="hover:text-brand-blue transition-colors duration-200 cursor-pointer">Casos de Sucesso</a>
+        <a href="#docs" class="hover:text-brand-blue transition-colors duration-200 cursor-pointer">Documentação</a>
+        <a href="#precos" class="hover:text-brand-blue transition-colors duration-200 cursor-pointer">Preços</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hidden sm:inline-block text-sm font-medium text-brand-blue hover:text-blue-700 transition-colors duration-200 cursor-pointer">Entrar</a>
+        <a href="#precos" class="bg-brand-blue text-white px-5 py-2.5 rounded-lg text-sm font-medium btn-hover cursor-pointer">Começar Grátis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center pt-24 pb-16 px-6 relative overflow-hidden">
+    <div class="absolute top-20 right-0 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-brand-green/5 rounded-full blur-3xl"></div>
+    <div class="container-main grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full relative z-10">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-brand-blue/10 text-brand-blue px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <span class="ai-dot bg-brand-blue"></span>
+          <span class="ai-dot bg-brand-green"></span>
+          <span class="ai-dot bg-brand-yellow"></span>
+          <span>IA Generativa em tempo real</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-6">
+          Construa com <span class="gradient-text">IA Generativa</span> em minutos
+        </h1>
+        <p class="text-lg text-dark/70 max-w-lg leading-relaxed mb-10">
+          APIs poderosas, modelos pré-treinados e ferramentas intuitivas para desenvolvedores que querem criar a próxima geração de aplicações inteligentes.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="bg-brand-blue text-white px-8 py-4 rounded-lg text-sm font-medium btn-hover inline-flex items-center gap-2 cursor-pointer">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Começar Grátis
+          </a>
+          <a href="#docs" class="border-2 border-dark/20 text-dark px-8 py-4 rounded-lg text-sm font-medium hover:border-brand-blue hover:text-brand-blue transition-all duration-200 inline-flex items-center gap-2 cursor-pointer">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Ver Documentação
+          </a>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center">
+        <div class="relative float-anim">
+          <svg viewBox="0 0 400 400" width="380" height="380" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Neural network visual -->
+            <circle cx="200" cy="200" r="160" stroke="#4285F4" stroke-width="1.5" opacity="0.2"/>
+            <circle cx="200" cy="200" r="120" stroke="#34A853" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="200" cy="200" r="80" stroke="#FBBC05" stroke-width="1.5" opacity="0.4"/>
+            <!-- Nodes -->
+            <circle cx="200" cy="40" r="8" fill="#4285F4"/>
+            <circle cx="340" cy="140" r="8" fill="#EA4335"/>
+            <circle cx="320" cy="280" r="8" fill="#FBBC05"/>
+            <circle cx="80" cy="280" r="8" fill="#34A853"/>
+            <circle cx="60" cy="140" r="8" fill="#00BCD4"/>
+            <!-- Center node -->
+            <circle cx="200" cy="200" r="24" fill="url(#centerGrad)" class="pulse-glow"/>
+            <!-- Connections -->
+            <line x1="200" y1="40" x2="200" y2="176" stroke="#4285F4" stroke-width="1.5" opacity="0.4"/>
+            <line x1="340" y1="140" x2="224" y2="200" stroke="#EA4335" stroke-width="1.5" opacity="0.4"/>
+            <line x1="320" y1="280" x2="218" y2="218" stroke="#FBBC05" stroke-width="1.5" opacity="0.4"/>
+            <line x1="80" y1="280" x2="182" y2="218" stroke="#34A853" stroke-width="1.5" opacity="0.4"/>
+            <line x1="60" y1="140" x2="176" y2="200" stroke="#00BCD4" stroke-width="1.5" opacity="0.4"/>
+            <!-- Secondary nodes -->
+            <circle cx="280" cy="80" r="5" fill="#EA4335" opacity="0.6"/>
+            <circle cx="120" cy="80" r="5" fill="#34A853" opacity="0.6"/>
+            <circle cx="360" cy="220" r="5" fill="#FBBC05" opacity="0.6"/>
+            <circle cx="40" cy="220" r="5" fill="#4285F4" opacity="0.6"/>
+            <circle cx="200" cy="360" r="5" fill="#00BCD4" opacity="0.6"/>
+            <defs>
+              <radialGradient id="centerGrad"><stop offset="0%" stop-color="#4285F4"/><stop offset="100%" stop-color="#34A853"/></radialGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPACIDADES DA IA -->
+  <section id="capacidades" class="px-6 py-24 bg-light-grey">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-brand-blue font-medium text-sm uppercase tracking-widest mb-3">Capacidades</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">O poder da IA na ponta dos seus dedos</h2>
+        <p class="text-dark/60 text-lg max-w-2xl mx-auto">Modelos de última geração prontos para uso, com APIs simples e desempenho de escala global.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer">
+          <div class="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-brand-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Geração de Texto</h3>
+          <p class="text-dark/60 leading-relaxed mb-4">Modelos de linguagem avançados para chatbots, resumos, tradução e geração de conteúdo com contexto de até 128K tokens.</p>
+          <span class="text-brand-blue text-sm font-medium inline-flex items-center gap-1 cursor-pointer hover:gap-2 transition-all duration-200">
+            Explorar
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer">
+          <div class="w-12 h-12 bg-brand-red/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-brand-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Geração de Imagens</h3>
+          <p class="text-dark/60 leading-relaxed mb-4">Crie imagens fotorrealistas, ilustrações e arte conceitual a partir de descrições textuais com controle criativo total.</p>
+          <span class="text-brand-red text-sm font-medium inline-flex items-center gap-1 cursor-pointer hover:gap-2 transition-all duration-200">
+            Explorar
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer">
+          <div class="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Geração de Código</h3>
+          <p class="text-dark/60 leading-relaxed mb-4">Autocompletar inteligente, refatoração, geração de testes e documentação automática em mais de 40 linguagens.</p>
+          <span class="text-brand-green text-sm font-medium inline-flex items-center gap-1 cursor-pointer hover:gap-2 transition-all duration-200">
+            Explorar
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRAÇÕES -->
+  <section id="integracoes" class="px-6 py-24">
+    <div class="container-main">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-brand-green font-medium text-sm uppercase tracking-widest mb-3">Integrações</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">Conecte com tudo que você já usa</h2>
+          <p class="text-dark/60 text-lg leading-relaxed mb-8">SDKs nativos para Python, Node.js, Go e Java. Integração direta com os principais provedores de cloud e ferramentas de desenvolvimento.</p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-light-grey hover:bg-brand-blue/5 transition-colors duration-200 cursor-pointer">
+              <div class="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+              </div>
+              <div>
+                <p class="font-medium">REST API & GraphQL</p>
+                <p class="text-sm text-dark/50">Endpoints padronizados com latência inferior a 100ms</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-light-grey hover:bg-brand-green/5 transition-colors duration-200 cursor-pointer">
+              <div class="w-10 h-10 bg-brand-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              </div>
+              <div>
+                <p class="font-medium">Cloud Nativo</p>
+                <p class="text-sm text-dark/50">Deploy em qualquer provedor com containers otimizados</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-light-grey hover:bg-brand-yellow/5 transition-colors duration-200 cursor-pointer">
+              <div class="w-10 h-10 bg-brand-yellow/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <p class="font-medium">Segurança Enterprise</p>
+                <p class="text-sm text-dark/50">SOC 2, LGPD compliance e criptografia ponta a ponta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hidden lg:block">
+          <!-- Code snippet visual -->
+          <div class="bg-dark rounded-2xl p-6 shadow-material-lg font-mono text-sm">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-3 h-3 rounded-full bg-brand-red"></span>
+              <span class="w-3 h-3 rounded-full bg-brand-yellow"></span>
+              <span class="w-3 h-3 rounded-full bg-brand-green"></span>
+              <span class="text-white/40 text-xs ml-2">main.py</span>
+            </div>
+            <pre class="text-white/90 leading-relaxed"><code><span class="text-brand-blue">from</span> <span class="text-brand-green">genai</span> <span class="text-brand-blue">import</span> Client
+
+client = Client(<span class="text-brand-yellow">api_key</span>=<span class="text-brand-green">"sua-chave"</span>)
+
+<span class="text-white/40"># Gerar texto com IA</span>
+resposta = client.generate(
+    <span class="text-brand-yellow">model</span>=<span class="text-brand-green">"genai-pro"</span>,
+    <span class="text-brand-yellow">prompt</span>=<span class="text-brand-green">"Explique quantum computing"</span>,
+    <span class="text-brand-yellow">max_tokens</span>=<span class="text-cyan">1024</span>
+)
+
+<span class="text-brand-blue">print</span>(resposta.text)</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS DE SUCESSO -->
+  <section id="casos" class="px-6 py-24 bg-light-grey">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-brand-red font-medium text-sm uppercase tracking-widest mb-3">Casos de Sucesso</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Quem já transforma negócios com IA</h2>
+        <p class="text-dark/60 text-lg max-w-2xl mx-auto">Empresas de todos os tamanhos usam o GenAI Studio para acelerar inovação e entregar resultados reais.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer relative">
+          <div class="absolute top-0 left-0 right-0 h-1 rounded-t-xl bg-gradient-to-r from-brand-blue to-brand-green"></div>
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-dark/70 leading-relaxed mb-6">"Reduzimos o tempo de desenvolvimento em 60% com a API de geração de código. A qualidade do output é impressionante."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center">
+              <span class="text-brand-blue font-bold text-sm">LC</span>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Lucas Carvalho</p>
+              <p class="text-dark/50 text-xs">CTO, TechFlow</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer relative">
+          <div class="absolute top-0 left-0 right-0 h-1 rounded-t-xl bg-gradient-to-r from-brand-red to-brand-yellow"></div>
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-dark/70 leading-relaxed mb-6">"O modelo de geração de imagens transformou nosso pipeline criativo. Produzimos 10x mais conteúdo visual por semana."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-red/10 flex items-center justify-center">
+              <span class="text-brand-red font-bold text-sm">AF</span>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Ana Ferreira</p>
+              <p class="text-dark/50 text-xs">Head de Design, Criativa Digital</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-xl p-8 shadow-material card-hover cursor-pointer relative">
+          <div class="absolute top-0 left-0 right-0 h-1 rounded-t-xl bg-gradient-to-r from-brand-yellow to-brand-green"></div>
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-brand-yellow" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-dark/70 leading-relaxed mb-6">"A integração foi surpreendentemente simples. Em 2 dias já tínhamos um chatbot inteligente atendendo nossos clientes."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
+              <span class="text-brand-green font-bold text-sm">RS</span>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Roberto Santos</p>
+              <p class="text-dark/50 text-xs">VP de Engenharia, DataBridge</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTAÇÃO -->
+  <section id="docs" class="px-6 py-24">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-cyan font-medium text-sm uppercase tracking-widest mb-3">Documentação</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Tudo que você precisa para começar</h2>
+        <p class="text-dark/60 text-lg max-w-2xl mx-auto">Guias completos, referências de API, tutoriais interativos e uma comunidade ativa de desenvolvedores.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="#" class="group bg-light-grey rounded-xl p-6 hover:bg-brand-blue hover:text-white transition-all duration-300 cursor-pointer">
+          <div class="w-10 h-10 bg-brand-blue/10 group-hover:bg-white/20 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300">
+            <svg class="w-5 h-5 text-brand-blue group-hover:text-white transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="font-bold mb-2">Início Rápido</h3>
+          <p class="text-sm text-dark/50 group-hover:text-white/70 transition-colors duration-300">Configure e faça sua primeira chamada em 5 minutos.</p>
+        </a>
+        <a href="#" class="group bg-light-grey rounded-xl p-6 hover:bg-brand-red hover:text-white transition-all duration-300 cursor-pointer">
+          <div class="w-10 h-10 bg-brand-red/10 group-hover:bg-white/20 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300">
+            <svg class="w-5 h-5 text-brand-red group-hover:text-white transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3 class="font-bold mb-2">Referência da API</h3>
+          <p class="text-sm text-dark/50 group-hover:text-white/70 transition-colors duration-300">Documentação completa de todos os endpoints e parâmetros.</p>
+        </a>
+        <a href="#" class="group bg-light-grey rounded-xl p-6 hover:bg-brand-green hover:text-white transition-all duration-300 cursor-pointer">
+          <div class="w-10 h-10 bg-brand-green/10 group-hover:bg-white/20 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300">
+            <svg class="w-5 h-5 text-brand-green group-hover:text-white transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 class="font-bold mb-2">Exemplos de Código</h3>
+          <p class="text-sm text-dark/50 group-hover:text-white/70 transition-colors duration-300">Projetos prontos em Python, Node.js, Go e Java.</p>
+        </a>
+        <a href="#" class="group bg-light-grey rounded-xl p-6 hover:bg-cyan hover:text-white transition-all duration-300 cursor-pointer">
+          <div class="w-10 h-10 bg-cyan/10 group-hover:bg-white/20 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300">
+            <svg class="w-5 h-5 text-cyan group-hover:text-white transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="font-bold mb-2">Comunidade</h3>
+          <p class="text-sm text-dark/50 group-hover:text-white/70 transition-colors duration-300">Fórum, Discord e eventos para desenvolvedores.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-24 bg-light-grey">
+    <div class="container-main">
+      <div class="text-center mb-16">
+        <p class="text-brand-yellow font-medium text-sm uppercase tracking-widest mb-3">Planos</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Escale conforme você cresce</h2>
+        <p class="text-dark/60 text-lg max-w-2xl mx-auto">Comece grátis, pague apenas pelo que usar. Sem surpresas, sem contratos longos.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <!-- Tier 1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-material card-hover cursor-pointer">
+          <p class="text-brand-blue font-medium text-sm uppercase tracking-widest mb-2">Starter</p>
+          <p class="text-4xl font-black mb-1">Grátis</p>
+          <p class="text-dark/50 text-sm mb-8">Para experimentar e prototipar</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              1.000 requisições/mês
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              3 modelos disponíveis
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por comunidade
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Playground interativo
+            </li>
+          </ul>
+          <a href="#" class="block text-center border-2 border-brand-blue text-brand-blue py-3.5 rounded-lg text-sm font-medium hover:bg-brand-blue hover:text-white transition-all duration-200 cursor-pointer">
+            Começar Grátis
+          </a>
+        </div>
+        <!-- Tier 2 (Destaque) -->
+        <div class="gradient-border rounded-2xl p-8 shadow-material-lg card-hover cursor-pointer relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-blue to-brand-green text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+            Mais Popular
+          </div>
+          <p class="text-brand-green font-medium text-sm uppercase tracking-widest mb-2">Pro</p>
+          <p class="text-4xl font-black mb-1">R$ 197<span class="text-lg font-normal text-dark/40">/mês</span></p>
+          <p class="text-dark/50 text-sm mb-8">Para equipes em produção</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              100.000 requisições/mês
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Todos os modelos + fine-tuning
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritário 24/7
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Dashboard de analytics
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Webhooks e integrações
+            </li>
+          </ul>
+          <a href="#" class="block text-center bg-gradient-to-r from-brand-blue to-brand-green text-white py-3.5 rounded-lg text-sm font-medium btn-hover cursor-pointer">
+            Assinar Pro
+          </a>
+        </div>
+        <!-- Tier 3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-material card-hover cursor-pointer">
+          <p class="text-dark font-medium text-sm uppercase tracking-widest mb-2">Enterprise</p>
+          <p class="text-4xl font-black mb-1">Sob consulta</p>
+          <p class="text-dark/50 text-sm mb-8">Para operações em escala global</p>
+          <ul class="space-y-4 mb-10">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Requisições ilimitadas
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Modelos customizados dedicados
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Gerente de conta dedicado
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA 99.99% garantido
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Deploy on-premise disponível
+            </li>
+          </ul>
+          <a href="#" class="block text-center border-2 border-dark/20 text-dark py-3.5 rounded-lg text-sm font-medium hover:border-dark hover:bg-dark hover:text-white transition-all duration-200 cursor-pointer">
+            Falar com Vendas
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="px-6 py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-blue to-brand-green opacity-[0.03]"></div>
+    <div class="container-main text-center relative z-10">
+      <div class="inline-flex items-center gap-2 mb-6">
+        <span class="ai-dot bg-brand-blue"></span>
+        <span class="ai-dot bg-brand-red"></span>
+        <span class="ai-dot bg-brand-yellow"></span>
+        <span class="ai-dot bg-brand-green"></span>
+      </div>
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        Pronto para construir<br>o <span class="gradient-text">futuro com IA</span>?
+      </h2>
+      <p class="text-dark/60 text-lg max-w-xl mx-auto mb-10">
+        Junte-se a mais de 50.000 desenvolvedores que já estão criando aplicações inteligentes com o GenAI Studio.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="bg-brand-blue text-white px-10 py-4 rounded-lg text-sm font-medium btn-hover inline-flex items-center gap-2 cursor-pointer">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Criar Conta Grátis
+        </a>
+        <a href="#" class="border-2 border-dark/20 text-dark px-10 py-4 rounded-lg text-sm font-medium hover:border-brand-blue hover:text-brand-blue transition-all duration-200 inline-flex items-center gap-2 cursor-pointer">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          Ver Demo ao Vivo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-16 bg-dark text-white">
+    <div class="container-main">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
+              <rect width="14" height="14" rx="3" fill="#4285F4"/>
+              <rect x="18" width="14" height="14" rx="3" fill="#EA4335"/>
+              <rect y="18" width="14" height="14" rx="3" fill="#FBBC05"/>
+              <rect x="18" y="18" width="14" height="14" rx="3" fill="#34A853"/>
+            </svg>
+            <span class="text-xl font-bold">GenAI<span class="text-brand-blue">Studio</span></span>
+          </a>
+          <p class="text-white/50 text-sm leading-relaxed max-w-xs mb-6">
+            A plataforma de IA generativa mais completa para desenvolvedores. Crie, integre e escale com confiança.
+          </p>
+          <div class="flex items-center gap-4">
+            <!-- GitHub -->
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors duration-200 cursor-pointer" aria-label="GitHub">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors duration-200 cursor-pointer" aria-label="Twitter">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors duration-200 cursor-pointer" aria-label="LinkedIn">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <!-- Discord -->
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors duration-200 cursor-pointer" aria-label="Discord">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Links -->
+        <div>
+          <p class="font-medium text-sm uppercase tracking-widest mb-4 text-white/70">Produto</p>
+          <ul class="space-y-3 text-sm text-white/50">
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Capacidades</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Integrações</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Preços</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Changelog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Status</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-medium text-sm uppercase tracking-widest mb-4 text-white/70">Desenvolvedores</p>
+          <ul class="space-y-3 text-sm text-white/50">
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Documentação</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Referência da API</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">SDKs</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Tutoriais</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Blog Técnico</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-medium text-sm uppercase tracking-widest mb-4 text-white/70">Empresa</p>
+          <ul class="space-y-3 text-sm text-white/50">
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Sobre</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Carreiras</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Contato</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Privacidade</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-white/40 text-sm">&copy; 2026 GenAI Studio. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-6 text-sm text-white/40">
+          <a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Política de Privacidade</a>
+          <a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Termos de Serviço</a>
+          <a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

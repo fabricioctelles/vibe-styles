@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InkTech Solutions - Plataforma de tecnologia que une a tradição sumi-e japonesa com diagramas técnicos isométricos modernos.">
+    <meta name="keywords" content="sumi-e, tecnologia, diagramas isométricos, arte tradicional, inovação">
+    <meta name="author" content="InkTech Solutions">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://inktech.com.br/">
+    <meta property="og:title" content="InkTech Solutions - Tradição e Inovação">
+    <meta property="og:description" content="Plataforma de tecnologia que une a tradição sumi-e japonesa com diagramas técnicos isométricos modernos.">
+    <meta property="og:image" content="https://inktech.com.br/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://inktech.com.br/">
+    <meta property="twitter:title" content="InkTech Solutions - Tradição e Inovação">
+    <meta property="twitter:description" content="Plataforma de tecnologia que une a tradição sumi-e japonesa com diagramas técnicos isométricos modernos.">
+    <meta property="twitter:image" content="https://inktech.com.br/twitter-image.jpg">
+
+    <title>InkTech Solutions | Tradição Sumi-e em Tecnologia</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --rice-paper: #F4F1E8;
+            --ink-black: #0D0D0D;
+            --seal-red: #8A1C15;
+            --wash-grey: #808080;
+            --pure-black: #000000;
+            --ink-wash: rgba(0, 0, 0, 0.1);
+            --ink-wash-light: rgba(0, 0, 0, 0.05);
+            --ink-wash-medium: rgba(0, 0, 0, 0.15);
+            --seal-red-light: rgba(138, 28, 21, 0.1);
+            --seal-red-dark: #5A100C;
+            --font-serif: 'Noto Serif JP', serif;
+            --font-sans: 'Roboto', sans-serif;
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 2px 4px var(--ink-wash);
+            --shadow-md: 0 4px 12px var(--ink-wash-medium);
+            --shadow-lg: 0 8px 24px var(--ink-wash-medium);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: var(--rice-paper);
+            color: var(--ink-black);
+            line-height: 1.8;
+            font-weight: 400;
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper.png');
+            background-attachment: fixed;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            transition: all var(--transition-normal);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--ink-black);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--ink-black);
+            opacity: 0.9;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-small {
+            font-size: 0.875rem;
+        }
+
+        .text-large {
+            font-size: 1.5rem;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container-wide {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--seal-red);
+            color: var(--rice-paper);
+            border: 2px solid var(--seal-red);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--seal-red-dark);
+            border-color: var(--seal-red-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--ink-black);
+            border: 2px solid var(--ink-black);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--ink-black);
+            color: var(--rice-paper);
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.125rem;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--rice-paper);
+            border-bottom: 1px solid var(--ink-wash-medium);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink-black);
+        }
+
+        .navbar-logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--seal-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--rice-paper);
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .navbar-nav a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink-black);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--seal-red);
+            transition: width var(--transition-normal);
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            display: none;
+        }
+
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggle span {
+            width: 28px;
+            height: 2px;
+            background-color: var(--ink-black);
+            transition: all var(--transition-normal);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, var(--rice-paper) 0%, rgba(244, 241, 232, 0.95) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at top right, var(--ink-wash-light) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--seal-red-light);
+            border-left: 3px solid var(--seal-red);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--seal-red);
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--seal-red);
+            border-radius: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--wash-grey);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+            color: var(--ink-black);
+        }
+
+        .hero-feature svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--seal-red);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-isometric {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            position: relative;
+        }
+
+        .hero-isometric svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-ink-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--ink-wash-light) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ink-wash-medium), transparent);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--seal-red);
+            margin-bottom: 1rem;
+        }
+
+        .features-title {
+            margin-bottom: 1rem;
+        }
+
+        .features-description {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--wash-grey);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--rice-paper);
+            border: 1px solid var(--ink-wash-light);
+            border-left: 4px solid var(--seal-red);
+            border-radius: var(--border-radius-md);
+            padding: 2.5rem 2rem;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, var(--ink-wash-light) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--ink-wash-medium);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--seal-red-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--seal-red);
+        }
+
+        .feature-card-title {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card-description {
+            color: var(--wash-grey);
+            font-size: 1rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card-ink {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .feature-card-ink svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--pure-black);
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--ink-black);
+            color: var(--rice-paper);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper.png');
+            opacity: 0.05;
+        }
+
+        .testimonials-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .testimonials-label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--seal-red);
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-title {
+            color: var(--rice-paper);
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-description {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--wash-grey);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--rice-paper);
+            color: var(--ink-black);
+            border-radius: var(--border-radius-md);
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: all var(--transition-normal);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.1;
+        }
+
+        .testimonial-quote svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--ink-black);
+        }
+
+        .testimonial-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--ink-wash-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--wash-grey);
+        }
+
+        .testimonial-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            font-size: 0.875rem;
+            color: var(--wash-grey);
+        }
+
+        .testimonial-seal {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--seal-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--seal-red);
+            opacity: 0.8;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--seal-red);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-title {
+            margin-bottom: 1rem;
+        }
+
+        .pricing-description {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--wash-grey);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background-color: var(--rice-paper);
+            border: 2px solid var(--ink-wash-light);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--ink-wash-medium);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--seal-red);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--seal-red);
+            color: var(--rice-paper);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background-color: var(--ink-wash-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--ink-black);
+        }
+
+        .pricing-card.featured .pricing-icon {
+            background-color: var(--seal-red-light);
+        }
+
+        .pricing-card.featured .pricing-icon svg {
+            fill: var(--seal-red);
+        }
+
+        .pricing-tier {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--wash-grey);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .pricing-currency {
+            font-size: 1.5rem;
+            vertical-align: super;
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--wash-grey);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--ink-wash-light);
+            font-size: 0.9375rem;
+        }
+
+        .pricing-feature:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-feature svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--seal-red);
+            flex-shrink: 0;
+        }
+
+        .pricing-feature.inactive {
+            opacity: 0.5;
+        }
+
+        .pricing-feature.inactive svg {
+            fill: var(--wash-grey);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--ink-black) 0%, var(--ink-black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper.png');
+            opacity: 0.05;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -25%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--seal-red) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+
+        .cta-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cta-seal {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            border: 3px solid var(--seal-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--rice-paper);
+        }
+
+        .cta-seal svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--seal-red);
+        }
+
+        .cta-title {
+            color: var(--rice-paper);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            color: var(--wash-grey);
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--rice-paper);
+            border-top: 1px solid var(--ink-wash-medium);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--seal-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--rice-paper);
+        }
+
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink-black);
+        }
+
+        .footer-description {
+            color: var(--wash-grey);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--ink-wash-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+        }
+
+        .footer-social-link:hover {
+            background-color: var(--seal-red);
+            transform: translateY(-3px);
+        }
+
+        .footer-social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ink-black);
+            transition: fill var(--transition-normal);
+        }
+
+        .footer-social-link:hover svg {
+            fill: var(--rice-paper);
+        }
+
+        .footer-nav h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-black);
+        }
+
+        .footer-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-nav-link {
+            color: var(--wash-grey);
+            font-size: 0.9375rem;
+            transition: all var(--transition-normal);
+        }
+
+        .footer-nav-link:hover {
+            color: var(--seal-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--ink-wash-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--wash-grey);
+            font-size: 0.875rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal-link {
+            color: var(--wash-grey);
+            font-size: 0.875rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-legal-link:hover {
+            color: var(--seal-red);
+        }
+
+        /* ===== BRUSH STROKE DECORATION ===== */
+        .brush-stroke {
+            position: relative;
+        }
+
+        .brush-stroke::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--ink-black) 0%, var(--ink-wash-medium) 50%, transparent 100%);
+            border-radius: 4px;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                position: fixed;
+                top: 73px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 73px);
+                background-color: var(--rice-paper);
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem 0;
+                transition: left var(--transition-normal);
+                border-top: 1px solid var(--ink-wash-light);
+            }
+
+            .navbar-nav.active {
+                left: 0;
+            }
+
+            .navbar-nav a {
+                padding: 1rem 2rem;
+                width: 100%;
+                border-bottom: 1px solid var(--ink-wash-light);
+            }
+
+            .navbar-toggle {
+                display: flex;
+            }
+
+            .navbar-cta {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .features,
+            .testimonials,
+            .pricing,
+            .cta {
+                padding: 60px 0;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: scale(1.02);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 100%;
+            }
+
+            .hero-actions {
+                width: 100%;
+            }
+
+            .pricing-value {
+                font-size: 2.5rem;
+            }
+
+            .cta-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cta-actions .btn {
+                width: 100%;
+            }
+        }
+
+        /* ===== ACCESSIBILITY ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ===== FOCUS STYLES ===== */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--seal-red);
+            outline-offset: 2px;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .navbar,
+            .cta,
+            .footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Navegação principal">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <div class="navbar-logo-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                InkTech
+            </a>
+
+            <div class="navbar-toggle" aria-label="Alternar menu" role="button" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="navbar-nav">
+                <a href="#recursos">Recursos</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#precos">Preços</a>
+                <a href="#contato">Contato</a>
+            </div>
+
+            <div class="navbar-cta">
+                <a href="#comecar" class="btn btn-primary">Começar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span>Tradição encontra Inovação</span>
+                </div>
+
+                <h1 class="hero-title" id="hero-title">
+                    Tecnologia com a<br/>Elegância do Sumi-e
+                </h1>
+
+                <p class="hero-subtitle">
+                    Plataforma avançada que une a arte tradicional japonesa com diagramas técnicos isométricos modernos. Transforme sua visão em realidade.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#comecar" class="btn btn-primary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        Iniciar Jornada
+                    </a>
+                    <a href="#demo" class="btn btn-secondary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        Ver Demo
+                    </a>
+                </div>
+
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <span>Diagramas Isométricos</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <span>Estética Sumi-e</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <span>Integração Moderna</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-ink-circle"></div>
+                <div class="hero-isometric">
+                    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Base Isométrica -->
+                        <path d="M200 280 L100 220 L200 160 L300 220 Z" fill="none" stroke="#8A1C15" stroke-width="2"/>
+                        <path d="M100 220 L100 120 L200 60 L200 160" fill="none" stroke="#8A1C15" stroke-width="2"/>
+                        <path d="M300 220 L300 120 L200 60 L200 160" fill="none" stroke="#8A1C15" stroke-width="2"/>
+
+                        <!-- Topo -->
+                        <path d="M200 60 L140 95 L200 130 L260 95 Z" fill="#F4F1E8" stroke="#8A1C15" stroke-width="2"/>
+
+                        <!-- Elementos Decorativos Sumi-e -->
+                        <circle cx="200" cy="170" r="40" fill="rgba(0,0,0,0.05)"/>
+                        <circle cx="200" cy="170" r="25" fill="rgba(0,0,0,0.08)"/>
+
+                        <!-- Linhas de conexão -->
+                        <line x1="200" y1="130" x2="200" y2="60" stroke="#8A1C15" stroke-width="1" stroke-dasharray="5,5"/>
+                        <circle cx="200" cy="60" r="8" fill="#8A1C15"/>
+
+                        <!-- Caracteres japoneses decorativos -->
+                        <text x="180" y="200" font-family="'Noto Serif JP', serif" font-size="14" fill="#808080" opacity="0.5">技術</text>
+                        <text x="195" y="240" font-family="'Noto Serif JP', serif" font-size="12" fill="#808080" opacity="0.3">墨絵</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="recursos" aria-labelledby="features-title">
+        <div class="container">
+            <div class="features-header">
+                <span class="features-label">Recursos</span>
+                <h2 class="features-title" id="features-title">A Arte da Tecnologia</h2>
+                <p class="features-description">
+                    Descubra como combinamos séculos de tradição artística japonesa com as mais recentes tecnologias de desenvolvimento.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Diagramas Isométricos</h3>
+                    <p class="feature-card-description">
+                        Crie visualizações técnicas impressionantes com nossa ferramenta de diagramas isométricos avançada, integrada com elementos tradicionais.
+                    </p>
+                    <div class="feature-card-ink">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#000" stroke-width="8" opacity="0.3"/>
+                        </svg>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Pincéis Sumi-e</h3>
+                    <p class="feature-card-description">
+                        Biblioteca exclusiva de pincéis digitais inspirados na técnica tradicional de tinta preta japonesa, com efeitos de lavagem realistas.
+                    </p>
+                    <div class="feature-card-ink">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="50" cy="50" rx="45" ry="30" fill="none" stroke="#000" stroke-width="6" opacity="0.25" transform="rotate(-30 50 50)"/>
+                        </svg>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Selos de Autenticidade</h3>
+                    <p class="feature-card-description">
+                        Adicione carimbos e selos tradicionais hanko aos seus projetos, com biblioteca de caracteres kanji e opções de personalização.
+                    </p>
+                    <div class="feature-card-ink">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="30" y="30" width="40" height="40" fill="none" stroke="#000" stroke-width="6" opacity="0.3" transform="rotate(15 50 50)"/>
+                        </svg>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="depoimentos" aria-labelledby="testimonials-title">
+        <div class="testimonials-container">
+            <div class="container">
+                <div class="testimonials-header">
+                    <span class="testimonials-label">Depoimentos</span>
+                    <h2 class="testimonials-title" id="testimonials-title">O Que Dizem Nossos Usuários</h2>
+                    <p class="testimonials-description">
+                        Histórias reais de profissionais que transformaram seus projetos com a InkTech Solutions.
+                    </p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <article class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                            </svg>
+                        </div>
+                        <p class="testimonial-content">
+                            "A InkTech revolucionou minha forma de apresentar projetos técnicos. A estética sumi-e encanta meus clientes enquanto mantém a precisão necessária."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Tanaka Yuki</h4>
+                                <p>Arquiteto Sênior</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-seal">優</div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                            </svg>
+                        </div>
+                        <p class="testimonial-content">
+                            "Nunca imaginei que diagramas técnicos poderiam ser tão bonitos. A integração de elementos tradicionais japoneses cria apresentações únicas e memoráveis."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Maria Silva</h4>
+                                <p>Engenheira de Software</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-seal">良</div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                            </svg>
+                        </div>
+                        <p class="testimonial-content">
+                            "Ferramenta indispensável para meus trabalhos de design. Os pincéis sumi-e digitais são incrivelmente realistas e fáceis de usar."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Roberto Chen</h4>
+                                <p>Designer Gráfico</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-seal">可</div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="precos" aria-labelledby="pricing-title">
+        <div class="container">
+            <div class="pricing-header">
+                <span class="pricing-label">Preços</span>
+                <h2 class="pricing-title" id="pricing-title">Escolha Seu Plano</h2>
+                <p class="pricing-description">
+                    Planos flexíveis para profissionais e equipes de todos os tamanhos. Comece gratuitamente e evolua conforme sua necessidade.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <p class="pricing-tier">Básico</p>
+                    <h3 class="pricing-name">Estudante</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-value"><span class="pricing-currency">R$</span>0</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            5 diagramas isométricos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            10 pincéis sumi-e
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Exportação PNG
+                        </li>
+                        <li class="pricing-feature inactive">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            Selos personalizados
+                        </li>
+                        <li class="pricing-feature inactive">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            API de integração
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Começar Grátis</a>
+                </article>
+
+                <article class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p class="pricing-tier">Profissional</p>
+                    <h3 class="pricing-name">Artista</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-value"><span class="pricing-currency">R$</span>49</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Diagramas ilimitados
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Todos os pincéis sumi-e
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Exportação SVG/PDF
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Selos personalizados
+                        </li>
+                        <li class="pricing-feature inactive">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            API de integração
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Assinar Agora</a>
+                </article>
+
+                <article class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <p class="pricing-tier">Empresarial</p>
+                    <h3 class="pricing-name">Estúdio</h3>
+                    <div class="pricing-price">
+                        <span class="pricing-value"><span class="pricing-currency">R$</span>149</span>
+                        <span class="pricing-period">/mês</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Tudo do Artista
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            5 usuários incluídos
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            API completa
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="pricing-feature">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Treinamento da equipe
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Falar com Vendas</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="comecar" aria-labelledby="cta-title">
+        <div class="cta-container">
+            <div class="cta-seal">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h2 class="cta-title" id="cta-title">Pronto para Transformar Seus Projetos?</h2>
+            <p class="cta-description">
+                Junte-se a milhares de profissionais que já estão criando diagramas técnicos impressionantes com a estética sumi-e.
+            </p>
+            <div class="cta-actions">
+                <a href="#" class="btn btn-primary btn-large">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Começar Gratuitamente
+                </a>
+                <a href="#" class="btn btn-secondary btn-large" style="color: var(--rice-paper); border-color: var(--rice-paper);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                    </svg>
+                    Agendar Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <span class="footer-logo-text">InkTech</span>
+                    </div>
+                    <p class="footer-description">
+                        Plataforma pioneira que une a tradição artística japonesa sumi-e com diagramas técnicos isométricos modernos. Criamos ferramentas para profissionais que valorizam estética e precisão.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.79c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-nav">
+                    <h4>Produto</h4>
+                    <nav class="footer-nav-links">
+                        <a href="#" class="footer-nav-link">Recursos</a>
+                        <a href="#" class="footer-nav-link">Preços</a>
+                        <a href="#" class="footer-nav-link">Integrações</a>
+                        <a href="#" class="footer-nav-link">API</a>
+                        <a href="#" class="footer-nav-link">Atualizações</a>
+                    </nav>
+                </div>
+
+                <div class="footer-nav">
+                    <h4>Empresa</h4>
+                    <nav class="footer-nav-links">
+                        <a href="#" class="footer-nav-link">Sobre</a>
+                        <a href="#" class="footer-nav-link">Blog</a>
+                        <a href="#" class="footer-nav-link">Carreiras</a>
+                        <a href="#" class="footer-nav-link">Imprensa</a>
+                        <a href="#" class="footer-nav-link">Parceiros</a>
+                    </nav>
+                </div>
+
+                <div class="footer-nav">
+                    <h4>Suporte</h4>
+                    <nav class="footer-nav-links">
+                        <a href="#" class="footer-nav-link">Central de Ajuda</a>
+                        <a href="#" class="footer-nav-link">Documentação</a>
+                        <a href="#" class="footer-nav-link">Tutoriais</a>
+                        <a href="#" class="footer-nav-link">Contato</a>
+                        <a href="#" class="footer-nav-link">Status</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2026 InkTech Solutions. Todos os direitos reservados.
+                </p>
+                <nav class="footer-legal">
+                    <a href="#" class="footer-legal-link">Privacidade</a>
+                    <a href="#" class="footer-legal-link">Termos de Uso</a>
+                    <a href="#" class="footer-legal-link">Cookies</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Navbar Toggle
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarNav = document.querySelector('.navbar-nav');
+
+        navbarToggle.addEventListener('click', function() {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Close navbar when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbarToggle.contains(event.target) || navbarNav.contains(event.target);
+
+            if (!isClickInsideNavbar && navbarNav.classList.contains('active')) {
+                navbarNav.classList.remove('active');
+            }
+        });
+
+        // Close navbar when clicking on links (mobile)
+        const navbarLinks = document.querySelectorAll('.navbar-nav a');
+        navbarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navbarNav.classList.remove('active');
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+
+                    if (target) {
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 50) {
+                navbar.style.backgroundColor = 'rgba(244, 241, 232, 0.98)';
+                navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = '#F4F1E8';
+                navbar.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Pricing card featured animation
+        const featuredCard = document.querySelector('.pricing-card.featured');
+        if (featuredCard) {
+            featuredCard.style.opacity = '0';
+            featuredCard.style.transform = 'translateY(40px) scale(1.05)';
+
+            const featuredObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'scale(1.05)';
+                        }, 300);
+                    }
+                });
+            }, observerOptions);
+
+            featuredObserver.observe(featuredCard);
+        }
+
+        // Add loading complete
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

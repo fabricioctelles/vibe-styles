@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zine Studio - Crie publicações indie com estética risograph autêntica. Design editorial, zines, e impressões com estilo retrô-intelectual.">
+    <meta name="keywords" content="risograph, zine, print, indie print, design editorial, publicação independente, arte impressa, estética retro">
+    <meta name="author" content="Zine Studio">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FDFBF6">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Zine Studio - Criação Indie com Estética Risograph">
+    <meta property="og:description" content="Transforme suas ideias em publicações físicas com estilo autêntico. Design indie print com efeitos de impressão offset.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zinestudio.com.br">
+    <meta property="og:image" content="https://zinestudio.com.br/images/og-181.jpg">
+    <meta property="og:site_name" content="Zine Studio">
+    
+    <title>Zine Studio | Publicações Indie com Estética Risograph</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Design System Variables */
+        :root {
+            --paper-offwhite: #FDFBF6;
+            --iso-pink: #E63E85;
+            --iso-blue: #1C1C5E;
+            --riso-blue: #0078BF;
+            --riso-yellow: #FFE800;
+            --mint: #00A95C;
+            --font-sans: 'Work Sans', sans-serif;
+            --ink-black: #1C1C5E;
+            --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--paper-offwhite);
+            color: var(--ink-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            mix-blend-mode: multiply;
+            filter: contrast(120%) brightness(90%);
+        }
+        
+        /* Paper Grain Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.08;
+            background-image: var(--texture-grain);
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-sans);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(253, 251, 246, 0.95);
+            border-bottom: 3px solid var(--ink-black);
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -0.03em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateX(5px);
+        }
+        
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--iso-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--paper-offwhite);
+            border: 3px solid var(--ink-black);
+            box-shadow: 4px 4px 0 var(--ink-black);
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover .logo-mark {
+            box-shadow: 2px 2px 0 var(--ink-black);
+            transform: translate(2px, 2px);
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--riso-yellow);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--iso-pink);
+        }
+        
+        .nav-cta {
+            background: var(--iso-pink);
+            color: var(--paper-offwhite) !important;
+            padding: 0.6rem 1.5rem;
+            border: 3px solid var(--ink-black);
+            box-shadow: 3px 3px 0 var(--ink-black);
+        }
+        
+        .nav-cta::after {
+            display: none !important;
+        }
+        
+        .nav-cta:hover {
+            background: var(--riso-blue);
+            box-shadow: 1px 1px 0 var(--ink-black);
+            transform: translate(2px, 2px);
+        }
+        
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .mobile-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--ink-black);
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 8rem 3rem 4rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Decorative offset layers */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: var(--riso-yellow);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--iso-pink);
+            border-radius: 50%;
+            opacity: 0.25;
+            filter: blur(60px);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--riso-yellow);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 2px solid var(--ink-black);
+            margin-bottom: 1.5rem;
+            box-shadow: 3px 3px 0 var(--ink-black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-badge:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--ink-black);
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--ink-black);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        
+        .hero-title .highlight {
+            color: var(--iso-pink);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--riso-yellow);
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--ink-black);
+            opacity: 0.85;
+            margin-bottom: 2.5rem;
+            max-width: 550px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 3px solid var(--ink-black);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+        }
+        
+        .btn-primary {
+            background: var(--iso-pink);
+            color: var(--paper-offwhite);
+            box-shadow: 5px 5px 0 var(--ink-black);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 2px 2px 0 var(--ink-black);
+            transform: translate(3px, 3px);
+            background: #d63676;
+        }
+        
+        .btn-secondary {
+            background: var(--paper-offwhite);
+            color: var(--ink-black);
+            box-shadow: 5px 5px 0 var(--ink-black);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 2px 2px 0 var(--ink-black);
+            transform: translate(3px, 3px);
+            background: var(--riso-yellow);
+        }
+        
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Hero Visual - Risograph Print Mockup */
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .zine-stack {
+            position: relative;
+            width: 320px;
+            height: 420px;
+        }
+        
+        .zine-page {
+            position: absolute;
+            width: 280px;
+            height: 380px;
+            background: var(--paper-offwhite);
+            border: 3px solid var(--ink-black);
+            box-shadow: 6px 6px 0 var(--ink-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .zine-page:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 10px 10px 0 var(--ink-black);
+        }
+        
+        .zine-page:nth-child(1) {
+            top: 0;
+            left: 0;
+            z-index: 3;
+            background: var(--riso-yellow);
+        }
+        
+        .zine-page:nth-child(2) {
+            top: 15px;
+            left: 15px;
+            z-index: 2;
+            background: var(--riso-blue);
+            opacity: 0.9;
+        }
+        
+        .zine-page:nth-child(3) {
+            top: 30px;
+            left: 30px;
+            z-index: 1;
+            background: var(--iso-pink);
+            opacity: 0.85;
+        }
+        
+        .zine-content {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .zine-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .zine-tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--paper-offwhite);
+            background: var(--ink-black);
+            padding: 0.3rem 0.8rem;
+            display: inline-block;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 3rem;
+            background: linear-gradient(180deg, var(--paper-offwhite) 0%, rgba(0, 120, 191, 0.08) 100%);
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            background: var(--riso-blue);
+            color: var(--paper-offwhite);
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--ink-black);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .section-tag:hover {
+            background: var(--iso-pink);
+            transform: rotate(2deg);
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--ink-black);
+            opacity: 0.75;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: var(--paper-offwhite);
+            border: 3px solid var(--ink-black);
+            padding: 2.5rem;
+            box-shadow: 6px 6px 0 var(--ink-black);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--iso-pink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0 var(--ink-black);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--riso-yellow);
+            border: 3px solid var(--ink-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 3px 3px 0 var(--ink-black);
+        }
+        
+        .feature-icon svg {
+            width: 36px;
+            height: 36px;
+            color: var(--ink-black);
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--ink-black);
+        }
+        
+        .feature-description {
+            font-size: 1rem;
+            color: var(--ink-black);
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 3rem;
+            background: var(--ink-black);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: var(--iso-pink);
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(100px);
+        }
+        
+        .testimonials .section-title,
+        .testimonials .section-subtitle {
+            color: var(--paper-offwhite);
+        }
+        
+        .testimonials .section-tag {
+            background: var(--iso-pink);
+        }
+        
+        .testimonials .section-subtitle {
+            opacity: 0.7;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: var(--paper-offwhite);
+            border: 3px solid var(--paper-offwhite);
+            padding: 2rem;
+            box-shadow: 5px 5px 0 rgba(253, 251, 246, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 8px 8px 0 rgba(253, 251, 246, 0.5);
+        }
+        
+        .testimonial-quote {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 4rem;
+            color: var(--riso-yellow);
+            font-weight: 900;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .testimonial-stars svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--riso-yellow);
+        }
+        
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--ink-black);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 55px;
+            height: 55px;
+            background: var(--riso-blue);
+            border: 3px solid var(--ink-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--paper-offwhite);
+        }
+        
+        .author-info h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink-black);
+        }
+        
+        .author-info span {
+            font-size: 0.85rem;
+            color: var(--iso-pink);
+            font-weight: 600;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 3rem;
+            background: linear-gradient(180deg, var(--paper-offwhite) 0%, rgba(230, 62, 133, 0.08) 100%);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        
+        .pricing-card {
+            background: var(--paper-offwhite);
+            border: 3px solid var(--ink-black);
+            padding: 2.5rem;
+            box-shadow: 6px 6px 0 var(--ink-black);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 10px 10px 0 var(--ink-black);
+        }
+        
+        .pricing-card.featured {
+            background: var(--iso-pink);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-6px);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--riso-yellow);
+            color: var(--ink-black);
+            padding: 0.4rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--ink-black);
+            box-shadow: 3px 3px 0 var(--ink-black);
+        }
+        
+        .pricing-tier {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--ink-black);
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card.featured .pricing-tier {
+            color: var(--paper-offwhite);
+            opacity: 0.9;
+        }
+        
+        .pricing-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-card.featured .pricing-title {
+            color: var(--paper-offwhite);
+        }
+        
+        .pricing-price {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .pricing-card.featured .pricing-price {
+            color: var(--paper-offwhite);
+        }
+        
+        .pricing-description {
+            color: var(--ink-black);
+            opacity: 0.75;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .pricing-card.featured .pricing-description {
+            color: var(--paper-offwhite);
+            opacity: 0.9;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 0;
+            border-bottom: 2px dashed var(--ink-black);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--ink-black);
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 3px solid var(--ink-black);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+        }
+        
+        .pricing-btn.primary {
+            background: var(--ink-black);
+            color: var(--paper-offwhite);
+            box-shadow: 4px 4px 0 var(--iso-pink);
+        }
+        
+        .pricing-btn.primary:hover {
+            box-shadow: 2px 2px 0 var(--iso-pink);
+            transform: translate(2px, 2px);
+        }
+        
+        .pricing-btn.secondary {
+            background: var(--paper-offwhite);
+            color: var(--ink-black);
+            box-shadow: 4px 4px 0 var(--ink-black);
+        }
+        
+        .pricing-btn.secondary:hover {
+            box-shadow: 2px 2px 0 var(--ink-black);
+            transform: translate(2px, 2px);
+            background: var(--riso-yellow);
+        }
+        
+        .pricing-card.featured .pricing-btn {
+            background: var(--paper-offwhite);
+            color: var(--iso-pink);
+            box-shadow: 4px 4px 0 var(--ink-black);
+        }
+        
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--riso-yellow);
+            color: var(--ink-black);
+            box-shadow: 2px 2px 0 var(--ink-black);
+            transform: translate(2px, 2px);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 3rem;
+            background: var(--riso-yellow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--iso-pink);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(80px);
+        }
+        
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 350px;
+            height: 350px;
+            background: var(--riso-blue);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(80px);
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--ink-black);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            color: var(--ink-black);
+            opacity: 0.85;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-section .btn-primary {
+            background: var(--iso-pink);
+        }
+        
+        .cta-section .btn-secondary {
+            background: var(--ink-black);
+            color: var(--paper-offwhite);
+        }
+        
+        .cta-section .btn-secondary:hover {
+            background: var(--riso-blue);
+            color: var(--paper-offwhite);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink-black);
+            color: var(--paper-offwhite);
+            padding: 4rem 3rem 2rem;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand {
+            max-width: 320px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1.2rem;
+        }
+        
+        .footer-logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--iso-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: 2px solid var(--paper-offwhite);
+        }
+        
+        .footer-description {
+            color: var(--paper-offwhite);
+            opacity: 0.7;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(253, 251, 246, 0.1);
+            border: 2px solid var(--paper-offwhite);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-link:hover {
+            background: var(--iso-pink);
+            transform: translateY(-4px);
+        }
+        
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--paper-offwhite);
+        }
+        
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--paper-offwhite);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--paper-offwhite);
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--iso-pink);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            border-top: 2px solid rgba(253, 251, 246, 0.2);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-copyright {
+            color: var(--paper-offwhite);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-legal a {
+            color: var(--paper-offwhite);
+            opacity: 0.6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-legal a:hover {
+            opacity: 1;
+            color: var(--iso-pink);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--paper-offwhite);
+            border-bottom: 3px solid var(--ink-black);
+            padding: 1rem;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 600;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--riso-yellow);
+            border-color: var(--ink-black);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes stamp {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-3deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            75% { transform: scale(1.05) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .animate-stamp {
+            animation: stamp 0.5s ease-out;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 7rem 2rem 3rem;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-subtitle {
+                margin: 0 auto 2.5rem;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-visual {
+                order: -1;
+            }
+            
+            .zine-stack {
+                width: 260px;
+                height: 340px;
+            }
+            
+            .zine-page {
+                width: 220px;
+                height: 300px;
+            }
+            
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 6rem 1.5rem 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features, .testimonials, .pricing, .cta-section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .pricing-card.featured:hover {
+                transform: translateY(-6px);
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-legal {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .zine-stack {
+                width: 200px;
+                height: 280px;
+            }
+            
+            .zine-page {
+                width: 170px;
+                height: 240px;
+            }
+            
+            .zine-logo {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <div class="logo-mark">Z</div>
+            Zine Studio
+        </a>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#features" class="nav-link">Recursos</a></li>
+            <li><a href="#testimonials" class="nav-link">Depoimentos</a></li>
+            <li><a href="#pricing" class="nav-link">Planos</a></li>
+            <li><a href="#cta" class="nav-link nav-cta">Criar Agora</a></li>
+        </ul>
+        
+        <div class="mobile-toggle" id="mobileToggle" aria-label="Menu mobile">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#features">Recursos</a></li>
+            <li><a href="#testimonials">Depoimentos</a></li>
+            <li><a href="#pricing">Planos</a></li>
+            <li><a href="#cta" class="nav-cta">Criar Agora</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                Lançamento 2026
+            </div>
+            
+            <h1 class="hero-title">
+                Crie <span class="highlight">Zines</span> com Estilo Risograph
+            </h1>
+            
+            <p class="hero-subtitle">
+                Transforme suas ideias em publicações físicas autênticas com estética indie print. 
+                Efeitos de impressão offset, texturas de papel e cores vibrantes que remetem 
+                à era de ouro das publicações independentes.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    Começar Criar
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
+                    </svg>
+                    Ver Demonstração
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="zine-stack">
+                <div class="zine-page animate-float">
+                    <div class="zine-content">
+                        <div class="zine-logo">ZINE</div>
+                        <span class="zine-tagline">Estúdio Criativo</span>
+                    </div>
+                </div>
+                <div class="zine-page">
+                    <div class="zine-content">
+                        <div class="zine-logo">ART</div>
+                        <span class="zine-tagline">Impressão Offset</span>
+                    </div>
+                </div>
+                <div class="zine-page">
+                    <div class="zine-content">
+                        <div class="zine-logo">INK</div>
+                        <span class="zine-tagline">Design Retro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span class="section-tag">Recursos</span>
+            <h2 class="section-title">Ferramentas para Criação</h2>
+            <p class="section-subtitle">
+                Tudo que você precisa para criar publicações indie com aparência profissional 
+                e estética autêntica de impressão risograph.
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18M9 21V9"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Templates Zine</h3>
+                <p class="feature-description">
+                    Modelos prontos para criação de zines, fanzines e publicações independentes. 
+                    Grid editorial flexível para layouts criativos.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                        <path d="M2 12h20"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Efeitos Risograph</h3>
+                <p class="feature-description">
+                    Simule efeitos de impressão offset com texturas de papel, sobreposição de cores 
+                    CMYK, granulação e sangria de tinta realista.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Impressão sob Demanda</h3>
+                <p class="feature-description">
+                    Imprima tiragens pequenas ou unitárias com qualidade profissional. 
+                    Sem mínimo, sem desperdício, entrega rápida.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Exportação Profissional</h3>
+                <p class="feature-description">
+                    Exporte em PDF para impressão offset ou digitais de alta resolução. 
+                    Configurações de cores CMYK automáticas.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Colaboração Criativa</h3>
+                <p class="feature-description">
+                    Trabalhe com outros criadores em tempo real. Compartilhe projetos, 
+                    receba feedback e crie juntos.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Cores Personalizadas</h3>
+                <p class="feature-description">
+                    Paletas de cores inspiradas em impressoras Risograph. 
+                    Crie combinações únicas com tinta rosa, azul, amarelo e verde.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <span class="section-tag">Depoimentos</span>
+            <h2 class="section-title">Criadores que Amam</h2>
+            <p class="section-subtitle">
+                Veja o que artistas, designers e criadores de conteúdo dizem sobre 
+                transformar suas ideias em publicações físicas.
+            </p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <span class="testimonial-quote">"</span>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">
+                    "O Zine Studio me ajudou a criar minha primeira publicação impressa. 
+                    Os efeitos de risograph são incrivelmente realistas. Minhas zines ficaram 
+                    com aquele visual autêntico de impressão independente."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">LM</div>
+                    <div class="author-info">
+                        <h4>Lúcia Martins</h4>
+                        <span>Artista Visual</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <span class="testimonial-quote">"</span>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">
+                    "Como designer, sempre busco ferramentas que facilitem a criação de 
+                    publicações físicas. O Zine Studio combina o melhor do design digital 
+                    com a estética analógica que amo."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RP</div>
+                    <div class="author-info">
+                        <h4>Ricardo Pereira</h4>
+                        <span>Designer Gráfico</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <span class="testimonial-quote">"</span>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">
+                    "Criei minha coleção de fanzines para um evento de arte e foi um sucesso! 
+                    A qualidade da impressão sob demanda é excelente. Recomendo para todos os 
+                    criadores independentes."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AS</div>
+                    <div class="author-info">
+                        <h4>Ana Souza</h4>
+                        <span>Ilustradora</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <span class="section-tag">Planos</span>
+            <h2 class="section-title">Escolha Seu Plano</h2>
+            <p class="section-subtitle">
+                Planos flexíveis para criadores de todos os níveis. 
+                Comece gratuitamente e evolua conforme sua necessidade.
+            </p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-tier">Iniciante</div>
+                <h3 class="pricing-title">Criador</h3>
+                <div class="pricing-price">R$ 0<span>/mês</span></div>
+                <p class="pricing-description">Perfeito para começar no mundo dos zines</p>
+                
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Acesso a templates básicos
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        3 projetos simultâneos
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Efeitos risograph básicos
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Exportação PDF
+                    </li>
+                </ul>
+                
+                <button class="pricing-btn secondary">Começar Grátis</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Mais Popular</div>
+                <div class="pricing-tier">Profissional</div>
+                <h3 class="pricing-title">Estúdio</h3>
+                <div class="pricing-price">R$ 39<span>/mês</span></div>
+                <p class="pricing-description">Para criadores que levam a sério</p>
+                
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Todos os templates premium
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Projetos ilimitados
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Efeitos risograph completos
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Impressão sob demanda
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Colaboração em tempo real
+                    </li>
+                </ul>
+                
+                <button class="pricing-btn">Escolher Estúdio</button>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-tier">Enterprise</div>
+                <h3 class="pricing-title">Editorial</h3>
+                <div class="pricing-price">R$ 129<span>/mês</span></div>
+                <p class="pricing-description">Para editoras e equipes criativas</p>
+                
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Tudo do plano Estúdio
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Múltiplas equipes
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        API de integração
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Impressão em bulk
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1C1C5E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Suporte prioritário
+                    </li>
+                </ul>
+                
+                <button class="pricing-btn secondary">Falar com Equipe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">Hora de Criar Seu Zine</h2>
+            <p class="cta-description">
+                Junte-se a milhares de criadores que estão transformando suas ideias em 
+                publicações físicas com estilo. Comece gratuitamente hoje mesmo.
+            </p>
+            <div class="cta-buttons">
+                <a href="#pricing" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    Começar Agora
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Saber Mais
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-mark">Z</div>
+                    Zine Studio
+                </div>
+                <p class="footer-description">
+                    Criando publicações indie com autenticidade e estilo. 
+                    Transforme suas ideias em arte física desde 2026.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Discord">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Produto</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Recursos</a></li>
+                    <li><a href="#pricing">Preços</a></li>
+                    <li><a href="#">Templates</a></li>
+                    <li><a href="#">Impressão</a></li>
+                    <li><a href="#">Integrações</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Empresa</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Imprensa</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Termos</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Licenças</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 Zine Studio. Todos os direitos reservados.</p>
+            <div class="footer-legal">
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Serviço</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        // Navbar Background on Scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(28, 28, 94, 0.15)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+        
+        // Add hover effect to zine pages
+        const zinePages = document.querySelectorAll('.zine-page');
+        zinePages.forEach((page, index) => {
+            page.style.animationDelay = `${index * 0.5}s`;
+        });
+    </script>
+</body>
+</html>

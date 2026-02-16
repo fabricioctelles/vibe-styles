@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlueprintCAD - Plataforma de design assistido por computador para engenheiros e arquitetos. Projete com precisao tecnica.">
+    <meta name="keywords" content="CAD, blueprint, design tecnico, engenharia, arquitetura, projeto mecanico">
+    <meta name="author" content="BlueprintCAD">
+    <meta property="og:title" content="BlueprintCAD - Precisao Tecnica em Cada Projeto">
+    <meta property="og:description" content="Plataforma CAD profissional para engenheiros e arquitetos. Projete com precisao milimetrica.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://blueprintcad.com.br">
+    <meta property="og:image" content="https://blueprintcad.com.br/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>BlueprintCAD - Precisao Tecnica em Cada Projeto</title>
+    <style>
+        :root {
+            --cad-blue: #1C4E80;
+            --cad-blue-dark: #153d66;
+            --cad-blue-deeper: #0e2a47;
+            --line-white: #FFFFFF;
+            --alert-orange: #E85D35;
+            --alert-orange-hover: #f06a45;
+            --grid-opacity: 0.1;
+            --guide-line: #FFD700;
+            --dim: #AAAAAA;
+            --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+            --transition-speed: 250ms;
+            --grid-size: 50px;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--cad-blue);
+            color: var(--line-white);
+            font-family: var(--font-mono);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100vh;
+            background-image: repeating-linear-gradient(to bottom, transparent, transparent 24px, rgba(255,255,255,0.25) 24px, rgba(255,255,255,0.25) 25px);
+            z-index: 999;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-image: repeating-linear-gradient(to right, transparent, transparent 24px, rgba(255,255,255,0.25) 24px, rgba(255,255,255,0.25) 25px);
+            z-index: 999;
+            pointer-events: none;
+        }
+        a { color: var(--line-white); text-decoration: none; transition: color var(--transition-speed) ease; }
+        a:hover { color: var(--alert-orange); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 12px; left: 12px; right: 12px; z-index: 1000;
+            background: rgba(14, 42, 71, 0.92); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+            padding: 0 24px; display: flex; align-items: center;
+            justify-content: space-between; height: 60px;
+        }
+        .navbar-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 18px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .navbar-logo svg { flex-shrink: 0; }
+        .navbar-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+        .navbar-links a {
+            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; position: relative; padding-bottom: 2px;
+        }
+        .navbar-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+            background: var(--alert-orange); transition: width var(--transition-speed) ease;
+        }
+        .navbar-links a:hover::after { width: 100%; }
+        .btn-cta {
+            background: var(--alert-orange); color: var(--line-white); border: none;
+            padding: 10px 24px; font-family: var(--font-mono); font-size: 13px;
+            font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border-radius: 2px;
+        }
+        .btn-cta:hover { background: var(--alert-orange-hover); box-shadow: 0 0 20px rgba(232, 93, 53, 0.4); }
+        .btn-outline {
+            background: transparent; color: var(--line-white);
+            border: 1px solid rgba(255,255,255,0.4); padding: 10px 24px;
+            font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+            transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            border-radius: 2px;
+        }
+        .btn-outline:hover { border-color: var(--guide-line); color: var(--guide-line); }
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            cursor: pointer; background: none; border: none; padding: 4px;
+        }
+        .hamburger span {
+            display: block; width: 24px; height: 2px; background: var(--line-white);
+            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }

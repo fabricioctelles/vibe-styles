@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubra o mundo voxel! Uma experiência gamer única com personagens 3D, ilhas flutuantes e muita aventura. Comece sua jornada agora!">
+  <meta name="keywords" content="voxel, game, isometric, 3d, pixel art, gaming, blocks">
+  <meta name="author" content="Voxel Quest">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Voxel Quest - Jogo Voxel Isométrico">
+  <meta property="og:description" content="Entre em um mundo de blocos 3D e ilhas flutuantes. A aventura gamer definitivo!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://voxelquest.com.br">
+  <meta property="og:image" content="https://voxelquest.com.br/og-image.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voxel Quest - Jogo Voxel Isométrico">
+  <meta name="twitter:description" content="Entre em um mundo de blocos 3D e ilhas flutuantes. A aventura gamer definitivo!">
+  
+  <title>Voxel Quest - Jogo Voxel Isométrico</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-sky: #E8F0FE;
+      --text-earth: #5D4037;
+      --accent-green: #69F0AE;
+      --cube-blue: #448AFF;
+      --grass-block: #66BB6A;
+      --lava-orange: #FF7043;
+      --font-round: 'Nunito', sans-serif;
+      --iso-angle: rotateX(60deg) rotateZ(-45deg);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-round);
+      background-color: var(--bg-sky);
+      color: var(--text-earth);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Isometric Container */
+    .iso-container {
+      transform: var(--iso-angle);
+      transform-style: preserve-3d;
+    }
+    
+    /* Voxel Box Base */
+    .voxel-box {
+      position: relative;
+      background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+      border: 3px solid var(--text-earth);
+      box-shadow: -10px 10px 0 #ccc;
+      transition: all 0.3s ease;
+    }
+    
+    .voxel-box:hover {
+      transform: translateY(-5px);
+      box-shadow: -15px 15px 0 #bbb;
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px var(--accent-green); }
+      50% { box-shadow: 0 0 40px var(--accent-green), 0 0 60px var(--cube-blue); }
+    }
+    
+    @keyframes rotate-iso {
+      0% { transform: rotateX(60deg) rotateZ(-45deg) rotateY(0deg); }
+      100% { transform: rotateX(60deg) rotateZ(-45deg) rotateY(360deg); }
+    }
+    
+    .float-anim { animation: float 3s ease-in-out infinite; }
+    .float-slow { animation: float-slow 4s ease-in-out infinite; }
+    .bounce-anim { animation: bounce 2s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(232, 240, 254, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--text-earth);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--text-earth);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-earth);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent-green);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent-green);
+    }
+    
+    .btn-nav {
+      background: var(--lava-orange);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border: 3px solid var(--text-earth);
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: -4px 4px 0 var(--text-earth);
+    }
+    
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: -6px 6px 0 var(--text-earth);
+      background: #ff8a65;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 2rem 80px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text-earth);
+    }
+    
+    .hero-text h1 span {
+      color: var(--cube-blue);
+      display: block;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #795548;
+      max-width: 500px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-primary {
+      background: var(--accent-green);
+      color: var(--text-earth);
+      padding: 1rem 2.5rem;
+      border: 3px solid var(--text-earth);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: -6px 6px 0 var(--text-earth);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: -9px 9px 0 var(--text-earth);
+      background: #81c784;
+    }
+    
+    .btn-secondary {
+      background: var(--cube-blue);
+      color: white;
+      padding: 1rem 2.5rem;
+      border: 3px solid var(--text-earth);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: -6px 6px 0 var(--text-earth);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: -9px 9px 0 var(--text-earth);
+      background: #5c9aff;
+    }
+    
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .island {
+      position: relative;
+      width: 350px;
+      height: 200px;
+    }
+    
+    .voxel-character {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 120px;
+    }
+    
+    .floating-block {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .block-1 { top: 20px; right: 20px; animation: float 2.5s ease-in-out infinite; }
+    .block-2 { top: 60px; left: 10px; animation: float 3s ease-in-out infinite 0.5s; }
+    .block-3 { bottom: 80px; right: 40px; animation: float 2.8s ease-in-out infinite 1s; }
+    
+    /* Background Decorations */
+    .bg-decoration {
+      position: absolute;
+      opacity: 0.15;
+      z-index: -1;
+    }
+    
+    .cloud {
+      fill: var(--cube-blue);
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 100px 2rem;
+      background: linear-gradient(180deg, var(--bg-sky) 0%, #d4e6fc 100%);
+      position: relative;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-tag {
+      display: inline-block;
+      background: var(--accent-green);
+      color: var(--text-earth);
+      padding: 0.5rem 1.5rem;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 2px solid var(--text-earth);
+      margin-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text-earth);
+    }
+    
+    .features-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: white;
+      border: 3px solid var(--text-earth);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: -8px 8px 0 var(--text-earth);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: -12px 12px 0 var(--text-earth);
+    }
+    
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 3px solid var(--text-earth);
+    }
+    
+    .feature-icon.blue { background: var(--cube-blue); }
+    .feature-icon.green { background: var(--grass-block); }
+    .feature-icon.orange { background: var(--lava-orange); }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-earth);
+    }
+    
+    .feature-card p {
+      color: #795548;
+      font-size: 0.95rem;
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+      padding: 100px 2rem;
+      background: var(--text-earth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .testimonials .section-tag {
+      background: var(--lava-orange);
+      color: white;
+    }
+    
+    .testimonials .section-title {
+      color: white;
+    }
+    
+    .testimonials-subtitle {
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border: 3px solid var(--accent-green);
+      padding: 2rem;
+      position: relative;
+      box-shadow: -8px 8px 0 rgba(105, 240, 174, 0.3);
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 5rem;
+      color: var(--accent-green);
+      font-weight: 900;
+      line-height: 1;
+    }
+    
+    .testimonial-text {
+      font-size: 1rem;
+      color: var(--text-earth);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--cube-blue);
+      border: 2px solid var(--text-earth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .author-info h4 {
+      font-weight: 800;
+      color: var(--text-earth);
+    }
+    
+    .author-info p {
+      font-size: 0.85rem;
+      color: #795548;
+    }
+    
+    /* Pricing Section */
+    .pricing {
+      padding: 100px 2rem;
+      background: linear-gradient(180deg, #d4e6fc 0%, var(--bg-sky) 100%);
+    }
+    
+    .pricing-grid {
+      max-width: 1100px;
+      margin: 4rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+    
+    .pricing-card {
+      background: white;
+      border: 3px solid var(--text-earth);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: -8px 8px 0 #ddd;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: -12px 12px 0 #ccc;
+    }
+    
+    .pricing-card.featured {
+      background: var(--accent-green);
+      transform: scale(1.05);
+      box-shadow: -10px 10px 0 var(--text-earth);
+    }
+    
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-5px);
+    }
+    
+    .pricing-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--lava-orange);
+      color: white;
+      padding: 0.4rem 1.5rem;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      border: 2px solid var(--text-earth);
+    }
+    
+    .pricing-tier {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #795548;
+      margin-bottom: 1rem;
+    }
+    
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-earth);
+      margin-bottom: 0.5rem;
+    }
+    
+    .pricing-card.featured .pricing-price {
+      color: var(--text-earth);
+    }
+    
+    .pricing-period {
+      font-size: 0.9rem;
+      color: #795548;
+      margin-bottom: 1.5rem;
+    }
+    
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    
+    .pricing-features li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+    
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+    
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .btn-pricing {
+      width: 100%;
+      padding: 1rem;
+      background: var(--text-earth);
+      color: white;
+      border: 3px solid var(--text-earth);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-pricing:hover {
+      background: var(--cube-blue);
+      border-color: var(--cube-blue);
+    }
+    
+    .pricing-card.featured .btn-pricing {
+      background: var(--text-earth);
+      border-color: var(--text-earth);
+    }
+    
+    .pricing-card.featured .btn-pricing:hover {
+      background: var(--lava-orange);
+      border-color: var(--lava-orange);
+    }
+    
+    /* CTA Section */
+    .cta {
+      padding: 100px 2rem;
+      background: var(--cube-blue);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .cta h2 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 1.5rem;
+      text-shadow: 3px 3px 0 var(--text-earth);
+    }
+    
+    .cta p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2.5rem;
+    }
+    
+    .cta .btn-primary {
+      background: var(--accent-green);
+      color: var(--text-earth);
+      font-size: 1.2rem;
+      padding: 1.2rem 3rem;
+    }
+    
+    .cta .btn-primary:hover {
+      background: #81c784;
+    }
+    
+    /* Floating CTA Elements */
+    .cta-blocks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+    
+    .cta-block {
+      position: absolute;
+      opacity: 0.2;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--text-earth);
+      color: white;
+      padding: 60px 2rem 30px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    .footer-brand .logo {
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+    }
+    
+    .footer-title {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-green);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent-green);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .social-link:hover {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+    }
+    
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      transition: fill 0.3s ease;
+    }
+    
+    .social-link:hover svg {
+      fill: var(--text-earth);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero-subtitle {
+        margin: 0 auto 2rem;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .hero-visual {
+        height: 400px;
+      }
+      
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .pricing-card.featured {
+        transform: none;
+        grid-column: span 2;
+      }
+      
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero {
+        padding: 100px 1.5rem 60px;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .hero-visual {
+        height: 300px;
+      }
+      
+      .island {
+        width: 280px;
+        height: 160px;
+      }
+      
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .pricing-card.featured {
+        grid-column: span 1;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .cta h2 {
+        font-size: 2rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+    }
+    
+    /* Voxel Character SVG Styles */
+    .character-body { fill: var(--cube-blue); }
+    .character-head { fill: #FFCC80; }
+    .character-eye { fill: var(--text-earth); }
+    .character-mouth { fill: var(--lava-orange); }
+    .character-accessory { fill: var(--accent-green); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="14" height="14" fill="#448AFF" stroke="#5D4037" stroke-width="2"/>
+        <rect x="22" y="4" width="14" height="14" fill="#69F0AE" stroke="#5D4037" stroke-width="2"/>
+        <rect x="4" y="22" width="14" height="14" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+        <rect x="22" y="22" width="14" height="14" fill="#FF7043" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+      Voxel Quest
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Recursos</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#precos">Preços</a></li>
+    </ul>
+    <button class="btn-nav">Jogar Agora</button>
+    <button class="mobile-menu-btn" aria-label="Menu">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="3">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Construa Seu<span>Mundo Voxel</span></h1>
+        <p class="hero-subtitle">Entre em um universo paralelo onde blocos ganham vida. Crie, explore e conquiste em um mundo isométrico épico cheio de aventuras e desafios!</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Começar a Jogar
+          </a>
+          <a href="#features" class="btn-secondary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10 8 16 12 10 16 10 8"/>
+            </svg>
+            Ver Demo
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="island float-anim">
+          <!-- Floating Island Base -->
+          <svg viewBox="0 0 350 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Island grass top -->
+            <path d="M50 120 L100 80 L175 60 L250 80 L300 120 L300 180 L50 180 Z" fill="#66BB6A" stroke="#5D4037" stroke-width="3"/>
+            <!-- Island dirt -->
+            <path d="M30 140 L80 110 L130 90 L175 75 L220 90 L270 110 L320 140 L320 190 L30 190 Z" fill="#8D6E63" stroke="#5D4037" stroke-width="3"/>
+            <!-- Grass details -->
+            <rect x="80" y="70" width="20" height="15" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+            <rect x="140" y="55" width="25" height="20" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+            <rect x="200" y="65" width="18" height="15" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+            <rect x="260" y="75" width="22" height="18" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+          </svg>
+          
+          <!-- Voxel Character -->
+          <div class="voxel-character bounce-anim">
+            <svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+              <!-- Body -->
+              <rect x="20" y="45" width="40" height="45" rx="5" class="character-body" stroke="#5D4037" stroke-width="3"/>
+              <!-- Head -->
+              <rect x="15" y="5" width="50" height="40" rx="8" class="character-head" stroke="#5D4037" stroke-width="3"/>
+              <!-- Eyes -->
+              <circle cx="30" cy="22" r="6" class="character-eye"/>
+              <circle cx="50" cy="22" r="6" class="character-eye"/>
+              <!-- Eye shine -->
+              <circle cx="32" cy="20" r="2" fill="white"/>
+              <circle cx="52" cy="20" r="2" fill="white"/>
+              <!-- Mouth -->
+              <rect x="32" y="35" width="16" height="4" rx="2" class="character-mouth"/>
+              <!-- Hat -->
+              <rect x="10" y="0" width="60" height="12" rx="3" class="character-accessory" stroke="#5D4037" stroke-width="2"/>
+              <rect x="18" y="-8" width="44" height="12" rx="3" class="character-accessory" stroke="#5D4037" stroke-width="2"/>
+              <!-- Arms -->
+              <rect x="5" y="48" width="15" height="35" rx="4" class="character-body" stroke="#5D4037" stroke-width="2"/>
+              <rect x="60" y="48" width="15" height="35" rx="4" class="character-body" stroke="#5D4037" stroke-width="2"/>
+              <!-- Legs -->
+              <rect x="22" y="90" width="15" height="28" rx="3" class="character-body" stroke="#5D4037" stroke-width="2"/>
+              <rect x="43" y="90" width="15" height="28" rx="3" class="character-body" stroke="#5D4037" stroke-width="2"/>
+              <!-- Feet -->
+              <rect x="18" y="115" width="22" height="8" rx="2" fill="#FF7043" stroke="#5D4037" stroke-width="2"/>
+              <rect x="40" y="115" width="22" height="8" rx="2" fill="#FF7043" stroke="#5D4037" stroke-width="2"/>
+            </svg>
+          </div>
+          
+          <!-- Floating Blocks -->
+          <div class="floating-block block-1">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="40" height="40" rx="3" fill="#448AFF" stroke="#5D4037" stroke-width="3"/>
+              <rect x="10" y="10" width="12" height="12" fill="#69F0AE" opacity="0.5"/>
+              <rect x="28" y="10" width="12" height="12" fill="#69F0AE" opacity="0.5"/>
+              <rect x="10" y="28" width="12" height="12" fill="#69F0AE" opacity="0.5"/>
+            </svg>
+          </div>
+          
+          <div class="floating-block block-2">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="40" height="40" rx="3" fill="#FF7043" stroke="#5D4037" stroke-width="3"/>
+              <circle cx="25" cy="25" r="12" fill="#FFCC80"/>
+            </svg>
+          </div>
+          
+          <div class="floating-block block-3">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="40" height="40" rx="3" fill="#66BB6A" stroke="#5D4037" stroke-width="3"/>
+              <path d="M25 10 L35 25 L25 40 L15 25 Z" fill="#69F0AE"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Background Decorations -->
+    <svg class="bg-decoration" style="top: 10%; left: 5%; width: 150px; height: 80px;" viewBox="0 0 150 80">
+      <ellipse cx="75" cy="40" rx="60" ry="30" class="cloud"/>
+    </svg>
+    <svg class="bg-decoration" style="top: 20%; right: 10%; width: 120px; height: 60px;" viewBox="0 0 150 80">
+      <ellipse cx="75" cy="40" rx="60" ry="30" class="cloud"/>
+    </svg>
+    <svg class="bg-decoration" style="bottom: 15%; left: 15%; width: 100px; height: 50px;" viewBox="0 0 150 80">
+      <ellipse cx="75" cy="40" rx="60" ry="30" class="cloud"/>
+    </svg>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="section-header">
+      <span class="section-tag">Recursos Incríveis</span>
+      <h2 class="section-title">Por Que Jogar Voxel Quest?</h2>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon blue">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3>Mundo Infinito</h3>
+        <p>Explore ilhas flutuantes sem limites. Cada块 cria um novo bioma único com recursos raros e desafios emocionantes esperando por você.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon green">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Modo Multijogador</h3>
+        <p>Construa alianças, forme guildas e combata contra outros jogadores. A aventura é muito mais épica quando compartida com amigos!</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon orange">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3>Customização Total</h3>
+        <p>Personalize seu personagem, construa sua base, e crie itens únicos. Seu estilo de jogo, suas regras neste mundo voxel!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="depoimentos" class="testimonials">
+    <div class="section-header">
+      <span class="section-tag">Depoimentos</span>
+      <h2 class="section-title">O Que Dizem os Jogadores</h2>
+      <p class="testimonials-subtitle">Milhares de jogadores já descobriram o magic world voxel. Veja o que eles têm a dizer sobre sua aventura!</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Voxel Quest mudou minha forma de jogar! A sensação de construir em um mundo isométrico é indescritível. Já gastei mais de 100 horas e ainda quero mais!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <h4>Marcos Silva</h4>
+            <p>Level 45 - Arvoredo</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text">"O modo multijogador é fantastico! Fiz amigos de todo o Brasil e agora jogamos juntos todos os dias. A comunidade é muito ativa e receptiva."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: #66BB6A;">A</div>
+          <div class="author-info">
+            <h4>Ana Paula Santos</h4>
+            <p>Level 38 - Porto Belo</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Os gráficos voxel são Lindos! Cada ilha tem um design único e os efeitos visuais são impecáveis. Recomento para todos que amam jogos indie!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: #FF7043;">R</div>
+          <div class="author-info">
+            <h4>Roberto Ferreira</h4>
+            <p>Level 52 - Cristalândia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="precos" class="pricing">
+    <div class="section-header">
+      <span class="section-tag">Planos</span>
+      <h2 class="section-title">Escolha Seu Plano</h2>
+    </div>
+    
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-tier">Iniciante</p>
+        <p class="pricing-price">Grátis</p>
+        <p class="pricing-period">Para sempre</p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Acesso ao mundo principal
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            3 ilhas para construir
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Personagem básico
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Comunidade online
+          </li>
+        </ul>
+        <button class="btn-pricing">Começar Grátis</button>
+      </div>
+      
+      <div class="pricing-card featured">
+        <span class="pricing-badge">Mais Popular</span>
+        <p class="pricing-tier">Aventureiro</p>
+        <p class="pricing-price">R$ 29,90</p>
+        <p class="pricing-period">por mês</p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Tudo do plano Iniciante
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Ilhas ilimitadas para construir
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Personagens exclusivos
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Itens lendários
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Suporte prioritário
+          </li>
+        </ul>
+        <button class="btn-pricing">Assinar Agora</button>
+      </div>
+      
+      <div class="pricing-card">
+        <p class="pricing-tier">Lendário</p>
+        <p class="pricing-price">R$ 59,90</p>
+        <p class="pricing-period">por mês</p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Tudo do plano Aventureiro
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Servidor próprio
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Acesso antecipado a Updates
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Itens exclusivos limitados
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5D4037" stroke-width="4">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            Convidar até 10 jogadores
+          </li>
+        </ul>
+        <button class="btn-pricing">Assinar Agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta-blocks">
+      <svg class="cta-block" style="top: 10%; left: 5%; width: 80px; height: 80px;" viewBox="0 0 50 50">
+        <rect x="5" y="5" width="40" height="40" fill="#69F0AE" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+      <svg class="cta-block" style="top: 60%; left: 15%; width: 60px; height: 60px;" viewBox="0 0 50 50">
+        <rect x="5" y="5" width="40" height="40" fill="#FF7043" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+      <svg class="cta-block" style="top: 20%; right: 10%; width: 70px; height: 70px;" viewBox="0 0 50 50">
+        <rect x="5" y="5" width="40" height="40" fill="#448AFF" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+      <svg class="cta-block" style="bottom: 20%; right: 20%; width: 50px; height: 50px;" viewBox="0 0 50 50">
+        <rect x="5" y="5" width="40" height="40" fill="#66BB6A" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+    </div>
+    
+    <div class="cta-content">
+      <h2>Pronto Para Sua Aventura?</h2>
+      <p>Junte-se a milhares de jogadores e descubra um mundo voxel como você nunca viu. Comece gratuitamente hoje mesmo!</p>
+      <a href="#" class="btn-primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Começar a Jogar Agora
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="14" height="14" fill="#448AFF" stroke="white" stroke-width="2"/>
+            <rect x="22" y="4" width="14" height="14" fill="#69F0AE" stroke="white" stroke-width="2"/>
+            <rect x="4" y="22" width="14" height="14" fill="#66BB6A" stroke="white" stroke-width="2"/>
+            <rect x="22" y="22" width="14" height="14" fill="#FF7043" stroke="white" stroke-width="2"/>
+          </svg>
+          Voxel Quest
+        </a>
+        <p>O melhor jogo voxel isométrico do Brasil. Construa, explore e conquiste seu próprio mundo!</p>
+        
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="white" stroke-width="2"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Produto</h4>
+        <ul class="footer-links">
+          <li><a href="#features">Recursos</a></li>
+          <li><a href="#precos">Preços</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Documentação</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Empresa</h4>
+        <ul class="footer-links">
+          <li><a href="#">Sobre Nós</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-title">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Licenças</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Voxel Quest. Todos os direitos reservados. Feito com ❤️ e muitos blocos.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

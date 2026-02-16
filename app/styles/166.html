@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Herbarium Academy - Plataforma educacional de botânica com estética científica vitoriana e ilustrações botânicas detalhadas">
+    <meta name="keywords" content="botânica, plantas, herbário, ciência, educação botânica, ilustrações científicas">
+    <meta name="author" content="Herbarium Academy">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Herbarium Academy - Educação Botânica Científica">
+    <meta property="og:description" content="Aprenda botânica com ilustrações científicas vitorianas detalhadas">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://herbariumacademy.com">
+    <meta property="og:image" content="https://herbariumacademy.com/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Herbarium Academy - Educação Botânica">
+    <meta name="twitter:description" content="Plataforma educacional de botânica com estética científica vitoriana">
+
+    <title>Herbarium Academy - Educação Botânica Científica</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Design System Variables */
+        :root {
+            --parchment-aged: #F0E5D3;
+            --ink-black: #1A1512;
+            --leaf-green: #4A6741;
+            --floral-red: #BF6B63;
+            --earth-brown: #5D4037;
+            --faded-ink: #2F2F2F;
+            --font-serif: 'Playfair Display', serif;
+            --font-body: 'Crimson Text', serif;
+            --border-color: #4A6741;
+            --shadow-subtle: rgba(26, 21, 18, 0.15);
+            --shadow-strong: rgba(26, 21, 18, 0.25);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--parchment-aged);
+            color: var(--ink-black);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Parchment Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/ag-square.png');
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Coffee Stain Effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(ellipse at center, rgba(139, 90, 43, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--parchment-aged);
+            border-bottom: 2px solid var(--leaf-green);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-subtle);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .navbar-logo svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .navbar-logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--leaf-green);
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .navbar-nav a {
+            text-decoration: none;
+            color: var(--ink-black);
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--floral-red);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav a:hover {
+            color: var(--floral-red);
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            background-color: var(--leaf-green);
+            color: var(--parchment-aged) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3px;
+            transition: all 0.3s ease !important;
+        }
+
+        .navbar-cta:hover {
+            background-color: var(--floral-red) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-strong);
+        }
+
+        .navbar-cta::after {
+            display: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--ink-black);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 103, 65, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--leaf-green);
+            color: var(--parchment-aged);
+            padding: 0.4rem 1rem;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title {
+            color: var(--ink-black);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 120px;
+            height: 3px;
+            background-color: var(--floral-red);
+        }
+
+        .hero-description {
+            color: var(--faded-ink);
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 2px solid var(--leaf-green);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--leaf-green);
+            color: var(--parchment-aged);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--floral-red);
+            border-color: var(--floral-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-strong);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--leaf-green);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--leaf-green);
+            color: var(--parchment-aged);
+            transform: translateY(-2px);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border: 3px solid var(--leaf-green);
+            border-radius: 5px;
+            padding: 20px;
+            background-color: rgba(240, 229, 211, 0.9);
+            box-shadow: 0 10px 40px var(--shadow-strong);
+            position: relative;
+        }
+
+        .hero-illustration::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid var(--leaf-green);
+            opacity: 0.3;
+            border-radius: 5px;
+        }
+
+        .scientific-label {
+            position: absolute;
+            background-color: var(--parchment-aged);
+            border: 1px solid var(--leaf-green);
+            padding: 0.5rem 1rem;
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--leaf-green);
+            white-space: nowrap;
+        }
+
+        .label-1 {
+            top: 20%;
+            right: -120px;
+        }
+
+        .label-2 {
+            bottom: 30%;
+            left: -130px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(74, 103, 65, 0.03) 50%, transparent 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            display: inline-block;
+            color: var(--floral-red);
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: var(--faded-ink);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--parchment-aged);
+            border: 2px solid var(--leaf-green);
+            border-radius: 5px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px var(--shadow-subtle);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid var(--leaf-green);
+            border-radius: 3px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px var(--shadow-strong);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(74, 103, 65, 0.1);
+            border: 2px solid var(--leaf-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--leaf-green);
+        }
+
+        .feature-title {
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--faded-ink);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--leaf-green));
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: rgba(240, 229, 211, 0.6);
+            border: 1px solid var(--leaf-green);
+            border-radius: 5px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--floral-red);
+            box-shadow: 0 8px 25px var(--shadow-strong);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.15;
+        }
+
+        .testimonial-quote svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--leaf-green);
+        }
+
+        .testimonial-text {
+            color: var(--faded-ink);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: var(--leaf-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--parchment-aged);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--ink-black);
+            font-size: 1rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: var(--leaf-green);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(191, 107, 99, 0.05) 50%, transparent 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background-color: var(--parchment-aged);
+            border: 2px solid var(--leaf-green);
+            border-radius: 5px;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid var(--leaf-green);
+            border-radius: 3px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-strong);
+        }
+
+        .pricing-popular {
+            border-color: var(--floral-red);
+            transform: scale(1.05);
+        }
+
+        .pricing-popular::before {
+            border-color: var(--floral-red);
+        }
+
+        .pricing-popular:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--floral-red);
+            color: var(--parchment-aged);
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 3px;
+        }
+
+        .pricing-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .pricing-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--leaf-green);
+        }
+
+        .pricing-tier {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--leaf-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--faded-ink);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(74, 103, 65, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--leaf-green);
+            flex-shrink: 0;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse at center, rgba(74, 103, 65, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            background-color: rgba(240, 229, 211, 0.8);
+            border: 3px solid var(--leaf-green);
+            border-radius: 5px;
+            padding: 4rem 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 40px var(--shadow-strong);
+        }
+
+        .cta-title {
+            color: var(--ink-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            color: var(--faded-ink);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--earth-brown);
+            color: var(--parchment-aged);
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--leaf-green) 0%, var(--floral-red) 50%, var(--leaf-green) 100%);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--parchment-aged);
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--parchment-aged);
+        }
+
+        .footer-description {
+            color: rgba(240, 229, 211, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--parchment-aged);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(240, 229, 211, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--parchment-aged);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(240, 229, 211, 0.1);
+            border: 1px solid rgba(240, 229, 211, 0.3);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--leaf-green);
+            border-color: var(--leaf-green);
+            transform: translateY(-3px);
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--parchment-aged);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(240, 229, 211, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(240, 229, 211, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(240, 229, 211, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--parchment-aged);
+        }
+
+        /* Decorative Elements */
+        .vine-border {
+            position: absolute;
+            width: 60px;
+            height: 200px;
+            opacity: 0.2;
+        }
+
+        .vine-border svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--leaf-green);
+        }
+
+        .vine-left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .vine-right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .hero-description {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-illustration {
+                margin: 0 auto;
+            }
+
+            .scientific-label {
+                display: none;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-popular {
+                transform: none;
+            }
+
+            .pricing-popular:hover {
+                transform: translateY(-5px);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .features,
+            .testimonials,
+            .pricing,
+            .cta {
+                padding: 60px 0;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card,
+            .testimonial-card,
+            .pricing-card {
+                padding: 2rem;
+            }
+
+            .cta-content {
+                padding: 3rem 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .pricing-price {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-illustration {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(1) {
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .feature-card:nth-child(2) {
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .feature-card:nth-child(3) {
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#4A6741" stroke-width="3"/>
+                    <path d="M50 20 Q60 35 50 50 Q40 65 50 80" fill="none" stroke="#4A6741" stroke-width="3"/>
+                    <path d="M50 30 Q65 40 50 50" fill="none" stroke="#4A6741" stroke-width="2"/>
+                    <path d="M50 50 Q35 60 50 70" fill="none" stroke="#4A6741" stroke-width="2"/>
+                    <ellipse cx="50" cy="35" rx="8" ry="12" fill="#4A6741" opacity="0.6"/>
+                    <ellipse cx="45" cy="55" rx="6" ry="10" fill="#4A6741" opacity="0.5"/>
+                    <ellipse cx="55" cy="65" rx="5" ry="8" fill="#4A6741" opacity="0.4"/>
+                </svg>
+                <span class="navbar-logo-text">Herbarium Academy</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#planos">Planos</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#inscrever" class="navbar-cta">Inscrever-se</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">Estudos Botânicos Vitorianos</span>
+                    <h1 class="hero-title">Explore a Ciência das Plantas com Elegância Científica</h1>
+                    <p class="hero-description">Mergulhe no mundo fascinante da botânica através de ilustrações científicas detalhadas, documentos históricos e conhecimento acadêmico preservado.</p>
+                    <div class="hero-buttons">
+                        <a href="#planos" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="currentColor"/>
+                            </svg>
+                            Começar Agora
+                        </a>
+                        <a href="#recursos" class="btn btn-secondary">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5v14l11-7z" fill="currentColor"/>
+                            </svg>
+                            Ver Recursos
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-illustration">
+                        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Plant Stem -->
+                            <path d="M150 380 Q150 300 150 200 Q150 100 150 50" fill="none" stroke="#4A6741" stroke-width="4"/>
+
+                            <!-- Leaves -->
+                            <ellipse cx="120" cy="320" rx="35" ry="20" fill="#4A6741" opacity="0.7" transform="rotate(-30 120 320)"/>
+                            <ellipse cx="180" cy="280" rx="35" ry="20" fill="#4A6741" opacity="0.65" transform="rotate(30 180 280)"/>
+                            <ellipse cx="130" cy="230" rx="30" ry="18" fill="#4A6741" opacity="0.6" transform="rotate(-25 130 230)"/>
+                            <ellipse cx="170" cy="190" rx="30" ry="18" fill="#4A6741" opacity="0.55" transform="rotate(25 170 190)"/>
+                            <ellipse cx="140" cy="140" rx="25" ry="15" fill="#4A6741" opacity="0.5" transform="rotate(-20 140 140)"/>
+                            <ellipse cx="160" cy="100" rx="25" ry="15" fill="#4A6741" opacity="0.45" transform="rotate(20 160 100)"/>
+
+                            <!-- Flower -->
+                            <circle cx="150" cy="60" r="25" fill="#BF6B63" opacity="0.8"/>
+                            <circle cx="135" cy="75" r="20" fill="#BF6B63" opacity="0.7"/>
+                            <circle cx="165" cy="75" r="20" fill="#BF6B63" opacity="0.7"/>
+                            <circle cx="130" cy="55" r="18" fill="#BF6B63" opacity="0.75"/>
+                            <circle cx="170" cy="55" r="18" fill="#BF6B63" opacity="0.75"/>
+                            <circle cx="150" cy="60" r="10" fill="#5D4037"/>
+
+                            <!-- Leaf Veins -->
+                            <path d="M120 320 L100 310" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+                            <path d="M120 320 L140 310" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+                            <path d="M180 280 L200 270" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+                            <path d="M180 280 L160 270" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+
+                            <!-- Labels -->
+                            <text x="80" y="310" font-family="serif" font-size="10" fill="#1A1512" font-style="italic">Folium</text>
+                            <line x1="95" y1="308" x2="110" y2="315" stroke="#1A1512" stroke-width="0.5" opacity="0.6"/>
+
+                            <text x="190" y="70" font-family="serif" font-size="10" fill="#1A1512" font-style="italic">Flos</text>
+                            <line x1="185" y1="73" x2="165" y2="65" stroke="#1A1512" stroke-width="0.5" opacity="0.6"/>
+
+                            <text x="200" y="200" font-family="serif" font-size="10" fill="#1A1512" font-style="italic">Caulis</text>
+                            <line x1="195" y1="198" x2="160" y2="200" stroke="#1A1512" stroke-width="0.5" opacity="0.6"/>
+                        </svg>
+                        <div class="scientific-label label-1">Rosa damascena</div>
+                        <div class="scientific-label label-2">Structura folii</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Recursos Acadêmicos</span>
+                <h2 class="section-title">Coleção Botânica Completa</h2>
+                <p class="section-description">Acesse uma biblioteca abrangente de ilustrações científicas, documentos históricos e materiais educacionais de botânica.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Ilustrações Científicas</h3>
+                    <p class="feature-description">Mais de 5.000 ilustrações botânicas detalhadas em alta resolução, desenhadas por mestres da era vitoriana.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Documentos Históricos</h3>
+                    <p class="feature-description">Acesse manuscritos originais, cadernos de campo de botânicos famosos e publicações científicas raras.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Cursos Estruturados</h3>
+                    <p class="feature-description">Aprendizado progressivo com módulos organizados por níveis, do iniciante ao pesquisador avançado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Comunidade Científica</span>
+                <h2 class="section-title">O Que Dizem Nossos Estudantes</h2>
+                <p class="section-description">Pesquisadores, estudantes e entusiastas da botânica compartilham suas experiências na Herbarium Academy.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">A qualidade das ilustrações botânicas é excepcional. Usei os materiais para minha pesquisa em taxonomia vegetal e a precisão dos detalhes foi fundamental para meu trabalho.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Dra. Marina Santos</div>
+                            <div class="testimonial-role">Botânica, Universidade de São Paulo</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">Como ilustradora científica, encontro na Herbarium Academy uma fonte inesgotável de inspiração. Os documentos históricos me ajudam a entender técnicas tradicionais de ilustração botânica.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Carla Mendes</div>
+                            <div class="testimonial-role">Ilustradora Científica</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">Os cursos estruturados me permitiram transicionar da jardinagem amadora para o estudo sério da botânica. A abordagem histórica torna o aprendizado verdadeiramente fascinante.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Roberto Almeida</div>
+                            <div class="testimonial-role">Estudante de Botânica</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="planos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Planos de Estudo</span>
+                <h2 class="section-title">Escolha Seu Caminho Botânico</h2>
+                <p class="section-description">Invista em seu conhecimento científico com planos flexíveis adaptados às suas necessidades de aprendizado.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-tier">Naturalista</h3>
+                    <div class="pricing-price">R$47<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            500 ilustrações botânicas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Acesso a documentos básicos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            2 cursos introdutórios
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Fórum da comunidade
+                        </li>
+                    </ul>
+                    <a href="#inscrever" class="btn btn-secondary pricing-cta">
+                        Começar Gratuitamente
+                    </a>
+                </div>
+                <div class="pricing-card pricing-popular">
+                    <span class="pricing-badge">Mais Popular</span>
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-tier">Pesquisador</h3>
+                    <div class="pricing-price">R$97<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            5.000+ ilustrações botânicas
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Documentos históricos completos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Todos os cursos disponíveis
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Certificados de conclusão
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Downloads em alta resolução
+                        </li>
+                    </ul>
+                    <a href="#inscrever" class="btn btn-primary pricing-cta">
+                        Tornar-se Pesquisador
+                    </a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-tier">Acadêmico</h3>
+                    <div class="pricing-price">R$197<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Biblioteca completa ilimitada
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Manuscritos raros exclusivos
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Mentoria personalizada
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Acesso a laboratórios virtuais
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Projetos de pesquisa guiados
+                        </li>
+                    </ul>
+                    <a href="#inscrever" class="btn btn-secondary pricing-cta">
+                        Contatar Instituição
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="inscrever">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Comece Sua Jornada Botânica Hoje</h2>
+                <p class="cta-description">Junte-se a milhares de estudantes, pesquisadores e entusiastas que exploram o mundo fascinante da botânica através de nossa plataforma educacional única.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="currentColor"/>
+                        </svg>
+                        Inscrever-se Agora
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        Fale Conosco
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#F0E5D3" stroke-width="3"/>
+                            <path d="M50 20 Q60 35 50 50 Q40 65 50 80" fill="none" stroke="#F0E5D3" stroke-width="3"/>
+                            <path d="M50 30 Q65 40 50 50" fill="none" stroke="#F0E5D3" stroke-width="2"/>
+                            <path d="M50 50 Q35 60 50 70" fill="none" stroke="#F0E5D3" stroke-width="2"/>
+                            <ellipse cx="50" cy="35" rx="8" ry="12" fill="#F0E5D3" opacity="0.6"/>
+                            <ellipse cx="45" cy="55" rx="6" ry="10" fill="#F0E5D3" opacity="0.5"/>
+                            <ellipse cx="55" cy="65" rx="5" ry="8" fill="#F0E5D3" opacity="0.4"/>
+                        </svg>
+                        <span class="footer-logo-text">Herbarium Academy</span>
+                    </div>
+                    <p class="footer-description">Plataforma educacional dedicada à preservação e disseminação do conhecimento botânico através de ilustrações científicas históricas e documentos acadêmicos raros.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="#5D4037" stroke-width="2"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#5D4037" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.33 29 29 0 00-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Plataforma</h4>
+                    <ul class="footer-links">
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#cursos">Cursos</a></li>
+                        <li><a href="#galeria">Galeria</a></li>
+                        <li><a href="#comunidade">Comunidade</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Institucional</h4>
+                    <ul class="footer-links">
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#metodologia">Metodologia</a></li>
+                        <li><a href="#parcerias">Parcerias</a></li>
+                        <li><a href="#imprensa">Imprensa</a></li>
+                        <li><a href="#carreiras">Carreiras</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#ajuda">Central de Ajuda</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacidade">Privacidade</a></li>
+                        <li><a href="#termos">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Herbarium Academy. Todos os direitos reservados. Preservando o conhecimento botânico desde 2026.</p>
+                <div class="footer-bottom-links">
+                    <a href="#privacidade">Política de Privacidade</a>
+                    <a href="#termos">Termos de Serviço</a>
+                    <a href="#cookies">Política de Cookies</a>
+                    <a href="#acessibilidade">Acessibilidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navbarNav = document.querySelector('.navbar-nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navbarNav.style.display = navbarNav.style.display === 'flex' ? 'none' : 'flex';
+            if (navbarNav.style.display === 'flex') {
+                navbarNav.style.flexDirection = 'column';
+                navbarNav.style.position = 'absolute';
+                navbarNav.style.top = '100%';
+                navbarNav.style.left = '0';
+                navbarNav.style.right = '0';
+                navbarNav.style.backgroundColor = '#F0E5D3';
+                navbarNav.style.padding = '1rem';
+                navbarNav.style.boxShadow = '0 4px 10px rgba(26, 21, 18, 0.15)';
+            }
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(26, 21, 18, 0.2)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(26, 21, 18, 0.15)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

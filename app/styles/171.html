@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terminal Root - Plataforma de hacking e segurança com estética terminal CRT. Aprenda hacking ético, penetração e cibersegurança.">
+    <meta name="keywords" content="hacking, segurança, terminal, cli, crt, coding, matrix, green, retro, command line, cibersegurança">
+    <meta name="author" content="Terminal Root">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Terminal Root - Hacking & Segurança">
+    <meta property="og:description" content="Plataforma de hacking e segurança com estética terminal CRT">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://terminalroot.io">
+    <meta property="og:image" content="https://terminalroot.io/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terminal Root - Hacking & Segurança">
+    <meta name="twitter:description" content="Plataforma de hacking e segurança com estética terminal CRT">
+
+    <title>Terminal Root | Hacking & Segurança</title>
+
+    <!-- Google Fonts: VT323 for terminal aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           HACKER AESTHETIC CRT/CLI DESIGN SYSTEM
+           ======================================== */
+
+        :root {
+            --bg-terminal: #050505;
+            --text-phosphor: #2CFF56;
+            --alert-amber: #FFB200;
+            --error-red: #FF3333;
+            --cursor-white: #FFFFFF;
+            --dark-grey: #111111;
+            --scanline: rgba(0, 0, 0, 0.5);
+            --font-term: 'VT323', monospace;
+            --glow-intensity: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00;
+            --border-terminal: 2px solid #2CFF56;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-terminal);
+            color: var(--text-phosphor);
+            font-family: var(--font-term);
+            font-size: 20px;
+            line-height: 1.6;
+            text-shadow: 0 0 5px #00FF00;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CRT Scanline Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        /* CRT Flicker Effect */
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            5% { opacity: 0.95; }
+            10% { opacity: 0.9; }
+            15% { opacity: 0.95; }
+            20% { opacity: 0.99; }
+            25% { opacity: 0.95; }
+            30% { opacity: 0.9; }
+            35% { opacity: 0.96; }
+            40% { opacity: 0.98; }
+            45% { opacity: 0.95; }
+            50% { opacity: 0.99; }
+            55% { opacity: 0.93; }
+            60% { opacity: 0.9; }
+            65% { opacity: 0.96; }
+            70% { opacity: 0.98; }
+            75% { opacity: 0.95; }
+            80% { opacity: 0.97; }
+            85% { opacity: 0.93; }
+            90% { opacity: 0.96; }
+            95% { opacity: 0.99; }
+            100% { opacity: 0.97; }
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: flicker 0.15s infinite;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+        }
+
+        /* Typing Cursor Animation */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background-color: var(--text-phosphor);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+
+        .navbar {
+            background-color: var(--dark-grey);
+            border-bottom: var(--border-terminal);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(44, 255, 86, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 28px;
+            color: var(--text-phosphor);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--text-phosphor);
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-logo:hover {
+            background-color: var(--text-phosphor);
+            color: var(--bg-terminal);
+            box-shadow: var(--glow-intensity);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-phosphor);
+            text-decoration: none;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            border: 1px solid var(--text-phosphor);
+            box-shadow: 0 0 10px var(--text-phosphor);
+            background-color: rgba(44, 255, 86, 0.1);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 2px solid var(--text-phosphor);
+            color: var(--text-phosphor);
+            font-size: 24px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: var(--font-term);
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background-color: var(--text-phosphor);
+            color: var(--bg-terminal);
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+
+        .hero {
+            padding: 160px 0 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(44, 255, 86, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 64px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: var(--glow-intensity);
+        }
+
+        .hero-text h2 {
+            font-size: 32px;
+            color: var(--alert-amber);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-text p {
+            font-size: 22px;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            color: rgba(44, 255, 86, 0.8);
+        }
+
+        .hero-ascii {
+            font-size: 12px;
+            line-height: 1.2;
+            color: var(--text-phosphor);
+            white-space: pre;
+            text-align: center;
+            animation: flicker 4s infinite;
+            text-shadow: var(--glow-intensity);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 22px;
+            font-family: var(--font-term);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border: 2px solid var(--text-phosphor);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--text-phosphor);
+            color: var(--bg-terminal);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--glow-intensity);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-phosphor);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-phosphor);
+            color: var(--bg-terminal);
+            box-shadow: var(--glow-intensity);
+        }
+
+        .btn-amber {
+            background-color: var(--alert-amber);
+            color: var(--bg-terminal);
+            border-color: var(--alert-amber);
+        }
+
+        .btn-amber:hover {
+            box-shadow: 0 0 20px var(--alert-amber);
+        }
+
+        /* ========================================
+           FEATURES SECTION
+           ======================================== */
+
+        .features {
+            padding: 100px 0;
+            background-color: var(--dark-grey);
+            border-top: var(--border-terminal);
+            border-bottom: var(--border-terminal);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: var(--glow-intensity);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 24px;
+            color: var(--alert-amber);
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-terminal);
+            border: 2px solid var(--text-phosphor);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--text-phosphor);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--glow-intensity);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--text-phosphor);
+        }
+
+        .feature-card h3 {
+            font-size: 28px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feature-card p {
+            font-size: 20px;
+            color: rgba(44, 255, 86, 0.7);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION
+           ======================================== */
+
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--bg-terminal);
+            border-top: var(--border-terminal);
+            border-bottom: var(--border-terminal);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--dark-grey);
+            border-left: 4px solid var(--text-phosphor);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .testimonial-card:hover {
+            border-left-width: 8px;
+            box-shadow: var(--glow-intensity);
+        }
+
+        .testimonial-quote {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: rgba(44, 255, 86, 0.9);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--text-phosphor);
+            background-color: var(--bg-terminal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--text-phosphor);
+        }
+
+        .testimonial-info h4 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .testimonial-info p {
+            font-size: 18px;
+            color: var(--alert-amber);
+        }
+
+        /* ========================================
+           PRICING SECTION
+           ======================================== */
+
+        .pricing {
+            padding: 100px 0;
+            background-color: var(--dark-grey);
+            border-top: var(--border-terminal);
+            border-bottom: var(--border-terminal);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--bg-terminal);
+            border: 2px solid var(--text-phosphor);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pricing-card:hover {
+            box-shadow: var(--glow-intensity);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--alert-amber);
+            box-shadow: 0 0 30px rgba(255, 178, 0, 0.3);
+        }
+
+        .pricing-card.featured::before {
+            content: "MAIS POPULAR";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--alert-amber);
+            color: var(--bg-terminal);
+            padding: 5px 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .pricing-tier {
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow-intensity);
+        }
+
+        .pricing-price span {
+            font-size: 24px;
+        }
+
+        .pricing-period {
+            font-size: 20px;
+            color: var(--alert-amber);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(44, 255, 86, 0.2);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li svg.check {
+            fill: var(--text-phosphor);
+        }
+
+        .pricing-features li svg.cross {
+            fill: var(--error-red);
+        }
+
+        /* ========================================
+           CTA SECTION
+           ======================================== */
+
+        .cta {
+            padding: 100px 0;
+            background-color: var(--bg-terminal);
+            border-top: var(--border-terminal);
+            border-bottom: var(--border-terminal);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(44, 255, 86, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 56px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: var(--glow-intensity);
+        }
+
+        .cta p {
+            font-size: 24px;
+            margin-bottom: 3rem;
+            color: rgba(44, 255, 86, 0.8);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+
+        .footer {
+            background-color: var(--dark-grey);
+            border-top: var(--border-terminal);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 20px;
+            color: rgba(44, 255, 86, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--text-phosphor);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background-color: var(--text-phosphor);
+            box-shadow: var(--glow-intensity);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-phosphor);
+        }
+
+        .social-link:hover svg {
+            fill: var(--bg-terminal);
+        }
+
+        .footer-nav h4 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-nav a {
+            color: rgba(44, 255, 86, 0.7);
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text-phosphor);
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(44, 255, 86, 0.3);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 18px;
+            color: rgba(44, 255, 86, 0.6);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-ascii {
+                display: none;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--dark-grey);
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .hero-text h2 {
+                font-size: 24px;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 36px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-text h2 {
+                font-size: 20px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .pricing-price {
+                font-size: 42px;
+            }
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-amber {
+            color: var(--alert-amber);
+        }
+
+        .text-red {
+            color: var(--error-red);
+        }
+
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .glitch-effect:hover {
+            animation: glitch 0.3s infinite;
+        }
+
+        /* Binary Rain Effect (subtle) */
+        @keyframes binary {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .binary-column {
+            position: absolute;
+            top: 0;
+            font-size: 14px;
+            color: rgba(44, 255, 86, 0.3);
+            writing-mode: vertical-rl;
+            animation: binary 20s linear infinite;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo glitch-effect">./TERMINAL_ROOT</a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                [MENU]
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">[FEATURES]</a></li>
+                <li><a href="#testimonials" class="nav-link">[DEPOIMENTOS]</a></li>
+                <li><a href="#pricing" class="nav-link">[PREÇOS]</a></li>
+                <li><a href="#cta" class="nav-link">[ACESSAR]</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>&gt; SISTEMA INICIADO</h2>
+                    <h1>DOMINE A ARTE DO<br>HACKING ÉTICO</h1>
+                    <p>
+                        Aprenda as técnicas mais avançadas de penetração e
+                        cibersegurança em uma plataforma com estética terminal
+                        autêntica. Pronto para entrar na matriz?
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#cta" class="btn btn-primary glitch-effect">
+                            &gt; INICIAR_HACKING
+                        </a>
+                        <a href="#features" class="btn btn-secondary">
+                            [SAIBA_MAIS]
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-ascii">
+<pre>
+    ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗
+    ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+    ███████║███████║██║     █████╔╝ █████╗  ██████╔╝
+    ██╔══██║██╔══██║██║     ██╔═██╗ ██╔══╝  ██╔══██╗
+    ██║  ██║██║  ██║╚██████╗██║  ██╗███████╗██║  ██║
+    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+       ██████╗ ██████╗ ███████╗ █████╗ ██╗
+      ██╔════╝██╔═══██╗██╔════╝██╔══██╗██║
+      ██║     ██║   ██║█████╗  ███████║██║
+      ██║     ██║   ██║██╔══╝  ██╔══██║██║
+      ╚██████╗╚██████╔╝███████╗██║  ██║██║
+       ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝
+</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">&gt; FEATURES_DO_SISTEMA</h2>
+            <p class="section-subtitle">[FERRAMENTAS_DE_HACKING_AVANÇADO]</p>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Pen Testing</h3>
+                    <p>
+                        Ferramentas profissionais para testes de penetração
+                        em sistemas corporativos. Descubra vulnerabilidades
+                        antes dos criminosos.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Criptografia</h3>
+                    <p>
+                        Domine técnicas de criptografia moderna e
+                        clássica. Proteja dados sensíveis e
+                        aprenda a quebrar cifras complexas.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                    </div>
+                    <h3>Network Security</h3>
+                    <p>
+                        Análise profunda de redes, protocolos e
+                        infraestrutura. Monitore tráfego e
+                        identifique ameaças em tempo real.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                        </svg>
+                    </div>
+                    <h3>Code Analysis</h3>
+                    <p>
+                        Ferramentas automatizadas para análise de
+                        código-fonte. Enthe bugs e vulnerabilidades
+                        em aplicações web e mobile.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <h3>Malware Analysis</h3>
+                    <p>
+                        Ambiente isolado para análise de malware
+                        seguro. Desmonte código malicioso e
+                        entenda técnicas de ataque.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <h3>Community</h3>
+                    <p>
+                        Acesse uma comunidade global de hackers
+                        éticos. Compartilhe conhecimento e
+                        participe de desafios CTF.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">&gt; DEPOIMENTOS</h2>
+            <p class="section-subtitle">[O QUE_OS_HACKERS_DIZEM]</p>
+
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "A melhor plataforma para aprender hacking ético.
+                        Os laboratórios práticos são incríveis e a
+                        comunidade é muito receptiva."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Carlos Silva</h4>
+                            <p>Pentester Senior</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "Comecei do zero e hoje trabalho como
+                        Analista de Segurança. O Terminal Root
+                        transformou minha carreira."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Ana Rodrigues</h4>
+                            <p>Security Analyst</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "Os cursos de criptografia e engenharia
+                        reversa são top de linha. Conteúdo
+                        atualizado e muito prático."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Pedro Santos</h4>
+                            <p>Reverse Engineer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">&gt; PLANOS_E_PREÇOS</h2>
+            <p class="section-subtitle">[ESCOLHA_SEU_NIVEL_DE_ACESSO]</p>
+
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">BÁSICO</h3>
+                    <div class="pricing-price">
+                        R$0<span>/mês</span>
+                    </div>
+                    <p class="pricing-period">PARA INICIANTES</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Acesso a 5 cursos básicos
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Laboratórios limitados
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Fórum da comunidade
+                        </li>
+                        <li>
+                            <svg class="cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            Certificações
+                        </li>
+                        <li>
+                            <svg class="cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn btn-secondary glitch-effect">
+                        &gt; COMEÇAR_GRATIS
+                    </a>
+                </div>
+
+                <!-- Pro Tier -->
+                <div class="pricing-card featured">
+                    <h3 class="pricing-tier">PRO</h3>
+                    <div class="pricing-price">
+                        R$97<span>/mês</span>
+                    </div>
+                    <p class="pricing-period">PARA PROFISSIONAIS</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Acesso a todos os cursos
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Laboratórios ilimitados
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Certificações inclusas
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Suporte prioritário
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            CTFs mensais
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn btn-primary glitch-effect">
+                        &gt; ASSINAR_PRO
+                    </a>
+                </div>
+
+                <!-- Enterprise Tier -->
+                <div class="pricing-card">
+                    <h3 class="pricing-tier">ENTERPRISE</h3>
+                    <div class="pricing-price">
+                        R$497<span>/mês</span>
+                    </div>
+                    <p class="pricing-period">PARA EMPRESAS</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Tudo do Pro
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Até 50 usuários
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Treinamento corporativo
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Consultoria dedicada
+                        </li>
+                        <li>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            SLA garantido
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn btn-amber glitch-effect">
+                        &gt; FALAR_CONSULTOR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>&gt; PRONTO_PARA_INICIAR?</h2>
+                <p>
+                    Junte-se a mais de 50.000 hackers éticos e comece sua
+                    jornada no mundo da cibersegurança hoje mesmo.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary glitch-effect">
+                        &gt; CRIAR_CONTA
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        [DEMO_GRATIS]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <h3>./TERMINAL_ROOT</h3>
+                    <p>
+                        A plataforma definitiva para aprender hacking ético
+                        e cibersegurança com estética autêntica de terminal.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Discord">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="footer-nav">
+                    <h4>&gt; PLATAFORMA</h4>
+                    <ul>
+                        <li><a href="#">[Cursos]</a></li>
+                        <li><a href="#">[Laboratórios]</a></li>
+                        <li><a href="#">[CTFs]</a></li>
+                        <li><a href="#">[Certificações]</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-nav">
+                    <h4>&gt; RECURSOS</h4>
+                    <ul>
+                        <li><a href="#">[Documentação]</a></li>
+                        <li><a href="#">[Blog]</a></li>
+                        <li><a href="#">[Forum]</a></li>
+                        <li><a href="#">[API]</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-nav">
+                    <h4>&gt; SUPORTE</h4>
+                    <ul>
+                        <li><a href="#">[Help Center]</a></li>
+                        <li><a href="#">[Contato]</a></li>
+                        <li><a href="#">[Status]</a></li>
+                        <li><a href="#">[Termos]</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    © 2026 Terminal Root. Todos os direitos reservados. |
+                    Desenvolvido com &lt;3 e muito café.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu and Interactions -->
+    <script>
+        // Mobile Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.contains('active');
+            navToggle.textContent = isOpen ? '[FECHAR]' : '[MENU]';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.textContent = '[MENU]';
+            });
+        });
+
+        // Typing animation for hero
+        const heroTitle = document.querySelector('.hero-text h1');
+        const originalText = heroTitle.textContent;
+
+        function typeWriter(element, text, speed = 100) {
+            element.textContent = '';
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+
+            type();
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add glitch effect on hover for specific elements
+        document.querySelectorAll('.glitch-effect').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Console easter egg
+        console.log('%c> TERMINAL ROOT INITIALIZED', 'color: #2CFF56; font-size: 20px; font-family: monospace; text-shadow: 0 0 10px #00FF00;');
+        console.log('%c> Welcome, hacker. The system is yours to explore.', 'color: #FFB200; font-size: 14px; font-family: monospace;');
+        console.log('%c> Use the force, read the source.', 'color: #2CFF56; font-size: 14px; font-family: monospace;');
+
+        // Binary rain effect (subtle background)
+        function createBinaryColumn() {
+            const column = document.createElement('div');
+            column.className = 'binary-column';
+            column.style.left = Math.random() * 100 + '%';
+            column.style.animationDuration = (15 + Math.random() * 10) + 's';
+            column.style.animationDelay = Math.random() * 5 + 's';
+
+            const binary = Array(50).fill(0).map(() =>
+                Math.random() > 0.5 ? '1' : '0'
+            ).join('');
+
+            column.textContent = binary;
+            document.querySelector('.hero').appendChild(column);
+
+            setTimeout(() => {
+                column.remove();
+            }, 25000);
+        }
+
+        // Create occasional binary columns
+        setInterval(createBinaryColumn, 3000);
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(17, 17, 17, 0.95)';
+                navbar.style.boxShadow = '0 0 30px rgba(44, 255, 86, 0.5)';
+            } else {
+                navbar.style.backgroundColor = 'var(--dark-grey)';
+                navbar.style.boxShadow = '0 0 20px rgba(44, 255, 86, 0.3)';
+            }
+        });
+
+        // Add keyboard shortcut for focus
+        document.addEventListener('keydown', (e) => {
+            // Press '/' to focus on first CTA button
+            if (e.key === '/' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                document.querySelector('.btn-primary').focus();
+            }
+        });
+    </script>
+</body>
+</html>

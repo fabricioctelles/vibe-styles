@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NeonCity Protocol - Plataforma de segurança cibernética com estética cyberpunk neon noir. Proteção avançada para o mundo digital.">
+    <meta name="keywords" content="segurança cibernética, cyberpunk, proteção digital, neon, hacker defense, firewall">
+    <meta name="author" content="NeonCity Protocol">
+    <meta property="og:title" content="NeonCity Protocol - Segurança Cibernética do Futuro">
+    <meta property="og:description" content="Proteja seus dados com a plataforma mais avançada do mercado. Estética cyberpunk, segurança real.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://neoncityprotocol.com.br">
+    <meta property="og:image" content="https://neoncityprotocol.com.br/og-image.png">
+    <title>NeonCity Protocol - Segurança Cibernética do Futuro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cyber: #050512;
+            --bg-cyber-secondary: #020205;
+            --neon-cyan: #00FFFF;
+            --neon-pink: #FF00FF;
+            --neon-purple: #BC13FE;
+            --text-white: #FFFFFF;
+            --text-dim: #B0B0B0;
+            --glow-strength: 10px;
+            --glow-strong: 20px;
+            --border-cyan: 1px solid #00FFFF;
+            --border-pink: 1px solid #FF00FF;
+            --font-cyber: 'Orbitron', sans-serif;
+            --transition-cyber: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-cyber);
+            background-color: var(--bg-cyber);
+            color: var(--text-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Scanlines Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+        }
+
+        /* Hexagonal Grid Background */
+        .hex-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            background-image:
+                linear-gradient(30deg, #00FFFF 12%, transparent 12.5%, transparent 87%, #00FFFF 87.5%, #00FFFF),
+                linear-gradient(150deg, #00FFFF 12%, transparent 12.5%, transparent 87%, #00FFFF 87.5%, #00FFFF),
+                linear-gradient(30deg, #00FFFF 12%, transparent 12.5%, transparent 87%, #00FFFF 87.5%, #00FFFF),
+                linear-gradient(150deg, #00FFFF 12%, transparent 12.5%, transparent 87%, #00FFFF 87.5%, #00FFFF),
+                linear-gradient(60deg, #FF00FF 25%, transparent 25.5%, transparent 75%, #FF00FF 75%, #FF00FF),
+                linear-gradient(60deg, #FF00FF 25%, transparent 25.5%, transparent 75%, #FF00FF 75%, #FF00FF);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        button {
+            border: none;
+            background: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== NEON GLOW UTILITY ========== */
+        .neon-glow {
+            text-shadow:
+                0 0 var(--glow-strength) var(--neon-cyan),
+                0 0 var(--glow-strong) var(--neon-cyan),
+                0 0 30px var(--neon-cyan);
+        }
+
+        .neon-glow-pink {
+            text-shadow:
+                0 0 var(--glow-strength) var(--neon-pink),
+                0 0 var(--glow-strong) var(--neon-pink),
+                0 0 30px var(--neon-pink);
+        }
+
+        .box-glow {
+            box-shadow:
+                0 0 var(--glow-strength) var(--neon-cyan),
+                0 0 var(--glow-strong) var(--neon-cyan),
+                inset 0 0 var(--glow-strength) rgba(0, 255, 255, 0.1);
+        }
+
+        .box-glow-pink {
+            box-shadow:
+                0 0 var(--glow-strength) var(--neon-pink),
+                0 0 var(--glow-strong) var(--neon-pink),
+                inset 0 0 var(--glow-strength) rgba(255, 0, 255, 0.1);
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 18, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 16px 0;
+            transition: all var(--transition-cyber);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .navbar-logo svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar-link {
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+            transition: all var(--transition-cyber);
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            transition: width var(--transition-cyber);
+        }
+
+        .navbar-link:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            font-family: var(--font-cyber);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-cyber);
+            cursor: pointer;
+        }
+
+        .navbar-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.2), transparent);
+            transition: left var(--transition-cyber);
+        }
+
+        .navbar-cta:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(255, 0, 255, 0.1);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .navbar-cta:hover::before {
+            left: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 5px var(--neon-cyan);
+            transition: all var(--transition-cyber);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 24px 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 4px;
+            margin-bottom: 32px;
+            animation: glitch-border 3s infinite;
+        }
+
+        @keyframes glitch-border {
+            0%, 90%, 100% { border-color: var(--neon-cyan); }
+            92% { border-color: var(--neon-pink); }
+            94% { border-color: var(--neon-purple); }
+            96% { border-color: var(--neon-cyan); }
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        .hero-badge-text {
+            color: var(--neon-cyan);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .hero-title .line-1 {
+            display: block;
+            color: var(--text-white);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-title .line-2 {
+            display: block;
+            color: var(--neon-cyan);
+            text-shadow:
+                0 0 var(--glow-strength) var(--neon-cyan),
+                0 0 var(--glow-strong) var(--neon-cyan),
+                0 0 40px var(--neon-cyan);
+        }
+
+        .hero-title .line-3 {
+            display: block;
+            color: var(--neon-pink);
+            text-shadow:
+                0 0 var(--glow-strength) var(--neon-pink),
+                0 0 var(--glow-strong) var(--neon-pink),
+                0 0 40px var(--neon-pink);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border: none;
+            color: var(--bg-cyber);
+            font-family: var(--font-cyber);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left var(--transition-cyber);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.6),
+                0 0 60px rgba(188, 19, 254, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            padding: 16px 40px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: var(--font-cyber);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(0, 255, 255, 0.1);
+            transition: width var(--transition-cyber);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.1);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .btn-secondary:hover::before {
+            width: 100%;
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            opacity: 0.8;
+        }
+
+        .hero-visual svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px var(--neon-cyan));
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== FEATURES ========== */
+        .features {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .section-title span {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: rgba(5, 5, 18, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-cyber);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-cyber);
+        }
+
+        .feature-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.3),
+                inset 0 0 30px rgba(0, 255, 255, 0.05);
+            transform: translateY(-8px);
+        }
+
+        .feature-card:hover::before,
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            border-color: var(--neon-pink);
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .feature-card:nth-child(2) .feature-icon svg {
+            filter: drop-shadow(0 0 8px var(--neon-pink));
+        }
+
+        .feature-card:nth-child(2):hover {
+            border-color: var(--neon-pink);
+            box-shadow:
+                0 0 30px rgba(255, 0, 255, 0.3),
+                inset 0 0 30px rgba(255, 0, 255, 0.05);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--bg-cyber) 0%, var(--bg-cyber-secondary) 100%);
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: rgba(2, 2, 5, 0.8);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            padding: 40px 32px;
+            position: relative;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 4rem;
+            color: var(--neon-pink);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-rating svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--neon-cyan);
+            filter: drop-shadow(0 0 3px var(--neon-cyan));
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg-cyber);
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: rgba(5, 5, 18, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 48px 40px;
+            position: relative;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        .pricing-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .pricing-card.featured {
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid var(--neon-cyan);
+            padding: 60px 40px;
+            box-shadow:
+                0 0 40px rgba(0, 255, 255, 0.3),
+                inset 0 0 40px rgba(0, 255, 255, 0.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: var(--bg-cyber);
+            padding: 8px 24px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+        }
+
+        .pricing-tier {
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card.featured .pricing-tier {
+            color: var(--neon-pink);
+        }
+
+        .pricing-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-description {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .pricing-price {
+            margin-bottom: 32px;
+        }
+
+        .pricing-amount {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--text-white);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .pricing-amount .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+            margin-right: 4px;
+        }
+
+        .pricing-amount .period {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            fill: var(--neon-cyan);
+            filter: drop-shadow(0 0 5px var(--neon-cyan));
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: var(--font-cyber);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-cyber);
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        .pricing-cta:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border: none;
+            color: var(--bg-cyber);
+            font-weight: 700;
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+            z-index: -1;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 80px 60px;
+            background: rgba(5, 5, 18, 0.8);
+            border: 2px solid var(--neon-cyan);
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            box-shadow:
+                0 0 50px rgba(0, 255, 255, 0.2),
+                inset 0 0 50px rgba(0, 255, 255, 0.05);
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+            z-index: -1;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            opacity: 0.3;
+            animation: gradient-rotate 4s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient-rotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-title span {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 80px 0 32px;
+            background: var(--bg-cyber-secondary);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo svg {
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+        }
+
+        .footer-description {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-cyber);
+        }
+
+        .footer-social a:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .footer-social a svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--neon-cyan);
+        }
+
+        .footer-column h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            transition: all var(--transition-cyber);
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            padding-left: 8px;
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .footer-copyright span {
+            color: var(--neon-cyan);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-legal a {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            transition: all var(--transition-cyber);
+        }
+
+        .footer-legal a:hover {
+            color: var(--neon-cyan);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-visual {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                padding: 48px 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-container {
+                padding: 60px 32px;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* ========== GLITCH EFFECT ========== */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="hex-grid"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                NeonCity
+            </a>
+            <div class="navbar-nav">
+                <div class="navbar-links">
+                    <a href="#recursos" class="navbar-link">Recursos</a>
+                    <a href="#depoimentos" class="navbar-link">Depoimentos</a>
+                    <a href="#planos" class="navbar-link">Planos</a>
+                </div>
+                <button class="navbar-cta glitch-hover">Acessar Sistema</button>
+            </div>
+            <div class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                <span class="hero-badge-text">Sistema Online v4.2.0</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="line-1">Segurança</span>
+                <span class="line-2">Cibernética</span>
+                <span class="line-3">do Futuro</span>
+            </h1>
+            <p class="hero-subtitle">
+                Proteja seus ativos digitais com a plataforma de segurança mais avançada do mercado.
+                Monitoramento em tempo real, IA preditiva e defesa ativa contra ameaças cibernéticas.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary glitch-hover">Iniciar Agora</button>
+                <button class="btn-secondary">Ver Demo</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1">
+                <circle cx="100" cy="100" r="80" stroke="rgba(0, 255, 255, 0.5)"/>
+                <circle cx="100" cy="100" r="60" stroke="rgba(0, 255, 255, 0.7)"/>
+                <circle cx="100" cy="100" r="40" stroke="rgba(255, 0, 255, 0.9)"/>
+                <path d="M100 20 L100 180" stroke="rgba(0, 255, 255, 0.3)"/>
+                <path d="M20 100 L180 100" stroke="rgba(0, 255, 255, 0.3)"/>
+                <path d="M35 35 L165 165" stroke="rgba(0, 255, 255, 0.3)"/>
+                <path d="M165 35 L35 165" stroke="rgba(0, 255, 255, 0.3)"/>
+                <polygon points="100,30 110,70 150,70 120,95 130,135 100,110 70,135 80,95 50,70 90,70"
+                         stroke="rgba(255, 0, 255, 0.8)" fill="rgba(255, 0, 255, 0.1)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Recursos Avançados</span>
+                <h2 class="section-title">
+                    Tecnologia de <span>Elite</span>
+                </h2>
+                <p class="section-subtitle">
+                    Ferramentas militares combinadas com inteligência artificial para proteção total
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Escudo Neural</h3>
+                    <p class="feature-description">
+                        Rede neural profunda que aprende e se adapta a novas ameaças em tempo real,
+                        bloqueando ataques antes que eles atinjam seus sistemas.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Configuração Autônoma</h3>
+                    <p class="feature-description">
+                        Algoritmos quânticos otimizam automaticamente suas configurações de segurança
+                        para máxima proteção sem impacto na performance.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Criptografia Quântica</h3>
+                    <p class="feature-description">
+                        Proteja seus dados com criptografia pós-quântica impossível de quebrar,
+                        mesmo com supercomputadores do futuro.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Depoimentos</span>
+                <h2 class="section-title">
+                    O Que Dizem <span>Nossos Usuários</span>
+                </h2>
+                <p class="section-subtitle">
+                    Líderes globais confiam no NeonCity Protocol
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">
+                        "O NeonCity Protocol transformou completamente nossa infraestrutura de segurança.
+                        Detectamos e neutralizamos uma tentativa de invasão em menos de 3 segundos."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MS</div>
+                        <div class="testimonial-info">
+                            <h4>Marcus Silva</h4>
+                            <p>CTO - TechCorp Brasil</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">
+                        "Após implementar o protocolo, reduzimos incidentes de segurança em 97%.
+                        O ROI foi absurdo - pagou-se em menos de 2 meses."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AC</div>
+                        <div class="testimonial-info">
+                            <h4>Ana Costa</h4>
+                            <p>VP Segurança - FinanceHub</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">
+                        "A interface é intuitiva e o poder por trás é impressionante.
+                        Finalmente uma solução de segurança que não precisa de PhD para operar."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RL</div>
+                        <div class="testimonial-info">
+                            <h4>Ricardo Lima</h4>
+                            <p>Diretor TI - StartupX</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="planos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Planos</span>
+                <h2 class="section-title">
+                    Escolha Seu <span>Nível de Proteção</span>
+                </h2>
+                <p class="section-subtitle">
+                    Escalone sua segurança conforme suas necessidades
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Básico</div>
+                    <h3 class="pricing-name">Sentinela</h3>
+                    <p class="pricing-description">Proteção essencial para pequenas equipes</p>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">
+                            <span class="currency">R$</span>97
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Monitoramento 24/7
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Até 5 usuários
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatórios semanais
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por email
+                        </li>
+                    </ul>
+                    <button class="pricing-cta">Começar Agora</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Profissional</div>
+                    <h3 class="pricing-name">Guardião</h3>
+                    <p class="pricing-description">Segurança completa para empresas em crescimento</p>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">
+                            <span class="currency">R$</span>297
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do Básico
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Até 50 usuários
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            IA preditiva
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatórios em tempo real
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Integração via API
+                        </li>
+                    </ul>
+                    <button class="pricing-cta">Assinar Agora</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise</div>
+                    <h3 class="pricing-name">Fortaleza</h3>
+                    <p class="pricing-description">Segurança de nível militar</p>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">
+                            <span class="currency">R$</span>997
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do Profissional
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Usuários ilimitados
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Criptografia quântica
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Consultor dedicado
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            SLA garantido
+                        </li>
+                    </ul>
+                    <button class="pricing-cta">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <div class="cta-container">
+                <h2 class="cta-title">
+                    Pronto Para <span>Proteger</span> Seu Futuro?
+                </h2>
+                <p class="cta-subtitle">
+                    Junte-se a mais de 10.000 empresas que confiam no NeonCity Protocol
+                    para proteger seus ativos mais valiosos. 14 dias grátis, sem cartão.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn-primary glitch-hover">Iniciar Teste Grátis</button>
+                    <button class="btn-secondary">Agendar Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        NeonCity
+                    </div>
+                    <p class="footer-description">
+                        A plataforma de segurança cibernética mais avançada do planeta.
+                        Proteja seu futuro com tecnologia de última geração.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Discord">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="9" cy="12" r="2"/>
+                                <circle cx="15" cy="12" r="2"/>
+                                <path d="M20.17 7.5a17.08 17.08 0 0 0-3.87-3.58.14.14 0 0 0-.14 0 11.83 11.83 0 0 0-5.16 2.35.14.14 0 0 0 0 .2A11.9 11.9 0 0 1 13 9a.14.14 0 0 0 .07.2 11.89 11.89 0 0 1 5.16 2.35.14.14 0 0 0 .2 0 17.08 17.08 0 0 0 3.87-3.58.14.14 0 0 0-.13-.47zM8.83 16.5a17.08 17.08 0 0 0 3.87-3.58.14.14 0 0 0-.14-.2A11.83 11.83 0 0 0 7.4 10.37a.14.14 0 0 0 0-.2A11.9 11.9 0 0 1 5.07 7a.14.14 0 0 0-.2-.07 11.89 11.89 0 0 0-3.87 3.58.14.14 0 0 0 .13.47 17.08 17.08 0 0 0 3.87 3.58.14.14 0 0 0 .14 0 11.83 11.83 0 0 0 5.16-2.35.14.14 0 0 0 0-.2A11.9 11.9 0 0 1 13 15a.14.14 0 0 0-.07-.2 11.89 11.89 0 0 0-5.16-2.35.14.14 0 0 0-.2 0z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Produto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Integrações</a></li>
+                        <li><a href="#">Preços</a></li>
+                        <li><a href="#">Atualizações</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Status</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2026 <span>NeonCity Protocol</span>. Todos os direitos reservados.
+                </p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navbarNav = document.querySelector('.navbar-nav');
+
+        mobileToggle.addEventListener('click', () => {
+            const isHidden = getComputedStyle(navbarNav).display === 'none';
+            if (isHidden) {
+                navbarNav.style.display = 'flex';
+                navbarNav.style.position = 'absolute';
+                navbarNav.style.top = '100%';
+                navbarNav.style.left = '0';
+                navbarNav.style.right = '0';
+                navbarNav.style.flexDirection = 'column';
+                navbarNav.style.background = 'rgba(5, 5, 18, 0.98)';
+                navbarNav.style.padding = '24px';
+                navbarNav.style.borderTop = '1px solid rgba(0, 255, 255, 0.3)';
+            } else {
+                navbarNav.style.display = 'none';
+            }
+        });
+
+        // Add glitch effect on hover for CTA buttons
+        document.querySelectorAll('.glitch-hover').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite';
+            });
+            element.addEventListener('mouseleave', function() {
+                this.style.animation = 'none';
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

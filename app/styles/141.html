@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataPulse - Analytics Empresarial Inteligente</title>
+<meta name="description" content="DataPulse: Plataforma SaaS de Analytics Empresarial.">
+<meta name="keywords" content="analytics empresarial, business intelligence, dashboard, SaaS">
+<meta name="author" content="DataPulse">
+<meta property="og:title" content="DataPulse - Analytics Empresarial Inteligente">
+<meta property="og:description" content="Transforme dados em decisoes estrategicas.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://datapulse.com.br">
+<meta property="og:image" content="https://datapulse.com.br/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F172A;--royal-blue:#1E40AF;--blue:#3B82F6;--light-blue:#60A5FA;--white:#FFFFFF;--light-grey:#F8FAFC;--dark-grey:#334155;--glass-bg:rgba(255,255,255,0.08);--glass-border:rgba(255,255,255,0.12);--glass-blur:12px;--font-corporate:'Inter',sans-serif;--radius:12px;--shadow:0 4px 20px rgba(0,0,0,0.15);--transition:all 0.3s ease}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-corporate);color:var(--white);background:linear-gradient(180deg,var(--navy) 0%,#0c1425 100%);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit;cursor:pointer;transition:var(--transition)}
+button{cursor:pointer;border:none;font-family:var(--font-corporate);transition:var(--transition)}
+ul{list-style:none}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.navbar{position:fixed;top:16px;left:16px;right:16px;z-index:1000;background:rgba(15,23,42,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 30px rgba(0,0,0,0.2)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:700}
+.nav-logo svg{width:32px;height:32px}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,0.7)}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--blue)!important;color:var(--white)!important;padding:10px 24px;border-radius:8px;font-weight:600;box-shadow:0 0 20px rgba(59,130,246,0.3)}
+.nav-cta:hover{background:var(--light-blue)!important;box-shadow:0 0 30px rgba(96,165,250,0.4);transform:translateY(-1px)}
+.nav-tog{display:none;background:none;padding:4px}
+.nav-tog svg{width:28px;height:28px;stroke:var(--white)}
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,transparent 70%);pointer-events:none}
+.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:100px;padding:6px 16px;font-size:.8rem;font-weight:500;color:var(--light-blue);margin-bottom:24px;backdrop-filter:blur(8px)}
+.hero-badge svg{width:16px;height:16px}
+.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;margin-bottom:20px;letter-spacing:-0.02em}
+.hero h1 .grad{background:linear-gradient(135deg,var(--blue),var(--light-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.125rem;color:rgba(255,255,255,0.6);max-width:480px;margin-bottom:32px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;margin-bottom:48px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:var(--white);padding:14px 28px;border-radius:8px;font-size:.95rem;font-weight:600;box-shadow:0 0 24px rgba(59,130,246,0.35)}
+.btn-p:hover{background:var(--light-blue);box-shadow:0 0 36px rgba(96,165,250,0.45);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);padding:14px 28px;border-radius:8px;font-size:.95rem;font-weight:600;border:1px solid rgba(255,255,255,0.2)}
+.btn-s:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.35);transform:translateY(-2px)}
+.btn-p svg,.btn-s svg{width:18px;height:18px}
+.hero-stats{display:flex;gap:40px}
+.stat-num{font-size:2rem;font-weight:800;line-height:1;margin-bottom:4px}
+.stat-lbl{font-size:.8rem;color:rgba(255,255,255,0.5);font-weight:500}
+.dash{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:16px;padding:24px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));box-shadow:var(--shadow),0 0 60px rgba(59,130,246,0.1);animation:float 6s ease-in-out infinite}
+.dash-hdr{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#EF4444}.dot-y{background:#F59E0B}.dot-g{background:#22C55E}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mc{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px}
+.mc-l{font-size:.7rem;color:rgba(255,255,255,0.45);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.mc-v{font-size:1.4rem;font-weight:700;margin-bottom:8px}
+.mc-c{font-size:.75rem;font-weight:600;color:#22C55E;display:flex;align-items:center;gap:4px}
+.mc-c svg{width:14px;height:14px}
+.mc-chart{grid-column:1/-1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;height:140px;overflow:hidden}
+.mc-chart-l{font-size:.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:8px}
+.bar{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--blue),var(--royal-blue));opacity:.8;transition:opacity .2s;cursor:pointer}
+.bar:hover{opacity:1}
+.section{padding:100px 0;position:relative}
+.s-lbl{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--light-blue);margin-bottom:12px}
+.s-ttl{font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.15}
+.s-sub{font-size:1.05rem;color:rgba(255,255,255,0.55);max-width:560px;line-height:1.7}
+.s-hdr{text-align:center;margin-bottom:60px}
+.s-hdr .s-sub{margin:0 auto}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.fc{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius);padding:32px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));transition:var(--transition);cursor:pointer}
+.fc:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.fi{width:48px;height:48px;background:linear-gradient(135deg,var(--royal-blue),var(--blue));border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.fi svg{width:24px;height:24px;stroke:var(--white);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fc h3{font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.fc p{font-size:.9rem;color:rgba(255,255,255,0.55);line-height:1.65}
+.ts{background:linear-gradient(180deg,rgba(30,64,175,0.08) 0%,transparent 100%)}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tc{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius);padding:32px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));transition:var(--transition);cursor:pointer}
+.tc:hover{background:rgba(255,255,255,0.12);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.tc-stars{display:flex;gap:4px;margin-bottom:16px}
+.tc-stars svg{width:18px;height:18px;fill:#F59E0B}
+.tc-txt{font-size:.95rem;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:24px;font-style:italic}
+.tc-auth{display:flex;align-items:center;gap:12px}
+.tc-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--light-blue));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+.tc-name{font-weight:600;font-size:.9rem}
+.tc-role{font-size:.8rem;color:rgba(255,255,255,0.45)}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:center}
+.pc{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));transition:var(--transition);position:relative}
+.pc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.pc.pop{background:linear-gradient(180deg,rgba(59,130,246,0.15),rgba(30,64,175,0.1));border-color:var(--blue);padding:44px 36px;box-shadow:0 0 40px rgba(59,130,246,0.15)}
+.pc.pop:hover{box-shadow:0 0 60px rgba(59,130,246,0.25)}
+.pb{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);padding:4px 16px;border-radius:100px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 0 20px rgba(59,130,246,0.4)}
+.pp{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.5);margin-bottom:16px}
+.pv{font-size:3rem;font-weight:800;margin-bottom:4px;line-height:1}
+.pv span{font-size:1rem;font-weight:500;color:rgba(255,255,255,0.45)}
+.pd{font-size:.85rem;color:rgba(255,255,255,0.45);margin-bottom:28px}
+.pf{margin-bottom:32px}
+.pf li{display:flex;align-items:center;gap:10px;font-size:.9rem;color:rgba(255,255,255,0.7);padding:8px 0}
+.pf li svg{width:18px;height:18px;flex-shrink:0;stroke:var(--light-blue);fill:none;stroke-width:2.5}
+.pbtn{display:block;width:100%;text-align:center;padding:14px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+.pbtn-o{background:transparent;border:1px solid rgba(255,255,255,0.2);color:var(--white)}
+.pbtn-o:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.35)}
+.pbtn-f{background:var(--blue);border:1px solid var(--blue);color:var(--white);box-shadow:0 0 20px rgba(59,130,246,0.3)}
+.pbtn-f:hover{background:var(--light-blue);box-shadow:0 0 30px rgba(96,165,250,0.45);transform:translateY(-1px)}
+.cta-s{text-align:center;position:relative}
+.cta-s::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 70%);pointer-events:none}
+.cta-box{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:20px;padding:64px 40px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));position:relative;z-index:1}
+.cta-box h2{font-size:2.5rem;font-weight:800;margin-bottom:16px;letter-spacing:-0.02em}
+.cta-box p{font-size:1.05rem;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto 32px;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;gap:16px}
+.footer{border-top:1px solid rgba(255,255,255,0.08);padding:60px 0 32px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.ft-brand p{font-size:.85rem;color:rgba(255,255,255,0.45);line-height:1.7;margin-top:12px;max-width:280px}
+.ft-logo{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:700}
+.ft-logo svg{width:28px;height:28px}
+.ft-col h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.5);margin-bottom:16px}
+.ft-col ul li{margin-bottom:10px}
+.ft-col ul li a{font-size:.875rem;color:rgba(255,255,255,0.55)}
+.ft-col ul li a:hover{color:var(--white)}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08)}
+.ft-copy{font-size:.8rem;color:rgba(255,255,255,0.35)}
+.ft-soc{display:flex;gap:16px}
+.ft-soc a{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition)}
+.ft-soc a:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);transform:translateY(-2px)}
+.ft-soc a svg{width:18px;height:18px;fill:rgba(255,255,255,0.6)}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media(prefers-reduced-motion:reduce){.fade-in{opacity:1;transform:none;transition:none}.dash{animation:none}}
+@media(max-width:1024px){.hero .container{grid-template-columns:1fr;gap:40px}.hero h1{font-size:2.75rem}.fg,.tg,.pg{grid-template-columns:repeat(2,1fr)}.ft-grid{grid-template-columns:1fr 1fr 1fr}.ft-brand{grid-column:1/-1}}
+@media(max-width:768px){.nav-links{display:none}.nav-tog{display:block}.nav-links.active{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:24px;gap:16px}.hero{min-height:auto;padding:120px 0 60px}.hero h1{font-size:2.25rem}.hero-stats{gap:24px}.stat-num{font-size:1.5rem}.hero-btns{flex-direction:column}.fg,.tg,.pg{grid-template-columns:1fr}.pc.pop{order:-1}.section{padding:60px 0}.s-ttl{font-size:1.85rem}.cta-box{padding:40px 24px}.cta-box h2{font-size:1.85rem}.cta-btns{flex-direction:column;align-items:center}.ft-grid{grid-template-columns:1fr 1fr}.ft-brand{grid-column:1/-1}.ft-bot{flex-direction:column;gap:16px;text-align:center}}
+@media(max-width:480px){.container{padding:0 16px}.navbar{left:8px;right:8px;top:8px;padding:0 16px}.hero h1{font-size:1.85rem}.hero-stats{flex-wrap:wrap}.ft-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<a href="#" class="nav-logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#3B82F6"/><path d="M8 22V14L12 10V22H8Z" fill="#fff"/><path d="M14 22V12L18 8V22H14Z" fill="#fff" opacity=".8"/><path d="M20 22V16L24 12V22H20Z" fill="#fff" opacity=".6"/></svg>DataPulse</a>
+<div class="nav-links" id="navLinks">
+<a href="#recursos">Recursos</a><a href="#depoimentos">Depoimentos</a><a href="#precos">Precos</a><a href="#contato">Contato</a>
+<a href="#" class="nav-cta">Teste Gratuito</a>
+</div>
+<button class="nav-tog" id="navTog" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+</nav>
+
+<section class="hero">
+<div class="container">
+<div>
+<div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Novo: Integracao com IA Generativa</div>
+<h1>Transforme dados em <span class="grad">decisoes estrategicas</span></h1>
+<p class="hero-sub">Plataforma completa de analytics empresarial. Dashboards inteligentes, metricas em tempo real e insights acionaveis para acelerar o crescimento do seu negocio.</p>
+<div class="hero-btns">
+<a href="#" class="btn-p">Comece Gratuitamente<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+<a href="#" class="btn-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Ver Demonstracao</a>
+</div>
+<div class="hero-stats">
+<div><div class="stat-num" data-target="2500">0</div><div class="stat-lbl">Empresas ativas</div></div>
+<div><div class="stat-num" data-target="98" data-suffix="%">0</div><div class="stat-lbl">Satisfacao</div></div>
+<div><div class="stat-num" data-target="4" data-suffix="M+">0</div><div class="stat-lbl">Dados processados/dia</div></div>
+</div>
+</div>
+<div class="dash">
+<div class="dash-hdr"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+<div class="dash-grid">
+<div class="mc"><div class="mc-l">Receita Mensal</div><div class="mc-v">R$ 847K</div><div class="mc-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l5-5 5 5"/></svg>+23.5%</div></div>
+<div class="mc"><div class="mc-l">Usuarios Ativos</div><div class="mc-v">12.4K</div><div class="mc-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l5-5 5 5"/></svg>+18.2%</div></div>
+<div class="mc"><div class="mc-l">Conversao</div><div class="mc-v">8.7%</div><div class="mc-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l5-5 5 5"/></svg>+5.1%</div></div>
+<div class="mc"><div class="mc-l">Retencao</div><div class="mc-v">94.2%</div><div class="mc-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l5-5 5 5"/></svg>+2.8%</div></div>
+<div class="mc-chart"><div class="mc-chart-l">Receita Semanal</div><div class="bars"><div class="bar" style="height:45%"></div><div class="bar" style="height:62%"></div><div class="bar" style="height:38%"></div><div class="bar" style="height:75%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:88%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:92%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:80%"></div><div class="bar" style="height:95%"></div><div class="bar" style="height:78%"></div></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="recursos">
+<div class="container">
+<div class="s-hdr fade-in"><div class="s-lbl">Recursos</div><h2 class="s-ttl">Tudo que voce precisa para dominar seus dados</h2><p class="s-sub">Ferramentas poderosas de analytics projetadas para equipes que buscam resultados mensuraveis e decisoes baseadas em dados.</p></div>
+<div class="fg">
+<div class="fc fade-in"><div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><h3>Dashboards Inteligentes</h3><p>Crie paineis personalizados com drag-and-drop. Visualize KPIs, metricas e tendencias em tempo real com atualizacao automatica.</p></div>
+<div class="fc fade-in"><div class="fi"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Analytics em Tempo Real</h3><p>Monitore o desempenho do seu negocio com dados atualizados a cada segundo. Alertas inteligentes para anomalias e oportunidades.</p></div>
+<div class="fc fade-in"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Integracoes Nativas</h3><p>Conecte mais de 200 fontes de dados: CRMs, ERPs, bancos de dados, APIs e planilhas. Configuracao em minutos, sem codigo.</p></div>
+</div>
+</div>
+</section>
+<section class="section ts" id="depoimentos">
+<div class="container">
+<div class="s-hdr fade-in"><div class="s-lbl">Depoimentos</div><h2 class="s-ttl">Empresas que confiam no DataPulse</h2><p class="s-sub">Mais de 2.500 empresas utilizam nossa plataforma para tomar decisoes mais inteligentes todos os dias.</p></div>
+<div class="tg">
+<div class="tc fade-in">
+<div class="tc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<p class="tc-txt">"O DataPulse revolucionou a forma como analisamos nossos dados. Reduzimos o tempo de geracao de relatorios em 80% e agora tomamos decisoes com muito mais confianca."</p>
+<div class="tc-auth"><div class="tc-av">RC</div><div><div class="tc-name">Ricardo Campos</div><div class="tc-role">CTO, TechNova Solutions</div></div></div>
+</div>
+<div class="tc fade-in">
+<div class="tc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<p class="tc-txt">"A integracao com nossas ferramentas existentes foi incrivelmente simples. Em menos de uma semana, toda a equipe ja estava usando os dashboards no dia a dia."</p>
+<div class="tc-auth"><div class="tc-av">AM</div><div><div class="tc-name">Ana Martins</div><div class="tc-role">Diretora de Operacoes, Grupo Vertice</div></div></div>
+</div>
+<div class="tc fade-in">
+<div class="tc-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<p class="tc-txt">"Os insights preditivos do DataPulse nos ajudaram a identificar tendencias de mercado antes da concorrencia. Nosso faturamento cresceu 35% no ultimo trimestre."</p>
+<div class="tc-auth"><div class="tc-av">PL</div><div><div class="tc-name">Pedro Lima</div><div class="tc-role">CEO, Fintech Apex</div></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="precos">
+<div class="container">
+<div class="s-hdr fade-in"><div class="s-lbl">Planos</div><h2 class="s-ttl">Escolha o plano ideal para sua empresa</h2><p class="s-sub">Comece gratuitamente e escale conforme sua necessidade. Sem surpresas, sem taxas ocultas.</p></div>
+<div class="pg">
+<div class="pc fade-in">
+<div class="pp">Starter</div><div class="pv">R$ 197<span>/mes</span></div><div class="pd">Para pequenas equipes comecando com analytics</div>
+<ul class="pf">
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ate 5 usuarios</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>3 dashboards personalizados</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>10 integracoes</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Relatorios semanais</li>
+</ul>
+<a href="#" class="pbtn pbtn-o">Comecar Agora</a>
+</div>
+<div class="pc pop fade-in">
+<div class="pb">Mais Popular</div>
+<div class="pp">Professional</div><div class="pv">R$ 497<span>/mes</span></div><div class="pd">Para equipes em crescimento que precisam de mais poder</div>
+<ul class="pf">
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ate 25 usuarios</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dashboards ilimitados</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>50+ integracoes</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritario 24/7</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>IA preditiva incluida</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>API completa</li>
+</ul>
+<a href="#" class="pbtn pbtn-f">Comecar Agora</a>
+</div>
+<div class="pc fade-in">
+<div class="pp">Enterprise</div><div class="pv">Sob Consulta</div><div class="pd">Para grandes organizacoes com necessidades especificas</div>
+<ul class="pf">
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Usuarios ilimitados</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Infraestrutura dedicada</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>200+ integracoes</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Gerente de conta dedicado</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SLA 99.99% garantido</li>
+<li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Treinamento personalizado</li>
+</ul>
+<a href="#" class="pbtn pbtn-o">Falar com Vendas</a>
+</div>
+</div>
+</div>
+</section>
+<section class="section cta-s" id="contato">
+<div class="container">
+<div class="cta-box fade-in">
+<h2>Pronto para transformar seus dados em resultados?</h2>
+<p>Junte-se a mais de 2.500 empresas que ja utilizam o DataPulse para tomar decisoes mais inteligentes. Comece seu teste gratuito de 14 dias.</p>
+<div class="cta-btns">
+<a href="#" class="btn-p">Iniciar Teste Gratuito<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+<a href="#" class="btn-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Agendar Demonstracao</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="ft-grid">
+<div class="ft-brand">
+<div class="ft-logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#3B82F6"/><path d="M8 22V14L12 10V22H8Z" fill="#fff"/><path d="M14 22V12L18 8V22H14Z" fill="#fff" opacity=".8"/><path d="M20 22V16L24 12V22H20Z" fill="#fff" opacity=".6"/></svg>DataPulse</div>
+<p>Plataforma de analytics empresarial que transforma dados complexos em insights acionaveis para decisoes estrategicas.</p>
+</div>
+<div class="ft-col"><h4>Produto</h4><ul><li><a href="#">Recursos</a></li><li><a href="#">Integracoes</a></li><li><a href="#">Precos</a></li><li><a href="#">Changelog</a></li><li><a href="#">API Docs</a></li></ul></div>
+<div class="ft-col"><h4>Empresa</h4><ul><li><a href="#">Sobre Nos</a></li><li><a href="#">Blog</a></li><li><a href="#">Carreiras</a></li><li><a href="#">Contato</a></li><li><a href="#">Parceiros</a></li></ul></div>
+<div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Politica de Privacidade</a></li><li><a href="#">Termos de Uso</a></li><li><a href="#">Cookies</a></li><li><a href="#">LGPD</a></li></ul></div>
+<div class="ft-col"><h4>Suporte</h4><ul><li><a href="#">Central de Ajuda</a></li><li><a href="#">Documentacao</a></li><li><a href="#">Status</a></li><li><a href="#">Comunidade</a></li></ul></div>
+</div>
+<div class="ft-bot">
+<div class="ft-copy">&copy; 2026 DataPulse. Todos os direitos reservados.</div>
+<div class="ft-soc">
+<a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3-1.9 0-2.2 1.4-2.2 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2.1 2.1 0 110-4.2 2.1 2.1 0 010 4.2zm1.8 13.1H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5c0 1 .8 1.8 1.8 1.8h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a>
+<a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M18.2 2.3h3.3l-7.2 8.3 8.5 11.2h-6.7l-5.2-6.8-5 6.8H2.7l7.7-8.8L2.3 2.3h6.8l4.7 6.2zm-1.2 17.5h1.8L8.1 4.1H6.1z"/></svg></a>
+<a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .3C5.4.3 0 5.7 0 12.3c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0024 12.3C24 5.7 18.6.3 12 .3"/></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8 0-3.2 0-3.6.1-4.9C2.4 3.9 4 2.3 7.2 2.2c1.3 0 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.7.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.getElementById('navTog').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
+document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('active')})});
+function animateCounters(){
+var cs=document.querySelectorAll('.stat-num');
+cs.forEach(function(c){
+var t=parseInt(c.getAttribute('data-target')),s=c.getAttribute('data-suffix')||'',d=2000,st=null;
+function ease(x){return 1-Math.pow(1-x,4)}
+function up(ts){
+if(!st)st=ts;var p=Math.min((ts-st)/d,1),v=Math.floor(ease(p)*t);
+c.textContent=(t>=1000?v.toLocaleString('pt-BR'):v)+s;
+if(p<1)requestAnimationFrame(up);else c.textContent=(t>=1000?t.toLocaleString('pt-BR'):t)+s;
+}
+requestAnimationFrame(up);
+});
+}
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el)});
+var hobs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){animateCounters();hobs.unobserve(e.target)}})},{threshold:0.3});
+var hs=document.querySelector('.hero-stats');if(hs)hobs.observe(hs);
+window.addEventListener('scroll',function(){var n=document.querySelector('.navbar');n.style.background=window.scrollY>50?'rgba(15,23,42,0.95)':'rgba(15,23,42,0.85)'});
+</script>
+</body>
+</html>
