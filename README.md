@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="README-EN.md"><strong>🇬🇧 Click here for the English Version</strong></a>
+</p>
+
+<br>
+
 <h1 align="center">🎨 Vibe Styles</h1>
 
 <p align="center">
@@ -10,7 +16,8 @@
   <a href="#-categorias">📂 Categorias</a> ·
   <a href="#-como-usar">🚀 Como Usar</a> ·
   <a href="#-catálogo-completo">📋 Catálogo</a> ·
-  <a href="#-contribuindo">🤝 Contribuindo</a>
+  <a href="#-contribuindo">🤝 Contribuindo</a> ·
+  <a href="README-EN.md">🇬🇧 English</a>
 </p>
 
 <p align="center">
