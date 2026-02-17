@@ -1,7 +1,7 @@
 <h1 align="center">🎨 Vibe Styles</h1>
 
 <p align="center">
-  Coleção interativa com <strong>188 estilos de UI/UX design</strong> — cada um com demonstração visual ao vivo e prompt copiável para IA generativa.
+  Coleção interativa com <strong>256 estilos de UI/UX design</strong> — cada um com demonstração visual ao vivo e prompt copiável para IA generativa.
 </p>
 
 <p align="center">
@@ -15,8 +15,8 @@
 
 <p align="center">
   <a href="https://github.com/fabricioctelles/vibe-styles/stargazers"><img src="https://img.shields.io/github/stars/fabricioctelles/vibe-styles?style=for-the-badge&logo=github&labelColor=1E293B&color=8B5CF6" alt="GitHub Stars"></a>
-  <img src="https://img.shields.io/badge/estilos-188-8B5CF6?style=for-the-badge&labelColor=1E293B" alt="188 Estilos">
-  <img src="https://img.shields.io/badge/categorias-17-10B981?style=for-the-badge&labelColor=1E293B" alt="17 Categorias">
+  <img src="https://img.shields.io/badge/estilos-256-8B5CF6?style=for-the-badge&labelColor=1E293B" alt="256 Estilos">
+  <img src="https://img.shields.io/badge/categorias-25-10B981?style=for-the-badge&labelColor=1E293B" alt="25 Categorias">
   <img src="https://img.shields.io/badge/stack-HTML%20%2B%20Tailwind%20%2B%20JS-38BDF8?style=for-the-badge&labelColor=1E293B" alt="Stack">
   <img src="https://img.shields.io/badge/idioma-PT--BR-F59E0B?style=for-the-badge&labelColor=1E293B" alt="Português Brasileiro">
   <img src="https://img.shields.io/badge/licença-open--source-EC4899?style=for-the-badge&labelColor=1E293B" alt="Open Source">
@@ -26,7 +26,7 @@
 
 ## 📖 Sobre o Projeto
 
-O **Vibe Styles** é uma referência visual completa para designers e desenvolvedores que trabalham com UI/UX. O projeto reúne 188 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e JavaScript vanilla.
+O **Vibe Styles** é uma referência visual completa para designers e desenvolvedores que trabalham com UI/UX. O projeto reúne 256 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e JavaScript vanilla.
 
 O diferencial: cada estilo vem com um **prompt copiável** otimizado para ferramentas de IA generativa (ChatGPT, Claude, Gemini, etc.), permitindo que você reproduza qualquer estilo instantaneamente nos seus projetos.
 
@@ -46,7 +46,7 @@ A intenção é ser simples e direto: ajudar você a escolher o estilo certo par
 
 ### Por que o Vibe Styles existe?
 
-- **Referência rápida** — Navegue visualmente por 188 estilos sem sair do navegador
+- **Referência rápida** — Navegue visualmente por 256 estilos sem sair do navegador
 - **Prompts prontos** — Copie e cole em qualquer IA generativa para replicar o estilo
 - **Código real** — Cada estilo é uma implementação funcional, não apenas um mockup
 - **Zero dependências** — HTML estático + Tailwind CDN + Google Fonts. Sem build, sem framework
@@ -56,27 +56,35 @@ A intenção é ser simples e direto: ajudar você a escolher o estilo certo par
 
 ## 🗂 Categorias
 
-O acervo está organizado em **17 categorias** que cobrem os principais cenários de design:
+O acervo está organizado em **25 categorias** que cobrem os principais cenários de design:
 
 | Categoria | Qtd | Descrição | Badge |
 |-----------|-----|-----------|-------|
-| **General** | 87 | Estilos de interface de uso geral — tendências modernas e clássicas | 🟣 Violeta |
-| **Tech-Inspired** | 20 | Estilos inspirados em grandes empresas de tecnologia e plataformas | 🔵 Azul |
-| **Infographic** | 13 | Estilos visuais para infográficos e apresentação de informações | 🔴 Rosa |
-| **Thematic** | 11 | Estilos temáticos com identidade visual forte | 🟠 Laranja |
-| **BI/Analytics** | 10 | Dashboards e visualização de dados corporativos | 🟡 Âmbar |
-| **Pop Culture** | 9 | Estilos inspirados em cultura pop, filmes e séries | 🟣 Violeta |
-| **Landing Page** | 8 | Padrões otimizados para páginas de conversão e vendas | 🟢 Esmeralda |
-| **Technical** | 8 | Estilos técnicos e especializados | 🔵 Azul |
-| **Futuristic** | 8 | Estilos futuristas e de ficção científica | 🔵 Ciano |
-| **Historical** | 5 | Estilos inspirados em períodos históricos | 🟤 Marrom |
-| **Artistic** | 3 | Estilos artísticos e expressivos | 🟣 Violeta |
-| **Data Visualization** | 1 | Visualização de dados especializada | 🟡 Âmbar |
-| **Fantasy** | 1 | Estilos de fantasia e mundos imaginários | 🟣 Violeta |
-| **Casual** | 1 | Estilos casuais e descontraídos | 🟢 Verde |
-| **Retro** | 1 | Estilos retrô e nostálgicos | 🟠 Laranja |
-| **Educational** | 1 | Estilos educacionais e didáticos | 🔵 Azul |
-| **Organization** | 1 | Estilos organizacionais e corporativos | 🔵 Azul |
+| **General** | 110 | Estilos de interface de uso geral — tendências modernas e clássicas | 🟣 |
+| **Landing Page** | 8 | Padrões otimizados para páginas de conversão e vendas | 🟢 |
+| **BI/Analytics** | 10 | Dashboards e visualização de dados corporativos | 🟡 |
+| **Organization** | 1 | Estilos organizacionais e corporativos | 🔵 |
+| **Infographic** | 13 | Estilos visuais para infográficos e apresentação de informações | 🔴 |
+| **Tech-Inspired** | 20 | Estilos inspirados em grandes empresas de tecnologia | 🔵 |
+| **Thematic** | 11 | Estilos temáticos com identidade visual forte | 🟠 |
+| **Technical** | 8 | Estilos técnicos e especializados | 🔵 |
+| **Data Visualization** | 1 | Visualização de dados especializada | 🟡 |
+| **Artistic** | 3 | Estilos artísticos e expressivos | 🟣 |
+| **Historical** | 5 | Estilos inspirados em períodos históricos | 🟤 |
+| **Fantasy** | 1 | Estilos de fantasia e mundos imaginários | 🟣 |
+| **Casual** | 1 | Estilos casuais e descontraídos | 🟢 |
+| **Futuristic** | 8 | Estilos futuristas e de ficção científica | 🔵 |
+| **Pop Culture** | 9 | Estilos inspirados em cultura pop, filmes e séries | 🟣 |
+| **Retro** | 6 | Estilos retrô e nostálgicos | 🟠 |
+| **Educational** | 1 | Estilos educacionais e didáticos | 🔵 |
+| **Minimalism** | 5 | Estilos minimalistas limpos e funcionais | ⚪ |
+| **Brutalism** | 5 | Estilos brutalistas ousados e diretos | ⚫ |
+| **Constructivism** | 5 | Estilos construtivistas geométricos e estruturados | 🔺 |
+| **SwissStyle** | 5 | Estilos Swiss Design com tipografia e grid | 🟥 |
+| **EditorialStyle** | 5 | Estilos editoriais inspirados em revistas e publicações | 📰 |
+| **HandDrawn** | 5 | Estilos hand-drawn artesanais e orgânicos | ✏️ |
+| **FlatDesign** | 5 | Estilos flat design limpos e bidimensionais | 🔷 |
+| **BentoStyle** | 5 | Estilos bento com layout em grade modular | 🍱 |
 
 ---
 
@@ -98,124 +106,22 @@ git clone https://github.com/fabricioctelles/vibe-styles.git
 cd vibe-styles
 
 # Sirva os arquivos estáticos (qualquer servidor HTTP funciona)
-# Opção 1: Python
-python3 -m http.server 8000 -d app
-
-# Opção 2: Node.js (npx)
+python3 -m http.server 8000 --directory app
+# ou
 npx serve app
-
-# Opção 3: PHP
+# ou
 php -S localhost:8000 -t app
 ```
 
-Acesse `http://localhost:8000` e pronto.
-
-> **Nota:** O projeto não requer instalação de dependências, build ou compilação. São arquivos HTML estáticos que funcionam diretamente no navegador.
-
----
-
-## 🏗 Arquitetura do Projeto
-
-```
-vibe-styles/
-├── app/
-│   ├── index.html              # Shell principal — navbar + dropdown + iframe
-│   ├── data/
-│   │   └── data.json           # Base de dados centralizada (188 estilos + prompts)
-│   ├── llms.txt                # Metadados para crawlers de IA (LLMs)
-│   ├── robots.txt              # Regras de crawling
-│   ├── sitemap.xml             # Sitemap com URLs de slug
-│   ├── assets/
-│   │   └── logo-fabricio.png   # Logo do criador
-│   └── styles/
-│       ├── .htaccess           # Rewrite rules para slugs SEO
-│       ├── 1.html              # Landing page do estilo #1
-│       ├── 2.html              # Landing page do estilo #2
-│       └── ...                 # 188 páginas HTML standalone
-└── README.md
-```
-
-### Como funciona
-
-O `index.html` é um shell leve que contém:
-- Uma **navbar fixa** com dropdown de seleção de estilos (agrupados por categoria)
-- Um **iframe** que carrega a página standalone do estilo selecionado (`styles/{id}.html`)
-- Um botão **"Copiar Prompt"** que monta o texto do prompt a partir do `data.json` em memória e copia para o clipboard
-- **Roteamento por slugs** — URLs semânticas como `/styles/glassmorphism` via History API
-- **Meta tags dinâmicas** — Title, description, Open Graph e Twitter Card atualizados por estilo
-- **Schema Markup JSON-LD** — CreativeWork + ItemList + FAQPage para SEO estruturado
-
-### Carregamento de dados via JSON
-
-Os prompts e metadados de todos os estilos são armazenados em um único arquivo `app/data/data.json`. Na inicialização, o módulo `DataLoader` carrega esse JSON via `fetch`, popula um cache em memória e disponibiliza os dados para todos os módulos do app (Combo, SlugRouter, MetaManager, SchemaManager).
-
-O botão "Copiar Prompt" não faz mais requisições HTTP individuais — o texto é reconstruído em tempo real a partir do objeto estruturado no cache via `DataLoader.buildPromptText()`.
-
-Cada entrada no `data.json` segue esta estrutura:
-
-```json
-{
-  "id": 3,
-  "name": "Glassmorphism",
-  "type": "General",
-  "prompt": {
-    "header": "Atue como um Engenheiro Frontend Sênior...",
-    "estilo": {
-      "nome": "Glassmorphism",
-      "tipo": "General",
-      "keywords": "Frosted glass, transparent, ...",
-      "coresPrimarias": "Translucent white: rgba(255,255,255,0.1-0.3)",
-      "coresSecundarias": "Vibrant: Electric Blue #0080FF, ...",
-      "efeitos": "Backdrop blur (10-20px), ...",
-      "era": "2020s Modern",
-      "lightDark": "✓ Full / ✓ Full"
-    },
-    "aiPromptKeywords": "Design a glassmorphic interface...",
-    "cssTechnical": "backdrop-filter: blur(15px), ...",
-    "designSystemVariables": "--blur-amount: 15px, ...",
-    "checklist": "☐ Backdrop-filter blur 10-20px, ...",
-    "regrasDeExecucao": "1. Siga fielmente o estilo visual..."
-  }
-}
-```
-
-Cada página de estilo (`styles/{id}.html`) é uma landing page completa e independente com:
-- Tailwind CSS via CDN
-- Google Fonts
-- Ícones SVG inline (sem emojis)
-- 6 seções: Hero, Features, Testimonials, Pricing, CTA e Footer
-- Conteúdo em português brasileiro
-- Responsivo de 375px a 1440px
-- Suporte a `prefers-reduced-motion`
-
----
-
-## 🛠 Stack Tecnológica
-
-| Tecnologia | Uso |
-|------------|-----|
-| **HTML5** | Estrutura semântica de todas as páginas |
-| **Tailwind CSS** (CDN) | Estilização utilitária — sem build necessário |
-| **JavaScript Vanilla** | Lógica do shell, roteamento, clipboard API, meta tags dinâmicas |
-| **Google Fonts** | Tipografia — Inter como fonte principal do shell |
-| **Schema.org JSON-LD** | SEO estruturado (WebSite, CollectionPage, CreativeWork, FAQPage) |
-| **History API** | Navegação SPA-like com URLs de slug sem reload |
-| **JSON** | Base de dados centralizada (`data.json`) com todos os estilos e prompts |
-
-### Sem dependências de build
-
-- Sem Node.js, npm, webpack, Vite ou qualquer bundler
-- Sem React, Vue, Svelte ou qualquer framework
-- Sem banco de dados ou backend
-- 100% estático — deploy em qualquer servidor HTTP, CDN ou GitHub Pages
+Acesse `http://localhost:8000` no navegador.
 
 ---
 
 ## 📋 Catálogo Completo
 
-### 🟣 General (87 estilos)
+### 🟣 General (110 estilos)
 
-Estilos de interface de uso geral, cobrindo desde tendências modernas até referências históricas:
+Estilos de interface de uso geral — tendências modernas e clássicas:
 
 | # | Estilo | Slug |
 |---|--------|------|
@@ -306,6 +212,29 @@ Estilos de interface de uso geral, cobrindo desde tendências modernas até refe
 | 117 | Origami Geométrico | `origami-geometrico` |
 | 118 | Noir Detetive | `noir-detetive` |
 | 119 | Terracota Mediterrâneo | `terracota-mediterraneo` |
+| 234 | Lambe-Lambe Brasileiro | `lambe-lambe-brasileiro` |
+| 235 | Cartazista de Supermercado | `cartazista-de-supermercado` |
+| 236 | Happy Art Tropical | `happy-art-tropical` |
+| 237 | Azulejaria Digital Moderna | `azulejaria-digital-moderna` |
+| 238 | Modernismo Jornalístico Brasileiro | `modernismo-jornalistico-brasileiro` |
+| 239 | Geometria Artesanal Brasileira | `geometria-artesanal-brasileira` |
+| 240 | Arquitetura Moderna Brasileira | `arquitetura-moderna-brasileira` |
+| 241 | Festival Modernista Vibrante | `festival-modernista-vibrante` |
+| 242 | Tropicalismo Orgânico Luxuoso | `tropicalismo-organico-luxuoso` |
+| 243 | Tropicalismo Botânico Suave | `tropicalismo-botanico-suave` |
+| 244 | Tropicalismo Gastronômico Vibrante | `tropicalismo-gastronomico-vibrante` |
+| 245 | Tropicalismo Indígena Autêntico | `tropicalismo-indigena-autentico` |
+| 246 | Tropicalismo Aventureiro Natural | `tropicalismo-aventureiro-natural` |
+| 247 | Conforto Artesanal Brasileiro | `conforto-artesanal-brasileiro` |
+| 248 | Vernacular Acolhedor Brasileiro | `vernacular-acolhedor-brasileiro` |
+| 249 | Reuso Criativo Disruptivo | `reuso-criativo-disruptivo` |
+| 250 | Design Autoral Robusto | `design-autoral-robusto` |
+| 251 | Culinária Afetiva Brasileira | `culinaria-afetiva-brasileira` |
+| 252 | Símbolos Cívicos Brasileiros | `simbolos-civicos-brasileiros` |
+| 253 | Símbolos Ambientais Brasileiros | `simbolos-ambientais-brasileiros` |
+| 254 | Símbolos Culturais Brasileiros | `simbolos-culturais-brasileiros` |
+| 255 | Símbolos Regionais Brasileiros | `simbolos-regionais-brasileiros` |
+| 256 | Símbolos Políticos Brasileiros | `simbolos-politicos-brasileiros` |
 
 ### 🟢 Landing Page (8 estilos)
 
@@ -324,7 +253,7 @@ Padrões otimizados para páginas de conversão e vendas:
 
 ### 🟡 BI/Analytics (10 estilos)
 
-Dashboards e visualização de dados:
+Dashboards e visualização de dados corporativos:
 
 | # | Estilo | Slug |
 |---|--------|------|
@@ -338,6 +267,14 @@ Dashboards e visualização de dados:
 | 35 | User Behavior Analytics | `user-behavior-analytics` |
 | 36 | Financial Dashboard | `financial-dashboard` |
 | 37 | Sales Intelligence Dashboard | `sales-intelligence-dashboard` |
+
+### 🔵 Organization (1 estilos)
+
+Estilos organizacionais e corporativos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 54 | Knolling Pastel Flat Lay | `knolling-pastel-flat-lay` |
 
 ### 🔴 Infographic (13 estilos)
 
@@ -361,7 +298,7 @@ Estilos visuais para infográficos e apresentação de informações:
 
 ### 🔵 Tech-Inspired (20 estilos)
 
-Estilos inspirados em grandes empresas de tecnologia e plataformas:
+Estilos inspirados em grandes empresas de tecnologia:
 
 | # | Estilo | Slug |
 |---|--------|------|
@@ -419,6 +356,52 @@ Estilos técnicos e especializados:
 | 156 | Bento Grid Tech Minimalist | `bento-grid-tech-minimalist` |
 | 157 | Neumorphic Tech Schematic | `neumorphic-tech-schematic` |
 
+### 🟡 Data Visualization (1 estilos)
+
+Visualização de dados especializada:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 158 | Corporate Radial Process | `corporate-radial-process` |
+
+### 🟣 Artistic (3 estilos)
+
+Estilos artísticos e expressivos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 159 | Sumi-e Tech Scroll | `sumi-e-tech-scroll` |
+| 160 | Ghibli-Inspired Narrative Map | `ghibli-inspired-narrative-map` |
+| 161 | Ukiyo-e Woodblock Revival | `ukiyo-e-woodblock-revival` |
+
+### 🟤 Historical (5 estilos)
+
+Estilos inspirados em períodos históricos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 162 | Ancient Egyptian Instructional Scroll | `ancient-egyptian-instructional-scroll` |
+| 163 | Gatsby Art Deco Noir | `gatsby-art-deco-noir` |
+| 164 | Belle Époque Lithograph | `belle-epoque-lithograph` |
+| 165 | Rococo Romantic Narrative | `rococo-romantic-narrative` |
+| 166 | Vintage Botanical Scientific | `vintage-botanical-scientific` |
+
+### 🟣 Fantasy (1 estilos)
+
+Estilos de fantasia e mundos imaginários:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 167 | Steampunk Nebula Explorer | `steampunk-nebula-explorer` |
+
+### 🟢 Casual (1 estilos)
+
+Estilos casuais e descontraídos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 168 | Hand-Drawn Sketch-Note | `hand-drawn-sketch-note` |
+
 ### 🔵 Futuristic (8 estilos)
 
 Estilos futuristas e de ficção científica:
@@ -450,40 +433,122 @@ Estilos inspirados em cultura pop, filmes e séries:
 | 185 | Versus Mode Anime Aesthetic | `versus-mode-anime-aesthetic` |
 | 187 | Voxel Gamified Isometric | `voxel-gamified-isometric` |
 
-### 🟤 Historical (5 estilos)
+### 🟠 Retro (6 estilos)
 
-Estilos inspirados em períodos históricos:
-
-| # | Estilo | Slug |
-|---|--------|------|
-| 162 | Ancient Egyptian Instructional Scroll | `ancient-egyptian-instructional-scroll` |
-| 163 | Gatsby Art Deco Noir | `gatsby-art-deco-noir` |
-| 164 | Belle Époque Lithograph | `belle-epoque-lithograph` |
-| 165 | Rococo Romantic Narrative | `rococo-romantic-narrative` |
-| 166 | Vintage Botanical Scientific | `vintage-botanical-scientific` |
-
-### 🟣 Artistic (3 estilos)
-
-Estilos artísticos e expressivos:
+Estilos retrô e nostálgicos:
 
 | # | Estilo | Slug |
 |---|--------|------|
-| 159 | Sumi-e Tech Scroll | `sumi-e-tech-scroll` |
-| 160 | Ghibli-Inspired Narrative Map | `ghibli-inspired-narrative-map` |
-| 161 | Ukiyo-e Woodblock Revival | `ukiyo-e-woodblock-revival` |
+| 186 | 8-Bit Retro Terminal | `8-bit-retro-terminal` |
+| 219 | Retro Arcade Pixelado | `retro-arcade-pixelado` |
+| 220 | Retro Boutique Vintage | `retro-boutique-vintage` |
+| 221 | Retro Barbershop Clássica | `retro-barbershop-classica` |
+| 222 | Retro Aventura Anos 70 | `retro-aventura-anos-70` |
+| 223 | Retro Digital Anos 90 | `retro-digital-anos-90` |
 
-### Outros (6 estilos)
+### 🔵 Educational (1 estilos)
 
-Estilos em categorias especializadas:
+Estilos educacionais e didáticos:
 
-| # | Estilo | Categoria | Slug |
-|---|--------|-----------|------|
-| 158 | Corporate Radial Process | Data Visualization | `corporate-radial-process` |
-| 167 | Steampunk Nebula Explorer | Fantasy | `steampunk-nebula-explorer` |
-| 168 | Hand-Drawn Sketch-Note | Casual | `hand-drawn-sketch-note` |
-| 186 | 8-Bit Retro Terminal | Retro | `8-bit-retro-terminal` |
-| 188 | Chalkboard Sketch-Note | Educational | `chalkboard-sketch-note` |
-| 189 | Knolling Pastel Flat Lay | Organization | `knolling-pastel-flat-lay` |
+| # | Estilo | Slug |
+|---|--------|------|
+| 188 | Chalkboard Sketch-Note | `chalkboard-sketch-note` |
+
+### ⚪ Minimalism (5 estilos)
+
+Estilos minimalistas limpos e funcionais:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 189 | Minimalismo Funcional B2B | `minimalismo-funcional-b2b` |
+| 190 | Minimalismo Fotográfico Elegante | `minimalismo-fotografico-elegante` |
+| 191 | Minimalismo Chic de Luxo | `minimalismo-chic-de-luxo` |
+| 192 | Minimalismo Sereno de Bem-Estar | `minimalismo-sereno-de-bem-estar` |
+| 193 | Minimalismo Confiável Financeiro | `minimalismo-confiavel-financeiro` |
+
+### ⚫ Brutalism (5 estilos)
+
+Estilos brutalistas ousados e diretos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 194 | Neobrutalismo Ousado | `neobrutalismo-ousado` |
+| 195 | Brutalismo Sonoro Glitch | `brutalismo-sonoro-glitch` |
+| 196 | Brutalismo Artístico Abstrato | `brutalismo-artistico-abstrato` |
+| 197 | Neobrutalismo Crítico | `neobrutalismo-critico` |
+| 198 | Brutalismo Urbano Expressivo | `brutalismo-urbano-expressivo` |
+
+### 🔺 Constructivism (5 estilos)
+
+Estilos construtivistas geométricos e estruturados:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 199 | Construtivismo Dinâmico Tech | `construtivismo-dinamico-tech` |
+| 200 | Construtivismo Arquitetônico | `construtivismo-arquitetonico` |
+| 201 | Construtivismo de Dados Dinâmicos | `construtivismo-de-dados-dinamicos` |
+| 202 | Construtivismo de Eventos Dinâmicos | `construtivismo-de-eventos-dinamicos` |
+| 203 | Construtivismo Literário Experimental | `construtivismo-literario-experimental` |
+
+### 🟥 SwissStyle (5 estilos)
+
+Estilos Swiss Design com tipografia e grid:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 204 | Estilo Suíço Corporativo | `estilo-suico-corporativo` |
+| 205 | Estilo Suíço Premium | `estilo-suico-premium` |
+| 206 | Estilo Suíço Científico | `estilo-suico-cientifico` |
+| 207 | Estilo Suíço Artístico | `estilo-suico-artistico` |
+| 208 | Estilo Suíço Educacional | `estilo-suico-educacional` |
+
+### 📰 EditorialStyle (5 estilos)
+
+Estilos editoriais inspirados em revistas e publicações:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 209 | Editorial Contemporâneo | `editorial-contemporaneo` |
+| 210 | Editorial de Viagem Sofisticado | `editorial-de-viagem-sofisticado` |
+| 211 | Editorial de Portfólio Criativo | `editorial-de-portfolio-criativo` |
+| 212 | Editorial Investigativo Sóbrio | `editorial-investigativo-sobrio` |
+| 213 | Editorial Interativo Digital | `editorial-interativo-digital` |
+
+### ✏️ HandDrawn (5 estilos)
+
+Estilos hand-drawn artesanais e orgânicos:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 214 | Desenho à Mão Lúdico | `desenho-a-mao-ludico` |
+| 215 | Artesanato Orgânico e Acolhedor | `artesanato-organico-e-acolhedor` |
+| 216 | Café Artesanal Aconchegante | `cafe-artesanal-aconchegante` |
+| 217 | Criatividade Artesanal e Pessoal | `criatividade-artesanal-e-pessoal` |
+| 218 | Aprendizado Criativo Artesanal | `aprendizado-criativo-artesanal` |
+
+### 🔷 FlatDesign (5 estilos)
+
+Estilos flat design limpos e bidimensionais:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 224 | Flat Design Produtivo | `flat-design-produtivo` |
+| 225 | Flat Design Educacional Vibrante | `flat-design-educacional-vibrante` |
+| 226 | Flat Design Musical Intuitivo | `flat-design-musical-intuitivo` |
+| 227 | Flat Design Informativo Claro | `flat-design-informativo-claro` |
+| 228 | Flat Design Financeiro Seguro | `flat-design-financeiro-seguro` |
+
+### 🍱 BentoStyle (5 estilos)
+
+Estilos bento com layout em grade modular:
+
+| # | Estilo | Slug |
+|---|--------|------|
+| 229 | Bento Produtividade Flexível | `bento-produtividade-flexivel` |
+| 230 | Bento Dados Estruturados | `bento-dados-estruturados` |
+| 231 | Bento Portfólio de Produto | `bento-portfolio-de-produto` |
+| 232 | Bento Notícias Curadas | `bento-noticias-curadas` |
+| 233 | Bento Eventos Dinâmicos | `bento-eventos-dinamicos` |
 
 ---
 
@@ -519,84 +584,86 @@ O Vibe Styles foi projetado para funcionar como ponte entre referência visual e
 
 ### Formato do prompt
 
-Cada prompt é armazenado como um objeto JSON estruturado em `app/data/data.json` com os seguintes campos:
+Cada estilo possui um prompt estruturado contendo:
 
-- **header** — Instrução base para a IA
-- **estilo** — Objeto com nome, tipo, keywords, cores primárias/secundárias, efeitos, era e suporte light/dark
-- **aiPromptKeywords** — Keywords otimizadas para geração por IA
-- **cssTechnical** — Propriedades CSS específicas do estilo
-- **designSystemVariables** — Variáveis de design token
-- **checklist** — Itens de verificação visual
-- **regrasDeExecucao** — 11 regras obrigatórias de execução
+- **Header**: Instruções contextuais para a IA (papel, tarefa, campos customizáveis)
+- **Estilo**: Nome, tipo e keywords do estilo
+- **Paleta**: Cores primárias, secundárias e de destaque
+- **Tipografia**: Fontes principais, tamanhos e hierarquia
+- **Layout**: Estrutura de seções, espaçamentos e organização
+- **Elementos Visuais**: Bordas, sombras, animações e detalhes
+- **Tags**: Classificação semântica do estilo
 
-O botão "Copiar Prompt" reconstrói o texto completo a partir do objeto JSON em memória via `DataLoader.buildPromptText()`, sem necessidade de requisições HTTP adicionais.
+### Exemplo de uso
 
-### Compatibilidade
+```markdown
+# No ChatGPT/Claude/Gemini
 
-Os prompts foram testados e otimizados para:
-- ChatGPT (GPT-4, GPT-4o)
-- Claude (Sonnet, Opus)
-- Google Gemini
-- Qualquer LLM com capacidade de geração de código
+Usuário: [Cola o prompt do estilo "Glassmorphism"]
 
-### Acesso para crawlers de IA
-
-O `robots.txt` permite acesso de crawlers de IA (GPTBot, ClaudeBot, PerplexityBot, etc.) ao conteúdo público. O arquivo `llms.txt` fornece metadados estruturados para LLMs.
+IA: [Gera código HTML/CSS completo no estilo Glassmorphism]
+```
 
 ---
 
-## ♿ Acessibilidade
+## 📁 Estrutura do Projeto
 
-Cada página de estilo segue práticas de acessibilidade:
-
-- Todas as imagens possuem `alt` text
-- Inputs de formulário possuem `label` associado
-- Cor nunca é o único indicador de informação
-- `prefers-reduced-motion` é respeitado — animações são desabilitadas quando o usuário prefere
-- Contraste de texto mínimo de 4.5:1 (WCAG AA)
-- Elementos interativos possuem `cursor: pointer`
-- Modal de FAQ com suporte a navegação por teclado (Escape para fechar)
-- Atributos ARIA (`role="dialog"`, `aria-modal`, `aria-label`)
-
----
-
-## 📱 Responsividade
-
-Todas as páginas são testadas nos seguintes breakpoints:
-
-| Breakpoint | Dispositivo |
-|------------|-------------|
-| 375px | Mobile (iPhone SE) |
-| 768px | Tablet (iPad) |
-| 1024px | Laptop |
-| 1440px | Desktop |
+```
+vibe-styles/
+├── app/
+│   ├── index.html          # Shell da aplicação (SPA)
+│   ├── data/
+│   │   └── data.json       # Base de dados centralizada (estilos + prompts)
+│   ├── styles/
+│   │   ├── 1.html          # 256 arquivos HTML de demonstração
+│   │   └── ...
+│   ├── assets/             # Imagens, logos, ícones
+│   ├── llms.txt            # Metadados para IA
+│   ├── sitemap.xml         # Sitemap para SEO
+│   └── robots.txt          # Controle de crawlers
+├── scripts/
+│   ├── generate_html.py    # Gerador automatizado de HTMLs via LLM
+│   └── migrate-to-json.py  # Migração de prompts .txt para JSON
+├── docs/                   # Documentação adicional
+└── README.md
+```
 
 ---
 
-## 🔍 SEO
+## 🛠 Stack Tecnológica
 
-O projeto implementa uma estratégia de SEO completa:
+| Tecnologia | Uso |
+|------------|-----|
+| HTML5 | Estrutura semântica |
+| Tailwind CSS (CDN) | Estilização utilitária |
+| JavaScript Vanilla | Roteamento SPA, cópia de prompts, navegação |
+| Google Fonts | Tipografia (Inter) |
+| JSON | Base de dados de estilos e prompts |
 
-- **URLs semânticas** com slugs descritivos
-- **Meta tags dinâmicas** — title, description, canonical atualizados por estilo
-- **Open Graph** — preview otimizado para compartilhamento em redes sociais
-- **Twitter Cards** — cards de resumo para Twitter/X
-- **Schema Markup JSON-LD** — WebSite, CollectionPage, ItemList, CreativeWork, FAQPage
-- **Sitemap XML** — todas as URLs indexadas
-- **robots.txt** — regras específicas para crawlers de IA e motores de busca
-- **llms.txt** — metadados estruturados para Large Language Models
+**Zero build tools**, **zero frameworks**, **zero dependências npm**. Arquivos estáticos puros que rodam em qualquer servidor HTTP.
 
 ---
 
-### Regras para páginas de estilo
+## 📊 Números do Projeto
 
-| Regra | Detalhe |
-|-------|---------|
-| Framework | Tailwind CSS via CDN |
-| Fontes | Google Fonts |
-| Ícones | SVG inline (nunca emojis) |
-| Interação | `cursor-pointer` em todo elemento clicável |
-| Idioma | Português brasileiro (PT-BR) |
+| Métrica | Valor |
+|---------|-------|
+| Total de estilos | 256 |
+| Categorias | 25 |
+| Arquivos HTML de estilo | 256 (em expansão) |
+| Dependências de build | 0 |
+| Frameworks JavaScript | 0 |
+| Tamanho do shell (index.html) | ~815 linhas |
+| Base de dados | `data.json` (~4300 linhas) |
+
+---
+
+## 📐 Especificações Técnicas
+
+Cada landing page de demonstração segue o padrão:
+
+| Aspecto | Especificação |
+|---------|---------------|
 | Responsivo | 375px a 1440px |
 | Navbar | Nenhuma (exibido dentro de iframe) |
 | Tamanho | ~300 linhas máximo |
@@ -605,24 +672,23 @@ O projeto implementa uma estratégia de SEO completa:
 
 ---
 
-## 📊 Números do Projeto
+## 🗓 Changelog
 
-| Métrica | Valor |
-|---------|-------|
-| Total de estilos | 188 |
-| Categorias | 17 |
-| Arquivos HTML de estilo | 165 (em expansão) |
-| Dependências de build | 0 |
-| Frameworks JavaScript | 0 |
-| Tamanho do shell (index.html) | ~815 linhas |
-| Base de dados | `data.json` (~4300 linhas) |
+- **Fevereiro 2026** — Expansão para 256 estilos em 25 categorias. Adição de novas categorias especializadas (Minimalism, Brutalism, Constructivism, SwissStyle, EditorialStyle, HandDrawn, FlatDesign, BentoStyle) e estilos brasileiros temáticos. Migração completa para `data.json`. Atualização de `sitemap.xml` e `llms.txt`.
+- **Fevereiro 2026** — Migração dos prompts de arquivos `.txt` individuais para `data.json` centralizado. Novo `DataLoader` no `index.html`. Adição de 90 novos estilos (Tech-Inspired, Thematic, Technical, Futuristic, Pop Culture, Historical, Artistic). Script `generate_html.py` para geração automatizada via LLM.
+- **Fevereiro 2026** — Lançamento inicial com 98 estilos, 4 categorias, roteamento por slugs, SEO completo, integração com IA
 
 ---
 
-## 🗓 Changelog
+## 🤝 Contribuindo
 
-- **Fevereiro 2026** — Migração dos prompts de arquivos `.txt` individuais para `data.json` centralizado. Remoção da pasta `app/prompts/`. Novo `DataLoader` no `index.html` carrega dados via `fetch` e reconstrói prompts em memória. Adição de 90 novos estilos (Tech-Inspired, Thematic, Technical, Futuristic, Pop Culture, Historical, Artistic e outros). Total: 188 estilos em 17 categorias. Script `generate_html.py` para geração automatizada via LLM.
-- **Fevereiro 2026** — Lançamento inicial com 98 estilos, 4 categorias, roteamento por slugs, SEO completo, integração com IA
+Contribuições são bem-vindas! Algumas formas de contribuir:
+
+- 🎨 Sugerir novos estilos de UI/UX
+- 🐛 Reportar bugs ou inconsistências
+- 📝 Melhorar a documentação
+- 💻 Implementar HTMLs de estilos faltantes
+- ✨ Otimizar prompts existentes
 
 ---
 

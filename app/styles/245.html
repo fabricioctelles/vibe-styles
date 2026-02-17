@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ybyrá - Conectando você às raízes indígenas do Brasil. Plataforma de preservação cultural e educação.">
+    <meta name="keywords" content="cultura indígena, Brasil, preservação, tradição, ancestralidade">
+    <meta name="author" content="Ybyrá">
+    <meta property="og:title" content="Ybyrá - Culturas Indígenas Brasileiras">
+    <meta property="og:description" content="Preserve e conheça a rica diversidade das culturas indígenas do Brasil.">
+    <meta property="og:type" content="website">
+    <title>Ybyrá - Culturas Indígenas Brasileiras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --earth-brown: #8B4513;
+            --forest-green: #228B22;
+            --ochre-red: #CC7722;
+            --white-bg: #FFFFFF;
+            --river-blue: #4682B4;
+            --sun-yellow: #FFD700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--white-bg);
+            color: var(--earth-brown);
+        }
+        
+        .font-traditional {
+            font-family: 'Marcellus SC', serif;
+        }
+        
+        .indigenous-pattern-bg {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 69, 19, 0.03) 10px, rgba(139, 69, 19, 0.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(34, 139, 34, 0.03) 10px, rgba(34, 139, 34, 0.03) 20px);
+        }
+        
+        .native-illustration {
+            position: relative;
+        }
+        
+        .native-illustration::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 2px solid var(--ochre-red);
+            border-radius: 8px;
+            transform: rotate(-2deg);
+            z-index: -1;
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .native-illustration:hover::before {
+            transform: rotate(2deg) scale(1.02);
+        }
+        
+        .cultural-reveal-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cultural-reveal-hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.1), rgba(204, 119, 34, 0.1));
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+        }
+        
+        .cultural-reveal-hover:hover::after {
+            opacity: 1;
+        }
+        
+        .geometric-border {
+            border: 2px solid var(--ochre-red);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .geometric-border::before,
+        .geometric-border::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--forest-green);
+        }
+        
+        .geometric-border::before {
+            top: -5px;
+            left: -5px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .geometric-border::after {
+            bottom: -5px;
+            right: -5px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .intertwining-transition {
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .btn-cultural {
+            background-color: var(--ochre-red);
+            color: var(--white-bg);
+            padding: 12px 32px;
+            border: 2px solid var(--ochre-red);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .btn-cultural:hover {
+            background-color: transparent;
+            color: var(--ochre-red);
+        }
+        
+        .btn-outline-cultural {
+            background-color: transparent;
+            color: var(--forest-green);
+            padding: 12px 32px;
+            border: 2px solid var(--forest-green);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .btn-outline-cultural:hover {
+            background-color: var(--forest-green);
+            color: var(--white-bg);
+        }
+        
+        .card-indigenous {
+            background-color: var(--white-bg);
+            border: 2px solid var(--ochre-red);
+            border-radius: 8px;
+            padding: 32px;
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .card-indigenous:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(139, 69, 19, 0.15);
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(204, 119, 34, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(34, 139, 34, 0.1) 0%, transparent 50%);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--earth-brown);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.7s ease-in-out;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--ochre-red);
+            transition: width 0.7s ease-in-out;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .card-indigenous {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body class="indigenous-pattern-bg">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="font-traditional text-2xl text-[#8B4513]">Ybyrá</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#sobre" class="nav-link">Sobre</a>
+                    <a href="#culturas" class="nav-link">Culturas</a>
+                    <a href="#comunidade" class="nav-link">Comunidade</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                    <a href="#participe" class="btn-cultural">Participe</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-pattern pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="font-traditional text-4xl md:text-5xl lg:text-6xl text-[#8B4513] mb-6 leading-tight">
+                        Raízes Ancestrais,<br>Cultura Viva
+                    </h1>
+                    <p class="text-lg md:text-xl text-[#8B4513] opacity-80 mb-8">
+                        Conecte-se com a rica diversidade das culturas indígenas do Brasil. Preserve tradições, conheça histórias e fortaleça a identidade nacional.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#culturas" class="btn-cultural text-center">Explorar Culturas</a>
+                        <a href="#sobre" class="btn-outline-cultural text-center">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="native-illustration">
+                    <div class="bg-gradient-to-br from-[#228B22] to-[#CC7722] rounded-2xl h-64 md:h-80 flex items-center justify-center">
+                        <svg class="w-32 h-32 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3c-4 0-7 3-7 7 0 2.5 1 5 4 7 1 1 2 2 3 4 1-2 2-3 3-4 3-2 4-4.5 4-7 0-4-3-7-7-7z M12 7c-1.5 0-3 1.5-3 3 0 1 0.5 2 1.5 2.5 M12 11v4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="culturas" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-traditional text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Nossas Culturas</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Explore a diversidade cultural dos povos originários do Brasil
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-indigenous cultural-reveal-hover">
+                    <div class="w-16 h-16 bg-[#228B22] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-3">Aldeias Tradicionais</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Conheça a organização social, arquitetura e modos de vida das aldeias indígenas contemporâneas.
+                    </p>
+                </div>
+                <div class="card-indigenous cultural-reveal-hover">
+                    <div class="w-16 h-16 bg-[#CC7722] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-3">Música e Dança</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Mergulhe nas manifestações musicais e coreográficas que preservam a história espiritual de cada povo.
+                    </p>
+                </div>
+                <div class="card-indigenous cultural-reveal-hover">
+                    <div class="w-16 h-16 bg-[#4682B4] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-3">Conhecimento Ancestral</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Aprenda sobre medicina tradicional, práticas agrícolas e o conhecimento da natureza.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="comunidade" class="py-16 md:py-24 bg-[#8B4513] bg-opacity-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-traditional text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Nossa Comunidade</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Histórias de quem preserva e valoriza a cultura indígena
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg border-2 border-[#CC7722]">
+                    <p class="text-[#8B4513] mb-6">"A Ybyrá me ajudou a reconectar com minhas raízes. Hoje presido uma associação cultural e mantenho viva a tradição do meu povo."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#228B22] rounded-full flex items-center justify-center text-white font-bold">AK</div>
+                        <div class="ml-4">
+                            <p class="font-traditional text-[#8B4513]">Aruanã Kaxinawá</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Líder Cultural</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg border-2 border-[#CC7722]">
+                    <p class="text-[#8B4513] mb-6">"Como pesquisadora, encontrei na plataforma uma fonte riquíssima de informação legitimada pelas próprias comunidades."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#CC7722] rounded-full flex items-center justify-center text-white font-bold">MS</div>
+                        <div class="ml-4">
+                            <p class="font-traditional text-[#8B4513]">Marina Souza</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Antropóloga</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg border-2 border-[#CC7722]">
+                    <p class="text-[#8B4513] mb-6">"Agora posso ensinar aos meus alunos sobre a diversidade cultural brasileira com materiais autênticos e respeitosos."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#4682B4] rounded-full flex items-center justify-center text-white font-bold">RP</div>
+                        <div class="ml-4">
+                            <p class="font-traditional text-[#8B4513]">Roberto Pereira</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Professor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-traditional text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Planos de Apoio</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Escolha como contribuir com a preservação cultural
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-indigenous text-center">
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-2">Explorador</h3>
+                    <p class="text-3xl font-bold text-[#CC7722] mb-4">Grátis</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Acesso a conteúdos básicos</li>
+                        <li>Visita a 3 culturas</li>
+                        <li>Newsletter mensal</li>
+                    </ul>
+                    <button class="btn-outline-cultural w-full">Começar</button>
+                </div>
+                <div class="card-indigenous text-center border-[#228B22] border-4 relative">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#228B22] text-white px-4 py-1 text-sm rounded-full">Popular</span>
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-2">Guardião</h3>
+                    <p class="text-3xl font-bold text-[#CC7722] mb-4">R$29/mês</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Acesso completo</li>
+                        <li>Todas as culturas</li>
+                        <li>Cursos exclusivos</li>
+                        <li>Eventos ao vivo</li>
+                    </ul>
+                    <button class="btn-cultural w-full">Assinar</button>
+                </div>
+                <div class="card-indigenous text-center">
+                    <h3 class="font-traditional text-xl text-[#8B4513] mb-2">Aliado</h3>
+                    <p class="text-3xl font-bold text-[#CC7722] mb-4">R$99/mês</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Tudo do Guardião</li>
+                        <li>Projetos especiais</li>
+                        <li>Parceria com aldeias</li>
+                        <li>Certificado de apoio</li>
+                    </ul>
+                    <button class="btn-outline-cultural w-full">Aliar-se</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="participe" class="py-16 md:py-24 bg-gradient-to-br from-[#228B22] to-[#CC7722]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-traditional text-3xl md:text-4xl text-white mb-6">Junte-se à Preservação</h2>
+            <p class="text-white text-opacity-90 text-lg mb-8">
+                Sua participação fortalece a cultura indígena brasileira. Cada contribuição ajuda a manter vivas as tradições de milênios.
+            </p>
+            <button class="bg-white text-[#228B22] px-8 py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300">
+                Comece Agora
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-[#8B4513] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <span class="font-traditional text-2xl">Ybyrá</span>
+                    <p class="mt-4 text-white opacity-70">Preservando culturas, construindo futuro.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Navegação</h4>
+                    <ul class="space-y-2 text-white opacity-70">
+                        <li><a href="#sobre" class="hover:opacity-100">Sobre</a></li>
+                        <li><a href="#culturas" class="hover:opacity-100">Culturas</a></li>
+                        <li><a href="#comunidade" class="hover:opacity-100">Comunidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-white opacity-70">
+                        <li><a href="#" class="hover:opacity-100">Privacidade</a></li>
+                        <li><a href="#" class="hover:opacity-100">Termos</a></li>
+                        <li><a href="#" class="hover:opacity-100">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white opacity-20 rounded-full flex items-center justify-center hover:opacity-40">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white opacity-20 rounded-full flex items-center justify-center hover:opacity-40">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white border-opacity-20 pt-8 text-center text-white opacity-60">
+                <p>&copy; 2026 Ybyrá. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

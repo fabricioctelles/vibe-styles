@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Artesão Brasil - Móveis artesanais brasileiros com design autoral e materiais naturais.">
+    <meta name="keywords" content="móveis artesanais, design brasileiro, madeira, couro, palha, decoração">
+    <meta name="author" content="Artesão Brasil">
+    <meta property="og:title" content="Artesão Brasil - Móveis Artesanais">
+    <meta property="og:description" content="Móveis feitos à mão com materiais naturais e design autoral.">
+    <meta property="og:type" content="website">
+    <title>Artesão Brasil - Móveis Artesanais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wood-brown: #8B4513;
+            --straw-beige: #F5DEB3;
+            --olive-green: #6B8E23;
+            --white-bg: #FFFFFF;
+            --burnt-orange: #CC5500;
+            --deep-blue: #001F3F;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--white-bg);
+            color: var(--wood-brown);
+        }
+        
+        .font-serif-robust {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .wood-texture-bg {
+            background-color: var(--white-bg);
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(139, 69, 19, 0.02) 50px, rgba(139, 69, 19, 0.02) 51px),
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(139, 69, 19, 0.02) 50px, rgba(139, 69, 19, 0.02) 51px);
+        }
+        
+        .leather-accent {
+            position: relative;
+        }
+        
+        .leather-accent::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background-color: var(--wood-brown);
+            opacity: 0.3;
+        }
+        
+        .furniture-card-crafted {
+            background-color: var(--white-bg);
+            border: 1px solid #D2B48C;
+            border-radius: 8px;
+            padding: 32px;
+            transition: all 0.6s ease-in-out;
+            position: relative;
+        }
+        
+        .furniture-card-crafted::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.03), rgba(107, 142, 35, 0.03));
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            border-radius: 8px;
+        }
+        
+        .furniture-card-crafted:hover::before {
+            opacity: 1;
+        }
+        
+        .furniture-card-crafted:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(139, 69, 19, 0.15);
+        }
+        
+        .assembly-transition {
+            transition: all 0.6s ease-in-out;
+        }
+        
+        .btn-crafted {
+            background-color: var(--wood-brown);
+            color: var(--white-bg);
+            padding: 14px 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.6s ease-in-out;
+        }
+        
+        .btn-crafted:hover {
+            background-color: var(--olive-green);
+        }
+        
+        .btn-outline-crafted {
+            background-color: transparent;
+            color: var(--wood-brown);
+            padding: 14px 36px;
+            border: 2px solid var(--wood-brown);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.6s ease-in-out;
+        }
+        
+        .btn-outline-crafted:hover {
+            background-color: var(--wood-brown);
+            color: var(--white-bg);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--wood-brown);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            transition: all 0.6s ease-in-out;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--wood-brown);
+            transition: width 0.6s ease-in-out;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .wood-grain-border {
+            border: 2px solid var(--wood-brown);
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .furniture-card-crafted {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body class="wood-texture-bg">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="font-serif-robust text-2xl text-[#8B4513]">Artesão Brasil</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#colecoes" class="nav-link">Coleções</a>
+                    <a href="#artesaos" class="nav-link">Artesãos</a>
+                    <a href="#personalizado" class="nav-link">Personalizado</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                    <a href="#comprar" class="btn-crafted text-sm">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block bg-[#6B8E23] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">DESIGN AUTORAL</span>
+                    <h1 class="font-serif-robust text-4xl md:text-5xl lg:text-6xl text-[#8B4513] mb-6 leading-tight">
+                        Móveis Feitos<br>com Alma
+                    </h1>
+                    <p class="text-lg md:text-xl text-[#8B4513] opacity-75 mb-8">
+                        Cada peça é única, criada por artesãos brasileiros com materiais naturais e décadas de tradição. Madeira maciça, couro legítimo e fibras naturais.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-crafted">Ver Coleção</button>
+                        <button class="btn-outline-crafted">Conhecer Artesãos</button>
+                    </div>
+                </div>
+                <div class="leather-accent">
+                    <div class="bg-gradient-to-br from-[#8B4513] to-[#F5DEB3] rounded-2xl h-80 md:h-96 flex items-center justify-center shadow-2xl">
+                        <svg class="w-40 h-40 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="colecoes" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-serif-robust text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Nossas Coleções</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Móveis artesanais que contam histórias e transformam ambientes
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="furniture-card-crafted">
+                    <div class="w-16 h-16 bg-[#8B4513] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-3">Sala de Estar</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Poltronas, sofás e mesas de centro em madeira maciça com acabamento em couro natural.
+                    </p>
+                </div>
+                <div class="furniture-card-crafted">
+                    <div class="w-16 h-16 bg-[#6B8E23] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-3">Quarto</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Camas, criados-mudos e guarda-roupas com design robusto e materiais sustentáveis.
+                    </p>
+                </div>
+                <div class="furniture-card-crafted">
+                    <div class="w-16 h-16 bg-[#CC5500] rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-3">Escritório</h3>
+                    <p class="text-[#8B4513] opacity-70">
+                        Escrivaninhas, cadeiras e estantes com design ergonômico e acabamento premium.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="artesaos" class="py-16 md:py-24 bg-[#8B4513] bg-opacity-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-serif-robust text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Nossos Artesãos</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Mestres da marcenaria que transformam madeira em arte
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg border border-[#D2B48C]">
+                    <p class="text-[#8B4513] mb-6">"Trabalho com madeira há 40 anos. Cada peça que crio leva um pedacinho da minha história e da tradição da minha família."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#8B4513] rounded-full flex items-center justify-center text-white font-bold">JS</div>
+                        <div class="ml-4">
+                            <p class="font-serif-robust text-[#8B4513]">João Silva</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Mestre Marceneiro</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg border border-[#D2B48C]">
+                    <p class="text-[#8B4513] mb-6">"Acreditamos que móveis devem durar gerações. Usamos técnicas ancestrais e design contemporâneo."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#6B8E23] rounded-full flex items-center justify-center text-white font-bold">MC</div>
+                        <div class="ml-4">
+                            <p class="font-serif-robust text-[#8B4513]">Maria Costa</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Designer de Móveis</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg border border-[#D2B48C]">
+                    <p class="text-[#8B4513] mb-6">"Nossa oficina em Minas Gerais preserva técnicas do século XIX. Cada móvel é uma obra única."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#CC5500] rounded-full flex items-center justify-center text-white font-bold">PO</div>
+                        <div class="ml-4">
+                            <p class="font-serif-robust text-[#8B4513]">Pedro Oliveira</p>
+                            <p class="text-sm text-[#8B4513] opacity-60">Artesão 3ª Geração</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-serif-robust text-3xl md:text-4xl text-[#8B4513] text-center mb-4">Categorias</h2>
+            <p class="text-center text-[#8B4513] opacity-70 mb-12 max-w-2xl mx-auto">
+                Escolha o móvel perfeito para seu lar
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="furniture-card-crafted text-center">
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-2">Básico</h3>
+                    <p class="text-3xl font-bold text-[#6B8E23] mb-4">R$1.500+</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Madeira reflorestada</li>
+                        <li>Acabamento padrão</li>
+                        <li>Garantia de 2 anos</li>
+                    </ul>
+                    <button class="btn-outline-crafted w-full">Ver Itens</button>
+                </div>
+                <div class="furniture-card-crafted text-center border-2 border-[#8B4513] relative">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#8B4513] text-white px-4 py-1 text-sm rounded-full">Premium</span>
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-2">Autoral</h3>
+                    <p class="text-3xl font-bold text-[#6B8E23] mb-4">R$5.000+</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Madeira maciça</li>
+                        <li>Couro natural</li>
+                        <li>Design exclusivo</li>
+                        <li>Garantia de 5 anos</li>
+                    </ul>
+                    <button class="btn-crafted w-full">Ver Itens</button>
+                </div>
+                <div class="furniture-card-crafted text-center">
+                    <h3 class="font-serif-robust text-xl text-[#8B4513] mb-2">Luxo</h3>
+                    <p class="text-3xl font-bold text-[#6B8E23] mb-4">R$15.000+</p>
+                    <ul class="text-[#8B4513] opacity-70 space-y-3 mb-8">
+                        <li>Madeiras nobres</li>
+                        <li>Acabamento artesanal</li>
+                        <li>Edição limitada</li>
+                        <li>Garantia vitalícia</li>
+                    </ul>
+                    <button class="btn-outline-crafted w-full">Ver Itens</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="personalizado" class="py-16 md:py-24 bg-gradient-to-br from-[#8B4513] to-[#F5DEB3]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-serif-robust text-3xl md:text-4xl text-white mb-6">Crie Seu Móvel Único</h2>
+            <p class="text-white text-opacity-90 text-lg mb-8">
+                Trabalhe com nossos artesãos para criar um móvel personalizado que será parte da sua família por gerações.
+            </p>
+            <button class="bg-white text-[#8B4513] px-8 py-4 rounded-lg font-bold hover:shadow-xl transition-all duration-300">
+                Solicitar Orçamento
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-[#8B4513] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <span class="font-serif-robust text-2xl">Artesão Brasil</span>
+                    <p class="mt-4 text-white opacity-70">Móveis artesanais com design autoral.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Navegação</h4>
+                    <ul class="space-y-2 text-white opacity-70">
+                        <li><a href="#colecoes" class="hover:opacity-100">Coleções</a></li>
+                        <li><a href="#artesaos" class="hover:opacity-100">Artesãos</a></li>
+                        <li><a href="#personalizado" class="hover:opacity-100">Personalizado</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-white opacity-70">
+                        <li><a href="#" class="hover:opacity-100">Privacidade</a></li>
+                        <li><a href="#" class="hover:opacity-100">Termos</a></li>
+                        <li><a href="#" class="hover:opacity-100">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white opacity-20 rounded-full flex items-center justify-center hover:opacity-40">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white opacity-20 rounded-full flex items-center justify-center hover:opacity-40">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white border-opacity-20 pt-8 text-center text-white opacity-60">
+                <p>&copy; 2026 Artesão Brasil. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
