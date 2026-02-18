@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="app/assets/logo.png" alt="Vibe Styles Logo" width="150" style="border-radius: 12px;">
+</p>
+
 <h1 align="center">🎨 Vibe Styles</h1>
 
 <p align="center">
