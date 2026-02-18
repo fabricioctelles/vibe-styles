@@ -33,9 +33,16 @@
 
 ## 📖 Sobre o Projeto
 
-O **Vibe Styles** é uma referência visual completa para designers e desenvolvedores que trabalham com UI/UX. O projeto reúne 256 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e JavaScript vanilla.
+O **Vibe Styles** é uma **coleção interativa com 256 estilos de UI/UX design — cada um com demonstração visual + prompt copiável pronto para colar em ChatGPT, Claude, Gemini ou qualquer IA generativa.**
 
-O diferencial: cada estilo vem com um **prompt copiável** otimizado para ferramentas de IA generativa (ChatGPT, Claude, Gemini, etc.), permitindo que você reproduza qualquer estilo instantaneamente nos seus projetos.
+O projeto reúne 256 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e JavaScript vanilla.
+
+### O diferencial
+
+- ✅ **Prompts copy-paste ready** — Cada estilo vem com um prompt estruturado e testado para IA generativa
+- ✅ **Demonstração visual funcional** — Não é mockup — cada estilo é uma página HTML completa e responsiva
+- ✅ **Sem decisões de design** — Já vem com paleta de cores, tipografia, espaçamento e regras de execução
+- ✅ **Para 4 personas diferentes** — Developers, Designers sem code, Agências, Criadores de conteúdo (Gamma, Pitch, Lovable, NotebookLM)
 
 ### Inspiração
 
@@ -97,13 +104,45 @@ O acervo está organizado em **25 categorias** que cobrem os principais cenário
 
 ## 🚀 Como Usar
 
-### Navegação Online
+### Fluxo: Escolha Estilo → Copie Prompt → Cole em IA
 
-1. Acesse **[vibe.ft.ia.br](https://vibe.ft.ia.br/)**
-2. Selecione um estilo no dropdown da barra de navegação
-3. Visualize a demonstração ao vivo no painel central
-4. Clique em **"Copiar Prompt"** para copiar o prompt do estilo
-5. Cole o prompt no ChatGPT, Claude, Gemini ou qualquer IA generativa
+#### 1️⃣ **Acesse o catálogo**
+Vá para **[vibe.ft.ia.br](https://vibe.ft.ia.br/)** (ou execute localmente — vide "Execução Local" abaixo)
+
+#### 2️⃣ **Escolha o estilo ideal**
+- Use o dropdown para navegar pelos 256 estilos
+- **Dica**: procure por categoria (General, Landing Page, BI/Analytics) ou tipo de projeto:
+  - 🏢 Para **SaaS B2B**: Minimalismo, Swiss Style, Glassmorphism, Dark Mode OLED
+  - 🛒 Para **Ecommerce**: Vibrant & Block-based, Flat Design, Bento Grid
+  - 🚀 Para **Landing Page de alto-impacto**: Glassmorphism, Aurora UI, 3D & Hyperrealism
+  - 📊 Para **Dashboard/Analytics**: Data-Dense, Executive Dashboard, Real-Time Monitoring
+  - ✨ Para **Portfólio/Criativo**: Editorial Grid, Hand-Drawn, Claymation 3D
+  - 🎮 Para **Comunidade/Gen-Z**: Y2K Aesthetic, Cyberpunk UI, Kawaii
+
+#### 3️⃣ **Visualize a demonstração**
+O estilo é exibido em tempo real no painel central (iframe responsivo). Analise cores, tipografia, espaçamento e animações.
+
+#### 4️⃣ **Copie o prompt**
+Clique no botão **"Copiar Prompt"** (canto superior direito). O prompt estruturado será copiado para sua área de transferência.
+
+#### 5️⃣ **Cole em sua IA preferida**
+- **ChatGPT** (chat.openai.com)
+- **Claude** (claude.ai)
+- **Gemini** (gemini.google.com)
+- **Lovable** (lovable.dev) — para gerar código completo
+- **Gamma** (gamma.app) — para apresentações
+- **Pitch** (pitch.com) — para decks
+- **NotebookLM** (notebooklm.google.com) — para gerar áudio + slides
+- Qualquer outra IA que aceite prompts
+
+#### 6️⃣ **Customize e adapte**
+O prompt traz especificações completas (cores, tipografia, layout, componentes). Você pode adaptar:
+- Tema/contexto ("Para uma agência de design", "Para um SaaS de IA")
+- Seções específicas (remover Testimonials, adicionar FAQ)
+- Conteúdo textual (headlines, descrições de features)
+- Cores (manter o estilo, trocar paleta)
+
+---
 
 ### Execução Local
 
@@ -124,7 +163,186 @@ Acesse `http://localhost:8000` no navegador.
 
 ---
 
-## 📋 Catálogo Completo
+## ❓ FAQ — Mapeamento de Personas e Use-Cases
+
+### 👨‍💻 Você é um Developer usando IA como ferramenta de design?
+
+**Seu problema**: "Estou preso em decisões de design. Não quero perder tempo com CSS, cores e tipografia."
+
+**Solução com Vibe Styles**:
+1. Escolha um estilo no Vibe Styles (ex: "Glassmorphism" ou "Dark Mode OLED")
+2. Copie o prompt estruturado
+3. Cole no ChatGPT/Claude → ele gera HTML/CSS completo com design system definido
+4. Customize apenas a lógica de negócio (API, banco de dados, autenticação)
+
+**Estilos recomendados**: Minimalism & Swiss Style, Glassmorphism, Dark Mode OLED, Neumorphism, Accessible & Ethical
+
+---
+
+### 🎨 Você é um Designer sem habilidades de front-end?
+
+**Seu problema**: "Tenho ideias de design, mas não sei codificar. Ferramentas como Figma levam muito tempo."
+
+**Solução com Vibe Styles**:
+1. Navegue pelos 256 estilos para se inspirar
+2. Copie o prompt de um estilo similar ao seu conceito
+3. Customize o prompt (cores, fontes, seções)
+4. Cole em Lovable (lovable.dev) ou Claude → ele gera código completo
+5. Você recebe HTML/CSS pronto que pode entregar para um time de dev
+
+**Estilos recomendados**: Claymorphism, Aurora UI, 3D & Hyperrealism, Bento Box Grid, Hand-Drawn Sketch
+
+---
+
+### 🏢 Você é uma Agência que precisa delivery rápido?
+
+**Seu problema**: "Meus clientes esperam landing pages em 1-2 semanas, mas cada projeto exige decisões de design do zero. Isso é caro."
+
+**Solução com Vibe Styles**:
+1. Use o Vibe Styles como design system compartilhado com clientes
+2. Escolha 3-5 estilos base (ex: Minimalism para B2B, Vibrant Block-based para ecommerce)
+3. Copie o prompt, customize para o cliente
+4. Gere com IA → você ganha 60-70% de velocidade
+5. Time de design refina detalhes (copywriting, imagens, otimizações)
+
+**Estilos recomendados por setor**:
+- **Fintech/Dados**: Executive Dashboard, Data-Dense, Financial Dashboard
+- **SaaS B2B**: Swiss Style, Minimalism, Glassmorphism, Accessible & Ethical
+- **Ecommerce**: Vibrant & Block-based, Bento Grid, Y2K Aesthetic
+- **Saúde**: Accessible & Ethical, Organic Biophilic, Minimalism Sereno
+- **Educação**: Chalkboard, Hand-Drawn, Kawaii, Flat Design Educacional
+
+---
+
+### 📱 Você é Criador de Conteúdo (Gamma, Pitch, Lovable, NotebookLM)?
+
+**Seu problema**: "Preciso criar apresentações, infográficos e landing pages com visual coerente, mas templates genéricos não bastam."
+
+**Solução com Vibe Styles**:
+1. Use os prompts do Vibe Styles com **Gamma** (para apresentações) ou **Pitch** (para decks)
+2. Use com **NotebookLM** para gerar infográficos + áudio estruturado
+3. Use com **Lovable** para landing pages
+4. **Resultado**: todo o conteúdo visual segue o mesmo estilo = marca coerente
+
+**Estilos recomendados**:
+- **Apresentações**: Gradient Mesh, Editorial Grid, Geometric, Aurora Borealis
+- **Infográficos**: Radial Diagram, Timeline Horizontal, Z-Shape, Sakura/Floral
+- **Landing Pages**: Hero-Centric, Conversion-Optimized, Feature-Rich Showcase
+- **Narrativa/Storytelling**: Parallax Storytelling, Editorial Grid, Ghibli-Inspired
+
+---
+
+### ❓ "Qual estilo escolher para SaaS B2B vs Ecommerce?"
+
+| Use-Case | Estilos Recomendados | Por quê |
+|----------|------|--------|
+| **SaaS B2B** (Enterprise, Risk-averse) | Minimalism & Swiss Style, Dark Mode OLED, Glassmorphism, Accessible & Ethical | Confiam, seriedade, credibilidade |
+| **SaaS B2C** (Jovem, tech-forward) | Aurora UI, Glassmorphism, Bento Grid, 3D & Hyperrealism | Moderno, dinâmico, engajante |
+| **Ecommerce** (Conversão alta) | Vibrant & Block-based, Y2K Aesthetic, Flat Design Produtivo, Bento Grid | Chamar atenção, highlight de produtos |
+| **Fintech** (Confiança + inovação) | Executive Dashboard, Swiss Modernism 2.0, Minimalism Seguro, Material AI | Profesional + futuro |
+| **Educação** (Amigável, lúdico) | Chalkboard, Hand-Drawn, Kawaii, Flat Design Educacional | Acolhimento, criatividade |
+| **SaaS Dev** (Tech-forward) | Blueprint Engineering, HUD/Sci-Fi UI, Circuit Board PCB, Brutalist | Técnico, credibilidade com devs |
+| **Portfolio/Criativo** (Destaque) | Claymation 3D, Hand-Drawn, Editorial Grid, Ghibli-Inspired | Criatividade pessoal, diferente |
+| **Landing Page de Vendas** (CTR alto) | Hero-Centric, Conversion-Optimized, Social Proof-Focused, Trust & Authority | Dirigid ao leitor, psychology-driven |
+
+---
+
+### ❓ "Estou preso em decisões de design. O que ele resolve?"
+
+**Problema**: Você sabe que precisa de uma landing page, mas fica paralizado:
+- "Que cores usar?" ❌ → ✅ Vibe Styles define paleta completa + variações
+- "Que fonte?" ❌ → ✅ Tipografia + hierarquia já definidas
+- "Qual layout?" ❌ → ✅ Estrutura de seções já mapeada
+- "Que animações?" ❌ → ✅ Efeitos visuais específicos do estilo
+- "Como espaçar?" ❌ → ✅ Design system com variáveis de gap, padding, marging
+
+**Resultado**: você pula direto para a implementação. IA gera a base. Você customiza conteúdo.
+
+---
+
+### ❓ "Meu prompt para IA não funciona. Como o Vibe Styles ajuda?"
+
+**Problema atual**:
+```
+"Me cria uma landing page bonita"
+→ IA retorna algo genérico, sem identidade visual consistente
+```
+
+**Com Vibe Styles**:
+```
+[Copie o prompt completo do estilo Glassmorphism do Vibe Styles]
+"Me cria uma landing page para um SaaS de IA usando o estilo definido no prompt..."
+→ Resultado: landing page com identidade visual clara, cores coerentes, tipografia definida
+```
+
+**Por quê funciona melhor**:
+- ✅ Prompt estruturado em seções (Estilo → Cores → Tipografia → Layout → Checklist)
+- ✅ Especificações técnicas (CSS, design system variables)
+- ✅ Checklist de validação (WCAG, responsividade, hover states)
+- ✅ Regras de execução claras (sem espaço para ambiguidade)
+
+---
+
+### ❓ "Todos os estilos incluem prompts prontos?"
+
+Sim. Todos os 256 estilos incluem:
+- ✅ Demonstração visual ao vivo (HTML responsivo)
+- ✅ Prompt estruturado e testado
+- ✅ Paleta de cores (primária, secundária, acentos)
+- ✅ Tipografia (fonts, tamanhos, hierarquia)
+- ✅ Especificações técnicas (CSS, design system, variáveis)
+- ✅ Checklist de validação
+- ✅ Regras de execução para IA seguir
+
+---
+
+### ❓ "Posso usar os estilos com Lovable, Gamma, Pitch ou NotebookLM?"
+
+**Sim.** O prompt é agnóstico — funciona em qualquer ferramenta que aceite instruções de texto:
+
+| Ferramenta | Uso | Resultado |
+|------------|-----|----------|
+| **ChatGPT/Claude** | Cola o prompt → gera HTML/CSS | Landing page code-ready |
+| **Lovable** | Cola o prompt → gera app interativa | Landing page live + deployável |
+| **Gamma** | Cola o prompt em "Custom style" | Apresentação com estilo visual coerente |
+| **Pitch** | Cola o prompt em contexto | Deck com identidade visual |
+| **NotebookLM** | Cola como "Context" → adiciona dados | Infográfico + áudio + slides |
+
+---
+
+### ❓ "Como escolho entre 256 estilos?"
+
+Use este decision tree:
+
+```
+1. Qual é seu Use Case?
+   → SaaS B2B? → Minimalism, Swiss, Glassmorphism
+   → Ecommerce? → Vibrant, Bento, Flat Design
+   → Landing Page Vendas? → Hero-Centric, Conversion-Optimized
+   → Portfolio/Criativo? → Hand-Drawn, Claymation, Editorial Grid
+   → Dashboard/BI? → Executive Dashboard, Data-Dense, Real-Time Monitoring
+   → Infográfico? → Radial Diagram, Geometric, Sakura
+
+2. Qual é sua audiência?
+   → Risk-averse (Enterprise, Financial)? → Dark, Swiss, Accessible
+   → Tech-forward (Devs, Startups)? → Glassmorphism, 3D, Cyberpunk, Blueprint
+   → Jovem/Gen-Z? → Y2K, Kawaii, Cyberpunk, Vaporwave
+   → Criativo/Artístico? → Hand-Drawn, Claymation, Ghibli-Inspired
+
+3. Qual é o mood que você quer?
+   → Minimalista e confiável? → Minimalism, Swiss
+   → Moderno e dinâmico? → Glassmorphism, Aurora, 3D
+   → Criativo e lúdico? → Hand-Drawn, Kawaii, Claymation
+   → Técnico e preciso? → Blueprint, PCB, HUD/Sci-Fi
+   → Nostálgico e retro? → Vintage, Retro Travel, 8-Bit
+   → Futurista? → Cyberpunk, Holographic, Glitch UI
+
+Depois que escolher → copie o prompt → customize no seu contexto.
+```
+
+---
+
+
 
 ### 🟣 General (110 estilos)
 
