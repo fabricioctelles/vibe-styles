@@ -28,7 +28,7 @@
   <a href="https://github.com/fabricioctelles/vibe-styles/stargazers"><img src="https://img.shields.io/github/stars/fabricioctelles/vibe-styles?style=for-the-badge&logo=github&labelColor=1E293B&color=8B5CF6" alt="GitHub Stars"></a>
   <img src="https://img.shields.io/badge/estilos-256-8B5CF6?style=for-the-badge&labelColor=1E293B" alt="256 Estilos">
   <img src="https://img.shields.io/badge/categorias-25-10B981?style=for-the-badge&labelColor=1E293B" alt="25 Categorias">
-  <img src="https://img.shields.io/badge/stack-HTML%20%2B%20Tailwind%20%2B%20JS-38BDF8?style=for-the-badge&labelColor=1E293B" alt="Stack">
+  <img src="https://img.shields.io/badge/stack-HTML%20%2B%20Tailwind%20%2B%20Alpine.js-38BDF8?style=for-the-badge&labelColor=1E293B" alt="Stack">
   <img src="https://img.shields.io/badge/idioma-PT--BR-F59E0B?style=for-the-badge&labelColor=1E293B" alt="Português Brasileiro">
   <img src="https://img.shields.io/badge/licença-open--source-EC4899?style=for-the-badge&labelColor=1E293B" alt="Open Source">
 </p>
@@ -39,7 +39,7 @@
 
 O **Vibe Styles** é uma **coleção interativa com 256 estilos de UI/UX design — cada um com demonstração visual + prompt copiável pronto para colar em ChatGPT, Claude, Gemini ou qualquer IA generativa.**
 
-O projeto reúne 256 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e JavaScript vanilla.
+O projeto reúne 256 estilos de design — de Glassmorphism a Cyberpunk, de Brutalism a Kawaii — cada um implementado como uma landing page standalone com HTML, Tailwind CSS e Alpine.js.
 
 ### O diferencial
 
@@ -67,8 +67,288 @@ A intenção é ser simples e direto: ajudar você a escolher o estilo certo par
 - **Referência rápida** — Navegue visualmente por 256 estilos sem sair do navegador
 - **Prompts prontos** — Copie e cole em qualquer IA generativa para replicar o estilo
 - **Código real** — Cada estilo é uma implementação funcional, não apenas um mockup
-- **Zero dependências** — HTML estático + Tailwind CDN + Google Fonts. Sem build, sem framework
+- **Zero dependências** — HTML estático + Tailwind CDN + Alpine.js + Google Fonts. Sem build, sem compilação
 - **SEO-friendly** — URLs com slugs semânticos, Schema Markup JSON-LD, Open Graph, sitemap
+
+---
+
+## 🏗 Arquitetura da Aplicação V2
+
+### Estrutura de Projeto
+
+```
+vibe-styles-v2/
+├── app/
+│   ├── index.html                    # Página principal (grid + header sticky + infinite scroll)
+│   ├── detail.html                   # Página de detalhe (70% iframe + 30% prompt)
+│   ├── data/
+│   │   └── styles.json               # JSON centralizado com todos os 256 estilos
+│   ├── styles/
+│   │   ├── 1.html                    # Iframes dos designs (um por estilo)
+│   │   ├── 2.html
+│   │   └── [id].html                 # Total: 256 arquivos
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── logo.svg              # Logo da aplicação
+│   │   │   └── [screenshots]         # Previews 16:9 dos estilos
+│   │   ├── css/
+│   │   │   └── animations.css        # Animações customizadas
+│   │   └── js/
+│   │       ├── config.js             # Configurações globais
+│   │       └── utils.js              # Helpers (slugify, dark mode, etc)
+│   ├── screenshots/                  # Diretório de imagens dos estilos
+│   │   ├── 1.png                     # Dark Mode (OLED)
+│   │   ├── 2.png
+│   │   └── [id].png                  # Uma imagem por estilo
+│   ├── llms.txt                      # Metadados para IA
+│   ├── sitemap.xml                   # Sitemap para SEO
+│   └── robots.txt                    # Controle de crawlers
+└── docs/
+    └── plans/
+        └── 2026-02-18-ui-styles-collection-design.md
+```
+
+### Dois Pontos de Entrada
+
+| Página | Função | Características |
+|--------|--------|------------------|
+| **index.html** | Catálogo visual | Grid responsivo 4/3/2/1 cols, cards em estilo poster, header sticky, infinite scroll (16 cards/carga) |
+| **detail.html** | Visualização detalhada | Layout 70/30 (iframe + prompt), responsivo mobile, roteamento via query string (`?id=[id]`) |
+
+### Fluxo de Dados
+
+```
+app/data/styles.json (fetch uma vez)
+    ↓
+Alpine.js state (reatividade declarativa)
+    ↓
+Filtro/Busca em tempo real (~2ms)
+    ↓
+Renderização reativa (cards montam com stagger animation)
+    ↓
+Intersection Observer (detecção de scroll)
+    ↓
+Carregamento de 16 cards adicionais
+    ↓
+Images src: app/screenshots/[id].png
+```
+
+### Roteamento
+
+- **Home**: `index.html` — Grid de todos os 256 estilos
+- **Detalhe**: `detail.html?id=[id]` — Estilo específico com iframe + prompt
+- **Iframes**: `app/styles/[id].html` — Demonstração visual do estilo
+- **Dados**: `app/data/styles.json` — Fonte única de verdade
+
+**Sem History API** — Roteamento simples via query strings e links diretos
+
+---
+
+## 🎨 Interface & Design
+
+### Header Sticky
+
+```
+┌────────────────────────────────────────────────────────────────────────────┐
+│ [Logo] Vibe Styles  |  [🔍 Busca] [Filtros]  |  [🌙] [⭐ GitHub] [Logo ft] │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Componentes:**
+- **Logo**: Aplicação com nome "Vibe Styles"
+- **Busca**: Input com debounce (Alpine.js) — filtra em tempo real por qualquer termo do JSON
+- **Filtros**: Dropdown com categorias (General, Landing Page, BI/Analytics, etc)
+- **Dark Mode Toggle**: Ícone sol/lua que gira 180°, persiste em localStorage
+- **GitHub Stars Badge**: `https://img.shields.io/github/stars/fabricioctelles/vibe-styles`
+- **Link ft.ia.br**: Logo pequeno (20px) com link para https://ft.ia.br/
+
+**Comportamento:**
+- `position: sticky; top: 0; z-index: 50`
+- Backdrop blur com fundo semi-transparente
+- Responsive: em mobile, alguns elementos são ocultados
+
+### Grid de Cards (Home)
+
+**Responsividade:**
+```
+Desktop (>1440px):  4 colunas
+Laptop (>1024px):   3 colunas
+Tablet (>640px):    2 colunas
+Mobile:             1 coluna
+```
+
+**CSS:**
+```css
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 16px;
+padding: 2rem;
+```
+
+### Card Individual (Estilo Poster)
+
+**Layout:**
+```
+┌─────────────────────────────────┐
+│ ┌─────────────────────────────┐ │  ← Imagem 16:9 com overlay
+│ │ [Screenshot do Estilo]      │ │
+│ │ (app/screenshots/[id].png)  │ │     
+│ │                             │ │     Gradient overlay (bottom-up)
+│ │ ┌───────────────────────┐   │ │     Badge: "General" top-left
+│ │ │ General (Category)    │   │ │
+│ │ └───────────────────────┘   │ │
+│ │                             │ │
+│ │ 📌 Glassmorphism (Title)    │ │  ← Text overlay bottom-left
+│ │    (white text, shadow)     │ │
+│ └─────────────────────────────┘ │
+│  Rounded: 24px (rounded-2xl)    │
+│  Aspect: 16:9                   │
+│  Hover: Scale 1.05, rotate -1°  │
+└─────────────────────────────────┘
+```
+
+**Estilo Visual:**
+- Rounded corners: `rounded-2xl` (24px)
+- Aspect ratio: 16:9 responsive
+- Imagem: `app/screenshots/[id].png` como background
+- Overlay gradient: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0))`
+- Título: Posicionado no topo esquerdo sobre a imagem, branco com text-shadow
+- Badge de categoria: Canto superior esquerdo
+
+**Interações:**
+- **Hover**:
+  - Imagem: scale 1.05 (zoom suave)
+  - Card: rotate -1deg (inclinação leve)
+  - Shadow: aumenta para `0 20px 40px rgba(0,0,0,0.15)`
+  - Ícone "→" aparece no topo direito (opacity: 0 → 1)
+  - Background escurece levemente
+
+- **Click**:
+  - Navega para `detail.html?id=[id]`
+  - Cursor `pointer`
+
+- **Mount (Staggered Animation)**:
+  - Fadeup: `opacity 0 → 1` + `translateY(20px) → 0`
+  - Duração: 300ms easing
+  - Delay: `calc(index * 50ms)` baseado na posição
+
+**Acessibilidade:**
+- Semântica: `<article>` ou `<a>` tag
+- `aria-label`: "Ver estilo [nome]"
+- Focus ring: `focus:ring-2 ring-offset-2`
+- Alt text na imagem
+
+### Infinite Scroll
+
+**Mecanismo:** Intersection Observer API
+
+```javascript
+const sentinel = document.querySelector('[data-sentinel]');
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting && !isLoading) {
+    loadMoreCards(16);
+  }
+}, { rootMargin: '400px' });
+observer.observe(sentinel);
+```
+
+**Comportamento:**
+- Carrega 16 cards de cada vez
+- Quando o usuário scrolla perto do final, carrega mais automaticamente
+- Loading spinner enquanto busca
+- Mensagem de fim quando chegar em 256 estilos: "🎉 Fim da coleção!"
+
+---
+
+## 📄 Página de Detalhe
+
+### Desktop (70/30 Layout - Full Height)
+
+```
+┌─────────────────────────────────────────────┐
+│ Vibe Styles › Glassmorphism                 │ ← Breadcrumb
+├───────────────────────────────────────────────┤
+│ Nome: Glassmorphism                         │ ← Metadata
+│ Tipo: Visual Effect | Era: 2022+ | #F5F5F7  │    (flexível)
+├───────────────────────────────────────────┬─┤
+│                                           │ │
+│   Iframe (70%)                            │P│
+│   app/styles/[id].html                    │r│
+│   (full responsivo demonstração)          │o│
+│                                           │m│
+│                                           │p│
+│                                           │t│
+│   com:                                    ││
+│   - Scroll responsivo                     │(│
+│   - Sem navbar                            │3│
+│   - Full viewport                         │0│
+│                                           │%│
+│                                           │)│
+│                                           ││
+│   [Copy Prompt] ← Topo direito            │ │
+│                                           │ │
+│                                           │ │
+└───────────────────────────────────────────┴─┘
+Footer: Copyright © 2024 + Logo ft.ia.br (20px)
+```
+
+### Mobile (Responsive Full-Width)
+
+```
+┌─────────────────────────────────────────────┐
+│ ← Vibe Styles › Glassmorphism               │ ← Back link
+├─────────────────────────────────────────────┤
+│ Iframe 100% Width, Full Height              │
+│ (Sem painel de prompt — mobile-focused)     │
+│                                             │
+│ [📋 Copy Prompt] (Floating bottom-right)    │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+**Comportamento:**
+- Em desktop: layout lado-a-lado 70/30
+- Em mobile: iframe fullscreen, prompt em floating button
+- Metadata do estilo em header enriquecido
+- Botão "Copiar Prompt" com feedback visual ("✅ Copiado!" por 2 segundos)
+
+---
+
+## 🌓 Dark Mode & Personalização
+
+### Toggle Dark Mode
+
+**Implementação:**
+- **Ícone**: Sol ☀️ (light) / Lua 🌙 (dark)
+- **Animação**: Rotação 180° suave ao alternar
+- **Persistência**: localStorage (`vibe-styles-theme`)
+- **Aplicação**: Classe `.dark` no `<html>` ou `<body>`
+
+**Cores:**
+
+```css
+:root {
+  --page-bg: #F5F5F7;          /* Light: Cinza muito claro ≈ Apple Gray */
+  --card-bg: #FFFFFF;           /* Light: Branco puro */
+  --text-primary: #1d1d1f;      /* Light: Preto muito escuro ≈ Apple Black */
+  --text-secondary: #6e6e73;    /* Light: Cinza médio */
+  --accent: #8B5CF6;            /* Purple (mantém nos dois temas) */
+}
+
+.dark {
+  --page-bg: #1a1a1a;          /* Dark: Preto profundo ≈ Apple OLED Black */
+  --card-bg: #2d2d2d;           /* Dark: Cinza muito escuro */
+  --text-primary: #f5f5f7;      /* Dark: Branco muito claro ≈ Apple White */
+  --text-secondary: #a1a1a6;    /* Dark: Cinza médio claro */
+  --accent: #8B5CF6;            /* Purple (mantém) */
+}
+```
+
+**Transition:**
+- Todos os elementos com `transition: background-color 0.3s, color 0.3s`
+- Suave sem jarras
+
+---
 
 ---
 
@@ -835,25 +1115,36 @@ IA: [Gera código HTML/CSS completo no estilo Glassmorphism]
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura do Projeto (Atual)
+
+Ver [seção "Arquitetura da Aplicação V2"](#-arquitetura-da-aplicação-v2) acima para estrutura visual completa.
+
+Resumo rápido:
 
 ```
 vibe-styles/
 ├── app/
-│   ├── index.html          # Shell da aplicação (SPA)
+│   ├── index.html                  # Home: grid + header sticky + infinite scroll
+│   ├── detail.html                 # Detail: layout 70/30 iframe+prompt responsivo
 │   ├── data/
-│   │   └── data.json       # Base de dados centralizada (estilos + prompts)
+│   │   └── styles.json             # Centralizado: 256 estilos + prompts estruturados
 │   ├── styles/
-│   │   ├── 1.html          # 256 arquivos HTML de demonstração
-│   │   └── ...
-│   ├── assets/             # Imagens, logos, ícones
-│   ├── llms.txt            # Metadados para IA
-│   ├── sitemap.xml         # Sitemap para SEO
-│   └── robots.txt          # Controle de crawlers
+│   │   ├── 1.html → 256.html       # Iframes dos designs (um por estilo)
+│   ├── screenshots/
+│   │   ├── 1.png → 256.png         # Previews 16:9 dos estilos para grid
+│   ├── assets/
+│   │   ├── images/                 # Logos e recursos gráficos
+│   │   ├── css/animations.css      # Animações customizadas
+│   │   └── js/utils.js             # Helpers (dark mode, slugify, etc)
+│   ├── llms.txt                    # Metadados para crawlers de IA
+│   ├── sitemap.xml                 # Sitemap XML para SEO
+│   └── robots.txt                  # Controle de crawlers
 ├── scripts/
-│   ├── generate_html.py    # Gerador automatizado de HTMLs via LLM
-│   └── migrate-to-json.py  # Migração de prompts .txt para JSON
-├── docs/                   # Documentação adicional
+│   ├── generate_html.py            # Gerador automatizado de HTMLs via LLM
+│   └── migrate-to-json.py          # Migração de prompts .txt para JSON
+├── docs/
+│   └── plans/
+│       └── 2026-02-18-ui-styles-collection-design.md
 └── README.md
 ```
 
@@ -863,13 +1154,22 @@ vibe-styles/
 
 | Tecnologia | Uso |
 |------------|-----|
-| HTML5 | Estrutura semântica |
-| Tailwind CSS (CDN) | Estilização utilitária |
-| JavaScript Vanilla | Roteamento SPA, cópia de prompts, navegação |
+| HTML5 | Estrutura semântica com Alpine.js directives |
+| Tailwind CSS (CDN) | Estilização utilitária responsiva |
+| Alpine.js | Reatividade declarativa (v3.x, ~15KB) |
+| JavaScript vanilla | Utils customizadas (slugify, localStorage persistence) |
 | Google Fonts | Tipografia (Inter) |
-| JSON | Base de dados de estilos e prompts |
+| JSON | Base de dados centralizada de estilos e prompts |
 
-**Zero build tools**, **zero frameworks**, **zero dependências npm**. Arquivos estáticos puros que rodam em qualquer servidor HTTP.
+**Zero build tools**, **zero webpack/vite**, **zero npm dependencies**. Arquivos estáticos puros que rodam em qualquer servidor HTTP com Alpine.js via CDN.
+
+### Por que Alpine.js?
+
+✅ **Reatividade declarativa via HTML** — Menos JavaScript boilerplate  
+✅ **Debounce built-in** — Perfeito para search/filtros em tempo real  
+✅ **Performance** — Diferença <2ms comparado a Vanilla JS  
+✅ **Filosofia HTML-first** — Mantém HTML semântico e legível  
+✅ **Sem compilação** — Funciona direto do arquivo `.html`
 
 ---
 

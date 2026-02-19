@@ -1,0 +1,391 @@
+# Development Guide - Vibe Styles
+
+## Local Development
+
+### Prerequisites
+
+- Any HTTP server (Python, Node.js, PHP)
+- Web browser with modern JavaScript support
+- Text editor (VS Code, etc.)
+
+### Running Locally
+
+```bash
+# Option 1: Python
+cd /home/fabricio/GIT/vibe-styles
+python3 -m http.server 8000 --directory app
+
+# Option 2: Node.js (npx serve)
+npx serve app
+
+# Option 3: PHP
+php -S localhost:8000 -t app
+
+# Option 4: VS Code Live Server extension
+# Right-click index.html → "Open with Live Server"
+```
+
+Access at: `http://localhost:8000`
+
+### File Watching
+
+For development with auto-reload:
+
+```bash
+# Using live-server (Node.js)
+npx live-server app --port=8000
+
+# Using browser-sync
+npx browser-sync start --server app --port=8000 --files "app/**/*"
+```
+
+## Project Structure
+
+```
+vibe-styles/
+├── app/                           # Static files (serve this directory)
+│   ├── index.html                 # Main gallery
+│   ├── detail.html                # Detail view
+│   ├── data/
+│   │   └── data.json              # Central database
+│   ├── styles/
+│   │   ├── 1.html                 # Style demo pages (1-256)
+│   │   └── ...
+│   ├── screenshots/
+│   │   ├── 1.png                  # Style previews (1-256)
+│   │   └── ...
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── animations.css     # Custom animations
+│   │   ├── js/
+│   │   │   ├── config.js          # Global config
+│   │   │   ├── utils.js           # Utilities
+│   │   │   └── detail.js          # Detail page logic
+│   │   └── images/
+│   │       ├── logo.png
+│   │       └── logo-ft-ia-br.png
+│   ├── llm-docs/                  # AI documentation
+│   ├── sitemap.xml
+│   └── robots.txt
+├── scripts/                       # Generation utilities
+│   ├── generate_html.py           # HTML generator via LLM
+│   └── migrate-to-json.py         # Data migration
+└── README.md
+```
+
+## Adding a New Style
+
+### Step 1: Add to data.json
+
+Edit `app/data/data.json`:
+
+```json
+{
+  "id": 257,
+  "name": "Your New Style Name",
+  "type": "General",
+  "prompt": {
+    "header": "Atue como um Engenheiro Frontend Sênior...",
+    "estilo": {
+      "nome": "Your New Style Name",
+      "tipo": "General",
+      "keywords": "keyword1, keyword2, keyword3",
+      "coresPrimarias": "Color descriptions with hex codes",
+      "coresSecundarias": "Secondary colors",
+      "efeitos": "Visual effects description",
+      "era": "2020s Modern",
+      "lightDark": "✓ Full / ✓ Full"
+    },
+    "aiPromptKeywords": "English keywords for AI...",
+    "cssTechnical": "CSS properties and values...",
+    "designSystemVariables": "--css-variables...",
+    "checklist": "☐ Validation items...",
+    "regrasDeExecucao": "1. Rule one\n2. Rule two\n..."
+  },
+  "metaDescription": "SEO description under 160 chars",
+  "useCase": "Use case description",
+  "historicalContext": "Historical background",
+  "relatedStyleIds": [1, 3, 5]
+}
+```
+
+### Step 2: Create Screenshot
+
+Add `app/screenshots/257.png`:
+- **Aspect Ratio**: 16:9
+- **Recommended Size**: 1280x720px minimum
+- **Format**: PNG (for quality) or JPG (for size)
+- **Content**: Representative preview of the style
+
+### Step 3: Create Demo HTML
+
+Create `app/styles/257.html`:
+- Responsive (375px to 1440px)
+- No navbar (it's in an iframe)
+- Sections: Hero, Features (3), Testimonials (3), Pricing (3), CTA, Footer
+- Use Tailwind CSS CDN
+- Follow the style's specifications
+
+### Step 4: Update sitemap.xml
+
+Add to `app/sitemap.xml`:
+
+```xml
+<url>
+  <loc>https://vibe.ft.ia.br/detail.html?id=257</loc>
+  <lastmod>2026-02-19</lastmod>
+  <priority>0.8</priority>
+</url>
+```
+
+### Step 5: Test
+
+1. Start local server
+2. Navigate to `http://localhost:8000`
+3. Search for your new style
+4. Click to view detail page
+5. Verify prompt copy works
+6. Check responsive behavior
+
+## Generating Styles with AI
+
+### Using the generate_html.py Script
+
+```bash
+cd scripts
+python3 generate_html.py --style-id 257
+```
+
+This script:
+1. Fetches style data from `data.json`
+2. Sends prompt to LLM API
+3. Generates HTML demo page
+4. Saves to `app/styles/[id].html`
+
+### Manual AI Generation
+
+1. Copy the prompt from `data.json`
+2. Paste into ChatGPT/Claude/Gemini
+3. Request: "Generate a responsive landing page HTML using Tailwind CSS"
+4. Copy generated HTML
+5. Save to `app/styles/[id].html`
+6. Review and adjust as needed
+
+## Configuration
+
+### Global Config (assets/js/config.js)
+
+```javascript
+const CONFIG = {
+  CARDS_PER_PAGE: 16,           // Infinite scroll batch size
+  SCROLL_ROOT_MARGIN: '400px',  // Intersection Observer trigger distance
+  DEBOUNCE_MS: 300,             // Search debounce delay
+  DATA_URL: 'data/data.json',   // Data source
+  DARK_MODE_KEY: 'darkMode'     // localStorage key
+};
+```
+
+### Modifying Config
+
+Edit `app/assets/js/config.js` and reload. Changes affect:
+- Infinite scroll behavior
+- Search responsiveness
+- Data source location
+- Dark mode persistence
+
+## Styling
+
+### Custom CSS Variables
+
+Edit `app/assets/css/animations.css`:
+
+```css
+:root {
+  --grid-gap: 16px;
+  --card-radius: 24px;
+  --page-bg: #F5F5F7;
+  --card-bg: #FFFFFF;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  /* ... */
+}
+```
+
+### Adding New Animations
+
+Add to `animations.css`:
+
+```css
+@keyframes yourAnimation {
+  from { /* start state */ }
+  to { /* end state */ }
+}
+
+.your-animated-element {
+  animation: yourAnimation 0.3s ease-out;
+}
+```
+
+## JavaScript Architecture
+
+### Utility Functions (utils.js)
+
+**darkMode()** - Theme management
+```javascript
+function darkMode() {
+  return {
+    dark: localStorage.getItem(CONFIG.DARK_MODE_KEY) === 'true',
+    initDarkMode(),
+    toggleDark()
+  };
+}
+```
+
+**gridApp()** - Gallery state management
+```javascript
+function gridApp() {
+  return {
+    allCards: [],
+    visibleCards: [],
+    search: '',
+    activeType: '',
+    // ... methods
+  };
+}
+```
+
+### Detail Page Logic (detail.js)
+
+**Main Functions**:
+- `loadStyleData()` - Fetch and parse style from URL
+- `updateMetaTags()` - Update SEO meta tags
+- `insertStructuredData()` - Add Schema.org JSON-LD
+- `insertBreadcrumbs()` - Add breadcrumb schema
+- `renderRelatedStyles()` - Render related styles section
+- `renderHistoryAndUseCases()` - Render context sections
+
+## Deployment
+
+### Static Hosting Options
+
+**Netlify**:
+```bash
+# Drag and drop the 'app' folder
+# Or connect Git repo and set publish directory to 'app'
+```
+
+**Vercel**:
+```bash
+vercel --prod
+# Set "Output Directory" to 'app' in settings
+```
+
+**GitHub Pages**:
+```bash
+# Rename 'app' folder to 'docs' or
+# Use custom workflow to serve from 'app'
+```
+
+**Apache/Nginx**:
+```bash
+# Point document root to the 'app' directory
+```
+
+### Environment Variables
+
+No environment variables needed — pure static files.
+
+## Testing
+
+### Manual Testing Checklist
+
+- [ ] Gallery page loads without errors
+- [ ] Search filters work correctly
+- [ ] Category chips filter properly
+- [ ] Infinite scroll loads more cards
+- [ ] Dark mode toggle persists
+- [ ] Detail page renders for each style
+- [ ] Prompt copy button works
+- [ ] Related styles link correctly
+- [ ] Responsive on mobile (375px)
+- [ ] Responsive on tablet (768px)
+- [ ] Responsive on desktop (1440px+)
+
+### Browser Testing
+
+Test in:
+- Chrome/Edge (Chromium)
+- Firefox
+- Safari (if on Mac)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Contributing
+
+### Suggesting New Styles
+
+Open an issue with:
+- Style name
+- Category
+- Brief description
+- Similar existing styles (if any)
+
+### Reporting Bugs
+
+Include:
+- Browser and version
+- Steps to reproduce
+- Expected vs actual behavior
+- Console errors (if any)
+
+### Code Style
+
+- HTML: 2-space indentation
+- JavaScript: 2-space indentation
+- CSS: 2-space indentation
+- JSON: 2-space indentation
+
+## Performance
+
+### Current Metrics
+
+- **Initial Load**: ~50KB (HTML + CSS + JS)
+- **Data Fetch**: ~150KB (data.json)
+- **Card Render**: ~2ms per card (Alpine.js)
+- **Search Filter**: ~2ms for all 256 styles
+
+### Optimization Tips
+
+1. **Minify** CSS/JS for production
+2. **Compress** images (screenshots)
+3. **Enable** gzip/brotli on server
+4. **Cache** data.json in browser
+5. **Consider** pagination for very large style counts
+
+## Troubleshooting
+
+### Cards Not Loading
+
+Check browser console for:
+- CORS errors (if serving from different origin)
+- JSON parsing errors (malformed data.json)
+- Network errors (incorrect DATA_URL)
+
+### Dark Mode Not Persisting
+
+Check:
+- localStorage is enabled
+- DARK_MODE_KEY matches config
+- No browser extensions clearing storage
+
+### Detail Page Not Found
+
+Verify:
+- ID in URL matches style in data.json
+- detail.html path is correct
+- Query string format: `?id=123`
+
+## Related Files
+
+- `llm.architecture.txt` — Application structure
+- `llm.data.txt` — JSON schema reference
+- `llm.categories.txt` — Category reference

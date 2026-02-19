@@ -1,0 +1,278 @@
+# Data Structure - Vibe Styles
+
+## Overview
+
+All 256 styles are stored in a single JSON file: `app/data/data.json`. This is the **single source of truth** for the entire application.
+
+## File Location
+
+```
+app/data/data.json
+```
+
+**URL**: `https://vibe.ft.ia.br/data/data.json`
+
+## JSON Schema
+
+### Top-Level Structure
+
+```json
+[
+  { /* Style Object 1 */ },
+  { /* Style Object 2 */ },
+  ... // 256 total
+]
+```
+
+The file is an **array of style objects** — no wrapper object, no pagination.
+
+### Style Object Structure
+
+```json
+{
+  "id": 1,
+  "name": "Minimalism & Swiss Style",
+  "type": "General",
+  "prompt": {
+    "header": "Atue como um Engenheiro Frontend Sênior...",
+    "estilo": {
+      "nome": "Minimalism & Swiss Style",
+      "tipo": "General",
+      "keywords": "Clean, simple, spacious...",
+      "coresPrimarias": "Monochromatic, Black #000000...",
+      "coresSecundarias": "Neutral (Beige #F5F1E8...",
+      "efeitos": "Subtle hover (200-250ms)...",
+      "era": "1950s Swiss",
+      "lightDark": "✓ Full / ✓ Full"
+    },
+    "aiPromptKeywords": "Design a minimalist landing page...",
+    "cssTechnical": "display: grid, gap: 2rem...",
+    "designSystemVariables": "--spacing: 2rem...",
+    "checklist": "☐ Grid-based layout...",
+    "regrasDeExecucao": "1. Siga fielmente..."
+  },
+  "metaDescription": "Design minimalista com grid...",
+  "useCase": "SaaS B2B, Apps enterprise...",
+  "historicalContext": "Originário dos Alpes suíços...",
+  "relatedStyleIds": [240, 236, 47, 17, 56]
+}
+```
+
+## Field Reference
+
+### Root Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | number | Yes | Unique identifier (1-256) |
+| `name` | string | Yes | Display name of the style |
+| `type` | string | Yes | Category (25 possible values) |
+| `prompt` | object | Yes | Complete AI prompt specification |
+| `metaDescription` | string | Yes | SEO description (~160 chars) |
+| `useCase` | string | Yes | Recommended use cases |
+| `historicalContext` | string | Yes | Background and history |
+| `relatedStyleIds` | array | Yes | Array of related style IDs |
+
+### Prompt Object Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `header` | string | Context instructions for AI (role, task) |
+| `estilo` | object | Style specification nested object |
+| `aiPromptKeywords` | string | English keywords for AI prompts |
+| `cssTechnical` | string | CSS properties and values |
+| `designSystemVariables` | string | CSS custom properties |
+| `checklist` | string | Validation checklist items |
+| `regrasDeExecucao` | string | 11 numbered rules for AI |
+
+### Style Object (estilo) Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `nome` | string | Style name (matches root `name`) |
+| `tipo` | string | Category (matches root `type`) |
+| `keywords` | string | Comma-separated keywords |
+| `coresPrimarias` | string | Primary color palette |
+| `coresSecundarias` | string | Secondary color palette |
+| `efeitos` | string | Visual effects description |
+| `era` | string | Historical era or period |
+| `lightDark` | string | Light/dark mode support |
+
+## Data Relationships
+
+### Related Styles
+
+The `relatedStyleIds` array creates a **relationship graph** between styles:
+
+```json
+"relatedStyleIds": [240, 236, 47, 17, 56]
+```
+
+This enables:
+- "Similar styles" recommendations
+- Browsing through related designs
+- Style discovery navigation
+
+### Type (Category) Grouping
+
+The `type` field groups styles into categories:
+
+```javascript
+// Get all types
+const types = [...new Set(styles.map(s => s.type))].sort();
+// Result: ["General", "Landing Page", "BI/Analytics", ...]
+```
+
+## Data Access Patterns
+
+### Loading All Data
+
+```javascript
+// In index.html and detail.html
+const response = await fetch('data/data.json');
+const allStyles = await response.json();
+```
+
+### Finding a Style by ID
+
+```javascript
+const styleId = parseInt(params.get('id')) || 1;
+const currentStyle = allStyles.find(s => s.id === styleId);
+```
+
+### Filtering by Type
+
+```javascript
+const activeType = 'General';
+const filtered = allStyles.filter(s => s.type === activeType);
+```
+
+### Searching
+
+```javascript
+const searchTerm = 'glassmorphism';
+const results = allStyles.filter(s =>
+  JSON.stringify(s).toLowerCase().includes(searchTerm.toLowerCase())
+);
+```
+
+## Data Size
+
+| Metric | Value |
+|--------|-------|
+| Total Records | 256 |
+| File Size | ~4300 lines (~150 KB uncompressed) |
+| Average Object Size | ~550 bytes |
+| Largest Field | `regrasDeExecucao` (~500 chars) |
+
+## Adding a New Style
+
+### Manual Addition
+
+Add to `data/data.json`:
+
+```json
+{
+  "id": 257,
+  "name": "New Style Name",
+  "type": "General",
+  "prompt": { /* complete prompt object */ },
+  "metaDescription": "SEO description...",
+  "useCase": "Use cases...",
+  "historicalContext": "Background...",
+  "relatedStyleIds": [1, 2, 3]
+}
+```
+
+### Required Supporting Files
+
+1. **Screenshot**: `app/screenshots/257.png` (16:9 aspect ratio)
+2. **Demo HTML**: `app/styles/257.html` (responsive demo page)
+3. **Update sitemap**: Add entry to `app/sitemap.xml`
+
+### Validation Checklist
+
+- [ ] `id` is unique (not duplicated)
+- [ ] `type` matches one of 25 categories
+- [ ] `relatedStyleIds` contains valid IDs
+- [ ] `metaDescription` is < 160 characters
+- [ ] Screenshot exists at correct path
+- [ ] Demo HTML exists at correct path
+
+## Type Categories (25 Total)
+
+| Category | Count |
+|----------|-------|
+| General | 110 |
+| Landing Page | 8 |
+| BI/Analytics | 10 |
+| Organization | 1 |
+| Infographic | 13 |
+| Tech-Inspired | 20 |
+| Thematic | 11 |
+| Technical | 8 |
+| Data Visualization | 1 |
+| Artistic | 3 |
+| Historical | 5 |
+| Fantasy | 1 |
+| Casual | 1 |
+| Futuristic | 8 |
+| Pop Culture | 9 |
+| Retro | 6 |
+| Educational | 1 |
+| Minimalism | 5 |
+| Brutalism | 5 |
+| Constructivism | 5 |
+| SwissStyle | 5 |
+| EditorialStyle | 5 |
+| HandDrawn | 5 |
+| FlatDesign | 5 |
+| BentoStyle | 5 |
+
+## Prompt Template
+
+The `prompt` object follows this structure for AI consumption:
+
+```
+HEADER (context + role)
+  ↓
+ESTILO (name + type + keywords)
+  ↓
+COLORS (primaries + secondaries)
+  ↓
+EFFECTS (hover + transitions)
+  ↓
+AI KEYWORDS (English prompt)
+  ↓
+CSS TECHNICAL (specific CSS)
+  ↓
+DESIGN SYSTEM VARIABLES
+  ↓
+CHECKLIST (validation)
+  ↓
+REGRAS DE EXECUCAO (11 rules)
+```
+
+## Migration Notes
+
+### Previous Format (TXT Files)
+
+Styles were previously stored as individual `.txt` files with manual parsing.
+
+### Current Format (JSON)
+
+Migrated to centralized JSON with:
+- Structured schema validation
+- Easier programmatic access
+- Single fetch for all data
+- Better performance
+
+### Migration Script
+
+`scripts/migrate-to-json.py` handles the conversion.
+
+## Related Files
+
+- `llm.architecture.txt` — How data is used in the app
+- `llm.categories.txt` — Complete category reference
+- `llm.development.txt` — How to add new styles

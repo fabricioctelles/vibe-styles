@@ -1,0 +1,126 @@
+# Project Overview - Vibe Styles
+
+## Purpose
+
+Vibe Styles is an **interactive collection of 256 UI/UX design styles** — each with a live visual demonstration and a copy-paste ready prompt for generative AI.
+
+The project solves the **"design paralysis" problem** — when developers, designers, and agencies get stuck making decisions about colors, typography, spacing, and layout. Vibe Styles provides pre-defined, tested design specifications that can be copied directly into AI tools like ChatGPT, Claude, Gemini, Lovable, Gamma, Pitch, and NotebookLM.
+
+## Target Audience
+
+| Persona | Problem | Solution |
+|---------|----------|----------|
+| **Developers using AI** | Stuck on design decisions, don't want to spend time on CSS | Copy prompt → AI generates HTML/CSS → Focus on logic |
+| **Designers without code skills** | Have design ideas but can't implement them | Browse styles → Copy prompt → Lovable/Claude generates code |
+| **Agencies** | Need fast delivery, each project requires design decisions from scratch | Use Vibe Styles as shared design system → 60-70% faster |
+| **Content Creators** | Need coherent visual style across presentations, infographics, landing pages | Same prompts for Gamma/Pitch/NotebookLM → consistent brand |
+
+## Core Value Propositions
+
+1. **Prompts copy-paste ready** — Each style includes a structured, tested prompt for AI
+2. **Live visual demos** — Not mockups — each style is a full responsive HTML page
+3. **Zero design decisions** — Comes with color palette, typography, spacing, and execution rules
+4. **Works with any AI** — ChatGPT, Claude, Gemini, Lovable, Gamma, Pitch, NotebookLM
+
+## Project Origin
+
+Inspired by:
+- [Paolo Cortez's NotebookLM infographic styles](https://www.reddit.com/r/notebooklm/comments/1r2p1bb/40_notebooklm_infographic_styles_specification/) — structured specifications with palettes, typography, textures
+- [ui-ux-pro-max skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — curated UI/UX styles list with implementation patterns
+- [Manus AI](https://manus.im/app) — used to expand from 89 to 200+ styles via multi-agent generation
+- [Kiro](https://kiro.dev) — automated generation of ~200 demo pages
+
+## How It Works
+
+### For End Users
+
+1. Browse `vibe.ft.ia.br` or run locally
+2. Filter/search 256 styles by category, keyword, or use case
+3. Click a style to see live demo in iframe
+4. Click "Copy Prompt" to copy the full specification
+5. Paste into ChatGPT/Claude/Gemini/etc.
+6. Customize theme, sections, content as needed
+
+### The Prompt Structure
+
+Each style's prompt includes:
+
+| Section | Content |
+|---------|---------|
+| **Header** | Context instructions (role, task, customizable fields) |
+| **Style** | Name, type, keywords |
+| **Colors** | Primary, secondary palettes with hex codes |
+| **Typography** | Font families, sizes, hierarchy |
+| **Layout** | Section structure, spacing |
+| **Visual Effects** | Borders, shadows, animations |
+| **CSS Technical** | Specific CSS properties and values |
+| **Design System Variables** | CSS custom properties |
+| **Checklist** | Validation criteria (WCAG, responsive, hover states) |
+| **Execution Rules** | 11 specific rules for AI to follow |
+
+## Key Features
+
+### Gallery Page (index.html)
+- Responsive grid: 4/3/2/1 columns (desktop/laptop/tablet/mobile)
+- Card-style poster design with 16:9 screenshots
+- Real-time search with Alpine.js debounce
+- Category filter chips
+- Infinite scroll (16 cards per load)
+- Dark mode toggle with localStorage persistence
+- Sticky header with backdrop blur
+
+### Detail Page (detail.html)
+- Desktop: 70/30 split layout (iframe + prompt panel)
+- Mobile: Full-width iframe with floating copy button
+- Dynamic meta tags and Open Graph
+- Schema.org structured data (JSON-LD)
+- Related styles navigation
+- Historical context and use cases
+
+### Zero Dependencies Philosophy
+
+```
+No build tools  → No webpack, no vite, no npm run build
+No frameworks   → Pure HTML + Tailwind CDN + Alpine.js
+No compilation  → Direct file serving from any HTTP server
+```
+
+Run locally with:
+```bash
+python3 -m http.server 8000 --directory app
+# or
+npx serve app
+# or
+php -S localhost:8000 -t app
+```
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Total Styles | 256 |
+| Categories | 25 |
+| HTML Demo Files | 256 (styles/[id].html) |
+| Screenshots | 256 (screenshots/[id].png) |
+| Build Tools | 0 |
+| npm Dependencies | 0 |
+| Shell Size | ~815 lines (index.html) |
+| Database | ~4300 lines (data.json) |
+
+## License
+
+Open Source (MIT License) — free for commercial use, agencies, clients, startups. Just attribute the project.
+
+## Credits
+
+- **Design & Development**: Fabricio Telles (ft.ia.br)
+- **Multi-Agent Generation**: Kiro.dev
+- **AI Prompt Expansion**: Manus.im
+- **Original Inspiration**: Paolo Cortez (NotebookLM styles), ui-ux-pro-max skill
+
+## Related Files
+
+- `llm.architecture.txt` — Application structure and routing
+- `llm.data.txt` — JSON schema and style object format
+- `llm.categories.txt` — Complete category listing
+- `llm.development.txt` — Setup and contribution guide

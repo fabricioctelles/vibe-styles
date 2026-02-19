@@ -1,0 +1,332 @@
+# Architecture - Vibe Styles
+
+## Application Structure
+
+```
+vibe-styles/
+├── app/
+│   ├── index.html                    # Main gallery (grid + header + infinite scroll)
+│   ├── detail.html                   # Detail view (70/30 iframe+prompt layout)
+│   ├── data/
+│   │   └── data.json                 # Central database: 256 styles
+│   ├── styles/
+│   │   ├── 1.html                    # Style demo iframes
+│   │   ├── 2.html
+│   │   └── [id].html                 # Total: 256 files
+│   ├── screenshots/
+│   │   ├── 1.png                     # 16:9 previews for grid cards
+│   │   └── [id].png
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── logo.png              # App logo
+│   │   │   └── logo-ft-ia-br.png     # Creator logo
+│   │   ├── css/
+│   │   │   └── animations.css        # Custom animations and styles
+│   │   └── js/
+│   │       ├── config.js             # Global configuration
+│   │       ├── utils.js              # Utility functions
+│   │       └── detail.js             # Detail page logic
+│   ├── llm-docs/                     # AI documentation (this directory)
+│   ├── sitemap.xml                   # SEO sitemap
+│   └── robots.txt                    # Crawler control
+├── scripts/                          # Generation scripts
+│   ├── generate_html.py              # HTML generator via LLM
+│   └── migrate-to-json.py            # Data migration
+└── README.md
+```
+
+## Two-Page Architecture
+
+### Page 1: index.html (Gallery)
+
+**Purpose**: Browse and discover styles
+
+**Key Features**:
+- Responsive grid (4/3/2/1 columns)
+- Real-time search with 300ms debounce
+- Category filter chips
+- Infinite scroll (16 cards per load)
+- Dark mode toggle
+- Sticky header
+
+**State Management** (Alpine.js):
+```javascript
+{
+  allCards: [],           // All 256 styles from data.json
+  visibleCards: [],       // Currently displayed cards
+  search: '',             // Search query
+  activeType: '',         // Category filter
+  types: [],              // Available categories
+  currentPage: 0,         // Pagination for infinite scroll
+  loading: false,         // Loading state
+  dark: boolean           // Dark mode state
+}
+```
+
+**Data Flow**:
+```
+data.json (fetch once)
+    ↓
+Alpine.js state (reactive)
+    ↓
+Filter/Search (~2ms)
+    ↓
+Render cards with stagger animation
+    ↓
+Intersection Observer detects scroll
+    ↓
+Load 16 more cards
+```
+
+### Page 2: detail.html (Style Detail)
+
+**Purpose**: View full style demo and copy prompt
+
+**Layout**:
+- **Desktop**: 70% iframe / 30% prompt panel
+- **Mobile**: Full-width iframe with floating copy button
+
+**Key Features**:
+- Dynamic meta tags (title, description, Open Graph)
+- Schema.org structured data
+- Breadcrumb navigation
+- Related styles carousel
+- Historical context section
+- One-click prompt copy
+
+**URL Pattern**: `detail.html?id={id}`
+
+## Component Breakdown
+
+### Header Component
+
+**Location**: `index.html` lines 24-120
+
+**Elements**:
+- Logo (img + "Vibe Styles" text)
+- Search input (desktop: always visible, mobile: toggle)
+- FAQ button
+- Dark mode toggle (sun/moon icon)
+- GitHub stars badge
+- Creator logo link
+
+**Styling**:
+```css
+position: sticky;
+top: 0;
+z-index: 50;
+background: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+```
+
+### Card Component
+
+**HTML Structure**:
+```html
+<article class="card">
+  <div class="card-image">
+    <img src="screenshots/{id}.png">
+    <span class="card-badge">{type}</span>
+    <span class="card-arrow">→</span>
+    <h3 class="card-title-overlay">{name}</h3>
+  </div>
+</article>
+```
+
+**CSS Custom Properties**:
+```css
+--card-radius: 24px;
+--hover-scale: 1.05;
+--transition-normal: 300ms ease;
+```
+
+**Hover Effects**:
+- Scale: 1.05
+- Rotate: -1deg
+- Shadow increases
+- Arrow icon appears (opacity 0 → 1)
+
+**Mount Animation**:
+```css
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Delay: calc(index * 50ms) */
+```
+
+### Filter Bar Component
+
+**Location**: Below header in `index.html`
+
+**Behavior**:
+- Horizontal scrolling on mobile
+- Chips show category count badges
+- Active category highlighted
+- Click filters cards immediately
+
+### Infinite Scroll Mechanism
+
+**Implementation**: IntersectionObserver API
+
+```javascript
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting && !loading
+      && visibleCards.length < filteredCards.length) {
+    loadMore(16);
+  }
+}, { rootMargin: '400px' });
+```
+
+**Sentinel Element**: Hidden div at bottom of grid
+
+**Loading State**: Shows spinner when fetching
+
+## Routing Strategy
+
+**No History API** — Simple query string routing
+
+| Route | Implementation |
+|-------|----------------|
+| `/` | Serve `index.html` |
+| `/detail.html?id=3` | `detail.html` parses `URLSearchParams` |
+| `/styles/3.html` | Static iframe HTML |
+
+**Future**: Could add 301 redirects for SEO-friendly slugs like `/styles/glassmorphism`
+
+## State Management
+
+### Alpine.js Stores
+
+**darkMode()** — `utils.js` lines 10-24
+```javascript
+{
+  dark: boolean,
+  initDarkMode(),
+  toggleDark()
+}
+```
+
+**gridApp()** — `utils.js` lines 31-106
+```javascript
+{
+  allCards: [],
+  visibleCards: [],
+  search: '',
+  activeType: '',
+  types: [],
+  currentPage: 0,
+  loading: boolean,
+  initGrid(),
+  getFilteredCards(),
+  resetAndLoad(),
+  setType(type),
+  loadMore(),
+  setupInfiniteScroll()
+}
+```
+
+### Global Configuration
+
+**config.js**:
+```javascript
+const CONFIG = {
+  CARDS_PER_PAGE: 16,
+  SCROLL_ROOT_MARGIN: '400px',
+  DEBOUNCE_MS: 300,
+  DATA_URL: 'data/data.json',
+  DARK_MODE_KEY: 'darkMode'
+};
+```
+
+## CSS Architecture
+
+### Design System Variables
+
+**animations.css**:
+```css
+:root {
+  --grid-gap: 16px;
+  --card-radius: 24px;
+  --page-bg: #F5F5F7;
+  --card-bg: #FFFFFF;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Dark Mode Override
+
+```css
+html.dark {
+  --page-bg: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+}
+```
+
+### Utility-First Approach
+
+- **Tailwind CSS CDN**: Provides utility classes
+- **Custom CSS**: For component-specific styles (cards, animations)
+- **Inline Styles**: For dynamic values (Alpine.js bindings)
+
+## Performance Optimizations
+
+1. **Single Data Fetch**: `data.json` fetched once on page load
+2. **Debounced Search**: 300ms delay prevents excessive filtering
+3. **Intersection Observer**: Efficient infinite scroll
+4. **Lazy Images**: Screenshots load as cards appear
+5. **CSS Transitions**: Hardware-accelerated transforms
+6. **Minimal JavaScript**: Only ~200 lines total (utils.js + detail.js)
+
+## SEO Implementation
+
+### Meta Tags (index.html)
+
+```html
+<meta name="description" content="...">
+<meta property="og:title" content="...">
+<meta property="og:image" content="...">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [...]
+}
+</script>
+```
+
+### Dynamic Meta Tags (detail.html)
+
+**detail.js** updates:
+- Page title
+- Meta description
+- Open Graph tags
+- Canonical URL
+- Schema.org structured data
+- Breadcrumb schema
+
+### Discovery Files
+
+- **llms.txt**: This documentation for AI crawlers
+- **sitemap.xml**: Lists all 256 style pages
+- **robots.txt**: Allows all crawlers
+
+## Responsive Breakpoints
+
+| Screen Width | Grid Columns | Header Layout |
+|--------------|--------------|---------------|
+| < 640px (mobile) | 1 | Condensed (search in drawer) |
+| 640px - 1024px (tablet) | 2 | Full (search always visible) |
+| 1024px - 1440px (laptop) | 3 | Full |
+| > 1440px (desktop) | 4 | Full |
+
+## Related Files
+
+- `llm.project.txt` — Project purpose and goals
+- `llm.data.txt` — JSON schema and data structure
+- `llm.development.txt` — Setup and contribution guide

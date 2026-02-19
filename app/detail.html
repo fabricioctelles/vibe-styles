@@ -4,8 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore estilos de UI/UX com demonstrações ao vivo e prompts prontos para IA.">
-  <title>Detalhe do Estilo - Vibe Styles</title>
+  <meta name="description" id="meta-description" content="Explore estilos de UI/UX com demonstrações ao vivo e prompts prontos para IA.">
+  <meta id="og-title" property="og:title" content="Detalhe do Estilo - Vibe Styles">
+  <meta id="og-description" property="og:description" content="Explore estilos de UI/UX com demonstrações ao vivo e prompts prontos para IA.">
+  <meta id="og-image" property="og:image" content="https://vibe.ft.ia.br/app/assets/images/logo.png">
+  <link rel="canonical" id="canonical-link" href="">
+  <title id="page-title">Detalhe do Estilo - Vibe Styles</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +20,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/detail.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
@@ -954,6 +959,13 @@ ${p.regrasDeExecucao || ''}`;
     <!-- Content -->
     <template x-if="card">
       <div class="content-wrapper">
+        <!-- Breadcrumbs -->
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+          <a href="./" class="nav-link" style="padding: 0; color: var(--color-accent);">Vibe Styles</a>
+          <span>/</span>
+          <span x-text="card.name" style="color: var(--color-text-primary); font-weight: 500;"></span>
+        </div>
+
         <!-- Style Info Header -->
         <div class="style-info">
           <!-- Linha 1: Nome -->
@@ -1033,30 +1045,80 @@ ${p.regrasDeExecucao || ''}`;
 
           <!-- Right: Prompt Sidebar -->
           <div class="sidebar">
-            <div class="prompt-card">
-              <div class="prompt-header">
-                <h2>Prompt de IA</h2>
-                <p>Use este prompt para recriar o estilo com modelos de linguagem</p>
+            <!-- Tab Navigation -->
+            <div x-data="{ activeTab: 'prompt' }" class="prompt-card">
+              <div style="display: flex; gap: 0.5rem; border-bottom: 1px solid var(--color-border); margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                <button @click="activeTab = 'prompt'" :class="{ 'active': activeTab === 'prompt' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'prompt' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                  Prompt
+                </button>
+                <button @click="activeTab = 'history'" :class="{ 'active': activeTab === 'history' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'history' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                  Origem
+                </button>
+                <button @click="activeTab = 'usage'" :class="{ 'active': activeTab === 'usage' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'usage' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                  Uso
+                </button>
+                <button @click="activeTab = 'related'" :class="{ 'active': activeTab === 'related' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'related' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                  Similar
+                </button>
               </div>
 
-              <div class="prompt-content">
-                <div class="code-block" x-text="buildPrompt()"></div>
+              <!-- Tab: Prompt -->
+              <div x-show="activeTab === 'prompt'">
+                <div class="prompt-header">
+                  <h2>Prompt de IA</h2>
+                  <p>Use este prompt para recriar o estilo com modelos de linguagem</p>
+                </div>
 
-                <div class="description-section" x-show="card.prompt?.aiPromptKeywords">
-                  <h3>Descrição</h3>
-                  <p x-text="card.prompt?.aiPromptKeywords || 'Design moderno e inovador para interfaces web.'"></p>
+                <div class="prompt-content">
+                  <div class="code-block" x-text="buildPrompt()"></div>
+
+                  <div class="description-section" x-show="card.prompt?.aiPromptKeywords">
+                    <h3>Descrição</h3>
+                    <p x-text="card.prompt?.aiPromptKeywords || 'Design moderno e inovador para interfaces web.'"></p>
+                  </div>
+                </div>
+
+                <div class="prompt-actions">
+                  <button @click="copyPrompt()" :class="{ 'copied': copied }" class="btn btn-primary btn-copy"
+                    style="width: 100%;">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span x-text="copied ? '✓ Copiado!' : 'Copiar Prompt Completo'"></span>
+                  </button>
                 </div>
               </div>
 
-              <div class="prompt-actions">
-                <button @click="copyPrompt()" :class="{ 'copied': copied }" class="btn btn-primary btn-copy"
-                  style="width: 100%;">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                  </svg>
-                  <span x-text="copied ? '✓ Copiado!' : 'Copiar Prompt Completo'"></span>
-                </button>
+              <!-- Tab: Histórico -->
+              <div x-show="activeTab === 'history'">
+                <div class="prompt-header">
+                  <h2>Histórico & Origem</h2>
+                </div>
+                <div id="historical-context-section" class="prompt-content">
+                  <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Carregando informações de origem...</p>
+                </div>
+              </div>
+
+              <!-- Tab: Uso -->
+              <div x-show="activeTab === 'usage'">
+                <div class="prompt-header">
+                  <h2>Quando Usar</h2>
+                </div>
+                <div id="use-case-section" class="prompt-content">
+                  <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Carregando casos de uso...</p>
+                </div>
+              </div>
+
+              <!-- Tab: Estilos Relacionados -->
+              <div x-show="activeTab === 'related'">
+                <div class="prompt-header">
+                  <h2>Estilos Similares</h2>
+                  <p>Descobra estilos relacionados</p>
+                </div>
+                <div id="related-styles-container" class="prompt-content" style="display: grid; gap: 1rem;">
+                  <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Carregando estilos relacionados...</p>
+                </div>
               </div>
             </div>
           </div>
