@@ -75,9 +75,6 @@ async function loadStyleData() {
     const styleKeyword = currentStyle.prompt.estilo.keywords.split(',')[0].trim();
     document.getElementById('page-title').textContent = `${styleName} — ${styleKeyword} Template | Vibe Styles`;
     
-    // Atualizar canonical
-    document.getElementById('canonical-link').href = `https://vibe.ft.ia.br/styles/${currentStyle.id}.html`;
-    
     // Atualizar OG tags
     document.getElementById('og-title').content = `${styleName} — Design System Template`;
     document.getElementById('og-description').content = currentStyle.metaDescription || `${styleName} — UI/UX design template com prompt pronto para IA`;
@@ -104,6 +101,20 @@ function updateMetaTags() {
   
   const metaDesc = currentStyle.metaDescription || `${currentStyle.name} — Design template com prompt pronto para ChatGPT, Claude e Gemini.`;
   document.getElementById('meta-description').content = metaDesc.substring(0, 160);
+  
+  // Atualizar canonical e og:url com slug (Req 7.1, 7.2)
+  const slug = generateSlug(currentStyle.name);
+  const slugUrl = `https://vibe.ft.ia.br/${slug}`;
+  
+  const canonicalEl = document.getElementById('canonical-link');
+  if (canonicalEl) {
+    canonicalEl.href = slugUrl;
+  }
+  
+  const ogUrlEl = document.querySelector('meta[property="og:url"]');
+  if (ogUrlEl) {
+    ogUrlEl.content = slugUrl;
+  }
 }
 
 function insertStructuredData() {
