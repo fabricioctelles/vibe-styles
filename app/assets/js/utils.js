@@ -104,3 +104,23 @@ function gridApp() {
     }
   };
 }
+
+/**
+ * generateSlug(name) - Gera um slug URL-friendly a partir do nome do estilo.
+ * Converte para lowercase, remove acentos, caracteres especiais,
+ * substitui espaços por hífens e limpa hífens duplicados/nas pontas.
+ * @param {string} name - Nome do estilo (ex: "Minimalism & Swiss Style")
+ * @returns {string} - Slug gerado (ex: "minimalism-swiss-style")
+ */
+function generateSlug(name) {
+  if (!name || typeof name !== 'string') return '';
+
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[&\/\\#,+()$~%.'":*?<>{}@!]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
