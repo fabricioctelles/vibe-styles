@@ -794,6 +794,6 @@ Contributions are welcome! Some ways to contribute:
 ---
 
 <p align="center">
-  Made with 💜 by <a href="https://ft.ia.br">ft.ia.br</a> with the help of <a href="https://kiro.dev">Kiro</a><br>
+  Made with 💜 by <a href="https://ft.ia.br/?ref=vibestyles">ft.ia.br</a> with the help of <a href="https://kiro.dev">Kiro</a><br>
   <img src="app/assets/logo-fabricio.png" alt="Vibe Styles Logo" width="80" height="80" style="border-radius: 16px;">
 </p>
