@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Premium WebGL & Iconify — Premium Dark Template | Vibe Styles</title>
+  <link rel="canonical" href="https://vibe.ft.ia.br/styles/257.html">
+  <meta name="description" content="Design premium dark com WebGL animations, Iconify icons, border beam, sonar effects e flashlight hover. Ideal para portfolios de luxo, arquitetura e marcas premium. Prompt pronto para IA.">
+  <meta property="og:title" content="Aura Premium WebGL & Iconify — Vibe Styles">
+  <meta property="og:description" content="Design premium dark com WebGL animations, Iconify icons, border beam, sonar effects e flashlight hover.">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: {
+            dark: { primary: '#0A0A0A', secondary: '#1A1A2E', card: '#111127' },
+            accent: { blue: '#3B82F6', violet: '#8B5CF6', amber: '#F59E0B', emerald: '#10B981', pink: '#EC4899' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #FFFFFF; background: #0A0A0A; overflow-x: hidden; }
+    a, button, [role="button"] { cursor: pointer; }
+
+    /* Container lines */
+    .container-lines { position: relative; }
+    .container-lines::before, .container-lines::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .container-lines::before { left: 25%; }
+    .container-lines::after { right: 25%; }
+
+    /* Section numbers */
+    .section-number {
+      font-size: 5rem; font-weight: 800; opacity: 0.05;
+      position: absolute; top: -1rem; left: 2rem; line-height: 1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Border beam animation */
+    .border-beam {
+      position: relative; border-radius: 9999px; overflow: hidden;
+      background: #0A0A0A; z-index: 1;
+    }
+    .border-beam::before {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit;
+      background: conic-gradient(from var(--beam-angle, 0deg), transparent 60%, #3B82F6 75%, #8B5CF6 85%, transparent 100%);
+      z-index: -1; opacity: 0; transition: opacity 0.3s ease;
+      animation: beam-rotate 3s linear infinite;
+    }
+    .border-beam:hover::before { opacity: 1; }
+    .border-beam::after {
+      content: ''; position: absolute; inset: 1px; border-radius: inherit;
+      background: #0A0A0A; z-index: -1;
+    }
+    @keyframes beam-rotate { to { --beam-angle: 360deg; } }
+    @property --beam-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+    /* Sonar animation */
+    .sonar { position: relative; }
+    .sonar::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 1px solid #3B82F6; animation: sonar-pulse 2s ease-out infinite;
+    }
+    @keyframes sonar-pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* Flashlight card effect */
+    .flashlight-card {
+      background: #111127; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; transition: border-color 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .flashlight-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.1), transparent 60%);
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+    }
+    .flashlight-card:hover { border-color: rgba(59,130,246,0.3); }
+    .flashlight-card:hover::before { opacity: 1; }
+
+    /* Marquee */
+    .marquee-track {
+      display: flex; gap: 4rem; animation: marquee-scroll 30s linear infinite;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Vertical text */
+    .vertical-text {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Clip slide down */
+    .clip-slide { overflow: hidden; }
+    .clip-slide span {
+      display: inline-block; animation: slideDown 0.6s ease forwards;
+      opacity: 0; transform: translateY(-100%);
+    }
+    @keyframes slideDown { to { opacity: 1; transform: translateY(0); } }
+
+    /* Smooth hover */
+    .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+    /* WebGL canvas */
+    #webgl-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+      .sonar::after { animation: none; }
+      .border-beam::before { animation: none; }
+      .clip-slide span { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- WebGL Background Canvas -->
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4" style="background: rgba(10,10,10,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <iconify-icon icon="solar:star-linear" width="24" height="24" style="color: #3B82F6;"></iconify-icon>
+        <span class="text-lg font-bold" style="letter-spacing: -0.05em;">AuraPro</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-white/60">
+        <a href="#features" class="hover:text-white transition-colors">Recursos</a>
+        <a href="#galeria" class="hover:text-white transition-colors">Galeria</a>
+        <a href="#depoimentos" class="hover:text-white transition-colors">Depoimentos</a>
+        <a href="#precos" class="hover:text-white transition-colors">Preços</a>
+      </div>
+      <a href="#precos" class="border-beam px-5 py-2 text-sm font-medium">Começar agora</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-6 pt-24 pb-20 container-lines relative">
+    <span class="section-number">01</span>
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-7">
+        <p class="text-accent-blue uppercase tracking-[0.3em] text-sm mb-6 font-mono">Design Premium Interativo</p>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] mb-8 clip-slide" style="letter-spacing: -0.04em;">
+          <span style="animation-delay: 0s;">Experiências</span><br>
+          <span style="animation-delay: 0.15s;">que</span>
+          <span style="animation-delay: 0.3s;" class="bg-gradient-to-r from-accent-blue to-accent-violet bg-clip-text text-transparent">inspiram.</span>
+        </h1>
+        <p class="text-lg text-white/50 max-w-lg leading-relaxed mb-10">
+          Interfaces cinematográficas com animações WebGL, micro-interações premium e design que transforma visitantes em clientes.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#precos" class="border-beam px-8 py-4 text-sm font-semibold uppercase tracking-wider">
+            Explorar planos
+          </a>
+          <a href="#galeria" class="px-8 py-4 text-sm font-medium text-white/60 border border-white/10 rounded-full hover:border-white/30 hover:text-white transition-all">
+            Ver galeria
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-5 hidden md:flex justify-center relative">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-accent-blue/20 to-accent-violet/20 flex items-center justify-center sonar">
+          <iconify-icon icon="solar:code-bold-duotone" width="64" height="64" style="color: #3B82F6;"></iconify-icon>
+        </div>
+        <span class="vertical-text absolute right-0 top-1/2 -translate-y-1/2">Premium Experience</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS MARQUEE -->
+  <section class="py-16 border-y border-white/5">
+    <p class="text-center text-xs uppercase tracking-[0.3em] text-white/30 mb-10">Empresas que confiam em nós</p>
+    <div class="overflow-hidden">
+      <div class="marquee-track">
+        <iconify-icon icon="simple-icons:nasa" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:spacex" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:uber" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:visa" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:grab" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:bose" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:discover" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:dji" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:nikon" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:sony" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <!-- Duplicado para loop contínuo -->
+        <iconify-icon icon="simple-icons:nasa" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:spacex" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:uber" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:visa" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:grab" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:bose" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:discover" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:dji" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:nikon" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+        <iconify-icon icon="simple-icons:sony" width="64" height="64" style="color: rgba(255,255,255,0.3);"></iconify-icon>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="px-6 py-24 relative container-lines">
+    <span class="section-number">02</span>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <p class="text-accent-violet uppercase tracking-[0.3em] text-sm mb-3 font-mono">Recursos</p>
+        <h2 class="text-3xl md:text-5xl font-bold" style="letter-spacing: -0.03em;">Tecnologia que encanta.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center mb-6">
+            <iconify-icon icon="solar:layers-bold-duotone" width="28" height="28" style="color: #3B82F6;"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Animações WebGL</h3>
+          <p class="text-white/50 leading-relaxed">Imagens em 4 colunas com scroll staggered, motion blur e snap alignment. Experiência cinematográfica no browser.</p>
+        </div>
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-accent-violet/10 flex items-center justify-center mb-6">
+            <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="28" height="28" style="color: #8B5CF6;"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Micro-interações</h3>
+          <p class="text-white/50 leading-relaxed">Border beam, sonar pulses, flashlight hover e vertical text animations. Cada detalhe conta uma história.</p>
+        </div>
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 flex items-center justify-center mb-6">
+            <iconify-icon icon="solar:palette-bold-duotone" width="28" height="28" style="color: #10B981;"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Design System</h3>
+          <p class="text-white/50 leading-relaxed">Iconify icons, tipografia Inter, paleta premium e componentes reutilizáveis. Consistência em cada pixel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="px-6 py-24 relative">
+    <span class="section-number">03</span>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <p class="text-accent-amber uppercase tracking-[0.3em] text-sm mb-3 font-mono">Galeria</p>
+        <h2 class="text-3xl md:text-5xl font-bold" style="letter-spacing: -0.03em;">Projetos em destaque.</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-accent-blue/20 to-dark-secondary flex items-center justify-center hover-lift">
+          <iconify-icon icon="solar:buildings-bold-duotone" width="48" height="48" style="color: #3B82F6;"></iconify-icon>
+        </div>
+        <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-accent-violet/20 to-dark-secondary flex items-center justify-center hover-lift" style="transform: translateY(2rem);">
+          <iconify-icon icon="solar:sofa-2-bold-duotone" width="48" height="48" style="color: #8B5CF6;"></iconify-icon>
+        </div>
+        <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-accent-emerald/20 to-dark-secondary flex items-center justify-center hover-lift">
+          <iconify-icon icon="solar:leaf-bold-duotone" width="48" height="48" style="color: #10B981;"></iconify-icon>
+        </div>
+        <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-accent-amber/20 to-dark-secondary flex items-center justify-center hover-lift" style="transform: translateY(2rem);">
+          <iconify-icon icon="solar:camera-bold-duotone" width="48" height="48" style="color: #F59E0B;"></iconify-icon>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="depoimentos" class="px-6 py-24 relative container-lines">
+    <span class="section-number">04</span>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <p class="text-accent-pink uppercase tracking-[0.3em] text-sm mb-3 font-mono">Depoimentos</p>
+        <h2 class="text-3xl md:text-5xl font-bold" style="letter-spacing: -0.03em;">Quem já viveu a experiência.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="https://i.pravatar.cc/48?img=32" alt="Foto de Carolina Mendes" class="w-12 h-12 rounded-full object-cover" width="48" height="48">
+            <div>
+              <p class="font-semibold">Carolina Mendes</p>
+              <p class="text-white/40 text-sm">CEO, Luxe Studio</p>
+            </div>
+          </div>
+          <p class="text-white/60 leading-relaxed">"As animações WebGL transformaram nosso portfolio. Clientes ficam impressionados antes mesmo de ver os projetos."</p>
+          <div class="flex gap-1 mt-4">
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+          </div>
+        </div>
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="https://i.pravatar.cc/48?img=11" alt="Foto de Ricardo Almeida" class="w-12 h-12 rounded-full object-cover" width="48" height="48">
+            <div>
+              <p class="font-semibold">Ricardo Almeida</p>
+              <p class="text-white/40 text-sm">Diretor Criativo, Nexus Arch</p>
+            </div>
+          </div>
+          <p class="text-white/60 leading-relaxed">"O efeito flashlight nos cards e o border beam nos botões elevaram nosso site a outro patamar. Conversão subiu 65%."</p>
+          <div class="flex gap-1 mt-4">
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+          </div>
+        </div>
+        <div class="flashlight-card p-8 hover-lift">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="https://i.pravatar.cc/48?img=5" alt="Foto de Beatriz Santos" class="w-12 h-12 rounded-full object-cover" width="48" height="48">
+            <div>
+              <p class="font-semibold">Beatriz Santos</p>
+              <p class="text-white/40 text-sm">Head de Marketing, Verdana</p>
+            </div>
+          </div>
+          <p class="text-white/60 leading-relaxed">"Design premium que comunica sofisticação instantaneamente. Nossos clientes de wellness adoraram a experiência."</p>
+          <div class="flex gap-1 mt-4">
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+            <iconify-icon icon="solar:star-bold-duotone" width="16" height="16" style="color: #F59E0B;"></iconify-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precos" class="px-6 py-24 relative container-lines">
+    <span class="section-number">05</span>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 text-center">
+        <p class="text-accent-blue uppercase tracking-[0.3em] text-sm mb-3 font-mono">Planos</p>
+        <h2 class="text-3xl md:text-5xl font-bold" style="letter-spacing: -0.03em;">Investimento premium.</h2>
+        <p class="text-white/40 mt-4 max-w-md mx-auto">Escolha o plano ideal para transformar sua presença digital.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Starter -->
+        <div class="flashlight-card p-8">
+          <p class="text-white/40 uppercase tracking-[0.2em] text-xs mb-4 font-mono">Starter</p>
+          <p class="text-4xl font-bold mb-1">R$ 197<span class="text-base font-normal text-white/30">/mês</span></p>
+          <p class="text-white/30 text-sm mb-8">Para projetos individuais</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/60">
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              1 landing page premium
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              Animações CSS avançadas
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              Suporte por e-mail
+            </li>
+          </ul>
+          <a href="#" class="block text-center py-3 text-sm font-medium border border-white/10 rounded-full hover:border-white/30 hover:bg-white/5 transition-all">Escolher plano</a>
+        </div>
+        <!-- Pro (destaque) -->
+        <div class="flashlight-card p-8 ring-1 ring-accent-blue/50 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent-blue text-xs font-bold rounded-full uppercase tracking-wider">Popular</div>
+          <p class="text-accent-blue uppercase tracking-[0.2em] text-xs mb-4 font-mono">Pro</p>
+          <p class="text-4xl font-bold mb-1">R$ 497<span class="text-base font-normal text-white/30">/mês</span></p>
+          <p class="text-white/30 text-sm mb-8">Para equipes criativas</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/60">
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #3B82F6;"></iconify-icon>
+              5 landing pages premium
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #3B82F6;"></iconify-icon>
+              WebGL + animações completas
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #3B82F6;"></iconify-icon>
+              Suporte prioritário 24h
+            </li>
+          </ul>
+          <a href="#" class="border-beam block text-center py-3 text-sm font-semibold">Escolher plano</a>
+        </div>
+        <!-- Enterprise -->
+        <div class="flashlight-card p-8">
+          <p class="text-white/40 uppercase tracking-[0.2em] text-xs mb-4 font-mono">Enterprise</p>
+          <p class="text-4xl font-bold mb-1">R$ 997<span class="text-base font-normal text-white/30">/mês</span></p>
+          <p class="text-white/30 text-sm mb-8">Para marcas premium</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/60">
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              Projetos ilimitados
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              Gerente dedicado
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" style="color: #10B981;"></iconify-icon>
+              SLA + consultoria criativa
+            </li>
+          </ul>
+          <a href="#" class="block text-center py-3 text-sm font-medium border border-white/10 rounded-full hover:border-white/30 hover:bg-white/5 transition-all">Escolher plano</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="px-6 py-32 relative text-center">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent-blue/5 to-transparent pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto relative">
+      <div class="w-16 h-16 rounded-full bg-accent-blue/10 flex items-center justify-center mx-auto mb-8 sonar">
+        <iconify-icon icon="solar:rocket-bold-duotone" width="32" height="32" style="color: #3B82F6;"></iconify-icon>
+      </div>
+      <h2 class="text-4xl md:text-6xl font-bold mb-6" style="letter-spacing: -0.03em;">Pronto para o próximo nível?</h2>
+      <p class="text-white/40 text-lg max-w-lg mx-auto mb-10">Transforme sua presença digital com animações premium e design cinematográfico.</p>
+      <a href="#precos" class="border-beam inline-block px-10 py-4 text-sm font-semibold uppercase tracking-wider">
+        Começar agora
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="px-6 py-12 border-t border-white/5">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <iconify-icon icon="solar:star-linear" width="20" height="20" style="color: #3B82F6;"></iconify-icon>
+          <span class="font-bold" style="letter-spacing: -0.05em;">AuraPro</span>
+        </div>
+        <p class="text-white/30 leading-relaxed">Design premium interativo<br>desde 2024.</p>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-white/50">Produto</p>
+        <ul class="space-y-2 text-white/30">
+          <li><a href="#" class="hover:text-white transition-colors">Recursos</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Preços</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-white/50">Empresa</p>
+        <ul class="space-y-2 text-white/30">
+          <li><a href="#" class="hover:text-white transition-colors">Sobre</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold uppercase tracking-widest text-xs mb-4 text-white/50">Legal</p>
+        <ul class="space-y-2 text-white/30">
+          <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+        </ul>
+        <div class="flex gap-3 mt-6">
+          <a href="#" class="text-white/30 hover:text-white transition-colors" aria-label="Twitter">
+            <iconify-icon icon="simple-icons:x" width="18" height="18"></iconify-icon>
+          </a>
+          <a href="#" class="text-white/30 hover:text-white transition-colors" aria-label="Instagram">
+            <iconify-icon icon="simple-icons:instagram" width="18" height="18"></iconify-icon>
+          </a>
+          <a href="#" class="text-white/30 hover:text-white transition-colors" aria-label="LinkedIn">
+            <iconify-icon icon="simple-icons:linkedin" width="18" height="18"></iconify-icon>
+          </a>
+          <a href="#" class="text-white/30 hover:text-white transition-colors" aria-label="GitHub">
+            <iconify-icon icon="simple-icons:github" width="18" height="18"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/20 text-xs">&copy; 2026 AuraPro. Todos os direitos reservados.</p>
+      <p class="text-white/20 text-xs font-mono">Estilo #257 — Aura Premium WebGL & Iconify</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Flashlight effect on cards
+    document.querySelectorAll('.flashlight-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        card.style.setProperty('--mouse-y', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
+    });
+
+    // WebGL Background - subtle floating particles
+    (function() {
+      const canvas = document.getElementById('webgl-canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) return;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+
+      const vsSource = `
+        attribute vec2 a_position;
+        attribute float a_size;
+        attribute float a_alpha;
+        varying float v_alpha;
+        void main() {
+          gl_Position = vec4(a_position, 0.0, 1.0);
+          gl_PointSize = a_size;
+          v_alpha = a_alpha;
+        }
+      `;
+      const fsSource = `
+        precision mediump float;
+        varying float v_alpha;
+        void main() {
+          float d = distance(gl_PointCoord, vec2(0.5));
+          if (d > 0.5) discard;
+          float alpha = v_alpha * (1.0 - d * 2.0);
+          gl_FragColor = vec4(0.23, 0.51, 0.96, alpha * 0.3);
+        }
+      `;
+
+      function createShader(type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        return shader;
+      }
+
+      const vs = createShader(gl.VERTEX_SHADER, vsSource);
+      const fs = createShader(gl.FRAGMENT_SHADER, fsSource);
+      const program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      const count = 80;
+      const positions = new Float32Array(count * 2);
+      const sizes = new Float32Array(count);
+      const alphas = new Float32Array(count);
+      const velocities = new Float32Array(count * 2);
+
+      for (let i = 0; i < count; i++) {
+        positions[i * 2] = Math.random() * 2 - 1;
+        positions[i * 2 + 1] = Math.random() * 2 - 1;
+        sizes[i] = Math.random() * 3 + 1;
+        alphas[i] = Math.random() * 0.5 + 0.2;
+        velocities[i * 2] = (Math.random() - 0.5) * 0.001;
+        velocities[i * 2 + 1] = (Math.random() - 0.5) * 0.001;
+      }
+
+      const posBuf = gl.createBuffer();
+      const sizeBuf = gl.createBuffer();
+      const alphaBuf = gl.createBuffer();
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+      function render() {
+        for (let i = 0; i < count; i++) {
+          positions[i * 2] += velocities[i * 2];
+          positions[i * 2 + 1] += velocities[i * 2 + 1];
+          if (Math.abs(positions[i * 2]) > 1) velocities[i * 2] *= -1;
+          if (Math.abs(positions[i * 2 + 1]) > 1) velocities[i * 2 + 1] *= -1;
+        }
+
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
+        const posLoc = gl.getAttribLocation(program, 'a_position');
+        gl.enableVertexAttribArray(posLoc);
+        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
+        const sizeLoc = gl.getAttribLocation(program, 'a_size');
+        gl.enableVertexAttribArray(sizeLoc);
+        gl.vertexAttribPointer(sizeLoc, 1, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, alphaBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, alphas, gl.STATIC_DRAW);
+        const alphaLoc = gl.getAttribLocation(program, 'a_alpha');
+        gl.enableVertexAttribArray(alphaLoc);
+        gl.vertexAttribPointer(alphaLoc, 1, gl.FLOAT, false, 0, 0);
+
+        gl.drawArrays(gl.POINTS, 0, count);
+        requestAnimationFrame(render);
+      }
+      render();
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      });
+    })();
+  </script>
+
+</body>
+</html>
