@@ -230,5 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadStyleData().then(() => {
     renderRelatedStyles();
     renderHistoryAndUseCases();
+    // Cache-bust iframe to ensure latest content
+    const iframe = document.querySelector('iframe');
+    if (iframe && iframe.src) {
+      const url = new URL(iframe.src);
+      url.searchParams.set('v', Date.now());
+      iframe.src = url.toString();
+    }
   });
 });
