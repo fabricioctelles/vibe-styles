@@ -128,15 +128,17 @@ Create `app/styles/257.html`:
 
 ### Step 4: Update sitemap.xml
 
-Add to `app/sitemap.xml`:
+Add to `app/sitemap.xml` using the slug-based URL format:
 
 ```xml
 <url>
-  <loc>https://vibe.ft.ia.br/detail.html?id=257</loc>
+  <loc>https://vibe.ft.ia.br/your-new-style-name</loc>
   <lastmod>2026-02-19</lastmod>
   <priority>0.8</priority>
 </url>
 ```
+
+**Note**: The slug is generated from the style name — lowercase, no accents, no special characters, spaces replaced by hyphens. Example: "Your New Style Name" → `your-new-style-name`.
 
 ### Step 5: Test
 
@@ -380,9 +382,10 @@ Check:
 ### Detail Page Not Found
 
 Verify:
-- ID in URL matches style in data.json
-- detail.html path is correct
-- Query string format: `?id=123`
+- Slug in URL matches a style name in data.json (slug is generated from `name` field)
+- NGINX is configured to serve `detail.html` for slug routes (`/{slug}`)
+- For legacy URLs: query string format `?id=123` still works as fallback
+- `utils.js` is loaded before `detail.js` (provides `generateSlug` and `findCardBySlug`)
 
 ## Related Files
 

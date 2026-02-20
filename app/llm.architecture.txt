@@ -94,7 +94,8 @@ Load 16 more cards
 - Historical context section
 - One-click prompt copy
 
-**URL Pattern**: `detail.html?id={id}`
+**URL Pattern**: `/{slug}` (e.g., `/minimalism-swiss-style`)
+**Legacy Fallback**: `detail.html?id={id}` (redirects to slug URL)
 
 ## Component Breakdown
 
@@ -184,15 +185,21 @@ const observer = new IntersectionObserver((entries) => {
 
 ## Routing Strategy
 
-**No History API** — Simple query string routing
+**Slug-based routing** — SEO-friendly URLs using style name slugs
 
 | Route | Implementation |
 |-------|----------------|
 | `/` | Serve `index.html` |
-| `/detail.html?id=3` | `detail.html` parses `URLSearchParams` |
-| `/styles/3.html` | Static iframe HTML |
+| `/{slug}` (e.g., `/minimalism-swiss-style`) | NGINX serves `detail.html`, JS extracts slug from pathname |
+| `/detail.html?id=3` | Legacy fallback — loads style by ID, then redirects to slug URL via `history.replaceState` |
+| `/styles/3.html` | Static iframe HTML (unchanged) |
 
-**Future**: Could add 301 redirects for SEO-friendly slugs like `/styles/glassmorphism`
+**Slug Generation**: `utils.js` provides `generateSlug(name)` which converts style names to URL-friendly slugs (lowercase, no accents, hyphens instead of spaces).
+
+**Route Detection**: `detail.js` uses `parseRoute()` to detect URL type:
+1. Slug in pathname (`/minimalism-swiss-style`) — priority
+2. ID in query string (`?id=1`) — fallback, redirects to slug
+3. Neither — redirects to gallery
 
 ## State Management
 
