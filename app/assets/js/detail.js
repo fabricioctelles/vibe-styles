@@ -189,7 +189,7 @@ function renderRelatedStyles() {
   ).filter(Boolean);
   
   const html = relatedStyles.map(style => `
-    <a href="./detail.html?id=${style.id}" class="related-style-card">
+    <a href="./${generateSlug(style.name)}" class="related-style-card">
       <img src="./screenshots/${style.id}.png" alt="${style.name}" class="w-full h-32 object-cover rounded-lg mb-2">
       <h4 class="font-medium text-sm">${style.name}</h4>
       <p class="text-xs text-gray-500">${style.type}</p>
