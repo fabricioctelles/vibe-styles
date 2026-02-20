@@ -1,6 +1,6 @@
-# Sitemap Generator Template for Vibe Styles
-# Usage: python3 scripts/generate-sitemap.py
-# Output: app/sitemap.xml + app/sitemap-styles.xml
+# Sitemap Generator for Vibe Styles
+# Usage: python3 scripts/GENERATE-SITEMAP.py
+# Output: app/sitemap.xml (combined: static pages + 256 style URLs with slugs)
 
 import json
 import unicodedata
@@ -28,20 +28,28 @@ def generate_slug(name):
 
 def generate_sitemap():
     """
-    Gera sitemap.xml para Vibe Styles
-    Output: 2 arquivos
-    - sitemap.xml: Página principal + páginas estáticas
-    - sitemap-styles.xml: URLs dinâmicas dos 256 estilos
+    Generates a single combined sitemap.xml for Vibe Styles.
+    Includes static pages (home, docs, github) AND all 256 style URLs with slugs.
+    Output: app/sitemap.xml
     """
     
     base_url = "https://vibe.ft.ia.br"
     today = datetime.now().strftime("%Y-%m-%d")
     
-    # 1. Sitemap Principal
-    sitemap_main = f"""<?xml version="1.0" encoding="UTF-8"?>
+    # Load data.json for style entries
+    data_path = Path("app/data/data.json")
+    
+    if not data_path.exists():
+        print(f"❌ Erro: {data_path} não encontrado")
+        return False
+    
+    with open(data_path, 'r', encoding='utf-8') as f:
+        styles = json.load(f)
+    
+    # Build combined sitemap
+    sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Home Page -->
   <url>
@@ -65,34 +73,16 @@ def generate_sitemap():
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-</urlset>"""
-    
-    # 2. Carregar data.json para IDs dos estilos
-    data_path = Path("app/data/data.json")
-    
-    if not data_path.exists():
-        print(f"❌ Erro: {data_path} não encontrado")
-        return False
-    
-    with open(data_path, 'r', encoding='utf-8') as f:
-        styles = json.load(f)
-    
-    # 3. Sitemap Estilos (dinâmico)
-    sitemap_styles = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 """
     
+    # Add all style URLs with slugs
     for style in styles:
         style_id = style.get('id', 1)
         slug = generate_slug(style.get('name', ''))
         style_url = f"{base_url}/{slug}"
-        
-        # Cada estilo usa screenshot se disponível
         image_url = f"{base_url}/app/screenshots/{style_id}.png"
         
-        sitemap_styles += f"""
+        sitemap += f"""
   <url>
     <loc>{style_url}</loc>
     <lastmod>{today}</lastmod>
@@ -105,38 +95,30 @@ def generate_sitemap():
   </url>
 """
     
-    sitemap_styles += """
+    sitemap += """
 </urlset>"""
     
-    # 4. Escrever arquivos
+    # Write single combined sitemap
     with open("app/sitemap.xml", 'w', encoding='utf-8') as f:
-        f.write(sitemap_main)
-    print(f"✅ Gerado: app/sitemap.xml")
+        f.write(sitemap)
+    print(f"✅ Gerado: app/sitemap.xml ({3 + len(styles)} URLs: 3 estáticas + {len(styles)} estilos)")
     
-    with open("app/sitemap-styles.xml", 'w', encoding='utf-8') as f:
-        f.write(sitemap_styles)
-    print(f"✅ Gerado: app/sitemap-styles.xml ({len(styles)} estilos)")
+    # Cleanup: remove old separate styles sitemap if it exists
+    styles_sitemap = Path("app/sitemap-styles.xml")
+    if styles_sitemap.exists():
+        styles_sitemap.unlink()
+        print(f"🗑️  Removido: app/sitemap-styles.xml (agora integrado ao sitemap.xml)")
     
-    # 5. Próximas etapas
     print(f"""
 📋 Próximos passos:
 1. Committar arquivos ao git:
-   git add app/sitemap.xml app/sitemap-styles.xml robots.txt
-   git commit -m "feat: adiciona sitemap e robots.txt para SEO"
+   git add app/sitemap.xml scripts/GENERATE-SITEMAP.py
+   git commit -m "fix: merge style URLs into single sitemap.xml"
 
 2. Submeter ao Google Search Console:
    https://search.google.com/search-console
    → Sitemaps → Nova submissão
    → {base_url}/sitemap.xml
-   → {base_url}/sitemap-styles.xml
-
-3. Verificar indexação (após 24-48h):
-   site:{base_url} (Google)
-   site:{base_url} (Bing)
-
-4. Monitorar em GSC:
-   Coverage → Indexed pages
-   Enhancements → Rich results (FAQPage)
 """)
     
     return True
