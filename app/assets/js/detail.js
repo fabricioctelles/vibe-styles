@@ -5,6 +5,33 @@
 let currentStyle = null;
 let allStyles = [];
 
+/**
+ * parseRoute() - Extrai informações de roteamento da URL atual.
+ * Prioridade 1: Slug no pathname (ex: /minimalism-swiss-style)
+ * Prioridade 2: ID na query string (ex: ?id=1)
+ * Fallback: Nenhum identificador encontrado
+ * @returns {Object} - { type: 'slug'|'id'|'none', value: string|number|null }
+ */
+function parseRoute() {
+  const pathname = window.location.pathname;
+  const params = new URLSearchParams(window.location.search);
+
+  // Prioridade 1: Slug no pathname (ex: /minimalism-swiss-style)
+  const slugMatch = pathname.match(/^\/([a-z0-9][a-z0-9-]*)$/);
+  if (slugMatch) {
+    return { type: 'slug', value: slugMatch[1] };
+  }
+
+  // Prioridade 2: ID na query string (ex: ?id=1)
+  const id = params.get('id');
+  if (id) {
+    return { type: 'id', value: parseInt(id) };
+  }
+
+  // Nenhum identificador encontrado
+  return { type: 'none', value: null };
+}
+
 // Carregar dados do estilo
 async function loadStyleData() {
   try {
