@@ -467,6 +467,49 @@
       flex: 1;
     }
 
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 0.375rem;
+      padding: 0.5rem;
+      background: var(--color-surface-elevated);
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .tab-btn {
+      padding: 0.5rem 0.875rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: transparent;
+      border: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--color-text-primary);
+      background: var(--color-border);
+    }
+
+    .tab-btn.active {
+      color: white;
+      background: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Tab content panels */
+    .tab-panel {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
     .prompt-header {
       padding: 1.25rem;
       background: var(--color-surface-elevated);
@@ -1084,23 +1127,23 @@ ${p.regrasDeExecucao || ''}`;
           <div class="sidebar">
             <!-- Tab Navigation -->
             <div x-data="{ activeTab: 'prompt' }" class="prompt-card">
-              <div style="display: flex; gap: 0.5rem; border-bottom: 1px solid var(--color-border); margin-bottom: 1rem; padding-bottom: 0.75rem;">
-                <button @click="activeTab = 'prompt'" :class="{ 'active': activeTab === 'prompt' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'prompt' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+              <div class="tab-nav">
+                <button @click="activeTab = 'prompt'" class="tab-btn" :class="{ 'active': activeTab === 'prompt' }">
                   Prompt
                 </button>
-                <button @click="activeTab = 'history'" :class="{ 'active': activeTab === 'history' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'history' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                <button @click="activeTab = 'history'" class="tab-btn" :class="{ 'active': activeTab === 'history' }">
                   Origem
                 </button>
-                <button @click="activeTab = 'usage'" :class="{ 'active': activeTab === 'usage' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'usage' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                <button @click="activeTab = 'usage'" class="tab-btn" :class="{ 'active': activeTab === 'usage' }">
                   Uso
                 </button>
-                <button @click="activeTab = 'related'" :class="{ 'active': activeTab === 'related' }" style="padding: 0.5rem 1rem; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.875rem;" :style="activeTab === 'related' ? 'border-bottom-color: var(--color-accent); color: var(--color-accent);' : 'color: var(--color-text-secondary);'">
+                <button @click="activeTab = 'related'" class="tab-btn" :class="{ 'active': activeTab === 'related' }">
                   Similar
                 </button>
               </div>
 
               <!-- Tab: Prompt -->
-              <div x-show="activeTab === 'prompt'" style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
+              <div x-show="activeTab === 'prompt'" class="tab-panel">
                 <div class="prompt-header">
                   <h2>Prompt de IA</h2>
                   <p>Use este prompt para recriar o estilo com modelos de linguagem</p>
@@ -1128,7 +1171,7 @@ ${p.regrasDeExecucao || ''}`;
               </div>
 
               <!-- Tab: Histórico -->
-              <div x-show="activeTab === 'history'">
+              <div x-show="activeTab === 'history'" class="tab-panel">
                 <div class="prompt-header">
                   <h2>Histórico & Origem</h2>
                 </div>
@@ -1138,7 +1181,7 @@ ${p.regrasDeExecucao || ''}`;
               </div>
 
               <!-- Tab: Uso -->
-              <div x-show="activeTab === 'usage'">
+              <div x-show="activeTab === 'usage'" class="tab-panel">
                 <div class="prompt-header">
                   <h2>Quando Usar</h2>
                 </div>
@@ -1148,7 +1191,7 @@ ${p.regrasDeExecucao || ''}`;
               </div>
 
               <!-- Tab: Estilos Relacionados -->
-              <div x-show="activeTab === 'related'">
+              <div x-show="activeTab === 'related'" class="tab-panel">
                 <div class="prompt-header">
                   <h2>Estilos Similares</h2>
                   <p>Descobra estilos relacionados</p>
