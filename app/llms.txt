@@ -71,12 +71,50 @@
 
 ## URLs & Routing
 
+### Current URL Structure (Slug-Based)
+
+URLs use human-readable slugs derived from style names:
+
 | Pattern | Example | Description |
 |---------|---------|-------------|
 | `/` | `vibe.ft.ia.br/` | Main gallery page |
-| `/detail.html?id={id}` | `/detail.html?id=3` | Individual style page |
-| `/styles/{id}.html` | `/styles/3.html` | Style iframe HTML |
+| `/{slug}` | `/minimalism-swiss-style` | Individual style page |
+| `/styles/{id}.html` | `/styles/3.html` | Style iframe HTML (internal) |
 | `/data/data.json` | `/data/data.json` | Central data source |
+
+### Legacy URL Support
+
+Old URLs with query string `?id=N` still work and are automatically redirected to the slug-based URL:
+- `/detail.html?id=3` → redirects to `/{slug}`
+
+### Slug Generation Logic
+
+Slugs are generated from style names using the following rules:
+1. Convert to lowercase
+2. Remove accents/diacritics (normalize NFD + strip combining marks)
+3. Remove special characters (& / @ # , + ( ) $ ~ % . ' " : * ? < > { } @ !)
+4. Replace spaces with hyphens
+5. Collapse consecutive hyphens into a single hyphen
+6. Trim leading/trailing hyphens
+
+Function: `generateSlug(name)` in `assets/js/utils.js`
+
+### Name → Slug Mapping Examples
+
+| Style Name | Slug |
+|------------|------|
+| Minimalism & Swiss Style | `minimalism-swiss-style` |
+| Cyberpunk UI | `cyberpunk-ui` |
+| 3D & Hyperrealism | `3d-hyperrealism` |
+| Y2K Aesthetic | `y2k-aesthetic` |
+| Glassmorphism | `glassmorphism` |
+| Dark Mode OLED | `dark-mode-oled` |
+
+### Finding a Style by Slug
+
+Function: `findCardBySlug(cards, slug)` in `assets/js/utils.js`
+- Performs case-insensitive matching
+- Returns the card object or null if not found
 
 ## SEO & Discovery
 
