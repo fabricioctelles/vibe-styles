@@ -39,16 +39,32 @@ async function loadStyleData() {
     const response = await fetch('./data/data.json');
     allStyles = await response.json();
     
-    // Obter ID da URL
-    const params = new URLSearchParams(window.location.search);
-    const styleId = parseInt(params.get('id')) || 1;
+    // Detectar rota (slug ou id)
+    const route = parseRoute();
+    currentStyle = null;
     
-    // Encontrar estilo
-    currentStyle = allStyles.find(s => s.id === styleId);
+    switch (route.type) {
+      case 'slug':
+        currentStyle = findCardBySlug(allStyles, route.value);
+        break;
+      case 'id':
+        currentStyle = allStyles.find(s => s.id === route.value);
+        // Redirect para URL com slug (SEO) - Req 9.2
+        if (currentStyle) {
+          const slug = generateSlug(currentStyle.name);
+          history.replaceState(null, '', `/${slug}`);
+        }
+        break;
+      default:
+        // Nenhum identificador encontrado - Req 3.4
+        window.location.href = './';
+        return;
+    }
     
+    // Card não encontrado - Req 9.3
     if (!currentStyle) {
-      console.warn(`Estilo ${styleId} não encontrado`);
-      currentStyle = allStyles[0]; // Fallback
+      window.location.href = './';
+      return;
     }
     
     // Atualizar meta tags
