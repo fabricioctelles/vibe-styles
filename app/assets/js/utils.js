@@ -38,7 +38,7 @@ function gridApp() {
     currentPage: 0,
     loading: false,
     showMobileSearch: false,
-    featuredTypes: ['General', 'Minimalism', 'BentoStyle', 'Brutalism', 'Futuristic', 'FlatDesign', 'Artistic', 'Retro', 'Infographic'],
+    featuredTypes: ['Brasil', 'Artistic', 'BentoStyle', 'Brutalism', 'FlatDesign', 'Futuristic', 'Infographic', 'Minimalism', 'Retro'],
     showAllCategoriesModal: false,
     categorySearch: '',
 
@@ -71,7 +71,8 @@ function gridApp() {
       try {
         const response = await fetch(CONFIG.DATA_URL);
         this.allCards = await response.json();
-        this.types = [...new Set(this.allCards.map(c => c.type).filter(Boolean))].sort();
+        const allTypes = [...new Set(this.allCards.map(c => c.type).filter(Boolean))].sort();
+        this.types = ['Brasil', ...allTypes.filter(t => t !== 'Brasil')];
         this.loadMore();
         this.setupInfiniteScroll();
       } catch (err) {
