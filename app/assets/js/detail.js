@@ -165,7 +165,7 @@ function insertBreadcrumbs() {
       {
         "@type": "ListItem",
         "position": 2,
-        "@id": `https://vibe.ft.ia.br/styles/${currentStyle.id}.html`,
+        "@id": `https://vibe.ft.ia.br/${generateSlug(currentStyle.name)}`,
         "name": currentStyle.name
       }
     ]
