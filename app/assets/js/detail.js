@@ -125,7 +125,7 @@ function insertStructuredData() {
     "@type": "DesignEvaluation",
     "name": currentStyle.name,
     "description": currentStyle.metaDescription,
-    "url": `https://vibe.ft.ia.br/styles/${currentStyle.id}.html`,
+    "url": `https://vibe.ft.ia.br/${generateSlug(currentStyle.name)}`,
     "image": `https://vibe.ft.ia.br/app/screenshots/${currentStyle.id}.png`,
     "styleName": currentStyle.name,
     "styleType": currentStyle.type,
