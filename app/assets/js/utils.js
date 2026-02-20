@@ -38,6 +38,34 @@ function gridApp() {
     currentPage: 0,
     loading: false,
     showMobileSearch: false,
+    featuredTypes: ['General', 'Minimalism', 'BentoStyle', 'Brutalism', 'Futuristic', 'FlatDesign', 'Artistic', 'Retro', 'Infographic'],
+    showAllCategoriesModal: false,
+    categorySearch: '',
+
+    getCountByType(type) {
+      if (!type) return this.allCards.length;
+      return this.allCards.filter(c => c.type === type).length;
+    },
+
+    getVisibleFeaturedTypes() {
+      return this.featuredTypes.filter(t => this.types.includes(t));
+    },
+
+    getFilteredModalTypes() {
+      if (!this.categorySearch) return this.types;
+      const term = this.categorySearch.toLowerCase();
+      return this.types.filter(t => t.toLowerCase().includes(term));
+    },
+
+    openAllCategoriesModal() {
+      this.categorySearch = '';
+      this.showAllCategoriesModal = true;
+    },
+
+    selectCategoryFromModal(type) {
+      this.setType(type);
+      this.showAllCategoriesModal = false;
+    },
 
     async initGrid() {
       try {

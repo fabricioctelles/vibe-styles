@@ -44,36 +44,58 @@
 </head>
 
   <body class="font-sans antialiased" x-data="{ ...darkMode(), ...gridApp(), showFaq: false, showAbout: false }" x-init="initDarkMode(); initGrid()" :class="{ 'dark': dark }">
-  <!-- Header -->
-  <header class="header">
-    <div class="w-full px-4 sm:px-6 lg:px-8 py-4">
+  <!-- Header Premium 2026 -->
+  <header class="sticky top-0 z-50 bg-white/85 dark:bg-zinc-950/85 backdrop-blur-xl border-b border-gray-100/80 dark:border-zinc-800/80 shadow-sm transition-all duration-300">
+    <div class="w-full px-4 sm:px-6 lg:px-8 py-5">
       <div class="flex items-center justify-between gap-4">
 
-        <!-- Logo -->
+        <!-- Logo + Branding -->
         <div class="flex items-center gap-3 min-w-0">
-          <img src="assets/images/logo.png" alt="Vibe Styles" class="h-8 w-8">
-          <h1 class="text-xl font-bold hidden sm:block">Vibe Styles</h1>
+          <img src="assets/images/logo.png" alt="Vibe Styles" class="h-9 w-9 logo-glow transition-all duration-300">
+          <div class="hidden sm:block">
+            <h1 class="text-2xl font-bold tracking-tighter bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">Vibe Styles</h1>
+            <p class="font-mono text-[10px] text-gray-400 dark:text-zinc-500 -mt-0.5" x-text="`${allCards.length} vibes • 1 prompt`">256 vibes • 1 prompt</p>
+          </div>
         </div>
 
         <!-- Search (Desktop) -->
-        <div class="hidden md:flex flex-1 max-w-xs">
-          <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()" placeholder="Buscar estilos..."
-            class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-offset-0">
+        <div class="hidden md:flex flex-1 max-w-lg">
+          <div class="relative w-full">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-zinc-500 text-sm pointer-events-none">🔍</span>
+            <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()"
+              placeholder="Buscar estilo ou categoria…"
+              class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-violet-500 focus:ring-4 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all duration-200 shadow-sm placeholder:text-gray-400 dark:placeholder:text-zinc-500">
+          </div>
         </div>
 
         <!-- Right Section -->
-        <div class="header-right flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3">
           <!-- Mobile Search Button -->
           <button @click="showMobileSearch = !showMobileSearch"
-            class="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            class="md:hidden p-2.5 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-3xl transition-colors"
             :aria-label="showMobileSearch ? 'Fechar busca' : 'Abrir busca'"
             aria-controls="mobile-search">
-            <span x-text="showMobileSearch ? '✕' : '🔍'"></span>
+            <span x-text="showMobileSearch ? '✕' : '🔍'" class="text-sm"></span>
+          </button>
+
+          <!-- GitHub Star -->
+          <a href="https://github.com/fabricioctelles/vibe-styles" target="_blank"
+            class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-3xl bg-zinc-900 dark:bg-zinc-800 text-white text-sm font-medium hover:bg-zinc-800 dark:hover:bg-zinc-700 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span class="hidden lg:inline">Star</span>
+            <img src="https://img.shields.io/github/stars/fabricioctelles/vibe-styles?style=flat&label=&color=violet" alt="stars" class="h-4" loading="lazy">
+          </a>
+
+          <!-- About Creator -->
+          <button @click="showAbout = true"
+            class="p-1 rounded-full ring-2 ring-transparent hover:ring-violet-500 transition-all duration-200"
+            title="Sobre o Criador">
+            <img src="assets/images/logo-ft-ia-br.png" alt="Fabricio Telles" class="h-8 w-8 rounded-full">
           </button>
 
           <!-- FAQ Button -->
           <button @click="showFaq = true"
-            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-sm font-medium flex items-center gap-1"
+            class="p-2.5 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-3xl transition-colors text-sm font-medium flex items-center gap-1.5"
             aria-label="Perguntas frequentes">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
@@ -84,30 +106,17 @@
           </button>
 
           <!-- Dark Mode Toggle -->
-          <button @click="toggleDark()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+          <button @click="toggleDark()" class="p-2.5 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-3xl transition-colors"
             aria-label="Alternar tema">
             <svg class="toggle-icon w-5 h-5" :class="{ 'hidden': !dark }" xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24" fill="currentColor">
               <circle cx="12" cy="12" r="5" />
-              <path
-                d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" />
+              <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" />
             </svg>
             <svg class="toggle-icon w-5 h-5" :class="{ 'hidden': dark }" xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24" fill="currentColor">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
-          </button>
-
-          <!-- GitHub Stars -->
-          <a href="https://github.com/fabricioctelles/vibe-styles" target="_blank"
-            class="flex items-center gap-2 text-sm font-medium">
-            <img src="https://img.shields.io/github/stars/fabricioctelles/vibe-styles?style=flat" alt="GitHub stars"
-              class="h-5" loading="lazy">
-          </a>
-
-          <!-- About Creator Button -->
-          <button @click="showAbout = true" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" title="Sobre o Criador">
-            <img src="assets/images/logo-ft-ia-br.png" alt="Fabricio Telles" class="h-6 w-6">
           </button>
         </div>
       </div>
@@ -117,26 +126,43 @@
         x-transition
         id="mobile-search"
         class="md:hidden mt-4">
-        <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()" placeholder="Buscar estilos..."
-          class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-offset-0">
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
+          <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()"
+            placeholder="Buscar estilo ou categoria…"
+            class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-violet-500 focus:ring-4 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all duration-200 shadow-sm">
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Filter Bar -->
-  <div class="filter-bar">
-    <button @click="setType('')"
-      :class="{ 'filter-active': !activeType }"
-      class="filter-chip">
-      Todos
-    </button>
-    <template x-for="type in types" :key="type">
-      <button @click="setType(type)"
-        :class="{ 'filter-active': activeType === type }"
-        class="filter-chip"
-        x-text="type">
-      </button>
-    </template>
+  <!-- Filter Bar Híbrida -->
+  <div class="sticky top-[82px] z-40 bg-white/85 dark:bg-zinc-950/85 backdrop-blur-xl border-b border-gray-100/80 dark:border-zinc-800/80">
+    <div class="filter-bar-container">
+      <div class="flex gap-2 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 py-3">
+        <!-- Todos -->
+        <button @click="setType('')"
+          :class="activeType === '' ? 'bg-violet-600 text-white shadow-xl shadow-violet-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
+          class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap active:scale-95 transition-all duration-200">
+          <span x-text="`Todos (${allCards.length})`">Todos</span>
+        </button>
+
+        <!-- Featured Types -->
+        <template x-for="type in getVisibleFeaturedTypes()" :key="type">
+          <button @click="setType(type)"
+            :class="activeType === type ? 'bg-violet-600 text-white shadow-xl shadow-violet-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
+            class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap active:scale-95 transition-all duration-200"
+            x-text="`${type} (${getCountByType(type)})`">
+          </button>
+        </template>
+
+        <!-- + Todas as categorias -->
+        <button @click="openAllCategoriesModal()"
+          class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap border-2 border-dashed border-violet-300 dark:border-violet-700 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 hover:bg-violet-100 dark:hover:bg-violet-900/30 hover:shadow-md active:scale-95 transition-all duration-200">
+          <span x-text="`+ Todas as categorias (${types.length})`"></span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Main Content -->
@@ -404,6 +430,63 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- All Categories Modal -->
+  <div x-show="showAllCategoriesModal" x-cloak
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4"
+    @keydown.escape.window="showAllCategoriesModal = false">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showAllCategoriesModal = false"></div>
+    <!-- Modal -->
+    <div x-show="showAllCategoriesModal"
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0 scale-95"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-95"
+      class="relative w-full max-w-2xl max-h-[85vh] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden z-10"
+      role="dialog" aria-modal="true" aria-labelledby="categories-title">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-700">
+        <h2 id="categories-title" class="text-lg font-bold">Escolha uma vibe</h2>
+        <div class="flex items-center gap-3">
+          <button @click="setType(''); showAllCategoriesModal = false"
+            class="text-xs font-semibold text-violet-600 dark:text-violet-400 hover:underline">
+            Limpar filtro
+          </button>
+          <button @click="showAllCategoriesModal = false" class="p-1 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors" aria-label="Fechar">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- Search -->
+      <div class="px-6 py-3 border-b border-gray-100 dark:border-zinc-800">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
+          <input type="text" x-model="categorySearch"
+            placeholder="Filtrar categorias…"
+            class="w-full pl-9 pr-4 py-2.5 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-transparent focus:border-violet-500 focus:ring-2 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all">
+        </div>
+      </div>
+      <!-- Grid -->
+      <div class="px-6 py-4 overflow-y-auto max-h-[calc(85vh-160px)]">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          <template x-for="type in getFilteredModalTypes()" :key="type">
+            <button @click="selectCategoryFromModal(type)"
+              class="category-card flex flex-col items-start gap-1 p-4 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-violet-400 dark:hover:border-violet-600 text-left"
+              :class="activeType === type ? 'bg-violet-50 dark:bg-violet-950/40 border-violet-400 dark:border-violet-600 ring-2 ring-violet-200 dark:ring-violet-800' : 'bg-white dark:bg-zinc-800/50'">
+              <span class="text-sm font-semibold text-gray-800 dark:text-zinc-200" x-text="type"></span>
+              <span class="text-xs text-gray-400 dark:text-zinc-500" x-text="`${getCountByType(type)} estilos`"></span>
+            </button>
+          </template>
+        </div>
+        <p x-show="getFilteredModalTypes().length === 0" class="text-center text-sm text-gray-400 dark:text-zinc-500 py-8">
+          Nenhuma categoria encontrada.
+        </p>
       </div>
     </div>
   </div>
