@@ -124,3 +124,17 @@ function generateSlug(name) {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 }
+
+/**
+ * findCardBySlug(cards, slug) - Busca um card pelo slug no array de cards.
+ * Realiza busca case-insensitive comparando o slug gerado de cada card.name.
+ * @param {Array} cards - Array de cards do data.json
+ * @param {string} slug - Slug a buscar (ex: "minimalism-swiss-style")
+ * @returns {Object|null} - Card encontrado ou null
+ */
+function findCardBySlug(cards, slug) {
+  if (!Array.isArray(cards) || !slug || typeof slug !== 'string') return null;
+
+  const normalizedSlug = slug.toLowerCase();
+  return cards.find(card => generateSlug(card.name) === normalizedSlug) || null;
+}
