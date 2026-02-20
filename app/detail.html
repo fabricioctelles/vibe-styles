@@ -785,19 +785,37 @@
   
   async loadCards() {
     try {
-      const params = new URLSearchParams(window.location.search);
-      this.currentId = parseInt(params.get('id'));
-      
-      if (!this.currentId) {
-        console.error('ID não fornecido');
-        return;
-      }
-      
       const response = await fetch('data/data.json');
       this.cards = await response.json();
       
-      // Encontrar card atual
-      this.card = this.cards.find(c => c.id == this.currentId);
+      // Detect route type (slug or id)
+      const route = parseRoute();
+      
+      switch (route.type) {
+        case 'slug':
+          this.card = findCardBySlug(this.cards, route.value);
+          if (this.card) {
+            this.currentId = this.card.id;
+          }
+          break;
+        case 'id':
+          this.currentId = route.value;
+          this.card = this.cards.find(c => c.id === this.currentId);
+          // Redirect old URL to slug format (SEO)
+          if (this.card) {
+            const slug = generateSlug(this.card.name);
+            history.replaceState(null, '', `/${slug}`);
+          }
+          break;
+        default:
+          console.error('No route identifier found');
+          return;
+      }
+      
+      if (!this.card) {
+        console.error('Card not found for route:', route);
+        return;
+      }
       
       if (this.card) {
         document.title = `${this.card.name} - Vibe Styles`;
