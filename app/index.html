@@ -28,7 +28,7 @@
   <meta name="twitter:image:alt" content="Vibe Styles - 256 estilos de UI/UX com prompts para IA generativa">
 
   <!-- Additional -->
-  <meta name="theme-color" content="#8B5CF6">
+  <meta name="theme-color" content="#14B8A6">
   <link rel="apple-touch-icon" href="assets/images/logo.png">
 
   <title>Vibe Styles - Galeria Interativa de Estilos de Design</title>
@@ -53,7 +53,7 @@
         <div class="flex items-center gap-3 min-w-0">
           <img src="assets/images/logo.png" alt="Vibe Styles" class="h-9 w-9 logo-glow transition-all duration-300">
           <div class="hidden sm:block">
-            <h1 class="text-2xl font-bold tracking-tighter bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">Vibe Styles</h1>
+            <h1 class="text-2xl font-bold tracking-tighter bg-gradient-to-r from-teal-600 to-emerald-400 bg-clip-text text-transparent">Vibe Styles</h1>
             <p class="font-mono text-[10px] text-gray-400 dark:text-zinc-500 -mt-0.5">Biblioteca de Estilos UI/UX</p>
           </div>
         </div>
@@ -64,7 +64,7 @@
             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-zinc-500 text-sm pointer-events-none">🔍</span>
             <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()"
               placeholder="Buscar estilo ou categoria…"
-              class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-violet-500 focus:ring-4 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all duration-200 shadow-sm placeholder:text-gray-400 dark:placeholder:text-zinc-500">
+              class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-teal-500 focus:ring-4 focus:ring-teal-100/50 dark:focus:ring-teal-900/30 text-sm transition-all duration-200 shadow-sm placeholder:text-gray-400 dark:placeholder:text-zinc-500">
           </div>
         </div>
 
@@ -88,9 +88,13 @@
 
           <!-- About Creator -->
           <button @click="showAbout = true"
-            class="p-1 rounded-full ring-2 ring-transparent hover:ring-violet-500 transition-all duration-200"
-            title="Sobre o Criador">
-            <img src="assets/images/logo-ft-ia-br.png" alt="Fabricio Telles" class="h-8 w-8 rounded-full">
+            class="p-2.5 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-3xl transition-colors"
+            title="Sobre o Autor"
+            aria-label="Sobre o Autor">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
           </button>
 
           <!-- FAQ Button -->
@@ -130,7 +134,7 @@
           <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
           <input type="text" x-model="search" @input.debounce.300ms="resetAndLoad()"
             placeholder="Buscar estilo ou categoria…"
-            class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-violet-500 focus:ring-4 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all duration-200 shadow-sm">
+            class="w-full pl-10 pr-5 py-3.5 rounded-3xl bg-white dark:bg-zinc-900 border border-transparent focus:border-teal-500 focus:ring-4 focus:ring-teal-100/50 dark:focus:ring-teal-900/30 text-sm transition-all duration-200 shadow-sm">
         </div>
       </div>
     </div>
@@ -142,7 +146,7 @@
       <div class="flex gap-2 overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 py-3">
         <!-- Todos -->
         <button @click="setType('')"
-          :class="activeType === '' ? 'bg-violet-600 text-white shadow-xl shadow-violet-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
+          :class="activeType === '' ? 'bg-teal-600 text-white shadow-xl shadow-teal-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
           class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap active:scale-95 transition-all duration-200">
           <span x-text="`Todos (${allCards.length})`">Todos</span>
         </button>
@@ -150,7 +154,7 @@
         <!-- Featured Types -->
         <template x-for="type in getVisibleFeaturedTypes()" :key="type">
           <button @click="setType(type)"
-            :class="activeType === type ? 'bg-violet-600 text-white shadow-xl shadow-violet-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
+            :class="activeType === type ? 'bg-teal-600 text-white shadow-xl shadow-teal-500/30 scale-105' : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700 hover:shadow-md'"
             class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap active:scale-95 transition-all duration-200"
             x-text="`${type} (${getCountByType(type)})`">
           </button>
@@ -158,7 +162,7 @@
 
         <!-- + Todas as categorias -->
         <button @click="openAllCategoriesModal()"
-          class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap border-2 border-dashed border-violet-300 dark:border-violet-700 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 hover:bg-violet-100 dark:hover:bg-violet-900/30 hover:shadow-md active:scale-95 transition-all duration-200">
+          class="px-6 py-3 text-sm font-semibold rounded-3xl whitespace-nowrap border-2 border-dashed border-teal-300 dark:border-teal-700 text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/30 hover:bg-teal-100 dark:hover:bg-teal-900/30 hover:shadow-md active:scale-95 transition-all duration-200">
           <span x-text="`+ Todas as categorias (${types.length})`"></span>
         </button>
       </div>
@@ -235,10 +239,10 @@
           <p class="text-sm text-gray-500 dark:text-gray-400">Criador de Vibe Styles</p>
         </div>
         <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-          Engenheiro Frontend e Designer apaixonado por design systems e IA generativa. Com mais de 8 anos criando interfaces modernas, acredito que bom design deve ser acessível para todos — sem código.
+          Gestor Executixo e apaixonado por Tecnologia e IA Generativa. Adoro aprender e esse projeto é mais um degrau na minha escada de evolução.
         </p>
         <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-          Vibe Styles nasceu dessa vontade: ajudar designers, developers e criadores a pular direto para implementação, sem paralisia por análise de design. 256 estilos. 0 burocracias.
+          Vibe Styles nasceu dessa como um laboratório mas acredito que no fim vai ajudar designers, developers e criadores a pular direto para implementação, sem paralisia por análise de design. Vem trocar uma idéia!
         </p>
         <div class="flex flex-col gap-2 pt-2">
           <a href="https://github.com/fabricioctelles" target="_blank" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline flex items-center justify-center gap-2">
@@ -455,7 +459,7 @@
         <h2 id="categories-title" class="text-lg font-bold">Escolha uma vibe</h2>
         <div class="flex items-center gap-3">
           <button @click="setType(''); showAllCategoriesModal = false"
-            class="text-xs font-semibold text-violet-600 dark:text-violet-400 hover:underline">
+            class="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline">
             Limpar filtro
           </button>
           <button @click="showAllCategoriesModal = false" class="p-1 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors" aria-label="Fechar">
@@ -469,7 +473,7 @@
           <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
           <input type="text" x-model="categorySearch"
             placeholder="Filtrar categorias…"
-            class="w-full pl-9 pr-4 py-2.5 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-transparent focus:border-violet-500 focus:ring-2 focus:ring-violet-100/50 dark:focus:ring-violet-900/30 text-sm transition-all">
+            class="w-full pl-9 pr-4 py-2.5 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-transparent focus:border-teal-500 focus:ring-2 focus:ring-teal-100/50 dark:focus:ring-teal-900/30 text-sm transition-all">
         </div>
       </div>
       <!-- Grid -->
@@ -477,8 +481,8 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           <template x-for="type in getFilteredModalTypes()" :key="type">
             <button @click="selectCategoryFromModal(type)"
-              class="category-card flex flex-col items-start gap-1 p-4 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-violet-400 dark:hover:border-violet-600 text-left"
-              :class="activeType === type ? 'bg-violet-50 dark:bg-violet-950/40 border-violet-400 dark:border-violet-600 ring-2 ring-violet-200 dark:ring-violet-800' : 'bg-white dark:bg-zinc-800/50'">
+              class="category-card flex flex-col items-start gap-1 p-4 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-teal-400 dark:hover:border-teal-600 text-left"
+              :class="activeType === type ? 'bg-teal-50 dark:bg-teal-950/40 border-teal-400 dark:border-teal-600 ring-2 ring-teal-200 dark:ring-teal-800' : 'bg-white dark:bg-zinc-800/50'">
               <span class="text-sm font-semibold text-gray-800 dark:text-zinc-200" x-text="type"></span>
               <span class="text-xs text-gray-400 dark:text-zinc-500" x-text="`${getCountByType(type)} estilos`"></span>
             </button>
