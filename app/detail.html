@@ -297,7 +297,6 @@
       gap: 2rem;
       align-items: stretch;
       flex: 1;
-      height: 100%;
       min-height: 0;
       overflow: hidden;
     }
@@ -307,7 +306,6 @@
       flex-direction: column;
       min-height: 0;
       overflow: hidden;
-      height: 100%;
     }
 
     .iframe-column {
@@ -1102,10 +1100,21 @@ ${p.regrasDeExecucao || ''}`;
               </div>
 
               <!-- Tab: Prompt -->
-              <div x-show="activeTab === 'prompt'">
+              <div x-show="activeTab === 'prompt'" style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
                 <div class="prompt-header">
                   <h2>Prompt de IA</h2>
                   <p>Use este prompt para recriar o estilo com modelos de linguagem</p>
+                </div>
+
+                <div class="prompt-actions" style="border-top: none; border-bottom: 1px solid var(--color-border);">
+                  <button @click="copyPrompt()" :class="{ 'copied': copied }" class="btn btn-primary btn-copy"
+                    style="width: 100%;">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span x-text="copied ? '✓ Copiado!' : 'Copiar Prompt Completo'"></span>
+                  </button>
                 </div>
 
                 <div class="prompt-content">
@@ -1115,17 +1124,6 @@ ${p.regrasDeExecucao || ''}`;
                     <h3>Descrição</h3>
                     <p x-text="card.prompt?.aiPromptKeywords || 'Design moderno e inovador para interfaces web.'"></p>
                   </div>
-                </div>
-
-                <div class="prompt-actions">
-                  <button @click="copyPrompt()" :class="{ 'copied': copied }" class="btn btn-primary btn-copy"
-                    style="width: 100%;">
-                    <svg class="icon icon-sm" viewBox="0 0 24 24">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                    </svg>
-                    <span x-text="copied ? '✓ Copiado!' : 'Copiar Prompt Completo'"></span>
-                  </button>
                 </div>
               </div>
 
