@@ -68,7 +68,7 @@ A intenção é ser simples e direto: ajudar você a escolher o estilo certo par
 - **Prompts prontos** — Copie e cole em qualquer IA generativa para replicar o estilo
 - **Código real** — Cada estilo é uma implementação funcional, não apenas um mockup
 - **Zero dependências** — HTML estático + Tailwind CDN + Alpine.js + Google Fonts. Sem build, sem compilação
-- **SEO-friendly** — URLs com slugs semânticos, Schema Markup JSON-LD, Open Graph, sitemap
+- **SEO-friendly** — URLs com slugs semânticos, Schema Markup JSON-LD, Open Graph, sitemap, NGINX otimizado para Coolify
 
 ---
 
@@ -77,12 +77,12 @@ A intenção é ser simples e direto: ajudar você a escolher o estilo certo par
 ### Estrutura de Projeto
 
 ```
-vibe-styles-v2/
+vibe-styles/
 ├── app/
 │   ├── index.html                    # Página principal (grid + header sticky + infinite scroll)
-│   ├── detail.html                   # Página de detalhe (70% iframe + 30% prompt)
+│   ├── detail.html                   # Página de detalhe (70% iframe + 30% prompt com abas)
 │   ├── data/
-│   │   └── styles.json               # JSON centralizado com todos os 256 estilos
+│   │   └── data.json                 # JSON centralizado com todos os 256 estilos
 │   ├── styles/
 │   │   ├── 1.html                    # Iframes dos designs (um por estilo)
 │   │   ├── 2.html
@@ -95,14 +95,20 @@ vibe-styles-v2/
 │   │   │   └── animations.css        # Animações customizadas
 │   │   └── js/
 │   │       ├── config.js             # Configurações globais
-│   │       └── utils.js              # Helpers (slugify, dark mode, etc)
+│   │       ├── utils.js              # Helpers (generateSlug, findCardBySlug, dark mode)
+│   │       └── detail.js             # Roteamento por slug (parseRoute, loadStyleData)
 │   ├── screenshots/                  # Diretório de imagens dos estilos
 │   │   ├── 1.png                     # Dark Mode (OLED)
 │   │   ├── 2.png
 │   │   └── [id].png                  # Uma imagem por estilo
 │   ├── llms.txt                      # Metadados para IA
-│   ├── sitemap.xml                   # Sitemap para SEO
+│   ├── sitemap.xml                   # Sitemap para SEO (URLs com slug)
 │   └── robots.txt                    # Controle de crawlers
+├── nginx.conf                        # Configuração NGINX para Coolify (rewrite de slugs)
+├── scripts/
+│   ├── dev-server.py                 # Servidor local com rewrite de slugs
+│   ├── generate_html.py              # Gerador automatizado de HTMLs via LLM
+│   └── GENERATE-SITEMAP.py           # Gerador de sitemap com slugs
 └── docs/
     └── plans/
         └── 2026-02-18-ui-styles-collection-design.md
@@ -113,7 +119,7 @@ vibe-styles-v2/
 | Página | Função | Características |
 |--------|--------|------------------|
 | **index.html** | Catálogo visual | Grid responsivo 4/3/2/1 cols, cards em estilo poster, header sticky, infinite scroll (16 cards/carga) |
-| **detail.html** | Visualização detalhada | Layout 70/30 (iframe + prompt), responsivo mobile, roteamento via query string (`?id=[id]`) |
+| **detail.html** | Visualização detalhada | Layout 70/30 (iframe + prompt), responsivo mobile, roteamento por slug (`/{slug}`) com fallback `?id=` |
 
 ### Fluxo de Dados
 
@@ -136,11 +142,12 @@ Images src: app/screenshots/[id].png
 ### Roteamento
 
 - **Home**: `index.html` — Grid de todos os 256 estilos
-- **Detalhe**: `detail.html?id=[id]` — Estilo específico com iframe + prompt
+- **Detalhe**: `/{slug}` — Estilo específico com iframe + prompt (ex: `/glassmorphism`)
+- **Fallback**: `detail.html?id=[id]` — Compatibilidade retroativa, redireciona para slug via `history.replaceState`
 - **Iframes**: `app/styles/[id].html` — Demonstração visual do estilo
-- **Dados**: `app/data/styles.json` — Fonte única de verdade
+- **Dados**: `app/data/data.json` — Fonte única de verdade
 
-**Sem History API** — Roteamento simples via query strings e links diretos
+**Roteamento por slug** — URLs amigáveis geradas dinamicamente a partir do nome do estilo. NGINX reescreve `/{slug}` para `detail.html`, onde o JavaScript resolve o slug via `parseRoute()` + `findCardBySlug()`. URLs antigas com `?id=` continuam funcionando com redirect transparente.
 
 ---
 
@@ -265,41 +272,44 @@ observer.observe(sentinel);
 ### Desktop (70/30 Layout - Full Height)
 
 ```
-┌─────────────────────────────────────────────┐
-│ Vibe Styles › Glassmorphism                 │ ← Breadcrumb
-├───────────────────────────────────────────────┤
-│ Nome: Glassmorphism                         │ ← Metadata
-│ Tipo: Visual Effect | Era: 2022+ | #F5F5F7  │    (flexível)
-├───────────────────────────────────────────┬─┤
-│                                           │ │
-│   Iframe (70%)                            │P│
-│   app/styles/[id].html                    │r│
-│   (full responsivo demonstração)          │o│
-│                                           │m│
-│                                           │p│
-│                                           │t│
-│   com:                                    ││
-│   - Scroll responsivo                     │(│
-│   - Sem navbar                            │3│
-│   - Full viewport                         │0│
-│                                           │%│
-│                                           │)│
-│                                           ││
-│   [Copy Prompt] ← Topo direito            │ │
-│                                           │ │
-│                                           │ │
-└───────────────────────────────────────────┴─┘
-Footer: Copyright © 2024 + Logo ft.ia.br (20px)
+┌──────────────────────────────────────────────────────┐
+│ ← Prev Style        Home        Next Style →         │ Header nav
+├──────────────────────────────────────────────────────┤
+│ Vibe Styles / Glassmorphism                          │ Breadcrumb
+│ Glassmorphism   [General] [frosted] [blur] [2022+]   │ Título + tags
+├──────────────────────────────────┬───────────────────┤
+│                                  │ [Prompt][Origem]  │ Abas pill-style
+│   Iframe (70%)                   │ [Uso]  [Similar]  │ (ativa = roxo)
+│   app/styles/[id].html           │─────────────────  │
+│                                  │ Prompt de IA      │ Header da aba
+│                                  │─────────────────  │
+│                                  │ [📋 Copiar]       │ Botão no topo
+│                                  │─────────────────  │
+│                                  │ ## INSTRUÇÃO...   │
+│                                  │ Atue como um...   │ Conteúdo com
+│   [Abrir em nova aba]            │ (scroll)          │ scroll
+└──────────────────────────────────┴───────────────────┘
+Footer: © 2026 FABRICIO TELLES · FT.IA.BR
 ```
+
+### Abas do Painel Direito
+
+| Aba | Conteúdo |
+|-----|----------|
+| **Prompt** | Botão "Copiar Prompt Completo" no topo + prompt copiável com scroll + descrição |
+| **Origem** | Histórico e contexto de origem do estilo |
+| **Uso** | Casos de uso recomendados |
+| **Similar** | Estilos relacionados com links de navegação por slug |
+
+As abas usam estilo pill com destaque em `--color-accent` (roxo) na aba ativa. Todo o conteúdo das abas tem scroll independente.
 
 ### Mobile (Responsive Full-Width)
 
 ```
 ┌─────────────────────────────────────────────┐
-│ ← Vibe Styles › Glassmorphism               │ ← Back link
+│ ← Vibe Styles › Glassmorphism               │
 ├─────────────────────────────────────────────┤
 │ Iframe 100% Width, Full Height              │
-│ (Sem painel de prompt — mobile-focused)     │
 │                                             │
 │ [📋 Copy Prompt] (Floating bottom-right)    │
 │                                             │
@@ -307,10 +317,11 @@ Footer: Copyright © 2024 + Logo ft.ia.br (20px)
 ```
 
 **Comportamento:**
-- Em desktop: layout lado-a-lado 70/30
+- Em desktop: layout lado-a-lado 70/30 com abas pill-style no painel direito
 - Em mobile: iframe fullscreen, prompt em floating button
-- Metadata do estilo em header enriquecido
-- Botão "Copiar Prompt" com feedback visual ("✅ Copiado!" por 2 segundos)
+- Navegação prev/next e related styles usam URLs com slug
+- Botão "Copiar Prompt" com feedback visual ("✓ Copiado!" por 2 segundos)
+- Meta tags SEO (canonical, og:url, Schema JSON-LD, breadcrumbs) usam URLs com slug
 
 ---
 
@@ -435,15 +446,16 @@ O prompt traz especificações completas (cores, tipografia, layout, componentes
 git clone https://github.com/fabricioctelles/vibe-styles.git
 cd vibe-styles
 
-# Sirva os arquivos estáticos (qualquer servidor HTTP funciona)
+# Opção 1: Servidor simples (sem suporte a slugs na URL)
 python3 -m http.server 8000 --directory app
-# ou
-npx serve app
-# ou
-php -S localhost:8000 -t app
+# Acesse http://localhost:8000 — navegação funciona, mas URLs de slug retornam 404
+
+# Opção 2: Dev server com rewrite de slugs (recomendado)
+python3 scripts/dev-server.py 8001
+# Acesse http://localhost:8001 — URLs como /glassmorphism funcionam corretamente
 ```
 
-Acesse `http://localhost:8000` no navegador.
+O dev server (`scripts/dev-server.py`) simula o comportamento do NGINX, reescrevendo URLs de slug para `detail.html`.
 
 ---
 
@@ -838,7 +850,7 @@ Estilos temáticos com identidade visual forte:
 
 | # | Estilo | Slug |
 |---|--------|------|
-| 140 | Underwater Aquático | `underwater-aquatico` |
+| 140 | Underwater Aquático Deep Sea | `underwater-aquatico-deep-sea` |
 | 141 | SaaS Enterprise Analytics | `saas-enterprise-analytics` |
 | 142 | HealthTech Plataforma Clínica | `healthtech-plataforma-clinica` |
 | 143 | FinTech Plataforma Financeira | `fintech-plataforma-financeira` |
@@ -893,7 +905,7 @@ Estilos inspirados em períodos históricos:
 | 163 | Gatsby Art Deco Noir | `gatsby-art-deco-noir` |
 | 164 | Belle Époque Lithograph | `belle-epoque-lithograph` |
 | 165 | Rococo Romantic Narrative | `rococo-romantic-narrative` |
-| 166 | Vintage Botanical Scientific | `vintage-botanical-scientific` |
+| 166 | Vintage Botanical Scientific Illustration | `vintage-botanical-scientific-illustration` |
 
 ### 🟣 Fantasy (1 estilos)
 
@@ -1067,17 +1079,36 @@ O projeto utiliza URLs semânticas com slugs SEO-friendly:
 
 | Padrão | Exemplo | Descrição |
 |--------|---------|-----------|
-| `/` | `vibe.ft.ia.br/` | Página principal (showcase) |
-| `/styles/{slug}` | `/styles/glassmorphism` | Visualização de um estilo específico |
+| `/` | `vibe.ft.ia.br/` | Página principal (galeria) |
+| `/{slug}` | `vibe.ft.ia.br/glassmorphism` | Página de detalhe do estilo |
+| `/detail.html?id=N` | `/detail.html?id=3` | Fallback retroativo (redireciona para slug) |
+| `/styles/{id}.html` | `/styles/3.html` | Iframe de demonstração do estilo |
 | `/data/data.json` | `/data/data.json` | Base de dados JSON com todos os estilos e prompts |
 | `/llms.txt` | `/llms.txt` | Metadados para crawlers de IA |
 | `/sitemap.xml` | `/sitemap.xml` | Sitemap XML para motores de busca |
 
-Os slugs são gerados automaticamente a partir do nome do estilo:
+Os slugs são gerados dinamicamente pela função `generateSlug()` em `utils.js`:
 - Acentos são transliterados para ASCII (`ê` → `e`)
 - Caracteres especiais são removidos (`&`, `/`, `()`)
-- Espaços viram hifens (`Dark Mode (OLED)` → `dark-mode-oled`)
-- URLs numéricas antigas (`/styles/3.html`) redirecionam via 301 para o slug correspondente
+- Espaços viram hífens (`Dark Mode (OLED)` → `dark-mode-oled`)
+- URLs antigas (`detail.html?id=3`) redirecionam transparentemente para o slug via `history.replaceState`
+
+### Roteamento NGINX (Coolify)
+
+O arquivo `nginx.conf` na raiz do projeto configura o roteamento para deploy no Coolify:
+- `/{slug}` → serve `detail.html` (JavaScript resolve o slug)
+- `/styles/*.html` → serve arquivos estáticos dos iframes
+- Assets com cache longo (1 ano) e gzip habilitado
+
+### Servidor de Desenvolvimento Local
+
+Para testar slugs localmente (sem NGINX), use o dev server com rewrite:
+
+```bash
+python3 scripts/dev-server.py 8001
+```
+
+Acesse `http://localhost:8001/glassmorphism` — o servidor reescreve URLs de slug para `detail.html`.
 
 ---
 
@@ -1125,9 +1156,9 @@ Resumo rápido:
 vibe-styles/
 ├── app/
 │   ├── index.html                  # Home: grid + header sticky + infinite scroll
-│   ├── detail.html                 # Detail: layout 70/30 iframe+prompt responsivo
+│   ├── detail.html                 # Detail: layout 70/30 iframe+prompt com abas pill-style
 │   ├── data/
-│   │   └── styles.json             # Centralizado: 256 estilos + prompts estruturados
+│   │   └── data.json               # Centralizado: 256 estilos + prompts estruturados
 │   ├── styles/
 │   │   ├── 1.html → 256.html       # Iframes dos designs (um por estilo)
 │   ├── screenshots/
@@ -1135,13 +1166,18 @@ vibe-styles/
 │   ├── assets/
 │   │   ├── images/                 # Logos e recursos gráficos
 │   │   ├── css/animations.css      # Animações customizadas
-│   │   └── js/utils.js             # Helpers (dark mode, slugify, etc)
+│   │   └── js/
+│   │       ├── config.js           # Configurações globais
+│   │       ├── utils.js            # Helpers (generateSlug, findCardBySlug, dark mode)
+│   │       └── detail.js           # Roteamento por slug (parseRoute, loadStyleData)
 │   ├── llms.txt                    # Metadados para crawlers de IA
-│   ├── sitemap.xml                 # Sitemap XML para SEO
+│   ├── sitemap.xml                 # Sitemap XML com URLs de slug
 │   └── robots.txt                  # Controle de crawlers
+├── nginx.conf                      # Configuração NGINX para Coolify
 ├── scripts/
+│   ├── dev-server.py               # Servidor local com rewrite de slugs
 │   ├── generate_html.py            # Gerador automatizado de HTMLs via LLM
-│   └── migrate-to-json.py          # Migração de prompts .txt para JSON
+│   └── GENERATE-SITEMAP.py         # Gerador de sitemap com slugs
 ├── docs/
 │   └── plans/
 │       └── 2026-02-18-ui-styles-collection-design.md
@@ -1157,7 +1193,7 @@ vibe-styles/
 | HTML5 | Estrutura semântica com Alpine.js directives |
 | Tailwind CSS (CDN) | Estilização utilitária responsiva |
 | Alpine.js | Reatividade declarativa (v3.x, ~15KB) |
-| JavaScript vanilla | Utils customizadas (slugify, localStorage persistence) |
+| JavaScript vanilla | Utils customizadas (generateSlug, findCardBySlug, parseRoute, localStorage persistence) |
 | Google Fonts | Tipografia (Inter) |
 | JSON | Base de dados centralizada de estilos e prompts |
 
@@ -1203,9 +1239,10 @@ Cada landing page de demonstração segue o padrão:
 
 ## 🗓 Changelog
 
+- **Fevereiro 2026** — URLs com slug semântico (`/glassmorphism` em vez de `?id=3`). Configuração NGINX para Coolify. Dev server local com rewrite de slugs. Abas pill-style no painel de prompt (Prompt, Origem, Uso, Similar) com scroll independente. Botão "Copiar Prompt" movido para o topo do box. Correção de colisões de slug (IDs 140 e 166 renomeados). Atualização de sitemap, llms.txt e meta tags SEO para URLs com slug.
 - **Fevereiro 2026** — Expansão para 256 estilos em 25 categorias. Adição de novas categorias especializadas (Minimalism, Brutalism, Constructivism, SwissStyle, EditorialStyle, HandDrawn, FlatDesign, BentoStyle) e estilos brasileiros temáticos. Migração completa para `data.json`. Atualização de `sitemap.xml` e `llms.txt`.
 - **Fevereiro 2026** — Migração dos prompts de arquivos `.txt` individuais para `data.json` centralizado. Novo `DataLoader` no `index.html`. Adição de 90 novos estilos (Tech-Inspired, Thematic, Technical, Futuristic, Pop Culture, Historical, Artistic). Script `generate_html.py` para geração automatizada via LLM.
-- **Fevereiro 2026** — Lançamento inicial com 98 estilos, 4 categorias, roteamento por slugs, SEO completo, integração com IA
+- **Fevereiro 2026** — Lançamento inicial com 98 estilos, 4 categorias, SEO completo, integração com IA
 
 ---
 
