@@ -70,6 +70,8 @@ Inserir um novo objeto no array JSON, antes do `]` final. O ID deve ser sequenci
 | `relatedStyleIds` | Array com 5 IDs de estilos relacionados |
 | `metaDescription` | Descrição SEO em PT-BR |
 
+Se o contexto não contiver todos os campos, gere dados para os campos baseado no que você recebeu. É importante que todos os campos estejam preenchidos.
+
 ### Validação
 
 Após inserir, validar o JSON:
@@ -211,15 +213,6 @@ O slug é gerado automaticamente pela função `generateSlug()` em `app/assets/j
 
 ---
 
-## Passo 6: Commit
-
-```bash
-git add app/data/data.json app/styles/{id}.html app/screenshots/{id}.png app/sitemap.xml app/llms.txt app/llm.project.txt app/llm.categories.txt app/llm.version.txt
-git commit -m "feat: adiciona estilo #{id} {Nome do Estilo} - {descrição breve}"
-```
-
----
-
 ## Checklist Final
 
 - [ ] Registro adicionado em `app/data/data.json` com ID sequencial
@@ -231,4 +224,4 @@ git commit -m "feat: adiciona estilo #{id} {Nome do Estilo} - {descrição breve
 - [ ] `app/llm.project.txt` atualizado (todas as contagens)
 - [ ] `app/llm.categories.txt` atualizado (total + contagem da categoria)
 - [ ] `app/llm.version.txt` atualizado (data)
-- [ ] Commit realizado
+
