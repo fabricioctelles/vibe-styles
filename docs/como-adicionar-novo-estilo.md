@@ -84,44 +84,12 @@ python3 -c "import json; data = json.load(open('app/data/data.json')); print(f'T
 
 ## Passo 2: Criar HTML em `app/styles/{id}.html`
 
-### Estrutura obrigatória do HTML
+- Chame o máximo de agentes em paralelo possível
+- Rode a função "buildPrompt" do app/detail.html e gere um arquivo em /tmp/[id].txt
+- Entregue o /tmp/[id].txt como contexto para cada agente gerar o html em app/styles
+- Essa é uma tarefa agêntica, não tente executá-la em lote usando scripts, cada agente deve executar cada um dos novos prompts
+- Limpe /tmp/[id].txt após cada execução
 
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{Nome do Estilo} — {Tipo} Template | Vibe Styles</title>
-  <link rel="canonical" href="https://vibe.ft.ia.br/styles/{id}.html">
-  <meta name="description" content="{metaDescription do data.json}">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fonts e CDNs específicos do estilo -->
-  <style>
-    /* Estilos customizados do estilo */
-  </style>
-</head>
-<body>
-  <!-- Seções obrigatórias: -->
-  <!-- 1. Hero Section -->
-  <!-- 2. Features (3 cards) -->
-  <!-- 3. Testimonials (3 cards) -->
-  <!-- 4. Pricing (3 tiers) -->
-  <!-- 5. CTA Final -->
-  <!-- 6. Footer (copyright 2026, links, redes sociais) -->
-</body>
-</html>
-```
-
-### Regras do HTML
-
-- Todo texto em PT-BR
-- Ícones SVG inline (Heroicons/Lucide) ou Iconify — nunca emojis
-- `cursor-pointer` em todos os elementos interativos
-- Hover states com `transition-all`
-- Responsivo (mobile/tablet/desktop)
-- Visual claramente distinto do Bootstrap padrão
-- Tailwind via CDN + `<style>` para efeitos complexos
 
 ---
 
@@ -217,7 +185,7 @@ O slug é gerado automaticamente pela função `generateSlug()` em `app/assets/j
 
 - [ ] Registro adicionado em `app/data/data.json` com ID sequencial
 - [ ] JSON válido (testar com python3)
-- [ ] HTML criado em `app/styles/{id}.html` com todas as seções obrigatórias
+- [ ] HTML criado em `app/styles/{id}.html` com agentes em paralelo executando prompts de /tmp
 - [ ] Screenshot gerado em `app/screenshots/{id}.png` (1280x720)
 - [ ] Slug adicionado ao `app/sitemap.xml`
 - [ ] `app/llms.txt` atualizado (total, range de IDs)
