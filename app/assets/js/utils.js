@@ -38,7 +38,18 @@ function gridApp() {
     currentPage: 0,
     loading: false,
     showMobileSearch: false,
-    featuredTypes: ['Brasil', 'Artistic', 'BentoStyle', 'Brutalism', 'FlatDesign', 'Futuristic', 'Infographic', 'Minimalism', 'Retro'],
+    featuredTypes: [
+      'Brasil',
+      'Minimalismo & Swiss',
+      'Flat & Soft UI',
+      'Futurista & Tech',
+      'Retro & Pop',
+      'Brutalismo',
+      'Arte & Ilustracao',
+      'Editorial & Tipografia',
+      'Dados & Infografico',
+      'Temas & Verticais'
+    ],
     showAllCategoriesModal: false,
     categorySearch: '',
 
