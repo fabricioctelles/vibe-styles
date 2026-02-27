@@ -3,756 +3,924 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modernismo Jornalístico Brasileiro — news Template | Vibe Styles</title>
-  <link rel="canonical" href="https://vibe.ft.ia.br/styles/238.html">
-    <meta name="description" content="Modernismo Jornalístico Brasileiro — Design general com news, culture, events. Template e prompt pronto para IA.">
-    <meta property="og:title" content="Cultura BR - Notícias Culturais Brasileiras">
-    <meta property="og:description" content="Acompanhe as notícias e eventos culturais mais importantes do Brasil">
+    <meta name="description" content="VisualCraft — Plataforma de Design Visual inspirada no modernismo brasileiro. Crie, colabore e publique projetos visuais com ferramentas poderosas e intuitivas.">
+    <meta name="keywords" content="design visual, plataforma criativa, modernismo brasileiro, azulejaria, cultura, design gráfico">
+    <meta name="author" content="VisualCraft">
+    <meta property="og:title" content="VisualCraft — Plataforma de Design Visual">
+    <meta property="og:description" content="Crie projetos visuais impactantes com a plataforma inspirada no modernismo e na cultura brasileira.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://visualcraft.com.br">
+    <meta property="og:image" content="https://visualcraft.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>VisualCraft — Plataforma de Design Visual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Merriweather:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'earth-red': '#A52A2A',
+                        'sky-blue': '#87CEEB',
+                        'gold': '#FFD700',
+                        'forest': '#228B22',
+                        'burnt-orange': '#CC5500',
+                        'dark-gray': '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
             --white-bg: #FFFFFF;
             --black-text: #000000;
             --earth-red: #A52A2A;
             --sky-blue: #87CEEB;
-            --gold-yellow: #FFD700;
-            --forest-green: #228B22;
-            --burnt-orange: #CC5500;
-            --dark-gray: #333333;
             --border-subtle: 1px solid #E0E0E0;
             --shadow-accent: 2px 2px 0px #A52A2A;
             --font-sans: 'Roboto', sans-serif;
             --font-serif: 'Merriweather', serif;
-            --font-display: 'Oswald', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-sans);
-            background: var(--white-bg);
             color: var(--black-text);
+            background: var(--white-bg);
+            margin: 0;
             overflow-x: hidden;
         }
 
-        /* Tile Block Grid */
-        .tile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 0;
-            border: 1px solid var(--black-text);
-        }
-
+        /* Tile Block System */
         .tile-block {
-            background: var(--white-bg);
             border: 1px solid #E0E0E0;
-            padding: 2rem;
-            position: relative;
+            box-shadow: 2px 2px 0px #A52A2A;
             transition: all 0.4s ease-in-out;
-            cursor: pointer;
-        }
-
-        .tile-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--earth-red);
-            transition: all 0.4s ease-in-out;
-        }
-
-        .tile-block:hover::before {
-            height: 100%;
+            background: #FFFFFF;
         }
 
         .tile-block:hover {
-            box-shadow: var(--shadow-accent);
-            transform: translate(-2px, -2px);
-            border-color: var(--earth-red);
-        }
-
-        /* Content Reveal Transition */
-        .content-reveal {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .content-reveal::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--sky-blue);
-            opacity: 0;
-            transition: all 0.4s ease-in-out;
-            z-index: 0;
-        }
-
-        .content-reveal:hover::after {
-            opacity: 0.1;
-        }
-
-        .content-reveal > * {
-            position: relative;
-            z-index: 1;
+            box-shadow: 6px 6px 0px #A52A2A;
+            border-color: #A52A2A;
+            transform: translateY(-4px);
         }
 
         /* Cultural Event Card */
-        .event-card {
-            background: var(--white-bg);
-            border: 2px solid var(--black-text);
-            position: relative;
+        .cultural-event-card {
+            border: 1px solid #E0E0E0;
+            box-shadow: 2px 2px 0px #87CEEB;
             transition: all 0.4s ease-in-out;
-            overflow: hidden;
+            background: #FFFFFF;
         }
 
-        .event-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--earth-red), var(--sky-blue));
+        .cultural-event-card:hover {
+            box-shadow: 6px 6px 0px #87CEEB;
+            border-color: #87CEEB;
+            transform: translateY(-4px);
+        }
+
+        /* Content Reveal Transition */
+        .content-reveal-transition {
             opacity: 0;
-            transition: all 0.4s ease-in-out;
-            z-index: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .event-card:hover::before {
-            opacity: 0.05;
+        .content-reveal-transition.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .event-card:hover {
-            box-shadow: 4px 4px 0px var(--earth-red);
-            transform: translate(-2px, -2px);
+        /* Azulejo Pattern Background */
+        .azulejo-pattern {
+            background-image:
+                linear-gradient(45deg, rgba(165,42,42,0.04) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(135,206,235,0.04) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(165,42,42,0.04) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(135,206,235,0.04) 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
         }
 
-        /* Typography Styles */
-        .headline-serif {
-            font-family: var(--font-serif);
-            font-weight: 900;
-            line-height: 1.1;
+        /* Grid Mosaic */
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
-        .headline-display {
-            font-family: var(--font-display);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.95);
+            border-bottom: 2px solid #A52A2A;
         }
 
-        .body-sans {
-            font-family: var(--font-sans);
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
 
-        /* Navigation */
         .nav-link {
             position: relative;
-            font-weight: 700;
-            color: var(--black-text);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -4px;
             left: 0;
             width: 0;
-            height: 3px;
-            background: var(--earth-red);
-            transition: all 0.4s ease-in-out;
+            height: 2px;
+            background: #A52A2A;
+            transition: width 0.3s ease;
         }
 
         .nav-link:hover::after {
             width: 100%;
         }
 
-        /* Buttons */
-        .btn-primary {
-            background: var(--earth-red);
-            color: white;
-            padding: 1rem 2.5rem;
-            font-weight: 700;
-            border: 2px solid var(--earth-red);
-            cursor: pointer;
-            transition: all 0.4s ease-in-out;
-            text-decoration: none;
-            display: inline-block;
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .nav-link:hover {
+            color: #A52A2A;
         }
 
-        .btn-primary:hover {
-            background: var(--white-bg);
-            color: var(--earth-red);
-            box-shadow: 4px 4px 0px var(--earth-red);
-            transform: translate(-2px, -2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--black-text);
-            padding: 1rem 2.5rem;
-            font-weight: 700;
-            border: 2px solid var(--black-text);
-            cursor: pointer;
-            transition: all 0.4s ease-in-out;
-            text-decoration: none;
-            display: inline-block;
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .btn-secondary:hover {
-            background: var(--black-text);
-            color: var(--white-bg);
-            box-shadow: 4px 4px 0px var(--sky-blue);
-            transform: translate(-2px, -2px);
-        }
-
-        /* Feature Card */
-        .feature-card {
-            background: var(--white-bg);
-            border: 2px solid #E0E0E0;
-            padding: 2.5rem;
-            transition: all 0.4s ease-in-out;
-            position: relative;
-        }
-
-        .feature-card::after {
-            content: '';
+        /* Hero Geometric Decoration */
+        .hero-geo-left {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            width: 12px;
-            height: 12px;
-            background: var(--gold-yellow);
-            transition: all 0.4s ease-in-out;
+            top: 10%;
+            left: -60px;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(165,42,42,0.15);
+            transform: rotate(45deg);
+            z-index: 0;
         }
 
-        .feature-card:hover {
-            border-color: var(--earth-red);
-            box-shadow: 3px 3px 0px var(--earth-red);
-        }
-
-        .feature-card:hover::after {
-            background: var(--forest-green);
-            transform: scale(1.5);
-        }
-
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--earth-red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: all 0.4s ease-in-out;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: var(--sky-blue);
-        }
-
-        /* Testimonial Card */
-        .testimonial-card {
-            background: var(--white-bg);
-            border: 2px solid #E0E0E0;
-            padding: 2rem;
-            position: relative;
-            transition: all 0.4s ease-in-out;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            font-family: var(--font-serif);
-            font-size: 4rem;
-            color: var(--earth-red);
-            opacity: 0.2;
+        .hero-geo-right {
             position: absolute;
-            top: 1rem;
-            left: 1.5rem;
-            line-height: 1;
+            bottom: 5%;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            border: 3px solid rgba(135,206,235,0.2);
+            border-radius: 50%;
+            z-index: 0;
         }
 
-        .testimonial-card:hover {
-            border-color: var(--sky-blue);
-            box-shadow: 3px 3px 0px var(--sky-blue);
-        }
-
-        /* Pricing */
-        .pricing-card {
-            background: var(--white-bg);
-            border: 2px solid #E0E0E0;
-            padding: 3rem 2rem;
-            transition: all 0.4s ease-in-out;
+        /* Pricing Popular Badge */
+        .pricing-popular {
+            border: 2px solid #A52A2A;
+            box-shadow: 4px 4px 0px #A52A2A;
             position: relative;
         }
 
-        .pricing-card.featured {
-            border: 3px solid var(--earth-red);
-            background: linear-gradient(135deg, rgba(165, 42, 42, 0.02), rgba(135, 206, 235, 0.02));
-        }
-
-        .pricing-card.featured::before {
-            content: 'MAIS POPULAR';
+        .pricing-popular::before {
+            content: 'POPULAR';
             position: absolute;
             top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--earth-red);
-            color: white;
-            padding: 0.4rem 1.2rem;
-            font-family: var(--font-display);
-            font-size: 0.75rem;
+            background: #A52A2A;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 2px;
+            padding: 4px 20px;
         }
 
-        .pricing-card:hover {
-            border-color: var(--earth-red);
-            box-shadow: 4px 4px 0px var(--earth-red);
-            transform: translate(-2px, -2px);
+        /* CTA Pulse */
+        .cta-pulse {
+            animation: pulse-border 2s infinite;
         }
 
-        .price-amount {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            color: var(--earth-red);
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(165,42,42,0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(165,42,42,0); }
+        }
+
+        /* Decorative Divider */
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #A52A2A 0%, #87CEEB 50%, #FFD700 100%);
+            border: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Button Base */
+        .btn-primary {
+            background: #A52A2A;
+            color: #FFFFFF;
+            border: 2px solid #A52A2A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: #FFFFFF;
+            color: #A52A2A;
+            box-shadow: 4px 4px 0px #A52A2A;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #A52A2A;
+            border: 2px solid #A52A2A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+            font-weight: 700;
+        }
+
+        .btn-secondary:hover {
+            background: #A52A2A;
+            color: #FFFFFF;
+            box-shadow: 4px 4px 0px #333333;
+        }
+
+        /* Testimonial Quote */
+        .testimonial-quote {
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            color: rgba(165,42,42,0.12);
+            position: absolute;
+            top: -20px;
+            left: 10px;
             line-height: 1;
-            font-weight: 700;
         }
 
-        /* Hero Geometric Element */
-        .hero-accent {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.15;
-            z-index: 0;
+        /* Footer Pattern */
+        .footer-pattern {
+            background: #000000;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(165,42,42,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(135,206,235,0.06) 0%, transparent 50%);
         }
 
-        .hero-accent .shape {
-            position: absolute;
-            border: 3px solid var(--earth-red);
+        /* Scroll Indicator */
+        .scroll-indicator {
+            animation: bounce-down 1.5s infinite;
         }
 
-        .hero-accent .shape-1 {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            animation: rotateSquare 40s linear infinite;
-        }
-
-        .hero-accent .shape-2 {
-            width: 70%;
-            height: 70%;
-            top: 15%;
-            left: 15%;
-            border-radius: 50%;
-            border-color: var(--sky-blue);
-            animation: rotateSquare 30s linear infinite reverse;
-        }
-
-        .hero-accent .shape-3 {
-            width: 40%;
-            height: 40%;
-            top: 30%;
-            left: 30%;
-            border-radius: 4px;
-            border-color: var(--gold-yellow);
-            animation: rotateSquare 20s linear infinite;
-        }
-
-        @keyframes rotateSquare {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Footer */
-        .footer-link {
-            color: var(--black-text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.4s ease-in-out;
-            opacity: 0.8;
-            border-bottom: 1px solid transparent;
-        }
-
-        .footer-link:hover {
-            opacity: 1;
-            border-bottom-color: var(--earth-red);
-        }
-
-        .social-icon {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--black-text);
-            transition: all 0.4s ease-in-out;
-        }
-
-        .social-icon:hover {
-            background: var(--earth-red);
-            transform: translateY(-2px);
-            box-shadow: 2px 2px 0px var(--sky-blue);
-        }
-
-        /* News Badge */
-        .news-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: var(--earth-red);
-            color: white;
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-accent {
-                width: 200px;
-                height: 200px;
-                right: -50px;
-            }
-
-            .tile-grid {
-                grid-template-columns: 1fr;
-            }
+        @keyframes bounce-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="bg-white border-b-2 border-black sticky top-0 z-50">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar fixed top-0 left-0 w-full z-50" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-[#A52A2A] flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h6a1 1 0 100-2h-6z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="headline-display text-xl">CULTURA BR</span>
-                        <p class="text-xs text-gray-500 font-medium">Notícias Culturais</p>
-                    </div>
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="14" height="14" fill="#A52A2A" rx="2"/>
+                        <rect x="20" y="2" width="14" height="14" fill="#87CEEB" rx="2"/>
+                        <rect x="2" y="20" width="14" height="14" fill="#FFD700" rx="2"/>
+                        <rect x="20" y="20" width="14" height="14" fill="#228B22" rx="2"/>
+                    </svg>
+                    <span class="font-serif text-xl font-bold tracking-tight text-black">Visual<span class="text-earth-red">Craft</span></span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="nav-link text-sm font-medium text-dark-gray">Recursos</a>
+                    <a href="#testimonials" class="nav-link text-sm font-medium text-dark-gray">Depoimentos</a>
+                    <a href="#pricing" class="nav-link text-sm font-medium text-dark-gray">Planos</a>
+                    <a href="#cta" class="nav-link text-sm font-medium text-dark-gray">Contato</a>
+                    <a href="#cta" class="btn-primary px-5 py-2 text-sm rounded">Começar Agora</a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-1">
-                    <a href="#noticias" class="nav-link">Notícias</a>
-                    <a href="#eventos" class="nav-link">Eventos</a>
-                    <a href="#agenda" class="nav-link">Agenda</a>
-                    <a href="#planos" class="nav-link">Assinar</a>
-                </div>
+                <!-- Mobile Hamburger -->
+                <button class="md:hidden cursor-pointer p-2" id="menuToggle" aria-label="Abrir menu de navegação">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
 
-                <div class="flex items-center space-x-3">
-                    <a href="#" class="nav-link hidden sm:block">Entrar</a>
-                    <a href="#" class="btn-primary text-sm">ASSINE</a>
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden" id="mobileMenu">
+                <div class="flex flex-col gap-4 py-4 border-t border-gray-200">
+                    <a href="#features" class="nav-link text-sm font-medium text-dark-gray px-2 py-1">Recursos</a>
+                    <a href="#testimonials" class="nav-link text-sm font-medium text-dark-gray px-2 py-1">Depoimentos</a>
+                    <a href="#pricing" class="nav-link text-sm font-medium text-dark-gray px-2 py-1">Planos</a>
+                    <a href="#cta" class="nav-link text-sm font-medium text-dark-gray px-2 py-1">Contato</a>
+                    <a href="#cta" class="btn-primary px-5 py-2 text-sm rounded text-center">Começar Agora</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-[650px] flex items-center overflow-hidden">
-        <div class="hero-accent">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="news-badge">EM DESTAQUE</span>
-                    <h1 class="headline-display text-5xl lg:text-6xl mb-6 leading-tight">
-                        Cultura Brasileira<br>
-                        <span class="text-[#A52A2A]">Em Movimento</span>
+    <!-- ========== HERO ========== -->
+    <section class="relative min-h-screen flex items-center azulejo-pattern pt-16 overflow-hidden">
+        <div class="hero-geo-left"></div>
+        <div class="hero-geo-right"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="content-reveal-transition">
+                    <div class="inline-flex items-center gap-2 bg-sky-blue/10 border border-sky-blue/30 rounded-full px-4 py-1.5 mb-6">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#87CEEB" stroke-width="2"/><path d="M7 4v3l2 2" stroke="#87CEEB" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        <span class="text-xs font-medium text-dark-gray tracking-wide">ERA 2026+ — CULTURA EM MOVIMENTO</span>
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Design Visual<br>
+                        <span class="text-earth-red">que Conta</span><br>
+                        <span class="text-sky-blue">Histórias</span>
                     </h1>
-                    <p class="body-sans text-xl text-gray-700 mb-8 leading-relaxed">
-                        Acompanhe as notícias, eventos e entrevistas mais importantes da cena cultural brasileira. Arte, música, teatro, cinema e muito mais.
+                    <p class="font-sans text-lg text-dark-gray leading-relaxed mb-8 max-w-lg">
+                        A plataforma criativa inspirada no modernismo brasileiro. Crie layouts impactantes, colabore em tempo real e publique projetos visuais que celebram a cultura.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn-primary">Ler Matérias</a>
-                        <a href="#" class="btn-secondary">Ver Agenda</a>
+                        <a href="#cta" class="btn-primary px-8 py-3 rounded text-base inline-flex items-center gap-2">
+                            Experimente Grátis
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M10 5l3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </a>
+                        <a href="#features" class="btn-secondary px-8 py-3 rounded text-base inline-flex items-center gap-2">
+                            Conheça os Recursos
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-6 mt-10">
+                        <div class="text-center">
+                            <span class="font-serif text-2xl font-bold text-earth-red">12k+</span>
+                            <p class="text-xs text-dark-gray mt-1">Criadores</p>
+                        </div>
+                        <div class="w-px h-10 bg-gray-300"></div>
+                        <div class="text-center">
+                            <span class="font-serif text-2xl font-bold text-sky-blue">50k+</span>
+                            <p class="text-xs text-dark-gray mt-1">Projetos</p>
+                        </div>
+                        <div class="w-px h-10 bg-gray-300"></div>
+                        <div class="text-center">
+                            <span class="font-serif text-2xl font-bold text-forest">98%</span>
+                            <p class="text-xs text-dark-gray mt-1">Satisfação</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tile-grid shadow-2xl">
-                    <div class="tile-block content-reveal">
-                        <span class="text-xs font-bold text-[#A52A2A] uppercase tracking-wider">Teatro</span>
-                        <h3 class="headline-serif text-lg mt-2 mb-2">Nova Peça de Guarniere</h3>
-                        <p class="text-sm text-gray-600">Estreia em São Paulo</p>
+                <!-- Right Visual — Azulejo Mosaic -->
+                <div class="content-reveal-transition hidden lg:block">
+                    <div class="grid grid-cols-3 grid-rows-3 gap-3 max-w-md ml-auto">
+                        <div class="tile-block rounded-lg p-6 col-span-2 row-span-2 flex flex-col justify-end" style="background: linear-gradient(135deg, #A52A2A 0%, #CC5500 100%); min-height: 240px;">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="18" height="18" rx="3" stroke="#FFFFFF" stroke-width="2"/><rect x="26" y="4" width="18" height="18" rx="3" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/><rect x="4" y="26" width="18" height="18" rx="3" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/><rect x="26" y="26" width="18" height="18" rx="3" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/></svg>
+                            <p class="text-white font-serif text-lg font-bold mt-4">Layouts em Grid</p>
+                            <p class="text-white/70 text-sm mt-1">Inspirados na azulejaria</p>
+                        </div>
+                        <div class="tile-block rounded-lg p-4 flex items-center justify-center" style="background: #87CEEB;">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#FFFFFF" stroke-width="2"/><path d="M12 16l3 3 5-6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="tile-block rounded-lg p-4 flex items-center justify-center" style="background: #FFD700;">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3.5 7 7.5 1-5.5 5.3 1.3 7.7L16 21.5 9.2 25l1.3-7.7L5 12l7.5-1L16 4z" stroke="#333333" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="tile-block rounded-lg p-4 col-span-2 flex items-center gap-3" style="background: #228B22;">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3C8 3 3 8 3 14s5 11 11 11 11-5 11-11S20 3 14 3z" stroke="#FFFFFF" stroke-width="2"/><path d="M9 14l3 3 7-7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-white font-sans text-sm font-medium">Colaboração em Tempo Real</span>
+                        </div>
+                        <div class="tile-block rounded-lg p-4 flex items-center justify-center" style="background: #333333;">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 20l6-6 4 4 6-8 4 4" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
                     </div>
-                    <div class="tile-block content-reveal" style="background: #F5F5F5;">
-                        <span class="text-xs font-bold text-[#87CEEB] uppercase tracking-wider">Música</span>
-                        <h3 class="headline-serif text-lg mt-2 mb-2">Festival de Verão</h3>
-                        <p class="text-sm text-gray-600">Confira a programação</p>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M7 14l5 5 5-5" stroke="#A52A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features" class="py-20 lg:py-28 azulejo-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 content-reveal-transition">
+                <span class="inline-block font-sans text-xs font-bold tracking-[0.2em] uppercase text-earth-red border border-earth-red/30 rounded-full px-4 py-1.5 mb-4">Recursos</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                    Ferramentas que <span class="text-earth-red">Inspiram</span>
+                </h2>
+                <p class="font-sans text-dark-gray text-lg max-w-2xl mx-auto leading-relaxed">
+                    Cada recurso foi pensado para unir a tradição visual brasileira com a tecnologia mais avançada de design colaborativo.
+                </p>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div class="mosaic-grid">
+                <!-- Feature 1 -->
+                <div class="tile-block rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="w-14 h-14 rounded-lg bg-earth-red/10 flex items-center justify-center mb-6">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <rect x="3" y="3" width="9" height="9" rx="2" stroke="#A52A2A" stroke-width="2"/>
+                            <rect x="16" y="3" width="9" height="9" rx="2" stroke="#A52A2A" stroke-width="2"/>
+                            <rect x="3" y="16" width="9" height="9" rx="2" stroke="#A52A2A" stroke-width="2"/>
+                            <rect x="16" y="16" width="9" height="9" rx="2" stroke="#A52A2A" stroke-width="2"/>
+                        </svg>
                     </div>
-                    <div class="tile-block content-reveal">
-                        <span class="text-xs font-bold text-[#FFD700] uppercase tracking-wider">Cinema</span>
-                        <h3 class="headline-serif text-lg mt-2 mb-2">Kleber Mendonça</h3>
-                        <p class="text-sm text-gray-600">Novo projeto anunciado</p>
+                    <h3 class="font-serif text-xl font-bold mb-3">Layouts em Azulejo</h3>
+                    <p class="font-sans text-dark-gray text-sm leading-relaxed mb-4">
+                        Crie composições visuais com blocos modulares inspirados nos painéis de azulejos do modernismo brasileiro. Arraste, redimensione e combine livremente.
+                    </p>
+                    <div class="flex items-center gap-2 text-earth-red font-sans text-sm font-medium cursor-pointer group">
+                        <span>Saiba mais</span>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="transition-transform group-hover:translate-x-1"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
-                    <div class="tile-block content-reveal" style="background: #F5F5F5;">
-                        <span class="text-xs font-bold text-[#228B22] uppercase tracking-wider">Arte</span>
-                        <h3 class="headline-serif text-lg mt-2 mb-2">Exposição MAM</h3>
-                        <p class="text-sm text-gray-600">Modernismo Revisitado</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="tile-block rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="w-14 h-14 rounded-lg bg-sky-blue/15 flex items-center justify-center mb-6">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <circle cx="10" cy="10" r="4" stroke="#87CEEB" stroke-width="2"/>
+                            <circle cx="18" cy="10" r="4" stroke="#87CEEB" stroke-width="2" opacity="0.6"/>
+                            <circle cx="14" cy="18" r="4" stroke="#87CEEB" stroke-width="2" opacity="0.8"/>
+                            <path d="M10 14v0M18 14v0M14 10v0" stroke="#87CEEB" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3">Colaboração Cultural</h3>
+                    <p class="font-sans text-dark-gray text-sm leading-relaxed mb-4">
+                        Trabalhe em equipe com edição simultânea, comentários contextuais e versionamento inteligente. Cada contribuição enriquece o projeto coletivo.
+                    </p>
+                    <div class="flex items-center gap-2 text-sky-blue font-sans text-sm font-medium cursor-pointer group">
+                        <span>Saiba mais</span>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="transition-transform group-hover:translate-x-1"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="tile-block rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="w-14 h-14 rounded-lg bg-gold/15 flex items-center justify-center mb-6">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <path d="M14 3v22M3 14h22" stroke="#CC5500" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M7 7l14 14M21 7L7 21" stroke="#CC5500" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                            <circle cx="14" cy="14" r="4" stroke="#CC5500" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3">Tipografia Expressiva</h3>
+                    <p class="font-sans text-dark-gray text-sm leading-relaxed mb-4">
+                        Combine fontes serifadas e sans-serif com controle total de hierarquia. Acesse uma biblioteca curada de tipografias que dialogam com a estética brasileira.
+                    </p>
+                    <div class="flex items-center gap-2 text-burnt-orange font-sans text-sm font-medium cursor-pointer group">
+                        <span>Saiba mais</span>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="transition-transform group-hover:translate-x-1"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="noticias" class="py-20 bg-gray-50">
+    <hr class="section-divider">
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section id="testimonials" class="py-20 lg:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="news-badge">NOSSO CONTEÚDO</span>
-                <h2 class="headline-display text-4xl lg:text-5xl mt-4 mb-4">Notícias Culturais</h2>
-                <p class="body-sans text-xl text-gray-600 max-w-2xl mx-auto">Cobertura completa do cenário cultural brasileiro</p>
+            <!-- Section Header -->
+            <div class="text-center mb-16 content-reveal-transition">
+                <span class="inline-block font-sans text-xs font-bold tracking-[0.2em] uppercase text-sky-blue border border-sky-blue/30 rounded-full px-4 py-1.5 mb-4">Depoimentos</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                    Vozes da <span class="text-sky-blue">Comunidade</span>
+                </h2>
+                <p class="font-sans text-dark-gray text-lg max-w-2xl mx-auto leading-relaxed">
+                    Criadores de todo o Brasil compartilham suas experiências com a plataforma VisualCraft.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                        </svg>
+            <!-- Testimonial Cards -->
+            <div class="mosaic-grid">
+                <!-- Testimonial 1 -->
+                <div class="cultural-event-card rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="testimonial-quote">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                        </div>
+                        <p class="font-serif text-base text-dark-gray leading-relaxed mb-6 italic">
+                            "A VisualCraft transformou a forma como nossa agência cria materiais culturais. Os layouts em azulejo são únicos e nossos clientes adoram a identidade visual brasileira."
+                        </p>
                     </div>
-                    <h3 class="headline-display text-xl mb-3">Jornalismo Cultural</h3>
-                    <p class="body-sans text-gray-600 leading-relaxed">Matérias aprofundadas sobre artes visuais, performing arts, música e muito mais.</p>
+                    <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-earth-red flex items-center justify-center">
+                            <span class="text-white font-sans font-bold text-sm">MC</span>
+                        </div>
+                        <div>
+                            <p class="font-sans text-sm font-bold">Marina Costa</p>
+                            <p class="font-sans text-xs text-dark-gray">Diretora Criativa — Estúdio Tropicália</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
+                <!-- Testimonial 2 -->
+                <div class="cultural-event-card rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="testimonial-quote">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                        </div>
+                        <p class="font-serif text-base text-dark-gray leading-relaxed mb-6 italic">
+                            "Como designer independente, precisava de uma ferramenta que respeitasse a estética brasileira. A VisualCraft entrega isso com uma experiência fluida e colaborativa."
+                        </p>
                     </div>
-                    <h3 class="headline-display text-xl mb-3">Agenda Completa</h3>
-                    <p class="body-sans text-gray-600 leading-relaxed">Calendário atualizado com eventos, exposições, shows e estreias em todo o Brasil.</p>
+                    <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-blue flex items-center justify-center">
+                            <span class="text-white font-sans font-bold text-sm">RS</span>
+                        </div>
+                        <div>
+                            <p class="font-sans text-sm font-bold">Rafael Santos</p>
+                            <p class="font-sans text-xs text-dark-gray">Designer Gráfico — Freelancer</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                        </svg>
+                <!-- Testimonial 3 -->
+                <div class="cultural-event-card rounded-lg p-8 content-reveal-transition cursor-pointer">
+                    <div class="testimonial-quote">
+                        <div class="flex items-center gap-1 mb-4">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFD700"><path d="M8 1l2.2 4.4 4.8.7-3.5 3.4.8 4.8L8 12l-4.3 2.3.8-4.8L1 6.1l4.8-.7L8 1z"/></svg>
+                        </div>
+                        <p class="font-serif text-base text-dark-gray leading-relaxed mb-6 italic">
+                            "Usamos a VisualCraft para criar toda a identidade visual do nosso festival. A tipografia expressiva e os grids modulares deram vida ao projeto de forma incrível."
+                        </p>
                     </div>
-                    <h3 class="headline-display text-xl mb-3">Entrevistas Exclusivas</h3>
-                    <p class="body-sans text-gray-600 leading-relaxed">Conversas com artistas, curadores e produtores que fazem a cultura brasileira.</p>
+                    <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-forest flex items-center justify-center">
+                            <span class="text-white font-sans font-bold text-sm">AL</span>
+                        </div>
+                        <div>
+                            <p class="font-sans text-sm font-bold">Ana Luíza Ferreira</p>
+                            <p class="font-sans text-xs text-dark-gray">Produtora Cultural — Festival Raízes</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20">
+    <hr class="section-divider">
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing" class="py-20 lg:py-28 azulejo-pattern">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="news-badge">DEPOIMENTOS</span>
-                <h2 class="headline-display text-4xl lg:text-5xl mt-4 mb-4">O Que Dizem</h2>
-                <p class="body-sans text-xl text-gray-600">Leitores e parceiros</p>
+            <!-- Section Header -->
+            <div class="text-center mb-16 content-reveal-transition">
+                <span class="inline-block font-sans text-xs font-bold tracking-[0.2em] uppercase text-forest border border-forest/30 rounded-full px-4 py-1.5 mb-4">Planos</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                    Escolha seu <span class="text-earth-red">Plano</span>
+                </h2>
+                <p class="font-sans text-dark-gray text-lg max-w-2xl mx-auto leading-relaxed">
+                    Do criador independente à grande equipe, temos o plano ideal para dar vida aos seus projetos visuais.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="testimonial-card">
-                    <p class="headline-serif text-lg text-gray-700 mb-6 relative z-10 leading-relaxed">"O Cultura BR é minha fonte principal de notícias culturais. A cobertura é exemplar."</p>
-                    <div class="flex items-center">
-                        <div class="w-14 h-14 rounded-full bg-[#A52A2A] flex items-center justify-center text-white font-bold mr-4 headline-display text-lg">PL</div>
-                        <div>
-                            <p class="font-bold">Paulo Lima</p>
-                            <p class="text-sm text-gray-500">Crítico de Arte</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="headline-serif text-lg text-gray-700 mb-6 relative z-10 leading-relaxed">"Finalmente um portal que valoriza a diversidade cultural brasileira com seriedade."</p>
-                    <div class="flex items-center">
-                        <div class="w-14 h-14 rounded-full bg-[#87CEEB] flex items-center justify-center text-white font-bold mr-4 headline-display text-lg">MF</div>
-                        <div>
-                            <p class="font-bold">Mariana Ferreira</p>
-                            <p class="text-sm text-gray-500">Produtora Cultural</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="headline-serif text-lg text-gray-700 mb-6 relative z-10 leading-relaxed">"A agenda cultural é indispensável para meu trabalho. Não perco uma edição."</p>
-                    <div class="flex items-center">
-                        <div class="w-14 h-14 rounded-full bg-[#FFD700] flex items-center justify-center text-white font-bold mr-4 headline-display text-lg">RS</div>
-                        <div>
-                            <p class="font-bold">Roberto Santos</p>
-                            <p class="text-sm text-gray-500">Gestor Cultural</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="planos" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="news-badge">ASSINATURAS</span>
-                <h2 class="headline-display text-4xl lg:text-5xl mt-4 mb-4">Escolha Seu Plano</h2>
-                <p class="body-sans text-xl text-gray-600">Acesso completo à cultura brasileira</p>
-            </div>
-
+            <!-- Pricing Cards -->
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="pricing-card">
-                    <h3 class="headline-display text-2xl mb-2">Básico</h3>
-                    <p class="text-gray-500 mb-6 body-sans">Para começar</p>
+                <!-- Tier 1: Essencial -->
+                <div class="tile-block rounded-lg p-8 content-reveal-transition flex flex-col">
                     <div class="mb-6">
-                        <span class="price-amount">R$0</span>
-                        <span class="text-gray-500">/mês</span>
+                        <h3 class="font-serif text-xl font-bold mb-1">Essencial</h3>
+                        <p class="font-sans text-sm text-dark-gray">Para criadores independentes</p>
                     </div>
-                    <ul class="space-y-3 mb-8 body-sans">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>5 matérias/mês</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Agenda limitada</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Newsletter semanal</li>
+                    <div class="mb-6">
+                        <span class="font-serif text-4xl font-bold">R$0</span>
+                        <span class="font-sans text-sm text-dark-gray">/mês</span>
+                    </div>
+                    <ul class="flex flex-col gap-3 mb-8 flex-grow">
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">3 projetos ativos</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Templates básicos de azulejo</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Exportação em PNG e JPG</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Biblioteca de fontes curada</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn-secondary w-full text-center block">Começar</a>
+                    <a href="#cta" class="btn-secondary w-full py-3 rounded text-center text-sm">Começar Grátis</a>
                 </div>
 
-                <div class="pricing-card featured">
-                    <h3 class="headline-display text-2xl mb-2">Premium</h3>
-                    <p class="text-gray-500 mb-6 body-sans">Acesso completo</p>
+                <!-- Tier 2: Profissional (Popular) -->
+                <div class="pricing-popular rounded-lg p-8 content-reveal-transition flex flex-col bg-white">
                     <div class="mb-6">
-                        <span class="price-amount">R$29</span>
-                        <span class="text-gray-500">/mês</span>
+                        <h3 class="font-serif text-xl font-bold mb-1">Profissional</h3>
+                        <p class="font-sans text-sm text-dark-gray">Para equipes criativas</p>
                     </div>
-                    <ul class="space-y-3 mb-8 body-sans">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Matérias ilimitadas</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Agenda completa</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Entrevistas exclusivas</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Arquivo completo</li>
+                    <div class="mb-6">
+                        <span class="font-serif text-4xl font-bold text-earth-red">R$79</span>
+                        <span class="font-sans text-sm text-dark-gray">/mês</span>
+                    </div>
+                    <ul class="flex flex-col gap-3 mb-8 flex-grow">
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" fill="#A52A2A"/><path d="M6 9l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Projetos ilimitados</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" fill="#A52A2A"/><path d="M6 9l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Todos os templates premium</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" fill="#A52A2A"/><path d="M6 9l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Colaboração em tempo real</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" fill="#A52A2A"/><path d="M6 9l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Exportação em SVG e PDF</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" fill="#A52A2A"/><path d="M6 9l2 2 4-4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Suporte prioritário</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn-primary w-full text-center block">ASSINAR AGORA</a>
+                    <a href="#cta" class="btn-primary w-full py-3 rounded text-center text-sm">Assinar Agora</a>
                 </div>
 
-                <div class="pricing-card">
-                    <h3 class="headline-display text-2xl mb-2">Institucional</h3>
-                    <p class="text-gray-500 mb-6 body-sans">Para empresas</p>
+                <!-- Tier 3: Corporativo -->
+                <div class="tile-block rounded-lg p-8 content-reveal-transition flex flex-col">
                     <div class="mb-6">
-                        <span class="price-amount">R$99</span>
-                        <span class="text-gray-500">/mês</span>
+                        <h3 class="font-serif text-xl font-bold mb-1">Corporativo</h3>
+                        <p class="font-sans text-sm text-dark-gray">Para grandes organizações</p>
                     </div>
-                    <ul class="space-y-3 mb-8 body-sans">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tudo do Premium</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Até 20 usuários</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Relatórios personalizados</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-[#228B22] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Suporte dedicado</li>
+                    <div class="mb-6">
+                        <span class="font-serif text-4xl font-bold">R$249</span>
+                        <span class="font-sans text-sm text-dark-gray">/mês</span>
+                    </div>
+                    <ul class="flex flex-col gap-3 mb-8 flex-grow">
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Tudo do Profissional</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">SSO e controle de acesso</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">API de integração</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">Gerente de conta dedicado</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 flex-shrink-0"><circle cx="9" cy="9" r="8" stroke="#228B22" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#228B22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-sans text-sm text-dark-gray">SLA garantido de 99,9%</span>
+                        </li>
                     </ul>
-                    <a href="#" class="btn-secondary w-full text-center block">Falar com Vendas</a>
+                    <a href="#cta" class="btn-secondary w-full py-3 rounded text-center text-sm">Falar com Vendas</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="headline-display text-4xl lg:text-5xl mb-6">A Cultura Brasileira<br>Espera por Você</h2>
-            <p class="body-sans text-xl text-gray-600 mb-8 leading-relaxed">Junte-se a milhares de leitores que acompanham o melhor da cultura brasileira</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#" class="btn-primary">ASSINAR AGORA</a>
-                <a href="#" class="btn-secondary">Conhecer Mais</a>
+    <hr class="section-divider">
+
+    <!-- ========== CTA FINAL ========== -->
+    <section id="cta" class="py-20 lg:py-28 bg-black relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-earth-red via-sky-blue to-gold"></div>
+        <div class="absolute top-10 left-10 w-32 h-32 border-2 border-earth-red/10 rotate-45"></div>
+        <div class="absolute bottom-10 right-10 w-24 h-24 border-2 border-sky-blue/10 rounded-full"></div>
+        <div class="absolute top-1/2 right-1/4 w-16 h-16 border border-gold/10 rotate-12"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="content-reveal-transition">
+                <div class="inline-flex items-center gap-2 bg-earth-red/10 border border-earth-red/20 rounded-full px-4 py-1.5 mb-8">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.8 3.6 4 .6-2.9 2.8.7 3.9L7 10l-3.6 1.9.7-3.9L1.2 5.2l4-.6L7 1z" fill="#FFD700"/></svg>
+                    <span class="text-xs font-medium text-white/80 tracking-wide">COMECE SUA JORNADA CRIATIVA</span>
+                </div>
+
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                    Pronto para Criar<br>
+                    <span class="text-earth-red">Design que Inspira?</span>
+                </h2>
+
+                <p class="font-sans text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Junte-se a milhares de criadores brasileiros que já transformam suas ideias em projetos visuais impactantes. Comece gratuitamente, sem cartão de crédito.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" class="btn-primary cta-pulse px-10 py-4 rounded text-base inline-flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5l-4.9 2.5.9-5.3-4-3.9 5.5-.8L10 2z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+                        Criar Conta Gratuita
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M10 5l3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <a href="#features" class="inline-flex items-center gap-2 text-white/60 hover:text-white font-sans text-sm transition-colors cursor-pointer">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M6 8l5-3v6L6 8z" fill="currentColor"/></svg>
+                        Ver demonstração
+                    </a>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="flex flex-wrap items-center justify-center gap-8 mt-14 pt-8 border-t border-white/10">
+                    <div class="flex items-center gap-2 text-white/50">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+                        <span class="font-sans text-xs">4.9/5 avaliação</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-white/50">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.2"/><path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span class="font-sans text-xs">Sem cartão de crédito</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-white/50">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        <span class="font-sans text-xs">Configuração em 2 minutos</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#333333] text-white py-16">
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer-pattern py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-12 h-12 bg-[#A52A2A] flex items-center justify-center">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h6a1 1 0 100-2h-6z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="headline-display text-xl">CULTURA BR</span>
-                            <p class="text-xs text-gray-400">Jornalismo Cultural</p>
-                        </div>
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+                            <rect x="2" y="2" width="14" height="14" fill="#A52A2A" rx="2"/>
+                            <rect x="20" y="2" width="14" height="14" fill="#87CEEB" rx="2"/>
+                            <rect x="2" y="20" width="14" height="14" fill="#FFD700" rx="2"/>
+                            <rect x="20" y="20" width="14" height="14" fill="#228B22" rx="2"/>
+                        </svg>
+                        <span class="font-serif text-lg font-bold text-white">Visual<span class="text-earth-red">Craft</span></span>
+                    </a>
+                    <p class="font-sans text-sm text-white/50 leading-relaxed mb-6">
+                        Plataforma de design visual inspirada no modernismo e na cultura brasileira. Crie, colabore e publique.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-earth-red hover:bg-earth-red/10 transition-all cursor-pointer" aria-label="Instagram">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="#FFFFFF" stroke-width="1.2"/><circle cx="8" cy="8" r="3" stroke="#FFFFFF" stroke-width="1.2"/><circle cx="12" cy="4" r="0.8" fill="#FFFFFF"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-sky-blue hover:bg-sky-blue/10 transition-all cursor-pointer" aria-label="Twitter / X">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l5.5 6L2 14h1.5l4.5-5 3.5 5H15l-5.5-7L14 2h-1.5L8.5 7 5.5 2H2z" stroke="#FFFFFF" stroke-width="1" fill="none"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-gold hover:bg-gold/10 transition-all cursor-pointer" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#FFFFFF" stroke-width="1.2"/><path d="M5 7v4M5 5v0.01M8 7v4M8 9c0-1.1.9-2 2-2s2 .9 2 2v2" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-forest hover:bg-forest/10 transition-all cursor-pointer" aria-label="YouTube">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="3" stroke="#FFFFFF" stroke-width="1.2"/><path d="M7 6.5l3 1.5-3 1.5V6.5z" fill="#FFFFFF"/></svg>
+                        </a>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">O portal definitivo de notícias e eventos culturais brasileiros. Cobertura séria e apaixonada.</p>
                 </div>
 
+                <!-- Links: Plataforma -->
                 <div>
-                    <h4 class="headline-display text-lg mb-6">CONTEÚDO</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="footer-link text-gray-300">Notícias</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Eventos</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Agenda</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Entrevistas</a></li>
+                    <h4 class="font-sans text-sm font-bold text-white mb-4 tracking-wide uppercase">Plataforma</h4>
+                    <ul class="flex flex-col gap-2.5">
+                        <li><a href="#features" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Planos e Preços</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Templates</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Novidades</a></li>
                     </ul>
                 </div>
 
+                <!-- Links: Empresa -->
                 <div>
-                    <h4 class="headline-display text-lg mb-6">INSTITUCIONAL</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="footer-link text-gray-300">Sobre Nós</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Equipe</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Carreiras</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Contato</a></li>
+                    <h4 class="font-sans text-sm font-bold text-white mb-4 tracking-wide uppercase">Empresa</h4>
+                    <ul class="flex flex-col gap-2.5">
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Imprensa</a></li>
+                        <li><a href="#cta" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Contato</a></li>
                     </ul>
                 </div>
 
+                <!-- Links: Suporte -->
                 <div>
-                    <h4 class="headline-display text-lg mb-6">LEGAL</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="footer-link text-gray-300">Política de Privacidade</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Termos de Uso</a></li>
-                        <li><a href="#" class="footer-link text-gray-300">Cookies</a></li>
+                    <h4 class="font-sans text-sm font-bold text-white mb-4 tracking-wide uppercase">Suporte</h4>
+                    <ul class="flex flex-col gap-2.5">
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Central de Ajuda</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Documentação</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Comunidade</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-sans text-sm text-white/50 hover:text-white transition-colors cursor-pointer">Termos de Uso</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-6 md:mb-0">© 2026 Cultura BR. Todos os direitos reservados.</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="social-icon">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </a>
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="font-sans text-xs text-white/40">
+                    &copy; 2026 VisualCraft. Todos os direitos reservados. Feito com
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="#A52A2A" class="inline-block mx-1"><path d="M6 10.5l-4.5-4.5a3 3 0 014.5-4 3 3 0 014.5 4L6 10.5z"/></svg>
+                    no Brasil.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-sans text-xs text-white/40 hover:text-white transition-colors cursor-pointer">Privacidade</a>
+                    <a href="#" class="font-sans text-xs text-white/40 hover:text-white transition-colors cursor-pointer">Termos</a>
+                    <a href="#" class="font-sans text-xs text-white/40 hover:text-white transition-colors cursor-pointer">Cookies</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Content Reveal on Scroll (Intersection Observer)
+        const revealElements = document.querySelectorAll('.content-reveal-transition');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, index * 100);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

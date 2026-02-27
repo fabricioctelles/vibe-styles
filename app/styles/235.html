@@ -3,1485 +3,858 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cartazista de Supermercado — Design general com vernacular, supermarket, cartazista. Template e prompt pronto para IA.">
-    <meta name="keywords" content="supermercado, oferta, promoção, preço, mercado, produtos">
-    <meta property="og:title" content="Super Oferta do Dia - Melhores Preços">
-    <meta property="og:description" content="Os melhores preços do mercado! Produtos frescos todos os dias.">
+    <meta name="description" content="DesignCartaz - Plataforma de Design Visual no estilo vernacular brasileiro. Crie artes incríveis com tipografia manual e cores fluorescentes.">
+    <meta name="keywords" content="design visual, cartazista, supermercado, arte vernacular, design brasileiro, plataforma de design">
+    <meta name="author" content="DesignCartaz">
+    <meta property="og:title" content="DesignCartaz - Plataforma de Design Visual">
+    <meta property="og:description" content="Crie artes incríveis no estilo cartazista brasileiro. Tipografia manual, cores neon e muito impacto visual.">
     <meta property="og:type" content="website">
-    <title>Cartazista de Supermercado — vernacular Template | Vibe Styles</title>
-  <link rel="canonical" href="https://vibe.ft.ia.br/styles/235.html">
-
-    <!-- Fontes Google - Impact-style condensed fonts -->
+    <meta property="og:url" content="https://designcartaz.com.br">
+    <meta property="og:image" content="https://designcartaz.com.br/og-image.jpg">
+    <title>DesignCartaz - Plataforma de Design Visual | Estilo Cartazista Brasileiro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
-        /* ========================================
-           DESIGN SYSTEM - CARTAZISTA DE SUPERMERCADO
-           ======================================== */
-
         :root {
-            /* Cores Primárias - Fluorescentes */
             --color-pink-neon: #FF10F0;
             --color-yellow-neon: #FFFF00;
             --color-green-neon: #00FF00;
             --color-orange: #FF6600;
             --color-black: #000000;
-
-            /* Cores Secundárias */
             --color-blue: #0066CC;
             --color-red: #FF0000;
             --color-purple-neon: #FF00FF;
             --color-white: #FFFFFF;
-            --color-cream: #FFFAF0;
-
-            /* Tipografia - Vernacular Condensada */
             --font-condensed: 'Anton', 'Impact', sans-serif;
-            --font-display: 'Oswald', sans-serif;
-            --font-wide: 'Bebas Neue', cursive;
-            --font-tall: 'Teko', sans-serif;
-
-            /* Sombras e Bordas - Estilo Pincel Atômico */
-            --shadow-hard: 5px 5px 0px #000;
-            --shadow-hard-lg: 8px 8px 0px #000;
+            --font-weight-heavy: 900;
             --border-thick: 5px solid #000;
-            --border-medium: 4px solid #000;
+            --shadow-hard: 5px 5px 0px #000;
         }
 
-        /* ========================================
-           RESET & BASE
-           ======================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; }
 
         body {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 500;
-            line-height: 1.3;
-            color: var(--color-black);
-            background: var(--color-cream);
+            font-family: 'Anton', 'Impact', sans-serif;
+            background-color: #FFF8E7;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px);
+            color: #000;
             overflow-x: hidden;
         }
 
-        /* Textura de papel cartaz */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 1px,
-                    rgba(0, 0, 0, 0.015) 1px,
-                    rgba(0, 0, 0, 0.015) 2px
-                );
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* ========================================
-           UTILITIES
-           ======================================== */
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        .uppercase {
-            text-transform: uppercase;
-        }
-
-        .condensed {
+        .font-cartaz {
             font-family: var(--font-condensed);
+            text-transform: uppercase;
             letter-spacing: -0.5px;
+            font-weight: 900;
         }
 
-        /* Fita de Preço - Elemento icônico */
-        .price-ribbon {
-            position: relative;
-            background: var(--color-red);
-            color: var(--color-white);
-            padding: 0.5rem 1.5rem;
-            border: var(--border-medium);
-            box-shadow: var(--shadow-hard);
-            display: inline-block;
+        .border-cartaz {
+            border: 5px solid #000;
         }
 
-        .price-ribbon::before,
-        .price-ribbon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: var(--border-medium);
-            background: var(--color-black);
+        .shadow-cartaz {
+            box-shadow: 5px 5px 0px #000;
         }
 
-        .price-ribbon::before {
-            right: -20px;
+        .text-shadow-cartaz {
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.25);
         }
 
-        .price-ribbon::after {
-            left: -20px;
-        }
-
-        /* Botões estilo cartaz */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            padding: 1rem 2rem;
-            font-family: var(--font-condensed);
-            font-size: 1.1rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0px;
-            border: var(--border-medium);
-            box-shadow: var(--shadow-hard);
-            cursor: pointer;
-            transition: all 0.15s ease;
-            position: relative;
-        }
-
-        .btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 3px 3px 0px #000;
-        }
-
-        .btn:active {
-            transform: translate(5px, 5px);
-            box-shadow: none;
-        }
-
-        .btn-primary {
-            background: var(--color-pink-neon);
-            color: var(--color-black);
-        }
-
-        .btn-secondary {
-            background: var(--color-yellow-neon);
-            color: var(--color-black);
-        }
-
-        .btn-green {
-            background: var(--color-green-neon);
-            color: var(--color-black);
-        }
-
-        .btn-orange {
-            background: var(--color-orange);
-            color: var(--color-white);
-        }
-
-        /* Títulos estilo cartazista */
-        .title-cartaz {
-            font-family: var(--font-condensed);
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 400;
-            text-transform: uppercase;
-            line-height: 0.95;
-            letter-spacing: -1px;
-        }
-
-        /* Badge de oferta */
-        .offer-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--color-yellow-neon);
-            color: var(--color-black);
-            font-family: var(--font-condensed);
-            font-size: 1.2rem;
-            padding: 0.5rem 1rem;
-            border: var(--border-medium);
-            box-shadow: var(--shadow-hard);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        /* ========================================
-           NAVBAR
-           ======================================== */
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--color-yellow-neon);
-            border-bottom: var(--border-thick);
-            z-index: 100;
-        }
-
-        .navbar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--spacing-sm) var(--spacing-md);
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-        }
-
-        .navbar-logo-text {
-            font-family: var(--font-condensed);
-            font-size: 1.8rem;
-            color: var(--color-black);
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        .navbar-links {
-            display: flex;
-            gap: var(--spacing-sm);
-        }
-
-        .navbar-link {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--color-black);
-            padding: 0.5rem 1rem;
-            border: 2px solid transparent;
-            transition: all 0.15s;
-        }
-
-        .navbar-link:hover {
-            border: 2px solid var(--color-black);
-            background: var(--color-white);
-        }
-
-        .navbar-toggle {
-            display: none;
-            background: none;
-            border: var(--border-medium);
-            padding: 0.5rem;
-            cursor: pointer;
-        }
-
-        /* ========================================
-           HERO SECTION - Cartaz de Oferta
-           ======================================== */
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 70px;
-            background:
-                linear-gradient(135deg, var(--color-pink-neon) 0%, var(--color-purple-neon) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Padrão de listras no fundo */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 15px,
-                    rgba(255, 255, 255, 0.1) 15px,
-                    rgba(255, 255, 255, 0.1) 30px
-                );
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text {
-            padding: var(--spacing-lg);
-            background: var(--color-white);
-            border: var(--border-thick);
-            box-shadow: var(--shadow-hard-lg);
-        }
-
-        .hero-badges {
-            display: flex;
-            gap: var(--spacing-sm);
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .hero-title {
-            font-family: var(--font-condensed);
-            font-size: clamp(3rem, 8vw, 6rem);
-            color: var(--color-red);
-            line-height: 0.9;
-            margin-bottom: var(--spacing-sm);
-            letter-spacing: -2px;
-        }
-
-        .hero-title span {
-            color: var(--color-black);
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-wide);
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            color: var(--color-black);
-            margin-bottom: var(--spacing-md);
-            letter-spacing: 2px;
-        }
-
-        .hero-description {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin-bottom: var(--spacing-lg);
-            color: #333;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-        }
-
-        /* Cartaz de preços - Hero visual */
-        .hero-pricing {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .price-card {
-            width: 100%;
-            max-width: 450px;
-            padding: var(--spacing-lg);
-            background: var(--color-yellow-neon);
-            border: var(--border-thick);
-            box-shadow: var(--shadow-hard-lg);
-            transform: rotate(-1deg);
-        }
-
-        .price-card-header {
-            background: var(--color-red);
-            color: var(--color-white);
-            text-align: center;
-            padding: var(--spacing-sm);
-            border: var(--border-medium);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .price-card-header-text {
-            font-family: var(--font-condensed);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        .price-card-body {
-            text-align: center;
-        }
-
-        .price-product {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--color-black);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .price-amount {
-            font-family: var(--font-condensed);
-            font-size: 6rem;
-            color: var(--color-green-neon);
-            line-height: 1;
-            text-shadow: 4px 4px 0px #000;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .price-amount small {
-            font-size: 2rem;
-            vertical-align: super;
-        }
-
-        .price-unit {
-            font-family: var(--font-wide);
-            font-size: 2rem;
-            color: var(--color-black);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .price-card-footer {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-sm);
+        .bg-paper {
+            background-color: #FFF8E7;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
         .price-tag {
-            background: var(--color-green-neon);
-            color: var(--color-black);
-            padding: 0.5rem 1rem;
-            border: var(--border-medium);
-            font-family: var(--font-display);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* ========================================
-           FEATURES SECTION
-           ======================================== */
-
-        .features {
-            padding: var(--spacing-xl) 0;
-            background: var(--color-orange);
+            display: inline-block;
+            background: var(--color-yellow-neon);
+            border: 5px solid #000;
+            box-shadow: 5px 5px 0px #000;
+            padding: 8px 24px;
+            transform: rotate(-3deg);
             position: relative;
         }
 
-        /* Borda decorativa */
-        .features::before {
+        .price-tag::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--color-red);
+            border-radius: 50%;
+            border: 3px solid #000;
+        }
+
+        .oferta-badge {
+            display: inline-block;
+            background: var(--color-red);
+            color: var(--color-yellow-neon);
+            border: 4px solid #000;
+            box-shadow: 4px 4px 0px #000;
+            padding: 4px 16px;
+            transform: rotate(-5deg);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .brush-border {
+            border: 5px solid #000;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .brush-border::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border: 2px dashed rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+
+        .fita-crepon {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--color-pink-neon),
+                var(--color-pink-neon) 10px,
+                var(--color-yellow-neon) 10px,
+                var(--color-yellow-neon) 20px,
+                var(--color-green-neon) 20px,
+                var(--color-green-neon) 30px,
+                var(--color-orange) 30px,
+                var(--color-orange) 40px
+            );
+            height: 12px;
+            width: 100%;
+        }
+
+        .hover-lift {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px) rotate(-1deg);
+            box-shadow: 8px 8px 0px #000;
+        }
+
+        .btn-cartaz {
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 4px solid #000;
+            box-shadow: 5px 5px 0px #000;
+            padding: 12px 32px;
+            font-size: 1.25rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-cartaz:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0px #000;
+        }
+        .btn-cartaz:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .zigzag-top {
+            background: linear-gradient(135deg, #FFF8E7 33.33%, transparent 33.33%) 0 0,
+                        linear-gradient(225deg, #FFF8E7 33.33%, transparent 33.33%) 0 0;
+            background-size: 20px 20px;
+            height: 20px;
+            width: 100%;
+        }
+
+        .marker-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .marker-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: -4px;
+            right: -4px;
+            height: 8px;
+            background: var(--color-yellow-neon);
+            z-index: -1;
+            transform: skewX(-3deg);
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .animate-wiggle {
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-neon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        .animate-pulse-neon {
+            animation: pulse-neon 1.5s ease-in-out infinite;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--color-pink-neon);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
             left: 0;
-            right: 0;
-            height: 10px;
-            background:
-                repeating-linear-gradient(
-                    90deg,
-                    var(--color-pink-neon),
-                    var(--color-pink-neon) 40px,
-                    var(--color-yellow-neon) 40px,
-                    var(--color-yellow-neon) 80px,
-                    var(--color-green-neon) 80px,
-                    var(--color-green-neon) 120px
-                );
+            width: 0;
+            height: 3px;
+            background: var(--color-pink-neon);
+            transition: width 0.2s ease;
         }
-
-        .features-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-            padding: var(--spacing-lg);
-        }
-
-        .features-title {
-            font-family: var(--font-condensed);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--color-white);
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0px #000;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
-        }
-
-        .feature-card {
-            background: var(--color-white);
-            border: var(--border-thick);
-            padding: var(--spacing-lg);
-            box-shadow: var(--shadow-hard-lg);
-            transition: all 0.15s;
-        }
-
-        .feature-card:hover {
-            transform: translate(-5px, -5px);
-            box-shadow: 13px 13px 0px #000;
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--color-green-neon);
-            border: var(--border-medium);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .feature-icon svg {
-            width: 45px;
-            height: 45px;
-        }
-
-        .feature-title {
-            font-family: var(--font-condensed);
-            font-size: 1.5rem;
-            color: var(--color-black);
-            margin-bottom: var(--spacing-sm);
-            text-transform: uppercase;
-        }
-
-        .feature-description {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        /* ========================================
-           TESTIMONIALS SECTION
-           ======================================== */
-
-        .testimonials {
-            padding: var(--spacing-xl) 0;
-            background: var(--color-cream);
-        }
-
-        .testimonials-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .testimonials-title {
-            font-family: var(--font-condensed);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--color-black);
-            text-transform: uppercase;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .testimonial-card {
-            background: var(--color-white);
-            border: var(--border-thick);
-            padding: var(--spacing-lg);
-            box-shadow: var(--shadow-hard);
-        }
-
-        .testimonial-text {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #333;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--color-pink-neon);
-            border: var(--border-medium);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonial-avatar svg {
-            width: 25px;
-            height: 25px;
-            fill: var(--color-black);
-        }
-
-        .testimonial-info {
-            flex: 1;
-        }
-
-        .testimonial-name {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--color-black);
-            text-transform: uppercase;
-        }
-
-        .testimonial-role {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        /* ========================================
-           PRICING SECTION - Tabela de Preços
-           ======================================== */
-
-        .pricing {
-            padding: var(--spacing-xl) 0;
-            background: var(--color-green-neon);
             position: relative;
         }
-
-        .pricing::before {
-            content: '';
+        .testimonial-card::before {
+            content: '"';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background:
-                repeating-linear-gradient(
-                    90deg,
-                    var(--color-yellow-neon),
-                    var(--color-yellow-neon) 50px,
-                    var(--color-pink-neon) 50px,
-                    var(--color-pink-neon) 100px
-                );
-        }
-
-        .pricing-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-            padding: var(--spacing-lg);
-        }
-
-        .pricing-title {
-            font-family: var(--font-condensed);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--color-black);
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0px rgba(255,255,255,0.5);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
-            align-items: center;
-        }
-
-        .pricing-card {
-            background: var(--color-white);
-            border: var(--border-thick);
-            padding: var(--spacing-lg);
-            text-align: center;
-            box-shadow: var(--shadow-hard-lg);
-        }
-
-        .pricing-card.featured {
-            background: var(--color-yellow-neon);
-            transform: scale(1.05);
-            padding: var(--spacing-xl);
-        }
-
-        .pricing-badge {
-            display: inline-block;
-            background: var(--color-red);
-            color: var(--color-white);
-            font-family: var(--font-condensed);
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            border: var(--border-medium);
-            margin-bottom: var(--spacing-md);
-            text-transform: uppercase;
-        }
-
-        .pricing-tier {
-            font-family: var(--font-condensed);
-            font-size: 2rem;
-            color: var(--color-black);
-            margin-bottom: var(--spacing-sm);
-            text-transform: uppercase;
-        }
-
-        .pricing-price {
-            margin-bottom: var(--spacing-md);
-        }
-
-        .pricing-currency {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: #333;
-            vertical-align: super;
-        }
-
-        .pricing-amount {
-            font-family: var(--font-condensed);
+            top: -10px;
+            left: 10px;
             font-size: 5rem;
-            color: var(--color-green-neon);
+            color: var(--color-pink-neon);
+            opacity: 0.3;
             line-height: 1;
-            text-shadow: 3px 3px 0px #000;
+            font-family: serif;
         }
 
-        .pricing-period {
-            font-family: var(--font-wide);
-            font-size: 1.2rem;
-            color: var(--color-black);
+        .pricing-popular {
+            transform: scale(1.05);
+            z-index: 10;
         }
 
-        .pricing-features {
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .pricing-feature {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            color: var(--color-black);
-            padding: 0.75rem 0;
-            border-bottom: 3px solid #000;
-        }
-
-        /* ========================================
-           CTA FINAL SECTION
-           ======================================== */
-
-        .cta {
-            padding: var(--spacing-xl) 0;
-            background:
-                linear-gradient(135deg, var(--color-red) 0%, var(--color-orange) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 20px,
-                    rgba(0, 0, 0, 0.05) 20px,
-                    rgba(0, 0, 0, 0.05) 40px
-                );
-        }
-
-        .cta-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding: var(--spacing-lg);
-        }
-
-        .cta-title {
-            font-family: var(--font-condensed);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--color-white);
-            margin-bottom: var(--spacing-md);
-            text-transform: uppercase;
-            text-shadow: 4px 4px 0px #000;
-        }
-
-        .cta-subtitle {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            color: var(--color-white);
-            margin-bottom: var(--spacing-lg);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cta .btn-primary {
-            background: var(--color-yellow-neon);
-            color: var(--color-black);
-        }
-
-        .cta .btn-secondary {
-            background: var(--color-green-neon);
-            color: var(--color-black);
-        }
-
-        /* ========================================
-           FOOTER
-           ======================================== */
-
-        .footer {
-            background: var(--color-black);
-            color: var(--color-white);
-            padding: var(--spacing-xl) 0 var(--spacing-md);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .footer-brand {
-            max-width: 350px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .footer-logo-text {
-            font-family: var(--font-condensed);
-            font-size: 1.8rem;
-            color: var(--color-yellow-neon);
-        }
-
-        .footer-description {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #999;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: var(--spacing-sm);
-        }
-
-        .footer-social-link {
-            width: 45px;
-            height: 45px;
-            background: var(--color-pink-neon);
-            border: 2px solid var(--color-white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .footer-social-link:hover {
-            background: var(--color-yellow-neon);
-            transform: scale(1.1);
-        }
-
-        .footer-social-link svg {
-            width: 22px;
-            height: 22px;
-            fill: var(--color-black);
-        }
-
-        .footer-column-title {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--color-green-neon);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-link a {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            color: #999;
-            transition: color 0.2s;
-        }
-
-        .footer-link a:hover {
-            color: var(--color-yellow-neon);
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: var(--spacing-md);
-            border-top: 4px solid var(--color-pink-neon);
-        }
-
-        .footer-copyright {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: #999;
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: var(--spacing-md);
-        }
-
-        .footer-legal a {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            color: #999;
-            transition: color 0.2s;
-        }
-
-        .footer-legal a:hover {
-            color: var(--color-yellow-neon);
-        }
-
-        /* ========================================
-           RESPONSIVE DESIGN
-           ======================================== */
-
-        @media (max-width: 968px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text {
-                order: 2;
-            }
-
-            .hero-pricing {
-                order: 1;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .features-grid,
-            .testimonials-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
+        @media (max-width: 768px) {
+            .pricing-popular {
                 transform: scale(1);
             }
-
-            .navbar-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--color-yellow-neon);
-                flex-direction: column;
-                padding: var(--spacing-md);
-                border-bottom: var(--border-thick);
-            }
-
-            .navbar-links.active {
-                display: flex;
-            }
-
-            .navbar-toggle {
-                display: block;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: var(--spacing-lg);
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-            }
         }
 
-        @media (max-width: 640px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: var(--spacing-sm);
-                text-align: center;
-            }
+        .mobile-menu {
+            display: none;
         }
-
-        /* ========================================
-           ANIMATIONS
-           ======================================== */
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(-1deg);
-            }
-            50% {
-                transform: translateY(-10px) rotate(-1deg);
-            }
-        }
-
-        .price-card {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        /* Selection styling */
-        ::selection {
-            background: var(--color-yellow-neon);
-            color: var(--color-black);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 14px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--color-cream);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--color-pink-neon);
-            border: 2px solid var(--color-black);
+        .mobile-menu.active {
+            display: flex;
         }
     </style>
 </head>
-<body>
-    <!-- ========================================
-         NAVBAR
-         ======================================== -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="#" class="navbar-logo">
-                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-                <span class="navbar-logo-text">SUPER OFERTA</span>
+<body class="bg-paper">
+
+    <!-- FITA CREPON TOPO -->
+    <div class="fita-crepon"></div>
+
+    <!-- NAVBAR -->
+    <nav class="bg-black sticky top-0 z-50 border-b-4 border-yellow-300">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 cursor-pointer">
+                <div class="bg-[#FF10F0] border-4 border-white p-2 shadow-cartaz" style="box-shadow: 3px 3px 0px #FF6600;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                    </svg>
+                </div>
+                <span class="font-cartaz text-2xl text-[#FFFF00] tracking-wider" style="text-shadow: 2px 2px 0px #FF10F0;">DESIGNCARTAZ</span>
             </a>
-            <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#features" class="nav-link font-cartaz text-white text-sm tracking-wide">RECURSOS</a>
+                <a href="#testimonials" class="nav-link font-cartaz text-white text-sm tracking-wide">DEPOIMENTOS</a>
+                <a href="#pricing" class="nav-link font-cartaz text-white text-sm tracking-wide">PREÇOS</a>
+                <a href="#cta" class="btn-cartaz bg-[#FF10F0] text-white text-sm" style="padding: 8px 20px; border-width: 3px; box-shadow: 3px 3px 0px #FFFF00;">COMECE GRÁTIS</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menuBtn" class="md:hidden cursor-pointer p-2" aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#FFFF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-            <div class="navbar-links" id="navbarLinks">
-                <a href="#produtos" class="navbar-link">Produtos</a>
-                <a href="#depoimentos" class="navbar-link">Depoimentos</a>
-                <a href="#precos" class="navbar-link">Preços</a>
-                <a href="#" class="navbar-link btn-primary" style="padding: 0.5rem 1rem;">Comprar Agora</a>
-            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu flex-col bg-black border-t-4 border-[#FF10F0] px-4 pb-4 md:hidden">
+            <a href="#features" class="font-cartaz text-white py-2 border-b-2 border-gray-800 cursor-pointer hover:text-[#FF10F0] transition-all">RECURSOS</a>
+            <a href="#testimonials" class="font-cartaz text-white py-2 border-b-2 border-gray-800 cursor-pointer hover:text-[#FF10F0] transition-all">DEPOIMENTOS</a>
+            <a href="#pricing" class="font-cartaz text-white py-2 border-b-2 border-gray-800 cursor-pointer hover:text-[#FF10F0] transition-all">PREÇOS</a>
+            <a href="#cta" class="btn-cartaz bg-[#FF10F0] text-white text-center mt-3 text-sm" style="padding: 8px 20px; border-width: 3px;">COMECE GRÁTIS</a>
         </div>
     </nav>
 
-    <!-- ========================================
-         HERO SECTION - Cartaz de Oferta
-         ======================================== -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badges">
-                        <span class="offer-badge">🔥 OFERTA DO DIA</span>
-                        <span class="price-ribbon">SOMENTE HOJE!</span>
+    <!-- HERO SECTION -->
+    <section class="relative py-16 md:py-24 overflow-hidden" style="background: linear-gradient(135deg, #000 0%, #1a0020 50%, #000 100%);">
+        <!-- Decorative elements -->
+        <div class="absolute top-4 left-4 oferta-badge animate-wiggle text-sm md:text-base">OFERTA!</div>
+        <div class="absolute top-8 right-8 hidden md:block" style="transform: rotate(12deg);">
+            <div class="bg-[#00FF00] border-4 border-black px-4 py-1 font-cartaz text-black shadow-cartaz">NOVO!</div>
+        </div>
+        <div class="absolute bottom-10 left-10 w-20 h-20 rounded-full hidden md:block" style="background: radial-gradient(circle, #FF10F0 0%, transparent 70%); opacity: 0.4; filter: blur(20px);"></div>
+        <div class="absolute top-20 right-20 w-32 h-32 rounded-full hidden md:block" style="background: radial-gradient(circle, #FFFF00 0%, transparent 70%); opacity: 0.3; filter: blur(30px);"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+                <!-- Hero Text -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-block mb-4">
+                        <span class="bg-[#FFFF00] text-black font-cartaz text-sm md:text-base px-4 py-1 border-3 border-black" style="border: 3px solid #000; box-shadow: 3px 3px 0px #FF10F0;">★ PLATAFORMA Nº1 DO BRASIL ★</span>
                     </div>
-                    <h1 class="hero-title">
-                        SUPER<br>
-                        <span>OFERTA</span>
+                    <h1 class="font-cartaz text-5xl md:text-7xl lg:text-8xl leading-none mb-6">
+                        <span class="text-[#FF10F0] text-shadow-cartaz block">CRIE DESIGNS</span>
+                        <span class="text-[#FFFF00] text-shadow-cartaz block">QUE VENDEM</span>
+                        <span class="text-[#00FF00] text-shadow-cartaz block">DE VERDADE!</span>
                     </h1>
-                    <p class="hero-subtitle">OS MELHORES PREÇOS DO MERCADO</p>
-                    <p class="hero-description">
-                        Produtos frescos todos os dias com qualidade garantida! Frutas, legumes, carnes, laticínios e muito mais com preços que você não encontra em outro lugar.
+                    <p class="text-white text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0" style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0;">
+                        A plataforma de design visual que transforma suas ideias em artes impactantes. Estilo autêntico brasileiro, cores vibrantes e resultados profissionais.
                     </p>
-                    <div class="hero-buttons">
-                        <a href="#precos" class="btn btn-primary">
-                            Ver Ofertas
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#cta" class="btn-cartaz bg-[#FF10F0] text-white text-lg animate-pulse-neon" style="box-shadow: 5px 5px 0px #FFFF00;">
+                            COMEÇAR AGORA — É GRÁTIS
                         </a>
-                        <a href="#produtos" class="btn btn-green">
-                            Produtos
+                        <a href="#features" class="btn-cartaz bg-transparent text-[#00FF00] text-lg border-[#00FF00]" style="border-color: #00FF00; box-shadow: 5px 5px 0px #00FF00;">
+                            VER RECURSOS
                         </a>
                     </div>
+                    <div class="mt-6 flex items-center gap-4 justify-center lg:justify-start">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#FF10F0] border-2 border-black"></div>
+                            <div class="w-8 h-8 rounded-full bg-[#FFFF00] border-2 border-black"></div>
+                            <div class="w-8 h-8 rounded-full bg-[#00FF00] border-2 border-black"></div>
+                        </div>
+                        <span class="text-white text-sm" style="font-family: Arial, sans-serif; font-weight: 400;">+12.000 designers já usam</span>
+                    </div>
                 </div>
 
-                <div class="hero-pricing">
-                    <div class="price-card">
-                        <div class="price-card-header">
-                            <span class="price-card-header-text">⚡ SUPER PROMOÇÃO ⚡</span>
-                        </div>
-                        <div class="price-card-body">
-                            <p class="price-product">FRUTAS SELECIONADAS</p>
-                            <div class="price-amount">
-                                <small>R$</small>9<small>,99</small>
+                <!-- Hero Visual CSS Element -->
+                <div class="flex-1 flex justify-center">
+                    <div class="relative">
+                        <!-- Main card -->
+                        <div class="w-72 md:w-80 bg-[#FFFF00] border-cartaz shadow-cartaz p-6 transform rotate-2">
+                            <div class="text-center">
+                                <div class="bg-[#FF0000] text-[#FFFF00] font-cartaz text-3xl py-2 border-4 border-black mb-3" style="box-shadow: 3px 3px 0px #000;">SUPER OFERTA</div>
+                                <div class="font-cartaz text-6xl text-black leading-none">R$0</div>
+                                <div class="font-cartaz text-xl text-[#FF0000]">PRA COMEÇAR!</div>
+                                <div class="mt-3 bg-black text-[#00FF00] font-cartaz py-2 text-lg">SEM CARTÃO</div>
+                                <div class="mt-2 flex justify-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+                                </div>
                             </div>
-                            <p class="price-unit">O QUILO</p>
-                            <div class="price-card-footer">
-                                <span class="price-tag">FRETE GRÁTIS</span>
-                                <span class="price-tag">FRESCO</span>
-                            </div>
                         </div>
+                        <!-- Floating decorative elements -->
+                        <div class="absolute -top-4 -right-4 bg-[#00FF00] border-3 border-black px-3 py-1 font-cartaz text-black text-sm transform -rotate-12" style="border: 3px solid #000; box-shadow: 2px 2px 0px #000;">GRÁTIS!</div>
+                        <div class="absolute -bottom-3 -left-3 bg-[#FF6600] border-3 border-black px-3 py-1 font-cartaz text-white text-xs transform rotate-6" style="border: 3px solid #000; box-shadow: 2px 2px 0px #000;">APROVEITE JÁ</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========================================
-         FEATURES SECTION
-         ======================================== -->
-    <section class="features" id="produtos">
-        <div class="container">
-            <div class="features-header">
-                <h2 class="features-title">POR QUE COMPRAR CONOSCO?</h2>
+    <div class="fita-crepon"></div>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-16 md:py-24 bg-paper">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4">
+                    <span class="oferta-badge" style="transform: rotate(0deg);">★ RECURSOS ★</span>
+                </div>
+                <h2 class="font-cartaz text-4xl md:text-6xl text-black text-shadow-cartaz mb-4">
+                    TUDO QUE VOCÊ <span class="text-[#FF10F0]">PRECISA</span>
+                </h2>
+                <p class="text-lg max-w-2xl mx-auto" style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333;">
+                    Ferramentas poderosas para criar designs que chamam atenção e geram resultados de verdade.
+                </p>
             </div>
-            <div class="features-grid">
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-[#FFFF00] border-cartaz shadow-cartaz p-6 hover-lift relative">
+                    <div class="absolute -top-3 -right-3 bg-[#FF0000] text-white font-cartaz text-xs px-3 py-1 border-2 border-black transform rotate-6">TOP!</div>
+                    <div class="bg-black w-16 h-16 flex items-center justify-center mb-4 border-2 border-[#FF10F0]" style="box-shadow: 3px 3px 0px #FF10F0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#FF10F0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
                         </svg>
                     </div>
-                    <h3 class="feature-title">Qualidade Premium</h3>
-                    <p class="feature-description">Produtos selecionados a dedo pelos melhores fornecedores. Só o que tem de melhor para sua família!</p>
-                </article>
-
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Preços Imbatíveis</h3>
-                    <p class="feature-description">Trabalhamos direto com produtores para garantir os menores preços do mercado. Economize todo mês!</p>
-                </article>
-
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14h-2V9h-2V7h4v10z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Entrega Rápida</h3>
-                    <p class="feature-description">Receba seus produtos no mesmo dia! Entrega expressa para toda a região. Fresco na porta da sua casa!</p>
-                </article>
-
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Garantia Total</h3>
-                    <p class="feature-description">Não gostou? Devolvemos seu dinheiro! Satisfação garantida ou seu dinheiro de volta sem burocracia.</p>
-                </article>
-
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Produtos Frescos</h3>
-                    <p class="feature-description">Hortifruti colhido no dia! Carnes frescas e laticínios com data de validade estendida. Qualidade garantida!</p>
-                </article>
-
-                <article class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="var(--color-black)">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">App Exclusivo</h3>
-                    <p class="feature-description">Baixe nosso app e receba ofertas exclusivas! Cupons de desconto e promoções relâmpago só para usuários do app!</p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         TESTIMONIALS SECTION
-         ======================================== -->
-    <section class="testimonials" id="depoimentos">
-        <div class="container">
-            <div class="testimonials-header">
-                <h2 class="testimonials-title">O QUE NOSSOS CLIENTES DIZEM</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">Os preços são realmente os melhores da cidade! Compro todo mês para minha família e economizo muito. Produtos sempre frescos e entrega no horário!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                        <div class="testimonial-info">
-                            <div class="testimonial-name">Maria Silva</div>
-                            <div class="testimonial-role">Cliente há 3 anos</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">Qualidade excepcional! As frutas e legumes sempre fresquinhos. E quando tem promoção, aproveito muito! Recomendo para todos!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                        <div class="testimonial-info">
-                            <div class="testimonial-name">João Santos</div>
-                            <div class="testimonial-role">Cliente há 5 anos</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">O app é super prático! Faço o pedido e recebo no mesmo dia. Os preços do hortifruti são imbatíveis. Muito obrigado por existirem!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                        <div class="testimonial-info">
-                            <div class="testimonial-name">Ana Oliveira</div>
-                            <div class="testimonial-role">Cliente há 2 anos</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         PRICING SECTION - Tabela de Preços
-         ======================================== -->
-    <section class="pricing" id="precos">
-        <div class="container">
-            <div class="pricing-header">
-                <h2 class="pricing-title">🏷️ PREÇOS QUE CABEM NO BOLSO!</h2>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="pricing-tier">Básico</h3>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">R$</span>
-                        <span class="pricing-amount">49</span>
-                        <span class="pricing-period">/mês</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li class="pricing-feature">Frete R$ 9,99</li>
-                        <li class="pricing-feature">Entrega em 24h</li>
-                        <li class="pricing-feature">5% de desconto</li>
-                        <li class="pricing-feature">Produtos selecionados</li>
-                    </ul>
-                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Assinar</a>
-                </div>
-
-                <div class="pricing-card featured">
-                    <span class="pricing-badge">⚡ MAIS POPULAR ⚡</span>
-                    <h3 class="pricing-tier">Premium</h3>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">R$</span>
-                        <span class="pricing-amount">79</span>
-                        <span class="pricing-period">/mês</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li class="pricing-feature">FRETE GRÁTIS</li>
-                        <li class="pricing-feature">Entrega no mesmo dia</li>
-                        <li class="pricing-feature">15% de desconto</li>
-                        <li class="pricing-feature">Produtos premium</li>
-                        <li class="pricing-feature">Ofertas exclusivas</li>
-                    </ul>
-                    <a href="#" class="btn btn-orange" style="width: 100%; justify-content: center;">Assinar</a>
-                </div>
-
-                <div class="pricing-card">
-                    <h3 class="pricing-tier">Família</h3>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">R$</span>
-                        <span class="pricing-amount">129</span>
-                        <span class="pricing-period">/mês</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li class="pricing-feature">FRETE GRÁTIS</li>
-                        <li class="pricing-feature">Entrega expressa</li>
-                        <li class="pricing-feature">20% de desconto</li>
-                        <li class="pricing-feature">Produtos + frescos</li>
-                        <li class="pricing-feature">Prioridade total</li>
-                        <li class="pricing-feature">Suporte dedicado</li>
-                    </ul>
-                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Assinar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         CTA FINAL SECTION
-         ======================================== -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">🔥 NÃO PERCA ESTA OFERTA! 🔥</h2>
-                <p class="cta-subtitle">Promoção válida por tempo limitado! Aproveite agora e comece a economizar muito nas compras do mês!</p>
-                <div class="cta-buttons">
-                    <a href="#precos" class="btn btn-primary">
-                        COMEÇAR AGORA
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        BAIXAR O APP
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         FOOTER
-         ======================================== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-neon)" stroke-width="3">
-                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                        <span class="footer-logo-text">SUPER OFERTA</span>
-                    </div>
-                    <p class="footer-description">
-                        Seu supermercado online com os melhores preços e qualidade garantida! Produtos frescos entregues na sua casa com rapidez e segurança.
+                    <h3 class="font-cartaz text-2xl text-black mb-3">EDITOR VISUAL COMPLETO</h3>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333; font-size: 0.95rem;">
+                        Arraste, solte e crie. Editor intuitivo com centenas de templates prontos no estilo cartazista brasileiro. Tipografia manual, cores neon e muito mais.
                     </p>
-                    <div class="footer-social">
-                        <a href="#" class="footer-social-link" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="footer-social-link" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="footer-social-link" aria-label="WhatsApp">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                            </svg>
-                        </a>
+                    <div class="mt-4 bg-black text-[#FFFF00] font-cartaz text-center py-2 text-sm border-2 border-[#FFFF00]">+500 TEMPLATES</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-[#00FF00] border-cartaz shadow-cartaz p-6 hover-lift relative">
+                    <div class="absolute -top-3 -right-3 bg-[#FF10F0] text-white font-cartaz text-xs px-3 py-1 border-2 border-black transform -rotate-3">NOVO!</div>
+                    <div class="bg-black w-16 h-16 flex items-center justify-center mb-4 border-2 border-[#00FF00]" style="box-shadow: 3px 3px 0px #00FF00;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#00FF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-cartaz text-2xl text-black mb-3">INTELIGÊNCIA ARTIFICIAL</h3>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #1a1a1a; font-size: 0.95rem;">
+                        Nossa IA gera cartazes automaticamente. Descreva o que precisa e receba designs prontos em segundos. Estilo vernacular autêntico garantido.
+                    </p>
+                    <div class="mt-4 bg-black text-[#00FF00] font-cartaz text-center py-2 text-sm border-2 border-[#00FF00]">IA GENERATIVA</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-[#FF10F0] border-cartaz shadow-cartaz p-6 hover-lift relative">
+                    <div class="absolute -top-3 -right-3 bg-[#FFFF00] text-black font-cartaz text-xs px-3 py-1 border-2 border-black transform rotate-3">FÁCIL!</div>
+                    <div class="bg-black w-16 h-16 flex items-center justify-center mb-4 border-2 border-[#FF10F0]" style="box-shadow: 3px 3px 0px #FFFF00;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#FFFF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-cartaz text-2xl text-white mb-3">COMPARTILHE EM 1 CLIQUE</h3>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #fff; font-size: 0.95rem;">
+                        Exporte em alta resolução para impressão ou digital. Compartilhe direto nas redes sociais, WhatsApp ou imprima seus cartazes na hora.
+                    </p>
+                    <div class="mt-4 bg-black text-[#FF10F0] font-cartaz text-center py-2 text-sm border-2 border-[#FF10F0]">EXPORTAR HD</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-16 md:py-24 bg-black relative">
+        <div class="fita-crepon absolute top-0 left-0 right-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 pt-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4">
+                    <span class="price-tag font-cartaz text-black text-lg">APROVADO!</span>
+                </div>
+                <h2 class="font-cartaz text-4xl md:text-6xl text-[#FFFF00] text-shadow-cartaz mb-4">
+                    QUEM USA, <span class="text-[#00FF00]">RECOMENDA!</span>
+                </h2>
+                <p class="text-lg max-w-2xl mx-auto" style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #ccc;">
+                    Veja o que nossos clientes estão falando sobre a plataforma.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-[#FFF8E7] border-cartaz shadow-cartaz p-6 hover-lift">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-[#FF10F0] border-3 border-black flex items-center justify-center font-cartaz text-white text-xl" style="border: 3px solid #000;">MC</div>
+                        <div>
+                            <div class="font-cartaz text-lg text-black">MARIA CLARA</div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.8rem; color: #666;">Dona de Mercadinho — SP</div>
+                        </div>
+                    </div>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333; font-size: 0.95rem; line-height: 1.6;">
+                        "Antes eu gastava horas fazendo cartaz na mão. Agora faço em 5 minutos e fica LINDO! Minhas vendas aumentaram 40% depois que comecei a usar."
+                    </p>
+                    <div class="mt-4 flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
                     </div>
                 </div>
 
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Produtos</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Hortifruti</a></li>
-                        <li class="footer-link"><a href="#">Açougue</a></li>
-                        <li class="footer-link"><a href="#">Laticínios</a></li>
-                        <li class="footer-link"><a href="#">Padaria</a></li>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-[#FFF8E7] border-cartaz shadow-cartaz p-6 hover-lift">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-[#FF6600] border-3 border-black flex items-center justify-center font-cartaz text-white text-xl" style="border: 3px solid #000;">RS</div>
+                        <div>
+                            <div class="font-cartaz text-lg text-black">ROBERTO SILVA</div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.8rem; color: #666;">Cartazista Profissional — RJ</div>
+                        </div>
+                    </div>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333; font-size: 0.95rem; line-height: 1.6;">
+                        "Sou cartazista há 15 anos e essa ferramenta revolucionou meu trabalho. Consigo atender 3x mais clientes mantendo a qualidade artesanal que todo mundo ama."
+                    </p>
+                    <div class="mt-4 flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-[#FFF8E7] border-cartaz shadow-cartaz p-6 hover-lift">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-[#0066CC] border-3 border-black flex items-center justify-center font-cartaz text-white text-xl" style="border: 3px solid #000;">AL</div>
+                        <div>
+                            <div class="font-cartaz text-lg text-black">ANA LUÍZA</div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.8rem; color: #666;">Designer Freelancer — MG</div>
+                        </div>
+                    </div>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333; font-size: 0.95rem; line-height: 1.6;">
+                        "Meus clientes AMAM o estilo dos cartazes. É diferente de tudo que existe no mercado. A plataforma é super fácil de usar e o suporte é nota 10!"
+                    </p>
+                    <div class="mt-4 flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF6600]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fita-crepon absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="py-16 md:py-24 bg-paper">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4">
+                    <div class="bg-[#FF0000] text-[#FFFF00] font-cartaz text-xl px-6 py-2 border-4 border-black shadow-cartaz animate-wiggle">PREÇO DE BANANA!</div>
+                </div>
+                <h2 class="font-cartaz text-4xl md:text-6xl text-black text-shadow-cartaz mb-4">
+                    ESCOLHA SEU <span class="text-[#FF0000]">PLANO</span>
+                </h2>
+                <p class="text-lg max-w-2xl mx-auto" style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0; color: #333;">
+                    Planos que cabem no seu bolso. Comece grátis e evolua quando quiser.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 items-start max-w-5xl mx-auto">
+                <!-- Plan 1 - Básico -->
+                <div class="bg-white border-cartaz shadow-cartaz p-6 hover-lift">
+                    <div class="text-center">
+                        <div class="bg-[#0066CC] text-white font-cartaz text-lg py-2 px-4 border-3 border-black mb-4" style="border: 3px solid #000;">PLANO BÁSICO</div>
+                        <div class="my-4">
+                            <span class="font-cartaz text-2xl text-gray-500 line-through">R$29</span>
+                            <div class="font-cartaz text-6xl text-black leading-none">GRÁTIS</div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.85rem; color: #666;" class="mt-1">para sempre</div>
+                        </div>
+                        <div class="border-t-4 border-dashed border-black pt-4 mt-4 text-left">
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">50 designs por mês</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">100 templates</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">Exportar em JPG</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-300 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem; color: #aaa;">Sem IA generativa</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-cartaz bg-[#0066CC] text-white w-full text-center mt-6 block">COMEÇAR GRÁTIS</a>
+                    </div>
+                </div>
+
+                <!-- Plan 2 - Profissional (HIGHLIGHTED) -->
+                <div class="pricing-popular bg-[#FFFF00] border-cartaz p-6 hover-lift relative" style="box-shadow: 8px 8px 0px #000; border-width: 6px;">
+                    <div class="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-[#FF0000] text-[#FFFF00] font-cartaz text-sm px-6 py-1 border-3 border-black" style="border: 3px solid #000; box-shadow: 2px 2px 0px #000;">★ MAIS VENDIDO ★</div>
+                    </div>
+                    <div class="text-center pt-4">
+                        <div class="bg-[#FF10F0] text-white font-cartaz text-lg py-2 px-4 border-3 border-black mb-4" style="border: 3px solid #000;">PLANO PROFISSIONAL</div>
+                        <div class="my-4">
+                            <span class="font-cartaz text-2xl text-gray-700 line-through">R$97</span>
+                            <div class="flex items-start justify-center gap-1">
+                                <span class="font-cartaz text-2xl mt-2">R$</span>
+                                <span class="font-cartaz text-7xl text-[#FF0000] leading-none">47</span>
+                            </div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.85rem; color: #333;" class="mt-1">por mês</div>
+                        </div>
+                        <div class="border-t-4 border-dashed border-black pt-4 mt-4 text-left">
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF0000] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 700; font-size: 0.9rem;">Designs ILIMITADOS</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF0000] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 700; font-size: 0.9rem;">+500 templates premium</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF0000] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 700; font-size: 0.9rem;">IA Generativa inclusa</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF0000] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 700; font-size: 0.9rem;">Exportar PDF + PNG HD</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FF0000] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 700; font-size: 0.9rem;">Suporte prioritário</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-cartaz bg-[#FF0000] text-[#FFFF00] w-full text-center mt-6 block text-lg" style="box-shadow: 5px 5px 0px #FF10F0;">ASSINAR AGORA</a>
+                        <div class="mt-3 font-cartaz text-sm text-[#FF0000]">ECONOMIA DE 51%!</div>
+                    </div>
+                </div>
+
+                <!-- Plan 3 - Empresarial -->
+                <div class="bg-white border-cartaz shadow-cartaz p-6 hover-lift">
+                    <div class="text-center">
+                        <div class="bg-black text-[#00FF00] font-cartaz text-lg py-2 px-4 border-3 border-[#00FF00] mb-4" style="border: 3px solid #00FF00;">PLANO EMPRESARIAL</div>
+                        <div class="my-4">
+                            <span class="font-cartaz text-2xl text-gray-500 line-through">R$297</span>
+                            <div class="flex items-start justify-center gap-1">
+                                <span class="font-cartaz text-2xl mt-2">R$</span>
+                                <span class="font-cartaz text-6xl text-black leading-none">147</span>
+                            </div>
+                            <div style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.85rem; color: #666;" class="mt-1">por mês</div>
+                        </div>
+                        <div class="border-t-4 border-dashed border-black pt-4 mt-4 text-left">
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">Tudo do Profissional</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">Até 10 usuários</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">Marca personalizada</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">API de integração</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                                    <span style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.9rem;">Gerente de conta dedicado</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-cartaz bg-black text-[#00FF00] w-full text-center mt-6 block" style="border-color: #00FF00; box-shadow: 5px 5px 0px #00FF00;">FALAR COM VENDAS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL SECTION -->
+    <section id="cta" class="py-16 md:py-24 relative overflow-hidden" style="background: linear-gradient(135deg, #FF10F0 0%, #FF00FF 50%, #FF10F0 100%);">
+        <div class="fita-crepon absolute top-0 left-0 right-0"></div>
+
+        <!-- Decorative floating elements -->
+        <div class="absolute top-10 left-10 bg-[#FFFF00] font-cartaz text-black text-sm px-3 py-1 border-3 border-black transform -rotate-12 hidden md:block" style="border: 3px solid #000;">OFERTA!</div>
+        <div class="absolute bottom-10 right-10 bg-[#00FF00] font-cartaz text-black text-sm px-3 py-1 border-3 border-black transform rotate-6 hidden md:block" style="border: 3px solid #000;">IMPERDÍVEL!</div>
+        <div class="absolute top-1/2 left-5 w-16 h-16 rounded-full hidden lg:block" style="background: rgba(255,255,0,0.3); filter: blur(15px);"></div>
+        <div class="absolute top-1/3 right-10 w-20 h-20 rounded-full hidden lg:block" style="background: rgba(0,255,0,0.3); filter: blur(20px);"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-4">
+            <div class="inline-block mb-6">
+                <div class="bg-[#FFFF00] text-black font-cartaz text-lg px-8 py-2 border-4 border-black shadow-cartaz animate-wiggle">ÚLTIMA CHANCE!</div>
+            </div>
+
+            <h2 class="font-cartaz text-4xl md:text-6xl lg:text-7xl text-white text-shadow-cartaz mb-6 leading-tight">
+                COMECE A CRIAR<br>
+                <span class="text-[#FFFF00]">DESIGNS INCRÍVEIS</span><br>
+                AGORA MESMO!
+            </h2>
+
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto" style="font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 0;">
+                Junte-se a mais de 12.000 designers e comerciantes que já transformaram seus negócios com a DesignCartaz.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="btn-cartaz bg-[#FFFF00] text-black text-xl" style="box-shadow: 5px 5px 0px #000; border-color: #000;">
+                    CRIAR CONTA GRÁTIS
+                </a>
+                <a href="#" class="btn-cartaz bg-transparent text-white text-xl" style="border-color: #fff; box-shadow: 5px 5px 0px rgba(255,255,255,0.3);">
+                    VER DEMONSTRAÇÃO
+                </a>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                    <span class="text-white text-sm" style="font-family: Arial, sans-serif;">Sem cartão de crédito</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                    <span class="text-white text-sm" style="font-family: Arial, sans-serif;">Cancele quando quiser</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00]" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                    <span class="text-white text-sm" style="font-family: Arial, sans-serif;">Suporte em português</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="fita-crepon absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black pt-16 pb-8 border-t-4 border-[#FF10F0]">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Footer Logo & Description -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <div class="bg-[#FF10F0] border-3 border-white p-2" style="border: 3px solid #fff; box-shadow: 3px 3px 0px #FF6600;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                            </svg>
+                        </div>
+                        <span class="font-cartaz text-xl text-[#FFFF00]" style="text-shadow: 2px 2px 0px #FF10F0;">DESIGNCARTAZ</span>
+                    </a>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.85rem; color: #999; line-height: 1.6;">
+                        A plataforma de design visual que celebra a arte vernacular brasileira. Crie cartazes, artes e materiais com o estilo autêntico do Brasil.
+                    </p>
+                </div>
+
+                <!-- Footer Nav - Produto -->
+                <div>
+                    <h4 class="font-cartaz text-[#FF10F0] text-lg mb-4 border-b-2 border-[#FF10F0] pb-2 inline-block">PRODUTO</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Recursos</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Preços</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Templates</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Integrações</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Novidades</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Institucional</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Sobre Nós</a></li>
-                        <li class="footer-link"><a href="#">Lojas</a></li>
-                        <li class="footer-link"><a href="#">Trabalhe Conosco</a></li>
-                        <li class="footer-link"><a href="#">Blog</a></li>
+                <!-- Footer Nav - Empresa -->
+                <div>
+                    <h4 class="font-cartaz text-[#00FF00] text-lg mb-4 border-b-2 border-[#00FF00] pb-2 inline-block">EMPRESA</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Sobre Nós</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Carreiras</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Contato</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Imprensa</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Ajuda</h4>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Fale Conosco</a></li>
-                        <li class="footer-link"><a href="#">Entrega</a></li>
-                        <li class="footer-link"><a href="#">Política de Trocas</a></li>
-                        <li class="footer-link"><a href="#">FAQ</a></li>
+                <!-- Footer Nav - Suporte -->
+                <div>
+                    <h4 class="font-cartaz text-[#FFFF00] text-lg mb-4 border-b-2 border-[#FFFF00] pb-2 inline-block">SUPORTE</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Central de Ajuda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Tutoriais</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#FFFF00] transition-all cursor-pointer" style="font-family: Arial, sans-serif; font-size: 0.9rem;">Status do Sistema</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    &copy; 2026 Super Oferta — Todos os direitos reservados
+            <!-- Social Media & Copyright -->
+            <div class="border-t-2 border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4">
+                    <!-- Instagram -->
+                    <a href="#" class="w-10 h-10 bg-[#FF10F0] border-2 border-white flex items-center justify-center hover-lift" aria-label="Instagram" style="box-shadow: 2px 2px 0px #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="5"/>
+                            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="#" class="w-10 h-10 bg-[#0066CC] border-2 border-white flex items-center justify-center hover-lift" aria-label="Facebook" style="box-shadow: 2px 2px 0px #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="w-10 h-10 bg-[#FF0000] border-2 border-white flex items-center justify-center hover-lift" aria-label="YouTube" style="box-shadow: 2px 2px 0px #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/>
+                            <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="white"/>
+                        </svg>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="#" class="w-10 h-10 bg-black border-2 border-[#00FF00] flex items-center justify-center hover-lift" aria-label="TikTok" style="box-shadow: 2px 2px 0px #00FF00;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#00FF00]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.16z"/>
+                        </svg>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="#" class="w-10 h-10 bg-[#00FF00] border-2 border-black flex items-center justify-center hover-lift" aria-label="WhatsApp" style="box-shadow: 2px 2px 0px #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </a>
                 </div>
-                <div class="footer-legal">
-                    <a href="#">Privacidade</a>
-                    <a href="#">Termos</a>
+
+                <!-- Copyright -->
+                <div class="text-center md:text-right">
+                    <p class="font-cartaz text-gray-500 text-sm">
+                        &copy; 2026 DESIGNCARTAZ. TODOS OS DIREITOS RESERVADOS.
+                    </p>
+                    <p style="font-family: Arial, sans-serif; font-weight: 400; font-size: 0.75rem; color: #555;" class="mt-1">
+                        Feito com amor no Brasil 🇧🇷
+                    </p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- ========================================
-         INTERACTIVE SCRIPTS
-         ======================================== -->
+    <div class="fita-crepon"></div>
+
+    <!-- JAVASCRIPT -->
     <script>
         // Mobile menu toggle
-        const navbarToggle = document.getElementById('navbarToggle');
-        const navbarLinks = document.getElementById('navbarLinks');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-        navbarToggle.addEventListener('click', () => {
-            navbarLinks.classList.toggle('active');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
         });
 
         // Close mobile menu on link click
-        document.querySelectorAll('.navbar-link').forEach(link => {
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                navbarLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
             });
         });
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -1491,14 +864,14 @@
             });
         });
 
-        // Page load animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.3s ease-in';
-
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 50);
+        // Scroll-based navbar background enhancement
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(255, 16, 240, 0.3)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
         });
     </script>
 </body>
