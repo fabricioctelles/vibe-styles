@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChalkFlow — Plataforma SaaS Inteligente para Equipes Modernas</title>
+    <meta name="description" content="ChalkFlow é a plataforma SaaS que transforma a forma como sua equipe colabora, automatiza e entrega resultados. Simples, poderoso e intuitivo.">
+    <meta name="keywords" content="SaaS, plataforma, colaboração, automação, produtividade, equipes, tecnologia">
+    <meta name="author" content="ChalkFlow">
+    <meta property="og:title" content="ChalkFlow — Plataforma SaaS Inteligente para Equipes Modernas">
+    <meta property="og:description" content="Transforme a forma como sua equipe colabora, automatiza e entrega resultados com ChalkFlow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chalkflow.com.br">
+    <meta property="og:image" content="https://chalkflow.com.br/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chalkboard: '#2D4A3E',
+                        'deep-slate': '#1A1A2E',
+                        'chalk-white': '#F5F5DC',
+                        'chalk-yellow': '#FFF59D',
+                        'chalk-pink': '#F48FB1',
+                        'chalk-blue': '#81D4FA',
+                        'chalk-orange': '#FFAB91',
+                    },
+                    fontFamily: {
+                        chalk: ['Caveat', 'cursive'],
+                        hand: ['Patrick Hand', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #2D4A3E;
+            font-family: 'Patrick Hand', cursive;
+            color: #F5F5DC;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Chalk text glow */
+        .chalk-glow {
+            text-shadow: 0 0 4px rgba(245, 245, 220, 0.3), 0 0 8px rgba(245, 245, 220, 0.1);
+        }
+
+        .chalk-glow-strong {
+            text-shadow: 0 0 6px rgba(245, 245, 220, 0.5), 0 0 12px rgba(245, 245, 220, 0.2);
+        }
+
+        /* Chalk line decoration */
+        .chalk-line {
+            position: relative;
+        }
+        .chalk-line::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                #F5F5DC 0px, #F5F5DC 4px,
+                transparent 4px, transparent 7px
+            );
+            opacity: 0.6;
+        }
+
+        /* Chalk dashed border cards */
+        .chalk-card {
+            border: 2px dashed rgba(245, 245, 220, 0.35);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .chalk-card:hover {
+            border-color: rgba(245, 245, 220, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(245, 245, 220, 0.08);
+        }
+
+        /* Eraser smudge effect */
+        .eraser-smudge {
+            position: relative;
+        }
+        .eraser-smudge::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 30px;
+            background: rgba(45, 74, 62, 0.6);
+            filter: blur(8px);
+            border-radius: 50%;
+            top: -10px;
+            right: -20px;
+            pointer-events: none;
+        }
+
+        /* Chalk dust animation */
+        @keyframes chalkDust {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            50% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.2); }
+        }
+
+        .dust-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(245, 245, 220, 0.4);
+            border-radius: 50%;
+            animation: chalkDust 3s infinite ease-out;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 2px dashed #FFF59D;
+            box-shadow: 0 0 25px rgba(255, 245, 157, 0.12);
+        }
+
+        /* Chalk button */
+        .chalk-btn {
+            border: 2px dashed rgba(245, 245, 220, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .chalk-btn:hover {
+            background: rgba(245, 245, 220, 0.1);
+            border-color: #F5F5DC;
+            text-shadow: 0 0 8px rgba(245, 245, 220, 0.5);
+        }
+
+        .chalk-btn-filled {
+            background: rgba(245, 245, 220, 0.12);
+            border: 2px dashed #F5F5DC;
+            transition: all 0.3s ease;
+        }
+        .chalk-btn-filled:hover {
+            background: rgba(245, 245, 220, 0.22);
+            box-shadow: 0 0 15px rgba(245, 245, 220, 0.15);
+        }
+
+        /* Sketch-style hero visual */
+        .hero-visual {
+            position: relative;
+        }
+        .hero-visual .sketch-circle {
+            border: 2px dashed rgba(129, 212, 250, 0.5);
+            border-radius: 50%;
+            animation: sketchPulse 4s ease-in-out infinite;
+        }
+        .hero-visual .sketch-square {
+            border: 2px dashed rgba(255, 245, 157, 0.5);
+            transform: rotate(15deg);
+            animation: sketchFloat 5s ease-in-out infinite;
+        }
+        .hero-visual .sketch-triangle {
+            width: 0; height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px dashed rgba(244, 143, 177, 0.5);
+            animation: sketchFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes sketchPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes sketchFloat {
+            0%, 100% { transform: rotate(15deg) translateY(0); }
+            50% { transform: rotate(15deg) translateY(-12px); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1A1A2E; }
+        ::-webkit-scrollbar-thumb { background: rgba(245, 245, 220, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(245, 245, 220, 0.35); }
+
+        /* Mobile menu */
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: flex; }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-chalkboard/90 backdrop-blur-sm border-b border-dashed border-chalk-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-8 h-8 text-chalk-yellow transition-all group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/>
+                    </svg>
+                    <span class="font-chalk text-2xl font-bold chalk-glow text-chalk-white">ChalkFlow</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Recursos</a>
+                    <a href="#testimonials" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Depoimentos</a>
+                    <a href="#pricing" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Preços</a>
+                    <a href="#contact" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Contato</a>
+                    <a href="#cta" class="chalk-btn-filled font-hand text-lg text-chalk-white px-5 py-2 rounded cursor-pointer chalk-glow">Começar Agora</a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="menuToggle" class="md:hidden cursor-pointer text-chalk-white" aria-label="Abrir menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu flex-col gap-4 pb-6 md:hidden">
+                <a href="#features" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Recursos</a>
+                <a href="#testimonials" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Depoimentos</a>
+                <a href="#pricing" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Preços</a>
+                <a href="#contact" class="font-hand text-chalk-white/80 hover:text-chalk-white chalk-glow cursor-pointer transition-all text-lg">Contato</a>
+                <a href="#cta" class="chalk-btn-filled font-hand text-lg text-chalk-white px-5 py-2 rounded cursor-pointer chalk-glow inline-block w-fit">Começar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="pt-28 pb-20 md:pt-36 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <h1 class="font-chalk text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight chalk-glow-strong">
+                    Simplifique. <span class="text-chalk-yellow">Automatize.</span> <span class="text-chalk-pink">Entregue.</span>
+                </h1>
+                <p class="font-hand text-xl sm:text-2xl text-chalk-white/80 leading-relaxed max-w-lg">
+                    O ChalkFlow é a plataforma que sua equipe precisa para colaborar melhor, automatizar processos e alcançar resultados extraordinários.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#pricing" class="chalk-btn-filled font-hand text-xl text-chalk-white px-8 py-3 rounded cursor-pointer chalk-glow inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.841m2.699-2.562L12 18.75l-2.699-2.562"/>
+                        </svg>
+                        Teste Grátis por 14 Dias
+                    </a>
+                    <a href="#features" class="chalk-btn font-hand text-xl text-chalk-white px-8 py-3 rounded cursor-pointer chalk-glow inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                        </svg>
+                        Ver Demonstração
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Visual: Abstract chalk sketch shapes -->
+            <div class="hero-visual relative h-80 md:h-96 flex items-center justify-center" aria-hidden="true">
+                <!-- Dust particles -->
+                <div class="dust-particle" style="top:20%;left:30%;animation-delay:0s;"></div>
+                <div class="dust-particle" style="top:60%;left:70%;animation-delay:1s;"></div>
+                <div class="dust-particle" style="top:40%;left:50%;animation-delay:2s;"></div>
+                <div class="dust-particle" style="top:75%;left:25%;animation-delay:0.5s;"></div>
+                <div class="dust-particle" style="top:15%;left:80%;animation-delay:1.5s;"></div>
+
+                <!-- Sketch shapes -->
+                <div class="sketch-circle absolute w-48 h-48 md:w-56 md:h-56" style="top:10%;left:15%;"></div>
+                <div class="sketch-square absolute w-32 h-32 md:w-40 md:h-40" style="top:30%;right:10%;"></div>
+                <div class="sketch-triangle absolute" style="bottom:15%;left:35%;"></div>
+                <div class="absolute sketch-circle w-20 h-20" style="bottom:20%;right:25%; border-color: rgba(255,171,145,0.5);"></div>
+
+                <!-- Central icon -->
+                <div class="relative z-10 border-2 border-dashed border-chalk-white/30 rounded-2xl p-8 bg-chalkboard/40">
+                    <svg class="w-24 h-24 md:w-32 md:h-32 text-chalk-yellow/70" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-deep-slate/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-chalk text-4xl sm:text-5xl font-bold chalk-glow-strong mb-4">Por que escolher o <span class="text-chalk-yellow">ChalkFlow</span>?</h2>
+                <p class="font-hand text-xl text-chalk-white/70 max-w-2xl mx-auto">Ferramentas poderosas desenhadas para simplificar o dia a dia da sua equipe.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="chalk-card p-8 bg-chalkboard/50 eraser-smudge">
+                    <div class="w-14 h-14 rounded-lg border-2 border-dashed border-chalk-blue/50 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-chalk-blue" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-chalk text-2xl font-bold chalk-glow mb-3 text-chalk-blue">Painel Inteligente</h3>
+                    <p class="font-hand text-lg text-chalk-white/70 leading-relaxed">Visualize métricas em tempo real, acompanhe o progresso dos projetos e tome decisões baseadas em dados — tudo em um único lugar.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="chalk-card p-8 bg-chalkboard/50 eraser-smudge">
+                    <div class="w-14 h-14 rounded-lg border-2 border-dashed border-chalk-yellow/50 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-chalk-yellow" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-chalk text-2xl font-bold chalk-glow mb-3 text-chalk-yellow">Automação Sem Código</h3>
+                    <p class="font-hand text-lg text-chalk-white/70 leading-relaxed">Crie fluxos de trabalho automatizados com nosso editor visual drag-and-drop. Sem necessidade de programação, sem complicação.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="chalk-card p-8 bg-chalkboard/50 eraser-smudge">
+                    <div class="w-14 h-14 rounded-lg border-2 border-dashed border-chalk-pink/50 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-chalk-pink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-chalk text-2xl font-bold chalk-glow mb-3 text-chalk-pink">Colaboração em Tempo Real</h3>
+                    <p class="font-hand text-lg text-chalk-white/70 leading-relaxed">Trabalhe junto com sua equipe simultaneamente. Chat integrado, comentários em tarefas e notificações inteligentes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-chalk text-4xl sm:text-5xl font-bold chalk-glow-strong mb-4">O que nossos <span class="text-chalk-orange">clientes</span> dizem</h2>
+                <p class="font-hand text-xl text-chalk-white/70 max-w-2xl mx-auto">Milhares de equipes já transformaram sua produtividade com o ChalkFlow.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="chalk-card p-8 bg-deep-slate/30">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                    </div>
+                    <p class="font-hand text-lg text-chalk-white/80 mb-6 leading-relaxed">"O ChalkFlow revolucionou a forma como gerenciamos nossos projetos. A automação nos economiza pelo menos 15 horas por semana."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-dashed border-chalk-blue/50 flex items-center justify-center">
+                            <span class="font-chalk text-chalk-blue font-bold">MC</span>
+                        </div>
+                        <div>
+                            <p class="font-chalk text-lg font-bold chalk-glow">Marina Costa</p>
+                            <p class="font-hand text-sm text-chalk-white/50">CTO, TechNova Solutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="chalk-card p-8 bg-deep-slate/30">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                    </div>
+                    <p class="font-hand text-lg text-chalk-white/80 mb-6 leading-relaxed">"Interface incrível e intuitiva. Migramos do Trello e do Slack para o ChalkFlow e nunca mais olhamos para trás. Tudo integrado!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-dashed border-chalk-pink/50 flex items-center justify-center">
+                            <span class="font-chalk text-chalk-pink font-bold">RS</span>
+                        </div>
+                        <div>
+                            <p class="font-chalk text-lg font-bold chalk-glow">Rafael Santos</p>
+                            <p class="font-hand text-sm text-chalk-white/50">Gerente de Produto, DataBridge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="chalk-card p-8 bg-deep-slate/30">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                        <svg class="w-5 h-5 text-chalk-yellow/40" fill="currentColor" viewBox="0 0 24 24"><path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"/></svg>
+                    </div>
+                    <p class="font-hand text-lg text-chalk-white/80 mb-6 leading-relaxed">"O suporte é excepcional e a plataforma evolui constantemente. Já recomendei para três empresas parceiras. Nota 10!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-dashed border-chalk-orange/50 flex items-center justify-center">
+                            <span class="font-chalk text-chalk-orange font-bold">AL</span>
+                        </div>
+                        <div>
+                            <p class="font-chalk text-lg font-bold chalk-glow">Ana Luíza Ferreira</p>
+                            <p class="font-hand text-sm text-chalk-white/50">CEO, Criativa Digital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-deep-slate/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-chalk text-4xl sm:text-5xl font-bold chalk-glow-strong mb-4">Planos que <span class="text-chalk-yellow">cabem</span> no seu bolso</h2>
+                <p class="font-hand text-xl text-chalk-white/70 max-w-2xl mx-auto">Comece grátis e escale conforme sua equipe cresce. Sem surpresas.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                <!-- Starter -->
+                <div class="chalk-card p-8 bg-chalkboard/50 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="font-chalk text-2xl font-bold chalk-glow mb-1">Starter</h3>
+                        <p class="font-hand text-chalk-white/50">Para pequenas equipes</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-chalk text-5xl font-bold chalk-glow">R$0</span>
+                        <span class="font-hand text-chalk-white/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Até 5 usuários
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            3 projetos ativos
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Painel básico
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Suporte por e-mail
+                        </li>
+                    </ul>
+                    <a href="#" class="chalk-btn font-hand text-xl text-chalk-white px-6 py-3 rounded cursor-pointer chalk-glow text-center block">Começar Grátis</a>
+                </div>
+
+                <!-- Pro (Highlighted) -->
+                <div class="chalk-card pricing-highlight p-8 bg-chalkboard/60 flex flex-col relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-chalk-yellow text-deep-slate font-chalk text-sm font-bold px-4 py-1 rounded">
+                        Mais Popular
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="font-chalk text-2xl font-bold text-chalk-yellow mb-1">Pro</h3>
+                        <p class="font-hand text-chalk-white/50">Para equipes em crescimento</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-chalk text-5xl font-bold text-chalk-yellow" style="text-shadow: 0 0 8px rgba(255,245,157,0.4);">R$97</span>
+                        <span class="font-hand text-chalk-white/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-yellow flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Até 25 usuários
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-yellow flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-yellow flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Automações avançadas
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-yellow flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Integrações premium
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-yellow flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#" class="chalk-btn-filled font-hand text-xl text-chalk-white px-6 py-3 rounded cursor-pointer chalk-glow text-center block" style="border-color: #FFF59D; background: rgba(255,245,157,0.15);">Assinar Agora</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="chalk-card p-8 bg-chalkboard/50 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="font-chalk text-2xl font-bold chalk-glow mb-1">Enterprise</h3>
+                        <p class="font-hand text-chalk-white/50">Para grandes organizações</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-chalk text-5xl font-bold chalk-glow">R$297</span>
+                        <span class="font-hand text-chalk-white/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Usuários ilimitados
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Tudo do plano Pro
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            SSO e segurança avançada
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            API dedicada
+                        </li>
+                        <li class="font-hand text-lg text-chalk-white/70 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-chalk-blue flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                    </ul>
+                    <a href="#" class="chalk-btn font-hand text-xl text-chalk-white px-6 py-3 rounded cursor-pointer chalk-glow text-center block">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section id="cta" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Chalk line decoration top -->
+            <div class="w-32 h-0.5 mx-auto mb-10 opacity-40" style="background: repeating-linear-gradient(90deg, #F5F5DC 0px, #F5F5DC 6px, transparent 6px, transparent 10px);"></div>
+
+            <h2 class="font-chalk text-4xl sm:text-5xl lg:text-6xl font-bold chalk-glow-strong mb-6">
+                Pronto para transformar sua <span class="text-chalk-yellow">produtividade</span>?
+            </h2>
+            <p class="font-hand text-xl sm:text-2xl text-chalk-white/70 mb-10 max-w-2xl mx-auto">
+                Junte-se a mais de 5.000 equipes que já usam o ChalkFlow para entregar resultados incríveis todos os dias.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="chalk-btn-filled font-hand text-xl text-chalk-white px-10 py-4 rounded cursor-pointer chalk-glow inline-flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.841m2.699-2.562L12 18.75l-2.699-2.562"/>
+                    </svg>
+                    Começar Teste Grátis
+                </a>
+                <a href="#" class="chalk-btn font-hand text-xl text-chalk-white px-10 py-4 rounded cursor-pointer chalk-glow inline-flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+                    </svg>
+                    Fale Conosco
+                </a>
+            </div>
+
+            <!-- Chalk line decoration bottom -->
+            <div class="w-32 h-0.5 mx-auto mt-10 opacity-40" style="background: repeating-linear-gradient(90deg, #F5F5DC 0px, #F5F5DC 6px, transparent 6px, transparent 10px);"></div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="border-t border-dashed border-chalk-white/20 bg-deep-slate/40 pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                        <svg class="w-7 h-7 text-chalk-yellow transition-all group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/>
+                        </svg>
+                        <span class="font-chalk text-xl font-bold chalk-glow text-chalk-white">ChalkFlow</span>
+                    </a>
+                    <p class="font-hand text-chalk-white/50 text-base leading-relaxed">Plataforma SaaS inteligente para equipes que querem entregar mais com menos esforço.</p>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="font-chalk text-lg font-bold chalk-glow mb-4">Produto</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Recursos</a></li>
+                        <li><a href="#pricing" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Preços</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Integrações</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="font-chalk text-lg font-bold chalk-glow mb-4">Empresa</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Sobre Nós</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Blog</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Carreiras</a></li>
+                        <li><a href="#contact" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-chalk text-lg font-bold chalk-glow mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Termos de Uso</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">Cookies</a></li>
+                        <li><a href="#" class="font-hand text-chalk-white/50 hover:text-chalk-white cursor-pointer transition-all">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-dashed border-chalk-white/15 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="font-hand text-chalk-white/40 text-sm">&copy; 2026 ChalkFlow. Todos os direitos reservados.</p>
+
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4">
+                    <!-- Twitter/X -->
+                    <a href="#" class="text-chalk-white/40 hover:text-chalk-white cursor-pointer transition-all" aria-label="Twitter">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="#" class="text-chalk-white/40 hover:text-chalk-white cursor-pointer transition-all" aria-label="LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="#" class="text-chalk-white/40 hover:text-chalk-white cursor-pointer transition-all" aria-label="GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="text-chalk-white/40 hover:text-chalk-white cursor-pointer transition-all" aria-label="Instagram">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="text-chalk-white/40 hover:text-chalk-white cursor-pointer transition-all" aria-label="YouTube">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

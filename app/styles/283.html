@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowSync — Plataforma Inteligente para Equipes Modernas</title>
+  <meta name="description" content="FlowSync é a plataforma SaaS que conecta equipes, automatiza fluxos e acelera resultados. Experimente grátis por 14 dias.">
+  <meta name="keywords" content="SaaS, produtividade, equipes, automação, fluxos de trabalho, colaboração">
+  <meta name="author" content="FlowSync">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FlowSync — Plataforma Inteligente para Equipes Modernas">
+  <meta property="og:description" content="Conecte equipes, automatize fluxos e acelere resultados com a FlowSync.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flowsync.com.br">
+  <meta property="og:image" content="https://flowsync.com.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FlowSync — Plataforma Inteligente para Equipes Modernas">
+  <meta name="twitter:description" content="Conecte equipes, automatize fluxos e acelere resultados.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            nunito: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            lavender: '#E8E0F0',
+            cloud: '#F0F0F3',
+            mint: '#E8F5E9',
+            bubblegum: '#F8BBD0',
+            periwinkle: '#B3C7E6',
+            peach: '#FFDAB9',
+            lilac: '#CE93D8',
+          },
+          borderRadius: {
+            'neu': '24px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-main: #E8E0F0;
+      --bg-cloud: #F0F0F3;
+      --bg-mint: #E8F5E9;
+      --bubblegum: #F8BBD0;
+      --periwinkle: #B3C7E6;
+      --peach: #FFDAB9;
+      --lilac: #CE93D8;
+      --border-radius: 24px;
+      --shadow-light: -8px -8px 20px rgba(255,255,255,0.8);
+      --shadow-dark: 8px 8px 20px rgba(0,0,0,0.1);
+      --glossy-highlight: inset 0 2px 4px rgba(255,255,255,0.6);
+      --press-scale: 0.97;
+      --transition: 200ms;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-main);
+      color: #4A4063;
+      overflow-x: hidden;
+    }
+
+    /* Neumorphic Convex (raised) */
+    .neu-convex {
+      background: linear-gradient(135deg, #F0EAF6, #E8E0F0);
+      box-shadow:
+        -8px -8px 20px rgba(255,255,255,0.8),
+        8px 8px 20px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.6);
+      border-radius: var(--border-radius);
+      transition: all var(--transition) ease;
+    }
+
+    .neu-convex:hover {
+      box-shadow:
+        -6px -6px 16px rgba(255,255,255,0.9),
+        6px 6px 16px rgba(0,0,0,0.12),
+        inset 0 2px 6px rgba(255,255,255,0.7);
+    }
+
+    .neu-convex:active, .neu-convex.press:active {
+      transform: scale(var(--press-scale));
+      box-shadow:
+        -2px -2px 8px rgba(255,255,255,0.6),
+        2px 2px 8px rgba(0,0,0,0.08),
+        inset 0 1px 2px rgba(255,255,255,0.4);
+    }
+
+    /* Neumorphic Concave (pressed in) */
+    .neu-concave {
+      background: linear-gradient(135deg, #DED6E8, #E8E0F0);
+      box-shadow:
+        inset -4px -4px 10px rgba(255,255,255,0.7),
+        inset 4px 4px 10px rgba(0,0,0,0.08);
+      border-radius: var(--border-radius);
+      transition: all var(--transition) ease;
+    }
+
+    /* Neumorphic Flat */
+    .neu-flat {
+      background: var(--bg-main);
+      box-shadow:
+        -6px -6px 16px rgba(255,255,255,0.7),
+        6px 6px 16px rgba(0,0,0,0.08);
+      border-radius: var(--border-radius);
+      transition: all var(--transition) ease;
+    }
+
+    /* Button styles */
+    .neu-btn-primary {
+      background: linear-gradient(135deg, #D8A8E0, #CE93D8);
+      box-shadow:
+        -4px -4px 12px rgba(255,255,255,0.6),
+        4px 4px 12px rgba(0,0,0,0.12),
+        inset 0 2px 4px rgba(255,255,255,0.5);
+      border-radius: var(--border-radius);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition) ease;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .neu-btn-primary:hover {
+      background: linear-gradient(135deg, #DDB0E8, #D8A0E2);
+      box-shadow:
+        -3px -3px 10px rgba(255,255,255,0.7),
+        3px 3px 10px rgba(0,0,0,0.15),
+        inset 0 2px 6px rgba(255,255,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .neu-btn-primary:active {
+      transform: scale(var(--press-scale));
+      box-shadow:
+        inset -2px -2px 6px rgba(255,255,255,0.4),
+        inset 2px 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .neu-btn-secondary {
+      background: linear-gradient(135deg, #F5F0F8, #E8E0F0);
+      box-shadow:
+        -4px -4px 12px rgba(255,255,255,0.7),
+        4px 4px 12px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.5);
+      border-radius: var(--border-radius);
+      color: #6B5B7B;
+      font-weight: 700;
+      padding: 14px 32px;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition) ease;
+    }
+
+    .neu-btn-secondary:hover {
+      background: linear-gradient(135deg, #FAF5FD, #EDE6F3);
+      box-shadow:
+        -3px -3px 10px rgba(255,255,255,0.8),
+        3px 3px 10px rgba(0,0,0,0.12),
+        inset 0 2px 6px rgba(255,255,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .neu-btn-secondary:active {
+      transform: scale(var(--press-scale));
+      box-shadow:
+        inset -2px -2px 6px rgba(255,255,255,0.4),
+        inset 2px 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Card styles */
+    .neu-card {
+      background: linear-gradient(145deg, #F2ECF8, #E4DCF0);
+      box-shadow:
+        -8px -8px 20px rgba(255,255,255,0.8),
+        8px 8px 20px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.6);
+      border-radius: var(--border-radius);
+      transition: all var(--transition) ease;
+    }
+
+    .neu-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        -10px -10px 24px rgba(255,255,255,0.85),
+        10px 10px 24px rgba(0,0,0,0.12),
+        inset 0 2px 6px rgba(255,255,255,0.7);
+    }
+
+    /* Pricing highlight card */
+    .neu-card-highlight {
+      background: linear-gradient(145deg, #F0D4F8, #E0C0EC);
+      box-shadow:
+        -10px -10px 24px rgba(255,255,255,0.8),
+        10px 10px 24px rgba(0,0,0,0.12),
+        inset 0 3px 6px rgba(255,255,255,0.6);
+      border-radius: var(--border-radius);
+      transition: all var(--transition) ease;
+      transform: scale(1.05);
+    }
+
+    .neu-card-highlight:hover {
+      transform: scale(1.07) translateY(-4px);
+      box-shadow:
+        -12px -12px 28px rgba(255,255,255,0.85),
+        12px 12px 28px rgba(0,0,0,0.14),
+        inset 0 3px 8px rgba(255,255,255,0.7);
+    }
+
+    /* Icon container */
+    .neu-icon {
+      background: linear-gradient(135deg, #F5F0FA, #E8E0F0);
+      box-shadow:
+        -4px -4px 10px rgba(255,255,255,0.7),
+        4px 4px 10px rgba(0,0,0,0.08),
+        inset 0 1px 3px rgba(255,255,255,0.5);
+      border-radius: 18px;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition) ease;
+    }
+
+    /* Glossy orb for hero */
+    .glossy-orb {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D8C8F0, #B3C7E6, #F8BBD0);
+      box-shadow:
+        -16px -16px 40px rgba(255,255,255,0.7),
+        16px 16px 40px rgba(0,0,0,0.12),
+        inset 0 4px 12px rgba(255,255,255,0.6),
+        inset 0 -4px 12px rgba(0,0,0,0.05);
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .glossy-orb::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      left: 20%;
+      width: 40%;
+      height: 30%;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
+      filter: blur(8px);
+    }
+
+    .glossy-orb::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(206,147,216,0.3), rgba(179,199,230,0.3));
+      box-shadow:
+        inset -6px -6px 16px rgba(255,255,255,0.4),
+        inset 6px 6px 16px rgba(0,0,0,0.06);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-16px) rotate(2deg); }
+      66% { transform: translateY(8px) rotate(-1deg); }
+    }
+
+    /* Small floating shapes */
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      box-shadow:
+        -4px -4px 10px rgba(255,255,255,0.6),
+        4px 4px 10px rgba(0,0,0,0.08),
+        inset 0 1px 3px rgba(255,255,255,0.5);
+      animation: floatSmall 8s ease-in-out infinite;
+    }
+
+    @keyframes floatSmall {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.05); }
+    }
+
+    /* Navbar */
+    .neu-navbar {
+      background: linear-gradient(135deg, rgba(240,236,248,0.9), rgba(232,224,240,0.9));
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 4px 16px rgba(0,0,0,0.06),
+        inset 0 1px 2px rgba(255,255,255,0.6);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+    /* Testimonial avatar */
+    .neu-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow:
+        -3px -3px 8px rgba(255,255,255,0.7),
+        3px 3px 8px rgba(0,0,0,0.08),
+        inset 0 1px 2px rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    /* Pricing check */
+    .pricing-check {
+      color: #9B6FB0;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Section spacing */
+    section {
+      padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 48px 0;
+      }
+      .glossy-orb {
+        width: 200px;
+        height: 200px;
+      }
+      .neu-card-highlight {
+        transform: scale(1);
+      }
+      .neu-card-highlight:hover {
+        transform: translateY(-4px);
+      }
+    }
+  </style>
+</head>
+<body class="font-nunito">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="neu-navbar fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 cursor-pointer">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-lilac to-periwinkle flex items-center justify-center shadow-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <span class="text-xl font-extrabold text-gray-700">Flow<span class="text-lilac">Sync</span></span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer">Recursos</a>
+        <a href="#testimonials" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer">Depoimentos</a>
+        <a href="#pricing" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer">Preços</a>
+        <a href="#contact" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer">Contato</a>
+      </div>
+
+      <!-- Desktop CTA -->
+      <div class="hidden md:block">
+        <button class="neu-btn-primary text-sm cursor-pointer">Comece Grátis</button>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="menuToggle" class="md:hidden neu-convex p-3 cursor-pointer" aria-label="Abrir menu">
+        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu flex-col gap-4 pb-6 px-4 md:hidden">
+      <a href="#features" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer py-2">Recursos</a>
+      <a href="#testimonials" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer py-2">Depoimentos</a>
+      <a href="#pricing" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer py-2">Preços</a>
+      <a href="#contact" class="text-gray-600 font-semibold hover:text-lilac transition-all duration-200 cursor-pointer py-2">Contato</a>
+      <button class="neu-btn-primary text-sm cursor-pointer mt-2 w-full">Comece Grátis</button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="pt-32 md:pt-40 pb-16 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <!-- Hero Text -->
+        <div class="flex-1 text-center lg:text-left">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight mb-6">
+            Conecte sua equipe.
+            <span class="block text-lilac">Acelere resultados.</span>
+          </h1>
+          <p class="text-lg sm:text-xl text-gray-500 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            A FlowSync é a plataforma inteligente que automatiza fluxos de trabalho, centraliza a comunicação e transforma a produtividade da sua equipe.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <button class="neu-btn-primary text-base cursor-pointer">
+              Teste Grátis por 14 Dias
+            </button>
+            <button class="neu-btn-secondary text-base cursor-pointer flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Ver Demonstração
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Visual -->
+        <div class="flex-1 flex justify-center relative">
+          <div class="glossy-orb"></div>
+          <!-- Floating shapes -->
+          <div class="floating-shape w-16 h-16 bg-gradient-to-br from-bubblegum to-peach top-4 -left-4" style="animation-delay: -2s;"></div>
+          <div class="floating-shape w-12 h-12 bg-gradient-to-br from-periwinkle to-mint bottom-8 right-0" style="animation-delay: -4s;"></div>
+          <div class="floating-shape w-8 h-8 bg-gradient-to-br from-lilac to-lavender top-1/2 -right-6" style="animation-delay: -1s;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES SECTION ========== -->
+  <section id="features" class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4">Tudo que sua equipe precisa</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">Ferramentas poderosas em uma interface intuitiva para transformar a forma como você trabalha.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        <!-- Feature 1 -->
+        <div class="neu-card p-8 cursor-pointer">
+          <div class="neu-icon mb-6">
+            <svg class="w-7 h-7 text-lilac" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Automação Inteligente</h3>
+          <p class="text-gray-500 leading-relaxed">Crie fluxos automatizados com IA que aprendem com seus processos e eliminam tarefas repetitivas, economizando horas por semana.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="neu-card p-8 cursor-pointer">
+          <div class="neu-icon mb-6">
+            <svg class="w-7 h-7 text-periwinkle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Colaboração em Tempo Real</h3>
+          <p class="text-gray-500 leading-relaxed">Trabalhe junto com sua equipe em documentos, projetos e tarefas simultaneamente, com sincronização instantânea e sem conflitos.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="neu-card p-8 cursor-pointer">
+          <div class="neu-icon mb-6">
+            <svg class="w-7 h-7 text-bubblegum" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Análises e Relatórios</h3>
+          <p class="text-gray-500 leading-relaxed">Dashboards visuais com métricas em tempo real para acompanhar o desempenho da equipe e tomar decisões baseadas em dados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS SECTION ========== -->
+  <section id="testimonials" class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4">O que nossos clientes dizem</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">Milhares de equipes já transformaram sua produtividade com a FlowSync.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        <!-- Testimonial 1 -->
+        <div class="neu-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="neu-avatar bg-gradient-to-br from-bubblegum to-peach text-white">MC</div>
+            <div>
+              <h4 class="font-bold text-gray-800">Marina Costa</h4>
+              <p class="text-sm text-gray-400">CTO, TechNova</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-500 leading-relaxed italic">"A FlowSync revolucionou nossos processos internos. Reduzimos o tempo de entrega em 40% e a equipe nunca esteve tão alinhada."</p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="neu-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="neu-avatar bg-gradient-to-br from-periwinkle to-mint text-white">RS</div>
+            <div>
+              <h4 class="font-bold text-gray-800">Rafael Santos</h4>
+              <p class="text-sm text-gray-400">Gerente de Projetos, Inova Digital</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-500 leading-relaxed italic">"Finalmente uma ferramenta que entende o fluxo de trabalho brasileiro. A integração foi simples e o suporte é excepcional."</p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="neu-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="neu-avatar bg-gradient-to-br from-lilac to-bubblegum text-white">AL</div>
+            <div>
+              <h4 class="font-bold text-gray-800">Ana Luíza Ferreira</h4>
+              <p class="text-sm text-gray-400">CEO, StartUp Flow</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-500 leading-relaxed italic">"Desde que adotamos a FlowSync, nossa startup cresceu 3x sem precisar triplicar a equipe. A automação faz toda a diferença."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING SECTION ========== -->
+  <section id="pricing" class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4">Planos para cada momento</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">Comece grátis e escale conforme sua equipe cresce. Sem surpresas, sem taxas ocultas.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-center">
+        <!-- Starter -->
+        <div class="neu-card p-8 text-center">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Starter</h3>
+          <p class="text-gray-400 text-sm mb-6">Para equipes pequenas</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-gray-800">R$0</span>
+            <span class="text-gray-400">/mês</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Até 5 membros
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              3 fluxos automatizados
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              1 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Suporte por e-mail
+            </li>
+          </ul>
+          <button class="neu-btn-secondary w-full cursor-pointer">Começar Grátis</button>
+        </div>
+
+        <!-- Pro (Highlighted) -->
+        <div class="neu-card-highlight p-8 text-center relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="neu-convex px-5 py-1.5 text-sm font-bold text-lilac bg-white">Mais Popular</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2 mt-2">Pro</h3>
+          <p class="text-gray-400 text-sm mb-6">Para equipes em crescimento</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-gray-800">R$79</span>
+            <span class="text-gray-400">/mês</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Até 25 membros
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Fluxos ilimitados
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              50 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Suporte prioritário 24/7
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Integrações avançadas
+            </li>
+          </ul>
+          <button class="neu-btn-primary w-full cursor-pointer">Assinar Pro</button>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="neu-card p-8 text-center">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Enterprise</h3>
+          <p class="text-gray-400 text-sm mb-6">Para grandes organizações</p>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-gray-800">R$249</span>
+            <span class="text-gray-400">/mês</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Membros ilimitados
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Fluxos ilimitados + IA
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Armazenamento ilimitado
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Gerente de conta dedicado
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 pricing-check flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              SLA garantido 99.9%
+            </li>
+          </ul>
+          <button class="neu-btn-secondary w-full cursor-pointer">Falar com Vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA FINAL ========== -->
+  <section class="relative py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="neu-convex p-12 sm:p-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-6">Pronto para transformar sua equipe?</h2>
+        <p class="text-lg text-gray-500 mb-8 max-w-xl mx-auto leading-relaxed">
+          Junte-se a mais de 10.000 equipes que já usam a FlowSync para trabalhar de forma mais inteligente. Comece hoje, sem cartão de crédito.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="neu-btn-primary text-base cursor-pointer px-10">
+            Comece Grátis Agora
+          </button>
+          <button class="neu-btn-secondary text-base cursor-pointer flex items-center justify-center gap-2 px-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+            Agendar uma Demo
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="relative pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="neu-flat p-10 sm:p-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          <!-- Brand -->
+          <div>
+            <a href="#" class="flex items-center gap-2 cursor-pointer mb-4">
+              <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-lilac to-periwinkle flex items-center justify-center shadow-md">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <span class="text-xl font-extrabold text-gray-700">Flow<span class="text-lilac">Sync</span></span>
+            </a>
+            <p class="text-gray-400 text-sm leading-relaxed">Plataforma inteligente para equipes modernas que buscam produtividade e colaboração sem limites.</p>
+          </div>
+
+          <!-- Produto -->
+          <div>
+            <h4 class="font-bold text-gray-700 mb-4">Produto</h4>
+            <ul class="space-y-2">
+              <li><a href="#features" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Recursos</a></li>
+              <li><a href="#pricing" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Preços</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Integrações</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Atualizações</a></li>
+            </ul>
+          </div>
+
+          <!-- Empresa -->
+          <div>
+            <h4 class="font-bold text-gray-700 mb-4">Empresa</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Sobre Nós</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Blog</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Carreiras</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Contato</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="font-bold text-gray-700 mb-4">Legal</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Política de Privacidade</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Termos de Uso</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">Cookies</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-lilac transition-all duration-200 cursor-pointer text-sm">LGPD</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="neu-concave h-px mb-8"></div>
+
+        <!-- Bottom Footer -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-gray-400 text-sm">&copy; 2026 FlowSync. Todos os direitos reservados.</p>
+
+          <!-- Social Icons -->
+          <div class="flex items-center gap-3">
+            <!-- Instagram -->
+            <a href="#" class="neu-convex w-10 h-10 flex items-center justify-center cursor-pointer" aria-label="Instagram">
+              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#" class="neu-convex w-10 h-10 flex items-center justify-center cursor-pointer" aria-label="Twitter">
+              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" class="neu-convex w-10 h-10 flex items-center justify-center cursor-pointer" aria-label="LinkedIn">
+              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" class="neu-convex w-10 h-10 flex items-center justify-center cursor-pointer" aria-label="YouTube">
+              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE MENU SCRIPT ========== -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
