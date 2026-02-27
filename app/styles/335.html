@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskFlow — Plataforma SaaS de Produtividade e Gestão de Tarefas. Organize, colabore e entregue resultados com eficiência.">
+    <meta name="keywords" content="gestão de tarefas, produtividade, SaaS, colaboração, equipes, projetos">
+    <meta property="og:title" content="TaskFlow — Produtividade Inteligente">
+    <meta property="og:description" content="A plataforma que transforma a forma como sua equipe trabalha. Gerencie tarefas, projetos e metas em um só lugar.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>TaskFlow — Plataforma SaaS de Produtividade e Gestão de Tarefas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arctic: '#F1F6F4',
+                        forsythia: '#FFC801',
+                        nocturnal: '#114C5A',
+                        mint: '#D9E8E2',
+                        saffron: '#FF9932',
+                        oceanic: '#172B36',
+                    },
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        md: '8px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #F1F6F4; color: #172B36; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+        .border-light { border: 1px solid rgba(17,76,90,0.1); }
+        .shadow-subtle { box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .transition-smooth { transition: all 0.25s ease; }
+        .hero-shape {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,200,1,0.18) 0%, rgba(217,232,226,0.12) 70%, transparent 100%);
+            filter: blur(40px);
+            z-index: 0;
+        }
+        .hero-geo {
+            position: absolute;
+            border: 2px solid rgba(17,76,90,0.08);
+            border-radius: 16px;
+            z-index: 0;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(3deg); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        .float-anim-delay { animation: float 7s ease-in-out 1s infinite; }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+        }
+        .pricing-highlight {
+            border: 2px solid #FFC801;
+            box-shadow: 0 8px 32px rgba(255,200,1,0.15);
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-arctic/80 backdrop-blur-md border-b border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <a href="#" class="flex items-center gap-2 font-display text-xl font-bold text-nocturnal">
+                <svg class="w-8 h-8 text-forsythia" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                TaskFlow
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Planos</a>
+                <a href="#contact" class="text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Contato</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#" class="text-sm font-medium text-nocturnal hover:text-forsythia transition-smooth cursor-pointer">Entrar</a>
+                <a href="#" class="inline-flex items-center px-5 py-2.5 bg-forsythia text-oceanic text-sm font-semibold rounded-md hover:bg-yellow-400 transition-smooth cursor-pointer shadow-subtle">Começar Grátis</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-nocturnal hover:bg-mint transition-smooth cursor-pointer" aria-label="Abrir menu">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-arctic border-t border-light">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features" class="block text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="block text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="block text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Planos</a>
+                <a href="#contact" class="block text-sm font-medium text-oceanic/70 hover:text-nocturnal transition-smooth cursor-pointer">Contato</a>
+                <div class="pt-3 border-t border-light flex flex-col gap-2">
+                    <a href="#" class="text-sm font-medium text-nocturnal cursor-pointer">Entrar</a>
+                    <a href="#" class="inline-flex items-center justify-center px-5 py-2.5 bg-forsythia text-oceanic text-sm font-semibold rounded-md cursor-pointer">Começar Grátis</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+        <div class="hero-shape top-10 -left-20 opacity-70"></div>
+        <div class="hero-shape bottom-0 right-0 opacity-50"></div>
+        <div class="hero-geo w-48 h-48 top-24 right-[15%] float-anim hidden lg:block"></div>
+        <div class="hero-geo w-32 h-32 bottom-16 left-[10%] float-anim-delay hidden lg:block" style="border-radius:50%;"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-mint rounded-full text-xs font-medium text-nocturnal mb-6">
+                <svg class="w-4 h-4 text-forsythia" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                Novo: Automações com IA integradas
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-nocturnal leading-tight max-w-4xl mx-auto">
+                Produtividade que <span class="text-forsythia">flui</span> naturalmente
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-oceanic/60 max-w-2xl mx-auto leading-relaxed font-body">
+                Organize tarefas, alinhe equipes e entregue resultados com uma plataforma pensada para simplificar o seu dia a dia.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#" class="inline-flex items-center gap-2 px-7 py-3.5 bg-forsythia text-oceanic font-semibold rounded-md hover:bg-yellow-400 transition-smooth cursor-pointer shadow-subtle text-sm">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+                    Começar Gratuitamente
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-nocturnal font-semibold rounded-md border-light hover:bg-mint transition-smooth cursor-pointer text-sm">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/></svg>
+                    Ver Demonstração
+                </a>
+            </div>
+            <div class="mt-12 flex items-center justify-center gap-6 text-sm text-oceanic/50">
+                <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                    Grátis por 14 dias
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                    Sem cartão de crédito
+                </span>
+                <span class="flex items-center gap-1.5 hidden sm:flex">
+                    <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                    Cancele quando quiser
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features" class="py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block px-3 py-1 bg-forsythia/20 text-nocturnal text-xs font-semibold rounded-full mb-4">Recursos</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-nocturnal">Tudo que você precisa para <span class="text-forsythia">entregar mais</span></h2>
+                <p class="mt-4 text-oceanic/60 leading-relaxed">Ferramentas poderosas e intuitivas que se adaptam ao fluxo de trabalho da sua equipe.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-mint/50 rounded-md p-8 border-light shadow-subtle transition-smooth card-hover cursor-pointer">
+                    <div class="w-12 h-12 bg-forsythia/20 rounded-md flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-nocturnal" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nocturnal mb-3">Quadros Inteligentes</h3>
+                    <p class="text-oceanic/60 text-sm leading-relaxed">Visualize projetos em Kanban, lista ou calendário. Arraste, solte e reorganize tarefas com facilidade total.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-mint/50 rounded-md p-8 border-light shadow-subtle transition-smooth card-hover cursor-pointer">
+                    <div class="w-12 h-12 bg-forsythia/20 rounded-md flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-nocturnal" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nocturnal mb-3">Colaboração em Tempo Real</h3>
+                    <p class="text-oceanic/60 text-sm leading-relaxed">Comente, mencione colegas e compartilhe arquivos diretamente nas tarefas. Todos na mesma página, sempre.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-mint/50 rounded-md p-8 border-light shadow-subtle transition-smooth card-hover cursor-pointer">
+                    <div class="w-12 h-12 bg-forsythia/20 rounded-md flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-nocturnal" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nocturnal mb-3">Relatórios e Métricas</h3>
+                    <p class="text-oceanic/60 text-sm leading-relaxed">Dashboards automáticos com insights de produtividade. Acompanhe o progresso e identifique gargalos rapidamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section id="testimonials" class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block px-3 py-1 bg-forsythia/20 text-nocturnal text-xs font-semibold rounded-full mb-4">Depoimentos</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-nocturnal">Quem usa, <span class="text-forsythia">recomenda</span></h2>
+                <p class="mt-4 text-oceanic/60 leading-relaxed">Veja o que nossos clientes dizem sobre a experiência com o TaskFlow.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-arctic rounded-md p-8 border-light shadow-subtle transition-smooth card-hover">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-oceanic/70 text-sm leading-relaxed mb-6">"O TaskFlow transformou a forma como gerenciamos nossos projetos. A interface é limpa e a curva de aprendizado é praticamente zero. Recomendo para qualquer equipe."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-nocturnal/10 flex items-center justify-center">
+                            <span class="text-sm font-bold text-nocturnal">MC</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-nocturnal">Mariana Costa</p>
+                            <p class="text-xs text-oceanic/50">Head de Produto, TechNova</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-arctic rounded-md p-8 border-light shadow-subtle transition-smooth card-hover">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-oceanic/70 text-sm leading-relaxed mb-6">"Reduzimos em 40% o tempo de reuniões de alinhamento depois que adotamos o TaskFlow. Os dashboards mostram tudo que precisamos saber em tempo real."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-nocturnal/10 flex items-center justify-center">
+                            <span class="text-sm font-bold text-nocturnal">RS</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-nocturnal">Rafael Santos</p>
+                            <p class="text-xs text-oceanic/50">CTO, DataBridge</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-arctic rounded-md p-8 border-light shadow-subtle transition-smooth card-hover">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-forsythia" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-oceanic/70 text-sm leading-relaxed mb-6">"A melhor ferramenta de gestão que já usamos. Simples, bonita e funcional. Nossa equipe de design adora a experiência de uso e a integração com outras ferramentas."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-nocturnal/10 flex items-center justify-center">
+                            <span class="text-sm font-bold text-nocturnal">JL</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-nocturnal">Juliana Lima</p>
+                            <p class="text-xs text-oceanic/50">Gerente de Projetos, CreativeLab</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing" class="py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block px-3 py-1 bg-forsythia/20 text-nocturnal text-xs font-semibold rounded-full mb-4">Planos</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-nocturnal">Escolha o plano <span class="text-forsythia">ideal</span> para você</h2>
+                <p class="mt-4 text-oceanic/60 leading-relaxed">Comece grátis e escale conforme sua equipe cresce. Sem surpresas.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+                <!-- Starter -->
+                <div class="bg-white rounded-md p-8 border-light shadow-subtle transition-smooth card-hover">
+                    <h3 class="font-display text-lg font-bold text-nocturnal">Starter</h3>
+                    <p class="text-sm text-oceanic/50 mt-1">Para profissionais autônomos</p>
+                    <div class="mt-6 mb-6">
+                        <span class="font-display text-4xl font-extrabold text-nocturnal">R$0</span>
+                        <span class="text-sm text-oceanic/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Até 5 projetos
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            1 usuário
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Quadros Kanban
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Suporte por e-mail
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center px-6 py-3 bg-mint text-nocturnal font-semibold rounded-md hover:bg-mint/70 transition-smooth cursor-pointer text-sm">Começar Grátis</a>
+                </div>
+                <!-- Pro (Destaque) -->
+                <div class="bg-white rounded-md p-8 pricing-highlight transition-smooth card-hover relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-forsythia text-oceanic text-xs font-bold rounded-full">Mais Popular</div>
+                    <h3 class="font-display text-lg font-bold text-nocturnal">Pro</h3>
+                    <p class="text-sm text-oceanic/50 mt-1">Para equipes em crescimento</p>
+                    <div class="mt-6 mb-6">
+                        <span class="font-display text-4xl font-extrabold text-nocturnal">R$49</span>
+                        <span class="text-sm text-oceanic/50">/mês por usuário</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Até 25 usuários
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Automações com IA
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Relatórios avançados
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center px-6 py-3 bg-forsythia text-oceanic font-semibold rounded-md hover:bg-yellow-400 transition-smooth cursor-pointer text-sm shadow-subtle">Assinar Agora</a>
+                </div>
+                <!-- Enterprise -->
+                <div class="bg-white rounded-md p-8 border-light shadow-subtle transition-smooth card-hover">
+                    <h3 class="font-display text-lg font-bold text-nocturnal">Enterprise</h3>
+                    <p class="text-sm text-oceanic/50 mt-1">Para grandes organizações</p>
+                    <div class="mt-6 mb-6">
+                        <span class="font-display text-4xl font-extrabold text-nocturnal">R$129</span>
+                        <span class="text-sm text-oceanic/50">/mês por usuário</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Tudo do plano Pro
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Usuários ilimitados
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SSO e segurança avançada
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            API dedicada
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-oceanic/70">
+                            <svg class="w-4 h-4 text-forsythia flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center px-6 py-3 bg-nocturnal text-white font-semibold rounded-md hover:bg-oceanic transition-smooth cursor-pointer text-sm">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section class="py-20 md:py-28 bg-nocturnal relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-forsythia blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-48 h-48 rounded-full bg-saffron blur-3xl"></div>
+        </div>
+        <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">Pronto para transformar a produtividade da sua equipe?</h2>
+            <p class="mt-6 text-lg text-white/60 leading-relaxed">Junte-se a milhares de equipes que já usam o TaskFlow para entregar mais, com menos esforço.</p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-forsythia text-oceanic font-semibold rounded-md hover:bg-yellow-400 transition-smooth cursor-pointer text-sm shadow-subtle">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+                    Começar Gratuitamente
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white font-semibold rounded-md border border-white/20 hover:bg-white/10 transition-smooth cursor-pointer text-sm">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+                    Falar com Especialista
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="bg-oceanic text-white/70 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 font-display text-xl font-bold text-white mb-4">
+                        <svg class="w-7 h-7 text-forsythia" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        TaskFlow
+                    </a>
+                    <p class="text-sm leading-relaxed text-white/50">A plataforma de produtividade que simplifica a gestão de tarefas e potencializa resultados.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3 mt-6">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-forsythia/20 transition-smooth cursor-pointer" aria-label="LinkedIn">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-forsythia/20 transition-smooth cursor-pointer" aria-label="Twitter / X">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-forsythia/20 transition-smooth cursor-pointer" aria-label="Instagram">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-forsythia/20 transition-smooth cursor-pointer" aria-label="YouTube">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Produto -->
+                <div>
+                    <h4 class="font-display text-sm font-bold text-white mb-4">Produto</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#features" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Planos e Preços</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Atualizações</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Roadmap</a></li>
+                    </ul>
+                </div>
+                <!-- Empresa -->
+                <div>
+                    <h4 class="font-display text-sm font-bold text-white mb-4">Empresa</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Contato</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Parceiros</a></li>
+                    </ul>
+                </div>
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-display text-sm font-bold text-white mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Cookies</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">LGPD</a></li>
+                        <li><a href="#" class="text-sm hover:text-forsythia transition-smooth cursor-pointer">Segurança</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-white/40">&copy; 2026 TaskFlow. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-white/40 hover:text-forsythia transition-smooth cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-xs text-white/40 hover:text-forsythia transition-smooth cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-xs text-white/40 hover:text-forsythia transition-smooth cursor-pointer">Mapa do Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== MOBILE MENU JS ========== -->
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            menuBtn.setAttribute('aria-expanded', isOpen);
+            menuBtn.innerHTML = isOpen
+                ? '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>'
+                : '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>';
+        });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuBtn.innerHTML = '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>';
+            });
+        });
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Café Origem — Cafeteria artesanal premium com grãos selecionados, torrefação própria e ambiente acolhedor. Descubra o verdadeiro sabor do café especial.">
+    <meta name="keywords" content="cafeteria artesanal, café premium, café especial, torrefação própria, grãos selecionados, café gourmet">
+    <meta name="author" content="Café Origem">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Café Origem — Cafeteria Artesanal Premium">
+    <meta property="og:description" content="Grãos selecionados, torrefação própria e um ambiente que abraça. Venha viver a experiência Café Origem.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cafeorigem.com.br">
+    <meta property="og:image" content="https://cafeorigem.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <title>Café Origem — Cafeteria Artesanal Premium</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        caramel: '#C77A23',
+                        latte: '#E8D8C6',
+                        'dark-roast': '#3A2F2B',
+                        cinnamon: '#D2691E',
+                        linen: '#D3D3D3',
+                        croissant: '#F0C98D',
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'lg': '10px',
+                    },
+                    boxShadow: {
+                        'medium': '0 6px 15px rgba(0,0,0,0.15)',
+                        'soft': '0 4px 10px rgba(0,0,0,0.08)',
+                        'warm': '0 8px 25px rgba(199,122,35,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --color-caramel: #C77A23;
+            --color-latte: #E8D8C6;
+            --color-dark-roast: #3A2F2B;
+            --font-serif-primary: 'Lora', serif;
+            --font-sans-body: 'Roboto', sans-serif;
+            --border-radius-lg: 10px;
+            --shadow-medium: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: var(--font-sans-body);
+            background-color: var(--color-latte);
+            color: var(--color-dark-roast);
+        }
+
+        /* Textura de linho sutil */
+        .texture-linen {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C77A23' fill-opacity='0.03'%3E%3Cpath d='M0 0h20v20H0zM20 20h20v20H20z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Textura de madeira sutil */
+        .texture-wood {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%233A2F2B' stroke-opacity='0.04' stroke-width='1'%3E%3Cpath d='M0 10h60M0 30h60M0 50h60'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Animação do vapor */
+        @keyframes steam {
+            0% { transform: translateY(0) scaleX(1); opacity: 0; }
+            15% { opacity: 0.6; }
+            50% { transform: translateY(-40px) scaleX(1.4); opacity: 0.3; }
+            100% { transform: translateY(-80px) scaleX(1.8); opacity: 0; }
+        }
+
+        .steam-line {
+            position: absolute;
+            width: 3px;
+            height: 20px;
+            background: linear-gradient(to top, rgba(232,216,198,0.6), transparent);
+            border-radius: 50%;
+            animation: steam 2.5s ease-in-out infinite;
+        }
+
+        .steam-line:nth-child(1) { left: 35%; animation-delay: 0s; }
+        .steam-line:nth-child(2) { left: 50%; animation-delay: 0.6s; }
+        .steam-line:nth-child(3) { left: 65%; animation-delay: 1.2s; }
+
+        /* Xícara CSS */
+        .cup-body {
+            width: 120px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--color-caramel), #a86520);
+            border-radius: 0 0 50% 50%;
+            position: relative;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .cup-body::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -5px;
+            right: -5px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--color-caramel), #b87525);
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .cup-body::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 5px;
+            right: 5px;
+            height: 10px;
+            background: radial-gradient(ellipse, #5C3D1A 30%, #3A2510 100%);
+            border-radius: 50%;
+        }
+
+        .cup-handle {
+            position: absolute;
+            right: -28px;
+            top: 15px;
+            width: 30px;
+            height: 45px;
+            border: 5px solid var(--color-caramel);
+            border-left: none;
+            border-radius: 0 25px 25px 0;
+        }
+
+        .cup-plate {
+            width: 160px;
+            height: 14px;
+            background: linear-gradient(135deg, #d4a84b, var(--color-caramel));
+            border-radius: 50%;
+            margin-top: -4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Animação fade-in */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .animate-delay-600 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Hover suave para cards */
+        .card-hover {
+            transition: all 0.4s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(199,122,35,0.2);
+        }
+
+        /* Pricing destaque */
+        .pricing-featured {
+            background: linear-gradient(135deg, var(--color-dark-roast), #4a3a35);
+            transform: scale(1.05);
+        }
+
+        /* Botões interativos */
+        .btn-primary {
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(199,122,35,0.35);
+        }
+
+        .btn-secondary {
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-caramel);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Navbar glass */
+        .navbar-glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background-color: rgba(58, 47, 43, 0.92);
+        }
+
+        /* Scroll suave para links */
+        a[href^="#"] {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* Mobile menu animação */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Aspas decorativas */
+        .quote-mark {
+            font-family: 'Lora', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--color-caramel);
+            opacity: 0.2;
+        }
+
+        /* Grãos decorativos */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar-glass fixed top-0 left-0 right-0 z-50 shadow-medium">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group cursor-pointer">
+                    <svg class="w-8 h-8 text-caramel transition-transform duration-300 group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 8h1a4 4 0 110 8h-1"/>
+                        <path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/>
+                        <line x1="6" y1="2" x2="6" y2="4"/>
+                        <line x1="10" y1="2" x2="10" y2="4"/>
+                        <line x1="14" y1="2" x2="14" y2="4"/>
+                    </svg>
+                    <span class="font-serif text-xl md:text-2xl font-bold text-latte tracking-wide">Café Origem</span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-latte/80 hover:text-caramel font-sans text-sm tracking-wide transition-colors duration-300 cursor-pointer">Diferenciais</a>
+                    <a href="#testimonials" class="text-latte/80 hover:text-caramel font-sans text-sm tracking-wide transition-colors duration-300 cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-latte/80 hover:text-caramel font-sans text-sm tracking-wide transition-colors duration-300 cursor-pointer">Planos</a>
+                    <a href="#contact" class="text-latte/80 hover:text-caramel font-sans text-sm tracking-wide transition-colors duration-300 cursor-pointer">Contato</a>
+                    <a href="#pricing" class="btn-primary inline-block bg-caramel text-white px-6 py-2.5 rounded-lg font-sans text-sm font-medium tracking-wide">
+                        Reservar Mesa
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-latte p-2 cursor-pointer transition-colors duration-300 hover:text-caramel" aria-label="Abrir menu de navegação">
+                    <svg class="w-6 h-6" id="menu-icon-open" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="pb-4 pt-2 space-y-2 border-t border-latte/10">
+                    <a href="#features" class="block px-4 py-2.5 text-latte/80 hover:text-caramel hover:bg-white/5 rounded-lg font-sans text-sm transition-all duration-300 cursor-pointer">Diferenciais</a>
+                    <a href="#testimonials" class="block px-4 py-2.5 text-latte/80 hover:text-caramel hover:bg-white/5 rounded-lg font-sans text-sm transition-all duration-300 cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="block px-4 py-2.5 text-latte/80 hover:text-caramel hover:bg-white/5 rounded-lg font-sans text-sm transition-all duration-300 cursor-pointer">Planos</a>
+                    <a href="#contact" class="block px-4 py-2.5 text-latte/80 hover:text-caramel hover:bg-white/5 rounded-lg font-sans text-sm transition-all duration-300 cursor-pointer">Contato</a>
+                    <a href="#pricing" class="btn-primary block text-center bg-caramel text-white px-6 py-2.5 rounded-lg font-sans text-sm font-medium mx-4 mt-2">
+                        Reservar Mesa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center texture-linen overflow-hidden pt-20" style="background-color: #E8D8C6;">
+        <!-- Elementos decorativos de fundo -->
+        <div class="absolute top-20 left-10 w-64 h-64 bg-caramel/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-80 h-80 bg-cinnamon/5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Texto -->
+                <div class="text-center lg:text-left">
+                    <div class="animate-fade-in-up">
+                        <span class="inline-block font-sans text-xs font-medium tracking-[0.25em] uppercase text-caramel bg-caramel/10 px-4 py-1.5 rounded-full mb-6">
+                            Torrefação Artesanal desde 2018
+                        </span>
+                    </div>
+                    <h1 class="animate-fade-in-up animate-delay-200 font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-dark-roast leading-tight mb-6">
+                        Cada xícara conta uma
+                        <span class="text-caramel italic"> história</span>
+                    </h1>
+                    <p class="animate-fade-in-up animate-delay-400 font-sans text-lg sm:text-xl text-dark-roast/70 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+                        Grãos selecionados das melhores fazendas brasileiras, torrados com cuidado artesanal para revelar sabores únicos em cada gole.
+                    </p>
+                    <div class="animate-fade-in-up animate-delay-600 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#pricing" class="btn-primary inline-flex items-center justify-center gap-2 bg-caramel text-white px-8 py-3.5 rounded-lg font-sans font-medium text-base">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                            Conheça Nossos Planos
+                        </a>
+                        <a href="#features" class="btn-secondary inline-flex items-center justify-center gap-2 border-2 border-dark-roast/30 text-dark-roast px-8 py-3.5 rounded-lg font-sans font-medium text-base">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Elemento Visual: Xícara com Vapor -->
+                <div class="flex justify-center lg:justify-end animate-fade-in-up animate-delay-400">
+                    <div class="relative float-animation">
+                        <!-- Vapor -->
+                        <div class="relative w-[120px] mx-auto mb-2" style="height: 80px;">
+                            <div class="steam-line"></div>
+                            <div class="steam-line"></div>
+                            <div class="steam-line"></div>
+                        </div>
+                        <!-- Xícara -->
+                        <div class="flex flex-col items-center">
+                            <div class="cup-body">
+                                <div class="cup-handle"></div>
+                            </div>
+                            <div class="cup-plate"></div>
+                        </div>
+                        <!-- Grãos decorativos -->
+                        <div class="absolute -left-16 top-12 w-6 h-8 bg-dark-roast rounded-full rotate-45 opacity-20"></div>
+                        <div class="absolute -right-12 top-24 w-5 h-7 bg-cinnamon rounded-full -rotate-30 opacity-15"></div>
+                        <div class="absolute -left-8 bottom-8 w-4 h-6 bg-caramel rounded-full rotate-12 opacity-15"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features" class="py-20 md:py-28 texture-wood" style="background-color: #3A2F2B;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block font-sans text-xs font-medium tracking-[0.25em] uppercase text-caramel bg-caramel/10 px-4 py-1.5 rounded-full mb-4">
+                    Por que nos escolher
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-latte mb-4">
+                    Nossos <span class="text-caramel italic">Diferenciais</span>
+                </h2>
+                <p class="font-sans text-latte/60 text-lg max-w-2xl mx-auto">
+                    Cada detalhe é pensado para oferecer a você uma experiência sensorial completa e inesquecível.
+                </p>
+            </div>
+
+            <!-- Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="card-hover bg-dark-roast/50 border border-latte/10 rounded-lg p-8 text-center backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-caramel/15 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-caramel" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold text-latte mb-3">Torrefação Própria</h3>
+                    <p class="font-sans text-latte/60 text-sm leading-relaxed">
+                        Torramos nossos grãos diariamente em pequenos lotes, garantindo frescor e perfil de sabor único em cada preparo.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-hover bg-dark-roast/50 border border-latte/10 rounded-lg p-8 text-center backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-caramel/15 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-caramel" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold text-latte mb-3">Origem Rastreável</h3>
+                    <p class="font-sans text-latte/60 text-sm leading-relaxed">
+                        Trabalhamos diretamente com produtores de Minas Gerais, Bahia e Espírito Santo. Você sabe exatamente de onde vem cada grão.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-hover bg-dark-roast/50 border border-latte/10 rounded-lg p-8 text-center backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-caramel/15 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-caramel" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold text-latte mb-3">Ambiente Acolhedor</h3>
+                    <p class="font-sans text-latte/60 text-sm leading-relaxed">
+                        Decoração com madeira de demolição, iluminação quente e música ambiente. Um refúgio perfeito para trabalhar ou relaxar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section id="testimonials" class="py-20 md:py-28 texture-linen" style="background-color: #E8D8C6;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block font-sans text-xs font-medium tracking-[0.25em] uppercase text-caramel bg-caramel/10 px-4 py-1.5 rounded-full mb-4">
+                    O que dizem sobre nós
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-dark-roast mb-4">
+                    Histórias de quem <span class="text-caramel italic">vive</span> o Origem
+                </h2>
+                <p class="font-sans text-dark-roast/60 text-lg max-w-2xl mx-auto">
+                    Mais do que clientes, construímos uma comunidade apaixonada por café de verdade.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card-hover bg-white/70 backdrop-blur-sm border border-caramel/10 rounded-lg p-8 relative">
+                    <span class="quote-mark absolute top-4 left-6">"</span>
+                    <div class="relative z-10 pt-8">
+                        <p class="font-sans text-dark-roast/70 text-sm leading-relaxed mb-6 italic">
+                            "O café coado do Origem mudou completamente minha percepção sobre café. Nunca mais consegui tomar café de cápsula. A experiência é incomparável."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-caramel/20 rounded-full flex items-center justify-center">
+                                <span class="font-serif font-bold text-caramel text-lg">MC</span>
+                            </div>
+                            <div>
+                                <p class="font-serif font-semibold text-dark-roast text-sm">Marina Costa</p>
+                                <p class="font-sans text-dark-roast/50 text-xs">Designer, São Paulo</p>
+                            </div>
+                        </div>
+                        <!-- Estrelas -->
+                        <div class="flex gap-1 mt-4">
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card-hover bg-white/70 backdrop-blur-sm border border-caramel/10 rounded-lg p-8 relative">
+                    <span class="quote-mark absolute top-4 left-6">"</span>
+                    <div class="relative z-10 pt-8">
+                        <p class="font-sans text-dark-roast/70 text-sm leading-relaxed mb-6 italic">
+                            "Assino o plano mensal e recebo grãos frescos toda semana. O atendimento é impecável e o sabor é sempre surpreendente. Recomendo de olhos fechados."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-caramel/20 rounded-full flex items-center justify-center">
+                                <span class="font-serif font-bold text-caramel text-lg">RA</span>
+                            </div>
+                            <div>
+                                <p class="font-serif font-semibold text-dark-roast text-sm">Ricardo Almeida</p>
+                                <p class="font-sans text-dark-roast/50 text-xs">Engenheiro, Belo Horizonte</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 mt-4">
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card-hover bg-white/70 backdrop-blur-sm border border-caramel/10 rounded-lg p-8 relative">
+                    <span class="quote-mark absolute top-4 left-6">"</span>
+                    <div class="relative z-10 pt-8">
+                        <p class="font-sans text-dark-roast/70 text-sm leading-relaxed mb-6 italic">
+                            "O ambiente é perfeito para trabalhar remotamente. Wi-Fi rápido, tomadas em todas as mesas e o melhor cappuccino que já tomei. Virou meu escritório favorito."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-caramel/20 rounded-full flex items-center justify-center">
+                                <span class="font-serif font-bold text-caramel text-lg">LS</span>
+                            </div>
+                            <div>
+                                <p class="font-serif font-semibold text-dark-roast text-sm">Larissa Santos</p>
+                                <p class="font-sans text-dark-roast/50 text-xs">Desenvolvedora, Rio de Janeiro</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 mt-4">
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 text-caramel" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing" class="py-20 md:py-28 texture-wood" style="background-color: #3A2F2B;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block font-sans text-xs font-medium tracking-[0.25em] uppercase text-caramel bg-caramel/10 px-4 py-1.5 rounded-full mb-4">
+                    Planos & Assinaturas
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-latte mb-4">
+                    Escolha seu <span class="text-caramel italic">ritual</span> diário
+                </h2>
+                <p class="font-sans text-latte/60 text-lg max-w-2xl mx-auto">
+                    Assine e receba grãos frescos na sua porta. Cancele quando quiser, sem burocracia.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid md:grid-cols-3 gap-8 items-center max-w-5xl mx-auto">
+                <!-- Tier 1: Essencial -->
+                <div class="card-hover bg-dark-roast/60 border border-latte/10 rounded-lg p-8 backdrop-blur-sm">
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-semibold text-latte mb-2">Essencial</h3>
+                        <p class="font-sans text-latte/50 text-sm mb-6">Para quem está começando</p>
+                        <div class="mb-8">
+                            <span class="font-serif text-5xl font-bold text-latte">R$49</span>
+                            <span class="font-sans text-latte/50 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-left">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">250g de café por semana</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">1 blend selecionado</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Entrega mensal</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-latte/30 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span class="font-sans text-latte/40 text-sm line-through">Acesso a eventos</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-secondary block text-center border-2 border-latte/20 text-latte px-6 py-3 rounded-lg font-sans font-medium text-sm hover:border-caramel">
+                            Começar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 2: Premium (Destaque) -->
+                <div class="card-hover pricing-featured border-2 border-caramel rounded-lg p-8 relative overflow-hidden shadow-warm">
+                    <!-- Badge -->
+                    <div class="absolute top-0 right-0 bg-caramel text-white font-sans text-xs font-bold px-4 py-1.5 rounded-bl-lg">
+                        MAIS POPULAR
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-semibold text-latte mb-2">Premium</h3>
+                        <p class="font-sans text-latte/50 text-sm mb-6">Para apaixonados por café</p>
+                        <div class="mb-8">
+                            <span class="font-serif text-5xl font-bold text-caramel">R$89</span>
+                            <span class="font-sans text-latte/50 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-left">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">500g de café por semana</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">3 blends rotativos</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Entrega semanal</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Acesso a degustações mensais</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">10% off na cafeteria</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-primary block text-center bg-caramel text-white px-6 py-3 rounded-lg font-sans font-medium text-sm">
+                            Assinar Premium
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 3: Connoisseur -->
+                <div class="card-hover bg-dark-roast/60 border border-latte/10 rounded-lg p-8 backdrop-blur-sm">
+                    <div class="text-center">
+                        <h3 class="font-serif text-xl font-semibold text-latte mb-2">Connoisseur</h3>
+                        <p class="font-sans text-latte/50 text-sm mb-6">A experiência completa</p>
+                        <div class="mb-8">
+                            <span class="font-serif text-5xl font-bold text-latte">R$149</span>
+                            <span class="font-sans text-latte/50 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-left">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">1kg de café por semana</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Edições limitadas exclusivas</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Entrega semanal prioritária</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">Workshops e visitas à torrefação</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-caramel flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="font-sans text-latte/70 text-sm">20% off em toda a loja</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-secondary block text-center border-2 border-latte/20 text-latte px-6 py-3 rounded-lg font-sans font-medium text-sm hover:border-caramel">
+                            Quero Ser Connoisseur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
