@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InfraCode - Plataforma de Infraestrutura como Código. Provisione, gerencie e escale sua infraestrutura com automação confiável e reprodutível.">
+    <meta name="keywords" content="infraestrutura como código, IaC, automação, cloud, DevOps, provisionamento, terraform, plataforma">
+    <meta name="author" content="InfraCode">
+    <meta property="og:title" content="InfraCode - Plataforma de Infraestrutura como Código">
+    <meta property="og:description" content="Provisione, gerencie e escale sua infraestrutura com automação confiável e reprodutível.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://infracode.com.br">
+    <meta property="og:image" content="https://infracode.com.br/og-image.png">
+    <title>InfraCode - Plataforma de Infraestrutura como Código</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        action: '#1060ff',
+                        'action-hover': '#0c56e9',
+                        'fg-strong': '#0c0c0e',
+                        'fg-primary': '#3b3d45',
+                        'fg-secondary': '#656a76',
+                        'surface-primary': '#ffffff',
+                        'surface-faint': '#fafafa',
+                        'surface-interactive': '#f2f3f5',
+                        'border-primary': 'rgba(101, 106, 118, 0.2)',
+                        'success': '#008a22',
+                        'critical': '#e52228',
+                    },
+                    fontFamily: {
+                        system: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'hds-sm': '5px',
+                        'hds-md': '6px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --hds-color-action: #1060ff;
+            --hds-color-action-hover: #0c56e9;
+            --hds-color-fg-primary: #3b3d45;
+            --hds-color-fg-strong: #0c0c0e;
+            --hds-color-bg-primary: #ffffff;
+            --hds-color-border: rgba(101, 106, 118, 0.2);
+            --hds-radius-sm: 5px;
+            --hds-radius-md: 6px;
+            --hds-shadow-low: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --hds-shadow-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hds-shadow-high: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --hds-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--hds-color-fg-primary);
+            background: var(--hds-color-bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .hds-btn-primary {
+            background: var(--hds-color-action);
+            color: #fff;
+            border-radius: var(--hds-radius-md);
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: var(--hds-transition);
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hds-btn-primary:hover {
+            background: var(--hds-color-action-hover);
+            box-shadow: var(--hds-shadow-mid);
+            transform: translateY(-1px);
+        }
+
+        .hds-btn-secondary {
+            background: transparent;
+            color: var(--hds-color-fg-primary);
+            border: 1px solid var(--hds-color-border);
+            border-radius: var(--hds-radius-md);
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: var(--hds-transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hds-btn-secondary:hover {
+            background: var(--hds-color-bg-primary);
+            border-color: var(--hds-color-action);
+            color: var(--hds-color-action);
+            box-shadow: var(--hds-shadow-low);
+            transform: translateY(-1px);
+        }
+
+        .hds-card {
+            background: var(--hds-color-bg-primary);
+            border: 1px solid var(--hds-color-border);
+            border-radius: var(--hds-radius-md);
+            box-shadow: var(--hds-shadow-low);
+            transition: var(--hds-transition);
+        }
+        .hds-card:hover {
+            box-shadow: var(--hds-shadow-mid);
+            transform: translateY(-2px);
+        }
+
+        .hds-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.02em;
+        }
+
+        /* Hero abstract visual */
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1;
+        }
+        .hero-visual .grid-layer {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--hds-color-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--hds-color-border) 1px, transparent 1px);
+            background-size: 32px 32px;
+            border-radius: var(--hds-radius-md);
+            opacity: 0.6;
+        }
+        .hero-visual .node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--hds-color-action);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(16, 96, 255, 0.15);
+        }
+        .hero-visual .node-secondary {
+            background: #008a22;
+            box-shadow: 0 0 0 4px rgba(0, 138, 34, 0.15);
+        }
+        .hero-visual .connector {
+            position: absolute;
+            background: var(--hds-color-action);
+            opacity: 0.25;
+        }
+        .hero-visual .connector-h { height: 2px; }
+        .hero-visual .connector-v { width: 2px; }
+        .hero-visual .block {
+            position: absolute;
+            border: 2px solid var(--hds-color-border);
+            border-radius: var(--hds-radius-md);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(4px);
+            padding: 12px 16px;
+        }
+        .hero-visual .block-active {
+            border-color: var(--hds-color-action);
+            box-shadow: 0 0 0 3px rgba(16, 96, 255, 0.08);
+        }
+
+        /* Code snippet in hero */
+        .code-block {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            border-radius: var(--hds-radius-md);
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+        .code-block .line-kw { color: #c792ea; }
+        .code-block .line-str { color: #c3e88d; }
+        .code-block .line-fn { color: #82aaff; }
+        .code-block .line-comment { color: #546e7a; }
+        .code-block .line-num { color: #546e7a; user-select: none; }
+
+        /* Pricing highlight ring */
+        .pricing-popular {
+            border: 2px solid var(--hds-color-action);
+            box-shadow: 0 0 0 4px rgba(16, 96, 255, 0.08), var(--hds-shadow-mid);
+            position: relative;
+        }
+
+        /* Mobile menu */
+        .mobile-nav { display: none; }
+        .mobile-nav.active { display: flex; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f2f3f5; }
+        ::-webkit-scrollbar-thumb { background: #c1c4cc; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9a9da6; }
+
+        /* Subtle pulse for nodes */
+        @keyframes pulse-node {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(16, 96, 255, 0.15); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 96, 255, 0.08); }
+        }
+        .node-pulse { animation: pulse-node 3s ease-in-out infinite; }
+
+        /* Nav link hover underline */
+        .nav-link {
+            position: relative;
+            transition: var(--hds-transition);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--hds-color-action);
+            border-radius: 1px;
+            transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: var(--hds-color-action); }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="sticky top-0 z-50 bg-surface-primary/95 backdrop-blur-sm border-b border-border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2.5 cursor-pointer group">
+                    <svg class="w-7 h-7 text-action transition-all group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                        <line x1="12" y1="2" x2="12" y2="22" opacity="0.3"/>
+                    </svg>
+                    <span class="text-lg font-bold text-fg-strong tracking-tight">Infra<span class="text-action">Code</span></span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#recursos" class="nav-link text-sm font-medium text-fg-secondary cursor-pointer">Recursos</a>
+                    <a href="#depoimentos" class="nav-link text-sm font-medium text-fg-secondary cursor-pointer">Depoimentos</a>
+                    <a href="#precos" class="nav-link text-sm font-medium text-fg-secondary cursor-pointer">Preços</a>
+                    <a href="#contato" class="nav-link text-sm font-medium text-fg-secondary cursor-pointer">Contato</a>
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#precos" class="hds-btn-secondary text-sm">Entrar</a>
+                    <a href="#precos" class="hds-btn-primary text-sm">
+                        Começar Grátis
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="menuBtn" class="md:hidden cursor-pointer p-2 text-fg-primary hover:text-action transition-all rounded-hds-sm hover:bg-surface-interactive" aria-label="Abrir menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-nav flex-col gap-1 pb-4 md:hidden border-t border-border-primary pt-3">
+                <a href="#recursos" class="text-sm font-medium text-fg-secondary hover:text-action hover:bg-surface-interactive cursor-pointer transition-all py-2 px-3 rounded-hds-sm">Recursos</a>
+                <a href="#depoimentos" class="text-sm font-medium text-fg-secondary hover:text-action hover:bg-surface-interactive cursor-pointer transition-all py-2 px-3 rounded-hds-sm">Depoimentos</a>
+                <a href="#precos" class="text-sm font-medium text-fg-secondary hover:text-action hover:bg-surface-interactive cursor-pointer transition-all py-2 px-3 rounded-hds-sm">Preços</a>
+                <a href="#contato" class="text-sm font-medium text-fg-secondary hover:text-action hover:bg-surface-interactive cursor-pointer transition-all py-2 px-3 rounded-hds-sm">Contato</a>
+                <div class="flex gap-2 mt-2 px-3">
+                    <a href="#precos" class="hds-btn-secondary text-sm flex-1 justify-center">Entrar</a>
+                    <a href="#precos" class="hds-btn-primary text-sm flex-1 justify-center">Começar Grátis</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="relative overflow-hidden bg-surface-primary border-b border-border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                <!-- Text Content -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="hds-badge bg-action/10 text-action mb-5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                        Versão 3.0 — Agora com Drift Detection
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-fg-strong leading-tight tracking-tight mb-5">
+                        Infraestrutura como Código,
+                        <span class="text-action">confiável e escalável</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-fg-secondary max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                        Provisione, gerencie e escale toda a sua infraestrutura de nuvem com workflows declarativos. Automação reprodutível para equipes de engenharia que exigem consistência.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                        <a href="#precos" class="hds-btn-primary px-6 py-3 text-base justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+                            Começar Agora
+                        </a>
+                        <a href="#recursos" class="hds-btn-secondary px-6 py-3 text-base justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                            Ver Documentação
+                        </a>
+                    </div>
+                    <!-- Trust indicators -->
+                    <div class="flex flex-wrap items-center gap-4 mt-8 justify-center lg:justify-start text-xs text-fg-secondary">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Open Source
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            +50.000 equipes
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            SOC 2 Tipo II
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Hero Visual: Abstract infrastructure graph -->
+                <div class="flex-1 flex justify-center items-center">
+                    <div class="hero-visual hidden sm:block">
+                        <!-- Grid background -->
+                        <div class="grid-layer"></div>
+
+                        <!-- Code block overlay -->
+                        <div class="code-block absolute top-6 left-4 right-4 p-0 z-10" style="max-width: 380px;">
+                            <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-400/80"></span>
+                                <span class="ml-3 text-xs text-white/40">main.infra</span>
+                            </div>
+                            <div class="px-4 py-3">
+                                <div><span class="line-num">1  </span><span class="line-kw">resource</span> <span class="line-str">"cluster"</span> <span class="line-str">"producao"</span> {</div>
+                                <div><span class="line-num">2  </span>  provider  = <span class="line-str">"aws"</span></div>
+                                <div><span class="line-num">3  </span>  regiao    = <span class="line-str">"sa-east-1"</span></div>
+                                <div><span class="line-num">4  </span>  replicas  = <span class="line-fn">3</span></div>
+                                <div><span class="line-num">5  </span>  auto_scale = <span class="line-fn">true</span></div>
+                                <div><span class="line-num">6  </span>}</div>
+                                <div class="mt-1"><span class="line-num">7  </span><span class="line-comment">// Deploy em 42s — 0 erros</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Infrastructure nodes -->
+                        <div class="block block-active absolute z-20" style="bottom: 100px; left: 20px; min-width: 140px;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-success"></div>
+                                <span class="text-xs font-semibold text-fg-strong">Cluster Ativo</span>
+                            </div>
+                            <span class="text-xs text-fg-secondary mt-1 block">3 nós · sa-east-1</span>
+                        </div>
+
+                        <div class="block absolute z-20" style="bottom: 100px; right: 20px; min-width: 130px;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-action"></div>
+                                <span class="text-xs font-semibold text-fg-strong">Rede VPC</span>
+                            </div>
+                            <span class="text-xs text-fg-secondary mt-1 block">10.0.0.0/16</span>
+                        </div>
+
+                        <div class="block absolute z-20" style="bottom: 30px; left: 50%; transform: translateX(-50%); min-width: 150px;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-success"></div>
+                                <span class="text-xs font-semibold text-fg-strong">Banco de Dados</span>
+                            </div>
+                            <span class="text-xs text-fg-secondary mt-1 block">PostgreSQL 16 · HA</span>
+                        </div>
+
+                        <!-- Connector lines -->
+                        <div class="connector connector-h absolute z-10" style="bottom: 118px; left: 160px; width: calc(100% - 310px);"></div>
+                        <div class="connector connector-v absolute z-10" style="bottom: 55px; left: 50%; height: 45px;"></div>
+
+                        <!-- Decorative nodes -->
+                        <div class="node node-pulse absolute z-20" style="bottom: 115px; left: 50%;"></div>
+                        <div class="node node-secondary absolute z-20" style="bottom: 55px; left: 30%;"></div>
+                        <div class="node node-secondary absolute z-20" style="bottom: 55px; right: 30%;"></div>
+                    </div>
+
+                    <!-- Mobile simplified visual -->
+                    <div class="sm:hidden w-full max-w-sm">
+                        <div class="code-block p-0">
+                            <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-400/80"></span>
+                                <span class="ml-3 text-xs text-white/40">main.infra</span>
+                            </div>
+                            <div class="px-4 py-3">
+                                <div><span class="line-kw">resource</span> <span class="line-str">"cluster"</span> <span class="line-str">"producao"</span> {</div>
+                                <div>  provider  = <span class="line-str">"aws"</span></div>
+                                <div>  replicas  = <span class="line-fn">3</span></div>
+                                <div>  auto_scale = <span class="line-fn">true</span></div>
+                                <div>}</div>
+                                <div class="mt-1"><span class="line-comment">// Deploy em 42s — 0 erros</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section id="recursos" class="bg-surface-faint border-b border-border-primary py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-12 md:mb-16">
+                <div class="hds-badge bg-action/10 text-action mb-4">Recursos</div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-fg-strong tracking-tight mb-3">
+                    Tudo que sua equipe precisa para gerenciar infraestrutura
+                </h2>
+                <p class="text-base text-fg-secondary max-w-2xl mx-auto leading-relaxed">
+                    Workflows declarativos, controle de estado e colaboração em equipe — tudo em uma plataforma unificada.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Provisionamento Declarativo -->
+                <div class="hds-card p-6 cursor-pointer">
+                    <div class="w-10 h-10 rounded-hds-md bg-action/10 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-action" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-base font-semibold text-fg-strong mb-2">Provisionamento Declarativo</h3>
+                    <p class="text-sm text-fg-secondary leading-relaxed">
+                        Defina sua infraestrutura como código com sintaxe declarativa. Planeje, revise e aplique mudanças com confiança usando planos de execução detalhados.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">HCL</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">YAML</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">JSON</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Gerenciamento de Estado -->
+                <div class="hds-card p-6 cursor-pointer">
+                    <div class="w-10 h-10 rounded-hds-md bg-success/10 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-success" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-base font-semibold text-fg-strong mb-2">Gerenciamento de Estado</h3>
+                    <p class="text-sm text-fg-secondary leading-relaxed">
+                        Estado remoto com locking automático, versionamento e drift detection. Saiba exatamente o que mudou e quando, com auditoria completa.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">Locking</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">Versioning</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">Drift</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Colaboração em Equipe -->
+                <div class="hds-card p-6 cursor-pointer">
+                    <div class="w-10 h-10 rounded-hds-md bg-action/10 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-action" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-base font-semibold text-fg-strong mb-2">Colaboração em Equipe</h3>
+                    <p class="text-sm text-fg-secondary leading-relaxed">
+                        Workspaces compartilhados com controle de acesso granular (RBAC), revisão de planos via pull request e notificações integradas ao seu fluxo.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">RBAC</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">SSO</span>
+                        <span class="hds-badge bg-surface-interactive text-fg-secondary">Audit Log</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section id="depoimentos" class="bg-surface-primary border-b border-border-primary py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-12 md:mb-16">
+                <div class="hds-badge bg-action/10 text-action mb-4">Depoimentos</div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-fg-strong tracking-tight mb-3">
+                    Confiança de equipes de engenharia em todo o Brasil
+                </h2>
+                <p class="text-base text-fg-secondary max-w-2xl mx-auto leading-relaxed">
+                    Veja como times de infraestrutura estão acelerando deploys e reduzindo incidentes.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="hds-card p-6 flex flex-col cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-fg-primary leading-relaxed flex-1 mb-5">
+                        "Reduzimos o tempo de provisionamento de 3 horas para 12 minutos. O drift detection nos salvou de pelo menos 4 incidentes críticos no último trimestre."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-border-primary">
+                        <div class="w-9 h-9 rounded-full bg-action/10 flex items-center justify-center">
+                            <span class="text-xs font-bold text-action">RM</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-fg-strong">Rafael Mendes</p>
+                            <p class="text-xs text-fg-secondary">SRE Lead · FinBank</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="hds-card p-6 flex flex-col cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-fg-primary leading-relaxed flex-1 mb-5">
+                        "A integração com nosso pipeline de CI/CD foi transparente. Hoje gerenciamos 200+ microserviços e 15 clusters com uma equipe de 4 pessoas. Impensável sem o InfraCode."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-border-primary">
+                        <div class="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center">
+                            <span class="text-xs font-bold text-success">CS</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-fg-strong">Camila Santos</p>
+                            <p class="text-xs text-fg-secondary">Head de Platform Eng. · LogiTech Brasil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="hds-card p-6 flex flex-col cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-fg-primary leading-relaxed flex-1 mb-5">
+                        "O módulo de compliance automatizado nos ajudou a passar na auditoria SOC 2 em tempo recorde. A visibilidade sobre o estado da infra é incomparável."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-border-primary">
+                        <div class="w-9 h-9 rounded-full bg-action/10 flex items-center justify-center">
+                            <span class="text-xs font-bold text-action">TO</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-fg-strong">Thiago Oliveira</p>
+                            <p class="text-xs text-fg-secondary">CTO · HealthData</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRICING ==================== -->
+    <section id="precos" class="bg-surface-faint border-b border-border-primary py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-12 md:mb-16">
+                <div class="hds-badge bg-action/10 text-action mb-4">Preços</div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-fg-strong tracking-tight mb-3">
+                    Planos para cada estágio da sua jornada
+                </h2>
+                <p class="text-base text-fg-secondary max-w-2xl mx-auto leading-relaxed">
+                    Comece gratuitamente. Escale conforme sua infraestrutura cresce.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <!-- Tier 1: Community -->
+                <div class="hds-card p-6 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="text-base font-semibold text-fg-strong mb-1">Community</h3>
+                        <p class="text-xs text-fg-secondary">Para projetos pessoais e experimentação</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold text-fg-strong">Grátis</span>
+                        <span class="text-sm text-fg-secondary ml-1">para sempre</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Até 5 workspaces
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Estado remoto básico
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Suporte da comunidade
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            1 usuário
+                        </li>
+                    </ul>
+                    <a href="#" class="hds-btn-secondary w-full justify-center cursor-pointer">Começar Grátis</a>
+                </div>
+
+                <!-- Tier 2: Team (Popular) -->
+                <div class="pricing-popular hds-card p-6 flex flex-col">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="hds-badge bg-action text-white px-3 py-1 text-xs">Mais Popular</span>
+                    </div>
+                    <div class="mb-6 mt-2">
+                        <h3 class="text-base font-semibold text-fg-strong mb-1">Team</h3>
+                        <p class="text-xs text-fg-secondary">Para equipes que precisam de colaboração</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold text-fg-strong">R$ 149</span>
+                        <span class="text-sm text-fg-secondary ml-1">/mês por usuário</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Workspaces ilimitados
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Drift detection automático
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            RBAC + SSO (SAML)
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Até 20 usuários
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#" class="hds-btn-primary w-full justify-center cursor-pointer">Iniciar Trial de 14 Dias</a>
+                </div>
+
+                <!-- Tier 3: Enterprise -->
+                <div class="hds-card p-6 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="text-base font-semibold text-fg-strong mb-1">Enterprise</h3>
+                        <p class="text-xs text-fg-secondary">Para organizações com requisitos avançados</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold text-fg-strong">Sob consulta</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Tudo do plano Team
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Compliance automatizado (SOC 2, HIPAA)
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Self-hosted ou cloud dedicada
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Usuários ilimitados
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-fg-primary">
+                            <svg class="w-4 h-4 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SLA 99.99% + suporte dedicado
+                        </li>
+                    </ul>
+                    <a href="#" class="hds-btn-secondary w-full justify-center cursor-pointer">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA FINAL ==================== -->
+    <section id="contato" class="bg-fg-strong border-b border-border-primary py-16 md:py-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="hds-badge bg-white/10 text-white/80 mb-5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+                Comece em minutos
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4">
+                Pronto para automatizar sua infraestrutura?
+            </h2>
+            <p class="text-base text-white/60 max-w-xl mx-auto mb-8 leading-relaxed">
+                Junte-se a milhares de equipes que já gerenciam infraestrutura como código com confiança. Setup em menos de 5 minutos.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="#" class="hds-btn-primary px-8 py-3 text-base justify-center cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    Criar Conta Gratuita
+                </a>
+                <a href="#" class="hds-btn-secondary px-8 py-3 text-base justify-center cursor-pointer border-white/20 text-white hover:bg-white/10 hover:border-white/40 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+                    Agendar Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-fg-strong border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Brand -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2.5 cursor-pointer group mb-4">
+                        <svg class="w-6 h-6 text-action transition-all group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                            <line x1="12" y1="2" x2="12" y2="22" opacity="0.3"/>
+                        </svg>
+                        <span class="text-base font-bold text-white tracking-tight">Infra<span class="text-action">Code</span></span>
+                    </a>
+                    <p class="text-sm text-white/50 leading-relaxed max-w-xs">
+                        Infraestrutura como código para equipes de engenharia que exigem confiabilidade e escala.
+                    </p>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-xs font-semibold text-white/70 uppercase tracking-wider mb-4">Produto</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#recursos" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Recursos</a></li>
+                        <li><a href="#precos" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Preços</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Documentação</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Changelog</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Status</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-xs font-semibold text-white/70 uppercase tracking-wider mb-4">Empresa</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Blog</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Carreiras</a></li>
+                        <li><a href="#contato" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Contato</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-xs font-semibold text-white/70 uppercase tracking-wider mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">Segurança</a></li>
+                        <li><a href="#" class="text-sm text-white/50 hover:text-action cursor-pointer transition-all">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-white/40">&copy; 2026 InfraCode. Todos os direitos reservados.</p>
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4">
+                    <!-- GitHub -->
+                    <a href="#" class="text-white/40 hover:text-action cursor-pointer transition-all" aria-label="GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <!-- Twitter/X -->
+                    <a href="#" class="text-white/40 hover:text-action cursor-pointer transition-all" aria-label="Twitter">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="#" class="text-white/40 hover:text-action cursor-pointer transition-all" aria-label="LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="text-white/40 hover:text-action cursor-pointer transition-all" aria-label="YouTube">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            const isOpen = mobileMenu.classList.contains('active');
+            menuBtn.setAttribute('aria-expanded', isOpen);
+            // Toggle icon between hamburger and X
+            const svg = menuBtn.querySelector('svg');
+            if (isOpen) {
+                svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>';
+            } else {
+                svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>';
+            }
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                const svg = menuBtn.querySelector('svg');
+                svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>';
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
