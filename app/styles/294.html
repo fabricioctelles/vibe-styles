@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PetFeliz - O melhor petshop com cuidados especiais para seu animal de estimação. Banho, tosa, veterinário e muito mais.">
+    <meta name="keywords" content="petshop, cuidados animais, banho e tosa, veterinário, pet, animal de estimação">
+    <meta name="author" content="PetFeliz">
+    <meta property="og:title" content="PetFeliz - Petshop e Cuidados com Animais">
+    <meta property="og:description" content="Cuidamos do seu melhor amigo com carinho e dedicação. Serviços completos de petshop.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>PetFeliz - Petshop e Cuidados com Animais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        honey: '#E8A840',
+                        cream: '#FFF5E1',
+                        brown: '#5C3D2E',
+                        sky: '#87CEEB',
+                        blush: '#F5C6C6',
+                        leaf: '#6B8E4E',
+                        sunset: '#E87040',
+                        lavender: '#B8A9D4',
+                    },
+                    fontFamily: {
+                        nunito: ['Nunito', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'playful': '24px',
+                    },
+                    boxShadow: {
+                        'playful': '4px 4px 0 rgba(92,61,46,0.15)',
+                        'playful-lg': '6px 6px 0 rgba(92,61,46,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-honey: #E8A840;
+            --color-cream: #FFF5E1;
+            --color-brown: #5C3D2E;
+            --color-sky: #87CEEB;
+            --color-blush: #F5C6C6;
+            --color-leaf: #6B8E4E;
+            --color-sunset: #E87040;
+            --color-lavender: #B8A9D4;
+            --font-primary: 'Nunito', sans-serif;
+            --border-radius: 24px;
+            --shadow-playful: 4px 4px 0 rgba(92,61,46,0.15);
+            --bounce: cubic-bezier(0.34,1.56,0.64,1);
+            --spacing: 1.5rem;
+        }
+
+        * {
+            font-family: var(--font-primary);
+        }
+
+        body {
+            background: var(--color-cream);
+            color: var(--color-brown);
+        }
+
+        .hand-drawn-border {
+            border: 2px solid var(--color-honey);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-playful);
+        }
+
+        .bounce-hover {
+            transition: transform 300ms var(--bounce), box-shadow 300ms ease;
+            cursor: pointer;
+        }
+
+        .bounce-hover:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 6px 6px 0 rgba(92,61,46,0.2);
+        }
+
+        .btn-primary {
+            background: var(--color-honey);
+            color: #fff;
+            border-radius: var(--border-radius);
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            border: 2px solid var(--color-brown);
+            box-shadow: var(--shadow-playful);
+            transition: all 300ms var(--bounce);
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 6px 6px 0 rgba(92,61,46,0.25);
+            background: #d4952e;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-brown);
+            border-radius: var(--border-radius);
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            border: 2px solid var(--color-brown);
+            box-shadow: var(--shadow-playful);
+            transition: all 300ms var(--bounce);
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: var(--color-brown);
+            color: var(--color-cream);
+        }
+
+        .storybook-divider {
+            height: 40px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40'%3E%3Cpath d='M0 20 Q150 0 300 20 Q450 40 600 20 Q750 0 900 20 Q1050 40 1200 20' fill='none' stroke='%23E8A840' stroke-width='2'/%3E%3C/svg%3E") repeat-x center;
+        }
+
+        .paw-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' opacity='0.05'%3E%3Ccircle cx='30' cy='35' r='8' fill='%235C3D2E'/%3E%3Ccircle cx='20' cy='22' r='5' fill='%235C3D2E'/%3E%3Ccircle cx='40' cy='22' r='5' fill='%235C3D2E'/%3E%3Ccircle cx='15' cy='32' r='4' fill='%235C3D2E'/%3E%3Ccircle cx='45' cy='32' r='4' fill='%235C3D2E'/%3E%3C/svg%3E");
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+
+        @keyframes bounce-in {
+            0% { transform: scale(0.8); opacity: 0; }
+            60% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .wiggle-hover:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+
+        .section-gradient-warm {
+            background: linear-gradient(135deg, #FFF5E1 0%, #F5C6C6 50%, #FFF5E1 100%);
+        }
+
+        .section-gradient-sky {
+            background: linear-gradient(135deg, #FFF5E1 0%, #d4eef9 50%, #FFF5E1 100%);
+        }
+
+        .section-gradient-leaf {
+            background: linear-gradient(135deg, #FFF5E1 0%, #e0ecd6 50%, #FFF5E1 100%);
+        }
+
+        .pricing-popular {
+            border: 3px solid var(--color-honey);
+            transform: scale(1.05);
+            position: relative;
+        }
+
+        .pricing-popular::before {
+            content: '⭐ Mais Popular';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-honey);
+            color: #fff;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .navbar-glass {
+            background: rgba(255, 245, 225, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--color-honey);
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 245, 225, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--color-honey);
+            padding: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--color-honey);
+            opacity: 0.3;
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="font-nunito">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar-glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer wiggle-hover">
+                    <svg class="w-10 h-10 text-honey" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="30" r="12" fill="currentColor"/>
+                        <circle cx="14" cy="16" r="6" fill="currentColor" opacity="0.8"/>
+                        <circle cx="34" cy="16" r="6" fill="currentColor" opacity="0.8"/>
+                        <circle cx="8" cy="26" r="5" fill="currentColor" opacity="0.6"/>
+                        <circle cx="40" cy="26" r="5" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                    <span class="text-2xl font-black text-brown">Pet<span class="text-honey">Feliz</span></span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Serviços</a>
+                    <a href="#testimonials" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Planos</a>
+                    <a href="#contact" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Contato</a>
+                    <a href="#cta" class="btn-primary text-sm">Agendar Agora</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden text-brown cursor-pointer" aria-label="Abrir menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="flex flex-col gap-4 py-4">
+                    <a href="#features" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Serviços</a>
+                    <a href="#testimonials" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Planos</a>
+                    <a href="#contact" class="text-brown font-semibold hover:text-honey transition-all cursor-pointer">Contato</a>
+                    <a href="#cta" class="btn-primary text-sm text-center">Agendar Agora</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center paw-pattern overflow-hidden pt-16">
+        <!-- Decorative Shapes -->
+        <div class="hero-shape w-64 h-64 bg-honey top-20 -left-20" style="animation: float 6s ease-in-out infinite;"></div>
+        <div class="hero-shape w-48 h-48 bg-sky top-40 right-10" style="animation: float 5s ease-in-out infinite 1s;"></div>
+        <div class="hero-shape w-32 h-32 bg-blush bottom-20 left-1/3" style="animation: float 7s ease-in-out infinite 0.5s;"></div>
+        <div class="hero-shape w-40 h-40 bg-lavender bottom-10 right-1/4" style="animation: float 5.5s ease-in-out infinite 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block bg-honey/20 text-brown font-bold px-4 py-2 rounded-full text-sm mb-6 hand-drawn-border">
+                        🐾 Cuidado com amor desde 2010
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-brown leading-tight mb-6">
+                        Seu pet merece o
+                        <span class="text-honey relative">
+                            melhor cuidado
+                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
+                                <path d="M2 8 Q75 2 150 8 Q225 14 298 6" stroke="#E8A840" stroke-width="3" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </span>
+                        do mundo!
+                    </h1>
+                    <p class="text-lg text-brown/70 mb-8 max-w-lg leading-relaxed">
+                        No PetFeliz, tratamos cada animal como parte da família. Banho, tosa, consultas veterinárias e muito carinho — tudo em um só lugar.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#cta" class="btn-primary text-lg">Agendar Visita</a>
+                        <a href="#features" class="btn-secondary text-lg">Conhecer Serviços</a>
+                    </div>
+                    <div class="flex items-center gap-6 mt-10">
+                        <div class="text-center">
+                            <span class="text-3xl font-black text-honey">5k+</span>
+                            <p class="text-sm text-brown/60">Pets Felizes</p>
+                        </div>
+                        <div class="w-px h-10 bg-honey/30"></div>
+                        <div class="text-center">
+                            <span class="text-3xl font-black text-honey">15+</span>
+                            <p class="text-sm text-brown/60">Anos de Amor</p>
+                        </div>
+                        <div class="w-px h-10 bg-honey/30"></div>
+                        <div class="text-center">
+                            <span class="text-3xl font-black text-honey">4.9</span>
+                            <p class="text-sm text-brown/60">Avaliação</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual Element -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-80 h-80 lg:w-96 lg:h-96">
+                        <!-- Main circle -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-honey/30 to-blush/40 rounded-full float-animation"></div>
+                        <!-- Inner decorative circles -->
+                        <div class="absolute inset-8 bg-gradient-to-tr from-sky/20 to-cream rounded-full" style="animation: float 5s ease-in-out infinite 1s;"></div>
+                        <!-- Central paw icon -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-40 h-40 text-brown/80" viewBox="0 0 100 100" fill="currentColor">
+                                <ellipse cx="50" cy="65" rx="20" ry="18"/>
+                                <circle cx="30" cy="40" r="10"/>
+                                <circle cx="70" cy="40" r="10"/>
+                                <circle cx="18" cy="58" r="8"/>
+                                <circle cx="82" cy="58" r="8"/>
+                            </svg>
+                        </div>
+                        <!-- Floating small elements -->
+                        <div class="absolute top-4 right-4 w-12 h-12 bg-leaf/30 rounded-full" style="animation: float 3s ease-in-out infinite;"></div>
+                        <div class="absolute bottom-8 left-2 w-10 h-10 bg-sunset/30 rounded-full" style="animation: float 4s ease-in-out infinite 0.5s;"></div>
+                        <div class="absolute top-1/2 -right-4 w-8 h-8 bg-lavender/40 rounded-full" style="animation: float 3.5s ease-in-out infinite 1.5s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="storybook-divider"></div>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-20 section-gradient-sky paw-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-sky/20 text-brown font-bold px-4 py-2 rounded-full text-sm mb-4 hand-drawn-border">Nossos Serviços</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brown mb-4">Cuidados completos para seu <span class="text-honey">melhor amigo</span></h2>
+                <p class="text-brown/60 max-w-2xl mx-auto text-lg">Oferecemos uma gama completa de serviços para garantir a saúde, beleza e felicidade do seu pet.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center">
+                    <div class="w-16 h-16 bg-sky/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-3">Banho & Tosa</h3>
+                    <p class="text-brown/60 leading-relaxed">Banho relaxante com produtos hipoalergênicos e tosa personalizada. Seu pet sai cheiroso e estiloso!</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center">
+                    <div class="w-16 h-16 bg-leaf/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-leaf" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-3">Veterinário</h3>
+                    <p class="text-brown/60 leading-relaxed">Consultas, vacinas e check-ups completos com veterinários experientes e apaixonados por animais.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center">
+                    <div class="w-16 h-16 bg-sunset/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-sunset" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-3">Hotel & Creche</h3>
+                    <p class="text-brown/60 leading-relaxed">Ambiente seguro e acolhedor para seu pet enquanto você viaja. Diversão e cuidado 24 horas por dia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="storybook-divider"></div>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-20 section-gradient-warm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-blush/30 text-brown font-bold px-4 py-2 rounded-full text-sm mb-4 hand-drawn-border">Depoimentos</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brown mb-4">O que dizem os <span class="text-honey">tutores felizes</span></h2>
+                <p class="text-brown/60 max-w-2xl mx-auto text-lg">Milhares de famílias confiam no PetFeliz para cuidar dos seus companheiros peludos.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="relative bg-cream p-8 pt-10 hand-drawn-border bounce-hover testimonial-card">
+                    <p class="text-brown/70 leading-relaxed mb-6 italic">"Meu cachorro Thor adora ir ao PetFeliz! A equipe é super carinhosa e ele sempre volta feliz e cheiroso. Recomendo de olhos fechados!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-honey/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-honey" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-brown">Mariana Silva</p>
+                            <p class="text-sm text-brown/50">Tutora do Thor</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mt-3">
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="relative bg-cream p-8 pt-10 hand-drawn-border bounce-hover testimonial-card">
+                    <p class="text-brown/70 leading-relaxed mb-6 italic">"A veterinária Dra. Ana é incrível! Salvou a vida da minha gatinha Luna. O atendimento é humanizado e o espaço é lindo e acolhedor."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-blush/30 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-sunset" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-brown">Carlos Mendes</p>
+                            <p class="text-sm text-brown/50">Tutor da Luna</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mt-3">
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="relative bg-cream p-8 pt-10 hand-drawn-border bounce-hover testimonial-card">
+                    <p class="text-brown/70 leading-relaxed mb-6 italic">"Uso o plano mensal e vale cada centavo. Meus dois dogs ficam na creche enquanto trabalho e voltam super cansados de brincar!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-lavender/30 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-lavender" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-brown">Fernanda Costa</p>
+                            <p class="text-sm text-brown/50">Tutora do Bob e Mel</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mt-3">
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-honey" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="storybook-divider"></div>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-20 section-gradient-leaf paw-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-leaf/20 text-brown font-bold px-4 py-2 rounded-full text-sm mb-4 hand-drawn-border">Planos</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-brown mb-4">Escolha o plano <span class="text-honey">perfeito</span></h2>
+                <p class="text-brown/60 max-w-2xl mx-auto text-lg">Planos pensados para cada necessidade. Todos incluem muito carinho!</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Pricing Tier 1 -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center">
+                    <div class="w-14 h-14 bg-sky/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-2">Básico</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-brown">R$89</span>
+                        <span class="text-brown/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            2 banhos por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            1 tosa por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            10% desconto em produtos
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Consulta veterinária
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Creche diária
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-secondary w-full block text-center">Escolher Básico</a>
+                </div>
+
+                <!-- Pricing Tier 2 (Popular) -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center pricing-popular">
+                    <div class="w-14 h-14 bg-honey/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-honey" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-2">Premium</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-honey">R$179</span>
+                        <span class="text-brown/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            4 banhos por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            2 tosas por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            20% desconto em produtos
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            1 consulta veterinária
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Creche diária
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-primary w-full block text-center">Escolher Premium</a>
+                </div>
+
+                <!-- Pricing Tier 3 -->
+                <div class="bg-cream p-8 hand-drawn-border bounce-hover text-center">
+                    <div class="w-14 h-14 bg-sunset/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-sunset" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brown mb-2">Família</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-brown">R$299</span>
+                        <span class="text-brown/50">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Banhos ilimitados
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Tosas ilimitadas
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            30% desconto em produtos
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            2 consultas veterinárias
+                        </li>
+                        <li class="flex items-center gap-2 text-brown/70">
+                            <svg class="w-5 h-5 text-leaf flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            5 dias de creche
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-secondary w-full block text-center">Escolher Família</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="storybook-divider"></div>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section id="cta" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-honey/20 via-cream to-blush/20 paw-pattern"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="bg-cream p-10 sm:p-16 hand-drawn-border relative">
+                <!-- Decorative corners -->
+                <div class="absolute top-4 left-4 w-8 h-8 border-t-3 border-l-3 border-honey rounded-tl-lg opacity-50"></div>
+                <div class="absolute top-4 right-4 w-8 h-8 border-t-3 border-r-3 border-honey rounded-tr-lg opacity-50"></div>
+                <div class="absolute bottom-4 left-4 w-8 h-8 border-b-3 border-l-3 border-honey rounded-bl-lg opacity-50"></div>
+                <div class="absolute bottom-4 right-4 w-8 h-8 border-b-3 border-r-3 border-honey rounded-br-lg opacity-50"></div>
+
+                <div class="w-20 h-20 bg-honey/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg class="w-10 h-10 text-honey float-animation" viewBox="0 0 48 48" fill="currentColor">
+                        <circle cx="24" cy="30" r="10"/>
+                        <circle cx="15" cy="18" r="5.5"/>
+                        <circle cx="33" cy="18" r="5.5"/>
+                        <circle cx="10" cy="28" r="4.5"/>
+                        <circle cx="38" cy="28" r="4.5"/>
+                    </svg>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-brown mb-6">
+                    Pronto para dar o melhor<br>para seu <span class="text-honey">pet</span>?
+                </h2>
+                <p class="text-lg text-brown/60 mb-10 max-w-xl mx-auto leading-relaxed">
+                    Agende uma visita gratuita e conheça nosso espaço. Seu melhor amigo vai adorar!
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#contact" class="btn-primary text-lg px-10">
+                        Agendar Visita Grátis
+                    </a>
+                    <a href="tel:+5511999999999" class="btn-secondary text-lg px-10 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Ligar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="storybook-divider"></div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="bg-brown text-cream py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <svg class="w-10 h-10 text-honey" viewBox="0 0 48 48" fill="currentColor">
+                            <circle cx="24" cy="30" r="12"/>
+                            <circle cx="14" cy="16" r="6" opacity="0.8"/>
+                            <circle cx="34" cy="16" r="6" opacity="0.8"/>
+                            <circle cx="8" cy="26" r="5" opacity="0.6"/>
+                            <circle cx="40" cy="26" r="5" opacity="0.6"/>
+                        </svg>
+                        <span class="text-2xl font-black">Pet<span class="text-honey">Feliz</span></span>
+                    </a>
+                    <p class="text-cream/60 leading-relaxed mb-6">Cuidando do seu melhor amigo com amor e dedicação desde 2010.</p>
+                    <!-- Social Icons -->
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-honey transition-all cursor-pointer" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-honey transition-all cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-honey transition-all cursor-pointer" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-honey transition-all cursor-pointer" aria-label="YouTube">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-honey mb-4 text-lg">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Início</a></li>
+                        <li><a href="#features" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Serviços</a></li>
+                        <li><a href="#testimonials" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Planos</a></li>
+                        <li><a href="#cta" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Agendar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal & SEO Links -->
+                <div>
+                    <h4 class="font-bold text-honey mb-4 text-lg">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Trabalhe Conosco</a></li>
+                        <li><a href="#" class="text-cream/60 hover:text-honey transition-all cursor-pointer">Blog Pet</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-honey mb-4 text-lg">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-honey mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="text-cream/60">Rua das Patinhas, 123<br>Jardim dos Bichos - SP</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-honey flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="text-cream/60 hover:text-honey transition-all cursor-pointer">(11) 99999-9999</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-honey flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:contato@petfeliz.com.br" class="text-cream/60 hover:text-honey transition-all cursor-pointer">contato@petfeliz.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-honey flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="text-cream/60">Seg-Sáb: 8h às 20h</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-cream/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-cream/40 text-sm">&copy; 2026 PetFeliz. Todos os direitos reservados.</p>
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="text-cream/40 hover:text-honey transition-all cursor-pointer">Privacidade</a>
+                    <a href="#" class="text-cream/40 hover:text-honey transition-all cursor-pointer">Termos</a>
+                    <a href="#" class="text-cream/40 hover:text-honey transition-all cursor-pointer">Cookies</a>
+                    <a href="#" class="text-cream/40 hover:text-honey transition-all cursor-pointer">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

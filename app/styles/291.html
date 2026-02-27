@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Estúdio de Fotografia Fine Art — Capturamos a essência etérea dos seus momentos mais delicados com arte, luz e emoção.">
+    <meta name="keywords" content="fotografia fine art, estúdio fotográfico, ensaio fotográfico, fotografia artística, retratos delicados">
+    <meta name="author" content="Estúdio Lumière Fine Art">
+    <meta property="og:title" content="Estúdio Lumière — Fotografia Fine Art">
+    <meta property="og:description" content="Capturamos a essência etérea dos seus momentos mais delicados com arte, luz e emoção.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>Estúdio Lumière — Fotografia Fine Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-blush: #F8E8E0;
+            --color-mist: #F0F0F5;
+            --color-lavender: #E6E0F3;
+            --color-cloud: #D8D8E0;
+            --color-dusty-rose: #C9A0A0;
+            --color-soft-gold: #D4C5A0;
+            --color-pale-sky: #B8D4E3;
+            --color-whisper-pink: #F5E0E8;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-weight: 300;
+            --border-delicate: 0.5px solid rgba(200,200,210,0.4);
+            --transition: 800ms ease;
+            --blur: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-weight: 300;
+            background: var(--color-mist);
+            color: #4A4A5A;
+            letter-spacing: 0.08em;
+            overflow-x: hidden;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDelayed {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(15px, -20px) scale(1.05); }
+            50% { transform: translate(-10px, -35px) scale(1.02); }
+            75% { transform: translate(20px, -15px) scale(1.08); }
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; }
+        }
+
+        .fade-in {
+            animation: fadeIn 800ms ease forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay-1 { animation-delay: 200ms; }
+        .fade-in-delay-2 { animation-delay: 400ms; }
+        .fade-in-delay-3 { animation-delay: 600ms; }
+        .fade-in-delay-4 { animation-delay: 800ms; }
+
+        /* Scroll-triggered fade-in */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 800ms ease, transform 800ms ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ethereal glass card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 0.5px solid rgba(200, 200, 210, 0.4);
+            transition: all 800ms ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(200, 180, 200, 0.15);
+        }
+
+        /* Ethereal button */
+        .btn-ethereal {
+            background: rgba(201, 160, 160, 0.2);
+            border: 0.5px solid rgba(201, 160, 160, 0.5);
+            color: #4A4A5A;
+            padding: 14px 36px;
+            font-family: var(--font-primary);
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            transition: all 800ms ease;
+            backdrop-filter: blur(4px);
+        }
+        .btn-ethereal:hover {
+            background: rgba(201, 160, 160, 0.4);
+            box-shadow: 0 8px 30px rgba(201, 160, 160, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-ethereal-solid {
+            background: var(--color-dusty-rose);
+            border: none;
+            color: #FFFFFF;
+            padding: 14px 36px;
+            font-family: var(--font-primary);
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            transition: all 800ms ease;
+        }
+        .btn-ethereal-solid:hover {
+            background: #B88E8E;
+            box-shadow: 0 8px 30px rgba(201, 160, 160, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Hero abstract element */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatOrb 8s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(230, 224, 243, 0.6), transparent);
+            top: 10%; right: 10%;
+        }
+        .hero-orb-2 {
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(248, 232, 224, 0.5), transparent);
+            bottom: 15%; left: 5%;
+            animation-delay: 2s;
+        }
+        .hero-orb-3 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(245, 224, 232, 0.5), transparent);
+            top: 40%; right: 30%;
+            animation-delay: 4s;
+        }
+
+        /* Geometric ethereal shape */
+        .ethereal-shape {
+            position: absolute;
+            border: 0.5px solid rgba(200, 200, 210, 0.3);
+            border-radius: 50%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            background: linear-gradient(135deg, rgba(230, 224, 243, 0.4), rgba(248, 232, 224, 0.4));
+            border: 0.5px solid rgba(201, 160, 160, 0.4);
+            transform: scale(1.05);
+        }
+        .pricing-highlight:hover {
+            transform: scale(1.08);
+        }
+
+        /* Delicate divider */
+        .divider-ethereal {
+            height: 0.5px;
+            background: linear-gradient(90deg, transparent, rgba(200, 200, 210, 0.5), transparent);
+            margin: 0 auto;
+        }
+
+        /* Navbar glass */
+        .navbar-glass {
+            background: rgba(240, 240, 245, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 0.5px solid rgba(200, 200, 210, 0.3);
+            transition: all 800ms ease;
+        }
+
+        /* Testimonial quote */
+        .quote-mark {
+            font-size: 4rem;
+            line-height: 1;
+            color: rgba(201, 160, 160, 0.3);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            background: rgba(240, 240, 245, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection color */
+        ::selection {
+            background: rgba(230, 224, 243, 0.5);
+            color: #4A4A5A;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar-glass fixed top-0 left-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 cursor-pointer transition-all duration-700 hover:opacity-70">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"/>
+                </svg>
+                <span class="text-xl font-light tracking-widest" style="color: #4A4A5A;">LUMIÈRE</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #4A4A5A;">SERVIÇOS</a>
+                <a href="#testimonials" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #4A4A5A;">DEPOIMENTOS</a>
+                <a href="#pricing" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #4A4A5A;">PLANOS</a>
+                <a href="#contact" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #4A4A5A;">CONTATO</a>
+                <a href="#cta" class="btn-ethereal-solid rounded-full text-sm px-6 py-2 cursor-pointer">AGENDAR</a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="menuBtn" class="md:hidden cursor-pointer transition-all duration-700 hover:opacity-60" onclick="document.getElementById('mobileMenu').classList.toggle('active')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A4A5A" stroke-width="1.5" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu flex-col items-center gap-6 py-8 md:hidden">
+            <a href="#features" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" onclick="document.getElementById('mobileMenu').classList.remove('active')">SERVIÇOS</a>
+            <a href="#testimonials" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" onclick="document.getElementById('mobileMenu').classList.remove('active')">DEPOIMENTOS</a>
+            <a href="#pricing" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" onclick="document.getElementById('mobileMenu').classList.remove('active')">PLANOS</a>
+            <a href="#contact" class="text-sm tracking-widest cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" onclick="document.getElementById('mobileMenu').classList.remove('active')">CONTATO</a>
+            <a href="#cta" class="btn-ethereal-solid rounded-full text-sm px-6 py-2 cursor-pointer" onclick="document.getElementById('mobileMenu').classList.remove('active')">AGENDAR</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background: linear-gradient(160deg, var(--color-mist) 0%, var(--color-blush) 40%, var(--color-lavender) 80%, var(--color-mist) 100%);">
+        <!-- Ethereal Orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <!-- Geometric shapes -->
+        <div class="ethereal-shape" style="width: 400px; height: 400px; top: 15%; right: -5%; opacity: 0.2;"></div>
+        <div class="ethereal-shape" style="width: 250px; height: 250px; bottom: 20%; left: 8%; opacity: 0.15; animation-delay: 2s;"></div>
+        <div class="ethereal-shape" style="width: 150px; height: 150px; top: 30%; left: 25%; opacity: 0.1; animation-delay: 3s;"></div>
+
+        <!-- Abstract CSS Art Element -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:block" style="width: 420px; height: 420px;">
+            <div style="position: absolute; inset: 0; border-radius: 50%; border: 0.5px solid rgba(201,160,160,0.25); animation: shimmer 5s ease-in-out infinite;"></div>
+            <div style="position: absolute; inset: 30px; border-radius: 50%; border: 0.5px solid rgba(230,224,243,0.3); animation: shimmer 5s ease-in-out infinite 1s;"></div>
+            <div style="position: absolute; inset: 60px; border-radius: 50%; border: 0.5px solid rgba(212,197,160,0.25); animation: shimmer 5s ease-in-out infinite 2s;"></div>
+            <div style="position: absolute; inset: 90px; border-radius: 50%; background: radial-gradient(circle, rgba(248,232,224,0.3), transparent); animation: floatOrb 10s ease-in-out infinite;"></div>
+            <div style="position: absolute; inset: 120px; border-radius: 50%; border: 0.5px solid rgba(245,224,232,0.3); animation: shimmer 5s ease-in-out infinite 3s;"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center pt-24">
+            <p class="fade-in text-sm tracking-[0.3em] mb-6" style="color: var(--color-dusty-rose);">FOTOGRAFIA FINE ART</p>
+            <h1 class="fade-in fade-in-delay-1 text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-8" style="color: #3A3A4A;">
+                Onde a Luz Encontra<br>
+                <span style="color: var(--color-dusty-rose); font-style: italic;">a Alma</span>
+            </h1>
+            <p class="fade-in fade-in-delay-2 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 leading-relaxed" style="color: #6A6A7A;">
+                Capturamos a essência etérea dos seus momentos mais delicados. Cada imagem é uma obra de arte, cada clique uma poesia visual que transcende o tempo.
+            </p>
+            <div class="fade-in fade-in-delay-3 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#cta" class="btn-ethereal-solid rounded-full cursor-pointer">AGENDAR ENSAIO</a>
+                <a href="#features" class="btn-ethereal rounded-full cursor-pointer">CONHECER PORTFÓLIO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-24 md:py-32 relative" style="background: var(--color-mist);">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20 reveal">
+                <p class="text-sm tracking-[0.3em] mb-4" style="color: var(--color-dusty-rose);">NOSSOS SERVIÇOS</p>
+                <h2 class="text-3xl md:text-5xl font-light mb-6" style="color: #3A3A4A;">Arte em Cada Detalhe</h2>
+                <div class="divider-ethereal w-24 mb-6"></div>
+                <p class="text-lg font-light max-w-xl mx-auto" style="color: #6A6A7A;">Cada serviço é pensado para criar experiências visuais únicas e atemporais</p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-10 text-center cursor-pointer reveal">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center" style="background: rgba(230, 224, 243, 0.4);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-light mb-4 tracking-wide" style="color: #3A3A4A;">Ensaios Artísticos</h3>
+                    <p class="font-light leading-relaxed" style="color: #6A6A7A;">Sessões fotográficas imersivas em cenários cuidadosamente preparados, onde cada elemento compõe uma narrativa visual única e delicada.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-10 text-center cursor-pointer reveal" style="animation-delay: 200ms;">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center" style="background: rgba(248, 232, 224, 0.5);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-light mb-4 tracking-wide" style="color: #3A3A4A;">Retratos de Alma</h3>
+                    <p class="font-light leading-relaxed" style="color: #6A6A7A;">Retratos que revelam a essência interior de cada pessoa, utilizando luz natural e composições que evocam emoção e profundidade.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-10 text-center cursor-pointer reveal" style="animation-delay: 400ms;">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center" style="background: rgba(245, 224, 232, 0.5);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-light mb-4 tracking-wide" style="color: #3A3A4A;">Impressões Fine Art</h3>
+                    <p class="font-light leading-relaxed" style="color: #6A6A7A;">Impressões em papéis nobres de algodão com tintas pigmentadas de museu, transformando suas fotografias em peças de arte para eternizar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-24 md:py-32 relative" style="background: linear-gradient(180deg, var(--color-blush) 0%, var(--color-mist) 100%);">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20 reveal">
+                <p class="text-sm tracking-[0.3em] mb-4" style="color: var(--color-dusty-rose);">DEPOIMENTOS</p>
+                <h2 class="text-3xl md:text-5xl font-light mb-6" style="color: #3A3A4A;">Histórias que Inspiram</h2>
+                <div class="divider-ethereal w-24 mb-6"></div>
+                <p class="text-lg font-light max-w-xl mx-auto" style="color: #6A6A7A;">O que nossos clientes sentem ao ver suas memórias transformadas em arte</p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card rounded-2xl p-8 cursor-pointer reveal">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="font-light leading-relaxed mb-8 italic" style="color: #5A5A6A;">
+                        As fotos ficaram absolutamente mágicas. Nunca imaginei que uma sessão fotográfica pudesse capturar tanta emoção e delicadeza. Cada imagem parece um sonho materializado.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-lg" style="background: rgba(230, 224, 243, 0.5); color: var(--color-dusty-rose);">
+                            M
+                        </div>
+                        <div>
+                            <p class="font-normal tracking-wide" style="color: #3A3A4A;">Marina Oliveira</p>
+                            <p class="text-sm font-light" style="color: #8A8A9A;">Ensaio Gestante</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card rounded-2xl p-8 cursor-pointer reveal" style="animation-delay: 200ms;">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="font-light leading-relaxed mb-8 italic" style="color: #5A5A6A;">
+                        O Estúdio Lumière transformou nosso casamento em uma galeria de arte. As fotos têm uma qualidade etérea que nos transporta de volta àquele dia mágico toda vez que olhamos.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-lg" style="background: rgba(248, 232, 224, 0.6); color: var(--color-dusty-rose);">
+                            R
+                        </div>
+                        <div>
+                            <p class="font-normal tracking-wide" style="color: #3A3A4A;">Rafael & Camila</p>
+                            <p class="text-sm font-light" style="color: #8A8A9A;">Casamento Fine Art</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card rounded-2xl p-8 cursor-pointer reveal" style="animation-delay: 400ms;">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="font-light leading-relaxed mb-8 italic" style="color: #5A5A6A;">
+                        Profissionalismo e sensibilidade em cada detalhe. As impressões fine art que recebi são verdadeiras obras de arte que decoram minha casa com elegância e emoção.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-lg" style="background: rgba(245, 224, 232, 0.6); color: var(--color-dusty-rose);">
+                            J
+                        </div>
+                        <div>
+                            <p class="font-normal tracking-wide" style="color: #3A3A4A;">Juliana Mendes</p>
+                            <p class="text-sm font-light" style="color: #8A8A9A;">Retrato Artístico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-24 md:py-32 relative" style="background: var(--color-mist);">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20 reveal">
+                <p class="text-sm tracking-[0.3em] mb-4" style="color: var(--color-dusty-rose);">INVESTIMENTO</p>
+                <h2 class="text-3xl md:text-5xl font-light mb-6" style="color: #3A3A4A;">Escolha Sua Experiência</h2>
+                <div class="divider-ethereal w-24 mb-6"></div>
+                <p class="text-lg font-light max-w-xl mx-auto" style="color: #6A6A7A;">Pacotes pensados para eternizar seus momentos com a delicadeza que merecem</p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Tier 1 - Essência -->
+                <div class="glass-card rounded-2xl p-10 text-center cursor-pointer reveal">
+                    <p class="text-sm tracking-[0.25em] mb-2" style="color: var(--color-dusty-rose);">ESSÊNCIA</p>
+                    <h3 class="text-2xl font-light mb-1 tracking-wide" style="color: #3A3A4A;">Sessão Poética</h3>
+                    <div class="divider-ethereal w-12 my-6"></div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-light" style="color: #3A3A4A;">R$ 1.200</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 text-left">
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            1 hora de sessão em estúdio
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            15 fotos editadas em alta resolução
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Galeria online privada
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Consultoria de figurino
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-ethereal rounded-full w-full block text-center cursor-pointer">ESCOLHER</a>
+                </div>
+
+                <!-- Tier 2 - Lumière (Destaque) -->
+                <div class="glass-card pricing-highlight rounded-2xl p-10 text-center cursor-pointer reveal" style="animation-delay: 200ms;">
+                    <div class="mb-4">
+                        <span class="text-xs tracking-[0.2em] px-4 py-1 rounded-full" style="background: rgba(201,160,160,0.2); color: var(--color-dusty-rose);">MAIS ESCOLHIDO</span>
+                    </div>
+                    <p class="text-sm tracking-[0.25em] mb-2" style="color: var(--color-dusty-rose);">LUMIÈRE</p>
+                    <h3 class="text-2xl font-light mb-1 tracking-wide" style="color: #3A3A4A;">Experiência Completa</h3>
+                    <div class="divider-ethereal w-12 my-6"></div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-light" style="color: #3A3A4A;">R$ 2.800</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 text-left">
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            3 horas de sessão em locação
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            40 fotos editadas + 5 fine art prints
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Direção de arte personalizada
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Maquiagem e produção inclusos
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Álbum artesanal 20x25cm
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-ethereal-solid rounded-full w-full block text-center cursor-pointer">ESCOLHER</a>
+                </div>
+
+                <!-- Tier 3 - Atelier -->
+                <div class="glass-card rounded-2xl p-10 text-center cursor-pointer reveal" style="animation-delay: 400ms;">
+                    <p class="text-sm tracking-[0.25em] mb-2" style="color: var(--color-dusty-rose);">ATELIER</p>
+                    <h3 class="text-2xl font-light mb-1 tracking-wide" style="color: #3A3A4A;">Coleção Exclusiva</h3>
+                    <div class="divider-ethereal w-12 my-6"></div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-light" style="color: #3A3A4A;">R$ 5.500</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 text-left">
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dia inteiro de produção artística
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            80+ fotos + 10 fine art prints assinadas
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Cenografia e locação exclusiva
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Equipe completa de produção
+                        </li>
+                        <li class="flex items-center gap-3 font-light" style="color: #6A6A7A;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Caixa de luxo com álbum e prints
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-ethereal rounded-full w-full block text-center cursor-pointer">ESCOLHER</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section id="cta" class="py-24 md:py-32 relative overflow-hidden" style="background: linear-gradient(135deg, var(--color-lavender) 0%, var(--color-blush) 50%, var(--color-whisper-pink) 100%);">
+        <!-- Background orbs -->
+        <div class="hero-orb" style="width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,255,255,0.3), transparent); top: -10%; left: -5%; filter: blur(80px);"></div>
+        <div class="hero-orb" style="width: 280px; height: 280px; background: radial-gradient(circle, rgba(212,197,160,0.2), transparent); bottom: -10%; right: -5%; filter: blur(80px); animation-delay: 3s;"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto px-6 text-center reveal">
+            <p class="text-sm tracking-[0.3em] mb-4" style="color: var(--color-dusty-rose);">COMECE SUA HISTÓRIA</p>
+            <h2 class="text-3xl md:text-5xl font-light mb-8 leading-tight" style="color: #3A3A4A;">
+                Pronta para Transformar<br>Momentos em <span style="font-style: italic; color: var(--color-dusty-rose);">Arte Eterna</span>?
+            </h2>
+            <p class="text-lg font-light max-w-xl mx-auto mb-12 leading-relaxed" style="color: #5A5A6A;">
+                Agende uma conversa sem compromisso e descubra como podemos criar juntos imagens que transcendem o tempo. Vagas limitadas por mês para garantir exclusividade.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#contact" class="btn-ethereal-solid rounded-full cursor-pointer text-lg px-10 py-4">AGENDAR CONVERSA</a>
+                <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-ethereal rounded-full cursor-pointer flex items-center gap-2 text-lg px-10 py-4">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A4A5A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                    </svg>
+                    WHATSAPP
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="pt-20 pb-8 relative" style="background: #2A2A35;">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"/>
+                        </svg>
+                        <span class="text-xl font-light tracking-widest" style="color: #E8E8F0;">LUMIÈRE</span>
+                    </div>
+                    <p class="font-light leading-relaxed text-sm mb-6" style="color: #8A8A9A;">
+                        Estúdio de Fotografia Fine Art dedicado a transformar momentos em obras de arte atemporais.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 hover:opacity-70" style="background: rgba(201,160,160,0.15); border: 0.5px solid rgba(201,160,160,0.3);" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 hover:opacity-70" style="background: rgba(201,160,160,0.15); border: 0.5px solid rgba(201,160,160,0.3);" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 12a4 4 0 1 1 8 0c0 2.5-1.5 5-4 5s-2.5-1-2.5-1l-1 4"/>
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 hover:opacity-70" style="background: rgba(201,160,160,0.15); border: 0.5px solid rgba(201,160,160,0.3);" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-700 hover:opacity-70" style="background: rgba(201,160,160,0.15); border: 0.5px solid rgba(201,160,160,0.3);" aria-label="YouTube">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="text-sm tracking-[0.2em] mb-6 font-normal" style="color: #E8E8F0;">NAVEGAÇÃO</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Início</a></li>
+                        <li><a href="#features" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Serviços</a></li>
+                        <li><a href="#testimonials" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Planos</a></li>
+                        <li><a href="#cta" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Agendar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-sm tracking-[0.2em] mb-6 font-normal" style="color: #E8E8F0;">LEGAL</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Direitos Autorais</a></li>
+                        <li><a href="#" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">Cookies</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-sm tracking-[0.2em] mb-6 font-normal" style="color: #E8E8F0;">CONTATO</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span class="text-sm font-light" style="color: #8A8A9A;">Rua das Artes, 247 — São Paulo, SP</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <a href="mailto:contato@lumiere.art.br" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">contato@lumiere.art.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="text-sm font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #8A8A9A;">(11) 99999-9999</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="divider-ethereal w-full mb-8" style="background: linear-gradient(90deg, transparent, rgba(140,140,160,0.2), transparent);"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs font-light tracking-wider" style="color: #6A6A7A;">
+                    &copy; 2026 Estúdio Lumière Fine Art. Todos os direitos reservados.
+                </p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-xs font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #6A6A7A;">Mapa do Site</a>
+                    <a href="#" class="text-xs font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #6A6A7A;">FAQ</a>
+                    <a href="#" class="text-xs font-light cursor-pointer transition-all duration-700 hover:text-[#C9A0A0]" style="color: #6A6A7A;">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCROLL REVEAL SCRIPT ========== -->
+    <script>
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar-glass');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(240, 240, 245, 0.92)';
+                navbar.style.boxShadow = '0 2px 20px rgba(200, 180, 200, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(240, 240, 245, 0.7)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

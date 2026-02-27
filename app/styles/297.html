@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Maison Élara — Alta Costura Brasileira. Peças exclusivas que transcendem o tempo, criadas com maestria artesanal e visão contemporânea.">
+    <meta name="keywords" content="alta costura, moda brasileira, luxo, haute couture, vestidos exclusivos, moda premium">
+    <meta name="author" content="Maison Élara">
+    <meta property="og:title" content="Maison Élara — Alta Costura Brasileira">
+    <meta property="og:description" content="Peças exclusivas que transcendem o tempo, criadas com maestria artesanal e visão contemporânea.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maisonelara.com.br">
+    <meta property="og:image" content="https://maisonelara.com.br/og-image.jpg">
+    <title>Maison Élara — Alta Costura Brasileira</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        black: '#0A0A0A',
+                        white: '#FFFFFF',
+                        gold: '#D4AF37',
+                        charcoal: '#333333',
+                        platinum: '#E5E4E2',
+                        blush: '#F5E6E0',
+                        burgundy: '#4A0020',
+                        ivory: '#FAF0E6',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        script: ['Cormorant', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-black: #0A0A0A;
+            --color-white: #FFFFFF;
+            --color-gold: #D4AF37;
+            --color-charcoal: #333333;
+            --color-platinum: #E5E4E2;
+            --color-blush: #F5E6E0;
+            --color-burgundy: #4A0020;
+            --color-ivory: #FAF0E6;
+            --font-display: 'Playfair Display', serif;
+            --font-script: 'Cormorant', serif;
+            --display-size: clamp(3rem, 10vw, 12rem);
+            --letter-spacing-tight: -0.05em;
+            --letter-spacing-wide: 0.3em;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-script);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px var(--color-gold);
+            color: transparent;
+        }
+
+        .text-stroke-white {
+            -webkit-text-stroke: 1px var(--color-white);
+            color: transparent;
+        }
+
+        .display-text {
+            font-family: var(--font-display);
+            font-size: var(--display-size);
+            line-height: 0.95;
+            letter-spacing: var(--letter-spacing-tight);
+        }
+
+        .gold-shimmer {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gold-shimmer:hover {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2);
+            color: var(--color-gold);
+        }
+
+        .nav-link {
+            position: relative;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-gold);
+            transition: width 0.4s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: var(--color-gold); }
+
+        .hero-ornament {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 50%;
+            animation: ornament-rotate 20s linear infinite;
+        }
+        .hero-ornament::before {
+            content: '';
+            position: absolute;
+            inset: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+        }
+        .hero-ornament::after {
+            content: '';
+            position: absolute;
+            inset: 60px;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 50%;
+        }
+
+        @keyframes ornament-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-up {
+            animation: fade-up 1s ease forwards;
+        }
+        .animate-fade-in {
+            animation: fade-in 1.2s ease forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-800 { animation-delay: 0.8s; }
+
+        .card-luxury {
+            background: linear-gradient(145deg, rgba(51,51,51,0.3), rgba(10,10,10,0.8));
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .card-luxury:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.08);
+        }
+
+        .pricing-featured {
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.08) 0%, rgba(10, 10, 10, 0.95) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37, #B8962E);
+            color: var(--color-black);
+            font-family: var(--font-script);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 1rem 2.5rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #E5C348, #D4AF37);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--color-gold);
+            font-family: var(--font-script);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.8rem;
+            padding: 1rem 2.5rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--color-gold);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .divider-gold {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .display-text {
+                font-size: clamp(2.5rem, 12vw, 5rem);
+            }
+            .hero-ornament {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="#" class="font-display text-2xl tracking-widest gold-shimmer" style="letter-spacing: 0.3em;">
+                ÉLARA
+            </a>
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-10">
+                <a href="#hero" class="nav-link text-white">Início</a>
+                <a href="#features" class="nav-link text-white">Ateliê</a>
+                <a href="#testimonials" class="nav-link text-white">Depoimentos</a>
+                <a href="#pricing" class="nav-link text-white">Coleções</a>
+                <a href="#cta" class="nav-link text-white">Contato</a>
+                <a href="#cta" class="btn-gold inline-block text-xs">Agendar Visita</a>
+            </div>
+            <!-- Mobile Hamburger -->
+            <button id="menu-toggle" class="lg:hidden cursor-pointer text-white" aria-label="Abrir menu">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-black z-50 flex flex-col p-10 gap-8 lg:hidden" style="border-left: 1px solid rgba(212,175,55,0.15);">
+            <button id="menu-close" class="self-end cursor-pointer text-white mb-6" aria-label="Fechar menu">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <a href="#hero" class="nav-link text-white text-sm" onclick="closeMobile()">Início</a>
+            <a href="#features" class="nav-link text-white text-sm" onclick="closeMobile()">Ateliê</a>
+            <a href="#testimonials" class="nav-link text-white text-sm" onclick="closeMobile()">Depoimentos</a>
+            <a href="#pricing" class="nav-link text-white text-sm" onclick="closeMobile()">Coleções</a>
+            <a href="#cta" class="nav-link text-white text-sm" onclick="closeMobile()">Contato</a>
+            <a href="#cta" class="btn-gold inline-block text-center text-xs mt-4" onclick="closeMobile()">Agendar Visita</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
+        <!-- Ornamental Element -->
+        <div class="hero-ornament" style="top: 10%; right: -5%;"></div>
+        <div class="hero-ornament" style="bottom: 5%; left: -8%; animation-direction: reverse; animation-duration: 30s;"></div>
+        <!-- Decorative Lines -->
+        <div class="absolute top-0 left-1/2 w-px h-32 bg-gradient-to-b from-transparent to-gold opacity-20"></div>
+        <div class="absolute bottom-0 left-1/2 w-px h-32 bg-gradient-to-t from-transparent to-gold opacity-20"></div>
+
+        <div class="relative z-10 text-center max-w-6xl mx-auto">
+            <!-- Overline -->
+            <p class="font-script text-gold text-sm tracking-widest uppercase mb-8 animate-fade-up" style="letter-spacing: 0.3em;">
+                Haute Couture Brasileira — Desde 2018
+            </p>
+            <!-- Main Display Type -->
+            <h1 class="display-text font-display font-900 text-white mb-4 animate-fade-up delay-200">
+                A Arte de
+            </h1>
+            <h1 class="display-text text-stroke font-display font-100 animate-fade-up delay-400" style="line-height: 1;">
+                Vestir
+            </h1>
+            <!-- Subtitle -->
+            <p class="font-script text-platinum text-lg md:text-xl max-w-2xl mx-auto mt-10 mb-12 animate-fade-up delay-600" style="font-weight: 300; line-height: 1.8; letter-spacing: 0.05em;">
+                Peças exclusivas que transcendem o tempo, criadas com maestria artesanal e visão contemporânea para mulheres que definem elegância.
+            </p>
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-up delay-800">
+                <a href="#pricing" class="btn-gold">Explorar Coleções</a>
+                <a href="#features" class="btn-outline">Nosso Ateliê</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-20 scroll-reveal">
+                <p class="font-script text-gold text-sm tracking-widest uppercase mb-4" style="letter-spacing: 0.3em;">O Que Nos Define</p>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-2" style="letter-spacing: -0.03em;">Excelência</h2>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-100 text-stroke mb-8" style="letter-spacing: -0.03em;">Artesanal</h2>
+                <div class="divider-gold mx-auto"></div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Card 1 -->
+                <div class="card-luxury p-10 scroll-reveal" style="animation-delay: 0.1s;">
+                    <div class="mb-8 text-gold">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-white mb-4 tracking-wide">Tecidos Nobres</h3>
+                    <p class="font-script text-platinum text-base leading-relaxed" style="font-weight: 300;">
+                        Selecionamos pessoalmente os mais finos tecidos de ateliês na Itália, França e Japão. Cada fibra é escolhida pela textura, caimento e exclusividade.
+                    </p>
+                    <div class="mt-8 w-12 h-px bg-gold opacity-30"></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-luxury p-10 scroll-reveal" style="animation-delay: 0.3s;">
+                    <div class="mb-8 text-gold">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-white mb-4 tracking-wide">Costura à Mão</h3>
+                    <p class="font-script text-platinum text-base leading-relaxed" style="font-weight: 300;">
+                        Cada peça recebe mais de 200 horas de trabalho manual. Nossas costureiras dominam técnicas centenárias transmitidas por gerações de mestres artesãos.
+                    </p>
+                    <div class="mt-8 w-12 h-px bg-gold opacity-30"></div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-luxury p-10 scroll-reveal" style="animation-delay: 0.5s;">
+                    <div class="mb-8 text-gold">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl text-white mb-4 tracking-wide">Design Exclusivo</h3>
+                    <p class="font-script text-platinum text-base leading-relaxed" style="font-weight: 300;">
+                        Nenhuma peça é igual à outra. Cada criação nasce de um diálogo íntimo entre a cliente e nossa diretora criativa, resultando em obras únicas e irrepetíveis.
+                    </p>
+                    <div class="mt-8 w-12 h-px bg-gold opacity-30"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-32 px-6" style="background: linear-gradient(180deg, rgba(10,10,10,1) 0%, rgba(74,0,32,0.08) 50%, rgba(10,10,10,1) 100%);">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-20 scroll-reveal">
+                <p class="font-script text-gold text-sm tracking-widest uppercase mb-4" style="letter-spacing: 0.3em;">Vozes que Inspiram</p>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-2" style="letter-spacing: -0.03em;">Nossas</h2>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-100 text-stroke mb-8" style="letter-spacing: -0.03em;">Clientes</h2>
+                <div class="divider-gold mx-auto"></div>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Testimonial 1 -->
+                <div class="card-luxury p-10 flex flex-col scroll-reveal">
+                    <div class="text-gold mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.4">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-quote text-platinum text-base mb-8 flex-grow">
+                        "Vestir uma peça da Maison Élara é como usar uma obra de arte. O vestido que criaram para meu casamento superou todos os meus sonhos mais ousados."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-gold font-display text-lg" style="border: 1px solid rgba(212,175,55,0.3);">
+                            MC
+                        </div>
+                        <div>
+                            <p class="font-display text-white text-sm tracking-wide">Marina Carvalho</p>
+                            <p class="font-script text-gold text-xs tracking-widest uppercase" style="letter-spacing: 0.15em;">Empresária — São Paulo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card-luxury p-10 flex flex-col scroll-reveal" style="animation-delay: 0.2s;">
+                    <div class="text-gold mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.4">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-quote text-platinum text-base mb-8 flex-grow">
+                        "A atenção aos detalhes é incomparável. Cada bordado, cada acabamento revela um nível de dedicação que eu nunca havia encontrado em nenhuma outra maison."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-gold font-display text-lg" style="border: 1px solid rgba(212,175,55,0.3);">
+                            BF
+                        </div>
+                        <div>
+                            <p class="font-display text-white text-sm tracking-wide">Beatriz Fonseca</p>
+                            <p class="font-script text-gold text-xs tracking-widest uppercase" style="letter-spacing: 0.15em;">Atriz — Rio de Janeiro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card-luxury p-10 flex flex-col scroll-reveal" style="animation-delay: 0.4s;">
+                    <div class="text-gold mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.4">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <p class="testimonial-quote text-platinum text-base mb-8 flex-grow">
+                        "Não é apenas moda, é identidade. A equipe da Élara entendeu minha essência e traduziu em tecido e forma. Cada peça conta a minha história."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-gold font-display text-lg" style="border: 1px solid rgba(212,175,55,0.3);">
+                            LS
+                        </div>
+                        <div>
+                            <p class="font-display text-white text-sm tracking-wide">Luísa Santana</p>
+                            <p class="font-script text-gold text-xs tracking-widest uppercase" style="letter-spacing: 0.15em;">Diretora Criativa — Belo Horizonte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-20 scroll-reveal">
+                <p class="font-script text-gold text-sm tracking-widest uppercase mb-4" style="letter-spacing: 0.3em;">Experiências Sob Medida</p>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-2" style="letter-spacing: -0.03em;">Nossas</h2>
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-100 text-stroke mb-8" style="letter-spacing: -0.03em;">Coleções</h2>
+                <div class="divider-gold mx-auto"></div>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-6 items-start">
+                <!-- Tier 1 - Prêt-à-Porter -->
+                <div class="card-luxury p-10 text-center scroll-reveal">
+                    <p class="font-script text-gold text-xs tracking-widest uppercase mb-6" style="letter-spacing: 0.25em;">Prêt-à-Porter</p>
+                    <div class="mb-2">
+                        <span class="font-display text-5xl md:text-6xl font-bold text-white">R$8</span>
+                        <span class="font-script text-platinum text-lg">.900</span>
+                    </div>
+                    <p class="font-script text-platinum text-sm mb-10" style="font-weight: 300;">a partir de / por peça</p>
+                    <div class="divider-gold mx-auto mb-10"></div>
+                    <ul class="space-y-4 mb-12 text-left">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Peças da coleção sazonal</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Ajustes personalizados inclusos</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Tecidos premium selecionados</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Embalagem exclusiva Élara</span>
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-outline block w-full text-center">Conhecer</a>
+                </div>
+
+                <!-- Tier 2 - Haute Couture (Featured) -->
+                <div class="pricing-featured p-10 text-center scroll-reveal relative md:-mt-4 md:mb-4" style="animation-delay: 0.2s;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <span class="bg-gold text-black font-script text-xs tracking-widest uppercase px-6 py-2 inline-block" style="letter-spacing: 0.2em;">Mais Procurada</span>
+                    </div>
+                    <p class="font-script text-gold text-xs tracking-widest uppercase mb-6 mt-4" style="letter-spacing: 0.25em;">Haute Couture</p>
+                    <div class="mb-2">
+                        <span class="font-display text-5xl md:text-6xl font-bold text-white">R$35</span>
+                        <span class="font-script text-platinum text-lg">.000</span>
+                    </div>
+                    <p class="font-script text-platinum text-sm mb-10" style="font-weight: 300;">a partir de / por peça</p>
+                    <div class="divider-gold mx-auto mb-10"></div>
+                    <ul class="space-y-4 mb-12 text-left">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Design 100% exclusivo e sob medida</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">3 sessões de prova no ateliê</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Bordados e acabamentos artesanais</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Consultoria de estilo pessoal</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Certificado de autenticidade</span>
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-gold block w-full text-center">Agendar Consulta</a>
+                </div>
+
+                <!-- Tier 3 - Maison Privée -->
+                <div class="card-luxury p-10 text-center scroll-reveal" style="animation-delay: 0.4s;">
+                    <p class="font-script text-gold text-xs tracking-widest uppercase mb-6" style="letter-spacing: 0.25em;">Maison Privée</p>
+                    <div class="mb-2">
+                        <span class="font-display text-5xl md:text-6xl font-bold text-white">R$120</span>
+                        <span class="font-script text-platinum text-lg">.000+</span>
+                    </div>
+                    <p class="font-script text-platinum text-sm mb-10" style="font-weight: 300;">experiência completa / anual</p>
+                    <div class="divider-gold mx-auto mb-10"></div>
+                    <ul class="space-y-4 mb-12 text-left">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Guarda-roupa completo sob medida</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Atendimento domiciliar exclusivo</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Acesso antecipado a coleções</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Convites para desfiles e eventos VIP</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Diretora criativa dedicada</span>
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-outline block w-full text-center">Solicitar Convite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section id="cta" class="relative py-32 px-6 overflow-hidden">
+        <!-- Background Ornament -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-96 h-96 rounded-full opacity-5" style="border: 1px solid var(--color-gold);"></div>
+            <div class="absolute w-72 h-72 rounded-full opacity-5" style="border: 1px solid var(--color-gold);"></div>
+            <div class="absolute w-48 h-48 rounded-full opacity-5" style="border: 1px solid var(--color-gold);"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 scroll-reveal">
+            <p class="font-script text-gold text-sm tracking-widest uppercase mb-6" style="letter-spacing: 0.3em;">Uma Experiência Única</p>
+            <h2 class="font-display text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-4" style="letter-spacing: -0.03em; line-height: 0.95;">
+                Sua História
+            </h2>
+            <h2 class="font-display text-4xl md:text-6xl lg:text-8xl font-100 text-stroke mb-10" style="letter-spacing: -0.03em; line-height: 0.95;">
+                Merece Élara
+            </h2>
+            <p class="font-script text-platinum text-lg md:text-xl max-w-2xl mx-auto mb-12" style="font-weight: 300; line-height: 1.8;">
+                Agende uma visita privada ao nosso ateliê e descubra como transformamos sonhos em peças que contam a sua história com elegância atemporal.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <a href="mailto:atelier@maisonelara.com.br" class="btn-gold">Agendar Visita Privada</a>
+                <a href="tel:+5511999999999" class="btn-outline">+55 (11) 99999-9999</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="relative pt-20 pb-10 px-6" style="border-top: 1px solid rgba(212,175,55,0.1);">
+        <div class="max-w-7xl mx-auto">
+            <!-- Footer Top -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="font-display text-3xl tracking-widest text-white gold-shimmer inline-block mb-6" style="letter-spacing: 0.3em;">ÉLARA</a>
+                    <p class="font-script text-platinum text-sm leading-relaxed mb-6" style="font-weight: 300;">
+                        Maison de alta costura brasileira dedicada à criação de peças exclusivas que celebram a individualidade e a elegância atemporal.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-5">
+                        <!-- Instagram -->
+                        <a href="#" class="text-platinum hover:text-gold transition-all duration-300 cursor-pointer" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <!-- Pinterest -->
+                        <a href="#" class="text-platinum hover:text-gold transition-all duration-300 cursor-pointer" aria-label="Pinterest">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 12a4 4 0 1 1 8 0c0 2.5-1.5 4.5-3 6l-1 4"/>
+                                <path d="M12 2a10 10 0 1 0 10 10"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="text-platinum hover:text-gold transition-all duration-300 cursor-pointer" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" class="text-platinum hover:text-gold transition-all duration-300 cursor-pointer" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="font-display text-white text-sm tracking-widest uppercase mb-6" style="letter-spacing: 0.2em;">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#hero" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Início</a></li>
+                        <li><a href="#features" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Nosso Ateliê</a></li>
+                        <li><a href="#testimonials" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Depoimentos</a></li>
+                        <li><a href="#pricing" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Coleções</a></li>
+                        <li><a href="#cta" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Institucional -->
+                <div>
+                    <h4 class="font-display text-white text-sm tracking-widest uppercase mb-6" style="letter-spacing: 0.2em;">Institucional</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Sobre a Maison</a></li>
+                        <li><a href="#" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Termos de Uso</a></li>
+                        <li><a href="#" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Trabalhe Conosco</a></li>
+                        <li><a href="#" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Imprensa</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contato -->
+                <div>
+                    <h4 class="font-display text-white text-sm tracking-widest uppercase mb-6" style="letter-spacing: 0.2em;">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span class="font-script text-platinum text-sm" style="font-weight: 300;">Rua Oscar Freire, 1200<br>Jardins — São Paulo, SP</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">+55 (11) 99999-9999</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <a href="mailto:atelier@maisonelara.com.br" class="font-script text-platinum text-sm hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">atelier@maisonelara.com.br</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style="border-top: 1px solid rgba(212,175,55,0.08);">
+                <p class="font-script text-platinum text-xs" style="font-weight: 300; letter-spacing: 0.1em;">
+                    &copy; 2026 Maison Élara. Todos os direitos reservados.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-script text-platinum text-xs hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Privacidade</a>
+                    <a href="#" class="font-script text-platinum text-xs hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Termos</a>
+                    <a href="#" class="font-script text-platinum text-xs hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Cookies</a>
+                    <a href="#" class="font-script text-platinum text-xs hover:text-gold transition-all duration-300 cursor-pointer" style="font-weight: 300;">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+        menuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+        function closeMobile() {
+            mobileMenu.classList.remove('open');
+        }
+
+        // Scroll Reveal Animation
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        scrollRevealElements.forEach(el => revealObserver.observe(el));
+
+        // Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.style.background = 'rgba(10,10,10,0.95)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+            } else {
+                navbar.style.background = 'rgba(10,10,10,0.85)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

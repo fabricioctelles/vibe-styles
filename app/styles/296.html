@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rabisco Studio — Agência Criativa de Design</title>
+  <meta name="description" content="Rabisco Studio é uma agência criativa de design que transforma ideias em experiências visuais únicas. Branding, UI/UX, ilustração e muito mais.">
+  <meta name="keywords" content="agência de design, design criativo, branding, UI/UX, ilustração, identidade visual, São Paulo">
+  <meta name="author" content="Rabisco Studio">
+  <meta property="og:title" content="Rabisco Studio — Agência Criativa de Design">
+  <meta property="og:description" content="Transformamos ideias em experiências visuais únicas. Conheça nossos serviços de design criativo.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rabiscostudio.com.br">
+  <meta property="og:image" content="https://rabiscostudio.com.br/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAFAF5',
+            pencil: '#4A4A4A',
+            ink: '#1A1A1A',
+            'sketch-blue': '#4A90D9',
+            'highlight-yellow': '#FFF176',
+            'marker-red': '#EF5350',
+            'doodle-green': '#66BB6A',
+            'crayon-orange': '#FFA726',
+          },
+          fontFamily: {
+            handwritten: ['Caveat', 'cursive'],
+            sketch: ['Patrick Hand', 'cursive'],
+          },
+          borderRadius: {
+            none: '0px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --color-paper: #FAFAF5;
+      --color-pencil: #4A4A4A;
+      --color-ink: #1A1A1A;
+      --font-handwritten: 'Caveat', cursive;
+      --border-sketch: 2px solid #4A4A4A;
+      --spacing: 1.5rem;
+      --border-radius: 0px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Patrick Hand', cursive;
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      overflow-x: hidden;
+    }
+
+    /* Notebook paper background */
+    .notebook-bg {
+      background-image:
+        linear-gradient(transparent 95%, #e0ddd5 95%);
+      background-size: 100% 2rem;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(74,74,74,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,74,74,0.06) 1px, transparent 1px);
+      background-size: 2rem 2rem;
+    }
+
+    /* Wavy SVG border filter */
+    .sketch-border {
+      border: 2px solid var(--color-pencil);
+      border-radius: 0;
+      position: relative;
+    }
+
+    .sketch-border-wavy {
+      border: none;
+      position: relative;
+      outline: 2px solid var(--color-pencil);
+      outline-offset: -2px;
+      clip-path: url(#wavyClip);
+    }
+
+    /* Hand-drawn feel with slight rotation */
+    .hand-drawn {
+      transform: rotate(-0.5deg);
+    }
+    .hand-drawn-alt {
+      transform: rotate(0.7deg);
+    }
+    .hand-drawn-slight {
+      transform: rotate(-0.3deg);
+    }
+
+    /* Wiggle animation on hover */
+    @keyframes wiggle {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(-1deg); }
+      50% { transform: rotate(1deg); }
+      75% { transform: rotate(-0.5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .hover-wiggle {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .hover-wiggle:hover {
+      animation: wiggle 0.3s ease-in-out;
+    }
+
+    /* Sketch underline */
+    .sketch-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .sketch-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: -4px;
+      right: -4px;
+      height: 6px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0 4 Q25 0 50 4 T100 4 T150 4 T200 4' fill='none' stroke='%234A90D9' stroke-width='2.5'/%3E%3C/svg%3E") repeat-x;
+      background-size: 100px 8px;
+    }
+
+    /* Doodle button style */
+    .btn-doodle {
+      border: 2px solid var(--color-ink);
+      background: transparent;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--font-handwritten);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      transform: rotate(-0.5deg);
+    }
+    .btn-doodle:hover {
+      animation: wiggle 0.3s ease-in-out;
+      background: var(--color-ink);
+      color: var(--color-paper);
+    }
+
+    .btn-doodle-filled {
+      border: 2px solid var(--color-ink);
+      background: var(--color-ink);
+      color: var(--color-paper);
+      padding: 0.75rem 1.75rem;
+      font-family: var(--font-handwritten);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      transform: rotate(0.5deg);
+    }
+    .btn-doodle-filled:hover {
+      animation: wiggle 0.3s ease-in-out;
+      background: #4A90D9;
+      border-color: #4A90D9;
+    }
+
+    /* Scribble circle decoration */
+    .scribble-circle {
+      position: relative;
+    }
+    .scribble-circle::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border: 2px solid var(--color-pencil);
+      border-radius: 50% 45% 55% 48%;
+      transform: rotate(3deg);
+      opacity: 0.4;
+    }
+
+    /* Pricing highlight */
+    .pricing-highlight {
+      border: 3px solid var(--color-ink);
+      transform: rotate(0.5deg) scale(1.05);
+      background: #FFF176;
+      position: relative;
+    }
+    .pricing-highlight::before {
+      content: '★ Popular';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      background: var(--color-ink);
+      color: var(--color-paper);
+      padding: 2px 16px;
+      font-family: var(--font-handwritten);
+      font-size: 1rem;
+    }
+
+    /* Doodle arrow */
+    .doodle-arrow {
+      display: inline-block;
+    }
+
+    /* Mobile nav */
+    .mobile-menu {
+      display: none;
+    }
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Card sketch style */
+    .card-sketch {
+      border: 2px solid var(--color-pencil);
+      background: var(--color-paper);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .card-sketch:hover {
+      animation: wiggle 0.3s ease-in-out;
+      box-shadow: 4px 4px 0 var(--color-pencil);
+    }
+
+    /* Testimonial quote style */
+    .quote-mark {
+      font-family: 'Caveat', cursive;
+      font-size: 4rem;
+      line-height: 1;
+      color: #4A90D9;
+      opacity: 0.5;
+    }
+
+    /* Marker highlight text */
+    .marker-highlight {
+      background: linear-gradient(180deg, transparent 55%, #FFF176 55%);
+      padding: 0 4px;
+    }
+
+    .marker-highlight-red {
+      background: linear-gradient(180deg, transparent 55%, rgba(239,83,80,0.3) 55%);
+      padding: 0 4px;
+    }
+
+    .marker-highlight-green {
+      background: linear-gradient(180deg, transparent 55%, rgba(102,187,106,0.3) 55%);
+      padding: 0 4px;
+    }
+  </style>
+</head>
+<body class="notebook-bg">
+
+  <!-- SVG Filters & Decorations -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="sketchy">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b-2 border-pencil">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 hover-wiggle">
+          <svg class="w-8 h-8 text-ink" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 26 L6 6 L16 6 Q22 6 22 12 Q22 18 16 18 L10 18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 18 L26 26" stroke-linecap="round"/>
+            <circle cx="24" cy="8" r="3" fill="#4A90D9" stroke="none"/>
+          </svg>
+          <span class="font-handwritten text-2xl font-bold text-ink">Rabisco Studio</span>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#features" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer hover-wiggle">Serviços</a>
+          <a href="#testimonials" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer hover-wiggle">Depoimentos</a>
+          <a href="#pricing" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer hover-wiggle">Planos</a>
+          <a href="#contact" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer hover-wiggle">Contato</a>
+          <a href="#cta" class="btn-doodle-filled text-base">Começar Agora</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menuBtn" class="md:hidden cursor-pointer hover-wiggle p-2" aria-label="Abrir menu">
+          <svg class="w-7 h-7 text-ink" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="mobile-menu flex-col gap-3 pb-4 md:hidden">
+        <a href="#features" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer">Serviços</a>
+        <a href="#testimonials" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer">Depoimentos</a>
+        <a href="#pricing" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer">Planos</a>
+        <a href="#contact" class="font-sketch text-lg text-pencil hover:text-ink transition-all cursor-pointer">Contato</a>
+        <a href="#cta" class="btn-doodle-filled text-base inline-block w-fit">Começar Agora</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="grid-bg relative min-h-[90vh] flex items-center overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-2 gap-12 items-center w-full">
+      <!-- Text -->
+      <div class="hand-drawn">
+        <p class="font-sketch text-xl text-sketch-blue mb-2 flex items-center gap-2">
+          <!-- doodle arrow -->
+          <svg class="w-6 h-6 doodle-arrow" viewBox="0 0 24 24" fill="none" stroke="#4A90D9" stroke-width="2">
+            <path d="M4 12 Q8 6 12 12 T20 12" stroke-linecap="round"/>
+            <path d="M16 8 L20 12 L16 16" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Agência Criativa de Design
+        </p>
+        <h1 class="font-handwritten text-5xl sm:text-6xl lg:text-7xl font-bold text-ink leading-tight mb-6">
+          Transformamos <span class="marker-highlight">rabiscos</span> em <span class="sketch-underline">obras-primas</span>
+        </h1>
+        <p class="font-sketch text-xl text-pencil mb-8 max-w-lg leading-relaxed">
+          Somos uma agência criativa que dá vida às suas ideias. Do esboço ao produto final, cada traço conta uma história única.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#cta" class="btn-doodle-filled text-lg">Ver Portfólio</a>
+          <a href="#features" class="btn-doodle text-lg">Nossos Serviços</a>
+        </div>
+      </div>
+
+      <!-- Visual Element: CSS Doodle Art -->
+      <div class="relative flex items-center justify-center hand-drawn-alt">
+        <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+          <!-- Abstract sketch shapes -->
+          <div class="absolute inset-0 border-2 border-pencil rounded-full opacity-20" style="border-radius: 60% 40% 50% 50%; transform: rotate(15deg);"></div>
+          <div class="absolute inset-4 border-2 border-sketch-blue opacity-40" style="border-radius: 45% 55% 40% 60%; transform: rotate(-10deg);"></div>
+          <div class="absolute inset-8 border-2 border-marker-red opacity-30" style="border-radius: 55% 45% 60% 40%; transform: rotate(25deg);"></div>
+          <div class="absolute inset-12 bg-highlight-yellow/20 border-2 border-pencil" style="border-radius: 50% 45% 55% 50%; transform: rotate(-5deg);"></div>
+          <!-- Center icon: pen/pencil -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <svg class="w-24 h-24 text-ink" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M44 8 L56 20 L24 52 L8 56 L12 40 Z" stroke-linejoin="round"/>
+              <path d="M40 12 L52 24" stroke-linecap="round"/>
+              <path d="M12 40 L24 52" stroke-linecap="round"/>
+              <circle cx="48" cy="12" r="2" fill="#4A90D9"/>
+              <circle cx="10" cy="54" r="2" fill="#EF5350"/>
+            </svg>
+          </div>
+          <!-- Floating doodle elements -->
+          <svg class="absolute -top-4 -right-4 w-10 h-10 text-crayon-orange" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2 L14 9 L21 9 L15 14 L17 21 L12 17 L7 21 L9 14 L3 9 L10 9 Z"/>
+          </svg>
+          <svg class="absolute -bottom-2 -left-6 w-8 h-8 text-doodle-green opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12 Q12 6 16 12"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doodle decoration bottom -->
+    <svg class="absolute bottom-0 left-0 w-full h-6 text-pencil opacity-10" viewBox="0 0 1200 24" preserveAspectRatio="none">
+      <path d="M0 12 Q50 2 100 12 T200 12 T300 12 T400 12 T500 12 T600 12 T700 12 T800 12 T900 12 T1000 12 T1100 12 T1200 12" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </section>
+
+  <!-- ========== FEATURES / SERVIÇOS ========== -->
+  <section id="features" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 hand-drawn-slight">
+        <p class="font-sketch text-lg text-sketch-blue mb-2">O que fazemos de melhor</p>
+        <h2 class="font-handwritten text-4xl sm:text-5xl font-bold text-ink">
+          Nossos <span class="marker-highlight">Serviços</span>
+        </h2>
+        <svg class="mx-auto mt-2 w-32 h-4 text-pencil opacity-40" viewBox="0 0 128 8">
+          <path d="M0 4 Q16 0 32 4 T64 4 T96 4 T128 4" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Card 1: Branding -->
+        <div class="card-sketch hand-drawn hover-wiggle">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center border-2 border-pencil" style="border-radius: 50% 45% 55% 48%;">
+            <svg class="w-7 h-7 text-sketch-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" stroke-linejoin="round"/>
+              <path d="M2 17l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="font-handwritten text-2xl font-bold text-ink mb-2">Branding & Identidade</h3>
+          <p class="font-sketch text-pencil leading-relaxed">
+            Criamos identidades visuais que contam a história da sua marca. Do logotipo ao manual completo, cada detalhe é pensado com carinho.
+          </p>
+          <!-- Doodle arrow decoration -->
+          <svg class="mt-4 w-16 h-4 text-crayon-orange opacity-60" viewBox="0 0 64 8">
+            <path d="M0 4 Q16 0 32 4 T56 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M52 0 L58 4 L52 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Card 2: UI/UX Design -->
+        <div class="card-sketch hand-drawn-alt hover-wiggle">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center border-2 border-pencil" style="border-radius: 45% 55% 48% 52%;">
+            <svg class="w-7 h-7 text-marker-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18"/>
+              <path d="M9 21V9"/>
+            </svg>
+          </div>
+          <h3 class="font-handwritten text-2xl font-bold text-ink mb-2">UI/UX Design</h3>
+          <p class="font-sketch text-pencil leading-relaxed">
+            Interfaces intuitivas e experiências memoráveis. Projetamos cada tela para encantar seus usuários e converter visitantes em clientes.
+          </p>
+          <svg class="mt-4 w-16 h-4 text-sketch-blue opacity-60" viewBox="0 0 64 8">
+            <path d="M0 4 Q16 0 32 4 T56 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M52 0 L58 4 L52 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Card 3: Ilustração -->
+        <div class="card-sketch hand-drawn hover-wiggle">
+          <div class="w-14 h-14 mb-4 flex items-center justify-center border-2 border-pencil" style="border-radius: 52% 48% 45% 55%;">
+            <svg class="w-7 h-7 text-doodle-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 19l7-7 3 3-7 7-3-3z" stroke-linejoin="round"/>
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18" stroke-linejoin="round"/>
+              <path d="M2 2l7.586 7.586" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="2"/>
+            </svg>
+          </div>
+          <h3 class="font-handwritten text-2xl font-bold text-ink mb-2">Ilustração Digital</h3>
+          <p class="font-sketch text-pencil leading-relaxed">
+            Ilustrações personalizadas que dão personalidade ao seu projeto. Do conceito ao traço final, criamos arte que comunica e emociona.
+          </p>
+          <svg class="mt-4 w-16 h-4 text-doodle-green opacity-60" viewBox="0 0 64 8">
+            <path d="M0 4 Q16 0 32 4 T56 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M52 0 L58 4 L52 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS / DEPOIMENTOS ========== -->
+  <section id="testimonials" class="py-20 grid-bg relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 hand-drawn-alt">
+        <p class="font-sketch text-lg text-marker-red mb-2">O que dizem sobre nós</p>
+        <h2 class="font-handwritten text-4xl sm:text-5xl font-bold text-ink">
+          <span class="marker-highlight-red">Depoimentos</span>
+        </h2>
+        <svg class="mx-auto mt-2 w-32 h-4 text-pencil opacity-40" viewBox="0 0 128 8">
+          <path d="M0 4 Q16 8 32 4 T64 4 T96 4 T128 4" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="card-sketch hand-drawn hover-wiggle relative">
+          <span class="quote-mark">"</span>
+          <p class="font-sketch text-pencil leading-relaxed mt-[-1rem] mb-4">
+            A equipe do Rabisco Studio superou todas as expectativas. Nosso rebranding ficou incrível e os clientes adoraram a nova identidade visual.
+          </p>
+          <div class="flex items-center gap-3 mt-4 pt-4 border-t-2 border-pencil/20">
+            <div class="w-10 h-10 border-2 border-pencil flex items-center justify-center font-handwritten text-lg font-bold text-sketch-blue" style="border-radius: 50% 45% 55% 48%;">
+              MC
+            </div>
+            <div>
+              <p class="font-handwritten text-lg font-bold text-ink">Marina Costa</p>
+              <p class="font-sketch text-sm text-pencil">CEO, TechVerde</p>
+            </div>
+          </div>
+          <!-- Star decoration -->
+          <svg class="absolute top-3 right-3 w-5 h-5 text-highlight-yellow" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14 9L21 9L15 14L17 21L12 17L7 21L9 14L3 9L10 9Z"/>
+          </svg>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="card-sketch hand-drawn-alt hover-wiggle relative">
+          <span class="quote-mark">"</span>
+          <p class="font-sketch text-pencil leading-relaxed mt-[-1rem] mb-4">
+            Profissionais extremamente criativos e atentos aos detalhes. O design do nosso app ficou lindo e a experiência do usuário melhorou muito.
+          </p>
+          <div class="flex items-center gap-3 mt-4 pt-4 border-t-2 border-pencil/20">
+            <div class="w-10 h-10 border-2 border-pencil flex items-center justify-center font-handwritten text-lg font-bold text-marker-red" style="border-radius: 48% 52% 45% 55%;">
+              RS
+            </div>
+            <div>
+              <p class="font-handwritten text-lg font-bold text-ink">Rafael Santos</p>
+              <p class="font-sketch text-sm text-pencil">Fundador, AppFlow</p>
+            </div>
+          </div>
+          <svg class="absolute top-3 right-3 w-5 h-5 text-crayon-orange" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14 9L21 9L15 14L17 21L12 17L7 21L9 14L3 9L10 9Z"/>
+          </svg>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="card-sketch hand-drawn hover-wiggle relative">
+          <span class="quote-mark">"</span>
+          <p class="font-sketch text-pencil leading-relaxed mt-[-1rem] mb-4">
+            Trabalhar com o Rabisco Studio foi uma experiência incrível. Eles entenderam perfeitamente a essência da nossa marca e traduziram em design.
+          </p>
+          <div class="flex items-center gap-3 mt-4 pt-4 border-t-2 border-pencil/20">
+            <div class="w-10 h-10 border-2 border-pencil flex items-center justify-center font-handwritten text-lg font-bold text-doodle-green" style="border-radius: 55% 45% 50% 50%;">
+              AL
+            </div>
+            <div>
+              <p class="font-handwritten text-lg font-bold text-ink">Ana Luíza</p>
+              <p class="font-sketch text-sm text-pencil">Diretora, Café Origem</p>
+            </div>
+          </div>
+          <svg class="absolute top-3 right-3 w-5 h-5 text-doodle-green" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14 9L21 9L15 14L17 21L12 17L7 21L9 14L3 9L10 9Z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING / PLANOS ========== -->
+  <section id="pricing" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 hand-drawn">
+        <p class="font-sketch text-lg text-doodle-green mb-2">Investimento que vale cada traço</p>
+        <h2 class="font-handwritten text-4xl sm:text-5xl font-bold text-ink">
+          Nossos <span class="marker-highlight-green">Planos</span>
+        </h2>
+        <svg class="mx-auto mt-2 w-32 h-4 text-pencil opacity-40" viewBox="0 0 128 8">
+          <path d="M0 4 Q16 0 32 4 T64 4 T96 4 T128 4" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 items-start">
+        <!-- Tier 1: Esboço -->
+        <div class="card-sketch hand-drawn hover-wiggle text-center">
+          <h3 class="font-handwritten text-3xl font-bold text-ink mb-1">Esboço</h3>
+          <p class="font-sketch text-pencil mb-4">Para projetos pontuais</p>
+          <div class="mb-6">
+            <span class="font-handwritten text-5xl font-bold text-ink">R$2.900</span>
+            <span class="font-sketch text-pencil">/projeto</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8 font-sketch text-pencil">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              1 conceito de identidade visual
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Logotipo + variações
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              2 rodadas de revisão
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-pencil/30 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+              <span class="line-through opacity-50">Manual de marca</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-pencil/30 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+              <span class="line-through opacity-50">Suporte contínuo</span>
+            </li>
+          </ul>
+          <a href="#cta" class="btn-doodle w-full block text-center">Escolher Esboço</a>
+        </div>
+
+        <!-- Tier 2: Rascunho (Destaque) -->
+        <div class="pricing-highlight card-sketch hover-wiggle text-center">
+          <h3 class="font-handwritten text-3xl font-bold text-ink mb-1 mt-2">Rascunho</h3>
+          <p class="font-sketch text-pencil mb-4">O mais escolhido</p>
+          <div class="mb-6">
+            <span class="font-handwritten text-5xl font-bold text-ink">R$5.900</span>
+            <span class="font-sketch text-pencil">/projeto</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8 font-sketch text-pencil">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              3 conceitos de identidade visual
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Logotipo + papelaria completa
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              5 rodadas de revisão
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Manual de marca completo
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-pencil/30 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+              <span class="line-through opacity-50">Suporte contínuo</span>
+            </li>
+          </ul>
+          <a href="#cta" class="btn-doodle-filled w-full block text-center">Escolher Rascunho</a>
+        </div>
+
+        <!-- Tier 3: Obra-Prima -->
+        <div class="card-sketch hand-drawn-alt hover-wiggle text-center">
+          <h3 class="font-handwritten text-3xl font-bold text-ink mb-1">Obra-Prima</h3>
+          <p class="font-sketch text-pencil mb-4">Solução completa</p>
+          <div class="mb-6">
+            <span class="font-handwritten text-5xl font-bold text-ink">R$9.900</span>
+            <span class="font-sketch text-pencil">/projeto</span>
+          </div>
+          <ul class="text-left space-y-3 mb-8 font-sketch text-pencil">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Conceitos ilimitados
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Branding + UI/UX + Ilustrações
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Revisões ilimitadas
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Manual de marca completo
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-doodle-green mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Suporte contínuo por 6 meses
+            </li>
+          </ul>
+          <a href="#cta" class="btn-doodle w-full block text-center">Escolher Obra-Prima</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA FINAL ========== -->
+  <section id="cta" class="py-20 grid-bg relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="card-sketch p-10 sm:p-14 hand-drawn relative">
+        <!-- Decorative doodles -->
+        <svg class="absolute top-4 left-4 w-8 h-8 text-crayon-orange opacity-40" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L14 9L21 9L15 14L17 21L12 17L7 21L9 14L3 9L10 9Z"/>
+        </svg>
+        <svg class="absolute bottom-4 right-4 w-10 h-10 text-sketch-blue opacity-30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 12 Q12 6 16 12" stroke-linecap="round"/>
+        </svg>
+        <svg class="absolute top-6 right-8 w-6 h-6 text-doodle-green opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+        </svg>
+
+        <p class="font-sketch text-lg text-sketch-blue mb-3">Pronto para criar algo incrível?</p>
+        <h2 class="font-handwritten text-4xl sm:text-5xl font-bold text-ink mb-4">
+          Vamos <span class="marker-highlight">rabiscar</span> juntos?
+        </h2>
+        <p class="font-sketch text-xl text-pencil mb-8 max-w-2xl mx-auto leading-relaxed">
+          Cada grande projeto começa com um simples traço. Entre em contato e vamos transformar suas ideias em realidade visual.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="mailto:contato@rabiscostudio.com.br" class="btn-doodle-filled text-lg inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 4L12 13L2 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Fale Conosco
+          </a>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-doodle text-lg inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background doodle scribbles -->
+    <svg class="absolute top-10 left-10 w-20 h-20 text-pencil opacity-5" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 40 Q20 10 40 40 T70 40"/>
+      <path d="M20 20 Q40 50 60 20"/>
+    </svg>
+    <svg class="absolute bottom-10 right-10 w-24 h-24 text-pencil opacity-5" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="40" cy="40" r="30"/>
+      <circle cx="40" cy="40" r="15"/>
+    </svg>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="bg-ink text-paper py-16 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Col 1: Logo & About -->
+        <div>
+          <a href="#" class="flex items-center gap-2 mb-4 hover-wiggle">
+            <svg class="w-7 h-7 text-paper" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 26 L6 6 L16 6 Q22 6 22 12 Q22 18 16 18 L10 18" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 18 L26 26" stroke-linecap="round"/>
+              <circle cx="24" cy="8" r="3" fill="#4A90D9" stroke="none"/>
+            </svg>
+            <span class="font-handwritten text-2xl font-bold text-paper">Rabisco Studio</span>
+          </a>
+          <p class="font-sketch text-paper/70 leading-relaxed">
+            Agência criativa de design que transforma ideias em experiências visuais memoráveis desde 2020.
+          </p>
+        </div>
+
+        <!-- Col 2: Navegação -->
+        <div>
+          <h4 class="font-handwritten text-xl font-bold text-paper mb-4">Navegação</h4>
+          <ul class="space-y-2 font-sketch">
+            <li><a href="#features" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Serviços</a></li>
+            <li><a href="#testimonials" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Depoimentos</a></li>
+            <li><a href="#pricing" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Planos</a></li>
+            <li><a href="#cta" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Contato</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Legal -->
+        <div>
+          <h4 class="font-handwritten text-xl font-bold text-paper mb-4">Legal</h4>
+          <ul class="space-y-2 font-sketch">
+            <li><a href="#" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Política de Privacidade</a></li>
+            <li><a href="#" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Termos de Uso</a></li>
+            <li><a href="#" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">Cookies</a></li>
+            <li><a href="#" class="text-paper/70 hover:text-highlight-yellow transition-all cursor-pointer">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contato & Redes Sociais -->
+        <div>
+          <h4 class="font-handwritten text-xl font-bold text-paper mb-4">Contato</h4>
+          <ul class="space-y-2 font-sketch text-paper/70 mb-6">
+            <li>contato@rabiscostudio.com.br</li>
+            <li>(11) 99999-9999</li>
+            <li>São Paulo, SP — Brasil</li>
+          </ul>
+          <h4 class="font-handwritten text-xl font-bold text-paper mb-3">Redes Sociais</h4>
+          <div class="flex gap-3">
+            <!-- Instagram -->
+            <a href="#" class="w-10 h-10 border-2 border-paper/40 flex items-center justify-center hover:border-highlight-yellow hover:text-highlight-yellow transition-all cursor-pointer hover-wiggle" aria-label="Instagram">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" class="w-10 h-10 border-2 border-paper/40 flex items-center justify-center hover:border-highlight-yellow hover:text-highlight-yellow transition-all cursor-pointer hover-wiggle" aria-label="LinkedIn">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <!-- Behance -->
+            <a href="#" class="w-10 h-10 border-2 border-paper/40 flex items-center justify-center hover:border-highlight-yellow hover:text-highlight-yellow transition-all cursor-pointer hover-wiggle" aria-label="Behance">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h6c1.66 0 3 1.34 3 3s-1.34 3-3 3H3V6z"/>
+                <path d="M3 12h7c1.66 0 3 1.34 3 3s-1.34 3-3 3H3v-6z"/>
+                <path d="M15 13h6a3 3 0 10-3-3v6a3 3 0 003 3 3 3 0 002.5-1.5"/>
+                <path d="M15 8h6"/>
+              </svg>
+            </a>
+            <!-- Dribbble -->
+            <a href="#" class="w-10 h-10 border-2 border-paper/40 flex items-center justify-center hover:border-highlight-yellow hover:text-highlight-yellow transition-all cursor-pointer hover-wiggle" aria-label="Dribbble">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/>
+                <path d="M19.13 5.09C15.22 9.14 10.4 10.44 2.25 10.94"/>
+                <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t-2 border-paper/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-sketch text-paper/50 text-sm">
+          &copy; 2026 Rabisco Studio. Todos os direitos reservados.
+        </p>
+        <div class="flex gap-4 font-sketch text-sm">
+          <a href="#" class="text-paper/50 hover:text-highlight-yellow transition-all cursor-pointer">Sitemap</a>
+          <a href="#" class="text-paper/50 hover:text-highlight-yellow transition-all cursor-pointer">Política de Privacidade</a>
+          <a href="#" class="text-paper/50 hover:text-highlight-yellow transition-all cursor-pointer">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doodle decoration top -->
+    <svg class="absolute top-0 left-0 w-full h-4 text-paper opacity-5" viewBox="0 0 1200 16" preserveAspectRatio="none">
+      <path d="M0 8 Q50 2 100 8 T200 8 T300 8 T400 8 T500 8 T600 8 T700 8 T800 8 T900 8 T1000 8 T1100 8 T1200 8" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Navbar background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.style.borderBottomColor = '#4A4A4A';
+      } else {
+        nav.style.borderBottomColor = '#4A4A4A';
+      }
+    });
+  </script>
+</body>
+</html>

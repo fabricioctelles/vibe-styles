@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenità — Plataforma de Meditação e Bem-Estar</title>
+  <meta name="description" content="Serenità é a plataforma definitiva de meditação e bem-estar. Descubra paz interior com sessões guiadas, trilhas personalizadas e uma comunidade acolhedora.">
+  <meta name="keywords" content="meditação, bem-estar, mindfulness, saúde mental, yoga, relaxamento, paz interior">
+  <meta name="author" content="Serenità">
+  <meta property="og:title" content="Serenità — Plataforma de Meditação e Bem-Estar">
+  <meta property="og:description" content="Descubra paz interior com sessões guiadas, trilhas personalizadas e uma comunidade acolhedora.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --gradient-aurora: linear-gradient(135deg, #1A0533, #7B2FBE, #FF6B9D, #00D4AA);
+      --blur-amount: 20px;
+      --glow-purple: rgba(123,47,190,0.3);
+      --border-radius: 16px;
+      --bg-dark: #0A0A1A;
+      --transition: 600ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+    }
+
+    /* Aurora gradient backgrounds */
+    .aurora-bg {
+      background: var(--gradient-aurora);
+    }
+
+    .aurora-bg-subtle {
+      background: linear-gradient(135deg, rgba(123,47,190,0.08), rgba(255,107,157,0.05), rgba(0,212,170,0.06));
+    }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(123, 47, 190, 0.08);
+      backdrop-filter: blur(var(--blur-amount));
+      -webkit-backdrop-filter: blur(var(--blur-amount));
+      border: 1px solid rgba(196, 161, 255, 0.12);
+      border-radius: var(--border-radius);
+      transition: all var(--transition);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(196, 161, 255, 0.3);
+      box-shadow: 0 0 40px var(--glow-purple);
+      transform: translateY(-4px);
+    }
+
+    /* Glow button */
+    .btn-aurora {
+      background: linear-gradient(135deg, #7B2FBE, #FF6B9D);
+      border-radius: 12px;
+      padding: 14px 32px;
+      font-weight: 600;
+      color: #fff;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-aurora:hover {
+      box-shadow: 0 0 30px rgba(255, 107, 157, 0.4), 0 0 60px var(--glow-purple);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(196, 161, 255, 0.4);
+      border-radius: 12px;
+      padding: 14px 32px;
+      font-weight: 600;
+      color: #C4A1FF;
+      background: transparent;
+      backdrop-filter: blur(10px);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: #C4A1FF;
+      background: rgba(196, 161, 255, 0.1);
+      box-shadow: 0 0 30px rgba(196, 161, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Floating orb for hero */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* 3D abstract element */
+    .aurora-sphere {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #7B2FBE, #FF6B9D, #00D4AA, #67E8F9, #7B2FBE);
+      animation: spin-slow 12s linear infinite, pulse-glow 4s ease-in-out infinite;
+      filter: blur(1px);
+      position: relative;
+    }
+
+    .aurora-sphere::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1A0533 0%, #0A0A1A 70%);
+    }
+
+    .aurora-sphere::after {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      background: conic-gradient(from 180deg, rgba(123,47,190,0.5), rgba(0,212,170,0.3), rgba(255,107,157,0.4), rgba(103,232,249,0.3), rgba(123,47,190,0.5));
+      filter: blur(15px);
+      animation: spin-reverse 8s linear infinite;
+    }
+
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-reverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Pricing highlight */
+    .pricing-highlight {
+      background: linear-gradient(180deg, rgba(123,47,190,0.15), rgba(255,107,157,0.08));
+      border: 1px solid rgba(255, 107, 157, 0.3);
+      box-shadow: 0 0 60px var(--glow-purple);
+      transform: scale(1.05);
+    }
+
+    .pricing-highlight:hover {
+      box-shadow: 0 0 80px var(--glow-purple), 0 0 40px rgba(255,107,157,0.3);
+      transform: scale(1.07);
+    }
+
+    /* Section radial bg */
+    .radial-glow {
+      position: relative;
+    }
+
+    .radial-glow::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,47,190,0.15), transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* Navbar glass */
+    .navbar-glass {
+      background: rgba(10, 10, 26, 0.7);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(196, 161, 255, 0.08);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      background: rgba(10, 10, 26, 0.95);
+      backdrop-filter: blur(25px);
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Link hover */
+    .nav-link {
+      transition: all var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7B2FBE, #FF6B9D);
+      transition: width var(--transition);
+    }
+
+    .nav-link:hover {
+      color: #C4A1FF;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Testimonial quote */
+    .quote-mark {
+      background: linear-gradient(135deg, #7B2FBE, #FF6B9D);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Footer link */
+    .footer-link {
+      color: rgba(196, 161, 255, 0.6);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .footer-link:hover {
+      color: #C4A1FF;
+    }
+
+    /* Social icon */
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(196, 161, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .social-icon:hover {
+      border-color: #C4A1FF;
+      background: rgba(123, 47, 190, 0.2);
+      box-shadow: 0 0 20px var(--glow-purple);
+      transform: translateY(-2px);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #C4A1FF, #FF6B9D, #00D4AA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Grain Filter -->
+  <svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)"/>
+  </svg>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 cursor-pointer">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="url(#logo-grad)" stroke-width="2"/>
+            <path d="M16 8C16 8 10 14 10 18C10 21.3 12.7 24 16 24C19.3 24 22 21.3 22 18C22 14 16 8 16 8Z" fill="url(#logo-grad)"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="4" y1="4" x2="28" y2="28">
+                <stop stop-color="#7B2FBE"/>
+                <stop offset="0.5" stop-color="#FF6B9D"/>
+                <stop offset="1" stop-color="#00D4AA"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="text-xl font-bold gradient-text">Serenità</span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="nav-link text-sm text-gray-300">Recursos</a>
+          <a href="#testimonials" class="nav-link text-sm text-gray-300">Depoimentos</a>
+          <a href="#pricing" class="nav-link text-sm text-gray-300">Planos</a>
+          <a href="#contact" class="nav-link text-sm text-gray-300">Contato</a>
+          <a href="#cta" class="btn-aurora text-sm px-6 py-2.5 inline-block">Comece Grátis</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-toggle" class="md:hidden cursor-pointer p-2" aria-label="Abrir menu">
+          <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu flex-col gap-4 px-6 py-6 md:hidden">
+      <a href="#features" class="nav-link text-gray-300 py-2">Recursos</a>
+      <a href="#testimonials" class="nav-link text-gray-300 py-2">Depoimentos</a>
+      <a href="#pricing" class="nav-link text-gray-300 py-2">Planos</a>
+      <a href="#contact" class="nav-link text-gray-300 py-2">Contato</a>
+      <a href="#cta" class="btn-aurora text-sm text-center py-3 mt-2">Comece Grátis</a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Background orbs -->
+    <div class="hero-orb w-96 h-96 bg-purple-700/20 top-10 -left-20" style="position:absolute;"></div>
+    <div class="hero-orb w-80 h-80 bg-pink-500/15 bottom-20 right-0" style="position:absolute; animation-delay: 2s;"></div>
+    <div class="hero-orb w-64 h-64 bg-emerald-400/10 top-1/2 left-1/3" style="position:absolute; animation-delay: 4s;"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Text Content -->
+        <div class="text-center lg:text-left">
+          <p class="text-sm font-medium tracking-widest uppercase mb-4" style="color: #00D4AA;">✦ Sua jornada interior começa aqui</p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Encontre sua
+            <span class="gradient-text"> paz interior</span>
+            com meditação guiada
+          </h1>
+          <p class="text-lg text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0">
+            Transforme sua rotina com sessões personalizadas de meditação, mindfulness e bem-estar. Milhares de pessoas já descobriram o equilíbrio com a Serenità.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#cta" class="btn-aurora text-center">Começar Gratuitamente</a>
+            <a href="#features" class="btn-outline text-center">Explorar Recursos</a>
+          </div>
+
+          <!-- Social proof -->
+          <div class="flex items-center gap-4 mt-10 justify-center lg:justify-start">
+            <div class="flex -space-x-3">
+              <div class="w-10 h-10 rounded-full border-2 border-purple-900" style="background: linear-gradient(135deg, #7B2FBE, #FF6B9D);"></div>
+              <div class="w-10 h-10 rounded-full border-2 border-purple-900" style="background: linear-gradient(135deg, #FF6B9D, #00D4AA);"></div>
+              <div class="w-10 h-10 rounded-full border-2 border-purple-900" style="background: linear-gradient(135deg, #00D4AA, #67E8F9);"></div>
+              <div class="w-10 h-10 rounded-full border-2 border-purple-900" style="background: linear-gradient(135deg, #67E8F9, #C4A1FF);"></div>
+            </div>
+            <p class="text-sm text-gray-400"><span class="text-white font-semibold">+25.000</span> praticantes ativos</p>
+          </div>
+        </div>
+
+        <!-- 3D Abstract Visual -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="relative">
+            <div class="aurora-sphere"></div>
+            <!-- Inner lotus icon -->
+            <div class="absolute inset-0 flex items-center justify-center z-10">
+              <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 20px rgba(196,161,255,0.5));">
+                <path d="M40 15C40 15 28 28 28 40C28 46.6 33.4 52 40 52C46.6 52 52 46.6 52 40C52 28 40 15 40 15Z" fill="rgba(196,161,255,0.6)"/>
+                <path d="M40 20C40 20 25 10 18 22C11 34 28 42 40 42C52 42 69 34 62 22C55 10 40 20 40 20Z" fill="rgba(0,212,170,0.3)"/>
+                <path d="M40 55C40 55 30 65 40 65C50 65 40 55 40 55Z" fill="rgba(255,107,157,0.4)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES SECTION ========== -->
+  <section id="features" class="relative py-24 lg:py-32 radial-glow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-sm font-medium tracking-widest uppercase mb-3" style="color: #FF6B9D;">Recursos</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          Tudo que você precisa para sua <span class="gradient-text">evolução</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+          Ferramentas poderosas e intuitivas para guiar sua prática de meditação e bem-estar diário.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="glass-card p-8">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(123,47,190,0.3), rgba(123,47,190,0.1));">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#C4A1FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Sessões Guiadas</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Mais de 500 meditações guiadas por especialistas, desde iniciantes até praticantes avançados. Áudios em alta qualidade com trilhas sonoras exclusivas.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="glass-card p-8">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(255,107,157,0.1));">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FF6B9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Trilhas Personalizadas</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Inteligência artificial que adapta sua jornada de acordo com seus objetivos: reduzir ansiedade, melhorar o sono ou aumentar o foco.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="glass-card p-8">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(0,212,170,0.3), rgba(0,212,170,0.1));">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Comunidade Acolhedora</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Conecte-se com milhares de praticantes, participe de desafios em grupo e compartilhe sua evolução em um ambiente seguro e inspirador.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS SECTION ========== -->
+  <section id="testimonials" class="relative py-24 lg:py-32">
+    <!-- Background accent -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute w-[500px] h-[500px] rounded-full top-0 right-0 opacity-10" style="background: radial-gradient(circle, #FF6B9D, transparent 70%);"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-sm font-medium tracking-widest uppercase mb-3" style="color: #00D4AA;">Depoimentos</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          Histórias de <span class="gradient-text">transformação</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+          Veja como a Serenità está mudando a vida de milhares de pessoas.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="glass-card p-8">
+          <span class="quote-mark text-5xl font-serif leading-none">"</span>
+          <p class="text-gray-300 leading-relaxed mt-2 mb-6">
+            A Serenità transformou minha relação com a ansiedade. Em apenas 3 semanas de prática diária, sinto uma clareza mental que nunca tive antes.
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full" style="background: linear-gradient(135deg, #7B2FBE, #C4A1FF);"></div>
+            <div>
+              <p class="text-white font-semibold text-sm">Mariana Costa</p>
+              <p class="text-gray-500 text-xs">Designer, São Paulo</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mt-4">
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="glass-card p-8">
+          <span class="quote-mark text-5xl font-serif leading-none">"</span>
+          <p class="text-gray-300 leading-relaxed mt-2 mb-6">
+            Como médico, recomendo a Serenità para meus pacientes. A qualidade das sessões e a abordagem científica fazem toda a diferença no tratamento complementar.
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full" style="background: linear-gradient(135deg, #00D4AA, #67E8F9);"></div>
+            <div>
+              <p class="text-white font-semibold text-sm">Dr. Rafael Mendes</p>
+              <p class="text-gray-500 text-xs">Psiquiatra, Rio de Janeiro</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mt-4">
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="glass-card p-8">
+          <span class="quote-mark text-5xl font-serif leading-none">"</span>
+          <p class="text-gray-300 leading-relaxed mt-2 mb-6">
+            Depois de anos tentando criar o hábito de meditar, a Serenità foi a única plataforma que me manteve consistente. As trilhas personalizadas são incríveis!
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full" style="background: linear-gradient(135deg, #FF6B9D, #FFB3C6);"></div>
+            <div>
+              <p class="text-white font-semibold text-sm">Juliana Ferreira</p>
+              <p class="text-gray-500 text-xs">Empreendedora, Belo Horizonte</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mt-4">
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" fill="#FF6B9D" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING SECTION ========== -->
+  <section id="pricing" class="relative py-24 lg:py-32 radial-glow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <p class="text-sm font-medium tracking-widest uppercase mb-3" style="color: #C4A1FF;">Planos</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          Escolha seu caminho de <span class="gradient-text">equilíbrio</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+          Planos flexíveis para cada momento da sua jornada. Comece grátis e evolua no seu ritmo.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <!-- Plano Gratuito -->
+        <div class="glass-card p-8 text-center">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-300 mb-2">Essencial</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-4xl font-bold text-white">Grátis</span>
+            </div>
+            <p class="text-gray-500 text-sm mt-2">Para sempre</p>
+          </div>
+          <ul class="space-y-4 mb-8 text-left">
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              10 sessões guiadas por mês
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Timer de meditação
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Sons da natureza básicos
+            </li>
+            <li class="flex items-center gap-3 text-gray-500 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#4a4a5a" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              Trilhas personalizadas
+            </li>
+            <li class="flex items-center gap-3 text-gray-500 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#4a4a5a" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              Comunidade exclusiva
+            </li>
+          </ul>
+          <a href="#" class="btn-outline block text-center text-sm py-3">Começar Grátis</a>
+        </div>
+
+        <!-- Plano Pro (Destaque) -->
+        <div class="glass-card pricing-highlight p-8 text-center relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full" style="background: linear-gradient(135deg, #7B2FBE, #FF6B9D); color: #fff;">Mais Popular</span>
+          </div>
+          <div class="mb-6 mt-2">
+            <h3 class="text-lg font-semibold text-gray-300 mb-2">Harmonia</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-sm text-gray-400">R$</span>
+              <span class="text-5xl font-bold gradient-text">29</span>
+              <span class="text-gray-400 text-sm">/mês</span>
+            </div>
+            <p class="text-gray-500 text-sm mt-2">Cobrado mensalmente</p>
+          </div>
+          <ul class="space-y-4 mb-8 text-left">
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Sessões ilimitadas
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Trilhas personalizadas com IA
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Biblioteca completa de sons
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Relatórios de progresso
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Acesso à comunidade
+            </li>
+          </ul>
+          <a href="#" class="btn-aurora block text-center text-sm py-3">Assinar Agora</a>
+        </div>
+
+        <!-- Plano Premium -->
+        <div class="glass-card p-8 text-center">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-300 mb-2">Plenitude</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-sm text-gray-400">R$</span>
+              <span class="text-4xl font-bold text-white">59</span>
+              <span class="text-gray-400 text-sm">/mês</span>
+            </div>
+            <p class="text-gray-500 text-sm mt-2">Cobrado mensalmente</p>
+          </div>
+          <ul class="space-y-4 mb-8 text-left">
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Tudo do plano Harmonia
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Sessões ao vivo com mestres
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Mentoria individual mensal
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Retiros virtuais exclusivos
+            </li>
+            <li class="flex items-center gap-3 text-gray-300 text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="#00D4AA" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Acesso antecipado a novidades
+            </li>
+          </ul>
+          <a href="#" class="btn-outline block text-center text-sm py-3">Escolher Plenitude</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section id="cta" class="relative py-24 lg:py-32 overflow-hidden">
+    <!-- Background aurora band -->
+    <div class="absolute inset-0 opacity-20" style="background: linear-gradient(135deg, #1A0533, #7B2FBE, #FF6B9D, #00D4AA);"></div>
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute w-[600px] h-[600px] rounded-full -bottom-40 -left-40 opacity-20" style="background: radial-gradient(circle, #7B2FBE, transparent 70%);"></div>
+      <div class="absolute w-[400px] h-[400px] rounded-full -top-20 -right-20 opacity-15" style="background: radial-gradient(circle, #FF6B9D, transparent 70%);"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="glass-card p-12 lg:p-16" style="background: rgba(123, 47, 190, 0.12); border-color: rgba(196, 161, 255, 0.2);">
+        <svg class="w-16 h-16 mx-auto mb-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" stroke="url(#cta-grad)" stroke-width="2" opacity="0.5"/>
+          <path d="M32 16C32 16 20 26 20 34C20 40.6 25.4 46 32 46C38.6 46 44 40.6 44 34C44 26 32 16 32 16Z" fill="url(#cta-grad)" opacity="0.7"/>
+          <path d="M32 22C32 22 26 28 26 32C26 35.3 28.7 38 32 38C35.3 38 38 35.3 38 32C38 28 32 22 32 22Z" fill="url(#cta-grad2)"/>
+          <defs>
+            <linearGradient id="cta-grad" x1="8" y1="8" x2="56" y2="56">
+              <stop stop-color="#7B2FBE"/>
+              <stop offset="1" stop-color="#FF6B9D"/>
+            </linearGradient>
+            <linearGradient id="cta-grad2" x1="26" y1="22" x2="38" y2="38">
+              <stop stop-color="#00D4AA"/>
+              <stop offset="1" stop-color="#67E8F9"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+          Comece sua jornada de <span class="gradient-text">transformação</span> hoje
+        </h2>
+        <p class="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+          Junte-se a mais de 25.000 pessoas que já encontraram equilíbrio e paz interior com a Serenità. Sua primeira semana é por nossa conta.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#" class="btn-aurora text-center text-lg px-10 py-4">Experimentar 7 Dias Grátis</a>
+          <a href="#pricing" class="btn-outline text-center text-lg px-10 py-4">Ver Planos</a>
+        </div>
+        <p class="text-gray-500 text-xs mt-6">Sem compromisso. Cancele quando quiser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="relative pt-20 pb-8" style="border-top: 1px solid rgba(196, 161, 255, 0.08);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="14" stroke="url(#footer-grad)" stroke-width="2"/>
+              <path d="M16 8C16 8 10 14 10 18C10 21.3 12.7 24 16 24C19.3 24 22 21.3 22 18C22 14 16 8 16 8Z" fill="url(#footer-grad)"/>
+              <defs>
+                <linearGradient id="footer-grad" x1="4" y1="4" x2="28" y2="28">
+                  <stop stop-color="#7B2FBE"/>
+                  <stop offset="0.5" stop-color="#FF6B9D"/>
+                  <stop offset="1" stop-color="#00D4AA"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="text-lg font-bold gradient-text">Serenità</span>
+          </a>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            Sua plataforma de meditação e bem-estar. Encontre paz, equilíbrio e clareza mental.
+          </p>
+          <!-- Social Icons -->
+          <div class="flex gap-3">
+            <!-- Instagram -->
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="none" stroke="#C4A1FF" stroke-width="1.5" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="#C4A1FF" stroke="none"/>
+              </svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" class="social-icon" aria-label="YouTube">
+              <svg class="w-4 h-4" fill="none" stroke="#C4A1FF" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z" stroke-linecap="round" stroke-linejoin="round"/>
+                <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#C4A1FF" stroke="none"/>
+              </svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#" class="social-icon" aria-label="Twitter">
+              <svg class="w-4 h-4" fill="none" stroke="#C4A1FF" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-6.8-8.5L20 4h-2l-5.2 6.3L8 4H4z" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg class="w-4 h-4" fill="none" stroke="#C4A1FF" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="2" y="9" width="4" height="12" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="4" cy="4" r="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Plataforma -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Plataforma</h4>
+          <ul class="space-y-3">
+            <li><a href="#features" class="footer-link text-sm">Recursos</a></li>
+            <li><a href="#pricing" class="footer-link text-sm">Planos e Preços</a></li>
+            <li><a href="#" class="footer-link text-sm">Meditações Guiadas</a></li>
+            <li><a href="#" class="footer-link text-sm">Sons e Músicas</a></li>
+            <li><a href="#" class="footer-link text-sm">Blog</a></li>
+          </ul>
+        </div>
+
+        <!-- Empresa -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Empresa</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="footer-link text-sm">Sobre Nós</a></li>
+            <li><a href="#" class="footer-link text-sm">Carreiras</a></li>
+            <li><a href="#" class="footer-link text-sm">Imprensa</a></li>
+            <li><a href="#" class="footer-link text-sm">Parcerias</a></li>
+            <li><a href="#contact" class="footer-link text-sm">Contato</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="footer-link text-sm">Política de Privacidade</a></li>
+            <li><a href="#" class="footer-link text-sm">Termos de Uso</a></li>
+            <li><a href="#" class="footer-link text-sm">Política de Cookies</a></li>
+            <li><a href="#" class="footer-link text-sm">LGPD</a></li>
+            <li><a href="#" class="footer-link text-sm">Central de Ajuda</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-8" style="border-top: 1px solid rgba(196, 161, 255, 0.08);">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p class="text-gray-600 text-xs">&copy; 2026 Serenità. Todos os direitos reservados.</p>
+          <div class="flex gap-6">
+            <a href="#" class="footer-link text-xs">Privacidade</a>
+            <a href="#" class="footer-link text-xs">Termos</a>
+            <a href="#" class="footer-link text-xs">Cookies</a>
+            <a href="#" class="footer-link text-xs">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE MENU SCRIPT ========== -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

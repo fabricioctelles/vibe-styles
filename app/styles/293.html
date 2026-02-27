@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Museu de Arquitetura Clássica — Explore a grandiosidade da arquitetura greco-romana através de acervos únicos, exposições imersivas e eventos culturais.">
+    <meta name="keywords" content="museu, arquitetura clássica, grego, romano, acanthus, colunas, exposição, cultura">
+    <meta name="author" content="Museu de Arquitetura Clássica">
+    <meta property="og:title" content="Museu de Arquitetura Clássica">
+    <meta property="og:description" content="Descubra a beleza atemporal da arquitetura greco-romana. Visite nosso museu e mergulhe na história.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>Museu de Arquitetura Clássica — Beleza Atemporal em Pedra e Arte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone_grey: '#8C8C7A',
+                        olive_gold: '#A08C3A',
+                        parchment: '#F2E8D0',
+                        forest: '#2D3A2D',
+                        terracotta: '#C67A4B',
+                        aged_bronze: '#8B7355',
+                        sage: '#7A8B6A',
+                        warm_cream: '#F5EDD6',
+                    },
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        body: ['Cormorant Garamond', 'serif'],
+                    },
+                    borderRadius: {
+                        classical: '0px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-stone: #8C8C7A;
+            --color-olive-gold: #A08C3A;
+            --color-parchment: #F2E8D0;
+            --color-forest: #2D3A2D;
+            --font-display: 'Cinzel', serif;
+            --border-classical: 1px solid #A08C3A;
+            --spacing: 2.5rem;
+            --border-radius: 0px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--color-parchment);
+            color: var(--color-forest);
+        }
+
+        .font-display { font-family: var(--font-display); }
+
+        /* Parchment texture overlay */
+        .parchment-bg {
+            background-color: #F2E8D0;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(160,140,58,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(140,140,122,0.06) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        .stone-bg {
+            background-color: #8C8C7A;
+            background-image:
+                radial-gradient(ellipse at 30% 70%, rgba(45,58,45,0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* Emboss effect on headings */
+        .emboss {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(255,255,255,0.2);
+            letter-spacing: 0.04em;
+        }
+
+        /* Classical column divider */
+        .column-divider {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 0;
+        }
+        .column-divider::before,
+        .column-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #A08C3A, transparent);
+        }
+        .column-divider svg {
+            margin: 0 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Acanthus leaf border ornament */
+        .acanthus-border {
+            border-top: 1px solid #A08C3A;
+            border-bottom: 1px solid #A08C3A;
+            position: relative;
+        }
+        .acanthus-border::before,
+        .acanthus-border::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: var(--color-parchment);
+        }
+
+        /* Smooth transitions */
+        .transition-classical {
+            transition: all 350ms ease;
+        }
+
+        /* Card hover */
+        .card-classical {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: all 350ms ease;
+            border: 1px solid #A08C3A;
+        }
+        .card-classical:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+            transform: translateY(-4px);
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 2px solid #A08C3A;
+            box-shadow: 0 8px 32px rgba(160,140,58,0.2);
+            transform: scale(1.05);
+        }
+
+        /* Parallax decorative */
+        .parallax-leaf {
+            animation: floatLeaf 6s ease-in-out infinite;
+        }
+        @keyframes floatLeaf {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        /* Hero 3D element */
+        .hero-3d {
+            perspective: 800px;
+        }
+        .hero-3d-inner {
+            animation: rotate3d 12s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        @keyframes rotate3d {
+            0%, 100% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(5deg) rotateX(3deg); }
+            50% { transform: rotateY(0deg) rotateX(-3deg); }
+            75% { transform: rotateY(-5deg) rotateX(2deg); }
+        }
+
+        /* Mobile nav */
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: flex; }
+
+        /* Scroll smooth */
+        html { scroll-behavior: smooth; }
+
+        /* Button styles */
+        .btn-primary {
+            background: #A08C3A;
+            color: #F2E8D0;
+            padding: 0.75rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border: 1px solid #A08C3A;
+            cursor: pointer;
+            transition: all 350ms ease;
+        }
+        .btn-primary:hover {
+            background: #8B7355;
+            border-color: #8B7355;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #A08C3A;
+            padding: 0.75rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border: 1px solid #A08C3A;
+            cursor: pointer;
+            transition: all 350ms ease;
+        }
+        .btn-secondary:hover {
+            background: #A08C3A;
+            color: #F2E8D0;
+        }
+    </style>
+</head>
+<body class="parchment-bg">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-forest/95 backdrop-blur-sm border-b border-olive_gold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer transition-classical hover:opacity-80">
+                    <svg class="w-8 h-8 text-olive_gold" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L4 10v14l12 6 12-6V10L16 2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        <path d="M16 6l-8 5v10l8 4 8-4V11l-8-5z" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+                        <line x1="16" y1="2" x2="16" y2="32" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="4" y1="10" x2="28" y2="10" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+                    </svg>
+                    <span class="font-display text-parchment text-sm md:text-base tracking-widest uppercase">Museu Clássico</span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Acervo</a>
+                    <a href="#testimonials" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Depoimentos</a>
+                    <a href="#pricing" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Ingressos</a>
+                    <a href="#contact" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Contato</a>
+                    <a href="#cta" class="btn-primary text-xs py-2 px-5 cursor-pointer">Agende sua Visita</a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="document.getElementById('mobileMenu').classList.toggle('active')" class="md:hidden text-parchment cursor-pointer transition-classical hover:text-olive_gold" aria-label="Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu flex-col gap-4 pb-6 md:hidden">
+                <a href="#features" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Acervo</a>
+                <a href="#testimonials" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Depoimentos</a>
+                <a href="#pricing" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Ingressos</a>
+                <a href="#contact" class="font-display text-parchment/80 text-xs tracking-widest uppercase cursor-pointer transition-classical hover:text-olive_gold">Contato</a>
+                <a href="#cta" class="btn-primary text-xs py-2 px-5 text-center cursor-pointer">Agende sua Visita</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Decorative parallax leaves -->
+        <div class="absolute top-20 left-8 opacity-10 parallax-leaf">
+            <svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 0C60 0 20 40 10 90s10 70 50 90c40-20 60-40 50-90S60 0 60 0z" fill="#A08C3A" opacity="0.4"/>
+                <path d="M60 10C60 10 30 45 22 85s8 55 38 72" stroke="#2D3A2D" stroke-width="1" fill="none"/>
+                <path d="M60 10C60 10 90 45 98 85s-8 55-38 72" stroke="#2D3A2D" stroke-width="1" fill="none"/>
+                <path d="M60 20v130" stroke="#2D3A2D" stroke-width="0.8"/>
+                <path d="M60 40L40 60M60 60L35 80M60 80L38 100M60 100L42 115" stroke="#2D3A2D" stroke-width="0.5"/>
+                <path d="M60 40L80 60M60 60L85 80M60 80L82 100M60 100L78 115" stroke="#2D3A2D" stroke-width="0.5"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 right-12 opacity-10 parallax-leaf" style="animation-delay: -3s;">
+            <svg width="100" height="150" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 0C60 0 20 40 10 90s10 70 50 90c40-20 60-40 50-90S60 0 60 0z" fill="#8C8C7A" opacity="0.4"/>
+                <path d="M60 10v150" stroke="#2D3A2D" stroke-width="0.8"/>
+                <path d="M60 30L38 55M60 55L32 80M60 80L36 105" stroke="#2D3A2D" stroke-width="0.5"/>
+                <path d="M60 30L82 55M60 55L88 80M60 80L84 105" stroke="#2D3A2D" stroke-width="0.5"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="text-center lg:text-left">
+                <p class="font-display text-olive_gold text-xs md:text-sm tracking-[0.3em] uppercase mb-4">Desde MDCCCXLII</p>
+                <h1 class="font-display text-forest text-4xl md:text-5xl lg:text-6xl font-bold leading-tight emboss mb-6">
+                    A Beleza Atemporal da Arquitetura Clássica
+                </h1>
+                <p class="font-body text-forest/80 text-lg md:text-xl leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                    Explore séculos de grandiosidade arquitetônica. Das colunas coríntias aos frisos ornamentais, cada peça conta a história da engenhosidade humana esculpida em pedra.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#pricing" class="btn-primary text-center cursor-pointer">Adquira Ingressos</a>
+                    <a href="#features" class="btn-secondary text-center cursor-pointer">Conheça o Acervo</a>
+                </div>
+            </div>
+
+            <!-- 3D Visual Element -->
+            <div class="hero-3d flex justify-center lg:justify-end">
+                <div class="hero-3d-inner relative w-72 h-80 md:w-80 md:h-96">
+                    <!-- Classical column SVG -->
+                    <svg class="w-full h-full" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Column base -->
+                        <rect x="60" y="350" width="180" height="20" fill="#8C8C7A" opacity="0.6" stroke="#A08C3A" stroke-width="1"/>
+                        <rect x="70" y="340" width="160" height="15" fill="#8C8C7A" opacity="0.5" stroke="#A08C3A" stroke-width="0.5"/>
+                        <!-- Column shaft -->
+                        <rect x="95" y="100" width="110" height="240" fill="url(#columnGrad)" stroke="#A08C3A" stroke-width="0.8"/>
+                        <!-- Fluting lines -->
+                        <line x1="115" y1="100" x2="115" y2="340" stroke="#2D3A2D" stroke-width="0.3" opacity="0.2"/>
+                        <line x1="135" y1="100" x2="135" y2="340" stroke="#2D3A2D" stroke-width="0.3" opacity="0.2"/>
+                        <line x1="155" y1="100" x2="155" y2="340" stroke="#2D3A2D" stroke-width="0.3" opacity="0.2"/>
+                        <line x1="175" y1="100" x2="175" y2="340" stroke="#2D3A2D" stroke-width="0.3" opacity="0.2"/>
+                        <line x1="195" y1="100" x2="195" y2="340" stroke="#2D3A2D" stroke-width="0.3" opacity="0.2"/>
+                        <!-- Capital (Corinthian style) -->
+                        <rect x="70" y="80" width="160" height="20" fill="#A08C3A" opacity="0.3" stroke="#A08C3A" stroke-width="1"/>
+                        <path d="M90 80C90 80 100 50 150 40c50 10 60 40 60 40" fill="none" stroke="#A08C3A" stroke-width="1.5"/>
+                        <!-- Acanthus leaves on capital -->
+                        <path d="M110 80C110 70 120 55 135 50" stroke="#A08C3A" stroke-width="1" fill="none"/>
+                        <path d="M130 80C130 68 140 52 150 48" stroke="#A08C3A" stroke-width="1" fill="none"/>
+                        <path d="M170 80C170 68 160 52 150 48" stroke="#A08C3A" stroke-width="1" fill="none"/>
+                        <path d="M190 80C190 70 180 55 165 50" stroke="#A08C3A" stroke-width="1" fill="none"/>
+                        <!-- Volutes -->
+                        <circle cx="92" cy="65" r="8" fill="none" stroke="#A08C3A" stroke-width="1"/>
+                        <circle cx="208" cy="65" r="8" fill="none" stroke="#A08C3A" stroke-width="1"/>
+                        <!-- Entablature -->
+                        <rect x="50" y="30" width="200" height="15" fill="#8C8C7A" opacity="0.4" stroke="#A08C3A" stroke-width="1"/>
+                        <rect x="55" y="45" width="190" height="35" fill="none" stroke="#A08C3A" stroke-width="0.5"/>
+                        <!-- Decorative frieze pattern -->
+                        <path d="M70 55h20M100 55h20M130 55h20M160 55h20M190 55h20" stroke="#A08C3A" stroke-width="2" opacity="0.5"/>
+                        <!-- Pediment -->
+                        <path d="M40 30L150 0L260 30" fill="none" stroke="#A08C3A" stroke-width="1.5"/>
+                        <circle cx="150" cy="15" r="6" fill="none" stroke="#A08C3A" stroke-width="1"/>
+                        <defs>
+                            <linearGradient id="columnGrad" x1="95" y1="100" x2="205" y2="100">
+                                <stop offset="0%" stop-color="#8C8C7A" stop-opacity="0.3"/>
+                                <stop offset="50%" stop-color="#F2E8D0" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#8C8C7A" stop-opacity="0.3"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acanthus leaf border bottom -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg class="w-full h-8" viewBox="0 0 1200 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 15 Q50 0 100 15 Q150 30 200 15 Q250 0 300 15 Q350 30 400 15 Q450 0 500 15 Q550 30 600 15 Q650 0 700 15 Q750 30 800 15 Q850 0 900 15 Q950 30 1000 15 Q1050 0 1100 15 Q1150 30 1200 15" fill="none" stroke="#A08C3A" stroke-width="1.5" opacity="0.4"/>
+                <line x1="0" y1="28" x2="1200" y2="28" stroke="#A08C3A" stroke-width="1" opacity="0.3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== COLUMN DIVIDER ========== -->
+    <div class="column-divider max-w-4xl mx-auto px-4">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2C20 2 10 10 8 20s4 14 12 18c8-4 14-8 12-18S20 2 20 2z" fill="none" stroke="#A08C3A" stroke-width="1"/>
+            <path d="M20 6v28" stroke="#A08C3A" stroke-width="0.5"/>
+            <path d="M20 12L14 18M20 18L12 24M20 24L14 28" stroke="#A08C3A" stroke-width="0.4"/>
+            <path d="M20 12L26 18M20 18L28 24M20 24L26 28" stroke="#A08C3A" stroke-width="0.4"/>
+        </svg>
+    </div>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-display text-olive_gold text-xs tracking-[0.3em] uppercase mb-3">Nosso Acervo</p>
+                <h2 class="font-display text-forest text-3xl md:text-4xl font-bold emboss mb-4">Três Pilares da Grandiosidade</h2>
+                <p class="font-body text-forest/70 text-lg max-w-2xl mx-auto">Descubra coleções que atravessam milênios, preservando a essência da maestria arquitetônica do mundo antigo.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="card-classical bg-warm_cream p-8 text-center group cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-olive_gold/30 transition-classical group-hover:border-olive_gold">
+                        <svg class="w-8 h-8 text-olive_gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-forest text-lg font-semibold emboss mb-3">Colunas e Capitéis</h3>
+                    <p class="font-body text-forest/70 text-base leading-relaxed">Mais de 200 peças originais de colunas dóricas, jônicas e coríntias resgatadas de sítios arqueológicos do Mediterrâneo.</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="card-classical bg-warm_cream p-8 text-center group cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-olive_gold/30 transition-classical group-hover:border-olive_gold">
+                        <svg class="w-8 h-8 text-olive_gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-forest text-lg font-semibold emboss mb-3">Frisos e Relevos</h3>
+                    <p class="font-body text-forest/70 text-base leading-relaxed">Coleção exclusiva de frisos narrativos e relevos ornamentais que retratam mitos, batalhas e cerimônias da antiguidade.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="card-classical bg-warm_cream p-8 text-center group cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-olive_gold/30 transition-classical group-hover:border-olive_gold">
+                        <svg class="w-8 h-8 text-olive_gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-forest text-lg font-semibold emboss mb-3">Manuscritos e Projetos</h3>
+                    <p class="font-body text-forest/70 text-base leading-relaxed">Documentos raros de Vitrúvio e tratados renascentistas que revelam os segredos construtivos dos grandes mestres.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COLUMN DIVIDER ========== -->
+    <div class="column-divider max-w-4xl mx-auto px-4">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2C20 2 10 10 8 20s4 14 12 18c8-4 14-8 12-18S20 2 20 2z" fill="none" stroke="#A08C3A" stroke-width="1"/>
+            <path d="M20 6v28" stroke="#A08C3A" stroke-width="0.5"/>
+        </svg>
+    </div>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-20 md:py-28 stone-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-display text-olive_gold text-xs tracking-[0.3em] uppercase mb-3">Vozes dos Visitantes</p>
+                <h2 class="font-display text-parchment text-3xl md:text-4xl font-bold emboss mb-4">O Que Dizem Sobre Nós</h2>
+                <p class="font-body text-parchment/70 text-lg max-w-2xl mx-auto">Experiências que marcam. Conheça os relatos de quem já percorreu nossos corredores milenares.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card-classical bg-parchment p-8 relative cursor-pointer">
+                    <svg class="w-8 h-8 text-olive_gold/30 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/>
+                    </svg>
+                    <p class="font-body text-forest/80 text-base leading-relaxed italic mb-6">"Uma experiência transcendental. Caminhar entre colunas que testemunharam impérios é algo que nenhuma fotografia consegue capturar. O museu é uma joia rara."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive_gold/20 border border-olive_gold/30 flex items-center justify-center font-display text-olive_gold text-sm font-bold">MC</div>
+                        <div>
+                            <p class="font-display text-forest text-sm font-semibold">Marina Carvalho</p>
+                            <p class="font-body text-forest/50 text-sm">Historiadora, USP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card-classical bg-parchment p-8 relative cursor-pointer">
+                    <svg class="w-8 h-8 text-olive_gold/30 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/>
+                    </svg>
+                    <p class="font-body text-forest/80 text-base leading-relaxed italic mb-6">"Trouxe meus alunos de arquitetura e todos saíram transformados. A curadoria é impecável e os detalhes dos capitéis coríntios são de tirar o fôlego."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive_gold/20 border border-olive_gold/30 flex items-center justify-center font-display text-olive_gold text-sm font-bold">RP</div>
+                        <div>
+                            <p class="font-display text-forest text-sm font-semibold">Ricardo Peixoto</p>
+                            <p class="font-body text-forest/50 text-sm">Prof. de Arquitetura, UFRJ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card-classical bg-parchment p-8 relative cursor-pointer">
+                    <svg class="w-8 h-8 text-olive_gold/30 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/>
+                    </svg>
+                    <p class="font-body text-forest/80 text-base leading-relaxed italic mb-6">"Visitei museus em Atenas e Roma, mas a forma como este acervo é apresentado aqui é singular. A iluminação e a ambientação são obras de arte por si só."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive_gold/20 border border-olive_gold/30 flex items-center justify-center font-display text-olive_gold text-sm font-bold">LS</div>
+                        <div>
+                            <p class="font-display text-forest text-sm font-semibold">Lúcia Santana</p>
+                            <p class="font-body text-forest/50 text-sm">Jornalista Cultural</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-20 md:py-28 parchment-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-display text-olive_gold text-xs tracking-[0.3em] uppercase mb-3">Ingressos</p>
+                <h2 class="font-display text-forest text-3xl md:text-4xl font-bold emboss mb-4">Escolha Sua Experiência</h2>
+                <p class="font-body text-forest/70 text-lg max-w-2xl mx-auto">Três modalidades pensadas para cada tipo de visitante. Do contemplativo ao explorador mais dedicado.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Tier 1 -->
+                <div class="card-classical bg-warm_cream p-8 text-center cursor-pointer">
+                    <div class="mb-6">
+                        <svg class="w-10 h-10 mx-auto text-olive_gold/60 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <p class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase">Contemplação</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-display text-forest text-4xl font-bold">R$ 45</span>
+                        <span class="font-body text-forest/50 text-sm">/pessoa</span>
+                    </div>
+                    <ul class="font-body text-forest/70 text-base space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Acesso ao acervo permanente
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Audioguia em português
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Mapa ilustrado do museu
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-secondary w-full block text-center cursor-pointer">Selecionar</a>
+                </div>
+
+                <!-- Tier 2 (Highlighted) -->
+                <div class="card-classical pricing-highlight bg-forest p-8 text-center cursor-pointer relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-olive_gold text-parchment font-display text-xs tracking-[0.15em] uppercase px-4 py-1">Mais Popular</div>
+                    <div class="mb-6 pt-2">
+                        <svg class="w-10 h-10 mx-auto text-olive_gold mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/>
+                        </svg>
+                        <p class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase">Imersão</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-display text-parchment text-4xl font-bold">R$ 89</span>
+                        <span class="font-body text-parchment/50 text-sm">/pessoa</span>
+                    </div>
+                    <ul class="font-body text-parchment/80 text-base space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Tudo do plano Contemplação
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Visita guiada com historiador
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Acesso às exposições temporárias
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Catálogo digital exclusivo
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-primary w-full block text-center cursor-pointer" style="background:#F2E8D0;color:#2D3A2D;border-color:#F2E8D0;">Selecionar</a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="card-classical bg-warm_cream p-8 text-center cursor-pointer">
+                    <div class="mb-6">
+                        <svg class="w-10 h-10 mx-auto text-olive_gold/60 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+                        </svg>
+                        <p class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase">Mecenas</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-display text-forest text-4xl font-bold">R$ 250</span>
+                        <span class="font-body text-forest/50 text-sm">/pessoa</span>
+                    </div>
+                    <ul class="font-body text-forest/70 text-base space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Tudo do plano Imersão
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Acesso aos bastidores e reserva técnica
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Jantar temático no salão romano
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-olive_gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Certificado de Mecenas do Museu
+                        </li>
+                    </ul>
+                    <a href="#cta" class="btn-secondary w-full block text-center cursor-pointer">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section id="cta" class="py-20 md:py-28 relative overflow-hidden" style="background: linear-gradient(135deg, #2D3A2D 0%, #3a4a3a 50%, #2D3A2D 100%);">
+        <!-- Decorative leaf patterns -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5">
+            <svg class="absolute top-10 left-10 w-32 h-32 parallax-leaf" viewBox="0 0 120 180" fill="none">
+                <path d="M60 0C60 0 20 40 10 90s10 70 50 90c40-20 60-40 50-90S60 0 60 0z" fill="#A08C3A"/>
+            </svg>
+            <svg class="absolute bottom-10 right-10 w-24 h-24 parallax-leaf" style="animation-delay:-2s" viewBox="0 0 120 180" fill="none">
+                <path d="M60 0C60 0 20 40 10 90s10 70 50 90c40-20 60-40 50-90S60 0 60 0z" fill="#A08C3A"/>
+            </svg>
+            <svg class="absolute top-1/2 right-1/4 w-20 h-20 parallax-leaf" style="animation-delay:-4s" viewBox="0 0 120 180" fill="none">
+                <path d="M60 0C60 0 20 40 10 90s10 70 50 90c40-20 60-40 50-90S60 0 60 0z" fill="#A08C3A"/>
+            </svg>
+        </div>
+
+        <!-- Acanthus border top -->
+        <div class="absolute top-0 left-0 w-full">
+            <svg class="w-full h-6" viewBox="0 0 1200 24" preserveAspectRatio="none">
+                <path d="M0 12 Q50 0 100 12 Q150 24 200 12 Q250 0 300 12 Q350 24 400 12 Q450 0 500 12 Q550 24 600 12 Q650 0 700 12 Q750 24 800 12 Q850 0 900 12 Q950 24 1000 12 Q1050 0 1100 12 Q1150 24 1200 12" fill="none" stroke="#A08C3A" stroke-width="1" opacity="0.3"/>
+            </svg>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <svg class="w-12 h-12 mx-auto text-olive_gold mb-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"/>
+            </svg>
+            <h2 class="font-display text-parchment text-3xl md:text-4xl lg:text-5xl font-bold emboss mb-6">Agende Sua Visita ao Passado</h2>
+            <p class="font-body text-parchment/70 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">Reserve agora e garanta uma jornada inesquecível pelos corredores da história. Grupos escolares e universitários possuem condições especiais.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="btn-primary text-center cursor-pointer" style="background:#A08C3A;border-color:#A08C3A;">Reservar Agora</a>
+                <a href="#" class="btn-secondary text-center cursor-pointer" style="color:#F2E8D0;border-color:#F2E8D0;">Fale com Nossa Equipe</a>
+            </div>
+        </div>
+
+        <!-- Acanthus border bottom -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg class="w-full h-6" viewBox="0 0 1200 24" preserveAspectRatio="none">
+                <path d="M0 12 Q50 0 100 12 Q150 24 200 12 Q250 0 300 12 Q350 24 400 12 Q450 0 500 12 Q550 24 600 12 Q650 0 700 12 Q750 24 800 12 Q850 0 900 12 Q950 24 1000 12 Q1050 0 1100 12 Q1150 24 1200 12" fill="none" stroke="#A08C3A" stroke-width="1" opacity="0.3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="py-16 bg-forest border-t border-olive_gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-7 h-7 text-olive_gold" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2L4 10v14l12 6 12-6V10L16 2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            <path d="M16 6l-8 5v10l8 4 8-4V11l-8-5z" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+                        </svg>
+                        <span class="font-display text-parchment text-sm tracking-widest uppercase">Museu Clássico</span>
+                    </div>
+                    <p class="font-body text-parchment/60 text-sm leading-relaxed mb-4">Preservando e celebrando a grandiosidade da arquitetura greco-romana desde 1842.</p>
+                    <!-- Social Icons -->
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 border border-olive_gold/30 flex items-center justify-center cursor-pointer transition-classical hover:border-olive_gold hover:bg-olive_gold/10" aria-label="Facebook">
+                            <svg class="w-4 h-4 text-parchment/70" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-olive_gold/30 flex items-center justify-center cursor-pointer transition-classical hover:border-olive_gold hover:bg-olive_gold/10" aria-label="Instagram">
+                            <svg class="w-4 h-4 text-parchment/70" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-olive_gold/30 flex items-center justify-center cursor-pointer transition-classical hover:border-olive_gold hover:bg-olive_gold/10" aria-label="YouTube">
+                            <svg class="w-4 h-4 text-parchment/70" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-olive_gold/30 flex items-center justify-center cursor-pointer transition-classical hover:border-olive_gold hover:bg-olive_gold/10" aria-label="Twitter/X">
+                            <svg class="w-4 h-4 text-parchment/70" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Acervo</a></li>
+                        <li><a href="#testimonials" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Depoimentos</a></li>
+                        <li><a href="#pricing" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Ingressos</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Exposições Temporárias</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Eventos e Palestras</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Institutional -->
+                <div>
+                    <h4 class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase mb-4">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Sobre o Museu</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Termos de Uso</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Acessibilidade</a></li>
+                        <li><a href="#" class="font-body text-parchment/60 text-sm cursor-pointer transition-classical hover:text-olive_gold">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div>
+                    <h4 class="font-display text-olive_gold text-xs tracking-[0.2em] uppercase mb-4">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-olive_gold flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            <span class="font-body text-parchment/60 text-sm">Av. das Colunas, 1842<br>Centro Histórico — São Paulo, SP</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-olive_gold flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                            <span class="font-body text-parchment/60 text-sm">(11) 3042-1842</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-olive_gold flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            <span class="font-body text-parchment/60 text-sm">contato@museuclassico.com.br</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-olive_gold flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="font-body text-parchment/60 text-sm">Ter a Dom — 10h às 18h</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-olive_gold/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="font-body text-parchment/40 text-sm">&copy; 2026 Museu de Arquitetura Clássica. Todos os direitos reservados.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="font-body text-parchment/40 text-sm cursor-pointer transition-classical hover:text-olive_gold">Política de Privacidade</a>
+                    <a href="#" class="font-body text-parchment/40 text-sm cursor-pointer transition-classical hover:text-olive_gold">Termos de Uso</a>
+                    <a href="#" class="font-body text-parchment/40 text-sm cursor-pointer transition-classical hover:text-olive_gold">Mapa do Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

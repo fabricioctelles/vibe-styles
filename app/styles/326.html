@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TransLog Brasil - Soluções de logística integrada. Rastreamento em tempo real, gestão de frotas e distribuição nacional com eficiência operacional máxima.">
+    <meta name="keywords" content="logística, transporte, rastreamento, frete, distribuição, gestão de frotas, Brasil">
+    <meta name="author" content="TransLog Brasil">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="TransLog Brasil - Logística Integrada">
+    <meta property="og:description" content="Soluções de logística integrada com rastreamento em tempo real e distribuição nacional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://translogbrasil.com.br">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="TransLog Brasil">
+    <meta property="og:image" content="https://translogbrasil.com.br/og-image.png">
+    <title>TransLog Brasil — Logística Integrada | Rastreamento | Distribuição Nacional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pure-white': '#FFFFFF',
+                        'pure-black': '#000000',
+                        'safety-yellow': '#FFD700',
+                        'signal-red': '#CC0000',
+                        'medium-grey': '#666666',
+                        'light-grey': '#CCCCCC',
+                        'dark-grey': '#333333',
+                        'industrial-blue': '#003366',
+                    },
+                    fontFamily: {
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        *, *::before, *::after {
+            font-family: 'IBM Plex Mono', monospace;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* STRICT 12-COLUMN GRID SYSTEM */
+        .grid-12 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1px;
+        }
+
+        .grid-lines {
+            background-image:
+                linear-gradient(to right, #CCCCCC 1px, transparent 1px),
+                linear-gradient(to bottom, #CCCCCC 1px, transparent 1px);
+            background-size: calc(100% / 12) 40px;
+        }
+
+        /* VISIBLE GRID OVERLAY */
+        .grid-overlay {
+            position: relative;
+        }
+        .grid-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: calc(100% / 12);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* FUNCTIONAL COLOR CODING */
+        .status-alert { color: #CC0000; border-color: #CC0000; }
+        .status-warning { color: #FFD700; border-color: #FFD700; }
+        .status-info { color: #003366; border-color: #003366; }
+        .status-ok { color: #006600; border-color: #006600; }
+
+        .bg-alert { background-color: #CC0000; color: #FFFFFF; }
+        .bg-warning { background-color: #FFD700; color: #000000; }
+        .bg-info { background-color: #003366; color: #FFFFFF; }
+
+        /* UTILITARIAN BORDERS */
+        .border-util {
+            border: 1px solid #000000;
+        }
+
+        .border-util-light {
+            border: 1px solid #CCCCCC;
+        }
+
+        /* DATA DISPLAY STYLES */
+        .data-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #666666;
+            line-height: 1.2;
+        }
+
+        .data-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            line-height: 1.4;
+        }
+
+        .data-value-lg {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            line-height: 1.2;
+        }
+
+        /* SECTION MARKERS */
+        .section-marker {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #666666;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+
+        /* FUNCTIONAL HOVER STATES */
+        .hover-state {
+            transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+        }
+        .hover-state:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        /* TICKER / DATA STRIP */
+        .data-strip {
+            background-color: #000000;
+            color: #FFD700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 0;
+        }
+
+        /* TABLE STYLES */
+        .util-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .util-table th,
+        .util-table td {
+            border: 1px solid #000000;
+            padding: 6px 8px;
+            font-size: 12px;
+            text-align: left;
+        }
+        .util-table th {
+            background-color: #000000;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        /* PRICING HIGHLIGHT */
+        .pricing-highlight {
+            border: 2px solid #FFD700;
+            position: relative;
+        }
+        .pricing-highlight::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -1px;
+            left: -2px;
+            right: -2px;
+            background-color: #FFD700;
+            color: #000000;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-align: center;
+            padding: 3px 0;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE GRID ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .grid-12 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .grid-lines {
+                background-size: calc(100% / 4) 40px;
+            }
+            .grid-overlay::before {
+                background-size: calc(100% / 4);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-12 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* SCROLLBAR UTILITARIAN */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FFFFFF; }
+        ::-webkit-scrollbar-thumb { background: #000000; }
+    </style>
+</head>
+<body class="bg-pure-white text-pure-black font-mono leading-[1.4] text-[14px]">
+
+    <!-- ============================================ -->
+    <!-- DATA STRIP - TOP STATUS BAR                  -->
+    <!-- ============================================ -->
+    <div class="data-strip">
+        <div class="max-w-[1400px] mx-auto px-2 flex items-center justify-between flex-wrap gap-1">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1">
+                    <span class="inline-block w-2 h-2 bg-green-500"></span>
+                    SISTEMA OPERACIONAL
+                </span>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline">ÚLTIMA ATUALIZAÇÃO: 2025-06-18 14:32:07 BRT</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span>VEÍCULOS ATIVOS: 1.247</span>
+                <span class="hidden sm:inline">|</span>
+                <span class="hidden sm:inline">ENTREGAS HOJE: 8.934</span>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline text-signal-red font-bold">3 ALERTAS</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- NAVBAR                                       -->
+    <!-- ============================================ -->
+    <nav class="border-b border-pure-black bg-pure-white sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="grid-12 items-center py-2">
+                <!-- LOGO -->
+                <div class="col-span-12 md:col-span-3 flex items-center gap-2">
+                    <div class="border-util p-1 bg-pure-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5" fill="#FFD700" stroke="#FFD700"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5" fill="#FFD700" stroke="#FFD700"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-[16px] font-bold tracking-tight leading-none">TRANSLOG</span><br>
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-medium-grey leading-none">BRASIL / LOGÍSTICA</span>
+                    </div>
+                </div>
+                <!-- NAV LINKS -->
+                <div class="col-span-12 md:col-span-6 flex items-center justify-center gap-0 flex-wrap">
+                    <a href="#servicos" class="hover-state border-util px-3 py-2 text-[11px] uppercase tracking-[0.1em] cursor-pointer">Serviços</a>
+                    <a href="#rastreamento" class="hover-state border-util border-l-0 px-3 py-2 text-[11px] uppercase tracking-[0.1em] cursor-pointer">Rastreamento</a>
+                    <a href="#depoimentos" class="hover-state border-util border-l-0 px-3 py-2 text-[11px] uppercase tracking-[0.1em] cursor-pointer">Depoimentos</a>
+                    <a href="#planos" class="hover-state border-util border-l-0 px-3 py-2 text-[11px] uppercase tracking-[0.1em] cursor-pointer">Planos</a>
+                    <a href="#contato" class="hover-state border-util border-l-0 px-3 py-2 text-[11px] uppercase tracking-[0.1em] cursor-pointer">Contato</a>
+                </div>
+                <!-- CTA -->
+                <div class="col-span-12 md:col-span-3 flex justify-end mt-2 md:mt-0">
+                    <a href="#orcamento" class="bg-info hover-state px-4 py-2 text-[11px] uppercase tracking-[0.1em] text-pure-white cursor-pointer border border-industrial-blue font-bold hover:bg-safety-yellow hover:text-pure-black hover:border-safety-yellow">
+                        Solicitar Cotação
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION                                 -->
+    <!-- ============================================ -->
+    <section class="border-b border-pure-black grid-overlay">
+        <div class="max-w-[1400px] mx-auto px-2 relative z-10">
+            <div class="grid-12 py-2">
+                <!-- SECTION ID -->
+                <div class="col-span-12">
+                    <div class="section-marker">SEC.01 — VISÃO GERAL</div>
+                </div>
+
+                <!-- MAIN HEADLINE -->
+                <div class="col-span-12 md:col-span-8 py-4 md:py-8">
+                    <h1 class="text-[28px] md:text-[42px] font-bold leading-[1.1] tracking-tight uppercase">
+                        Logística Integrada<br>
+                        <span class="text-industrial-blue">Para Todo o Brasil</span>
+                    </h1>
+                    <p class="text-[14px] text-medium-grey mt-2 max-w-[600px] leading-[1.5]">
+                        Infraestrutura de transporte e distribuição com rastreamento em tempo real.
+                        Cobertura nacional. Operação 24/7. Dados abertos para o cliente.
+                    </p>
+                    <div class="flex gap-0 mt-4 flex-wrap">
+                        <a href="#orcamento" class="bg-pure-black text-pure-white px-6 py-3 text-[12px] uppercase tracking-[0.1em] font-bold cursor-pointer hover-state border border-pure-black hover:bg-safety-yellow hover:text-pure-black hover:border-safety-yellow">
+                            Iniciar Operação
+                        </a>
+                        <a href="#rastreamento" class="bg-pure-white text-pure-black px-6 py-3 text-[12px] uppercase tracking-[0.1em] font-bold cursor-pointer hover-state border border-pure-black hover:bg-pure-black hover:text-pure-white">
+                            Rastrear Carga
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FUNCTIONAL DATA DISPLAY -->
+                <div class="col-span-12 md:col-span-4 py-4 md:py-8">
+                    <div class="border-util">
+                        <div class="bg-pure-black text-pure-white px-2 py-1">
+                            <span class="text-[10px] uppercase tracking-[0.15em]">Painel Operacional — Tempo Real</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-0">
+                            <div class="border-b border-r border-pure-black p-2">
+                                <span class="data-label">Entregas / Dia</span>
+                                <div class="data-value-lg text-industrial-blue">8.934</div>
+                            </div>
+                            <div class="border-b border-pure-black p-2">
+                                <span class="data-label">Taxa de Entrega</span>
+                                <div class="data-value-lg status-ok">99.2%</div>
+                            </div>
+                            <div class="border-b border-r border-pure-black p-2">
+                                <span class="data-label">Frota Ativa</span>
+                                <div class="data-value">1.247 veículos</div>
+                            </div>
+                            <div class="border-b border-pure-black p-2">
+                                <span class="data-label">Centros Dist.</span>
+                                <div class="data-value">38 unidades</div>
+                            </div>
+                            <div class="border-r border-pure-black p-2">
+                                <span class="data-label">Tempo Médio</span>
+                                <div class="data-value">2.4 dias</div>
+                            </div>
+                            <div class="p-2">
+                                <span class="data-label">Cobertura</span>
+                                <div class="data-value">5.570 cidades</div>
+                            </div>
+                        </div>
+                        <div class="bg-safety-yellow text-pure-black px-2 py-1 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span class="text-[10px] uppercase tracking-[0.1em] font-bold">3 rotas com atraso — região sul</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- METRICS STRIP                                -->
+    <!-- ============================================ -->
+    <section class="border-b border-pure-black bg-dark-grey text-pure-white">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-0">
+                <div class="border-r border-medium-grey p-3 text-center">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">Fundação</div>
+                    <div class="text-[20px] font-bold text-safety-yellow">2008</div>
+                </div>
+                <div class="border-r border-medium-grey p-3 text-center">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">Colaboradores</div>
+                    <div class="text-[20px] font-bold">4.200+</div>
+                </div>
+                <div class="border-r border-medium-grey p-3 text-center">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">Clientes Ativos</div>
+                    <div class="text-[20px] font-bold">12.800</div>
+                </div>
+                <div class="border-r border-medium-grey p-3 text-center">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">Cargas / Mês</div>
+                    <div class="text-[20px] font-bold">268K</div>
+                </div>
+                <div class="border-r border-medium-grey p-3 text-center hidden lg:block">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">KM / Dia</div>
+                    <div class="text-[20px] font-bold">1.8M</div>
+                </div>
+                <div class="p-3 text-center hidden lg:block">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-light-grey">Uptime Sistema</div>
+                    <div class="text-[20px] font-bold text-green-400">99.97%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FEATURES / SERVIÇOS                          -->
+    <!-- ============================================ -->
+    <section id="servicos" class="border-b border-pure-black grid-overlay">
+        <div class="max-w-[1400px] mx-auto px-2 relative z-10">
+            <div class="py-2">
+                <div class="section-marker">SEC.02 — SERVIÇOS OPERACIONAIS</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 pb-2">
+                <!-- CARD 1: RASTREAMENTO -->
+                <div class="border-util p-0">
+                    <div class="bg-industrial-blue text-pure-white px-3 py-2 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em] font-bold">SRV-001</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] bg-safety-yellow text-pure-black px-2 py-0.5 font-bold">Ativo</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="border-util p-2 bg-pure-white flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.5" stroke-linecap="square">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-[16px] font-bold uppercase leading-tight">Rastreamento em Tempo Real</h3>
+                                <span class="data-label">GPS + IoT + Telemetria</span>
+                            </div>
+                        </div>
+                        <p class="text-[12px] text-medium-grey leading-[1.5] mb-3">
+                            Monitoramento contínuo de toda a frota com atualização a cada 30 segundos.
+                            Integração direta com o sistema do cliente via API REST. Alertas automáticos
+                            para desvios de rota, paradas não programadas e violação de temperatura.
+                        </p>
+                        <table class="util-table">
+                            <tr>
+                                <th>Parâmetro</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Frequência</td>
+                                <td>30s</td>
+                            </tr>
+                            <tr>
+                                <td>Precisão GPS</td>
+                                <td>±3m</td>
+                            </tr>
+                            <tr>
+                                <td>API</td>
+                                <td>REST / WebSocket</td>
+                            </tr>
+                            <tr>
+                                <td>SLA</td>
+                                <td class="status-ok font-bold">99.9%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CARD 2: GESTÃO DE FROTAS -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0">
+                    <div class="bg-industrial-blue text-pure-white px-3 py-2 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em] font-bold">SRV-002</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] bg-safety-yellow text-pure-black px-2 py-0.5 font-bold">Ativo</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="border-util p-2 bg-pure-white flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.5" stroke-linecap="square">
+                                    <rect x="1" y="3" width="15" height="13"></rect>
+                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-[16px] font-bold uppercase leading-tight">Gestão de Frotas</h3>
+                                <span class="data-label">Manutenção + Roteirização</span>
+                            </div>
+                        </div>
+                        <p class="text-[12px] text-medium-grey leading-[1.5] mb-3">
+                            Controle completo da frota com manutenção preditiva baseada em dados de
+                            telemetria. Roteirização inteligente com otimização de combustível e tempo.
+                            Dashboard operacional com indicadores de performance por veículo e motorista.
+                        </p>
+                        <table class="util-table">
+                            <tr>
+                                <th>Parâmetro</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Veículos</td>
+                                <td>1.247 ativos</td>
+                            </tr>
+                            <tr>
+                                <td>Economia Comb.</td>
+                                <td class="status-info font-bold">-18%</td>
+                            </tr>
+                            <tr>
+                                <td>Manutenção</td>
+                                <td>Preditiva / IoT</td>
+                            </tr>
+                            <tr>
+                                <td>Otimização</td>
+                                <td class="status-ok font-bold">A.I. v3.2</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CARD 3: DISTRIBUIÇÃO -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0">
+                    <div class="bg-industrial-blue text-pure-white px-3 py-2 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em] font-bold">SRV-003</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] bg-safety-yellow text-pure-black px-2 py-0.5 font-bold">Ativo</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="border-util p-2 bg-pure-white flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.5" stroke-linecap="square">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-[16px] font-bold uppercase leading-tight">Distribuição Nacional</h3>
+                                <span class="data-label">Last Mile + Cross-Docking</span>
+                            </div>
+                        </div>
+                        <p class="text-[12px] text-medium-grey leading-[1.5] mb-3">
+                            Rede de distribuição com 38 centros estrategicamente posicionados.
+                            Operação de cross-docking para redução de tempo em trânsito. Entrega
+                            last-mile com confirmação por foto e assinatura digital do destinatário.
+                        </p>
+                        <table class="util-table">
+                            <tr>
+                                <th>Parâmetro</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Centros</td>
+                                <td>38 unidades</td>
+                            </tr>
+                            <tr>
+                                <td>Cobertura</td>
+                                <td>5.570 cidades</td>
+                            </tr>
+                            <tr>
+                                <td>Prazo Médio</td>
+                                <td>2.4 dias úteis</td>
+                            </tr>
+                            <tr>
+                                <td>Confirmação</td>
+                                <td class="status-ok font-bold">Foto + Assin.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- RASTREAMENTO / TRACKING DEMO                 -->
+    <!-- ============================================ -->
+    <section id="rastreamento" class="border-b border-pure-black bg-dark-grey text-pure-white">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="py-2">
+                <div class="section-marker text-light-grey border-light-grey">SEC.03 — RASTREAMENTO DE CARGA</div>
+            </div>
+            <div class="grid-12 pb-4">
+                <div class="col-span-12 md:col-span-5">
+                    <h2 class="text-[24px] font-bold uppercase leading-tight mb-2">
+                        Consulta de<br>Rastreamento
+                    </h2>
+                    <p class="text-[12px] text-light-grey leading-[1.5] mb-4">
+                        Insira o código de rastreamento para consultar o status da sua carga em tempo real.
+                        Dados atualizados a cada 30 segundos via telemetria GPS.
+                    </p>
+                    <div class="flex gap-0">
+                        <input type="text" placeholder="EX: TLB-2025-0618-4729" class="bg-pure-white text-pure-black border border-pure-white px-3 py-2 text-[12px] font-mono uppercase w-full max-w-[280px] focus:outline-none focus:border-safety-yellow placeholder:text-light-grey">
+                        <button class="bg-safety-yellow text-pure-black border border-safety-yellow px-4 py-2 text-[11px] uppercase tracking-[0.1em] font-bold cursor-pointer hover:bg-pure-white hover:text-pure-black hover:border-pure-white">
+                            Rastrear
+                        </button>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-7 mt-4 md:mt-0">
+                    <div class="border border-medium-grey">
+                        <div class="bg-pure-black px-3 py-1 flex items-center justify-between border-b border-medium-grey">
+                            <span class="text-[10px] uppercase tracking-[0.15em] text-safety-yellow">Exemplo: TLB-2025-0618-4729</span>
+                            <span class="text-[10px] uppercase tracking-[0.1em] text-green-400 flex items-center gap-1">
+                                <span class="inline-block w-1.5 h-1.5 bg-green-400"></span>
+                                Em Trânsito
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-0 text-[11px]">
+                            <div class="border-b border-r border-medium-grey p-2">
+                                <span class="text-[9px] uppercase text-medium-grey block">Origem</span>
+                                <span class="font-bold">São Paulo, SP</span>
+                            </div>
+                            <div class="border-b border-r border-medium-grey p-2">
+                                <span class="text-[9px] uppercase text-medium-grey block">Destino</span>
+                                <span class="font-bold">Curitiba, PR</span>
+                            </div>
+                            <div class="border-b border-r border-medium-grey p-2">
+                                <span class="text-[9px] uppercase text-medium-grey block">Previsão</span>
+                                <span class="font-bold text-safety-yellow">19/06 08:00</span>
+                            </div>
+                            <div class="border-b border-medium-grey p-2">
+                                <span class="text-[9px] uppercase text-medium-grey block">Status</span>
+                                <span class="font-bold text-green-400">KM 287 / BR-116</span>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="flex items-center gap-0 text-[10px]">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-3 h-3 bg-green-400 border border-green-400"></div>
+                                    <div class="w-px h-4 bg-green-400"></div>
+                                </div>
+                                <span class="ml-2 text-light-grey">18/06 06:12 — Coletado no CD São Paulo</span>
+                            </div>
+                            <div class="flex items-center gap-0 text-[10px]">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-3 h-3 bg-green-400 border border-green-400"></div>
+                                    <div class="w-px h-4 bg-green-400"></div>
+                                </div>
+                                <span class="ml-2 text-light-grey">18/06 07:45 — Saiu para transporte — Veículo #TL-0847</span>
+                            </div>
+                            <div class="flex items-center gap-0 text-[10px]">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-3 h-3 bg-safety-yellow border border-safety-yellow"></div>
+                                    <div class="w-px h-4 bg-medium-grey"></div>
+                                </div>
+                                <span class="ml-2 text-safety-yellow font-bold">18/06 14:32 — Em trânsito — KM 287 BR-116</span>
+                            </div>
+                            <div class="flex items-center gap-0 text-[10px]">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-3 h-3 border border-medium-grey"></div>
+                                </div>
+                                <span class="ml-2 text-medium-grey">Previsão — 19/06 08:00 — CD Curitiba</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TESTIMONIALS / DEPOIMENTOS                   -->
+    <!-- ============================================ -->
+    <section id="depoimentos" class="border-b border-pure-black grid-overlay">
+        <div class="max-w-[1400px] mx-auto px-2 relative z-10">
+            <div class="py-2">
+                <div class="section-marker">SEC.04 — REGISTROS DE CLIENTES</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 pb-2">
+                <!-- DEPOIMENTO 1 -->
+                <div class="border-util p-0">
+                    <div class="bg-pure-black text-pure-white px-3 py-1 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em]">REG-001</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] text-safety-yellow">Verificado</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 bg-industrial-blue border-util flex items-center justify-center text-pure-white text-[12px] font-bold">RC</div>
+                            <div>
+                                <div class="text-[12px] font-bold uppercase">Roberto Carvalho</div>
+                                <div class="text-[10px] text-medium-grey uppercase">Dir. Operações — MegaStore Varejo</div>
+                            </div>
+                        </div>
+                        <div class="border-l-2 border-industrial-blue pl-2 mb-2">
+                            <p class="text-[12px] text-dark-grey leading-[1.5]">
+                                "Reduzimos o tempo de entrega em 34% após migrar para a TransLog.
+                                O rastreamento em tempo real eliminou 90% das reclamações de clientes
+                                sobre status de pedidos. ROI positivo em 3 meses."
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-0 border-util">
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Redução</div>
+                                <div class="text-[14px] font-bold text-industrial-blue">-34%</div>
+                            </div>
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Satisfação</div>
+                                <div class="text-[14px] font-bold status-ok">+90%</div>
+                            </div>
+                            <div class="p-1 text-center">
+                                <div class="text-[9px] uppercase text-medium-grey">ROI</div>
+                                <div class="text-[14px] font-bold">3 meses</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPOIMENTO 2 -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0">
+                    <div class="bg-pure-black text-pure-white px-3 py-1 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em]">REG-002</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] text-safety-yellow">Verificado</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 bg-signal-red border-util flex items-center justify-center text-pure-white text-[12px] font-bold">AF</div>
+                            <div>
+                                <div class="text-[12px] font-bold uppercase">Ana Ferreira</div>
+                                <div class="text-[10px] text-medium-grey uppercase">Ger. Supply Chain — FarmaBrasil</div>
+                            </div>
+                        </div>
+                        <div class="border-l-2 border-industrial-blue pl-2 mb-2">
+                            <p class="text-[12px] text-dark-grey leading-[1.5]">
+                                "A cadeia fria da TransLog é impecável. Monitoramento de temperatura
+                                24/7 com alertas automáticos. Perdemos zero cargas refrigeradas no
+                                último ano. Essencial para o setor farmacêutico."
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-0 border-util">
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Perdas</div>
+                                <div class="text-[14px] font-bold status-ok">0%</div>
+                            </div>
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Monitoram.</div>
+                                <div class="text-[14px] font-bold text-industrial-blue">24/7</div>
+                            </div>
+                            <div class="p-1 text-center">
+                                <div class="text-[9px] uppercase text-medium-grey">Contrato</div>
+                                <div class="text-[14px] font-bold">4 anos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPOIMENTO 3 -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0">
+                    <div class="bg-pure-black text-pure-white px-3 py-1 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-[0.15em]">REG-003</span>
+                        <span class="text-[10px] uppercase tracking-[0.1em] text-safety-yellow">Verificado</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 bg-dark-grey border-util flex items-center justify-center text-pure-white text-[12px] font-bold">MS</div>
+                            <div>
+                                <div class="text-[12px] font-bold uppercase">Marcos Silva</div>
+                                <div class="text-[10px] text-medium-grey uppercase">CEO — TechParts Componentes</div>
+                            </div>
+                        </div>
+                        <div class="border-l-2 border-industrial-blue pl-2 mb-2">
+                            <p class="text-[12px] text-dark-grey leading-[1.5]">
+                                "A API de integração da TransLog conectou direto no nosso ERP em 2 dias.
+                                Agora nossos clientes veem o status da entrega sem sair da nossa plataforma.
+                                Custo operacional caiu 22% com a roteirização inteligente."
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-0 border-util">
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Integração</div>
+                                <div class="text-[14px] font-bold text-industrial-blue">2 dias</div>
+                            </div>
+                            <div class="p-1 text-center border-r border-pure-black">
+                                <div class="text-[9px] uppercase text-medium-grey">Custo Op.</div>
+                                <div class="text-[14px] font-bold status-ok">-22%</div>
+                            </div>
+                            <div class="p-1 text-center">
+                                <div class="text-[9px] uppercase text-medium-grey">NPS</div>
+                                <div class="text-[14px] font-bold">87</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PRICING / PLANOS                             -->
+    <!-- ============================================ -->
+    <section id="planos" class="border-b border-pure-black grid-overlay">
+        <div class="max-w-[1400px] mx-auto px-2 relative z-10">
+            <div class="py-2">
+                <div class="section-marker">SEC.05 — PLANOS OPERACIONAIS</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 pb-2">
+                <!-- PLANO 1: ESSENCIAL -->
+                <div class="border-util p-0">
+                    <div class="bg-medium-grey text-pure-white px-3 py-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-[0.15em]">PLN-001</span>
+                            <span class="text-[10px] uppercase tracking-[0.1em]">Nível 1</span>
+                        </div>
+                        <h3 class="text-[18px] font-bold uppercase mt-1">Essencial</h3>
+                    </div>
+                    <div class="p-3">
+                        <div class="mb-3">
+                            <span class="text-[10px] uppercase text-medium-grey tracking-[0.1em]">Investimento Mensal</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-[10px] text-medium-grey">R$</span>
+                                <span class="text-[32px] font-bold leading-none">2.900</span>
+                                <span class="text-[10px] text-medium-grey">/mês</span>
+                            </div>
+                            <span class="text-[10px] text-medium-grey">Até 50 entregas/dia</span>
+                        </div>
+                        <div class="border-t border-pure-black pt-2">
+                            <div class="text-[10px] uppercase tracking-[0.1em] text-medium-grey mb-1">Recursos Inclusos</div>
+                            <ul class="text-[11px] leading-[2]">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Rastreamento GPS básico
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Painel operacional web
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Relatórios mensais
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Suporte comercial 8h-18h
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 border border-light-grey text-[8px] flex items-center justify-center text-light-grey">—</span>
+                                    <span class="text-light-grey">API de integração</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 border border-light-grey text-[8px] flex items-center justify-center text-light-grey">—</span>
+                                    <span class="text-light-grey">Cadeia fria</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 border border-light-grey text-[8px] flex items-center justify-center text-light-grey">—</span>
+                                    <span class="text-light-grey">Gerente dedicado</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#orcamento" class="block mt-3 border-util text-center px-4 py-2 text-[11px] uppercase tracking-[0.1em] font-bold cursor-pointer hover-state">
+                            Solicitar Proposta
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PLANO 2: PROFISSIONAL (DESTAQUE) -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0 pricing-highlight">
+                    <div class="bg-industrial-blue text-pure-white px-3 py-2 mt-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-[0.15em]">PLN-002</span>
+                            <span class="text-[10px] uppercase tracking-[0.1em] bg-safety-yellow text-pure-black px-2 py-0.5 font-bold">Mais Contratado</span>
+                        </div>
+                        <h3 class="text-[18px] font-bold uppercase mt-1">Profissional</h3>
+                    </div>
+                    <div class="p-3">
+                        <div class="mb-3">
+                            <span class="text-[10px] uppercase text-medium-grey tracking-[0.1em]">Investimento Mensal</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-[10px] text-medium-grey">R$</span>
+                                <span class="text-[32px] font-bold leading-none text-industrial-blue">7.500</span>
+                                <span class="text-[10px] text-medium-grey">/mês</span>
+                            </div>
+                            <span class="text-[10px] text-medium-grey">Até 200 entregas/dia</span>
+                        </div>
+                        <div class="border-t border-pure-black pt-2">
+                            <div class="text-[10px] uppercase tracking-[0.1em] text-medium-grey mb-1">Recursos Inclusos</div>
+                            <ul class="text-[11px] leading-[2]">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Rastreamento GPS + IoT
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Painel operacional avançado
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Relatórios em tempo real
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Suporte 24/7
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    API REST + WebSocket
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-industrial-blue text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Cadeia fria monitorada
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 border border-light-grey text-[8px] flex items-center justify-center text-light-grey">—</span>
+                                    <span class="text-light-grey">Gerente dedicado</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#orcamento" class="block mt-3 bg-industrial-blue text-pure-white text-center px-4 py-2 text-[11px] uppercase tracking-[0.1em] font-bold cursor-pointer border border-industrial-blue hover:bg-safety-yellow hover:text-pure-black hover:border-safety-yellow">
+                            Solicitar Proposta
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PLANO 3: ENTERPRISE -->
+                <div class="border-util border-l-0 md:border-l-0 border-t-0 md:border-t p-0">
+                    <div class="bg-pure-black text-pure-white px-3 py-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-[0.15em]">PLN-003</span>
+                            <span class="text-[10px] uppercase tracking-[0.1em]">Nível 3</span>
+                        </div>
+                        <h3 class="text-[18px] font-bold uppercase mt-1">Enterprise</h3>
+                    </div>
+                    <div class="p-3">
+                        <div class="mb-3">
+                            <span class="text-[10px] uppercase text-medium-grey tracking-[0.1em]">Investimento Mensal</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-[10px] text-medium-grey">R$</span>
+                                <span class="text-[32px] font-bold leading-none">Sob Consulta</span>
+                            </div>
+                            <span class="text-[10px] text-medium-grey">Volume ilimitado</span>
+                        </div>
+                        <div class="border-t border-pure-black pt-2">
+                            <div class="text-[10px] uppercase tracking-[0.1em] text-medium-grey mb-1">Recursos Inclusos</div>
+                            <ul class="text-[11px] leading-[2]">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Tudo do Profissional
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Gerente de conta dedicado
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    SLA personalizado
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Frota dedicada opcional
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Integração ERP completa
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Armazém dedicado
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-pure-black text-pure-white text-[8px] flex items-center justify-center font-bold">✓</span>
+                                    Consultoria logística
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#contato" class="block mt-3 bg-pure-black text-pure-white text-center px-4 py-2 text-[11px] uppercase tracking-[0.1em] font-bold cursor-pointer border border-pure-black hover:bg-safety-yellow hover:text-pure-black hover:border-safety-yellow">
+                            Falar com Especialista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- COMPARISON TABLE                             -->
+    <!-- ============================================ -->
+    <section class="border-b border-pure-black">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="py-2">
+                <div class="section-marker">SEC.05.1 — COMPARATIVO DE PLANOS</div>
+            </div>
+            <div class="overflow-x-auto pb-2">
+                <table class="util-table">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Recurso</th>
+                            <th class="w-1/4 text-center">Essencial</th>
+                            <th class="w-1/4 text-center bg-industrial-blue">Profissional</th>
+                            <th class="w-1/4 text-center">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Entregas / Dia</td>
+                            <td class="text-center">50</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow">200</td>
+                            <td class="text-center">Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Rastreamento GPS</td>
+                            <td class="text-center">Básico (5min)</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow">Avançado (30s)</td>
+                            <td class="text-center">Avançado (30s)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Telemetria IoT</td>
+                            <td class="text-center text-light-grey">—</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow status-ok font-bold">Incluso</td>
+                            <td class="text-center status-ok font-bold">Incluso</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">API de Integração</td>
+                            <td class="text-center text-light-grey">—</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow status-ok font-bold">REST + WS</td>
+                            <td class="text-center status-ok font-bold">REST + WS + Custom</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Cadeia Fria</td>
+                            <td class="text-center text-light-grey">—</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow status-ok font-bold">Monitorada</td>
+                            <td class="text-center status-ok font-bold">Monitorada + SLA</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Suporte</td>
+                            <td class="text-center">8h-18h</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow font-bold">24/7</td>
+                            <td class="text-center font-bold">24/7 + Dedicado</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">SLA Entrega</td>
+                            <td class="text-center">98%</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow font-bold">99.2%</td>
+                            <td class="text-center font-bold">Personalizado</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Relatórios</td>
+                            <td class="text-center">Mensal</td>
+                            <td class="text-center border-x-2 border-x-safety-yellow">Tempo Real</td>
+                            <td class="text-center">Tempo Real + BI</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION                                  -->
+    <!-- ============================================ -->
+    <section id="orcamento" class="border-b border-pure-black bg-industrial-blue text-pure-white">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="py-2">
+                <div class="section-marker text-light-grey border-light-grey">SEC.06 — SOLICITAÇÃO DE OPERAÇÃO</div>
+            </div>
+            <div class="grid-12 py-4 md:py-8">
+                <div class="col-span-12 md:col-span-7">
+                    <h2 class="text-[24px] md:text-[32px] font-bold uppercase leading-tight">
+                        Inicie Sua Operação<br>
+                        <span class="text-safety-yellow">Em 48 Horas</span>
+                    </h2>
+                    <p class="text-[12px] text-light-grey leading-[1.5] mt-2 max-w-[500px]">
+                        Preencha o formulário de cotação e receba uma proposta personalizada em até 4 horas úteis.
+                        Nossa equipe de engenharia logística analisa sua operação e dimensiona a solução ideal.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-0 mt-4 border border-medium-grey">
+                        <div class="p-2 border-r border-medium-grey text-center">
+                            <div class="text-[9px] uppercase text-light-grey tracking-[0.1em]">Resposta</div>
+                            <div class="text-[18px] font-bold text-safety-yellow">4h</div>
+                        </div>
+                        <div class="p-2 border-r border-medium-grey text-center">
+                            <div class="text-[9px] uppercase text-light-grey tracking-[0.1em]">Implantação</div>
+                            <div class="text-[18px] font-bold text-safety-yellow">48h</div>
+                        </div>
+                        <div class="p-2 border-r border-medium-grey text-center">
+                            <div class="text-[9px] uppercase text-light-grey tracking-[0.1em]">Contrato Mín.</div>
+                            <div class="text-[18px] font-bold">12 meses</div>
+                        </div>
+                        <div class="p-2 text-center">
+                            <div class="text-[9px] uppercase text-light-grey tracking-[0.1em]">Cancelamento</div>
+                            <div class="text-[18px] font-bold">30 dias</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-5 mt-4 md:mt-0">
+                    <div class="border border-medium-grey bg-pure-black p-0">
+                        <div class="bg-safety-yellow text-pure-black px-3 py-1">
+                            <span class="text-[10px] uppercase tracking-[0.15em] font-bold">Formulário de Cotação Rápida</span>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[9px] uppercase tracking-[0.1em] text-medium-grey block mb-0.5">Empresa *</label>
+                                <input type="text" placeholder="Nome da empresa" class="w-full bg-dark-grey text-pure-white border border-medium-grey px-2 py-1.5 text-[12px] font-mono focus:outline-none focus:border-safety-yellow placeholder:text-medium-grey">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[9px] uppercase tracking-[0.1em] text-medium-grey block mb-0.5">Contato *</label>
+                                    <input type="text" placeholder="Nome completo" class="w-full bg-dark-grey text-pure-white border border-medium-grey px-2 py-1.5 text-[12px] font-mono focus:outline-none focus:border-safety-yellow placeholder:text-medium-grey">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] uppercase tracking-[0.1em] text-medium-grey block mb-0.5">Telefone *</label>
+                                    <input type="tel" placeholder="(00) 00000-0000" class="w-full bg-dark-grey text-pure-white border border-medium-grey px-2 py-1.5 text-[12px] font-mono focus:outline-none focus:border-safety-yellow placeholder:text-medium-grey">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase tracking-[0.1em] text-medium-grey block mb-0.5">E-mail Corporativo *</label>
+                                <input type="email" placeholder="contato@empresa.com.br" class="w-full bg-dark-grey text-pure-white border border-medium-grey px-2 py-1.5 text-[12px] font-mono focus:outline-none focus:border-safety-yellow placeholder:text-medium-grey">
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase tracking-[0.1em] text-medium-grey block mb-0.5">Volume Estimado (entregas/dia)</label>
+                                <select class="w-full bg-dark-grey text-pure-white border border-medium-grey px-2 py-1.5 text-[12px] font-mono focus:outline-none focus:border-safety-yellow cursor-pointer">
+                                    <option>Selecione uma faixa</option>
+                                    <option>1 - 50 entregas/dia</option>
+                                    <option>51 - 200 entregas/dia</option>
+                                    <option>201 - 500 entregas/dia</option>
+                                    <option>500+ entregas/dia</option>
+                                </select>
+                            </div>
+                            <button class="w-full bg-safety-yellow text-pure-black border border-safety-yellow px-4 py-2 text-[11px] uppercase tracking-[0.1em] font-bold cursor-pointer hover:bg-pure-white hover:text-pure-black hover:border-pure-white mt-1">
+                                Enviar Solicitação
+                            </button>
+                            <p class="text-[9px] text-medium-grey text-center">
+                                Ao enviar, você concorda com nossa Política de Privacidade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- COVERAGE MAP / COBERTURA                     -->
+    <!-- ============================================ -->
+    <section class="border-b border-pure-black">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <div class="py-2">
+                <div class="section-marker">SEC.07 — COBERTURA OPERACIONAL</div>
+            </div>
+            <div class="grid-12 pb-4">
+                <div class="col-span-12 md:col-span-4">
+                    <h2 class="text-[20px] font-bold uppercase leading-tight mb-2">Rede Nacional de Distribuição</h2>
+                    <p class="text-[12px] text-medium-grey leading-[1.5] mb-3">
+                        38 centros de distribuição estrategicamente posicionados para cobertura total do território nacional.
+                    </p>
+                </div>
+                <div class="col-span-12 md:col-span-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-0 border-util">
+                        <div class="p-2 border-b border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Região Sudeste</div>
+                            <div class="text-[16px] font-bold">14 CDs</div>
+                            <div class="text-[10px] text-medium-grey">SP, RJ, MG, ES</div>
+                        </div>
+                        <div class="p-2 border-b border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Região Sul</div>
+                            <div class="text-[16px] font-bold">8 CDs</div>
+                            <div class="text-[10px] text-medium-grey">PR, SC, RS</div>
+                        </div>
+                        <div class="p-2 border-b border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Região Nordeste</div>
+                            <div class="text-[16px] font-bold">9 CDs</div>
+                            <div class="text-[10px] text-medium-grey">BA, PE, CE, MA +</div>
+                        </div>
+                        <div class="p-2 border-b border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Região Norte</div>
+                            <div class="text-[16px] font-bold">4 CDs</div>
+                            <div class="text-[10px] text-medium-grey">AM, PA, RO, TO</div>
+                        </div>
+                        <div class="p-2 border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Centro-Oeste</div>
+                            <div class="text-[16px] font-bold">3 CDs</div>
+                            <div class="text-[10px] text-medium-grey">GO, MT, MS</div>
+                        </div>
+                        <div class="p-2 border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Cidades Atendidas</div>
+                            <div class="text-[16px] font-bold text-industrial-blue">5.570</div>
+                            <div class="text-[10px] text-medium-grey">100% municípios</div>
+                        </div>
+                        <div class="p-2 border-r border-pure-black">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Área Armazém</div>
+                            <div class="text-[16px] font-bold">420K m²</div>
+                            <div class="text-[10px] text-medium-grey">Total operacional</div>
+                        </div>
+                        <div class="p-2">
+                            <div class="text-[9px] uppercase text-medium-grey tracking-[0.1em]">Rotas Ativas</div>
+                            <div class="text-[16px] font-bold">2.847</div>
+                            <div class="text-[10px] text-medium-grey">Otimizadas por IA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer id="contato" class="bg-pure-black text-pure-white">
+        <div class="max-w-[1400px] mx-auto px-2">
+            <!-- FOOTER TOP -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-b border-medium-grey">
+                <!-- COL 1: EMPRESA -->
+                <div class="p-3 border-b md:border-b-0 md:border-r border-medium-grey">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-medium-grey mb-2 border-b border-medium-grey pb-1">Empresa</div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="border border-medium-grey p-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                                <rect x="1" y="3" width="15" height="13"></rect>
+                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                <circle cx="5.5" cy="18.5" r="2.5" fill="#FFD700" stroke="#FFD700"></circle>
+                                <circle cx="18.5" cy="18.5" r="2.5" fill="#FFD700" stroke="#FFD700"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-[14px] font-bold tracking-tight">TRANSLOG</span><br>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-medium-grey">BRASIL / LOGÍSTICA</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-medium-grey leading-[1.5]">
+                        Soluções de logística integrada para empresas que exigem eficiência, transparência e dados em tempo real.
+                    </p>
+                    <div class="mt-2 text-[10px] text-medium-grey">
+                        <div>CNPJ: 12.345.678/0001-90</div>
+                        <div>ANTT: 12345678</div>
+                    </div>
+                </div>
+
+                <!-- COL 2: NAVEGAÇÃO -->
+                <div class="p-3 border-b md:border-b-0 md:border-r border-medium-grey">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-medium-grey mb-2 border-b border-medium-grey pb-1">Navegação</div>
+                    <nav class="space-y-0">
+                        <a href="#servicos" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Serviços</a>
+                        <a href="#rastreamento" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Rastreamento</a>
+                        <a href="#depoimentos" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Depoimentos</a>
+                        <a href="#planos" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Planos</a>
+                        <a href="#orcamento" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Cotação</a>
+                        <a href="#" class="block text-[11px] uppercase tracking-[0.05em] py-1 border-b border-dark-grey text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Trabalhe Conosco</a>
+                        <a href="#" class="block text-[11px] uppercase tracking-[0.05em] py-1 text-light-grey cursor-pointer hover:text-safety-yellow hover:bg-dark-grey px-1">Blog Operacional</a>
+                    </nav>
+                </div>
+
+                <!-- COL 3: CONTATO -->
+                <div class="p-3 border-b lg:border-b-0 lg:border-r border-medium-grey">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-medium-grey mb-2 border-b border-medium-grey pb-1">Contato Operacional</div>
+                    <div class="space-y-2 text-[11px]">
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" class="flex-shrink-0 mt-0.5">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <div>
+                                <div class="text-medium-grey text-[9px] uppercase">Central 24h</div>
+                                <div class="text-light-grey">0800 123 4567</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" class="flex-shrink-0 mt-0.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <div>
+                                <div class="text-medium-grey text-[9px] uppercase">E-mail Comercial</div>
+                                <div class="text-light-grey">comercial@translogbrasil.com.br</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" class="flex-shrink-0 mt-0.5">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <div>
+                                <div class="text-medium-grey text-[9px] uppercase">Sede Operacional</div>
+                                <div class="text-light-grey">Av. Industrial, 4500<br>Guarulhos, SP — 07220-000</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="square" class="flex-shrink-0 mt-0.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <div>
+                                <div class="text-medium-grey text-[9px] uppercase">Horário Comercial</div>
+                                <div class="text-light-grey">Seg-Sex 08:00-18:00<br>Operação 24/7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COL 4: SOCIAL + LEGAL -->
+                <div class="p-3">
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-medium-grey mb-2 border-b border-medium-grey pb-1">Redes & Certificações</div>
+                    <div class="flex gap-0 mb-3">
+                        <!-- LinkedIn -->
+                        <a href="#" class="border border-medium-grey p-2 cursor-pointer hover:bg-dark-grey hover:border-safety-yellow" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="border border-medium-grey border-l-0 p-2 cursor-pointer hover:bg-dark-grey hover:border-safety-yellow" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square">
+                                <rect x="2" y="2" width="20" height="20" rx="0" ry="0"></rect>
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="border border-medium-grey border-l-0 p-2 cursor-pointer hover:bg-dark-grey hover:border-safety-yellow" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                            </svg>
+                        </a>
+                        <!-- X / Twitter -->
+                        <a href="#" class="border border-medium-grey border-l-0 p-2 cursor-pointer hover:bg-dark-grey hover:border-safety-yellow" aria-label="X">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square">
+                                <line x1="4" y1="4" x2="20" y2="20"></line>
+                                <line x1="20" y1="4" x2="4" y2="20"></line>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="space-y-1 text-[10px]">
+                        <div class="flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-500 inline-block"></span>
+                            <span class="text-light-grey">ISO 9001:2015</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-500 inline-block"></span>
+                            <span class="text-light-grey">ISO 14001:2015</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-500 inline-block"></span>
+                            <span class="text-light-grey">SASSMAQ</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-500 inline-block"></span>
+                            <span class="text-light-grey">OEA — Receita Federal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER BOTTOM -->
+            <div class="py-2 flex flex-col md:flex-row items-center justify-between gap-2 text-[10px] text-medium-grey">
+                <div class="flex items-center gap-1">
+                    <span>© 2026 TRANSLOG BRASIL LOGÍSTICA LTDA.</span>
+                    <span class="hidden md:inline">—</span>
+                    <span class="hidden md:inline">TODOS OS DIREITOS RESERVADOS</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="#" class="uppercase tracking-[0.05em] cursor-pointer hover:text-safety-yellow">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="uppercase tracking-[0.05em] cursor-pointer hover:text-safety-yellow">Termos de Uso</a>
+                    <span>|</span>
+                    <a href="#" class="uppercase tracking-[0.05em] cursor-pointer hover:text-safety-yellow">LGPD</a>
+                    <span>|</span>
+                    <a href="#" class="uppercase tracking-[0.05em] cursor-pointer hover:text-safety-yellow">Cookies</a>
+                </div>
+            </div>
+
+            <!-- SYSTEM STATUS BAR -->
+            <div class="border-t border-medium-grey py-1 flex items-center justify-between text-[9px] text-medium-grey uppercase tracking-[0.1em]">
+                <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-green-500 inline-block"></span>
+                        Todos os sistemas operacionais
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center gap-3">
+                    <span>Versão: 4.2.1</span>
+                    <span>|</span>
+                    <span>Build: 2025.06.18</span>
+                    <span>|</span>
+                    <span>Latência: 12ms</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galeria Pop Art - Galeria de Arte Contemporânea com obras vibrantes e ousadas inspiradas no movimento Pop Art. Exposições, artistas e experiências únicas.">
+    <meta name="keywords" content="galeria de arte, arte contemporânea, pop art, exposição, Andy Warhol, Roy Lichtenstein, arte moderna, galeria pop">
+    <meta name="author" content="Galeria Pop Art">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Galeria Pop Art - Arte Contemporânea Vibrante">
+    <meta property="og:description" content="Descubra o universo vibrante da arte contemporânea. Exposições exclusivas, artistas renomados e experiências imersivas no estilo Pop Art.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://galeriapop.art.br">
+    <meta property="og:image" content="https://galeriapop.art.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Galeria Pop Art - Arte Contemporânea Vibrante">
+    <meta name="twitter:description" content="Descubra o universo vibrante da arte contemporânea no estilo Pop Art.">
+    <title>Galeria Pop Art - Arte Contemporânea Vibrante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pop-red': '#FF0000',
+                        'pop-yellow': '#FFFF00',
+                        'pop-blue': '#0000FF',
+                        'pop-white': '#FFFFFF',
+                        'pop-pink': '#FF69B4',
+                        'pop-orange': '#FF8C00',
+                        'pop-lime': '#32CD32',
+                        'pop-black': '#000000',
+                    },
+                    fontFamily: {
+                        'bangers': ['Bangers', 'cursive'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0 #000000',
+                        'pop-lg': '8px 8px 0 #000000',
+                        'pop-sm': '4px 4px 0 #000000',
+                        'pop-hover': '2px 2px 0 #000000',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-red: #FF0000;
+            --color-yellow: #FFFF00;
+            --color-blue: #0000FF;
+            --color-black: #000000;
+            --color-pink: #FF69B4;
+            --color-orange: #FF8C00;
+            --color-lime: #32CD32;
+            --font-display: 'Bangers', cursive;
+            --border: 4px solid #000000;
+            --shadow: 6px 6px 0 #000000;
+            --border-radius: 0px;
+            --spacing: 1.5rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-pop {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Halftone dot pattern overlay */
+        .halftone {
+            position: relative;
+        }
+        .halftone::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px);
+            background-size: 8px 8px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .halftone-light::before {
+            background: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+            background-size: 6px 6px;
+        }
+
+        .halftone-dense::before {
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 1.5px, transparent 1.5px);
+            background-size: 5px 5px;
+        }
+
+        /* Pop Art border style */
+        .pop-border {
+            border: 4px solid #000000;
+            border-radius: 0px;
+        }
+
+        .pop-border-thick {
+            border: 5px solid #000000;
+            border-radius: 0px;
+        }
+
+        /* Comic speech bubble */
+        .speech-bubble {
+            position: relative;
+            background: #FFFFFF;
+            border: 4px solid #000000;
+            padding: 1.5rem;
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #000000;
+        }
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 33px;
+            width: 0;
+            height: 0;
+            border-left: 17px solid transparent;
+            border-right: 17px solid transparent;
+            border-top: 17px solid #FFFFFF;
+            z-index: 2;
+        }
+
+        /* Pop-in animation */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        @keyframes pulse-pop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.6s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .animate-pulse-pop {
+            animation: pulse-pop 2s ease-in-out infinite;
+        }
+
+        /* Warhol-style grid */
+        .warhol-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        /* Saturate filter */
+        .saturate-pop {
+            filter: saturate(1.5);
+        }
+
+        /* Pop button style */
+        .btn-pop {
+            border: 4px solid #000000;
+            box-shadow: 6px 6px 0 #000000;
+            text-transform: uppercase;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+        .btn-pop:hover {
+            box-shadow: 2px 2px 0 #000000;
+            transform: translate(4px, 4px);
+        }
+        .btn-pop:active {
+            box-shadow: 0px 0px 0 #000000;
+            transform: translate(6px, 6px);
+        }
+
+        /* Card pop style */
+        .card-pop {
+            border: 4px solid #000000;
+            box-shadow: 6px 6px 0 #000000;
+            transition: all 0.2s ease;
+        }
+        .card-pop:hover {
+            box-shadow: 10px 10px 0 #000000;
+            transform: translate(-4px, -4px);
+        }
+
+        /* Navbar link hover */
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: #FF0000;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link:hover {
+            color: #FF0000;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-highlight {
+                transform: scale(1);
+            }
+            .warhol-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFF00;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF0000;
+            border: 3px solid #000000;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Starburst shape */
+        .starburst {
+            background: #FF0000;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+    </style>
+</head>
+<body class="bg-pop-yellow saturate-pop">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="bg-pop-red pop-border-thick border-t-0 border-l-0 border-r-0 sticky top-0 z-50 halftone-dense">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-12 h-12 bg-pop-yellow pop-border flex items-center justify-center group-hover:bg-pop-white transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                        </svg>
+                    </div>
+                    <span class="font-bangers text-2xl md:text-3xl text-pop-white tracking-wider uppercase" style="text-shadow: 3px 3px 0 #000000;">Galeria Pop</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#hero" class="nav-link font-bangers text-pop-white text-lg tracking-wide uppercase">Início</a>
+                    <a href="#features" class="nav-link font-bangers text-pop-white text-lg tracking-wide uppercase">Exposições</a>
+                    <a href="#testimonials" class="nav-link font-bangers text-pop-white text-lg tracking-wide uppercase">Depoimentos</a>
+                    <a href="#pricing" class="nav-link font-bangers text-pop-white text-lg tracking-wide uppercase">Ingressos</a>
+                    <a href="#cta" class="btn-pop bg-pop-yellow text-pop-black px-6 py-2 inline-block">Visite Agora</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden cursor-pointer p-2 pop-border bg-pop-yellow" onclick="document.getElementById('mobileMenu').classList.toggle('active')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu flex-col bg-pop-yellow pop-border border-t-0 md:hidden relative z-10">
+            <a href="#hero" class="font-bangers text-pop-black text-xl tracking-wide uppercase px-6 py-4 border-b-4 border-pop-black cursor-pointer hover:bg-pop-red hover:text-pop-white transition-all">Início</a>
+            <a href="#features" class="font-bangers text-pop-black text-xl tracking-wide uppercase px-6 py-4 border-b-4 border-pop-black cursor-pointer hover:bg-pop-red hover:text-pop-white transition-all">Exposições</a>
+            <a href="#testimonials" class="font-bangers text-pop-black text-xl tracking-wide uppercase px-6 py-4 border-b-4 border-pop-black cursor-pointer hover:bg-pop-red hover:text-pop-white transition-all">Depoimentos</a>
+            <a href="#pricing" class="font-bangers text-pop-black text-xl tracking-wide uppercase px-6 py-4 border-b-4 border-pop-black cursor-pointer hover:bg-pop-red hover:text-pop-white transition-all">Ingressos</a>
+            <a href="#cta" class="font-bangers text-pop-black text-xl tracking-wide uppercase px-6 py-4 cursor-pointer hover:bg-pop-red hover:text-pop-white transition-all">Visite Agora</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="relative bg-pop-blue halftone min-h-[90vh] flex items-center overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-10 right-10 w-32 h-32 md:w-48 md:h-48 starburst animate-float opacity-80 z-0"></div>
+        <div class="absolute bottom-20 left-5 w-20 h-20 md:w-32 md:h-32 bg-pop-pink pop-border rotate-12 animate-pulse-pop z-0"></div>
+        <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-pop-lime pop-border rounded-full animate-float z-0" style="animation-delay: 1s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="animate-pop-in">
+                    <!-- Speech bubble accent -->
+                    <div class="inline-block bg-pop-yellow pop-border px-5 py-2 mb-6 relative" style="box-shadow: 4px 4px 0 #000000;">
+                        <span class="font-bangers text-pop-black text-lg md:text-xl tracking-wider">POW! ARTE QUE EXPLODE!</span>
+                    </div>
+
+                    <h1 class="font-bangers text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-pop-white leading-none mb-6" style="text-shadow: 5px 5px 0 #000000, -2px -2px 0 #000000;">
+                        A Arte Nunca<br>
+                        <span class="text-pop-yellow">Foi Tão</span><br>
+                        <span class="text-pop-red" style="text-shadow: 5px 5px 0 #FFFF00;">Pop!</span>
+                    </h1>
+
+                    <p class="text-pop-white text-lg md:text-xl font-inter font-semibold mb-8 max-w-lg" style="text-shadow: 2px 2px 0 rgba(0,0,0,0.5);">
+                        Mergulhe no universo vibrante da arte contemporânea. Exposições que desafiam, provocam e transformam sua visão do cotidiano.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#pricing" class="btn-pop bg-pop-red text-pop-white px-8 py-4 text-center text-xl">
+                            Garanta Seu Ingresso
+                        </a>
+                        <a href="#features" class="btn-pop bg-pop-white text-pop-black px-8 py-4 text-center text-xl">
+                            Ver Exposições
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual Element - Pop Art CSS Art -->
+                <div class="hidden md:block relative">
+                    <div class="warhol-grid w-full max-w-md mx-auto" style="box-shadow: 8px 8px 0 #000000; border: 5px solid #000000;">
+                        <div class="bg-pop-red p-8 flex items-center justify-center halftone-dense aspect-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-pop-yellow relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <div class="bg-pop-yellow p-8 flex items-center justify-center halftone aspect-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-pop-blue relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                            </svg>
+                        </div>
+                        <div class="bg-pop-pink p-8 flex items-center justify-center halftone aspect-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-pop-black relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+                            </svg>
+                        </div>
+                        <div class="bg-pop-lime p-8 flex items-center justify-center halftone-dense aspect-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-pop-red relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="features" class="bg-pop-yellow halftone py-20 md:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block bg-pop-red pop-border px-6 py-2 mb-4" style="box-shadow: 4px 4px 0 #000000;">
+                    <span class="font-bangers text-pop-white text-lg tracking-widest">BANG!</span>
+                </div>
+                <h2 class="font-bangers text-5xl md:text-6xl lg:text-7xl text-pop-black" style="text-shadow: 3px 3px 0 #FF0000;">
+                    Nossas Exposições
+                </h2>
+                <p class="text-pop-black text-lg md:text-xl font-inter font-semibold mt-4 max-w-2xl mx-auto">
+                    Três experiências únicas que vão explodir sua percepção artística. Cada exposição é uma jornada visual inesquecível.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer group">
+                    <div class="bg-pop-red p-6 halftone-dense relative">
+                        <div class="relative z-10 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-pop-yellow pop-border flex items-center justify-center group-hover:rotate-12 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a2.25 2.25 0 002.25-2.25V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21zM8.25 8.25h.008v.008H8.25V8.25z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bangers text-2xl md:text-3xl text-pop-black mb-3 tracking-wide">Ícones do Cotidiano</h3>
+                        <p class="text-pop-black font-inter leading-relaxed">
+                            Objetos comuns transformados em obras-primas. Latas de sopa, garrafas de refrigerante e embalagens ganham status de arte em instalações monumentais que questionam o consumismo.
+                        </p>
+                        <div class="mt-4 inline-flex items-center gap-2 font-bangers text-pop-red text-lg tracking-wide cursor-pointer group-hover:gap-4 transition-all">
+                            EXPLORAR
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer group">
+                    <div class="bg-pop-blue p-6 halftone-dense relative">
+                        <div class="relative z-10 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-pop-pink pop-border flex items-center justify-center group-hover:rotate-12 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bangers text-2xl md:text-3xl text-pop-black mb-3 tracking-wide">Retratos Multiplicados</h3>
+                        <p class="text-pop-black font-inter leading-relaxed">
+                            Inspirada na técnica de serigrafia de Warhol, esta exposição apresenta retratos em cores vibrantes e repetições hipnóticas. Rostos famosos e anônimos em diálogo visual.
+                        </p>
+                        <div class="mt-4 inline-flex items-center gap-2 font-bangers text-pop-blue text-lg tracking-wide cursor-pointer group-hover:gap-4 transition-all">
+                            EXPLORAR
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer group">
+                    <div class="bg-pop-pink p-6 halftone-dense relative">
+                        <div class="relative z-10 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-pop-lime pop-border flex items-center justify-center group-hover:rotate-12 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bangers text-2xl md:text-3xl text-pop-black mb-3 tracking-wide">Imersão Sensorial</h3>
+                        <p class="text-pop-black font-inter leading-relaxed">
+                            Uma experiência multissensorial onde projeções, sons e cores envolvem o visitante. Salas temáticas com instalações interativas que borram a linha entre arte e espectador.
+                        </p>
+                        <div class="mt-4 inline-flex items-center gap-2 font-bangers text-pop-pink text-lg tracking-wide cursor-pointer group-hover:gap-4 transition-all">
+                            EXPLORAR
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS SECTION ==================== -->
+    <section id="testimonials" class="bg-pop-white halftone-light py-20 md:py-28 relative" style="background-color: #FFFFFF;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block bg-pop-blue pop-border px-6 py-2 mb-4" style="box-shadow: 4px 4px 0 #000000;">
+                    <span class="font-bangers text-pop-white text-lg tracking-widest">WOW!</span>
+                </div>
+                <h2 class="font-bangers text-5xl md:text-6xl lg:text-7xl text-pop-black" style="text-shadow: 3px 3px 0 #0000FF;">
+                    O Que Dizem Sobre Nós
+                </h2>
+                <p class="text-pop-black text-lg md:text-xl font-inter font-semibold mt-4 max-w-2xl mx-auto">
+                    Visitantes de todo o Brasil compartilham suas experiências explosivas na Galeria Pop.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="relative cursor-pointer group">
+                    <div class="speech-bubble bg-pop-yellow group-hover:bg-pop-red group-hover:text-pop-white transition-all duration-300">
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        </div>
+                        <p class="font-inter text-pop-black group-hover:text-pop-white font-semibold leading-relaxed transition-all">
+                            "Uma experiência absolutamente INCRÍVEL! As cores, as instalações, tudo é pensado para impactar. Saí de lá com a mente explodindo de inspiração. Voltarei com certeza!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-8 ml-4">
+                        <div class="w-14 h-14 bg-pop-red pop-border flex items-center justify-center">
+                            <span class="font-bangers text-pop-white text-xl">MC</span>
+                        </div>
+                        <div>
+                            <p class="font-bangers text-pop-black text-xl tracking-wide">Marina Costa</p>
+                            <p class="font-inter text-sm text-gray-600 font-semibold">Designer Gráfica — São Paulo, SP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="relative cursor-pointer group">
+                    <div class="speech-bubble bg-pop-pink group-hover:bg-pop-blue group-hover:text-pop-white transition-all duration-300" style="border-color: #000000;">
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        </div>
+                        <p class="font-inter text-pop-black group-hover:text-pop-white font-semibold leading-relaxed transition-all">
+                            "Levei meus alunos e foi transformador! A exposição de Retratos Multiplicados gerou debates incríveis sobre identidade e cultura de massa. Arte acessível e provocadora."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-8 ml-4">
+                        <div class="w-14 h-14 bg-pop-blue pop-border flex items-center justify-center">
+                            <span class="font-bangers text-pop-white text-xl">RS</span>
+                        </div>
+                        <div>
+                            <p class="font-bangers text-pop-black text-xl tracking-wide">Roberto Santos</p>
+                            <p class="font-inter text-sm text-gray-600 font-semibold">Professor de Artes — Rio de Janeiro, RJ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="relative cursor-pointer group">
+                    <div class="speech-bubble bg-pop-lime group-hover:bg-pop-orange group-hover:text-pop-white transition-all duration-300" style="border-color: #000000;">
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red group-hover:text-pop-yellow transition-all" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        </div>
+                        <p class="font-inter text-pop-black group-hover:text-pop-white font-semibold leading-relaxed transition-all">
+                            "A Imersão Sensorial é de outro planeta! Nunca vi nada igual no Brasil. As projeções, os sons, as cores — tudo cria uma atmosfera mágica. Experiência obrigatória!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-8 ml-4">
+                        <div class="w-14 h-14 bg-pop-pink pop-border flex items-center justify-center">
+                            <span class="font-bangers text-pop-white text-xl">AF</span>
+                        </div>
+                        <div>
+                            <p class="font-bangers text-pop-black text-xl tracking-wide">Ana Ferreira</p>
+                            <p class="font-inter text-sm text-gray-600 font-semibold">Fotógrafa — Belo Horizonte, MG</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRICING SECTION ==================== -->
+    <section id="pricing" class="bg-pop-red halftone py-20 md:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-block bg-pop-yellow pop-border px-6 py-2 mb-4" style="box-shadow: 4px 4px 0 #000000;">
+                    <span class="font-bangers text-pop-black text-lg tracking-widest">ZAP!</span>
+                </div>
+                <h2 class="font-bangers text-5xl md:text-6xl lg:text-7xl text-pop-white" style="text-shadow: 3px 3px 0 #000000;">
+                    Escolha Seu Ingresso
+                </h2>
+                <p class="text-pop-white text-lg md:text-xl font-inter font-semibold mt-4 max-w-2xl mx-auto" style="text-shadow: 1px 1px 0 rgba(0,0,0,0.3);">
+                    Três opções explosivas para você viver a arte Pop como nunca antes. Quanto mais Pop, melhor!
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-start">
+                <!-- Tier 1 - Básico -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer">
+                    <div class="bg-pop-yellow p-6 text-center halftone-dense relative">
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-pop-white pop-border mx-auto mb-3 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bangers text-3xl text-pop-black tracking-wide">Pop Básico</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <div class="mb-6">
+                            <span class="font-bangers text-6xl text-pop-black">R$49</span>
+                            <span class="font-inter text-pop-black font-semibold text-lg">/pessoa</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Acesso a 1 exposição
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Guia de áudio incluso
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Acesso ao café da galeria
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Catálogo exclusivo
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Meet & Greet com artistas
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-pop bg-pop-yellow text-pop-black px-8 py-3 block text-center text-lg w-full">
+                            Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 2 - Destaque (Central) -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer pricing-highlight relative">
+                    <!-- Badge -->
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
+                        <div class="bg-pop-orange pop-border px-6 py-1" style="box-shadow: 3px 3px 0 #000000;">
+                            <span class="font-bangers text-pop-white text-lg tracking-widest">MAIS POPULAR!</span>
+                        </div>
+                    </div>
+                    <div class="bg-pop-blue p-6 text-center halftone-dense relative">
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-pop-yellow pop-border mx-auto mb-3 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bangers text-3xl text-pop-white tracking-wide" style="text-shadow: 2px 2px 0 #000000;">Pop Premium</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <div class="mb-6">
+                            <span class="font-bangers text-6xl text-pop-red">R$89</span>
+                            <span class="font-inter text-pop-black font-semibold text-lg">/pessoa</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Acesso a todas as exposições
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Guia de áudio premium
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Acesso ao café da galeria
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Catálogo exclusivo digital
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Meet & Greet com artistas
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-pop bg-pop-red text-pop-white px-8 py-3 block text-center text-lg w-full">
+                            Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 3 - VIP -->
+                <div class="card-pop bg-pop-white p-0 cursor-pointer">
+                    <div class="bg-pop-pink p-6 text-center halftone-dense relative">
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-pop-white pop-border mx-auto mb-3 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-pop-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bangers text-3xl text-pop-white tracking-wide" style="text-shadow: 2px 2px 0 #000000;">Pop VIP</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <div class="mb-6">
+                            <span class="font-bangers text-6xl text-pop-black">R$149</span>
+                            <span class="font-inter text-pop-black font-semibold text-lg">/pessoa</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Acesso ilimitado por 30 dias
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Guia de áudio premium
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Café + brunch exclusivo
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Catálogo exclusivo impresso
+                            </li>
+                            <li class="flex items-center gap-3 font-inter font-semibold text-pop-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Meet & Greet com artistas
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-pop bg-pop-pink text-pop-white px-8 py-3 block text-center text-lg w-full">
+                            Comprar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section id="cta" class="bg-pop-black halftone-light py-20 md:py-28 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-10 left-10 w-24 h-24 bg-pop-red pop-border rotate-45 opacity-60 z-0"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 starburst opacity-50 z-0" style="background: #FFFF00;"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-pop-blue pop-border rounded-full opacity-40 z-0"></div>
+        <div class="absolute bottom-1/3 right-1/3 w-20 h-20 bg-pop-pink pop-border opacity-30 rotate-12 z-0"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Accent badge -->
+            <div class="inline-block bg-pop-red pop-border px-6 py-2 mb-6 animate-pulse-pop" style="box-shadow: 4px 4px 0 #FF0000;">
+                <span class="font-bangers text-pop-white text-xl tracking-widest">BOOM! ÚLTIMA CHANCE!</span>
+            </div>
+
+            <h2 class="font-bangers text-5xl md:text-6xl lg:text-8xl text-pop-white mb-6" style="text-shadow: 4px 4px 0 #FF0000, -2px -2px 0 #0000FF;">
+                Não Fique<br>
+                <span class="text-pop-yellow">De Fora!</span>
+            </h2>
+
+            <p class="text-pop-white text-lg md:text-xl font-inter font-semibold mb-10 max-w-2xl mx-auto" style="text-shadow: 1px 1px 0 rgba(255,0,0,0.5);">
+                A temporada Pop Art é limitada! Garanta seu ingresso agora e viva a experiência artística mais vibrante e ousada do Brasil. Vagas esgotando rapidamente!
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#pricing" class="btn-pop bg-pop-red text-pop-white px-10 py-5 text-center text-2xl inline-block">
+                    Garantir Meu Ingresso
+                </a>
+                <a href="#features" class="btn-pop bg-pop-yellow text-pop-black px-10 py-5 text-center text-2xl inline-block">
+                    Ver Exposições
+                </a>
+            </div>
+
+            <!-- Social proof -->
+            <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="flex -space-x-3">
+                        <div class="w-10 h-10 bg-pop-red pop-border flex items-center justify-center text-pop-white font-bangers text-sm">A</div>
+                        <div class="w-10 h-10 bg-pop-blue pop-border flex items-center justify-center text-pop-white font-bangers text-sm">B</div>
+                        <div class="w-10 h-10 bg-pop-pink pop-border flex items-center justify-center text-pop-white font-bangers text-sm">C</div>
+                        <div class="w-10 h-10 bg-pop-lime pop-border flex items-center justify-center text-pop-black font-bangers text-sm">D</div>
+                    </div>
+                    <span class="font-inter text-pop-white font-semibold text-sm">+12.000 visitantes este mês</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-pop-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-pop-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-pop-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-pop-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-pop-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    <span class="font-inter text-pop-white font-semibold text-sm ml-1">4.9/5 (2.300+ avaliações)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-pop-blue halftone py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Column 1 - Brand -->
+                <div>
+                    <a href="#" class="flex items-center gap-3 cursor-pointer group mb-6">
+                        <div class="w-12 h-12 bg-pop-yellow pop-border flex items-center justify-center group-hover:bg-pop-red transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-pop-black group-hover:text-pop-white transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                            </svg>
+                        </div>
+                        <span class="font-bangers text-2xl text-pop-white tracking-wider uppercase" style="text-shadow: 2px 2px 0 #000000;">Galeria Pop</span>
+                    </a>
+                    <p class="font-inter text-pop-white text-sm leading-relaxed mb-6" style="text-shadow: 1px 1px 0 rgba(0,0,0,0.3);">
+                        A galeria de arte contemporânea mais vibrante do Brasil. Experiências imersivas no estilo Pop Art que transformam sua visão do mundo.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex items-center gap-3">
+                        <!-- Instagram -->
+                        <a href="#" class="w-11 h-11 bg-pop-pink pop-border flex items-center justify-center cursor-pointer hover:bg-pop-red hover:translate-y-[-3px] transition-all" style="box-shadow: 3px 3px 0 #000000;" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="w-11 h-11 bg-pop-yellow pop-border flex items-center justify-center cursor-pointer hover:bg-pop-red hover:translate-y-[-3px] transition-all" style="box-shadow: 3px 3px 0 #000000;" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-black" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" class="w-11 h-11 bg-pop-white pop-border flex items-center justify-center cursor-pointer hover:bg-pop-red hover:text-pop-white hover:translate-y-[-3px] transition-all" style="box-shadow: 3px 3px 0 #000000;" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-black" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="w-11 h-11 bg-pop-red pop-border flex items-center justify-center cursor-pointer hover:bg-pop-yellow hover:translate-y-[-3px] transition-all" style="box-shadow: 3px 3px 0 #000000;" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="#" class="w-11 h-11 bg-pop-lime pop-border flex items-center justify-center cursor-pointer hover:bg-pop-red hover:translate-y-[-3px] transition-all" style="box-shadow: 3px 3px 0 #000000;" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-black" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2 - Navigation -->
+                <div>
+                    <h4 class="font-bangers text-2xl text-pop-yellow tracking-wide mb-6 uppercase" style="text-shadow: 2px 2px 0 #000000;">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#hero" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Início</a></li>
+                        <li><a href="#features" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Exposições</a></li>
+                        <li><a href="#testimonials" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Depoimentos</a></li>
+                        <li><a href="#pricing" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Ingressos</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Sobre Nós</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 - Legal & Policies -->
+                <div>
+                    <h4 class="font-bangers text-2xl text-pop-yellow tracking-wide mb-6 uppercase" style="text-shadow: 2px 2px 0 #000000;">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Termos de Uso</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Política de Cookies</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">Acessibilidade</a></li>
+                        <li><a href="#" class="font-inter text-pop-white font-semibold hover:text-pop-yellow cursor-pointer transition-all inline-block hover:translate-x-2">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 - Contact -->
+                <div>
+                    <h4 class="font-bangers text-2xl text-pop-yellow tracking-wide mb-6 uppercase" style="text-shadow: 2px 2px 0 #000000;">Contato</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-red flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                            <span class="font-inter text-pop-white font-semibold text-sm">Av. Paulista, 1578 — Bela Vista<br>São Paulo, SP — 01310-200</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-yellow flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                            </svg>
+                            <a href="tel:+551130001234" class="font-inter text-pop-white font-semibold text-sm hover:text-pop-yellow cursor-pointer transition-all">(11) 3000-1234</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                            </svg>
+                            <a href="mailto:contato@galeriapop.art.br" class="font-inter text-pop-white font-semibold text-sm hover:text-pop-yellow cursor-pointer transition-all">contato@galeriapop.art.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pop-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="font-inter text-pop-white font-semibold text-sm">Ter-Dom: 10h às 20h<br>Segunda: Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t-4 border-pop-yellow pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="font-inter text-pop-white text-sm font-semibold text-center md:text-left" style="text-shadow: 1px 1px 0 rgba(0,0,0,0.3);">
+                        &copy; 2026 Galeria Pop Art. Todos os direitos reservados.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                        <a href="#" class="font-inter text-pop-white text-sm font-semibold hover:text-pop-yellow cursor-pointer transition-all">Política de Privacidade</a>
+                        <span class="text-pop-yellow font-bold">|</span>
+                        <a href="#" class="font-inter text-pop-white text-sm font-semibold hover:text-pop-yellow cursor-pointer transition-all">Termos de Uso</a>
+                        <span class="text-pop-yellow font-bold">|</span>
+                        <a href="#" class="font-inter text-pop-white text-sm font-semibold hover:text-pop-yellow cursor-pointer transition-all">Mapa do Site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scroll behavior -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

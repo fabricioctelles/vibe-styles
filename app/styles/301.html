@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flor & Encanto — Floricultura e Decoração. Arranjos florais artesanais com o charme do estilo Shabby Chic. Flores frescas, decoração vintage e romantismo em cada detalhe.">
+    <meta name="keywords" content="floricultura, decoração, flores, arranjos florais, shabby chic, vintage, casamento, decoração romântica, buquês">
+    <meta name="author" content="Flor & Encanto">
+    <meta property="og:title" content="Flor & Encanto — Floricultura e Decoração Shabby Chic">
+    <meta property="og:description" content="Arranjos florais artesanais com o charme vintage do Shabby Chic. Flores frescas, decoração romântica e nostalgia em cada detalhe.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://floreencanto.com.br">
+    <meta property="og:site_name" content="Flor & Encanto">
+    <title>Flor & Encanto — Floricultura e Decoração Shabby Chic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'shabby-rose': '#E8C4C4',
+                        'antique': '#FAF0E6',
+                        'sage': '#C5D5C5',
+                        'dusty': '#A4B8C4',
+                        'lavender-mist': '#D8D0E0',
+                        'linen': '#F0E6D6',
+                        'blush': '#F5D5D5',
+                        'wood': '#B8A898',
+                        'shabby-text': '#6A5A5A',
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        display: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-rose: #E8C4C4; --color-white: #FAF0E6; --color-sage: #C5D5C5;
+            --color-blue: #A4B8C4; --color-lavender: #D8D0E0; --color-linen: #F0E6D6;
+            --color-blush: #F5D5D5; --color-wood: #B8A898; --color-text: #6A5A5A;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lora', serif; font-weight: 300; background-color: var(--color-white); color: var(--color-text); filter: saturate(0.8); overflow-x: hidden; }
+
+        /* Floral pattern overlay on body */
+        body::before {
+            content: ''; position: fixed; inset: 0; opacity: 0.03; pointer-events: none; z-index: 0;
+            background-image:
+                radial-gradient(circle at 15% 25%, var(--color-rose) 2px, transparent 2px),
+                radial-gradient(circle at 85% 75%, var(--color-sage) 2px, transparent 2px),
+                radial-gradient(circle at 50% 10%, var(--color-lavender) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 30% 80%, var(--color-blush) 2px, transparent 2px);
+            background-size: 120px 120px, 150px 150px, 100px 100px, 130px 130px;
+        }
+
+        .texture-overlay { position: relative; }
+        .texture-overlay::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(232,196,196,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(197,213,197,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(164,184,196,0.1) 0%, transparent 50%);
+        }
+
+        .vignette { position: relative; }
+        .vignette::after {
+            content: ''; position: absolute; inset: 0;
+            box-shadow: inset 0 0 120px rgba(106,90,90,0.1); pointer-events: none; border-radius: 6px;
+        }
+
+        .btn-shabby {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem;
+            border: 1px solid rgba(200,180,180,0.4); border-radius: 6px;
+            font-family: 'Lora', serif; font-weight: 400; font-size: 0.95rem;
+            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .btn-primary { background-color: var(--color-rose); color: #5A4A4A; }
+        .btn-primary:hover { background-color: #DDB5B5; box-shadow: 0 4px 20px rgba(232,196,196,0.4); transform: translateY(-1px); }
+        .btn-secondary { background-color: transparent; color: var(--color-text); border-color: rgba(200,180,180,0.6); }
+        .btn-secondary:hover { background-color: rgba(232,196,196,0.15); border-color: var(--color-rose); transform: translateY(-1px); }
+
+        .card-shabby {
+            background: rgba(250,240,230,0.8); border: 1px solid rgba(200,180,180,0.4);
+            border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s ease;
+        }
+        .card-shabby:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-3px); }
+
+        .pricing-featured {
+            background: linear-gradient(135deg, rgba(232,196,196,0.25), rgba(245,213,213,0.35)) !important;
+            border: 2px solid var(--color-rose) !important; transform: scale(1.04);
+        }
+        .pricing-featured:hover { transform: scale(1.06); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+        @keyframes gentleFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+        .anim-float { animation: gentleFloat 6s ease-in-out infinite; }
+        @keyframes gentleFloat2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-3deg); } }
+        .anim-float-2 { animation: gentleFloat2 8s ease-in-out infinite; }
+
+        .divider-shabby { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--color-rose), transparent); margin: 0 auto; }
+        .navbar-scrolled { background-color: rgba(250,240,230,0.95) !important; backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .mobile-menu.open { max-height: 400px; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-white); }
+        ::-webkit-scrollbar-thumb { background: var(--color-rose); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: #DDB5B5; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-8 h-8 text-shabby-rose transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8 2 4 6 4 10c0 3 2 5 4 6l4 6 4-6c2-1 4-3 4-6 0-4-4-8-8-8z"/>
+                        <circle cx="12" cy="8" r="2"/>
+                    </svg>
+                    <span class="font-display text-xl md:text-2xl font-medium text-shabby-text tracking-wide">Flor <span class="text-shabby-rose">&amp;</span> Encanto</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#inicio" class="font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Início</a>
+                    <a href="#servicos" class="font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Serviços</a>
+                    <a href="#depoimentos" class="font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Depoimentos</a>
+                    <a href="#planos" class="font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Planos</a>
+                    <a href="#contato" class="font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Contato</a>
+                    <a href="#contato" class="btn-shabby btn-primary text-sm cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+                        Agendar Visita
+                    </a>
+                </div>
+                <button id="menuBtn" class="md:hidden p-2 cursor-pointer text-shabby-text hover:text-shabby-rose transition-colors" aria-label="Abrir menu">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                </button>
+            </div>
+            <div id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="pb-4 pt-2 space-y-3 border-t border-shabby-rose/20">
+                    <a href="#inicio" class="block font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors cursor-pointer py-1">Início</a>
+                    <a href="#servicos" class="block font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors cursor-pointer py-1">Serviços</a>
+                    <a href="#depoimentos" class="block font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors cursor-pointer py-1">Depoimentos</a>
+                    <a href="#planos" class="block font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors cursor-pointer py-1">Planos</a>
+                    <a href="#contato" class="block font-lora text-sm text-shabby-text hover:text-shabby-rose transition-colors cursor-pointer py-1">Contato</a>
+                    <a href="#contato" class="btn-shabby btn-primary text-sm cursor-pointer inline-flex mt-2">Agendar Visita</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="inicio" class="relative min-h-screen flex items-center texture-overlay vignette overflow-hidden">
+        <!-- Decorative floating elements -->
+        <div class="absolute top-20 right-10 w-64 h-64 rounded-full bg-shabby-rose/10 filter blur-xl anim-float"></div>
+        <div class="absolute bottom-20 left-10 w-48 h-48 rounded-full bg-sage/10 filter blur-xl anim-float-2"></div>
+        <div class="absolute top-1/3 left-1/4 w-32 h-32 rounded-full bg-dusty/8 filter blur-lg anim-float" style="animation-delay: 2s;"></div>
+
+        <!-- CSS 3D/Abstract decorative element -->
+        <div class="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2 w-96 h-96" style="perspective: 800px;">
+            <div class="relative w-full h-full anim-float">
+                <div class="absolute inset-8 rounded-full border border-shabby-rose/30" style="transform: rotateX(20deg) rotateY(-10deg);"></div>
+                <div class="absolute inset-16 rounded-full border border-sage/25" style="transform: rotateX(-15deg) rotateY(15deg);"></div>
+                <div class="absolute inset-24 rounded-full border border-dusty/20" style="transform: rotateX(10deg) rotateY(-5deg);"></div>
+                <div class="absolute inset-4 rounded-full bg-gradient-to-br from-shabby-rose/5 via-blush/5 to-sage/5" style="transform: rotateX(5deg);"></div>
+                <!-- Floral SVG center -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                    <svg class="w-40 h-40 text-shabby-rose" fill="currentColor" viewBox="0 0 100 100">
+                        <ellipse cx="50" cy="30" rx="12" ry="18" transform="rotate(0 50 50)" opacity="0.6"/>
+                        <ellipse cx="50" cy="30" rx="12" ry="18" transform="rotate(72 50 50)" opacity="0.5"/>
+                        <ellipse cx="50" cy="30" rx="12" ry="18" transform="rotate(144 50 50)" opacity="0.6"/>
+                        <ellipse cx="50" cy="30" rx="12" ry="18" transform="rotate(216 50 50)" opacity="0.5"/>
+                        <ellipse cx="50" cy="30" rx="12" ry="18" transform="rotate(288 50 50)" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="8" opacity="0.7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+            <div class="max-w-2xl">
+                <p class="font-lora text-sm tracking-widest text-shabby-rose uppercase mb-4 fade-in" style="animation-delay: 0.1s;">Floricultura &amp; Decoração Artesanal</p>
+                <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-medium text-shabby-text leading-tight mb-6 fade-in" style="animation-delay: 0.3s;">
+                    Onde Cada Pétala<br>Conta uma <span class="italic text-shabby-rose">História</span>
+                </h1>
+                <p class="font-lora text-lg text-shabby-text/80 leading-relaxed mb-8 max-w-lg fade-in" style="animation-delay: 0.5s;">
+                    Criamos arranjos florais únicos com o charme atemporal do estilo Shabby Chic. Romantismo, nostalgia e beleza em cada composição feita à mão.
+                </p>
+                <div class="flex flex-wrap gap-4 fade-in" style="animation-delay: 0.7s;">
+                    <a href="#planos" class="btn-shabby btn-primary cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Ver Planos
+                    </a>
+                    <a href="#servicos" class="btn-shabby btn-secondary cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+                        Nossos Serviços
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES / SERVIÇOS ===== -->
+    <section id="servicos" class="relative py-20 lg:py-28 bg-linen/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-lora text-sm tracking-widest text-shabby-rose uppercase mb-3">O Que Fazemos</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-medium text-shabby-text mb-4">Nossos Serviços</h2>
+                <div class="divider-shabby mb-6"></div>
+                <p class="font-lora text-shabby-text/70 max-w-xl mx-auto">Cada criação é pensada com carinho, unindo a delicadeza das flores à elegância do estilo cottage vintage.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="card-shabby p-8 text-center vignette cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-shabby-rose/15 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-shabby-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8 2 4 6 4 10c0 3 2 5 4 6l4 6 4-6c2-1 4-3 4-6 0-4-4-8-8-8z"/>
+                            <circle cx="12" cy="8" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-3">Arranjos Artesanais</h3>
+                    <p class="font-lora text-sm text-shabby-text/70 leading-relaxed">Buquês e arranjos feitos à mão com flores frescas selecionadas, em vasos vintage e cestas de vime com acabamento rústico.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="card-shabby p-8 text-center vignette cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-sage/20 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-3">Decoração de Eventos</h3>
+                    <p class="font-lora text-sm text-shabby-text/70 leading-relaxed">Transformamos casamentos, festas e eventos corporativos com decoração floral no estilo Shabby Chic, criando ambientes encantadores.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="card-shabby p-8 text-center vignette cursor-pointer">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-dusty/20 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-dusty" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-3">Presentes Especiais</h3>
+                    <p class="font-lora text-sm text-shabby-text/70 leading-relaxed">Cestas presenteáveis, boxes florais e kits personalizados para datas especiais, com embalagens delicadas e cartões escritos à mão.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS / DEPOIMENTOS ===== -->
+    <section id="depoimentos" class="relative py-20 lg:py-28 texture-overlay">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-lora text-sm tracking-widest text-shabby-rose uppercase mb-3">Histórias de Encanto</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-medium text-shabby-text mb-4">O Que Dizem Nossos Clientes</h2>
+                <div class="divider-shabby mb-6"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card-shabby p-8 vignette">
+                    <div class="font-display text-5xl text-shabby-rose/30 leading-none mb-2">"</div>
+                    <p class="font-lora text-sm text-shabby-text/80 leading-relaxed italic mb-6">A decoração do meu casamento ficou um sonho. Cada detalhe foi pensado com tanto carinho que os convidados não paravam de elogiar. A equipe da Flor & Encanto é simplesmente maravilhosa.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-shabby-rose/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-shabby-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-display text-sm font-medium text-shabby-text">Mariana Costa</p>
+                            <p class="font-lora text-xs text-shabby-text/60">Noiva — Casamento Vintage</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="card-shabby p-8 vignette">
+                    <div class="font-display text-5xl text-sage/40 leading-none mb-2">"</div>
+                    <p class="font-lora text-sm text-shabby-text/80 leading-relaxed italic mb-6">Assino o plano mensal e toda semana recebo flores frescas no escritório. Mudou completamente o ambiente de trabalho. É como ter um pedacinho de jardim inglês na nossa sala.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-display text-sm font-medium text-shabby-text">Fernanda Oliveira</p>
+                            <p class="font-lora text-xs text-shabby-text/60">Empresária — Plano Jardim</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="card-shabby p-8 vignette">
+                    <div class="font-display text-5xl text-dusty/40 leading-none mb-2">"</div>
+                    <p class="font-lora text-sm text-shabby-text/80 leading-relaxed italic mb-6">Presenteei minha mãe com uma box floral e ela chorou de emoção. A embalagem, o cartão escrito à mão, as flores... tudo perfeito. Virei cliente fiel desde então.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-dusty/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-dusty" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-display text-sm font-medium text-shabby-text">Ricardo Mendes</p>
+                            <p class="font-lora text-xs text-shabby-text/60">Cliente — Presentes Especiais</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING / PLANOS ===== -->
+    <section id="planos" class="relative py-20 lg:py-28 bg-linen/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-lora text-sm tracking-widest text-shabby-rose uppercase mb-3">Planos &amp; Assinaturas</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-medium text-shabby-text mb-4">Escolha Seu Encanto</h2>
+                <div class="divider-shabby mb-6"></div>
+                <p class="font-lora text-shabby-text/70 max-w-xl mx-auto">Receba flores frescas e decoração artesanal com a frequência que combina com você.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Plano 1 - Pétala -->
+                <div class="card-shabby p-8 text-center vignette">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-sage/15 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-1">Pétala</h3>
+                    <p class="font-lora text-xs text-shabby-text/60 mb-4">Para quem quer um toque de charme</p>
+                    <div class="mb-6">
+                        <span class="font-display text-4xl font-medium text-shabby-text">R$89</span>
+                        <span class="font-lora text-sm text-shabby-text/60">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            1 arranjo semanal pequeno
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Flores da estação
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega gratuita na região
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/60">
+                            <svg class="w-4 h-4 text-shabby-text/30 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Consultoria de decoração
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn-shabby btn-secondary w-full justify-center cursor-pointer">Começar Agora</a>
+                </div>
+                <!-- Plano 2 - Jardim (Destaque) -->
+                <div class="card-shabby pricing-featured p-8 text-center vignette relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-shabby-rose text-white text-xs font-lora px-4 py-1 rounded-full">Mais Popular</div>
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-shabby-rose/20 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-shabby-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8 2 4 6 4 10c0 3 2 5 4 6l4 6 4-6c2-1 4-3 4-6 0-4-4-8-8-8z"/>
+                            <circle cx="12" cy="8" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-1">Jardim</h3>
+                    <p class="font-lora text-xs text-shabby-text/60 mb-4">O equilíbrio perfeito de beleza</p>
+                    <div class="mb-6">
+                        <span class="font-display text-4xl font-medium text-shabby-text">R$179</span>
+                        <span class="font-lora text-sm text-shabby-text/60">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            2 arranjos semanais médios
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Flores premium importadas
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega gratuita na cidade
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Consultoria de decoração mensal
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn-shabby btn-primary w-full justify-center cursor-pointer">Escolher Jardim</a>
+                </div>
+                <!-- Plano 3 - Château -->
+                <div class="card-shabby p-8 text-center vignette">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-lavender-mist/30 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-lavender-mist" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-shabby-text mb-1">Château</h3>
+                    <p class="font-lora text-xs text-shabby-text/60 mb-4">A experiência completa de luxo</p>
+                    <div class="mb-6">
+                        <span class="font-display text-4xl font-medium text-shabby-text">R$349</span>
+                        <span class="font-lora text-sm text-shabby-text/60">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Arranjos ilimitados sob demanda
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Flores raras e exóticas
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega expressa prioritária
+                        </li>
+                        <li class="flex items-center gap-2 font-lora text-sm text-shabby-text/80">
+                            <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Decoração completa de ambientes
+                        </li>
+                    </ul>
+                    <a href="#contato" class="btn-shabby btn-secondary w-full justify-center cursor-pointer">Escolher Château</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA FINAL ===== -->
+    <section id="contato" class="relative py-20 lg:py-28 texture-overlay vignette overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-shabby-rose/10 via-transparent to-sage/10"></div>
+        <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-shabby-rose/8 filter blur-xl anim-float"></div>
+        <div class="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-sage/8 filter blur-xl anim-float-2"></div>
+        <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-shabby-rose/15 flex items-center justify-center">
+                <svg class="w-8 h-8 text-shabby-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+                </svg>
+            </div>
+            <h2 class="font-display text-3xl sm:text-4xl font-medium text-shabby-text mb-4">Vamos Criar Algo Lindo Juntos?</h2>
+            <div class="divider-shabby mb-6"></div>
+            <p class="font-lora text-lg text-shabby-text/70 leading-relaxed mb-8 max-w-xl mx-auto">
+                Entre em contato e deixe-nos transformar seus momentos em memórias floridas. Agende uma visita ao nosso ateliê ou solicite um orçamento personalizado.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:contato@floreencanto.com.br" class="btn-shabby btn-primary cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                    Enviar Mensagem
+                </a>
+                <a href="tel:+5511999999999" class="btn-shabby btn-secondary cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                    Ligar Agora
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-linen/70 border-t border-shabby-rose/20 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-4">
+                        <svg class="w-7 h-7 text-shabby-rose transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8 2 4 6 4 10c0 3 2 5 4 6l4 6 4-6c2-1 4-3 4-6 0-4-4-8-8-8z"/>
+                            <circle cx="12" cy="8" r="2"/>
+                        </svg>
+                        <span class="font-display text-lg font-medium text-shabby-text">Flor <span class="text-shabby-rose">&amp;</span> Encanto</span>
+                    </a>
+                    <p class="font-lora text-sm text-shabby-text/60 leading-relaxed mb-4">Floricultura artesanal com o charme atemporal do Shabby Chic. Cada arranjo conta uma história de beleza e romantismo.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full border border-shabby-rose/30 flex items-center justify-center text-shabby-text/60 hover:text-shabby-rose hover:border-shabby-rose transition-all duration-300 cursor-pointer" aria-label="Instagram">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-shabby-rose/30 flex items-center justify-center text-shabby-text/60 hover:text-shabby-rose hover:border-shabby-rose transition-all duration-300 cursor-pointer" aria-label="Facebook">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-shabby-rose/30 flex items-center justify-center text-shabby-text/60 hover:text-shabby-rose hover:border-shabby-rose transition-all duration-300 cursor-pointer" aria-label="Pinterest">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-shabby-rose/30 flex items-center justify-center text-shabby-text/60 hover:text-shabby-rose hover:border-shabby-rose transition-all duration-300 cursor-pointer" aria-label="WhatsApp">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-display text-sm font-semibold text-shabby-text uppercase tracking-wider mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Início</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Arranjos</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Decoração</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Casamentos</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Sobre Nós</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="font-display text-sm font-semibold text-shabby-text uppercase tracking-wider mb-4">Serviços</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Buquês Personalizados</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Decoração de Eventos</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Assinatura Floral</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Consultoria</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-display text-sm font-semibold text-shabby-text uppercase tracking-wider mb-4">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Contato</a></li>
+                        <li><a href="#" class="font-lora text-sm text-shabby-text/60 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-shabby-rose/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="font-lora text-xs text-shabby-text/50">&copy; 2026 Flor &amp; Encanto. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-lora text-xs text-shabby-text/50 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Mapa do Site</a>
+                    <a href="#" class="font-lora text-xs text-shabby-text/50 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Acessibilidade</a>
+                    <a href="#" class="font-lora text-xs text-shabby-text/50 hover:text-shabby-rose transition-colors duration-300 cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

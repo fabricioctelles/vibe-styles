@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lumière Filmes — Produtora de cinema premiada. Criamos filmes, documentários e conteúdo audiovisual com iluminação dramática e narrativas envolventes.">
+    <meta name="keywords" content="produtora de cinema, filmes, documentários, audiovisual, produção cinematográfica, Brasil">
+    <meta name="author" content="Lumière Filmes">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Lumière Filmes — Produtora de Cinema">
+    <meta property="og:description" content="Transformamos histórias em obras-primas cinematográficas. Produção de filmes, documentários e conteúdo audiovisual de alto impacto.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lumierefilmes.com.br">
+    <meta property="og:image" content="https://lumierefilmes.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <title>Lumière Filmes — Produtora de Cinema</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-black': '#050505',
+                        'spotlight': '#F5D5A0',
+                        'rich-brown': '#3A2A1A',
+                        'ivory': '#FFF8E7',
+                        'blood-red': '#8B0000',
+                        'deep-gold': '#B8860B',
+                        'midnight-blue': '#0D1B2A',
+                        'warm-grey': '#4A4A3A',
+                    },
+                    fontFamily: {
+                        'cormorant': ['Cormorant', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-black: #050505;
+            --color-spotlight: #F5D5A0;
+            --color-brown: #3A2A1A;
+            --color-ivory: #FFF8E7;
+            --color-blood-red: #8B0000;
+            --color-deep-gold: #B8860B;
+            --color-midnight-blue: #0D1B2A;
+            --color-warm-grey: #4A4A3A;
+            --spotlight-gradient: radial-gradient(ellipse at center, #3A2A1A, #050505 70%);
+            --vignette: inset 0 0 100px rgba(0,0,0,0.8);
+            --spacing: 2.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant', serif;
+            background-color: var(--color-black);
+            color: var(--color-ivory);
+            overflow-x: hidden;
+        }
+
+        .spotlight-bg {
+            background: radial-gradient(ellipse at center, #3A2A1A, #050505 70%);
+        }
+
+        .spotlight-top {
+            background: radial-gradient(ellipse at top center, rgba(58,42,26,0.6), #050505 65%);
+        }
+
+        .spotlight-bottom {
+            background: radial-gradient(ellipse at bottom center, rgba(58,42,26,0.5), #050505 70%);
+        }
+
+        .vignette {
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+        }
+
+        .vignette-heavy {
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 40px rgba(245,213,160,0.3);
+        }
+
+        .text-glow-strong {
+            text-shadow: 0 0 60px rgba(245,213,160,0.5), 0 0 120px rgba(245,213,160,0.2);
+        }
+
+        .gold-border {
+            border: 1px solid rgba(184,134,11,0.3);
+        }
+
+        .gold-border-hover:hover {
+            border-color: rgba(184,134,11,0.7);
+        }
+
+        .emerge-from-shadow {
+            animation: emergeFromShadow 800ms ease-out forwards;
+        }
+
+        @keyframes emergeFromShadow {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: brightness(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: brightness(1);
+            }
+        }
+
+        @keyframes flickerLight {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.92; }
+            75% { opacity: 0.97; }
+        }
+
+        .flicker {
+            animation: flickerLight 4s ease-in-out infinite;
+        }
+
+        @keyframes slowPulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(245,213,160,0.15); }
+            50% { box-shadow: 0 0 90px rgba(245,213,160,0.25); }
+        }
+
+        .pulse-glow {
+            animation: slowPulse 5s ease-in-out infinite;
+        }
+
+        .card-spotlight {
+            background: radial-gradient(ellipse at top center, rgba(58,42,26,0.4), rgba(5,5,5,0.95) 80%);
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.7);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(245,213,160,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: slowPulse 6s ease-in-out infinite;
+        }
+
+        .hero-film-reel {
+            width: 280px;
+            height: 280px;
+            border: 3px solid rgba(184,134,11,0.4);
+            border-radius: 50%;
+            position: relative;
+            animation: rotateSlow 30s linear infinite;
+        }
+
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-film-reel::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(184,134,11,0.5);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245,213,160,0.1), transparent);
+        }
+
+        .reel-hole {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(184,134,11,0.3);
+            border-radius: 50%;
+            background: rgba(5,5,5,0.8);
+        }
+
+        .pricing-popular {
+            background: radial-gradient(ellipse at top center, rgba(139,0,0,0.2), rgba(58,42,26,0.4), rgba(5,5,5,0.95) 80%);
+            box-shadow: 0 0 40px rgba(184,134,11,0.15), inset 0 0 60px rgba(0,0,0,0.6);
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-deep-gold);
+            transition: width 400ms ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 800ms ease, transform 800ms ease;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 400ms ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(184,134,11,0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(184,134,11,0.6);
+        }
+    </style>
+</head>
+<body class="bg-deep-black text-ivory font-cormorant">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-deep-black/90 backdrop-blur-sm border-b border-deep-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 cursor-pointer group">
+                    <svg class="w-10 h-10 text-spotlight transition-all duration-300 group-hover:text-deep-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-2xl font-bold tracking-wider text-spotlight text-glow">LUMIÈRE</span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#inicio" class="nav-link text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Início</a>
+                    <a href="#servicos" class="nav-link text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Serviços</a>
+                    <a href="#depoimentos" class="nav-link text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Depoimentos</a>
+                    <a href="#planos" class="nav-link text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Planos</a>
+                    <a href="#contato" class="nav-link text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Contato</a>
+                    <a href="#contato" class="ml-4 px-6 py-2.5 bg-blood-red/80 hover:bg-blood-red text-ivory border border-blood-red/50 hover:border-blood-red rounded transition-all duration-300 cursor-pointer text-lg font-semibold tracking-wide hover:shadow-lg hover:shadow-blood-red/20">
+                        Orçamento
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer p-2" aria-label="Abrir menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-deep-black/98 border-l border-deep-gold/20 md:hidden z-50">
+            <div class="flex justify-end p-6">
+                <button id="mobileMenuClose" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer" aria-label="Fechar menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col gap-6 px-8">
+                <a href="#inicio" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-xl">Início</a>
+                <a href="#servicos" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-xl">Serviços</a>
+                <a href="#depoimentos" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-xl">Depoimentos</a>
+                <a href="#planos" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-xl">Planos</a>
+                <a href="#contato" class="text-ivory/80 hover:text-spotlight transition-colors duration-300 cursor-pointer text-xl">Contato</a>
+                <a href="#contato" class="mt-4 px-6 py-3 bg-blood-red/80 hover:bg-blood-red text-ivory text-center border border-blood-red/50 rounded transition-all duration-300 cursor-pointer text-lg font-semibold">
+                    Orçamento
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center spotlight-bg vignette-heavy overflow-hidden pt-20">
+        <!-- Ambient light particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-spotlight/5 rounded-full blur-3xl flicker"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-deep-gold/5 rounded-full blur-3xl" style="animation: flickerLight 6s ease-in-out infinite 2s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+            <!-- Hero Text -->
+            <div class="text-center lg:text-left emerge-from-shadow">
+                <p class="text-deep-gold tracking-[0.3em] uppercase text-sm sm:text-base mb-6 font-medium">Produtora de Cinema</p>
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight text-glow-strong mb-6">
+                    Onde a <span class="text-spotlight">Luz</span> Encontra a <span class="text-deep-gold">Sombra</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-ivory/70 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                    Criamos narrativas cinematográficas que transcendem o ordinário. Cada quadro é uma pintura, cada cena uma obra-prima iluminada pela paixão e pela arte.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#planos" class="px-8 py-4 bg-blood-red/80 hover:bg-blood-red text-ivory border border-blood-red/50 hover:border-blood-red rounded transition-all duration-500 cursor-pointer text-lg font-semibold tracking-wide hover:shadow-xl hover:shadow-blood-red/20 text-center">
+                        Iniciar Projeto
+                    </a>
+                    <a href="#servicos" class="px-8 py-4 bg-transparent hover:bg-rich-brown/30 text-spotlight border border-deep-gold/40 hover:border-deep-gold/70 rounded transition-all duration-500 cursor-pointer text-lg font-semibold tracking-wide text-center">
+                        Ver Portfólio
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Visual - Film Reel CSS Art -->
+            <div class="hidden lg:flex items-center justify-center hero-visual">
+                <div class="hero-film-reel pulse-glow">
+                    <!-- Reel holes positioned around the circle -->
+                    <div class="reel-hole" style="top: 15%; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="reel-hole" style="bottom: 15%; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="reel-hole" style="top: 50%; left: 15%; transform: translateY(-50%);"></div>
+                    <div class="reel-hole" style="top: 50%; right: 15%; transform: translateY(-50%);"></div>
+                    <div class="reel-hole" style="top: 22%; left: 22%;"></div>
+                    <div class="reel-hole" style="top: 22%; right: 22%;"></div>
+                    <div class="reel-hole" style="bottom: 22%; left: 22%;"></div>
+                    <div class="reel-hole" style="bottom: 22%; right: 22%;"></div>
+                    <!-- Center lens -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full border-2 border-deep-gold/60 bg-gradient-to-br from-spotlight/10 to-transparent flex items-center justify-center">
+                        <svg class="w-8 h-8 text-spotlight/80" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5.14v14l11-7-11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-ivory/40 animate-bounce">
+            <span class="text-sm tracking-widest uppercase">Explorar</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES / SERVIÇOS ========== -->
+    <section id="servicos" class="relative py-24 sm:py-32 spotlight-top vignette overflow-hidden">
+        <!-- Ambient glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-spotlight/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 scroll-reveal">
+                <p class="text-deep-gold tracking-[0.3em] uppercase text-sm mb-4 font-medium">Nossos Serviços</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-glow mb-6">A Arte por Trás da Câmera</h2>
+                <p class="text-ivory/60 text-lg max-w-2xl mx-auto">Cada projeto é iluminado com a mesma intensidade dramática que define os grandes mestres do cinema.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-2 cursor-pointer group">
+                    <div class="w-14 h-14 rounded-full bg-blood-red/20 border border-blood-red/30 flex items-center justify-center mb-6 group-hover:bg-blood-red/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-spotlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-spotlight mb-4 text-glow">Produção Cinematográfica</h3>
+                    <p class="text-ivory/60 leading-relaxed text-lg">
+                        Filmes de longa e curta-metragem com direção artística impecável. Da pré-produção à pós, cada detalhe é esculpido com precisão barroca.
+                    </p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-2 cursor-pointer group" style="animation-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-full bg-blood-red/20 border border-blood-red/30 flex items-center justify-center mb-6 group-hover:bg-blood-red/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-spotlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-spotlight mb-4 text-glow">Documentários</h3>
+                    <p class="text-ivory/60 leading-relaxed text-lg">
+                        Histórias reais contadas com a intensidade de um Caravaggio. Iluminamos verdades ocultas com narrativas que capturam a essência humana.
+                    </p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-2 cursor-pointer group" style="animation-delay: 400ms;">
+                    <div class="w-14 h-14 rounded-full bg-blood-red/20 border border-blood-red/30 flex items-center justify-center mb-6 group-hover:bg-blood-red/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-spotlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-spotlight mb-4 text-glow">Pós-Produção & VFX</h3>
+                    <p class="text-ivory/60 leading-relaxed text-lg">
+                        Efeitos visuais, colorização e edição que transformam imagens em experiências sensoriais. A magia acontece na sala escura.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS / DEPOIMENTOS ========== -->
+    <section id="depoimentos" class="relative py-24 sm:py-32 overflow-hidden" style="background: radial-gradient(ellipse at center bottom, rgba(58,42,26,0.3), #050505 65%);">
+        <div class="absolute inset-0 vignette pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 scroll-reveal">
+                <p class="text-deep-gold tracking-[0.3em] uppercase text-sm mb-4 font-medium">Depoimentos</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-glow mb-6">Vozes que Ecoam na Escuridão</h2>
+                <p class="text-ivory/60 text-lg max-w-2xl mx-auto">O que nossos parceiros e clientes dizem sobre a experiência de criar conosco.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-1 cursor-pointer relative">
+                    <!-- Quote icon -->
+                    <svg class="w-10 h-10 text-deep-gold/30 mb-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <p class="text-ivory/70 text-lg leading-relaxed mb-8 italic">
+                        "A Lumière transformou nossa visão em algo que jamais imaginamos possível. A iluminação, a direção, cada frame é uma obra de arte. Superaram todas as expectativas."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-rich-brown border border-deep-gold/30 flex items-center justify-center">
+                            <span class="text-spotlight font-bold text-lg">RC</span>
+                        </div>
+                        <div>
+                            <p class="text-spotlight font-semibold text-lg">Ricardo Carvalho</p>
+                            <p class="text-ivory/50 text-sm">Diretor Criativo, Estúdio Vértice</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-1 cursor-pointer relative" style="animation-delay: 200ms;">
+                    <svg class="w-10 h-10 text-deep-gold/30 mb-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <p class="text-ivory/70 text-lg leading-relaxed mb-8 italic">
+                        "Trabalhar com a Lumière é como assistir a um Caravaggio ganhar vida. A equipe entende que cinema é luz, sombra e emoção. Nosso documentário ganhou três prêmios."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-rich-brown border border-deep-gold/30 flex items-center justify-center">
+                            <span class="text-spotlight font-bold text-lg">AM</span>
+                        </div>
+                        <div>
+                            <p class="text-spotlight font-semibold text-lg">Ana Mendes</p>
+                            <p class="text-ivory/50 text-sm">Produtora Executiva, Canal Brasil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-1 cursor-pointer relative" style="animation-delay: 400ms;">
+                    <svg class="w-10 h-10 text-deep-gold/30 mb-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <p class="text-ivory/70 text-lg leading-relaxed mb-8 italic">
+                        "A qualidade cinematográfica é incomparável. Desde o roteiro até a entrega final, a Lumière trouxe uma profundidade visual que elevou nossa marca a outro patamar."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-rich-brown border border-deep-gold/30 flex items-center justify-center">
+                            <span class="text-spotlight font-bold text-lg">PL</span>
+                        </div>
+                        <div>
+                            <p class="text-spotlight font-semibold text-lg">Pedro Linhares</p>
+                            <p class="text-ivory/50 text-sm">CEO, Grupo Aurora Mídia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING / PLANOS ========== -->
+    <section id="planos" class="relative py-24 sm:py-32 spotlight-bg vignette overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-spotlight/3 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 scroll-reveal">
+                <p class="text-deep-gold tracking-[0.3em] uppercase text-sm mb-4 font-medium">Planos</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-glow mb-6">Invista na Sua Visão</h2>
+                <p class="text-ivory/60 text-lg max-w-2xl mx-auto">Escolha o plano ideal para dar vida ao seu projeto cinematográfico. Cada pacote é moldado para iluminar sua história.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Pricing Tier 1 - Essencial -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-ivory/90 mb-2">Essencial</h3>
+                        <p class="text-ivory/50 text-sm mb-6">Para projetos de curta-metragem</p>
+                        <div class="flex items-baseline justify-center gap-1">
+                            <span class="text-ivory/50 text-lg">R$</span>
+                            <span class="text-5xl font-bold text-spotlight text-glow">15k</span>
+                        </div>
+                        <p class="text-ivory/40 text-sm mt-2">por projeto</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Até 15 minutos de filme</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Equipe de 5 profissionais</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Edição e colorização básica</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>1 dia de filmagem</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/40">
+                            <svg class="w-5 h-5 text-ivory/20 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Efeitos visuais avançados</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3.5 text-center border border-deep-gold/40 hover:border-deep-gold/70 hover:bg-rich-brown/30 text-spotlight rounded transition-all duration-500 cursor-pointer text-lg font-semibold tracking-wide">
+                        Começar Agora
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 2 - Profissional (Popular) -->
+                <div class="scroll-reveal pricing-popular gold-border rounded-lg p-8 lg:p-10 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative" style="border-color: rgba(184,134,11,0.5);">
+                    <!-- Popular badge -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-blood-red text-ivory text-sm font-semibold tracking-wider uppercase rounded-full border border-blood-red/70">
+                        Mais Popular
+                    </div>
+                    <div class="text-center mb-8 mt-2">
+                        <h3 class="text-2xl font-bold text-spotlight mb-2">Profissional</h3>
+                        <p class="text-ivory/50 text-sm mb-6">Para longas e séries</p>
+                        <div class="flex items-baseline justify-center gap-1">
+                            <span class="text-ivory/50 text-lg">R$</span>
+                            <span class="text-5xl font-bold text-spotlight text-glow-strong">45k</span>
+                        </div>
+                        <p class="text-ivory/40 text-sm mt-2">por projeto</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-ivory/80">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Até 120 minutos de filme</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/80">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Equipe completa de 15+</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/80">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Colorização cinematográfica</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/80">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>10 dias de filmagem</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/80">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>VFX e efeitos visuais</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3.5 text-center bg-blood-red/80 hover:bg-blood-red border border-blood-red/50 hover:border-blood-red text-ivory rounded transition-all duration-500 cursor-pointer text-lg font-semibold tracking-wide hover:shadow-lg hover:shadow-blood-red/20">
+                        Escolher Plano
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 3 - Estúdio -->
+                <div class="scroll-reveal card-spotlight gold-border gold-border-hover rounded-lg p-8 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-ivory/90 mb-2">Estúdio</h3>
+                        <p class="text-ivory/50 text-sm mb-6">Produções de grande porte</p>
+                        <div class="flex items-baseline justify-center gap-1">
+                            <span class="text-ivory/50 text-lg">R$</span>
+                            <span class="text-5xl font-bold text-spotlight text-glow">120k</span>
+                        </div>
+                        <p class="text-ivory/40 text-sm mt-2">por projeto</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Duração ilimitada</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Equipe premium dedicada</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Color grading Hollywood</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Filmagem sem limite de dias</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/70">
+                            <svg class="w-5 h-5 text-deep-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            <span>Distribuição e festivais</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3.5 text-center border border-deep-gold/40 hover:border-deep-gold/70 hover:bg-rich-brown/30 text-spotlight rounded transition-all duration-500 cursor-pointer text-lg font-semibold tracking-wide">
+                        Falar com Produtor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section class="relative py-24 sm:py-32 overflow-hidden" style="background: radial-gradient(ellipse at center, rgba(139,0,0,0.15), rgba(58,42,26,0.3) 40%, #050505 75%);">
+        <div class="absolute inset-0 vignette-heavy pointer-events-none"></div>
+        <!-- Dramatic light beam effect -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-spotlight/20 via-spotlight/5 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-reveal">
+            <div class="mb-8">
+                <svg class="w-16 h-16 text-deep-gold/60 mx-auto mb-6 flicker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-.117-2.243l7.264-4.838a1.125 1.125 0 011.256 0l7.264 4.838A1.125 1.125 0 0120.625 19.5m-17.25 0h17.25M12 2.25l.002 4.5m0 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold text-glow-strong mb-6 leading-tight">
+                Sua História Merece Ser <span class="text-spotlight">Iluminada</span>
+            </h2>
+            <p class="text-ivory/60 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Cada grande filme começa com uma conversa. Traga sua visão e deixe-nos transformá-la em uma experiência cinematográfica inesquecível. A luz está esperando.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contato" class="px-10 py-4 bg-blood-red/80 hover:bg-blood-red text-ivory border border-blood-red/50 hover:border-blood-red rounded transition-all duration-500 cursor-pointer text-xl font-semibold tracking-wide hover:shadow-xl hover:shadow-blood-red/30 pulse-glow">
+                    Agendar Reunião
+                </a>
+                <a href="tel:+5511999999999" class="px-10 py-4 bg-transparent hover:bg-rich-brown/30 text-spotlight border border-deep-gold/40 hover:border-deep-gold/70 rounded transition-all duration-500 cursor-pointer text-xl font-semibold tracking-wide flex items-center justify-center gap-3">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                    </svg>
+                    Ligar Agora
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contato" class="relative pt-20 pb-8 border-t border-deep-gold/15" style="background: radial-gradient(ellipse at top center, rgba(58,42,26,0.15), #050505 50%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Footer Top -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-3 cursor-pointer group mb-6">
+                        <svg class="w-9 h-9 text-spotlight transition-all duration-300 group-hover:text-deep-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/>
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-xl font-bold tracking-wider text-spotlight text-glow">LUMIÈRE</span>
+                    </a>
+                    <p class="text-ivory/50 leading-relaxed mb-6 text-lg">
+                        Produtora de cinema premiada. Transformamos histórias em obras-primas visuais com iluminação dramática e narrativas envolventes.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex items-center gap-4">
+                        <!-- Instagram -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-deep-gold/30 hover:border-deep-gold/70 hover:bg-rich-brown/30 flex items-center justify-center transition-all duration-300 cursor-pointer group" aria-label="Instagram">
+                            <svg class="w-5 h-5 text-ivory/60 group-hover:text-spotlight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                                <circle cx="12" cy="12" r="5"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-deep-gold/30 hover:border-deep-gold/70 hover:bg-rich-brown/30 flex items-center justify-center transition-all duration-300 cursor-pointer group" aria-label="YouTube">
+                            <svg class="w-5 h-5 text-ivory/60 group-hover:text-spotlight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M2.25 7.125C2.25 5.504 3.504 4.25 5.125 4.25h13.75c1.621 0 2.875 1.254 2.875 2.875v9.75c0 1.621-1.254 2.875-2.875 2.875H5.125C3.504 19.75 2.25 18.496 2.25 16.875v-9.75z"/>
+                                <path d="M10 15.5l5.5-3.5L10 8.5v7z" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-deep-gold/30 hover:border-deep-gold/70 hover:bg-rich-brown/30 flex items-center justify-center transition-all duration-300 cursor-pointer group" aria-label="LinkedIn">
+                            <svg class="w-5 h-5 text-ivory/60 group-hover:text-spotlight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="3"/>
+                                <path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7"/>
+                            </svg>
+                        </a>
+                        <!-- Vimeo -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-deep-gold/30 hover:border-deep-gold/70 hover:bg-rich-brown/30 flex items-center justify-center transition-all duration-300 cursor-pointer group" aria-label="Vimeo">
+                            <svg class="w-5 h-5 text-ivory/60 group-hover:text-spotlight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path d="M10 9.5l5 2.5-5 2.5v-5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="text-spotlight font-semibold text-lg mb-6 tracking-wide">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Início</a></li>
+                        <li><a href="#servicos" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Serviços</a></li>
+                        <li><a href="#depoimentos" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Depoimentos</a></li>
+                        <li><a href="#planos" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Planos</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Portfólio</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services Links -->
+                <div>
+                    <h4 class="text-spotlight font-semibold text-lg mb-6 tracking-wide">Serviços</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Produção de Filmes</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Documentários</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Pós-Produção</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Efeitos Visuais</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Roteirização</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer text-lg">Consultoria</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Legal -->
+                <div>
+                    <h4 class="text-spotlight font-semibold text-lg mb-6 tracking-wide">Contato</h4>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-ivory/50 text-lg">
+                            <svg class="w-5 h-5 text-deep-gold/60 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+                            </svg>
+                            <a href="mailto:contato@lumierefilmes.com.br" class="hover:text-spotlight transition-colors duration-300 cursor-pointer">contato@lumierefilmes.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3 text-ivory/50 text-lg">
+                            <svg class="w-5 h-5 text-deep-gold/60 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="hover:text-spotlight transition-colors duration-300 cursor-pointer">(11) 99999-9999</a>
+                        </li>
+                        <li class="flex items-start gap-3 text-ivory/50 text-lg">
+                            <svg class="w-5 h-5 text-deep-gold/60 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                            </svg>
+                            <span>Rua Augusta, 1200<br>São Paulo, SP - Brasil</span>
+                        </li>
+                    </ul>
+                    <h4 class="text-spotlight font-semibold text-lg mb-4 tracking-wide">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-ivory/50 hover:text-spotlight transition-colors duration-300 cursor-pointer">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-deep-gold/10 pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-ivory/40 text-sm text-center md:text-left">
+                        &copy; 2026 Lumière Filmes. Todos os direitos reservados.
+                    </p>
+                    <div class="flex items-center gap-6">
+                        <a href="#" class="text-ivory/40 hover:text-spotlight text-sm transition-colors duration-300 cursor-pointer">Política de Privacidade</a>
+                        <span class="text-ivory/20">|</span>
+                        <a href="#" class="text-ivory/40 hover:text-spotlight text-sm transition-colors duration-300 cursor-pointer">Termos de Uso</a>
+                        <span class="text-ivory/20">|</span>
+                        <a href="#" class="text-ivory/40 hover:text-spotlight text-sm transition-colors duration-300 cursor-pointer">Mapa do Site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        scrollRevealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(5, 5, 5, 0.98)';
+                navbar.style.borderBottomColor = 'rgba(184, 134, 11, 0.3)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(5, 5, 5, 0.9)';
+                navbar.style.borderBottomColor = 'rgba(184, 134, 11, 0.2)';
+            }
+        });
+    </script>
+</body>
+</html>

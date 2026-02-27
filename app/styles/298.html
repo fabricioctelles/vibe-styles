@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sattva Studio — Yoga e Mindfulness. Encontre equilíbrio entre corpo e mente em um espaço inspirado na harmonia Japandi.">
+    <meta name="keywords" content="yoga, mindfulness, meditação, bem-estar, estúdio de yoga, japandi, zen, hatha yoga, vinyasa, aulas de yoga">
+    <meta name="author" content="Sattva Studio">
+    <meta property="og:title" content="Sattva Studio — Yoga e Mindfulness">
+    <meta property="og:description" content="Encontre equilíbrio entre corpo e mente em um espaço inspirado na harmonia Japandi. Aulas de yoga, meditação e práticas contemplativas.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sattvastudio.com.br">
+    <meta property="og:image" content="https://sattvastudio.com.br/og-image.jpg">
+    <title>Sattva Studio — Yoga e Mindfulness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#D4C5A9',
+                        softwhite: '#F5F2ED',
+                        charcoal: '#3A3A3A',
+                        wood: '#A0845C',
+                        sage: '#8B9E7E',
+                        dustyrose: '#C9A0A0',
+                        stone: '#9E9E94',
+                        indigo: '#2C3E50',
+                    },
+                    fontFamily: {
+                        primary: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'japandi': '8px',
+                    },
+                    boxShadow: {
+                        'minimal': '0 2px 8px rgba(0,0,0,0.05)',
+                        'minimal-hover': '0 4px 16px rgba(0,0,0,0.08)',
+                    },
+                    maxWidth: {
+                        'japandi': '1100px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-sand: #D4C5A9;
+            --color-white: #F5F2ED;
+            --color-charcoal: #3A3A3A;
+            --color-wood: #A0845C;
+            --color-sage: #8B9E7E;
+            --color-dustyrose: #C9A0A0;
+            --color-stone: #9E9E94;
+            --color-indigo: #2C3E50;
+            --border-radius: 8px;
+            --shadow-minimal: 0 2px 8px rgba(0,0,0,0.05);
+            --spacing: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--color-white);
+            color: var(--color-charcoal);
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+
+        /* Wood grain texture overlay */
+        .wood-texture {
+            position: relative;
+        }
+        .wood-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 40px,
+                rgba(160, 132, 92, 0.03) 40px,
+                rgba(160, 132, 92, 0.03) 41px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Fade-in on scroll animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 600ms ease, transform 600ms ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Zen circle decorative element */
+        .zen-circle {
+            width: 320px;
+            height: 320px;
+            border: 1px solid rgba(160, 132, 92, 0.25);
+            border-radius: 50%;
+            position: relative;
+        }
+        .zen-circle::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(139, 158, 126, 0.2);
+            border-radius: 50%;
+        }
+        .zen-circle::after {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            right: 50px;
+            bottom: 50px;
+            border: 1px solid rgba(212, 197, 169, 0.3);
+            border-radius: 50%;
+            animation: zen-breathe 6s ease-in-out infinite;
+        }
+
+        @keyframes zen-breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.08); opacity: 0.6; }
+        }
+
+        /* Enso brush stroke */
+        .enso-element {
+            width: 200px;
+            height: 200px;
+            border: 3px solid var(--color-sand);
+            border-radius: 50%;
+            border-top-color: transparent;
+            transform: rotate(-30deg);
+            opacity: 0.4;
+        }
+
+        /* Thin border style */
+        .border-japandi {
+            border: 1px solid rgba(58, 58, 58, 0.1);
+        }
+
+        /* Navbar glass effect */
+        .navbar-glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(245, 242, 237, 0.9);
+            border-bottom: 1px solid rgba(58, 58, 58, 0.06);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 400ms ease;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 1px solid var(--color-wood);
+            position: relative;
+        }
+        .pricing-highlight::before {
+            content: 'Mais Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-wood);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 2px 16px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Smooth transitions for interactive elements */
+        .interactive {
+            transition: all 300ms ease;
+        }
+        .interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        /* Testimonial quote decoration */
+        .quote-mark {
+            font-family: 'Noto Sans JP', serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--color-sand);
+            opacity: 0.5;
+        }
+
+        /* Section divider */
+        .section-divider {
+            width: 48px;
+            height: 1px;
+            background: var(--color-wood);
+            margin: 0 auto;
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-white: #1a1a18;
+                --color-charcoal: #E8E4DE;
+                --color-sand: #8B7D65;
+                --color-wood: #C4A97D;
+                --color-sage: #6B7E5E;
+            }
+            body {
+                background-color: #1a1a18;
+                color: #E8E4DE;
+            }
+            .navbar-glass {
+                background: rgba(26, 26, 24, 0.9);
+                border-bottom-color: rgba(232, 228, 222, 0.06);
+            }
+            .border-japandi {
+                border-color: rgba(232, 228, 222, 0.1);
+            }
+            .bg-softwhite { background-color: #1a1a18 !important; }
+            .dark-card { background-color: #242422 !important; }
+            .pricing-highlight::before {
+                color: #1a1a18;
+            }
+        }
+    </style>
+</head>
+<body class="bg-softwhite font-primary">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar-glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-japandi mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 cursor-pointer interactive">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="14" stroke="#A0845C" stroke-width="1.5"/>
+                    <path d="M16 6C16 6 10 14 10 18C10 21.3 12.7 24 16 24C19.3 24 22 21.3 22 18C22 14 16 6 16 6Z" fill="#8B9E7E" opacity="0.6"/>
+                    <line x1="16" y1="14" x2="16" y2="22" stroke="#A0845C" stroke-width="1"/>
+                </svg>
+                <span class="text-lg font-medium tracking-wide text-charcoal">Sattva</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Práticas</a>
+                <a href="#testimonials" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Planos</a>
+                <a href="#contact" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Contato</a>
+                <a href="#pricing" class="inline-block px-5 py-2 bg-wood text-softwhite text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-opacity-90">
+                    Agendar Aula
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="menuToggle" class="md:hidden cursor-pointer interactive p-2" aria-label="Abrir menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round">
+                    <line x1="4" y1="7" x2="20" y2="7"/>
+                    <line x1="4" y1="12" x2="20" y2="12"/>
+                    <line x1="4" y1="17" x2="20" y2="17"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-softwhite px-6">
+            <div class="py-4 flex flex-col gap-4 border-t border-japandi">
+                <a href="#features" class="text-sm text-stone hover:text-charcoal cursor-pointer">Práticas</a>
+                <a href="#testimonials" class="text-sm text-stone hover:text-charcoal cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-stone hover:text-charcoal cursor-pointer">Planos</a>
+                <a href="#contact" class="text-sm text-stone hover:text-charcoal cursor-pointer">Contato</a>
+                <a href="#pricing" class="inline-block text-center px-5 py-2 bg-wood text-softwhite text-sm font-medium rounded-japandi cursor-pointer">
+                    Agendar Aula
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="min-h-screen flex items-center pt-20 wood-texture">
+        <div class="max-w-japandi mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center py-16 md:py-0">
+            <!-- Text Content -->
+            <div class="fade-in">
+                <p class="text-sm uppercase tracking-widest text-wood mb-4 font-medium">Yoga · Meditação · Mindfulness</p>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-charcoal leading-tight mb-6" style="line-height: 1.2;">
+                    Encontre a <span class="text-wood font-normal">quietude</span> que mora em você
+                </h1>
+                <p class="text-stone text-base md:text-lg mb-10 max-w-md" style="line-height: 1.8;">
+                    Um espaço onde a simplicidade japonesa encontra o acolhimento escandinavo. Respire, mova-se e reconecte-se com sua essência.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#pricing" class="inline-flex items-center justify-center px-7 py-3 bg-wood text-softwhite text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-opacity-90">
+                        Comece Sua Jornada
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                    <a href="#features" class="inline-flex items-center justify-center px-7 py-3 border-japandi text-charcoal text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                        Conheça as Práticas
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Element: Zen Circles -->
+            <div class="hidden md:flex items-center justify-center fade-in">
+                <div class="relative">
+                    <div class="zen-circle flex items-center justify-center">
+                        <div class="enso-element"></div>
+                    </div>
+                    <!-- Floating decorative dots -->
+                    <div class="absolute top-8 right-0 w-2 h-2 rounded-full bg-sage opacity-40"></div>
+                    <div class="absolute bottom-16 left-4 w-3 h-3 rounded-full bg-sand opacity-30"></div>
+                    <div class="absolute top-1/2 -right-6 w-1.5 h-1.5 rounded-full bg-dustyrose opacity-50"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-24 md:py-32">
+        <div class="max-w-japandi mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-sm uppercase tracking-widest text-wood mb-3 font-medium">Nossas Práticas</p>
+                <h2 class="text-3xl md:text-4xl font-light text-charcoal mb-4">Caminhos para o equilíbrio</h2>
+                <div class="section-divider mt-6"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1: Hatha Yoga -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card">
+                    <div class="w-12 h-12 rounded-japandi bg-sage bg-opacity-10 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B9E7E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"/>
+                            <path d="M12 14V22"/>
+                            <path d="M8 18H16"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-charcoal mb-3">Hatha Yoga</h3>
+                    <p class="text-stone text-sm" style="line-height: 1.8;">
+                        Posturas sustentadas com foco na respiração consciente. Ideal para quem busca alinhamento, força interior e uma base sólida na prática.
+                    </p>
+                </div>
+
+                <!-- Feature Card 2: Vinyasa Flow -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-japandi bg-dustyrose bg-opacity-10 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12C2 12 5 8 8 8C11 8 11 16 14 16C17 16 20 12 22 12"/>
+                            <path d="M2 6C2 6 5 2 8 2C11 2 11 10 14 10C17 10 20 6 22 6"/>
+                            <path d="M2 18C2 18 5 14 8 14C11 14 11 22 14 22C17 22 20 18 22 18"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-charcoal mb-3">Vinyasa Flow</h3>
+                    <p class="text-stone text-sm" style="line-height: 1.8;">
+                        Movimento fluido sincronizado com a respiração. Uma prática dinâmica que cultiva presença, flexibilidade e uma sensação de liberdade no corpo.
+                    </p>
+                </div>
+
+                <!-- Feature Card 3: Meditação Mindfulness -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-japandi bg-sand bg-opacity-20 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A0845C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/>
+                            <circle cx="12" cy="12" r="7" opacity="0.5"/>
+                            <circle cx="12" cy="12" r="10" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-charcoal mb-3">Meditação Mindfulness</h3>
+                    <p class="text-stone text-sm" style="line-height: 1.8;">
+                        Práticas guiadas de atenção plena para acalmar a mente e cultivar clareza. Técnicas acessíveis para integrar a meditação ao seu dia a dia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-24 md:py-32 wood-texture" style="background-color: rgba(212, 197, 169, 0.08);">
+        <div class="max-w-japandi mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-sm uppercase tracking-widest text-wood mb-3 font-medium">Depoimentos</p>
+                <h2 class="text-3xl md:text-4xl font-light text-charcoal mb-4">Vozes da nossa comunidade</h2>
+                <div class="section-divider mt-6"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive dark-card">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="text-stone text-sm mb-6" style="line-height: 1.8;">
+                        O Sattva transformou minha relação com o corpo e a mente. O ambiente é de uma serenidade que você sente ao cruzar a porta. Cada aula é um presente.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sage bg-opacity-20 flex items-center justify-center">
+                            <span class="text-sage text-sm font-medium">MC</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-charcoal">Marina Costa</p>
+                            <p class="text-xs text-stone">Praticante há 2 anos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive dark-card" style="transition-delay: 100ms;">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="text-stone text-sm mb-6" style="line-height: 1.8;">
+                        Nunca imaginei que meditação pudesse ser tão acessível. As professoras guiam com uma delicadeza que faz qualquer iniciante se sentir acolhido.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-dustyrose bg-opacity-20 flex items-center justify-center">
+                            <span class="text-dustyrose text-sm font-medium">RA</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-charcoal">Rafael Almeida</p>
+                            <p class="text-xs text-stone">Praticante há 8 meses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive dark-card" style="transition-delay: 200ms;">
+                    <div class="quote-mark mb-2">"</div>
+                    <p class="text-stone text-sm mb-6" style="line-height: 1.8;">
+                        Depois de meses com ansiedade, encontrei no Sattva um refúgio real. A combinação de yoga e mindfulness me devolveu a paz que eu procurava.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sand bg-opacity-30 flex items-center justify-center">
+                            <span class="text-wood text-sm font-medium">LS</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-charcoal">Luísa Santos</p>
+                            <p class="text-xs text-stone">Praticante há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-24 md:py-32">
+        <div class="max-w-japandi mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-sm uppercase tracking-widest text-wood mb-3 font-medium">Planos</p>
+                <h2 class="text-3xl md:text-4xl font-light text-charcoal mb-4">Escolha seu ritmo</h2>
+                <p class="text-stone text-sm max-w-md mx-auto">Planos pensados para se adaptar à sua rotina. Sem compromisso de fidelidade — apenas o compromisso com você.</p>
+                <div class="section-divider mt-6"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                <!-- Pricing Tier 1: Semente -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-charcoal mb-1">Semente</h3>
+                        <p class="text-xs text-stone uppercase tracking-wider">Para iniciantes</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-light text-charcoal">R$ 149</span>
+                        <span class="text-sm text-stone">/mês</span>
+                    </div>
+                    <div class="section-divider mb-6" style="margin: 0 0 1.5rem 0; width: 100%; background: rgba(58,58,58,0.06);"></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            4 aulas por mês
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Hatha Yoga ou Meditação
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Acesso ao espaço zen
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Material de apoio digital
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center px-6 py-3 border-japandi text-charcoal text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                        Começar Agora
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 2: Florescer (Highlighted) -->
+                <div class="fade-in pricing-highlight rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card" style="transition-delay: 100ms;">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-charcoal mb-1">Florescer</h3>
+                        <p class="text-xs text-stone uppercase tracking-wider">Mais completo</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-light text-charcoal">R$ 249</span>
+                        <span class="text-sm text-stone">/mês</span>
+                    </div>
+                    <div class="section-divider mb-6" style="margin: 0 0 1.5rem 0; width: 100%; background: rgba(58,58,58,0.06);"></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Aulas ilimitadas
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Todas as modalidades
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            1 sessão individual/mês
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Workshops mensais
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Acesso à biblioteca de meditações
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center px-6 py-3 bg-wood text-softwhite text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-opacity-90">
+                        Escolher Florescer
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 3: Plenitude -->
+                <div class="fade-in border-japandi rounded-japandi p-8 bg-softwhite interactive cursor-pointer dark-card" style="transition-delay: 200ms;">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-charcoal mb-1">Plenitude</h3>
+                        <p class="text-xs text-stone uppercase tracking-wider">Experiência completa</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-light text-charcoal">R$ 399</span>
+                        <span class="text-sm text-stone">/mês</span>
+                    </div>
+                    <div class="section-divider mb-6" style="margin: 0 0 1.5rem 0; width: 100%; background: rgba(58,58,58,0.06);"></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Tudo do plano Florescer
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            4 sessões individuais/mês
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Retiros trimestrais inclusos
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Programa personalizado
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-stone">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-sage" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Prioridade em eventos especiais
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center px-6 py-3 border-japandi text-charcoal text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                        Escolher Plenitude
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="py-24 md:py-32 wood-texture" style="background-color: rgba(212, 197, 169, 0.08);">
+        <div class="max-w-japandi mx-auto px-6">
+            <div class="fade-in text-center max-w-2xl mx-auto">
+                <div class="enso-element mx-auto mb-10" style="width: 80px; height: 80px; border-width: 2px;"></div>
+                <p class="text-sm uppercase tracking-widest text-wood mb-3 font-medium">Sua Jornada Começa Aqui</p>
+                <h2 class="text-3xl md:text-4xl font-light text-charcoal mb-6" style="line-height: 1.3;">
+                    Permita-se o silêncio.<br>Descubra o movimento.
+                </h2>
+                <p class="text-stone text-base mb-10 max-w-lg mx-auto" style="line-height: 1.8;">
+                    Agende uma aula experimental gratuita e sinta a atmosfera do Sattva Studio. Sem pressão, sem compromisso — apenas a oportunidade de se reconectar.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" class="inline-flex items-center justify-center px-8 py-3.5 bg-wood text-softwhite text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-opacity-90">
+                        Agendar Aula Gratuita
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                    <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3.5 border-japandi text-charcoal text-sm font-medium rounded-japandi cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                        <svg class="mr-2 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        Falar pelo WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="py-16 border-t" style="border-color: rgba(58,58,58,0.06);">
+        <div class="max-w-japandi mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer mb-4">
+                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="14" stroke="#A0845C" stroke-width="1.5"/>
+                            <path d="M16 6C16 6 10 14 10 18C10 21.3 12.7 24 16 24C19.3 24 22 21.3 22 18C22 14 16 6 16 6Z" fill="#8B9E7E" opacity="0.6"/>
+                            <line x1="16" y1="14" x2="16" y2="22" stroke="#A0845C" stroke-width="1"/>
+                        </svg>
+                        <span class="text-base font-medium tracking-wide text-charcoal">Sattva Studio</span>
+                    </a>
+                    <p class="text-stone text-sm mb-6" style="line-height: 1.8;">
+                        Yoga, meditação e mindfulness em um espaço inspirado na harmonia entre Japão e Escandinávia.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex items-center gap-4">
+                        <!-- Instagram -->
+                        <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border-japandi flex items-center justify-center cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9E94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                                <circle cx="12" cy="12" r="5"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="#9E9E94" stroke="none"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border-japandi flex items-center justify-center cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9E94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full border-japandi flex items-center justify-center cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9E94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/>
+                                <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#9E9E94" stroke="none"/>
+                            </svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-9 h-9 rounded-full border-japandi flex items-center justify-center cursor-pointer interactive hover:bg-sand hover:bg-opacity-20">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9E94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Column -->
+                <div>
+                    <h4 class="text-sm font-medium text-charcoal mb-4 uppercase tracking-wider">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Práticas</a></li>
+                        <li><a href="#testimonials" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Planos</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Horários</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Practices Column -->
+                <div>
+                    <h4 class="text-sm font-medium text-charcoal mb-4 uppercase tracking-wider">Práticas</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Hatha Yoga</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Vinyasa Flow</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Meditação Mindfulness</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Yoga Restaurativo</a></li>
+                        <li><a href="#" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">Retiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div>
+                    <h4 class="text-sm font-medium text-charcoal mb-4 uppercase tracking-wider">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 mt-1 flex-shrink-0 text-stone" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            <span class="text-sm text-stone">Rua das Cerejeiras, 240<br>Jardim Zen — São Paulo, SP</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 flex-shrink-0 text-stone" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            <a href="mailto:contato@sattvastudio.com.br" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">contato@sattvastudio.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 flex-shrink-0 text-stone" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                            <a href="tel:+5511999999999" class="text-sm text-stone hover:text-charcoal cursor-pointer interactive">(11) 99999-9999</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="pt-8 border-t" style="border-color: rgba(58,58,58,0.06);">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-xs text-stone">&copy; 2026 Sattva Studio. Todos os direitos reservados.</p>
+                    <div class="flex items-center gap-6">
+                        <a href="#" class="text-xs text-stone hover:text-charcoal cursor-pointer interactive">Política de Privacidade</a>
+                        <a href="#" class="text-xs text-stone hover:text-charcoal cursor-pointer interactive">Termos de Uso</a>
+                        <a href="#" class="text-xs text-stone hover:text-charcoal cursor-pointer interactive">Mapa do Site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Fade-in on scroll (Intersection Observer)
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Navbar background on scroll
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

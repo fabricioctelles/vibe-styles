@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loja de Presentes Divertidos — Presentes criativos, engraçados e inesquecíveis para todas as ocasiões. Surpreenda quem você ama com estilo!">
+    <meta name="keywords" content="presentes divertidos, presentes criativos, loja de presentes, presentes engraçados, presentes originais">
+    <meta name="author" content="Loja de Presentes Divertidos">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Loja de Presentes Divertidos — Presentes que Arrancam Risadas!">
+    <meta property="og:description" content="Encontre presentes criativos, engraçados e inesquecíveis. Surpreenda com estilo kitsch e muita diversão!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://presentesdivertidos.com.br">
+    <meta property="og:image" content="https://presentesdivertidos.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+
+    <title>Loja de Presentes Divertidos — Presentes que Arrancam Risadas!</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kitsch-pink': '#FF69B4',
+                        'kitsch-lime': '#CCFF00',
+                        'kitsch-orange': '#FF6600',
+                        'kitsch-cyan': '#00FFFF',
+                        'kitsch-yellow': '#FFFF00',
+                        'kitsch-magenta': '#FF00FF',
+                        'kitsch-red': '#FF0000',
+                        'kitsch-blue': '#4169E1',
+                    },
+                    fontFamily: {
+                        'bungee': ['Bungee', 'cursive'],
+                        'comic': ['Comic Neue', 'cursive', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --color-pink: #FF69B4;
+            --color-lime: #CCFF00;
+            --color-orange: #FF6600;
+            --color-cyan: #00FFFF;
+            --color-yellow: #FFFF00;
+            --color-magenta: #FF00FF;
+            --color-red: #FF0000;
+            --color-blue: #4169E1;
+            --font-display: 'Bungee', cursive;
+            --border: 4px solid;
+            --shadow: 8px 8px 0 #000;
+            --rotation: -3deg;
+            --spacing: 1.5rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .kitsch-shadow {
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .kitsch-shadow-sm {
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .kitsch-shadow-pink {
+            box-shadow: 8px 8px 0 var(--color-pink);
+        }
+
+        .kitsch-shadow-cyan {
+            box-shadow: 8px 8px 0 var(--color-cyan);
+        }
+
+        .kitsch-border {
+            border: 4px solid #000;
+        }
+
+        .kitsch-border-orange {
+            border: 4px solid var(--color-orange);
+        }
+
+        .kitsch-border-pink {
+            border: 4px solid var(--color-pink);
+        }
+
+        .kitsch-rotate {
+            transform: rotate(-3deg);
+        }
+
+        .kitsch-rotate-pos {
+            transform: rotate(3deg);
+        }
+
+        /* Halftone dot pattern overlay */
+        .halftone-bg {
+            background-image: radial-gradient(circle, #000 1px, transparent 1px);
+            background-size: 12px 12px;
+            opacity: 0.06;
+        }
+
+        .halftone-bg-light {
+            background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+            background-size: 10px 10px;
+            opacity: 0.08;
+        }
+
+        /* Gradient backgrounds */
+        .gradient-hero {
+            background: linear-gradient(135deg, #FF69B4 0%, #CCFF00 35%, #00FFFF 70%, #FF6600 100%);
+        }
+
+        .gradient-cta {
+            background: linear-gradient(45deg, #FF00FF, #FFFF00, #00FFFF);
+        }
+
+        .gradient-footer {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+        }
+
+        /* Bounce animation */
+        @keyframes bounce-kitsch {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-15px) rotate(-3deg); }
+        }
+
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(-3deg); }
+            75% { transform: rotate(1deg); }
+        }
+
+        @keyframes pop-in {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes float-rotate {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(5deg) translateY(-10px); }
+            50% { transform: rotate(0deg) translateY(-5px); }
+            75% { transform: rotate(-5deg) translateY(-10px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 8px 8px 0 #000, 0 0 0 rgba(255,105,180,0); }
+            50% { box-shadow: 8px 8px 0 #000, 0 0 30px rgba(255,105,180,0.5); }
+        }
+
+        .animate-bounce-kitsch {
+            animation: bounce-kitsch 2s ease-in-out infinite;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 3s ease-in-out infinite;
+        }
+
+        .animate-wiggle {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .animate-pop-in {
+            animation: pop-in 0.6s ease-out forwards;
+        }
+
+        .animate-float-rotate {
+            animation: float-rotate 6s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* Hero 3D/Abstract CSS element */
+        .hero-abstract {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        .hero-abstract .shape-1 {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: var(--color-pink);
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0 #000;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 10px;
+            left: 10px;
+            animation: float-rotate 6s ease-in-out infinite;
+        }
+
+        .hero-abstract .shape-2 {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: var(--color-lime);
+            border: 4px solid #000;
+            box-shadow: 6px 6px 0 var(--color-orange);
+            border-radius: 50%;
+            bottom: 10px;
+            right: 10px;
+            animation: bounce-slow 4s ease-in-out infinite;
+        }
+
+        .hero-abstract .shape-3 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: var(--color-cyan);
+            border: 4px solid #000;
+            box-shadow: 5px 5px 0 #000;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: wiggle 4s ease-in-out infinite;
+        }
+
+        .hero-abstract .shape-4 {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--color-yellow);
+            border: 3px solid #000;
+            border-radius: 50%;
+            top: 0;
+            right: 30px;
+            animation: bounce-kitsch 3s ease-in-out infinite;
+        }
+
+        /* Pricing popular badge */
+        .popular-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            background: var(--color-yellow);
+            color: #000;
+            font-family: 'Bungee', cursive;
+            font-size: 0.75rem;
+            padding: 4px 20px;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 var(--color-pink);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        /* Navbar mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Hover effects */
+        .kitsch-card {
+            transition: all 0.3s ease;
+        }
+
+        .kitsch-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 12px 12px 0 #000;
+        }
+
+        .kitsch-btn {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .kitsch-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0 #000;
+        }
+
+        .kitsch-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        /* Decorative star */
+        .deco-star {
+            display: inline-block;
+            color: var(--color-yellow);
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-pink);
+            border: 2px solid #000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-magenta);
+        }
+
+        /* Testimonial quote decoration */
+        .quote-deco::before {
+            content: '"';
+            font-family: 'Bungee', cursive;
+            font-size: 4rem;
+            color: var(--color-pink);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .hero-abstract {
+                width: 200px;
+                height: 200px;
+            }
+            .hero-abstract .shape-1 {
+                width: 120px;
+                height: 120px;
+            }
+            .hero-abstract .shape-2 {
+                width: 100px;
+                height: 100px;
+            }
+            .hero-abstract .shape-3 {
+                width: 70px;
+                height: 70px;
+            }
+            .hero-abstract .shape-4 {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-comic">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-sm" style="border-bottom: 4px solid var(--color-pink);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group" aria-label="Página inicial">
+                    <span class="inline-block bg-kitsch-pink p-2 kitsch-border kitsch-shadow-sm transition-all group-hover:bg-kitsch-yellow" style="transform: rotate(-5deg);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.5 5.5 6 .5-4.5 4 1.5 6L12 16.5 6.5 19.5l1.5-6-4.5-4 6-.5L12 3.5z"/>
+                        </svg>
+                    </span>
+                    <span class="font-bungee text-lg md:text-xl text-kitsch-pink group-hover:text-kitsch-yellow transition-colors">
+                        Presentes<span class="text-kitsch-lime">Fun</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#features" class="font-bold text-white hover:text-kitsch-lime transition-all cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-kitsch-lime after:transition-all hover:after:w-full">Vantagens</a>
+                    <a href="#testimonials" class="font-bold text-white hover:text-kitsch-cyan transition-all cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-kitsch-cyan after:transition-all hover:after:w-full">Depoimentos</a>
+                    <a href="#pricing" class="font-bold text-white hover:text-kitsch-yellow transition-all cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-kitsch-yellow after:transition-all hover:after:w-full">Planos</a>
+                    <a href="#contact" class="font-bold text-white hover:text-kitsch-orange transition-all cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[3px] after:bg-kitsch-orange after:transition-all hover:after:w-full">Contato</a>
+                    <a href="#pricing" class="kitsch-btn cursor-pointer font-bungee text-sm bg-kitsch-lime text-black px-5 py-2 kitsch-border kitsch-shadow-sm hover:bg-kitsch-yellow">
+                        Comprar Agora
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="document.getElementById('mobileMenu').classList.toggle('open')" class="md:hidden cursor-pointer p-2 bg-kitsch-pink kitsch-border transition-all hover:bg-kitsch-yellow" aria-label="Abrir menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="flex flex-col gap-3 pb-4 pt-2">
+                    <a href="#features" class="font-bold text-kitsch-lime hover:text-kitsch-yellow transition-all cursor-pointer px-2 py-1">Vantagens</a>
+                    <a href="#testimonials" class="font-bold text-kitsch-cyan hover:text-kitsch-yellow transition-all cursor-pointer px-2 py-1">Depoimentos</a>
+                    <a href="#pricing" class="font-bold text-kitsch-yellow hover:text-kitsch-pink transition-all cursor-pointer px-2 py-1">Planos</a>
+                    <a href="#contact" class="font-bold text-kitsch-orange hover:text-kitsch-pink transition-all cursor-pointer px-2 py-1">Contato</a>
+                    <a href="#pricing" class="kitsch-btn cursor-pointer font-bungee text-sm bg-kitsch-lime text-black px-5 py-2 kitsch-border kitsch-shadow-sm text-center hover:bg-kitsch-yellow">
+                        Comprar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center gradient-hero pt-20 overflow-hidden">
+        <!-- Halftone overlay -->
+        <div class="absolute inset-0 halftone-bg pointer-events-none"></div>
+
+        <!-- Decorative floating elements -->
+        <div class="absolute top-32 left-8 w-16 h-16 bg-kitsch-yellow kitsch-border animate-float-rotate hidden lg:block" style="border-radius: 30% 70% 70% 30%;"></div>
+        <div class="absolute bottom-20 left-16 w-10 h-10 bg-kitsch-magenta kitsch-border rounded-full animate-bounce-slow hidden lg:block"></div>
+        <div class="absolute top-40 right-20 w-12 h-12 bg-kitsch-red kitsch-border animate-wiggle hidden lg:block" style="transform: rotate(45deg);"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                <!-- Text Content -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-block bg-black text-kitsch-yellow font-bungee text-xs sm:text-sm px-4 py-2 mb-6 kitsch-border-orange kitsch-shadow-sm" style="transform: rotate(-2deg);">
+                        ★ A LOJA MAIS DIVERTIDA DO BRASIL ★
+                    </div>
+
+                    <h1 class="font-bungee text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
+                        <span class="text-black" style="text-shadow: 3px 3px 0 var(--color-cyan);">Presentes</span><br>
+                        <span class="text-white" style="text-shadow: 4px 4px 0 var(--color-pink);">que Arrancam</span><br>
+                        <span class="inline-block bg-black text-kitsch-yellow px-4 py-1 kitsch-border" style="transform: rotate(-2deg); box-shadow: 6px 6px 0 var(--color-orange);">
+                            RISADAS!
+                        </span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl md:text-2xl font-bold text-black max-w-xl mx-auto lg:mx-0 mb-8" style="text-shadow: 1px 1px 0 rgba(255,255,255,0.5);">
+                        Encontre presentes criativos, engraçados e inesquecíveis para surpreender quem você ama. Do brega ao genial!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#pricing" class="kitsch-btn cursor-pointer font-bungee text-base sm:text-lg bg-black text-kitsch-lime px-8 py-4 kitsch-border kitsch-shadow inline-flex items-center justify-center gap-2 hover:bg-kitsch-blue hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                            </svg>
+                            Ver Presentes
+                        </a>
+                        <a href="#features" class="kitsch-btn cursor-pointer font-bungee text-base sm:text-lg bg-kitsch-yellow text-black px-8 py-4 kitsch-border kitsch-shadow inline-flex items-center justify-center gap-2 hover:bg-kitsch-orange hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Abstract Visual Element -->
+                <div class="flex-shrink-0 mt-8 lg:mt-0">
+                    <div class="hero-abstract animate-pop-in">
+                        <div class="shape-1"></div>
+                        <div class="shape-2"></div>
+                        <div class="shape-3"></div>
+                        <div class="shape-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom wave/zigzag -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden">
+            <svg viewBox="0 0 1200 60" preserveAspectRatio="none" class="w-full h-12 md:h-16">
+                <path d="M0,60 L0,30 Q50,0 100,30 Q150,60 200,30 Q250,0 300,30 Q350,60 400,30 Q450,0 500,30 Q550,60 600,30 Q650,0 700,30 Q750,60 800,30 Q850,0 900,30 Q950,60 1000,30 Q1050,0 1100,30 Q1150,60 1200,30 L1200,60 Z" fill="#000"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative bg-black py-20 md:py-28 overflow-hidden">
+        <!-- Halftone overlay -->
+        <div class="absolute inset-0 halftone-bg-light pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block bg-kitsch-orange text-black font-bungee text-xs px-4 py-2 kitsch-border kitsch-shadow-sm mb-4" style="transform: rotate(2deg);">
+                    POR QUE NÓS?
+                </span>
+                <h2 class="font-bungee text-3xl sm:text-4xl md:text-5xl text-white mb-4" style="text-shadow: 4px 4px 0 var(--color-pink);">
+                    Vantagens Absurdas
+                </h2>
+                <p class="text-lg text-gray-300 font-bold max-w-2xl mx-auto">
+                    Não somos uma loja qualquer. Somos a experiência mais divertida que seu cartão de crédito já viveu.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                <!-- Card 1 -->
+                <div class="kitsch-card bg-kitsch-pink p-8 kitsch-border kitsch-shadow relative" style="transform: rotate(-2deg);">
+                    <div class="absolute -top-4 -right-4 w-10 h-10 bg-kitsch-yellow kitsch-border rounded-full flex items-center justify-center font-bungee text-black text-sm animate-bounce-slow">1</div>
+                    <div class="w-16 h-16 bg-black kitsch-border flex items-center justify-center mb-6" style="box-shadow: 4px 4px 0 var(--color-cyan);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-kitsch-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-3">Presentes Únicos</h3>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        Curadoria especial de presentes que ninguém mais tem. Do bizarro ao brilhante, cada item é uma obra-prima do humor.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="kitsch-card bg-kitsch-lime p-8 kitsch-border kitsch-shadow relative" style="transform: rotate(1deg);">
+                    <div class="absolute -top-4 -right-4 w-10 h-10 bg-kitsch-pink kitsch-border rounded-full flex items-center justify-center font-bungee text-black text-sm animate-bounce-slow" style="animation-delay: 0.5s;">2</div>
+                    <div class="w-16 h-16 bg-black kitsch-border flex items-center justify-center mb-6" style="box-shadow: 4px 4px 0 var(--color-orange);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-kitsch-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-3">Entrega Relâmpago</h3>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        Esqueceu o aniversário? Sem pânico! Entregamos em até 24h para todo o Brasil. Mais rápido que sua desculpa.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="kitsch-card bg-kitsch-cyan p-8 kitsch-border kitsch-shadow relative" style="transform: rotate(-1deg);">
+                    <div class="absolute -top-4 -right-4 w-10 h-10 bg-kitsch-orange kitsch-border rounded-full flex items-center justify-center font-bungee text-black text-sm animate-bounce-slow" style="animation-delay: 1s;">3</div>
+                    <div class="w-16 h-16 bg-black kitsch-border flex items-center justify-center mb-6" style="box-shadow: 4px 4px 0 var(--color-lime);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-kitsch-lime" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-3">Embalagem Show</h3>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        Cada presente vem embalado com tanto estilo que a pessoa vai querer guardar a caixa. Experiência completa de diversão!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-20 md:py-28 overflow-hidden" style="background: linear-gradient(135deg, #FF00FF 0%, #4169E1 50%, #FF69B4 100%);">
+        <!-- Halftone overlay -->
+        <div class="absolute inset-0 halftone-bg pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block bg-kitsch-yellow text-black font-bungee text-xs px-4 py-2 kitsch-border kitsch-shadow-sm mb-4" style="transform: rotate(-2deg);">
+                    GENTE QUE AMA
+                </span>
+                <h2 class="font-bungee text-3xl sm:text-4xl md:text-5xl text-white mb-4" style="text-shadow: 4px 4px 0 #000;">
+                    Depoimentos Reais
+                </h2>
+                <p class="text-lg text-white/90 font-bold max-w-2xl mx-auto">
+                    Veja o que nossos clientes mais apaixonados dizem sobre a experiência de presentear com estilo.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                <!-- Testimonial 1 -->
+                <div class="kitsch-card bg-white p-8 kitsch-border kitsch-shadow relative quote-deco" style="transform: rotate(-2deg);">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-kitsch-pink kitsch-border flex items-center justify-center font-bungee text-black text-xl" style="box-shadow: 3px 3px 0 #000;">
+                            R
+                        </div>
+                        <div>
+                            <p class="font-bungee text-sm text-black">Renata Silva</p>
+                            <p class="text-xs font-bold text-gray-600">São Paulo, SP</p>
+                        </div>
+                    </div>
+                    <!-- Stars -->
+                    <div class="flex gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        "Comprei um kit de canecas personalizadas para minha equipe e foi um SUCESSO! Todo mundo morreu de rir. A embalagem é tão bonita que dá dó de abrir!"
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="kitsch-card bg-kitsch-yellow p-8 kitsch-border kitsch-shadow relative quote-deco" style="transform: rotate(2deg);">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-kitsch-cyan kitsch-border flex items-center justify-center font-bungee text-black text-xl" style="box-shadow: 3px 3px 0 #000;">
+                            M
+                        </div>
+                        <div>
+                            <p class="font-bungee text-sm text-black">Marcos Oliveira</p>
+                            <p class="text-xs font-bold text-gray-700">Rio de Janeiro, RJ</p>
+                        </div>
+                    </div>
+                    <!-- Stars -->
+                    <div class="flex gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        "Minha namorada chorou de rir com o presente de aniversário. Melhor investimento da minha vida! A entrega chegou antes do prazo. Nota 1000!"
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="kitsch-card bg-kitsch-lime p-8 kitsch-border kitsch-shadow relative quote-deco" style="transform: rotate(-1deg);">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-kitsch-orange kitsch-border flex items-center justify-center font-bungee text-black text-xl" style="box-shadow: 3px 3px 0 #000;">
+                            C
+                        </div>
+                        <div>
+                            <p class="font-bungee text-sm text-black">Camila Santos</p>
+                            <p class="text-xs font-bold text-gray-700">Belo Horizonte, MG</p>
+                        </div>
+                    </div>
+                    <!-- Stars -->
+                    <div class="flex gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-black font-bold text-base leading-relaxed">
+                        "Virei cliente fiel! Já comprei para amigo secreto, Dia das Mães e até para mim mesma. Os presentes são tão criativos que sempre surpreendem!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative bg-black py-20 md:py-28 overflow-hidden">
+        <!-- Halftone overlay -->
+        <div class="absolute inset-0 halftone-bg-light pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="inline-block bg-kitsch-pink text-black font-bungee text-xs px-4 py-2 kitsch-border kitsch-shadow-sm mb-4" style="transform: rotate(-2deg);">
+                    ESCOLHA SEU PLANO
+                </span>
+                <h2 class="font-bungee text-3xl sm:text-4xl md:text-5xl text-white mb-4" style="text-shadow: 4px 4px 0 var(--color-lime);">
+                    Planos & Preços
+                </h2>
+                <p class="text-lg text-gray-300 font-bold max-w-2xl mx-auto">
+                    De presente avulso a assinatura mensal de surpresas. Tem opção para todo bolso e todo nível de loucura.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-10 items-start">
+                <!-- Tier 1 - Básico -->
+                <div class="kitsch-card bg-white p-8 kitsch-border kitsch-shadow text-center" style="transform: rotate(-2deg);">
+                    <div class="w-16 h-16 bg-kitsch-cyan kitsch-border mx-auto mb-6 flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-2">Risadinha</h3>
+                    <p class="text-sm font-bold text-gray-600 mb-4">Para quem quer começar devagar</p>
+                    <div class="mb-6">
+                        <span class="font-bungee text-5xl text-black">R$49</span>
+                        <span class="text-gray-600 font-bold">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            1 presente surpresa por mês
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Embalagem temática
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-lime flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Frete grátis capitais
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Cartão personalizado
+                        </li>
+                    </ul>
+                    <a href="#" class="kitsch-btn cursor-pointer block font-bungee text-sm bg-kitsch-cyan text-black px-6 py-3 kitsch-border kitsch-shadow-sm hover:bg-kitsch-lime text-center transition-all">
+                        Assinar Agora
+                    </a>
+                </div>
+
+                <!-- Tier 2 - Popular (Destaque) -->
+                <div class="kitsch-card bg-kitsch-yellow p-8 kitsch-border relative animate-pulse-glow text-center md:-mt-4 md:mb-4" style="transform: rotate(0deg); border-width: 5px;">
+                    <div class="popular-badge">★ MAIS POPULAR ★</div>
+                    <div class="w-16 h-16 bg-kitsch-pink kitsch-border mx-auto mb-6 flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-2">Gargalhada</h3>
+                    <p class="text-sm font-bold text-gray-700 mb-4">O favorito dos engraçadinhos</p>
+                    <div class="mb-6">
+                        <span class="font-bungee text-5xl text-black">R$99</span>
+                        <span class="text-gray-700 font-bold">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            3 presentes surpresa por mês
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Embalagem premium kitsch
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Frete grátis todo Brasil
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Cartão personalizado incluso
+                        </li>
+                    </ul>
+                    <a href="#" class="kitsch-btn cursor-pointer block font-bungee text-sm bg-black text-kitsch-yellow px-6 py-3 kitsch-border kitsch-shadow-sm hover:bg-kitsch-blue hover:text-white text-center transition-all">
+                        Quero Esse!
+                    </a>
+                </div>
+
+                <!-- Tier 3 - Premium -->
+                <div class="kitsch-card bg-white p-8 kitsch-border kitsch-shadow text-center" style="transform: rotate(2deg);">
+                    <div class="w-16 h-16 bg-kitsch-orange kitsch-border mx-auto mb-6 flex items-center justify-center" style="box-shadow: 4px 4px 0 #000;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bungee text-xl text-black mb-2">Histeria</h3>
+                    <p class="text-sm font-bold text-gray-600 mb-4">Para os verdadeiros malucos</p>
+                    <div class="mb-6">
+                        <span class="font-bungee text-5xl text-black">R$199</span>
+                        <span class="text-gray-600 font-bold">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            5 presentes surpresa por mês
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Embalagem VIP colecionável
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Frete expresso grátis
+                        </li>
+                        <li class="flex items-center gap-2 font-bold text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Acesso antecipado a lançamentos
+                        </li>
+                    </ul>
+                    <a href="#" class="kitsch-btn cursor-pointer block font-bungee text-sm bg-kitsch-orange text-black px-6 py-3 kitsch-border kitsch-shadow-sm hover:bg-kitsch-red hover:text-white text-center transition-all">
+                        Ir com Tudo!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="relative py-20 md:py-28 overflow-hidden gradient-cta">
+        <!-- Halftone overlay -->
+        <div class="absolute inset-0 halftone-bg pointer-events-none"></div>
+
+        <!-- Decorative elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 bg-kitsch-pink kitsch-border rounded-full animate-bounce-slow opacity-60 hidden lg:block"></div>
+        <div class="absolute bottom-10 right-10 w-16 h-16 bg-kitsch-red kitsch-border animate-wiggle opacity-60 hidden lg:block" style="transform: rotate(45deg);"></div>
+        <div class="absolute top-1/2 left-5 w-12 h-12 bg-kitsch-blue kitsch-border rounded-full animate-float-rotate opacity-40 hidden lg:block"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="bg-black p-10 md:p-16 kitsch-border relative" style="box-shadow: 12px 12px 0 var(--color-pink); transform: rotate(-1deg);">
+                <!-- Inner decorative border -->
+                <div class="absolute inset-3 border-2 border-dashed border-kitsch-pink/40 pointer-events-none"></div>
+
+                <span class="inline-block bg-kitsch-red text-white font-bungee text-xs px-4 py-2 kitsch-border kitsch-shadow-sm mb-6" style="transform: rotate(3deg);">
+                    NÃO PERCA TEMPO!
+                </span>
+
+                <h2 class="font-bungee text-3xl sm:text-4xl md:text-5xl text-white mb-6 relative z-10" style="text-shadow: 3px 3px 0 var(--color-orange);">
+                    Pronto para Surpreender?
+                </h2>
+
+                <p class="text-lg md:text-xl text-gray-300 font-bold max-w-2xl mx-auto mb-10 relative z-10">
+                    Junte-se a mais de 10.000 pessoas que já transformaram momentos comuns em gargalhadas inesquecíveis. Seu próximo presente genial está a um clique.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                    <a href="#pricing" class="kitsch-btn cursor-pointer font-bungee text-base bg-kitsch-lime text-black px-10 py-4 kitsch-border kitsch-shadow inline-flex items-center justify-center gap-2 hover:bg-kitsch-yellow transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                        Começar Agora
+                    </a>
+                    <a href="#features" class="kitsch-btn cursor-pointer font-bungee text-base bg-transparent text-kitsch-pink px-10 py-4 inline-flex items-center justify-center gap-2 hover:bg-kitsch-pink hover:text-black transition-all" style="border: 4px solid var(--color-pink); box-shadow: 6px 6px 0 var(--color-pink);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Como Funciona
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="relative gradient-footer pt-16 pb-8 overflow-hidden">
+        <!-- Top border -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kitsch-pink via-kitsch-lime to-kitsch-cyan"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Footer Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-4" aria-label="Página inicial">
+                        <span class="inline-block bg-kitsch-pink p-2 kitsch-border kitsch-shadow-sm transition-all group-hover:bg-kitsch-yellow" style="transform: rotate(-5deg);">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.5 5.5 6 .5-4.5 4 1.5 6L12 16.5 6.5 19.5l1.5-6-4.5-4 6-.5L12 3.5z"/>
+                            </svg>
+                        </span>
+                        <span class="font-bungee text-lg text-kitsch-pink group-hover:text-kitsch-yellow transition-colors">
+                            Presentes<span class="text-kitsch-lime">Fun</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-400 font-bold text-sm leading-relaxed mb-6">
+                        A loja mais divertida do Brasil. Presentes criativos, engraçados e inesquecíveis para todas as ocasiões.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex gap-3">
+                        <!-- Instagram -->
+                        <a href="#" class="cursor-pointer w-10 h-10 bg-kitsch-pink/20 border-2 border-kitsch-pink flex items-center justify-center hover:bg-kitsch-pink hover:text-black text-kitsch-pink transition-all" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="cursor-pointer w-10 h-10 bg-kitsch-blue/20 border-2 border-kitsch-blue flex items-center justify-center hover:bg-kitsch-blue hover:text-white text-kitsch-blue transition-all" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" class="cursor-pointer w-10 h-10 bg-kitsch-cyan/20 border-2 border-kitsch-cyan flex items-center justify-center hover:bg-kitsch-cyan hover:text-black text-kitsch-cyan transition-all" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                            </svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="#" class="cursor-pointer w-10 h-10 bg-kitsch-lime/20 border-2 border-kitsch-lime flex items-center justify-center hover:bg-kitsch-lime hover:text-black text-kitsch-lime transition-all" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="cursor-pointer w-10 h-10 bg-kitsch-red/20 border-2 border-kitsch-red flex items-center justify-center hover:bg-kitsch-red hover:text-white text-kitsch-red transition-all" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" stroke="none" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Column -->
+                <div>
+                    <h4 class="font-bungee text-sm text-kitsch-lime mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">Início</a></li>
+                        <li><a href="#features" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">Vantagens</a></li>
+                        <li><a href="#testimonials" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">Depoimentos</a></li>
+                        <li><a href="#pricing" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">Planos</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">Blog</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-pink transition-all">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Column -->
+                <div>
+                    <h4 class="font-bungee text-sm text-kitsch-cyan mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-cyan transition-all">Política de Privacidade</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-cyan transition-all">Termos de Uso</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-cyan transition-all">Política de Trocas</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-cyan transition-all">Política de Cookies</a></li>
+                        <li><a href="#" class="cursor-pointer text-gray-400 font-bold text-sm hover:text-kitsch-cyan transition-all">LGPD</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div>
+                    <h4 class="font-bungee text-sm text-kitsch-orange mb-4">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-gray-400 font-bold text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            contato@presentesfun.com.br
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-400 font-bold text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-kitsch-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            (11) 9999-8888
+                        </li>
+                        <li class="flex items-start gap-2 text-gray-400 font-bold text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-kitsch-orange flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            São Paulo, SP — Brasil
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t-2 border-gray-800 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-gray-500 font-bold text-sm text-center md:text-left">
+                        &copy; 2026 <span class="text-kitsch-pink">PresentesFun</span>. Todos os direitos reservados. Feito com muito bom humor.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="cursor-pointer text-gray-500 font-bold text-xs hover:text-kitsch-lime transition-all">Privacidade</a>
+                        <span class="text-gray-700">|</span>
+                        <a href="#" class="cursor-pointer text-gray-500 font-bold text-xs hover:text-kitsch-lime transition-all">Termos</a>
+                        <span class="text-gray-700">|</span>
+                        <a href="#" class="cursor-pointer text-gray-500 font-bold text-xs hover:text-kitsch-lime transition-all">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scroll behavior -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu) mobileMenu.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

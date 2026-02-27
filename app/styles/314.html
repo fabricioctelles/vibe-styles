@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RetroVinyl — Loja de Discos Vintage. Encontre vinis raros, edições limitadas e clássicos dos anos 80 e 90. A estética vaporwave encontra a música.">
+    <meta name="keywords" content="discos vinil, loja vintage, vaporwave, música retro, vinil raro, anos 80, anos 90, colecionador">
+    <meta name="author" content="RetroVinyl">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="RetroVinyl — Discos Vintage & Vaporwave">
+    <meta property="og:description" content="A maior coleção de discos vintage com estética vaporwave. Vinis raros, edições limitadas e clássicos que marcaram época.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://retrovinyl.com.br">
+    <meta property="og:image" content="https://retrovinyl.com.br/og-image.png">
+    <meta property="og:locale" content="pt_BR">
+
+    <title>RetroVinyl — Discos Vintage | Vaporwave Aesthetic</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#FF71CE',
+                        'neon-cyan': '#01CDFE',
+                        'neon-purple': '#B967FF',
+                        'hot-magenta': '#FF00FF',
+                        'pastel-pink': '#FFB3DE',
+                        'pastel-blue': '#AEEFFF',
+                        'lavender': '#D9B3FF',
+                        'dark-teal': '#005F73',
+                        'vapor-dark': '#0a0a1a',
+                        'vapor-card': '#1a1a2e',
+                    },
+                    fontFamily: {
+                        'retro': ['VT323', 'monospace'],
+                        'serif-contrast': ['Georgia', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --color-pink: #FF71CE;
+            --color-cyan: #01CDFE;
+            --color-purple: #B967FF;
+            --color-magenta: #FF00FF;
+            --font-retro: 'VT323', monospace;
+            --glitch-offset: 2px;
+            --scanline-opacity: 0.05;
+            --spacing: 1.5rem;
+            --border-radius: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-retro);
+            background-color: #0a0a1a;
+            color: #AEEFFF;
+            overflow-x: hidden;
+        }
+
+        /* VHS Scanline Overlay */
+        .scanlines::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+                rgba(0, 0, 0, var(--scanline-opacity)) 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Chromatic Aberration Text */
+        .chromatic {
+            text-shadow: 2px 0 #FF00FF, -2px 0 #01CDFE;
+        }
+
+        .chromatic-subtle {
+            text-shadow: 1px 0 #FF00FF, -1px 0 #01CDFE;
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% { clip-path: inset(40% 0 61% 0); transform: translate(0); }
+            10% { clip-path: inset(92% 0 1% 0); transform: translate(-2px, 2px); }
+            20% { clip-path: inset(43% 0 1% 0); transform: translate(2px, -1px); }
+            30% { clip-path: inset(25% 0 58% 0); transform: translate(0); }
+            40% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
+            50% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
+            60% { clip-path: inset(33% 0 60% 0); transform: translate(2px, -2px); }
+            70% { clip-path: inset(10% 0 85% 0); transform: translate(-1px, 0); }
+            80% { clip-path: inset(78% 0 3% 0); transform: translate(0); }
+            90% { clip-path: inset(5% 0 67% 0); transform: translate(2px, 2px); }
+            100% { clip-path: inset(67% 0 5% 0); transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { clip-path: inset(65% 0 13% 0); transform: translate(0); }
+            10% { clip-path: inset(15% 0 62% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(79% 0 2% 0); transform: translate(-2px, 2px); }
+            30% { clip-path: inset(2% 0 79% 0); transform: translate(0); }
+            40% { clip-path: inset(48% 0 38% 0); transform: translate(2px, -2px); }
+            50% { clip-path: inset(28% 0 52% 0); transform: translate(0); }
+            60% { clip-path: inset(72% 0 11% 0); transform: translate(-2px, 1px); }
+            70% { clip-path: inset(52% 0 33% 0); transform: translate(1px, 0); }
+            80% { clip-path: inset(3% 0 82% 0); transform: translate(0); }
+            90% { clip-path: inset(88% 0 2% 0); transform: translate(-2px, -2px); }
+            100% { clip-path: inset(12% 0 69% 0); transform: translate(0); }
+        }
+
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            color: #FF00FF;
+            animation: glitch 3s infinite linear alternate-reverse;
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            color: #01CDFE;
+            animation: glitch-2 2.5s infinite linear alternate-reverse;
+            z-index: -1;
+        }
+
+        /* Neon Gradient Text */
+        .neon-gradient {
+            background: linear-gradient(90deg, #FF71CE, #01CDFE, #B967FF, #FF00FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Neon Glow */
+        .neon-glow-pink {
+            box-shadow: 0 0 10px #FF71CE, 0 0 20px #FF71CE44, 0 0 40px #FF71CE22;
+        }
+
+        .neon-glow-cyan {
+            box-shadow: 0 0 10px #01CDFE, 0 0 20px #01CDFE44, 0 0 40px #01CDFE22;
+        }
+
+        .neon-glow-purple {
+            box-shadow: 0 0 10px #B967FF, 0 0 20px #B967FF44, 0 0 40px #B967FF22;
+        }
+
+        .neon-border {
+            border: 1px solid #B967FF;
+            box-shadow: inset 0 0 15px rgba(185, 103, 255, 0.1), 0 0 15px rgba(185, 103, 255, 0.15);
+        }
+
+        /* Checkerboard Floor */
+        .checkerboard {
+            background-image:
+                linear-gradient(45deg, #1a1a2e 25%, transparent 25%),
+                linear-gradient(-45deg, #1a1a2e 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #1a1a2e 75%),
+                linear-gradient(-45deg, transparent 75%, #1a1a2e 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            background-color: #0f0f2a;
+        }
+
+        /* Perspective Floor */
+        .perspective-floor {
+            perspective: 400px;
+        }
+
+        .perspective-floor-inner {
+            transform: rotateX(60deg);
+            transform-origin: center top;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-anim-delayed {
+            animation: float-delayed 5s ease-in-out infinite 1s;
+        }
+
+        /* Neon Pulse */
+        @keyframes neon-pulse {
+            0%, 100% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.85; filter: brightness(1.3); }
+        }
+
+        .neon-pulse {
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+
+        /* VHS Tracking Effect */
+        @keyframes vhs-tracking {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-1px); }
+            50% { transform: translateX(1px); }
+            75% { transform: translateX(-0.5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .vhs-tracking {
+            animation: vhs-tracking 0.3s steps(4) infinite;
+        }
+
+        /* Old OS Window Style */
+        .os-window {
+            border: 2px solid #B967FF;
+            background: #0a0a1a;
+        }
+
+        .os-window-bar {
+            background: linear-gradient(90deg, #B967FF, #FF71CE);
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .os-window-btn {
+            width: 12px;
+            height: 12px;
+            border: 1px solid rgba(0,0,0,0.3);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #B967FF;
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF71CE;
+        }
+
+        /* Card Hover */
+        .vapor-card {
+            transition: all 0.3s ease;
+        }
+
+        .vapor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.3), 0 0 50px rgba(255, 113, 206, 0.15);
+        }
+
+        /* Button Styles */
+        .btn-neon {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        /* Greek Bust SVG Decoration */
+        .bust-decoration {
+            filter: drop-shadow(0 0 15px #B967FF88) saturate(1.5);
+        }
+
+        /* Hue Rotate Filter */
+        .hue-shift {
+            filter: saturate(1.5) hue-rotate(10deg);
+        }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            transition: all 0.3s ease;
+        }
+
+        /* Pricing Popular Badge */
+        .popular-badge {
+            background: linear-gradient(90deg, #FF71CE, #B967FF);
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="scanlines">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-vapor-dark/90 backdrop-blur-md border-b border-neon-purple/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-8 h-8 text-neon-pink group-hover:text-hot-magenta transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <circle cx="12" cy="12" r="3" />
+                        <line x1="12" y1="2" x2="12" y2="5" />
+                        <line x1="12" y1="19" x2="12" y2="22" />
+                        <line x1="2" y1="12" x2="5" y2="12" />
+                        <line x1="19" y1="12" x2="22" y2="12" />
+                    </svg>
+                    <span class="font-retro text-2xl neon-gradient font-bold tracking-wider">RetroVinyl</span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer chromatic-subtle">Recursos</a>
+                    <a href="#testimonials" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer chromatic-subtle">Depoimentos</a>
+                    <a href="#pricing" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer chromatic-subtle">Planos</a>
+                    <a href="#contact" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer chromatic-subtle">Contato</a>
+                    <a href="#cta" class="btn-neon cursor-pointer font-retro text-lg px-6 py-2 bg-gradient-to-r from-neon-pink to-neon-purple text-white hover:from-hot-magenta hover:to-neon-pink neon-glow-pink">
+                        Entrar na Vibe
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden cursor-pointer text-neon-pink hover:text-hot-magenta transition-colors duration-300" aria-label="Abrir menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-nav hidden md:hidden bg-vapor-dark/95 border-t border-neon-purple/30 backdrop-blur-md">
+            <div class="px-4 py-4 flex flex-col gap-4">
+                <a href="#features" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer">Planos</a>
+                <a href="#contact" class="font-retro text-lg text-pastel-blue hover:text-neon-cyan transition-all duration-300 cursor-pointer">Contato</a>
+                <a href="#cta" class="btn-neon cursor-pointer font-retro text-lg px-6 py-2 bg-gradient-to-r from-neon-pink to-neon-purple text-white text-center hover:from-hot-magenta hover:to-neon-pink">
+                    Entrar na Vibe
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" style="background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0a1a2e 60%, #0a0a1a 100%);">
+
+        <!-- Background Grid -->
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#B967FF 1px, transparent 1px), linear-gradient(90deg, #B967FF 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+        <!-- Floating Greek Bust Decoration (Left) -->
+        <div class="absolute left-4 lg:left-16 top-1/4 float-anim bust-decoration opacity-30 lg:opacity-50 hidden sm:block">
+            <svg width="120" height="160" viewBox="0 0 120 160" fill="none" class="w-20 lg:w-28">
+                <ellipse cx="60" cy="45" rx="30" ry="38" stroke="#B967FF" stroke-width="1.5" fill="none"/>
+                <path d="M40 80 Q60 95 80 80 L85 130 Q60 145 35 130 Z" stroke="#FF71CE" stroke-width="1.5" fill="none"/>
+                <circle cx="50" cy="40" r="3" fill="#01CDFE"/>
+                <circle cx="70" cy="40" r="3" fill="#01CDFE"/>
+                <path d="M52 55 Q60 62 68 55" stroke="#FF71CE" stroke-width="1" fill="none"/>
+                <path d="M35 25 Q60 5 85 25" stroke="#B967FF" stroke-width="1.5" fill="none"/>
+                <line x1="60" y1="130" x2="60" y2="155" stroke="#B967FF" stroke-width="1.5"/>
+                <line x1="35" y1="155" x2="85" y2="155" stroke="#B967FF" stroke-width="1.5"/>
+            </svg>
+        </div>
+
+        <!-- Floating Greek Bust Decoration (Right) -->
+        <div class="absolute right-4 lg:right-16 bottom-1/4 float-anim-delayed bust-decoration opacity-30 lg:opacity-50 hidden sm:block">
+            <svg width="100" height="140" viewBox="0 0 100 140" fill="none" class="w-16 lg:w-24">
+                <ellipse cx="50" cy="38" rx="25" ry="32" stroke="#01CDFE" stroke-width="1.5" fill="none"/>
+                <path d="M32 66 Q50 78 68 66 L72 110 Q50 122 28 110 Z" stroke="#B967FF" stroke-width="1.5" fill="none"/>
+                <circle cx="42" cy="34" r="2.5" fill="#FF71CE"/>
+                <circle cx="58" cy="34" r="2.5" fill="#FF71CE"/>
+                <path d="M44 48 Q50 53 56 48" stroke="#01CDFE" stroke-width="1" fill="none"/>
+                <path d="M28 20 Q50 4 72 20" stroke="#01CDFE" stroke-width="1.5" fill="none"/>
+                <line x1="50" y1="110" x2="50" y2="132" stroke="#01CDFE" stroke-width="1.5"/>
+                <line x1="28" y1="132" x2="72" y2="132" stroke="#01CDFE" stroke-width="1.5"/>
+            </svg>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <!-- Retro OS Window Frame -->
+            <div class="os-window inline-block w-full max-w-3xl mx-auto">
+                <div class="os-window-bar">
+                    <div class="os-window-btn bg-red-500 rounded-none"></div>
+                    <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                    <div class="os-window-btn bg-green-500 rounded-none"></div>
+                    <span class="font-retro text-xs text-vapor-dark ml-2">retrovinyl.exe — A E S T H E T I C</span>
+                </div>
+                <div class="p-6 sm:p-10 lg:p-14">
+                    <p class="font-retro text-neon-cyan text-lg sm:text-xl mb-4 tracking-widest vhs-tracking">
+                        ▶ A G O R A &nbsp; T O C A N D O . . .
+                    </p>
+
+                    <h1 class="glitch-text font-retro text-5xl sm:text-6xl lg:text-8xl text-neon-pink mb-6 leading-tight chromatic" data-text="RETROVINYL">
+                        RETROVINYL
+                    </h1>
+
+                    <p class="font-serif-contrast text-xl sm:text-2xl lg:text-3xl text-lavender mb-4 italic" style="font-family: Georgia, serif;">
+                        A sua loja de discos vintage com alma vaporwave
+                    </p>
+
+                    <p class="font-retro text-pastel-blue text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                        Mergulhe na nostalgia dos anos 80 e 90. Vinis raros, edições limitadas e clássicos que definiram gerações — tudo com a estética que você merece.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#pricing" class="btn-neon cursor-pointer font-retro text-xl px-8 py-3 bg-gradient-to-r from-neon-pink to-hot-magenta text-white neon-glow-pink hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+                            </svg>
+                            Explorar Coleção
+                        </a>
+                        <a href="#features" class="btn-neon cursor-pointer font-retro text-xl px-8 py-3 border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                            </svg>
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative Vinyl Record CSS Art -->
+            <div class="mt-10 flex justify-center">
+                <div class="relative w-32 h-32 sm:w-40 sm:h-40 float-anim">
+                    <div class="absolute inset-0 rounded-full border-4 border-neon-purple neon-glow-purple" style="background: conic-gradient(from 0deg, #0a0a1a, #1a1a2e, #0a0a1a, #1a1a2e, #0a0a1a, #1a1a2e, #0a0a1a); animation: spin 8s linear infinite;">
+                        <div class="absolute inset-1/3 rounded-full bg-neon-pink/20 border-2 border-neon-pink flex items-center justify-center">
+                            <div class="w-3 h-3 rounded-full bg-neon-pink"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Checkerboard Perspective -->
+        <div class="absolute bottom-0 left-0 w-full h-32 perspective-floor opacity-20">
+            <div class="w-full h-full checkerboard perspective-floor-inner"></div>
+        </div>
+
+        <style>
+            @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        </style>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative py-20 lg:py-28" style="background: linear-gradient(180deg, #0a0a1a 0%, #12082a 50%, #0a0a1a 100%);">
+        <!-- Section Header -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-retro text-neon-cyan text-lg tracking-widest mb-3">// RECURSOS</p>
+                <h2 class="font-retro text-4xl sm:text-5xl lg:text-6xl neon-gradient mb-4 chromatic-subtle">Por Que Nos Escolher?</h2>
+                <p class="font-retro text-pastel-blue text-lg max-w-2xl mx-auto">
+                    Não somos apenas uma loja. Somos um portal para a era dourada do vinil.
+                </p>
+                <div class="w-32 h-0.5 bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan mx-auto mt-6"></div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Curadoria -->
+                <div class="vapor-card os-window cursor-pointer group">
+                    <div class="os-window-bar">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-vapor-dark ml-2">curadoria.exe</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-neon-pink/50 group-hover:neon-glow-pink transition-all duration-300">
+                            <svg class="w-8 h-8 text-neon-pink group-hover:text-hot-magenta transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-pink mb-3 chromatic-subtle">Curadoria Especializada</h3>
+                        <p class="font-retro text-pastel-blue text-base leading-relaxed">
+                            Cada disco é selecionado por especialistas apaixonados. Garantimos autenticidade, qualidade sonora e raridade em cada peça do nosso acervo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Entrega -->
+                <div class="vapor-card os-window cursor-pointer group">
+                    <div class="os-window-bar">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-vapor-dark ml-2">entrega.exe</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-neon-cyan/50 group-hover:neon-glow-cyan transition-all duration-300">
+                            <svg class="w-8 h-8 text-neon-cyan group-hover:text-pastel-blue transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 0V6.375c0-.621-.504-1.125-1.125-1.125H14.25M17.25 14.25H6.375m0 0V3.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v3.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-cyan mb-3 chromatic-subtle">Entrega Segura</h3>
+                        <p class="font-retro text-pastel-blue text-base leading-relaxed">
+                            Embalagem premium anti-impacto para todo o Brasil. Seu vinil chega intacto, como se tivesse saído da prensa ontem. Rastreamento em tempo real.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Comunidade -->
+                <div class="vapor-card os-window cursor-pointer group">
+                    <div class="os-window-bar">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-vapor-dark ml-2">comunidade.exe</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-neon-purple/50 group-hover:neon-glow-purple transition-all duration-300">
+                            <svg class="w-8 h-8 text-neon-purple group-hover:text-lavender transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-purple mb-3 chromatic-subtle">Comunidade Retro</h3>
+                        <p class="font-retro text-pastel-blue text-base leading-relaxed">
+                            Faça parte de uma comunidade de colecionadores apaixonados. Eventos exclusivos, trocas, lançamentos antecipados e muito mais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-20 lg:py-28" style="background: linear-gradient(180deg, #0a0a1a 0%, #0d1a2a 50%, #0a0a1a 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-retro text-hot-magenta text-lg tracking-widest mb-3">// DEPOIMENTOS</p>
+                <h2 class="font-retro text-4xl sm:text-5xl lg:text-6xl neon-gradient mb-4 chromatic-subtle">O Que Dizem Nossos Colecionadores</h2>
+                <p class="font-retro text-pastel-blue text-lg max-w-2xl mx-auto">
+                    Histórias reais de quem vive a experiência RetroVinyl.
+                </p>
+                <div class="w-32 h-0.5 bg-gradient-to-r from-hot-magenta via-neon-pink to-neon-purple mx-auto mt-6"></div>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="vapor-card neon-border p-8 cursor-pointer relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-neon-pink/10 to-transparent"></div>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-neon-pink" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-pink" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-pink" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-pink" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-pink" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="font-retro text-pastel-blue text-lg mb-6 leading-relaxed italic" style="font-family: Georgia, serif;">
+                        "Encontrei um vinil original do Depeche Mode de 1984 que procurava há anos. A embalagem chegou impecável e o disco estava em estado mint. Experiência surreal!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border border-neon-pink flex items-center justify-center">
+                            <span class="font-retro text-neon-pink text-lg">MC</span>
+                        </div>
+                        <div>
+                            <p class="font-retro text-neon-pink text-base">Marina Costa</p>
+                            <p class="font-retro text-pastel-blue/60 text-sm">Colecionadora desde 2018</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="vapor-card neon-border p-8 cursor-pointer relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-neon-cyan/10 to-transparent"></div>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="font-retro text-pastel-blue text-lg mb-6 leading-relaxed italic" style="font-family: Georgia, serif;">
+                        "O plano Colecionador mudou minha vida. Todo mês recebo raridades que nem sabia que existiam. A curadoria é absurda. Melhor investimento que já fiz."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border border-neon-cyan flex items-center justify-center">
+                            <span class="font-retro text-neon-cyan text-lg">RS</span>
+                        </div>
+                        <div>
+                            <p class="font-retro text-neon-cyan text-base">Rafael Santos</p>
+                            <p class="font-retro text-pastel-blue/60 text-sm">DJ e Produtor Musical</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="vapor-card neon-border p-8 cursor-pointer relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-neon-purple/10 to-transparent"></div>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-neon-purple" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="font-retro text-pastel-blue text-lg mb-6 leading-relaxed italic" style="font-family: Georgia, serif;">
+                        "A estética da loja já vale a visita. Mas quando você segura um vinil original do Pink Floyd na mão... não tem preço. Atendimento nota 10!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 border border-neon-purple flex items-center justify-center">
+                            <span class="font-retro text-neon-purple text-lg">JO</span>
+                        </div>
+                        <div>
+                            <p class="font-retro text-neon-purple text-base">Juliana Oliveira</p>
+                            <p class="font-retro text-pastel-blue/60 text-sm">Audiófila e Blogueira</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative py-20 lg:py-28" style="background: linear-gradient(180deg, #0a0a1a 0%, #1a0a20 50%, #0a0a1a 100%);">
+        <!-- Background Decoration -->
+        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#FF71CE 1px, transparent 1px), linear-gradient(90deg, #FF71CE 1px, transparent 1px); background-size: 80px 80px;"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-retro text-neon-purple text-lg tracking-widest mb-3">// PLANOS</p>
+                <h2 class="font-retro text-4xl sm:text-5xl lg:text-6xl neon-gradient mb-4 chromatic-subtle">Escolha Sua Frequência</h2>
+                <p class="font-retro text-pastel-blue text-lg max-w-2xl mx-auto">
+                    Do casual ao obsessivo — temos o plano perfeito para cada tipo de colecionador.
+                </p>
+                <div class="w-32 h-0.5 bg-gradient-to-r from-neon-purple via-hot-magenta to-neon-pink mx-auto mt-6"></div>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <!-- Tier 1: Básico -->
+                <div class="vapor-card os-window cursor-pointer">
+                    <div class="os-window-bar">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-vapor-dark ml-2">basico.exe</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 border border-neon-cyan/50 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-neon-cyan" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-cyan mb-2">Ouvinte</h3>
+                        <p class="font-retro text-pastel-blue/60 text-sm mb-4">Para quem está começando</p>
+                        <div class="mb-6">
+                            <span class="font-retro text-5xl text-neon-cyan chromatic-subtle">R$49</span>
+                            <span class="font-retro text-pastel-blue/60 text-lg">/mês</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-cyan flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                1 vinil por mês
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-cyan flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Acesso ao catálogo básico
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-cyan flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Frete grátis
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue/40">
+                                <svg class="w-5 h-5 text-pastel-blue/30 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Edições limitadas
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue/40">
+                                <svg class="w-5 h-5 text-pastel-blue/30 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Eventos exclusivos
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-neon cursor-pointer block font-retro text-lg px-6 py-3 border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300 text-center">
+                            Começar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 2: Popular (Highlighted) -->
+                <div class="vapor-card os-window cursor-pointer relative md:-mt-4 md:mb-4" style="box-shadow: 0 0 30px rgba(255, 113, 206, 0.3), 0 0 60px rgba(185, 103, 255, 0.15);">
+                    <!-- Popular Badge -->
+                    <div class="popular-badge absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1 font-retro text-sm text-white tracking-widest z-10">
+                        ★ MAIS POPULAR ★
+                    </div>
+                    <div class="os-window-bar" style="background: linear-gradient(90deg, #FF71CE, #FF00FF);">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-white ml-2">colecionador.exe — RECOMENDADO</span>
+                    </div>
+                    <div class="p-8 text-center" style="background: linear-gradient(180deg, #1a0a2e, #0a0a1a);">
+                        <div class="w-14 h-14 mx-auto mb-4 border border-neon-pink/50 flex items-center justify-center neon-glow-pink">
+                            <svg class="w-7 h-7 text-neon-pink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-pink mb-2 chromatic-subtle">Colecionador</h3>
+                        <p class="font-retro text-pastel-pink/60 text-sm mb-4">O favorito dos fãs</p>
+                        <div class="mb-6">
+                            <span class="font-retro text-5xl neon-gradient chromatic-subtle">R$129</span>
+                            <span class="font-retro text-pastel-blue/60 text-lg">/mês</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-pink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                3 vinis por mês
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-pink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Catálogo completo + raridades
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-pink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Frete grátis expresso
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-pink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Edições limitadas
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-pink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Acesso a eventos VIP
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-neon cursor-pointer block font-retro text-lg px-6 py-3 bg-gradient-to-r from-neon-pink to-hot-magenta text-white hover:from-hot-magenta hover:to-neon-pink neon-glow-pink transition-all duration-300 text-center">
+                            Assinar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 3: Premium -->
+                <div class="vapor-card os-window cursor-pointer">
+                    <div class="os-window-bar">
+                        <div class="os-window-btn bg-red-500 rounded-none"></div>
+                        <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                        <div class="os-window-btn bg-green-500 rounded-none"></div>
+                        <span class="font-retro text-xs text-vapor-dark ml-2">premium.exe</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 border border-neon-purple/50 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-retro text-2xl text-neon-purple mb-2">Lendário</h3>
+                        <p class="font-retro text-lavender/60 text-sm mb-4">Para o verdadeiro obsessivo</p>
+                        <div class="mb-6">
+                            <span class="font-retro text-5xl text-neon-purple chromatic-subtle">R$299</span>
+                            <span class="font-retro text-pastel-blue/60 text-lg">/mês</span>
+                        </div>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                6 vinis por mês
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Acesso total + pré-lançamentos
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Frete grátis prioritário
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Edições limitadas + autografadas
+                            </li>
+                            <li class="flex items-center gap-2 font-retro text-pastel-blue">
+                                <svg class="w-5 h-5 text-neon-purple flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                Consultoria pessoal + eventos
+                            </li>
+                        </ul>
+                        <a href="#" class="btn-neon cursor-pointer block font-retro text-lg px-6 py-3 border-2 border-neon-purple text-neon-purple hover:bg-neon-purple/10 transition-all duration-300 text-center">
+                            Virar Lenda
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL SECTION ========== -->
+    <section id="cta" class="relative py-20 lg:py-28 overflow-hidden" style="background: linear-gradient(135deg, #1a0a2e 0%, #0a1a2e 50%, #1a0a2e 100%);">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 opacity-8" style="background-image: linear-gradient(#B967FF 1px, transparent 1px), linear-gradient(90deg, #B967FF 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+        <!-- Floating Decorations -->
+        <div class="absolute left-8 top-8 float-anim opacity-20 hidden lg:block">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <rect x="5" y="5" width="50" height="50" stroke="#FF71CE" stroke-width="1" fill="none"/>
+                <rect x="15" y="15" width="30" height="30" stroke="#01CDFE" stroke-width="1" fill="none"/>
+                <rect x="25" y="25" width="10" height="10" stroke="#B967FF" stroke-width="1" fill="none"/>
+            </svg>
+        </div>
+        <div class="absolute right-8 bottom-8 float-anim-delayed opacity-20 hidden lg:block">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <circle cx="40" cy="40" r="35" stroke="#01CDFE" stroke-width="1" fill="none"/>
+                <circle cx="40" cy="40" r="25" stroke="#FF71CE" stroke-width="1" fill="none"/>
+                <circle cx="40" cy="40" r="15" stroke="#B967FF" stroke-width="1" fill="none"/>
+                <circle cx="40" cy="40" r="5" fill="#FF71CE"/>
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <div class="os-window inline-block w-full" style="border-color: #FF71CE; box-shadow: 0 0 40px rgba(255, 113, 206, 0.2), 0 0 80px rgba(185, 103, 255, 0.1);">
+                <div class="os-window-bar" style="background: linear-gradient(90deg, #FF71CE, #B967FF, #01CDFE);">
+                    <div class="os-window-btn bg-red-500 rounded-none"></div>
+                    <div class="os-window-btn bg-yellow-400 rounded-none"></div>
+                    <div class="os-window-btn bg-green-500 rounded-none"></div>
+                    <span class="font-retro text-xs text-white ml-2">convite_final.exe — EXECUTE AGORA</span>
+                </div>
+                <div class="p-8 sm:p-12 lg:p-16">
+                    <div class="mb-6">
+                        <svg class="w-16 h-16 mx-auto text-neon-pink neon-pulse" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                    </div>
+
+                    <p class="font-retro text-neon-cyan text-lg tracking-widest mb-4 vhs-tracking">
+                        ▶ U L T I M A &nbsp; C H A N C E . . .
+                    </p>
+
+                    <h2 class="glitch-text font-retro text-4xl sm:text-5xl lg:text-6xl text-neon-pink mb-6 chromatic" data-text="ENTRE NA VIBE">
+                        ENTRE NA VIBE
+                    </h2>
+
+                    <p class="text-xl sm:text-2xl text-lavender mb-4 italic" style="font-family: Georgia, serif;">
+                        A nostalgia não espera. Sua coleção dos sonhos está a um clique de distância.
+                    </p>
+
+                    <p class="font-retro text-pastel-blue text-lg max-w-2xl mx-auto mb-8">
+                        Junte-se a mais de 12.000 colecionadores que já descobriram o prazer de ouvir música como ela foi feita para ser ouvida. Em vinil. Com alma.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#pricing" class="btn-neon cursor-pointer font-retro text-xl px-10 py-4 bg-gradient-to-r from-neon-pink via-hot-magenta to-neon-purple text-white neon-glow-pink hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                            </svg>
+                            Começar Minha Coleção
+                        </a>
+                        <a href="#contact" class="btn-neon cursor-pointer font-retro text-xl px-10 py-4 border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/>
+                            </svg>
+                            Falar com a Gente
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Checkerboard -->
+        <div class="absolute bottom-0 left-0 w-full h-24 perspective-floor opacity-15">
+            <div class="w-full h-full checkerboard perspective-floor-inner"></div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="relative pt-16 pb-8 border-t border-neon-purple/20" style="background: linear-gradient(180deg, #0a0a1a 0%, #050510 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Footer Top -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand Column -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-4">
+                        <svg class="w-7 h-7 text-neon-pink group-hover:text-hot-magenta transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <line x1="12" y1="2" x2="12" y2="5"/>
+                            <line x1="12" y1="19" x2="12" y2="22"/>
+                            <line x1="2" y1="12" x2="5" y2="12"/>
+                            <line x1="19" y1="12" x2="22" y2="12"/>
+                        </svg>
+                        <span class="font-retro text-xl neon-gradient font-bold tracking-wider">RetroVinyl</span>
+                    </a>
+                    <p class="font-retro text-pastel-blue/70 text-base leading-relaxed mb-4">
+                        Sua loja de discos vintage com alma vaporwave. Desde 2020 conectando colecionadores à música que importa.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex items-center gap-4">
+                        <!-- Instagram -->
+                        <a href="#" class="cursor-pointer text-pastel-blue/50 hover:text-neon-pink transition-all duration-300" aria-label="Instagram">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <circle cx="12" cy="12" r="5"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" class="cursor-pointer text-pastel-blue/50 hover:text-neon-cyan transition-all duration-300" aria-label="Twitter">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="cursor-pointer text-pastel-blue/50 hover:text-hot-magenta transition-all duration-300" aria-label="YouTube">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/>
+                            </svg>
+                        </a>
+                        <!-- Spotify -->
+                        <a href="#" class="cursor-pointer text-pastel-blue/50 hover:text-neon-purple transition-all duration-300" aria-label="Spotify">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                            </svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="#" class="cursor-pointer text-pastel-blue/50 hover:text-neon-pink transition-all duration-300" aria-label="TikTok">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.28 8.28 0 005.58 2.17v-3.44a4.85 4.85 0 01-1.99-.43 4.83 4.83 0 01-1.78-1.34V6.69h3.77z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="font-retro text-neon-pink text-lg mb-4 tracking-wider">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Início</a></li>
+                        <li><a href="#features" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Recursos</a></li>
+                        <li><a href="#testimonials" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Depoimentos</a></li>
+                        <li><a href="#pricing" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Planos</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-cyan transition-colors duration-300 cursor-pointer">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4 class="font-retro text-neon-cyan text-lg mb-4 tracking-wider">Categorias</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">Rock Clássico</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">Synthwave</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">New Wave</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">Jazz Fusion</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">MPB Vintage</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-pink transition-colors duration-300 cursor-pointer">Eletrônica Retro</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal & Contact -->
+                <div>
+                    <h4 class="font-retro text-neon-purple text-lg mb-4 tracking-wider">Legal & Contato</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer">Política de Cookies</a></li>
+                        <li><a href="#" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer">Trocas e Devoluções</a></li>
+                        <li>
+                            <a href="mailto:contato@retrovinyl.com.br" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+                                </svg>
+                                contato@retrovinyl.com.br
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+5511999999999" class="font-retro text-pastel-blue/70 hover:text-neon-purple transition-colors duration-300 cursor-pointer flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                                </svg>
+                                (11) 99999-9999
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Divider -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-neon-purple/40 to-transparent mb-8"></div>
+
+            <!-- Footer Bottom -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="font-retro text-pastel-blue/50 text-sm text-center md:text-left">
+                    &copy; 2026 RetroVinyl. Todos os direitos reservados. Feito com
+                    <svg class="w-4 h-4 inline text-neon-pink" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    </svg>
+                    e vinil.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-retro text-pastel-blue/50 text-sm hover:text-neon-pink transition-colors duration-300 cursor-pointer">Política de Privacidade</a>
+                    <span class="text-pastel-blue/20">|</span>
+                    <a href="#" class="font-retro text-pastel-blue/50 text-sm hover:text-neon-cyan transition-colors duration-300 cursor-pointer">Termos de Uso</a>
+                    <span class="text-pastel-blue/20">|</span>
+                    <a href="#" class="font-retro text-pastel-blue/50 text-sm hover:text-neon-purple transition-colors duration-300 cursor-pointer">Mapa do Site</a>
+                </div>
+            </div>
+
+            <!-- Retro ASCII Art -->
+            <div class="text-center mt-8">
+                <p class="font-retro text-pastel-blue/20 text-xs tracking-widest">
+                    ░▒▓█ R E T R O V I N Y L &nbsp; — &nbsp; A &nbsp; E &nbsp; S &nbsp; T &nbsp; H &nbsp; E &nbsp; T &nbsp; I &nbsp; C █▓▒░
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.borderBottomColor = 'rgba(185, 103, 255, 0.5)';
+                navbar.style.backgroundColor = 'rgba(10, 10, 26, 0.95)';
+            } else {
+                navbar.style.borderBottomColor = 'rgba(185, 103, 255, 0.3)';
+                navbar.style.backgroundColor = 'rgba(10, 10, 26, 0.9)';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply fade-in to cards
+        document.querySelectorAll('.vapor-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

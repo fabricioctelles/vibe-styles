@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BRUTALISMO ARQ — Estúdio de Arquitetura Experimental. Projetos brutos, honestos e sem concessões. Desafiamos o convencional.">
+    <meta name="keywords" content="arquitetura experimental, brutalismo, estúdio de arquitetura, design bruto, concreto aparente, projetos arquitetônicos">
+    <meta name="author" content="BRUTALISMO ARQ">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="BRUTALISMO ARQ — Estúdio de Arquitetura Experimental">
+    <meta property="og:description" content="Projetos brutos, honestos e sem concessões. Arquitetura que desafia o convencional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brutalismo-arq.com.br">
+    <meta property="og:image" content="https://brutalismo-arq.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="BRUTALISMO ARQ">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BRUTALISMO ARQ — Estúdio de Arquitetura Experimental">
+    <meta name="twitter:description" content="Projetos brutos, honestos e sem concessões.">
+
+    <title>BRUTALISMO ARQ — Estúdio de Arquitetura Experimental</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brutal-black': '#000000',
+                        'brutal-white': '#FFFFFF',
+                        'brutal-neon': '#00FF00',
+                        'brutal-pink': '#FF00FF',
+                        'brutal-blue': '#0000FF',
+                        'brutal-red': '#FF0000',
+                        'brutal-yellow': '#FFFF00',
+                        'brutal-grey': '#808080',
+                    },
+                    fontFamily: {
+                        'mono': ['"Courier New"', 'monospace'],
+                        'system': ['system-ui', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            border-radius: 0px !important;
+            transition: none !important;
+            font-family: 'Courier New', monospace;
+        }
+
+        ::selection {
+            background: #00FF00;
+            color: #000000;
+        }
+
+        .brutal-border {
+            border: 4px solid #000000;
+        }
+
+        .brutal-border-white {
+            border: 4px solid #FFFFFF;
+        }
+
+        .brutal-shadow {
+            box-shadow: 8px 8px 0px #000000;
+        }
+
+        .brutal-shadow-neon {
+            box-shadow: 8px 8px 0px #00FF00;
+        }
+
+        .brutal-shadow-pink {
+            box-shadow: 8px 8px 0px #FF00FF;
+        }
+
+        .text-brutal-huge {
+            font-size: clamp(2rem, 8vw, 10rem);
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .text-brutal-large {
+            font-size: clamp(1.5rem, 4vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .text-brutal-medium {
+            font-size: clamp(1rem, 2vw, 2rem);
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hover-invert:hover {
+            filter: invert(1);
+        }
+
+        .hover-neon:hover {
+            background-color: #00FF00 !important;
+            color: #000000 !important;
+        }
+
+        .hover-pink:hover {
+            background-color: #FF00FF !important;
+            color: #000000 !important;
+        }
+
+        .hover-shift:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px #000000;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(3px, 3px); }
+        }
+
+        .glitch-text:hover {
+            animation: glitch 0.3s ease infinite;
+        }
+
+        .brutal-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #000000,
+                #000000 10px,
+                #FFFF00 10px,
+                #FFFF00 20px
+            );
+        }
+
+        .abstract-shape {
+            position: relative;
+        }
+
+        .abstract-shape::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 6px solid #00FF00;
+            top: -20px;
+            right: -20px;
+            z-index: -1;
+        }
+
+        .abstract-shape::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #FF00FF;
+            bottom: -30px;
+            left: -30px;
+            z-index: -1;
+            mix-blend-mode: difference;
+        }
+
+        .overlap-element {
+            mix-blend-mode: difference;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .rotate-anim {
+            animation: rotate-slow 15s linear infinite;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: #00FF00;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .pricing-highlight {
+            transform: scale(1.05);
+            border-color: #00FF00 !important;
+        }
+
+        @media (max-width: 768px) {
+            .abstract-shape::before,
+            .abstract-shape::after {
+                display: none;
+            }
+            .pricing-highlight {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-brutal-black text-brutal-white font-mono overflow-x-hidden">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-brutal-black brutal-border border-t-0 border-l-0 border-r-0" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="cursor-pointer glitch-text flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-brutal-neon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="square" stroke-linejoin="miter" d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/>
+                </svg>
+                <span class="text-brutal-white font-black text-xl md:text-2xl uppercase tracking-tighter">
+                    BRUTALISMO<span class="text-brutal-neon">_</span>ARQ
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#features" class="nav-link text-brutal-white uppercase text-sm font-black tracking-wider cursor-pointer hover-neon px-2 py-1">Serviços</a>
+                <a href="#testimonials" class="nav-link text-brutal-white uppercase text-sm font-black tracking-wider cursor-pointer hover-neon px-2 py-1">Depoimentos</a>
+                <a href="#pricing" class="nav-link text-brutal-white uppercase text-sm font-black tracking-wider cursor-pointer hover-neon px-2 py-1">Planos</a>
+                <a href="#contact" class="nav-link text-brutal-white uppercase text-sm font-black tracking-wider cursor-pointer hover-neon px-2 py-1">Contato</a>
+                <a href="#cta" class="bg-brutal-neon text-brutal-black font-black uppercase text-sm px-6 py-3 brutal-border cursor-pointer hover-pink brutal-shadow tracking-wider">
+                    Orçamento
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden cursor-pointer hover-neon p-2 brutal-border" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Abrir menu de navegação">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brutal-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="square" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brutal-black brutal-border border-l-0 border-r-0">
+            <div class="flex flex-col px-4 py-4 gap-2">
+                <a href="#features" class="text-brutal-white uppercase text-lg font-black tracking-wider cursor-pointer hover-neon px-4 py-3 brutal-border">Serviços</a>
+                <a href="#testimonials" class="text-brutal-white uppercase text-lg font-black tracking-wider cursor-pointer hover-neon px-4 py-3 brutal-border">Depoimentos</a>
+                <a href="#pricing" class="text-brutal-white uppercase text-lg font-black tracking-wider cursor-pointer hover-neon px-4 py-3 brutal-border">Planos</a>
+                <a href="#contact" class="text-brutal-white uppercase text-lg font-black tracking-wider cursor-pointer hover-neon px-4 py-3 brutal-border">Contato</a>
+                <a href="#cta" class="bg-brutal-neon text-brutal-black font-black uppercase text-lg px-4 py-3 brutal-border cursor-pointer hover-pink text-center mt-2">
+                    Orçamento
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="min-h-screen bg-brutal-black relative flex items-center pt-20 overflow-hidden" id="hero">
+        <!-- Overlapping geometric elements -->
+        <div class="absolute top-20 right-0 w-64 h-64 md:w-96 md:h-96 border-[6px] border-brutal-neon opacity-30 rotate-anim" aria-hidden="true"></div>
+        <div class="absolute bottom-10 left-10 w-40 h-40 md:w-72 md:h-72 bg-brutal-pink opacity-20 overlap-element" aria-hidden="true"></div>
+        <div class="absolute top-1/3 left-1/4 w-20 h-20 md:w-32 md:h-32 bg-brutal-blue opacity-15" aria-hidden="true"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-16 h-16 md:w-24 md:h-24 border-[4px] border-brutal-yellow" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Left: Text Content -->
+                <div class="space-y-8">
+                    <div class="inline-block bg-brutal-neon text-brutal-black font-black uppercase text-xs md:text-sm px-4 py-2 brutal-border tracking-widest">
+                        // ESTÚDIO EXPERIMENTAL
+                    </div>
+
+                    <h1 class="text-brutal-huge text-brutal-white leading-none">
+                        CONCRETO<br>
+                        <span class="text-brutal-neon">BRUTO</span><br>
+                        <span class="text-brutal-pink">& REAL</span>
+                    </h1>
+
+                    <p class="text-brutal-grey text-lg md:text-xl font-bold uppercase max-w-xl leading-relaxed tracking-wide">
+                        Arquitetura que recusa o decorativo. Estruturas honestas, materiais expostos, formas que confrontam. Nada de fachadas — só verdade construída.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#pricing" class="bg-brutal-neon text-brutal-black font-black uppercase text-lg px-8 py-4 brutal-border cursor-pointer hover-pink brutal-shadow text-center tracking-wider">
+                            Ver Projetos →
+                        </a>
+                        <a href="#features" class="bg-brutal-black text-brutal-white font-black uppercase text-lg px-8 py-4 brutal-border cursor-pointer hover-neon text-center tracking-wider border-brutal-white" style="border-color: #FFFFFF;">
+                            Como Funciona
+                        </a>
+                    </div>
+
+                    <!-- Stats row -->
+                    <div class="flex flex-wrap gap-8 pt-4">
+                        <div class="brutal-border px-6 py-4 bg-brutal-black">
+                            <span class="text-brutal-neon text-3xl md:text-4xl font-black block">147+</span>
+                            <span class="text-brutal-grey text-xs uppercase tracking-widest">Projetos</span>
+                        </div>
+                        <div class="brutal-border px-6 py-4 bg-brutal-black">
+                            <span class="text-brutal-pink text-3xl md:text-4xl font-black block">12</span>
+                            <span class="text-brutal-grey text-xs uppercase tracking-widest">Anos</span>
+                        </div>
+                        <div class="brutal-border px-6 py-4 bg-brutal-black">
+                            <span class="text-brutal-yellow text-3xl md:text-4xl font-black block">98%</span>
+                            <span class="text-brutal-grey text-xs uppercase tracking-widest">Satisfação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Abstract CSS Art / Visual Element -->
+                <div class="hidden lg:flex justify-center items-center relative">
+                    <div class="abstract-shape w-80 h-80 relative">
+                        <!-- Main block -->
+                        <div class="w-full h-full bg-brutal-white brutal-border flex items-center justify-center">
+                            <div class="text-brutal-black text-center">
+                                <div class="text-8xl font-black leading-none">B</div>
+                                <div class="text-sm font-black uppercase tracking-[0.5em] mt-2">RUTALISMO</div>
+                            </div>
+                        </div>
+                        <!-- Overlapping accent blocks -->
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-brutal-neon brutal-border z-10"></div>
+                        <div class="absolute -bottom-6 -right-6 w-32 h-16 bg-brutal-pink brutal-border z-10"></div>
+                        <div class="absolute top-1/2 -right-10 w-20 h-20 border-[4px] border-brutal-yellow rotate-45"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Marquee strip -->
+        <div class="absolute bottom-0 left-0 w-full bg-brutal-neon brutal-border border-l-0 border-r-0 border-b-0 overflow-hidden py-3">
+            <div class="marquee-track">
+                <span class="text-brutal-black font-black uppercase text-sm tracking-[0.3em] whitespace-nowrap px-8">
+                    ★ CONCRETO APARENTE ★ FORMAS BRUTAS ★ MATERIAIS EXPOSTOS ★ SEM CONCESSÕES ★ ARQUITETURA HONESTA ★ ESTRUTURA VISÍVEL ★ ANTI-DECORATIVO ★ BRUTALISMO PURO ★
+                </span>
+                <span class="text-brutal-black font-black uppercase text-sm tracking-[0.3em] whitespace-nowrap px-8">
+                    ★ CONCRETO APARENTE ★ FORMAS BRUTAS ★ MATERIAIS EXPOSTOS ★ SEM CONCESSÕES ★ ARQUITETURA HONESTA ★ ESTRUTURA VISÍVEL ★ ANTI-DECORATIVO ★ BRUTALISMO PURO ★
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="bg-brutal-white text-brutal-black py-20 md:py-32 relative" id="features">
+        <!-- Decorative stripe -->
+        <div class="brutal-stripe h-4 w-full absolute top-0 left-0" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Header -->
+            <div class="mb-16 md:mb-24">
+                <div class="inline-block bg-brutal-black text-brutal-neon font-black uppercase text-xs px-4 py-2 brutal-border tracking-widest mb-6">
+                    // NOSSOS SERVIÇOS
+                </div>
+                <h2 class="text-brutal-large text-brutal-black max-w-3xl">
+                    O QUE FAZEMOS<span class="text-brutal-pink">_</span>
+                </h2>
+                <p class="text-brutal-grey text-lg font-bold uppercase mt-4 max-w-2xl tracking-wide">
+                    Três pilares que sustentam cada projeto. Sem firulas, sem enrolação — só o essencial.
+                </p>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
+                <!-- Card 1: Projeto Arquitetônico -->
+                <div class="brutal-border bg-brutal-white p-8 md:p-10 cursor-pointer hover-shift group relative -mb-[4px] md:mb-0 md:-mr-[4px]">
+                    <div class="bg-brutal-black p-4 inline-block mb-6 brutal-border group-hover:bg-brutal-neon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-brutal-neon group-hover:text-brutal-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                            <path stroke-linecap="square" d="M8 14l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="text-brutal-neon font-black text-6xl md:text-7xl opacity-20 absolute top-4 right-6">01</div>
+                    <h3 class="text-brutal-medium text-brutal-black mb-4">Projeto Arquitetônico</h3>
+                    <p class="text-brutal-grey font-bold text-sm uppercase leading-relaxed tracking-wide">
+                        Do conceito à execução. Plantas, cortes, fachadas e detalhamentos técnicos com a brutalidade que define nosso estúdio. Cada traço é uma decisão consciente.
+                    </p>
+                    <div class="mt-6 pt-4 border-t-4 border-brutal-black">
+                        <span class="text-brutal-black font-black uppercase text-sm cursor-pointer hover-neon px-2 py-1 tracking-wider">
+                            Saiba mais →
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Design de Interiores -->
+                <div class="brutal-border bg-brutal-black text-brutal-white p-8 md:p-10 cursor-pointer hover-shift group relative -mb-[4px] md:mb-0 md:-mr-[4px]">
+                    <div class="bg-brutal-neon p-4 inline-block mb-6 brutal-border group-hover:bg-brutal-pink">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-brutal-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/>
+                            <path stroke-linecap="square" d="M4 13h16M4 17h16M8 9v12M16 9v12"/>
+                        </svg>
+                    </div>
+                    <div class="text-brutal-pink font-black text-6xl md:text-7xl opacity-20 absolute top-4 right-6">02</div>
+                    <h3 class="text-brutal-medium text-brutal-white mb-4">Design de Interiores</h3>
+                    <p class="text-brutal-grey font-bold text-sm uppercase leading-relaxed tracking-wide">
+                        Espaços internos que respiram autenticidade. Concreto, aço, madeira crua — materiais que falam por si. Ambientes que rejeitam o supérfluo.
+                    </p>
+                    <div class="mt-6 pt-4 border-t-4 border-brutal-white">
+                        <span class="text-brutal-neon font-black uppercase text-sm cursor-pointer hover-pink px-2 py-1 tracking-wider">
+                            Saiba mais →
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Consultoria Estrutural -->
+                <div class="brutal-border bg-brutal-white p-8 md:p-10 cursor-pointer hover-shift group relative">
+                    <div class="bg-brutal-black p-4 inline-block mb-6 brutal-border group-hover:bg-brutal-neon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-brutal-neon group-hover:text-brutal-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2"/>
+                            <path stroke-linecap="square" d="M7 7h10v10H7z"/>
+                            <path stroke-linecap="square" d="M10 10h4v4h-4z"/>
+                        </svg>
+                    </div>
+                    <div class="text-brutal-blue font-black text-6xl md:text-7xl opacity-20 absolute top-4 right-6">03</div>
+                    <h3 class="text-brutal-medium text-brutal-black mb-4">Consultoria Estrutural</h3>
+                    <p class="text-brutal-grey font-bold text-sm uppercase leading-relaxed tracking-wide">
+                        Análise técnica sem rodeios. Avaliamos viabilidade, propomos soluções e garantimos que a estrutura aguente a verdade do projeto. Engenharia bruta.
+                    </p>
+                    <div class="mt-6 pt-4 border-t-4 border-brutal-black">
+                        <span class="text-brutal-black font-black uppercase text-sm cursor-pointer hover-neon px-2 py-1 tracking-wider">
+                            Saiba mais →
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative stripe bottom -->
+        <div class="brutal-stripe h-4 w-full absolute bottom-0 left-0" aria-hidden="true"></div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section class="bg-brutal-black text-brutal-white py-20 md:py-32 relative" id="testimonials">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Header -->
+            <div class="mb-16 md:mb-24 text-center">
+                <div class="inline-block bg-brutal-pink text-brutal-black font-black uppercase text-xs px-4 py-2 brutal-border tracking-widest mb-6">
+                    // DEPOIMENTOS
+                </div>
+                <h2 class="text-brutal-large text-brutal-white">
+                    O QUE DIZEM<span class="text-brutal-neon">_</span>
+                </h2>
+                <p class="text-brutal-grey text-lg font-bold uppercase mt-4 max-w-2xl mx-auto tracking-wide">
+                    Clientes que entenderam que arquitetura de verdade não precisa de verniz.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="brutal-border bg-brutal-black p-8 cursor-pointer hover-shift relative group" style="border-color: #FFFFFF;">
+                    <!-- Quote mark -->
+                    <div class="text-brutal-neon font-black text-8xl leading-none absolute -top-4 left-6 opacity-40" aria-hidden="true">"</div>
+
+                    <div class="relative z-10">
+                        <p class="text-brutal-white font-bold text-base leading-relaxed mb-8 pt-8">
+                            "Eles entregaram exatamente o que prometeram: um projeto sem firulas, honesto e funcional. O concreto aparente da nossa sede virou referência no bairro. Brutalismo de verdade."
+                        </p>
+
+                        <div class="border-t-4 border-brutal-neon pt-6 flex items-center gap-4">
+                            <div class="w-14 h-14 bg-brutal-neon brutal-border flex items-center justify-center flex-shrink-0">
+                                <span class="text-brutal-black font-black text-xl">RC</span>
+                            </div>
+                            <div>
+                                <div class="text-brutal-white font-black uppercase text-sm tracking-wider">Ricardo Carvalho</div>
+                                <div class="text-brutal-grey font-bold uppercase text-xs tracking-wider">CEO — Carvalho Engenharia</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="flex gap-1 mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="brutal-border bg-brutal-white text-brutal-black p-8 cursor-pointer hover-shift relative group">
+                    <!-- Quote mark -->
+                    <div class="text-brutal-pink font-black text-8xl leading-none absolute -top-4 left-6 opacity-40" aria-hidden="true">"</div>
+
+                    <div class="relative z-10">
+                        <p class="text-brutal-black font-bold text-base leading-relaxed mb-8 pt-8">
+                            "Procurei vários estúdios e todos queriam suavizar minha visão. O BRUTALISMO_ARQ foi o único que disse: 'vamos fazer mais bruto ainda'. O resultado superou tudo que imaginei."
+                        </p>
+
+                        <div class="border-t-4 border-brutal-pink pt-6 flex items-center gap-4">
+                            <div class="w-14 h-14 bg-brutal-pink brutal-border flex items-center justify-center flex-shrink-0">
+                                <span class="text-brutal-black font-black text-xl">AM</span>
+                            </div>
+                            <div>
+                                <div class="text-brutal-black font-black uppercase text-sm tracking-wider">Ana Martins</div>
+                                <div class="text-brutal-grey font-bold uppercase text-xs tracking-wider">Diretora — Galeria Concreto</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="flex gap-1 mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="brutal-border bg-brutal-black p-8 cursor-pointer hover-shift relative group" style="border-color: #FFFFFF;">
+                    <!-- Quote mark -->
+                    <div class="text-brutal-yellow font-black text-8xl leading-none absolute -top-4 left-6 opacity-40" aria-hidden="true">"</div>
+
+                    <div class="relative z-10">
+                        <p class="text-brutal-white font-bold text-base leading-relaxed mb-8 pt-8">
+                            "Nosso restaurante precisava de personalidade. Eles transformaram um galpão abandonado numa experiência sensorial com concreto, ferro e luz natural. Lotação toda noite."
+                        </p>
+
+                        <div class="border-t-4 border-brutal-yellow pt-6 flex items-center gap-4">
+                            <div class="w-14 h-14 bg-brutal-yellow brutal-border flex items-center justify-center flex-shrink-0">
+                                <span class="text-brutal-black font-black text-xl">PL</span>
+                            </div>
+                            <div>
+                                <div class="text-brutal-white font-black uppercase text-sm tracking-wider">Pedro Lima</div>
+                                <div class="text-brutal-grey font-bold uppercase text-xs tracking-wider">Chef — Restaurante Cru</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="flex gap-1 mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section class="bg-brutal-white text-brutal-black py-20 md:py-32 relative" id="pricing">
+        <!-- Decorative stripe -->
+        <div class="brutal-stripe h-4 w-full absolute top-0 left-0" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Section Header -->
+            <div class="mb-16 md:mb-24 text-center">
+                <div class="inline-block bg-brutal-black text-brutal-neon font-black uppercase text-xs px-4 py-2 brutal-border tracking-widest mb-6">
+                    // PLANOS & VALORES
+                </div>
+                <h2 class="text-brutal-large text-brutal-black">
+                    INVISTA NO BRUTO<span class="text-brutal-pink">_</span>
+                </h2>
+                <p class="text-brutal-grey text-lg font-bold uppercase mt-4 max-w-2xl mx-auto tracking-wide">
+                    Três pacotes. Sem letras miúdas. Escolha o nível de brutalidade que seu projeto merece.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <!-- Tier 1: Fundação -->
+                <div class="brutal-border bg-brutal-white p-8 md:p-10 cursor-pointer hover-shift relative group">
+                    <div class="bg-brutal-black text-brutal-white font-black uppercase text-xs px-4 py-2 brutal-border inline-block mb-6 tracking-widest">
+                        FUNDAÇÃO
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-brutal-black font-black text-5xl md:text-6xl">R$8K</span>
+                        <span class="text-brutal-grey font-bold text-sm uppercase block mt-2 tracking-wider">/ por projeto</span>
+                    </div>
+
+                    <div class="border-t-4 border-brutal-black pt-6 space-y-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Projeto arquitetônico básico</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Até 100m² de área</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">2 revisões incluídas</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Plantas baixas e cortes</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-grey flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span class="text-brutal-grey font-bold text-sm uppercase tracking-wide line-through">Maquete 3D</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="block w-full bg-brutal-black text-brutal-white font-black uppercase text-center text-sm px-6 py-4 brutal-border cursor-pointer hover-neon tracking-wider">
+                        Começar Projeto →
+                    </a>
+                </div>
+
+                <!-- Tier 2: Estrutura (HIGHLIGHTED) -->
+                <div class="brutal-border bg-brutal-black text-brutal-white p-8 md:p-10 cursor-pointer hover-shift relative group pricing-highlight brutal-shadow-neon" style="border-color: #00FF00;">
+                    <!-- Popular badge -->
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brutal-neon text-brutal-black font-black uppercase text-xs px-6 py-2 brutal-border tracking-widest whitespace-nowrap z-10">
+                        ★ MAIS POPULAR ★
+                    </div>
+
+                    <div class="bg-brutal-neon text-brutal-black font-black uppercase text-xs px-4 py-2 brutal-border inline-block mb-6 tracking-widest mt-4">
+                        ESTRUTURA
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-brutal-neon font-black text-5xl md:text-6xl">R$18K</span>
+                        <span class="text-brutal-grey font-bold text-sm uppercase block mt-2 tracking-wider">/ por projeto</span>
+                    </div>
+
+                    <div class="border-t-4 border-brutal-neon pt-6 space-y-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-white font-bold text-sm uppercase tracking-wide">Projeto completo + interiores</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-white font-bold text-sm uppercase tracking-wide">Até 300m² de área</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-white font-bold text-sm uppercase tracking-wide">5 revisões incluídas</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-white font-bold text-sm uppercase tracking-wide">Maquete 3D realista</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-neon flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-white font-bold text-sm uppercase tracking-wide">Acompanhamento de obra</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="block w-full bg-brutal-neon text-brutal-black font-black uppercase text-center text-sm px-6 py-4 brutal-border cursor-pointer hover-pink tracking-wider">
+                        Escolher Estrutura →
+                    </a>
+                </div>
+
+                <!-- Tier 3: Monolito -->
+                <div class="brutal-border bg-brutal-white p-8 md:p-10 cursor-pointer hover-shift relative group">
+                    <div class="bg-brutal-pink text-brutal-black font-black uppercase text-xs px-4 py-2 brutal-border inline-block mb-6 tracking-widest">
+                        MONOLITO
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-brutal-black font-black text-5xl md:text-6xl">R$35K</span>
+                        <span class="text-brutal-grey font-bold text-sm uppercase block mt-2 tracking-wider">/ por projeto</span>
+                    </div>
+
+                    <div class="border-t-4 border-brutal-black pt-6 space-y-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Projeto integral sem limites</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Área ilimitada</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Revisões ilimitadas</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Maquete 3D + tour virtual</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-brutal-black font-bold text-sm uppercase tracking-wide">Gerenciamento total da obra</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="block w-full bg-brutal-pink text-brutal-black font-black uppercase text-center text-sm px-6 py-4 brutal-border cursor-pointer hover-neon tracking-wider">
+                        Ir Monolítico →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative stripe bottom -->
+        <div class="brutal-stripe h-4 w-full absolute bottom-0 left-0" aria-hidden="true"></div>
+    </section>
+
+    <!-- ========== CTA FINAL SECTION ========== -->
+    <section class="bg-brutal-black text-brutal-white py-20 md:py-32 relative overflow-hidden" id="cta">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full" aria-hidden="true">
+            <div class="absolute top-10 left-10 w-40 h-40 border-[6px] border-brutal-neon opacity-10 rotate-12"></div>
+            <div class="absolute bottom-10 right-10 w-60 h-60 border-[6px] border-brutal-pink opacity-10 -rotate-12"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-[4px] border-brutal-yellow opacity-5 rotate-45"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block bg-brutal-neon text-brutal-black font-black uppercase text-xs px-4 py-2 brutal-border tracking-widest mb-8">
+                // PRONTO PARA CONSTRUIR?
+            </div>
+
+            <h2 class="text-brutal-huge text-brutal-white mb-8">
+                CHEGA DE<br>
+                <span class="text-brutal-neon">FACHADA</span><span class="text-brutal-pink">.</span>
+            </h2>
+
+            <p class="text-brutal-grey text-lg md:text-xl font-bold uppercase max-w-2xl mx-auto mb-12 tracking-wide leading-relaxed">
+                Seu projeto merece honestidade estrutural. Fale com nosso time e descubra como o brutalismo pode transformar sua visão em concreto — literalmente.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="#contact" class="bg-brutal-neon text-brutal-black font-black uppercase text-lg px-10 py-5 brutal-border cursor-pointer hover-pink brutal-shadow text-center tracking-wider">
+                    Solicitar Orçamento Gratuito →
+                </a>
+                <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="bg-brutal-black text-brutal-white font-black uppercase text-lg px-10 py-5 brutal-border cursor-pointer hover-neon text-center tracking-wider flex items-center gap-3" style="border-color: #FFFFFF;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+
+            <!-- Trust indicators -->
+            <div class="flex flex-wrap justify-center gap-8 mt-16 pt-8 border-t-4 border-brutal-grey">
+                <div class="text-center">
+                    <span class="text-brutal-neon font-black text-3xl block">147+</span>
+                    <span class="text-brutal-grey font-bold text-xs uppercase tracking-widest">Projetos Entregues</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-brutal-pink font-black text-3xl block">23</span>
+                    <span class="text-brutal-grey font-bold text-xs uppercase tracking-widest">Cidades Atendidas</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-brutal-yellow font-black text-3xl block">4.9</span>
+                    <span class="text-brutal-grey font-bold text-xs uppercase tracking-widest">Avaliação Média</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-brutal-blue font-black text-3xl block">12</span>
+                    <span class="text-brutal-grey font-bold text-xs uppercase tracking-widest">Anos de Mercado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-brutal-black text-brutal-white relative" id="contact">
+        <!-- Top stripe -->
+        <div class="bg-brutal-neon h-2 w-full" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4 py-16 md:py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Column 1: Brand -->
+                <div class="space-y-6">
+                    <a href="#" class="cursor-pointer flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-brutal-neon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/>
+                        </svg>
+                        <span class="text-brutal-white font-black text-xl uppercase tracking-tighter">
+                            BRUTALISMO<span class="text-brutal-neon">_</span>ARQ
+                        </span>
+                    </a>
+                    <p class="text-brutal-grey font-bold text-sm uppercase leading-relaxed tracking-wide">
+                        Estúdio de arquitetura experimental. Projetos brutos, honestos e sem concessões desde 2014.
+                    </p>
+                    <!-- Social Media Icons -->
+                    <div class="flex gap-3">
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/brutalismo_arq" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-brutal-black brutal-border flex items-center justify-center cursor-pointer hover-neon" style="border-color: #FFFFFF;" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <rect x="2" y="2" width="20" height="20" rx="0"/>
+                                <circle cx="12" cy="12" r="5"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/company/brutalismo-arq" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-brutal-black brutal-border flex items-center justify-center cursor-pointer hover-neon" style="border-color: #FFFFFF;" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="https://youtube.com/@brutalismo-arq" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-brutal-black brutal-border flex items-center justify-center cursor-pointer hover-neon" style="border-color: #FFFFFF;" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <!-- X / Twitter -->
+                        <a href="https://x.com/brutalismo_arq" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-brutal-black brutal-border flex items-center justify-center cursor-pointer hover-neon" style="border-color: #FFFFFF;" aria-label="X (Twitter)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation -->
+                <div class="space-y-4">
+                    <h4 class="text-brutal-neon font-black uppercase text-sm tracking-widest mb-6 pb-2 border-b-4 border-brutal-neon inline-block">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#hero" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-neon px-2 py-1 inline-block">Início</a></li>
+                        <li><a href="#features" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-neon px-2 py-1 inline-block">Serviços</a></li>
+                        <li><a href="#testimonials" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-neon px-2 py-1 inline-block">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-neon px-2 py-1 inline-block">Planos</a></li>
+                        <li><a href="#cta" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-neon px-2 py-1 inline-block">Orçamento</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Legal -->
+                <div class="space-y-4">
+                    <h4 class="text-brutal-pink font-black uppercase text-sm tracking-widest mb-6 pb-2 border-b-4 border-brutal-pink inline-block">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/politica-de-privacidade" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-pink px-2 py-1 inline-block">Política de Privacidade</a></li>
+                        <li><a href="/termos-de-uso" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-pink px-2 py-1 inline-block">Termos de Uso</a></li>
+                        <li><a href="/cookies" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-pink px-2 py-1 inline-block">Política de Cookies</a></li>
+                        <li><a href="/lgpd" class="text-brutal-white font-bold uppercase text-sm tracking-wider cursor-pointer hover-pink px-2 py-1 inline-block">LGPD</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div class="space-y-4">
+                    <h4 class="text-brutal-yellow font-black uppercase text-sm tracking-widest mb-6 pb-2 border-b-4 border-brutal-yellow inline-block">Contato</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="square" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="text-brutal-grey font-bold text-sm uppercase tracking-wide">Rua Augusta, 1200 — São Paulo, SP</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:contato@brutalismo-arq.com.br" class="text-brutal-grey font-bold text-sm uppercase tracking-wide cursor-pointer hover-neon px-1">contato@brutalismo-arq.com.br</a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brutal-yellow flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="text-brutal-grey font-bold text-sm uppercase tracking-wide cursor-pointer hover-neon px-1">(11) 99999-9999</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t-4 border-brutal-grey pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-brutal-grey font-bold text-xs uppercase tracking-widest text-center md:text-left">
+                    &copy; 2026 BRUTALISMO_ARQ. Todos os direitos reservados. Nenhuma fachada foi polida na criação deste site.
+                </p>
+                <div class="flex gap-4">
+                    <a href="/politica-de-privacidade" class="text-brutal-grey font-bold text-xs uppercase tracking-wider cursor-pointer hover-neon px-2 py-1">Privacidade</a>
+                    <a href="/termos-de-uso" class="text-brutal-grey font-bold text-xs uppercase tracking-wider cursor-pointer hover-neon px-2 py-1">Termos</a>
+                    <a href="/sitemap.xml" class="text-brutal-grey font-bold text-xs uppercase tracking-wider cursor-pointer hover-neon px-2 py-1">Sitemap</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final stripe -->
+        <div class="bg-brutal-neon h-2 w-full" aria-hidden="true"></div>
+    </footer>
+
+    <!-- ========== MOBILE MENU SCRIPT ========== -->
+    <script>
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        var navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.style.borderBottomColor = '#00FF00';
+            } else {
+                navbar.style.borderBottomColor = '#000000';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fazenda Orgânica — Produtos frescos, naturais e cultivados com amor no coração do campo. Conheça nossos planos e leve a natureza para sua mesa.">
+    <meta name="keywords" content="fazenda orgânica, produtos orgânicos, alimentos naturais, cesta orgânica, agricultura familiar, cottage core">
+    <meta name="author" content="Fazenda Orgânica">
+    <meta property="og:title" content="Fazenda Orgânica — Do Campo Para Sua Mesa">
+    <meta property="og:description" content="Produtos frescos, naturais e cultivados com amor. Assine sua cesta orgânica e receba direto do campo.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fazendaorganica.com.br">
+    <meta property="og:image" content="https://fazendaorganica.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Fazenda Orgânica — Do Campo Para Sua Mesa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'barn-red': '#8B2500',
+                        'cream': '#FDF5E6',
+                        'wood': '#8B6914',
+                        'forest': '#2E5A2E',
+                        'wheat-gold': '#DAA520',
+                        'stone-grey': '#8E8E82',
+                        'lavender': '#9B8EC4',
+                        'sky-blue': '#87CEEB',
+                        'dark-text': '#3A2A1A',
+                    },
+                    fontFamily: {
+                        'serif': ['Merriweather', 'Georgia', 'serif'],
+                        'handwritten': ['Kalam', 'cursive'],
+                    },
+                    borderRadius: {
+                        'rustic': '4px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-barn-red: #8B2500;
+            --color-cream: #FDF5E6;
+            --color-wood: #8B6914;
+            --color-forest: #2E5A2E;
+            --color-wheat-gold: #DAA520;
+            --color-stone-grey: #8E8E82;
+            --font-serif: 'Merriweather', serif;
+            --font-handwritten: 'Kalam', cursive;
+            --border: 3px solid #8B2500;
+            --border-radius: 4px;
+            --spacing: 2rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: var(--color-cream);
+            color: #3A2A1A;
+            line-height: 1.7;
+        }
+
+        /* Gingham Pattern Background */
+        .gingham-bg {
+            background-color: #FDF5E6;
+            background-image:
+                linear-gradient(45deg, rgba(139,37,0,0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(139,37,0,0.05) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(139,37,0,0.05) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(139,37,0,0.05) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* Wood Grain Texture */
+        .wood-grain-bg {
+            background-color: #5C3A1E;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.03) 2px,
+                    rgba(255,255,255,0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(0,0,0,0.08) 8px,
+                    rgba(0,0,0,0.08) 10px
+                ),
+                linear-gradient(180deg, #6B4226 0%, #5C3A1E 30%, #4A2E15 60%, #5C3A1E 100%);
+        }
+
+        /* Sepia Warm Overlay */
+        .sepia-overlay {
+            position: relative;
+        }
+        .sepia-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139,105,20,0.08) 0%, rgba(139,37,0,0.05) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Botanical Sway Animation */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        @keyframes swayGentle {
+            0%, 100% { transform: rotate(-1deg) translateX(-2px); }
+            50% { transform: rotate(1deg) translateX(2px); }
+        }
+        .botanical-sway {
+            animation: sway 4s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        .botanical-sway-gentle {
+            animation: swayGentle 5s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        /* Rustic Border */
+        .rustic-border {
+            border: 3px solid var(--color-barn-red);
+            border-radius: var(--border-radius);
+            box-shadow: 2px 2px 0 rgba(139,37,0,0.1);
+        }
+
+        /* Rustic Card */
+        .rustic-card {
+            border: 3px solid var(--color-barn-red);
+            border-radius: var(--border-radius);
+            box-shadow: 2px 2px 0 rgba(139,37,0,0.1);
+            background: #FDF5E6;
+            transition: all 0.3s ease;
+        }
+        .rustic-card:hover {
+            box-shadow: 4px 4px 0 rgba(139,37,0,0.18);
+            transform: translateY(-4px);
+        }
+
+        /* Handwritten Accent */
+        .handwritten {
+            font-family: var(--font-handwritten);
+        }
+
+        /* Plaid Pattern for Sections */
+        .plaid-bg {
+            background-color: #FDF5E6;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 28px,
+                    rgba(139,37,0,0.04) 28px,
+                    rgba(139,37,0,0.04) 30px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 28px,
+                    rgba(46,90,46,0.04) 28px,
+                    rgba(46,90,46,0.04) 30px
+                );
+        }
+
+        /* Hero Decorative Element */
+        .hero-pastoral {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-pastoral::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath fill='%23FDF5E6' d='M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z'/%3E%3C/svg%3E") no-repeat bottom center;
+            background-size: cover;
+            z-index: 2;
+        }
+
+        /* Navbar Scroll Effect */
+        .navbar-scrolled {
+            background: rgba(253,245,230,0.97) !important;
+            box-shadow: 0 2px 8px rgba(139,37,0,0.1);
+        }
+
+        /* Pricing Highlight */
+        .pricing-highlight {
+            border: 3px solid var(--color-forest);
+            transform: scale(1.05);
+            box-shadow: 4px 4px 0 rgba(46,90,46,0.15);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Decorative Divider */
+        .rustic-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .rustic-divider::before,
+        .rustic-divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-barn-red), transparent);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-10 h-10 text-forest botanical-sway-gentle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4C20 4 10 12 10 22C10 28 14 34 20 36C26 34 30 28 30 22C30 12 20 4 20 4Z" fill="currentColor" opacity="0.8"/>
+                        <path d="M20 10C20 10 15 16 15 22C15 26 17 30 20 32C23 30 25 26 25 22C25 16 20 10 20 10Z" fill="#FDF5E6" opacity="0.3"/>
+                        <line x1="20" y1="20" x2="20" y2="36" stroke="#FDF5E6" stroke-width="1.5"/>
+                    </svg>
+                    <div>
+                        <span class="text-xl font-bold text-barn-red font-serif">Fazenda Orgânica</span>
+                        <span class="block text-xs text-wood handwritten -mt-1">do campo para sua mesa</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-dark-text hover:text-barn-red transition-all duration-300 cursor-pointer font-serif text-sm">Diferenciais</a>
+                    <a href="#testimonials" class="text-dark-text hover:text-barn-red transition-all duration-300 cursor-pointer font-serif text-sm">Depoimentos</a>
+                    <a href="#pricing" class="text-dark-text hover:text-barn-red transition-all duration-300 cursor-pointer font-serif text-sm">Planos</a>
+                    <a href="#contact" class="text-dark-text hover:text-barn-red transition-all duration-300 cursor-pointer font-serif text-sm">Contato</a>
+                    <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-2.5 bg-barn-red text-cream font-serif text-sm rounded-rustic border-2 border-barn-red hover:bg-transparent hover:text-barn-red transition-all duration-300 cursor-pointer">
+                        Assine Agora
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-barn-red cursor-pointer hover:bg-barn-red/10 rounded-rustic transition-all duration-300" aria-label="Abrir menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-3 border-t-2 border-barn-red/20">
+                    <a href="#features" class="block px-4 py-2 text-dark-text hover:text-barn-red hover:bg-barn-red/5 rounded-rustic transition-all duration-300 cursor-pointer font-serif text-sm">Diferenciais</a>
+                    <a href="#testimonials" class="block px-4 py-2 text-dark-text hover:text-barn-red hover:bg-barn-red/5 rounded-rustic transition-all duration-300 cursor-pointer font-serif text-sm">Depoimentos</a>
+                    <a href="#pricing" class="block px-4 py-2 text-dark-text hover:text-barn-red hover:bg-barn-red/5 rounded-rustic transition-all duration-300 cursor-pointer font-serif text-sm">Planos</a>
+                    <a href="#contact" class="block px-4 py-2 text-dark-text hover:text-barn-red hover:bg-barn-red/5 rounded-rustic transition-all duration-300 cursor-pointer font-serif text-sm">Contato</a>
+                    <a href="#pricing" class="block mx-4 text-center px-6 py-2.5 bg-barn-red text-cream font-serif text-sm rounded-rustic border-2 border-barn-red hover:bg-transparent hover:text-barn-red transition-all duration-300 cursor-pointer">Assine Agora</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero-pastoral relative min-h-screen flex items-center pt-20 gingham-bg">
+        <!-- Decorative Botanical SVGs -->
+        <svg class="absolute top-24 left-4 md:left-12 w-16 md:w-24 h-auto text-forest/20 botanical-sway" viewBox="0 0 80 120" fill="currentColor">
+            <path d="M40 120V60M40 60C40 60 15 50 10 30C5 10 25 0 40 20C55 0 75 10 70 30C65 50 40 60 40 60Z"/>
+            <path d="M40 80C40 80 25 72 22 58C19 44 30 38 40 50C50 38 61 44 58 58C55 72 40 80 40 80Z" opacity="0.5"/>
+        </svg>
+        <svg class="absolute top-32 right-4 md:right-16 w-12 md:w-20 h-auto text-wheat-gold/25 botanical-sway-gentle" viewBox="0 0 60 100" fill="currentColor">
+            <path d="M30 100V50M30 50C30 50 10 42 8 25C6 8 22 2 30 18C38 2 54 8 52 25C50 42 30 50 30 50Z"/>
+            <circle cx="30" cy="15" r="6" opacity="0.4"/>
+            <circle cx="18" cy="30" r="4" opacity="0.3"/>
+            <circle cx="42" cy="30" r="4" opacity="0.3"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="text-center lg:text-left">
+                    <span class="inline-block handwritten text-wheat-gold text-lg md:text-xl mb-4">🌿 Cultivado com amor desde 2010</span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-text font-serif leading-tight mb-6">
+                        Do <span class="text-barn-red">Campo</span> Para a <span class="text-forest">Sua Mesa</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-dark-text/80 font-serif mb-8 max-w-xl mx-auto lg:mx-0" style="line-height:1.7">
+                        Alimentos orgânicos frescos, colhidos com carinho e entregues diretamente na sua porta. Sabor autêntico do interior, sem agrotóxicos, sem conservantes.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-barn-red text-cream font-serif rounded-rustic border-3 border-barn-red hover:bg-transparent hover:text-barn-red transition-all duration-300 cursor-pointer text-lg" style="border-width:3px">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                            Montar Minha Cesta
+                        </a>
+                        <a href="#features" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-transparent text-forest font-serif rounded-rustic border-3 border-forest hover:bg-forest hover:text-cream transition-all duration-300 cursor-pointer text-lg" style="border-width:3px">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual Element — Pastoral CSS Art -->
+                <div class="hidden lg:flex justify-center items-center relative">
+                    <div class="relative w-80 h-80">
+                        <!-- Barn Shape -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-48 bg-barn-red/90 rounded-rustic relative" style="border:3px solid #6B1C00;">
+                                    <!-- Barn Roof -->
+                                    <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-0 h-0" style="border-left: 140px solid transparent; border-right: 140px solid transparent; border-bottom: 64px solid #6B1C00;"></div>
+                                    <div class="absolute -top-14 left-1/2 -translate-x-1/2 w-0 h-0" style="border-left: 134px solid transparent; border-right: 134px solid transparent; border-bottom: 58px solid #8B2500;"></div>
+                                    <!-- Barn Door -->
+                                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-28 bg-wood/80 rounded-t-full" style="border:2px solid #6B4E10;"></div>
+                                    <!-- Barn Windows -->
+                                    <div class="absolute top-4 left-4 w-10 h-10 bg-wheat-gold/40 rounded-rustic" style="border:2px solid #6B1C00;"></div>
+                                    <div class="absolute top-4 right-4 w-10 h-10 bg-wheat-gold/40 rounded-rustic" style="border:2px solid #6B1C00;"></div>
+                                    <!-- Hay Loft Window -->
+                                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 bg-wheat-gold/30 rounded-full" style="border:2px solid #6B1C00;"></div>
+                                </div>
+                                <!-- Ground -->
+                                <div class="w-72 h-4 bg-forest/60 rounded-full mt-0 mx-auto" style="filter:blur(2px);"></div>
+                            </div>
+                        </div>
+                        <!-- Floating Botanical Elements -->
+                        <svg class="absolute -top-4 -right-4 w-16 h-16 text-forest botanical-sway" viewBox="0 0 50 50" fill="currentColor" opacity="0.6">
+                            <path d="M25 45V25M25 25C25 25 10 18 10 10C10 2 20 0 25 10C30 0 40 2 40 10C40 18 25 25 25 25Z"/>
+                        </svg>
+                        <svg class="absolute -bottom-2 -left-6 w-14 h-14 text-wheat-gold botanical-sway-gentle" viewBox="0 0 50 50" fill="currentColor" opacity="0.5">
+                            <circle cx="25" cy="20" r="10"/>
+                            <path d="M25 30V48" stroke="currentColor" stroke-width="2"/>
+                            <path d="M25 38L18 32M25 42L32 36" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-20 md:py-28 plaid-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="handwritten text-wheat-gold text-xl">Por que nos escolher?</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-text font-serif mt-2 mb-4">Nossos <span class="text-barn-red">Diferenciais</span></h2>
+                <div class="rustic-divider max-w-xs mx-auto">
+                    <svg class="w-8 h-8 text-forest" viewBox="0 0 30 30" fill="currentColor">
+                        <path d="M15 2C15 2 5 10 5 18C5 24 9 28 15 28C21 28 25 24 25 18C25 10 15 2 15 2Z" opacity="0.7"/>
+                        <line x1="15" y1="14" x2="15" y2="28" stroke="#FDF5E6" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <p class="text-dark-text/70 font-serif max-w-2xl mx-auto mt-4">Cada detalhe da nossa produção é pensado para levar saúde, sabor e sustentabilidade até a sua família.</p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="rustic-card p-8 text-center cursor-pointer group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-forest/10 rounded-full flex items-center justify-center group-hover:bg-forest/20 transition-all duration-300">
+                        <svg class="w-8 h-8 text-forest" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-text font-serif mb-3">100% Orgânico</h3>
+                    <p class="text-dark-text/70 font-serif text-sm leading-relaxed">Cultivamos sem agrotóxicos, pesticidas ou fertilizantes químicos. Nosso solo é tratado com compostagem natural e rotação de culturas, garantindo alimentos puros e nutritivos.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="rustic-card p-8 text-center cursor-pointer group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-barn-red/10 rounded-full flex items-center justify-center group-hover:bg-barn-red/20 transition-all duration-300">
+                        <svg class="w-8 h-8 text-barn-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-text font-serif mb-3">Entrega Semanal</h3>
+                    <p class="text-dark-text/70 font-serif text-sm leading-relaxed">Colhemos na manhã e entregamos à tarde. Frescor garantido com logística própria e embalagens sustentáveis de fibra natural, direto do campo para a sua porta.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="rustic-card p-8 text-center cursor-pointer group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-wood/10 rounded-full flex items-center justify-center group-hover:bg-wood/20 transition-all duration-300">
+                        <svg class="w-8 h-8 text-wood" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-text font-serif mb-3">Agricultura Familiar</h3>
+                    <p class="text-dark-text/70 font-serif text-sm leading-relaxed">Apoiamos mais de 40 famílias produtoras da região. Cada compra fortalece a economia local, preserva tradições rurais e garante renda justa para quem planta com amor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-20 md:py-28 gingham-bg relative sepia-overlay">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="handwritten text-wheat-gold text-xl">O que dizem sobre nós</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-text font-serif mt-2 mb-4">Vozes do <span class="text-forest">Campo</span></h2>
+                <div class="rustic-divider max-w-xs mx-auto">
+                    <svg class="w-8 h-8 text-barn-red" viewBox="0 0 30 30" fill="currentColor">
+                        <path d="M6 14C6 9 10 5 15 5C20 5 24 9 24 14C24 20 15 27 15 27C15 27 6 20 6 14Z" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="rustic-card p-8 cursor-pointer relative">
+                    <svg class="absolute top-4 right-4 w-8 h-8 text-barn-red/15" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark-text/80 font-serif text-sm italic mb-6 leading-relaxed">"Desde que comecei a receber as cestas da Fazenda Orgânica, minha família mudou completamente a alimentação. Os legumes têm um sabor que eu não sentia desde criança, na roça da minha avó."</p>
+                    <div class="flex items-center gap-3 border-t-2 border-barn-red/10 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-forest/20 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-forest" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-dark-text font-serif text-sm">Mariana Costa</p>
+                            <p class="text-dark-text/50 text-xs handwritten">Assinante há 2 anos — São Paulo, SP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="rustic-card p-8 cursor-pointer relative">
+                    <svg class="absolute top-4 right-4 w-8 h-8 text-barn-red/15" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark-text/80 font-serif text-sm italic mb-6 leading-relaxed">"Como chef, a qualidade dos ingredientes faz toda a diferença. Os produtos da Fazenda Orgânica elevaram o nível dos meus pratos. Meus clientes percebem e elogiam a cada refeição."</p>
+                    <div class="flex items-center gap-3 border-t-2 border-barn-red/10 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-barn-red/15 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-barn-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-dark-text font-serif text-sm">Ricardo Almeida</p>
+                            <p class="text-dark-text/50 text-xs handwritten">Chef de Cozinha — Campinas, SP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="rustic-card p-8 cursor-pointer relative">
+                    <svg class="absolute top-4 right-4 w-8 h-8 text-barn-red/15" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/>
+                    </svg>
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-wheat-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark-text/80 font-serif text-sm italic mb-6 leading-relaxed">"Adoro a praticidade de receber tudo em casa e saber exatamente de onde vem cada alimento. Meus filhos agora pedem salada! Nunca pensei que isso fosse possível."</p>
+                    <div class="flex items-center gap-3 border-t-2 border-barn-red/10 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-wood/15 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-wood" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-dark-text font-serif text-sm">Fernanda Oliveira</p>
+                            <p class="text-dark-text/50 text-xs handwritten">Mãe de 3 filhos — Belo Horizonte, MG</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-20 md:py-28 relative" style="background-color:#FDF5E6;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="handwritten text-wheat-gold text-xl">Escolha seu plano ideal</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-text font-serif mt-2 mb-4">Cestas <span class="text-barn-red">Orgânicas</span></h2>
+                <div class="rustic-divider max-w-xs mx-auto">
+                    <svg class="w-8 h-8 text-wood" viewBox="0 0 30 30" fill="currentColor">
+                        <rect x="8" y="12" width="14" height="14" rx="2" opacity="0.5"/>
+                        <path d="M6 12h18l-2-5H8L6 12z" opacity="0.7"/>
+                        <line x1="15" y1="7" x2="15" y2="3" stroke="currentColor" stroke-width="1.5"/>
+                        <circle cx="15" cy="2" r="1.5"/>
+                    </svg>
+                </div>
+                <p class="text-dark-text/70 font-serif max-w-2xl mx-auto mt-4">Planos flexíveis para todos os tamanhos de família. Cancele quando quiser, sem burocracia.</p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                <!-- Tier 1 — Semente -->
+                <div class="rustic-card p-8 text-center cursor-pointer">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-forest/10 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7 text-forest" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                        </svg>
+                    </div>
+                    <h3 class="handwritten text-2xl text-forest mb-1">Semente</h3>
+                    <p class="text-dark-text/60 font-serif text-sm mb-6">Ideal para casais e pessoas que moram sozinhas</p>
+                    <div class="mb-6">
+                        <span class="text-dark-text/50 font-serif text-sm">R$</span>
+                        <span class="text-4xl font-bold text-dark-text font-serif">89</span>
+                        <span class="text-dark-text/50 font-serif text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            5 variedades de legumes por semana
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            3 tipos de frutas da estação
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega semanal às quartas
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/50 font-serif">
+                            <svg class="w-5 h-5 text-stone-grey flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span class="line-through">Receitas exclusivas</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 text-center bg-transparent text-forest font-serif rounded-rustic transition-all duration-300 hover:bg-forest hover:text-cream cursor-pointer" style="border:3px solid #2E5A2E;">
+                        Escolher Semente
+                    </a>
+                </div>
+
+                <!-- Tier 2 — Colheita (Highlighted) -->
+                <div class="rustic-card pricing-highlight p-8 text-center cursor-pointer relative overflow-hidden" style="border-color:#2E5A2E;">
+                    <!-- Badge -->
+                    <div class="absolute top-0 right-0">
+                        <div class="bg-forest text-cream text-xs font-serif px-4 py-1.5 handwritten" style="border-bottom-left-radius:8px;">
+                            Mais Popular
+                        </div>
+                    </div>
+                    <div class="w-14 h-14 mx-auto mb-4 bg-barn-red/10 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7 text-barn-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/>
+                        </svg>
+                    </div>
+                    <h3 class="handwritten text-2xl text-barn-red mb-1">Colheita</h3>
+                    <p class="text-dark-text/60 font-serif text-sm mb-6">Perfeito para famílias de até 4 pessoas</p>
+                    <div class="mb-6">
+                        <span class="text-dark-text/50 font-serif text-sm">R$</span>
+                        <span class="text-4xl font-bold text-dark-text font-serif">159</span>
+                        <span class="text-dark-text/50 font-serif text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            10 variedades de legumes por semana
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            5 tipos de frutas da estação
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Ervas frescas e temperos naturais
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Receitas exclusivas semanais
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega 2x por semana
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 text-center bg-barn-red text-cream font-serif rounded-rustic transition-all duration-300 hover:bg-barn-red/90 cursor-pointer" style="border:3px solid #8B2500;">
+                        Escolher Colheita
+                    </a>
+                </div>
+
+                <!-- Tier 3 — Abundância -->
+                <div class="rustic-card p-8 text-center cursor-pointer">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-wood/10 rounded-full flex items-center justify-center">
+                        <svg class="w-7 h-7 text-wood" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="handwritten text-2xl text-wood mb-1">Abundância</h3>
+                    <p class="text-dark-text/60 font-serif text-sm mb-6">Para famílias grandes ou quem ama cozinhar</p>
+                    <div class="mb-6">
+                        <span class="text-dark-text/50 font-serif text-sm">R$</span>
+                        <span class="text-4xl font-bold text-dark-text font-serif">249</span>
+                        <span class="text-dark-text/50 font-serif text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-left">
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            15+ variedades de legumes por semana
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            8 tipos de frutas + frutas raras
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Ervas, temperos e conservas artesanais
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Receitas + acesso a workshops online
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-dark-text/80 font-serif">
+                            <svg class="w-5 h-5 text-forest flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Entrega 3x por semana + prioridade
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3 text-center bg-transparent text-wood font-serif rounded-rustic transition-all duration-300 hover:bg-wood hover:text-cream cursor-pointer" style="border:3px solid #8B6914;">
+                        Escolher Abundância
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="py-20 md:py-28 wood-grain-bg relative overflow-hidden">
+        <!-- Decorative Botanicals -->
+        <svg class="absolute top-8 left-8 w-20 h-20 text-cream/10 botanical-sway hidden md:block" viewBox="0 0 60 80" fill="currentColor">
+            <path d="M30 80V40M30 40C30 40 10 30 8 15C6 0 22 -5 30 12C38 -5 54 0 52 15C50 30 30 40 30 40Z"/>
+        </svg>
+        <svg class="absolute bottom-8 right-8 w-16 h-16 text-cream/10 botanical-sway-gentle hidden md:block" viewBox="0 0 50 70" fill="currentColor">
+            <path d="M25 70V35M25 35C25 35 8 28 6 15C4 2 18 -2 25 12C32 -2 46 2 44 15C42 28 25 35 25 35Z"/>
+        </svg>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="handwritten text-wheat-gold text-xl block mb-4">Pronto para mudar sua alimentação?</span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-cream font-serif mb-6 leading-tight">
+                Traga o Sabor do <span class="text-wheat-gold">Campo</span> Para Sua Vida
+            </h2>
+            <p class="text-cream/80 font-serif text-lg mb-10 max-w-2xl mx-auto" style="line-height:1.7;">
+                Junte-se a mais de 2.000 famílias que já descobriram o prazer de comer alimentos frescos, orgânicos e cheios de vida. Sua primeira cesta vem com 20% de desconto.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-wheat-gold text-dark-text font-serif font-bold rounded-rustic transition-all duration-300 hover:bg-wheat-gold/90 hover:scale-105 cursor-pointer text-lg" style="border:3px solid #DAA520;">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+                    Começar Agora — 20% OFF
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-transparent text-cream font-serif rounded-rustic transition-all duration-300 hover:bg-cream/10 cursor-pointer text-lg" style="border:3px solid rgba(253,245,230,0.4);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                    Falar com a Gente
+                </a>
+            </div>
+            <p class="text-cream/40 font-serif text-sm mt-6">Sem compromisso. Cancele quando quiser. Primeira entrega em até 3 dias úteis.</p>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="py-16 bg-dark-text relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand Column -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-4">
+                        <svg class="w-8 h-8 text-forest botanical-sway-gentle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4C20 4 10 12 10 22C10 28 14 34 20 36C26 34 30 28 30 22C30 12 20 4 20 4Z" fill="currentColor" opacity="0.8"/>
+                            <line x1="20" y1="20" x2="20" y2="36" stroke="#FDF5E6" stroke-width="1.5"/>
+                        </svg>
+                        <span class="text-lg font-bold text-cream font-serif">Fazenda Orgânica</span>
+                    </a>
+                    <p class="text-cream/50 font-serif text-sm leading-relaxed mb-6">Cultivando saúde e sabor desde 2010. Alimentos orgânicos direto do campo para a sua mesa, com respeito à terra e às pessoas.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <!-- Instagram -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-barn-red transition-all duration-300 cursor-pointer group" aria-label="Instagram">
+                            <svg class="w-5 h-5 text-cream/60 group-hover:text-cream transition-all duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-barn-red transition-all duration-300 cursor-pointer group" aria-label="Facebook">
+                            <svg class="w-5 h-5 text-cream/60 group-hover:text-cream transition-all duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-barn-red transition-all duration-300 cursor-pointer group" aria-label="YouTube">
+                            <svg class="w-5 h-5 text-cream/60 group-hover:text-cream transition-all duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-forest transition-all duration-300 cursor-pointer group" aria-label="WhatsApp">
+                            <svg class="w-5 h-5 text-cream/60 group-hover:text-cream transition-all duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="text-cream font-serif font-bold mb-4 text-sm uppercase tracking-wider">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Início</a></li>
+                        <li><a href="#features" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Diferenciais</a></li>
+                        <li><a href="#testimonials" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Planos</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Institutional -->
+                <div>
+                    <h4 class="text-cream font-serif font-bold mb-4 text-sm uppercase tracking-wider">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Nossa História</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-cream font-serif font-bold mb-4 text-sm uppercase tracking-wider">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-wheat-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            <span class="text-cream/50 font-serif text-sm">Estrada Rural, Km 12<br>Vale Verde — MG</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-wheat-gold flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            <a href="mailto:contato@fazendaorganica.com.br" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">contato@fazendaorganica.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-wheat-gold flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                            <a href="tel:+5531999999999" class="text-cream/50 hover:text-wheat-gold font-serif text-sm transition-all duration-300 cursor-pointer">(31) 99999-9999</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-cream/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-cream/40 font-serif text-sm">&copy; 2026 Fazenda Orgânica. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-cream/40 hover:text-wheat-gold font-serif text-xs transition-all duration-300 cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-cream/40 hover:text-wheat-gold font-serif text-xs transition-all duration-300 cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-cream/40 hover:text-wheat-gold font-serif text-xs transition-all duration-300 cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

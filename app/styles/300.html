@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loja de Artesanato Global — Peças artesanais únicas de todo o mundo. Descubra a beleza do feito à mão com espírito livre e influências globais.">
+    <meta name="keywords" content="artesanato, boho, bohemian, feito à mão, handmade, decoração, global, eclectic">
+    <meta name="author" content="Loja de Artesanato Global">
+    <meta property="og:title" content="Loja de Artesanato Global — Arte Feita à Mão do Mundo Inteiro">
+    <meta property="og:description" content="Descubra peças artesanais únicas com influências globais. Terracotta, macramê, têxteis e muito mais.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://artesanatoglobal.com.br">
+    <meta property="og:image" content="https://artesanatoglobal.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Loja de Artesanato Global — Arte Feita à Mão do Mundo Inteiro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: '#C67A4B',
+                        sand: '#D4B896',
+                        teal: '#1A6B6A',
+                        cream: '#FFF5E1',
+                        burnt: '#CC5500',
+                        mauve: '#B08B8B',
+                        olive: '#6B7B3A',
+                        indigo: '#3F51B5',
+                        dark: '#3A2A1A',
+                    },
+                    fontFamily: {
+                        serif: ['Libre Baskerville', 'Georgia', 'serif'],
+                        hand: ['Caveat', 'cursive'],
+                    },
+                    borderRadius: {
+                        'boho': '4px',
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-terracotta: #C67A4B;
+            --color-sand: #D4B896;
+            --color-teal: #1A6B6A;
+            --color-cream: #FFF5E1;
+            --color-burnt: #CC5500;
+            --color-mauve: #B08B8B;
+            --color-olive: #6B7B3A;
+            --color-indigo: #3F51B5;
+            --color-dark: #3A2A1A;
+            --font-serif: 'Libre Baskerville', serif;
+            --font-handwritten: 'Caveat', cursive;
+            --border-radius: 4px;
+            --spacing: 2rem;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-serif);
+            color: var(--color-dark);
+            line-height: 1.7;
+            background-color: var(--color-cream);
+            overflow-x: hidden;
+        }
+
+        /* Textile pattern background */
+        .textile-bg {
+            background-color: var(--color-cream);
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(198,122,75,0.03) 10px,
+                    rgba(198,122,75,0.03) 20px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(26,107,106,0.02) 10px,
+                    rgba(26,107,106,0.02) 20px
+                );
+        }
+
+        /* Hand-drawn border effect */
+        .hand-drawn-border {
+            border: 2px solid var(--color-terracotta);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(198,122,75,0.15);
+            position: relative;
+        }
+
+        .hand-drawn-border::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 1px dashed rgba(198,122,75,0.3);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+
+        /* Macramé SVG divider */
+        .macrame-divider {
+            width: 100%;
+            height: 40px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' fill='none'%3E%3Cpath d='M0 20 Q25 0 50 20 Q75 40 100 20 Q125 0 150 20 Q175 40 200 20' stroke='%23C67A4B' stroke-width='2' fill='none'/%3E%3Cpath d='M0 20 Q25 5 50 20 Q75 35 100 20 Q125 5 150 20 Q175 35 200 20' stroke='%23D4B896' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='50' cy='20' r='3' fill='%23C67A4B'/%3E%3Ccircle cx='100' cy='20' r='3' fill='%231A6B6A'/%3E%3Ccircle cx='150' cy='20' r='3' fill='%23C67A4B'/%3E%3C/svg%3E") repeat-x center;
+        }
+
+        /* Warm gradient overlay */
+        .warm-gradient {
+            background: linear-gradient(135deg, rgba(198,122,75,0.08) 0%, rgba(26,107,106,0.06) 50%, rgba(212,184,150,0.1) 100%);
+        }
+
+        /* Hero abstract element */
+        .boho-abstract {
+            position: relative;
+        }
+
+        .boho-abstract::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(198,122,75,0.15) 0%, rgba(26,107,106,0.1) 50%, transparent 70%);
+            top: -50px;
+            right: -80px;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .boho-abstract::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px dashed var(--color-sand);
+            border-radius: 50%;
+            bottom: -30px;
+            left: -60px;
+            z-index: 0;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Parallax texture */
+        .parallax-texture {
+            background-attachment: fixed;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(198,122,75,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(26,107,106,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(212,184,150,0.08) 0%, transparent 50%);
+        }
+
+        /* Earthy shadow */
+        .earthy-shadow {
+            box-shadow: 0 4px 12px rgba(198,122,75,0.15);
+        }
+
+        .earthy-shadow-lg {
+            box-shadow: 0 8px 24px rgba(198,122,75,0.2);
+        }
+
+        /* Hover lift */
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(198,122,75,0.25);
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 3px solid var(--color-teal);
+            transform: scale(1.05);
+            position: relative;
+        }
+
+        .pricing-highlight::after {
+            content: 'Mais Popular';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-teal);
+            color: var(--color-cream);
+            font-family: var(--font-handwritten);
+            font-size: 1rem;
+            padding: 2px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        /* Knot decoration */
+        .knot-decoration {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='12' cy='12' r='8' stroke='%23C67A4B' stroke-width='1.5' fill='none'/%3E%3Cpath d='M8 12 Q12 6 16 12 Q12 18 8 12Z' stroke='%231A6B6A' stroke-width='1' fill='none'/%3E%3C/svg%3E") no-repeat center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-cream); }
+        ::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-terracotta); }
+
+        /* Mobile menu */
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: flex; }
+
+        /* Star rating */
+        .star-filled { color: var(--color-terracotta); }
+
+        /* Testimonial quote */
+        .testimonial-card::before {
+            content: '\201C';
+            font-family: var(--font-handwritten);
+            font-size: 4rem;
+            color: var(--color-terracotta);
+            opacity: 0.3;
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="textile-bg">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-cream/95 backdrop-blur-sm border-b-2 border-terracotta/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <svg class="w-8 h-8 text-terracotta transition-all group-hover:rotate-12" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                        <path d="M10 16 Q16 8 22 16 Q16 24 10 16Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                    </svg>
+                    <span class="font-hand text-2xl md:text-3xl text-dark font-bold">Artesanato Global</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer text-sm font-serif">Coleções</a>
+                    <a href="#testimonials" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer text-sm font-serif">Depoimentos</a>
+                    <a href="#pricing" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer text-sm font-serif">Planos</a>
+                    <a href="#contact" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer text-sm font-serif">Contato</a>
+                    <a href="#cta" class="inline-flex items-center gap-2 bg-terracotta text-cream px-5 py-2.5 rounded-boho font-hand text-lg hover:bg-burnt transition-all cursor-pointer earthy-shadow hover:earthy-shadow-lg">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Explorar Loja
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="document.getElementById('mobileMenu').classList.toggle('active')" class="md:hidden cursor-pointer p-2 text-dark hover:text-terracotta transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu flex-col gap-4 pb-6 md:hidden">
+                <a href="#features" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer py-2 border-b border-sand/30">Coleções</a>
+                <a href="#testimonials" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer py-2 border-b border-sand/30">Depoimentos</a>
+                <a href="#pricing" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer py-2 border-b border-sand/30">Planos</a>
+                <a href="#contact" class="text-dark/80 hover:text-terracotta transition-all cursor-pointer py-2 border-b border-sand/30">Contato</a>
+                <a href="#cta" class="inline-flex items-center justify-center gap-2 bg-terracotta text-cream px-5 py-2.5 rounded-boho font-hand text-lg hover:bg-burnt transition-all cursor-pointer mt-2">Explorar Loja</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden parallax-texture">
+        <div class="boho-abstract absolute inset-0"></div>
+        <!-- Decorative circles -->
+        <div class="absolute top-32 left-10 w-20 h-20 border-2 border-dashed border-sand/40 rounded-full hidden lg:block" style="animation: float 12s ease-in-out infinite;"></div>
+        <div class="absolute bottom-20 right-20 w-32 h-32 border-2 border-dashed border-teal/20 rounded-full hidden lg:block" style="animation: float 9s ease-in-out infinite reverse;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 md:py-24">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block font-hand text-xl md:text-2xl text-teal mb-4">✦ Feito à mão, com alma ✦</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Descubra a <span class="text-terracotta font-hand text-5xl sm:text-6xl lg:text-7xl">Beleza</span> do Artesanato de Todo o Mundo
+                    </h1>
+                    <p class="text-lg text-dark/70 mb-8 max-w-lg leading-relaxed">
+                        Peças únicas que contam histórias de culturas ancestrais. Cada criação carrega a essência de mãos artesãs, tradições milenares e o espírito livre da arte global.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#pricing" class="inline-flex items-center justify-center gap-2 bg-terracotta text-cream px-8 py-3.5 rounded-boho font-hand text-xl hover:bg-burnt transition-all cursor-pointer earthy-shadow hover:earthy-shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></svg>
+                            Ver Coleções
+                        </a>
+                        <a href="#features" class="inline-flex items-center justify-center gap-2 border-2 border-teal text-teal px-8 py-3.5 rounded-boho font-hand text-xl hover:bg-teal hover:text-cream transition-all cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Conheça Nossa História
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual Element -->
+                <div class="relative flex items-center justify-center">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto">
+                        <!-- Outer ring -->
+                        <div class="absolute inset-0 border-2 border-dashed border-terracotta/40 rounded-full" style="animation: float 15s linear infinite;"></div>
+                        <!-- Middle ring -->
+                        <div class="absolute inset-6 border-2 border-sand rounded-full"></div>
+                        <!-- Inner filled circle -->
+                        <div class="absolute inset-12 rounded-full bg-gradient-to-br from-terracotta/20 via-teal/10 to-sand/30 flex items-center justify-center">
+                            <svg class="w-24 h-24 sm:w-28 sm:h-28 text-terracotta/60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M30 50 Q50 20 70 50 Q50 80 30 50Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M50 30 Q80 50 50 70 Q20 50 50 30Z" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+                                <circle cx="50" cy="50" r="8" fill="currentColor" opacity="0.3"/>
+                                <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <!-- Floating decorative dots -->
+                        <div class="absolute top-4 right-8 w-3 h-3 bg-teal rounded-full" style="animation: float 4s ease-in-out infinite;"></div>
+                        <div class="absolute bottom-8 left-4 w-2 h-2 bg-terracotta rounded-full" style="animation: float 5s ease-in-out infinite reverse;"></div>
+                        <div class="absolute top-1/2 right-0 w-2 h-2 bg-sand rounded-full" style="animation: float 6s ease-in-out infinite;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macramé Divider -->
+    <div class="macrame-divider"></div>
+
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-20 md:py-28 warm-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="font-hand text-2xl text-teal">Nossas Coleções</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Arte que Atravessa <span class="text-terracotta font-hand text-4xl md:text-5xl">Fronteiras</span></h2>
+                <p class="text-dark/60 max-w-2xl mx-auto">Cada peça é cuidadosamente selecionada de artesãos ao redor do mundo, preservando técnicas ancestrais e celebrando a diversidade cultural.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="hand-drawn-border bg-cream/80 p-8 rounded-boho hover-lift cursor-pointer group">
+                    <div class="w-14 h-14 bg-terracotta/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-terracotta/20 transition-all">
+                        <svg class="w-7 h-7 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Têxteis do Mundo</h3>
+                    <p class="text-dark/60 text-sm leading-relaxed">Tapetes marroquinos, tecidos peruanos, batiks indonésios — cada fio conta uma história de tradição e maestria artesanal transmitida por gerações.</p>
+                    <a href="#" class="inline-flex items-center gap-1 text-teal font-hand text-lg mt-4 hover:text-terracotta transition-all cursor-pointer">
+                        Explorar
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="hand-drawn-border bg-cream/80 p-8 rounded-boho hover-lift cursor-pointer group">
+                    <div class="w-14 h-14 bg-teal/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-teal/20 transition-all">
+                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cerâmica Artesanal</h3>
+                    <p class="text-dark/60 text-sm leading-relaxed">Vasos pintados à mão, pratos decorativos e peças utilitárias que transformam qualquer ambiente com a autenticidade do barro moldado com amor.</p>
+                    <a href="#" class="inline-flex items-center gap-1 text-teal font-hand text-lg mt-4 hover:text-terracotta transition-all cursor-pointer">
+                        Explorar
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="hand-drawn-border bg-cream/80 p-8 rounded-boho hover-lift cursor-pointer group">
+                    <div class="w-14 h-14 bg-olive/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-olive/20 transition-all">
+                        <svg class="w-7 h-7 text-olive" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Macramê & Fibras</h3>
+                    <p class="text-dark/60 text-sm leading-relaxed">Peças em macramê, cestos de fibra natural e criações em cordas que trazem a textura e o aconchego do artesanato boho para sua casa.</p>
+                    <a href="#" class="inline-flex items-center gap-1 text-teal font-hand text-lg mt-4 hover:text-terracotta transition-all cursor-pointer">
+                        Explorar
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macramé Divider -->
+    <div class="macrame-divider"></div>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-20 md:py-28 parallax-texture">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="font-hand text-2xl text-terracotta">Vozes da Comunidade</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">O que Dizem Nossos <span class="text-teal font-hand text-4xl md:text-5xl">Clientes</span></h2>
+                <p class="text-dark/60 max-w-2xl mx-auto">Histórias reais de pessoas que encontraram peças especiais e transformaram seus espaços com arte autêntica.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card relative hand-drawn-border bg-cream/90 p-8 rounded-boho hover-lift cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm mb-6 italic leading-relaxed">Comprei um tapete marroquino e a qualidade é surreal. Cada detalhe mostra o cuidado artesanal. Minha sala ganhou uma alma completamente nova!</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-terracotta to-sand flex items-center justify-center text-cream font-hand text-lg">M</div>
+                        <div>
+                            <p class="font-bold text-sm">Marina Costa</p>
+                            <p class="text-dark/50 text-xs">Designer de Interiores, SP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card relative hand-drawn-border bg-cream/90 p-8 rounded-boho hover-lift cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm mb-6 italic leading-relaxed">O macramê que encomendei superou todas as expectativas. É visível que foi feito com dedicação. Já recomendei para todos os meus amigos!</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-teal to-olive flex items-center justify-center text-cream font-hand text-lg">R</div>
+                        <div>
+                            <p class="font-bold text-sm">Rafael Mendes</p>
+                            <p class="text-dark/50 text-xs">Arquiteto, RJ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card relative hand-drawn-border bg-cream/90 p-8 rounded-boho hover-lift cursor-pointer">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm mb-6 italic leading-relaxed">Presente perfeito! Comprei cerâmicas artesanais para minha mãe e ela ficou emocionada. A embalagem também é linda, toda sustentável.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-mauve to-terracotta flex items-center justify-center text-cream font-hand text-lg">C</div>
+                        <div>
+                            <p class="font-bold text-sm">Camila Ferreira</p>
+                            <p class="text-dark/50 text-xs">Professora, MG</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macramé Divider -->
+    <div class="macrame-divider"></div>
+
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-20 md:py-28 warm-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="font-hand text-2xl text-olive">Escolha Seu Caminho</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Planos para Cada <span class="text-terracotta font-hand text-4xl md:text-5xl">Espírito Livre</span></h2>
+                <p class="text-dark/60 max-w-2xl mx-auto">De colecionadores iniciantes a decoradores apaixonados, temos o plano ideal para você explorar o melhor do artesanato global.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Pricing Tier 1 -->
+                <div class="hand-drawn-border bg-cream/90 p-8 rounded-boho hover-lift cursor-pointer text-center">
+                    <div class="w-12 h-12 bg-sand/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-hand text-2xl text-dark mb-1">Descoberta</h3>
+                    <p class="text-dark/50 text-sm mb-6">Para quem está começando</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-dark">R$49</span>
+                        <span class="text-dark/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            1 peça artesanal por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Frete grátis no Brasil
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Cartão com história do artesão
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Acesso à comunidade exclusiva
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center border-2 border-terracotta text-terracotta py-3 rounded-boho font-hand text-lg hover:bg-terracotta hover:text-cream transition-all cursor-pointer">
+                        Começar Agora
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 2 (Highlighted) -->
+                <div class="pricing-highlight hand-drawn-border bg-cream p-8 rounded-boho hover-lift cursor-pointer text-center">
+                    <div class="w-12 h-12 bg-teal/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-teal" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-hand text-2xl text-teal mb-1">Explorador</h3>
+                    <p class="text-dark/50 text-sm mb-6">O favorito da comunidade</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-teal">R$99</span>
+                        <span class="text-dark/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            3 peças artesanais por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Frete grátis no Brasil
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Cartão com história do artesão
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Acesso à comunidade exclusiva
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            10% de desconto na loja
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center bg-teal text-cream py-3 rounded-boho font-hand text-lg hover:bg-teal/90 transition-all cursor-pointer earthy-shadow hover:earthy-shadow-lg">
+                        Escolher Explorador
+                    </a>
+                </div>
+
+                <!-- Pricing Tier 3 -->
+                <div class="hand-drawn-border bg-cream/90 p-8 rounded-boho hover-lift cursor-pointer text-center">
+                    <div class="w-12 h-12 bg-indigo/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-indigo" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-hand text-2xl text-dark mb-1">Colecionador</h3>
+                    <p class="text-dark/50 text-sm mb-6">Para apaixonados por arte</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-dark">R$189</span>
+                        <span class="text-dark/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="text-left space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            5 peças artesanais por mês
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Frete grátis internacional
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Peças exclusivas de edição limitada
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Acesso VIP à comunidade
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-dark/70">
+                            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            20% de desconto + consultoria
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full text-center border-2 border-indigo text-indigo py-3 rounded-boho font-hand text-lg hover:bg-indigo hover:text-cream transition-all cursor-pointer">
+                        Ser Colecionador
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macramé Divider -->
+    <div class="macrame-divider"></div>
+
+
+    <!-- ========== CTA SECTION ========== -->
+    <section id="cta" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-terracotta/10 via-teal/5 to-sand/10"></div>
+        <!-- Decorative elements -->
+        <div class="absolute top-10 left-10 w-24 h-24 border-2 border-dashed border-terracotta/20 rounded-full hidden md:block" style="animation: float 10s ease-in-out infinite;"></div>
+        <div class="absolute bottom-10 right-10 w-16 h-16 border-2 border-dashed border-teal/20 rounded-full hidden md:block" style="animation: float 8s ease-in-out infinite reverse;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="font-hand text-2xl text-teal">Junte-se à Nossa Tribo</span>
+            <h2 class="text-3xl md:text-5xl font-bold mt-3 mb-6">Traga a <span class="text-terracotta font-hand text-4xl md:text-6xl">Magia</span> do Artesanato para Sua Vida</h2>
+            <p class="text-dark/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Cadastre-se agora e receba 15% de desconto na sua primeira compra. Mais de 5.000 espíritos livres já fazem parte da nossa comunidade global de amantes do artesanato.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto">
+                <input type="email" placeholder="Seu melhor e-mail" class="w-full sm:flex-1 px-5 py-3.5 rounded-boho border-2 border-sand bg-cream/80 text-dark placeholder:text-dark/40 focus:outline-none focus:border-terracotta transition-all font-serif text-sm">
+                <a href="#" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-terracotta text-cream px-8 py-3.5 rounded-boho font-hand text-xl hover:bg-burnt transition-all cursor-pointer earthy-shadow hover:earthy-shadow-lg whitespace-nowrap">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                    Quero Participar
+                </a>
+            </div>
+            <p class="text-dark/40 text-xs mt-4">Sem spam. Apenas arte, cultura e inspiração. Cancele quando quiser.</p>
+        </div>
+    </section>
+
+    <!-- Macramé Divider -->
+    <div class="macrame-divider"></div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="bg-dark text-cream/80 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-4">
+                        <svg class="w-7 h-7 text-terracotta transition-all group-hover:rotate-12" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                            <path d="M10 16 Q16 8 22 16 Q16 24 10 16Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        </svg>
+                        <span class="font-hand text-2xl text-cream font-bold">Artesanato Global</span>
+                    </a>
+                    <p class="text-cream/50 text-sm leading-relaxed">Arte feita à mão de todo o mundo. Conectando culturas, preservando tradições e celebrando o espírito livre.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-4 mt-6">
+                        <a href="#" class="text-cream/50 hover:text-terracotta transition-all cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="text-cream/50 hover:text-terracotta transition-all cursor-pointer" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="text-cream/50 hover:text-terracotta transition-all cursor-pointer" aria-label="Pinterest">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" class="text-cream/50 hover:text-terracotta transition-all cursor-pointer" aria-label="YouTube">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="font-hand text-xl text-terracotta mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Início</a></li>
+                        <li><a href="#features" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Coleções</a></li>
+                        <li><a href="#testimonials" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Planos</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-hand text-xl text-terracotta mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Termos de Uso</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Política de Cookies</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">Trocas e Devoluções</a></li>
+                        <li><a href="#" class="text-cream/50 hover:text-cream transition-all cursor-pointer text-sm">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-hand text-xl text-terracotta mb-4">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-cream/50 text-sm">
+                            <svg class="w-4 h-4 text-terracotta flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            contato@artesanatoglobal.com.br
+                        </li>
+                        <li class="flex items-center gap-2 text-cream/50 text-sm">
+                            <svg class="w-4 h-4 text-terracotta flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                            +55 (11) 9999-0000
+                        </li>
+                        <li class="flex items-start gap-2 text-cream/50 text-sm">
+                            <svg class="w-4 h-4 text-terracotta flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            Rua das Artes, 123 — Vila Madalena, São Paulo, SP
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-cream/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-cream/40 text-sm">&copy; 2026 Artesanato Global. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-cream/40 hover:text-cream/70 transition-all cursor-pointer text-xs">Política de Privacidade</a>
+                    <a href="#" class="text-cream/40 hover:text-cream/70 transition-all cursor-pointer text-xs">Termos de Uso</a>
+                    <a href="#" class="text-cream/40 hover:text-cream/70 transition-all cursor-pointer text-xs">Mapa do Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scroll behavior -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

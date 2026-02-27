@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Festival de Arte Urbana 2026 — O maior evento de arte de rua do Brasil. Grafite, muralismo, performances ao vivo e muito mais!">
+    <meta name="keywords" content="festival arte urbana, grafite, muralismo, arte de rua, cultura urbana, festival 2026">
+    <meta name="author" content="Festival de Arte Urbana">
+    <meta property="og:title" content="Festival de Arte Urbana 2026">
+    <meta property="og:description" content="O maior evento de arte de rua do Brasil. Grafite, muralismo, performances ao vivo e muito mais!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://festivalarteurban.com.br">
+    <meta property="og:image" content="https://festivalarteurban.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Festival de Arte Urbana 2026 — Arte, Cor e Expressão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'memphis-pink': '#FF1493',
+                        'memphis-blue': '#0066FF',
+                        'memphis-yellow': '#FFD700',
+                        'memphis-red': '#FF3333',
+                        'memphis-mint': '#00E5A0',
+                        'memphis-coral': '#FF7F50',
+                        'memphis-purple': '#9B59B6',
+                        'memphis-turquoise': '#1ABC9C',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-pink: #FF1493;
+            --color-blue: #0066FF;
+            --color-yellow: #FFD700;
+            --color-red: #FF3333;
+            --color-mint: #00E5A0;
+            --color-coral: #FF7F50;
+            --color-purple: #9B59B6;
+            --color-turquoise: #1ABC9C;
+            --font-primary: 'Poppins', sans-serif;
+            --border: 3px solid;
+            --rotation: 5deg;
+            --spacing: 1.5rem;
+            --pattern-size: 20px;
+        }
+
+        * { font-family: 'Poppins', sans-serif; }
+
+        /* Dotted pattern background */
+        .bg-dotted {
+            background-image: radial-gradient(circle, var(--color-pink) 1.5px, transparent 1.5px);
+            background-size: var(--pattern-size) var(--pattern-size);
+        }
+
+        .bg-dotted-blue {
+            background-image: radial-gradient(circle, var(--color-blue) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
+        }
+
+        /* Zigzag pattern */
+        .bg-zigzag {
+            background: linear-gradient(135deg, var(--color-yellow) 25%, transparent 25%) -20px 0,
+                        linear-gradient(225deg, var(--color-yellow) 25%, transparent 25%) -20px 0,
+                        linear-gradient(315deg, var(--color-yellow) 25%, transparent 25%),
+                        linear-gradient(45deg, var(--color-yellow) 25%, transparent 25%);
+            background-size: 40px 20px;
+            background-color: #fff;
+        }
+
+        /* Squiggly SVG border */
+        .squiggly-border {
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3 Q25 0 30 3 Q35 6 40 3' fill='none' stroke='%23FF1493' stroke-width='2'/%3E%3C/svg%3E") 6 round;
+            border-width: 3px;
+            border-style: solid;
+        }
+
+        /* Geometric decorations */
+        .geo-triangle {
+            width: 0; height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid var(--color-yellow);
+            position: absolute;
+        }
+
+        .geo-circle {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .geo-square {
+            width: 35px; height: 35px;
+            position: absolute;
+        }
+
+        /* Playful rotation */
+        .rotate-memphis { transform: rotate(var(--rotation)); }
+        .rotate-memphis-neg { transform: rotate(calc(var(--rotation) * -1)); }
+        .rotate-memphis-lg { transform: rotate(12deg); }
+
+        /* Hover rotation */
+        .hover-rotate:hover { transform: rotate(5deg) scale(1.05); }
+        .hover-pop:hover { transform: scale(1.08) translateY(-4px); }
+
+        /* Pop-in animation */
+        @keyframes popIn {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            80% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-pop { animation: popIn 0.6s ease-out forwards; }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 2s ease-in-out infinite; }
+        .animate-slide-up { animation: slideUp 0.8s ease-out forwards; }
+
+        /* Confetti particles */
+        .confetti-particle {
+            position: absolute;
+            width: 10px; height: 10px;
+            animation: confetti 3s linear infinite;
+        }
+
+        /* Memphis card style */
+        .memphis-card {
+            border: 3px solid #000;
+            border-radius: 0;
+            position: relative;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        .memphis-card::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px;
+            width: 100%; height: 100%;
+            border: 3px solid #000;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        .memphis-card:hover::after {
+            top: 12px; left: 12px;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 4px solid var(--color-pink);
+            transform: scale(1.05);
+            position: relative;
+        }
+        .pricing-highlight::before {
+            content: '★ POPULAR';
+            position: absolute;
+            top: -16px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-pink);
+            color: #fff;
+            padding: 2px 20px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        /* Striped background */
+        .bg-stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 20, 147, 0.06) 10px,
+                rgba(255, 20, 147, 0.06) 20px
+            );
+        }
+
+        /* Mobile nav */
+        .mobile-menu { display: none; }
+        .mobile-menu.active { display: flex; }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero abstract shape */
+        .hero-shape {
+            position: relative;
+        }
+        .hero-shape::before {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: var(--color-yellow);
+            border-radius: 50%;
+            top: -50px; right: -50px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        .hero-shape::after {
+            content: '';
+            position: absolute;
+            width: 200px; height: 200px;
+            background: var(--color-pink);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            bottom: -30px; left: -30px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white border-b-4 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <div class="w-10 h-10 bg-memphis-pink rotate-memphis flex items-center justify-center transition-all group-hover:rotate-0">
+                        <span class="text-white font-black text-lg">F</span>
+                    </div>
+                    <span class="font-black text-xl tracking-tight text-black">ARTE<span class="text-memphis-pink">URBANA</span></span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="font-bold text-sm uppercase tracking-wider text-black hover:text-memphis-pink transition-all cursor-pointer">Sobre</a>
+                    <a href="#testimonials" class="font-bold text-sm uppercase tracking-wider text-black hover:text-memphis-pink transition-all cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="font-bold text-sm uppercase tracking-wider text-black hover:text-memphis-pink transition-all cursor-pointer">Ingressos</a>
+                    <a href="#contact" class="font-bold text-sm uppercase tracking-wider text-black hover:text-memphis-pink transition-all cursor-pointer">Contato</a>
+                    <a href="#pricing" class="bg-memphis-pink text-white font-extrabold px-6 py-3 border-3 border-black hover:bg-memphis-blue hover:rotate-memphis transition-all cursor-pointer" style="border: 3px solid black;">
+                        GARANTA SEU INGRESSO
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="menuBtn" class="md:hidden cursor-pointer p-2 hover:bg-memphis-yellow transition-all" aria-label="Abrir menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu flex-col bg-white border-t-4 border-black md:hidden">
+            <a href="#features" class="block px-6 py-4 font-bold text-sm uppercase tracking-wider border-b-2 border-gray-200 hover:bg-memphis-yellow transition-all cursor-pointer">Sobre</a>
+            <a href="#testimonials" class="block px-6 py-4 font-bold text-sm uppercase tracking-wider border-b-2 border-gray-200 hover:bg-memphis-yellow transition-all cursor-pointer">Depoimentos</a>
+            <a href="#pricing" class="block px-6 py-4 font-bold text-sm uppercase tracking-wider border-b-2 border-gray-200 hover:bg-memphis-yellow transition-all cursor-pointer">Ingressos</a>
+            <a href="#contact" class="block px-6 py-4 font-bold text-sm uppercase tracking-wider border-b-2 border-gray-200 hover:bg-memphis-yellow transition-all cursor-pointer">Contato</a>
+            <a href="#pricing" class="block mx-6 my-4 bg-memphis-pink text-white text-center font-extrabold px-6 py-3 hover:bg-memphis-blue transition-all cursor-pointer" style="border: 3px solid black;">GARANTA SEU INGRESSO</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex items-center pt-20 bg-stripes overflow-hidden">
+        <!-- Decorative geometric elements -->
+        <div class="geo-triangle" style="top: 120px; left: 5%; transform: rotate(15deg); border-bottom-color: #FFD700; opacity: 0.6;"></div>
+        <div class="geo-circle bg-memphis-pink" style="top: 200px; right: 10%; opacity: 0.4; width: 60px; height: 60px;"></div>
+        <div class="geo-square bg-memphis-blue" style="bottom: 150px; left: 8%; transform: rotate(30deg); opacity: 0.3; width: 50px; height: 50px;"></div>
+        <div class="geo-circle bg-memphis-yellow" style="bottom: 200px; right: 15%; opacity: 0.5; width: 35px; height: 35px;"></div>
+        <div class="geo-triangle" style="top: 350px; right: 5%; transform: rotate(-20deg); border-bottom-color: #FF7F50; opacity: 0.4; border-left-width: 20px; border-right-width: 20px; border-bottom-width: 35px;"></div>
+        <div class="geo-square bg-memphis-mint" style="top: 300px; left: 15%; transform: rotate(45deg); opacity: 0.3;"></div>
+
+        <!-- Squiggly SVG decoration -->
+        <svg class="absolute top-32 right-20 opacity-30 hidden lg:block" width="200" height="30" viewBox="0 0 200 30">
+            <path d="M0 15 Q12.5 0 25 15 Q37.5 30 50 15 Q62.5 0 75 15 Q87.5 30 100 15 Q112.5 0 125 15 Q137.5 30 150 15 Q162.5 0 175 15 Q187.5 30 200 15" fill="none" stroke="#FF1493" stroke-width="3"/>
+        </svg>
+        <svg class="absolute bottom-40 left-10 opacity-30 hidden lg:block" width="150" height="30" viewBox="0 0 150 30">
+            <path d="M0 15 Q12.5 0 25 15 Q37.5 30 50 15 Q62.5 0 75 15 Q87.5 30 100 15 Q112.5 0 125 15 Q137.5 30 150 15" fill="none" stroke="#0066FF" stroke-width="3"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left: Text -->
+                <div class="relative z-10 animate-slide-up">
+                    <div class="inline-block bg-memphis-yellow px-4 py-1 mb-6 rotate-memphis-neg" style="border: 3px solid black;">
+                        <span class="font-extrabold text-sm uppercase tracking-widest text-black">15–18 Agosto 2026</span>
+                    </div>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-6 text-black">
+                        FESTIVAL DE<br>
+                        <span class="text-memphis-pink">ARTE</span><br>
+                        <span class="text-memphis-blue">URBANA</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-gray-700 font-semibold mb-8 max-w-lg">
+                        Quatro dias de pura expressão artística. Grafite, muralismo, performances ao vivo, workshops e muito mais no coração de São Paulo.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#pricing" class="inline-block bg-memphis-pink text-white font-extrabold px-8 py-4 text-lg hover:bg-memphis-blue hover-pop transition-all cursor-pointer" style="border: 3px solid black;">
+                            COMPRAR INGRESSO
+                        </a>
+                        <a href="#features" class="inline-block bg-white text-black font-extrabold px-8 py-4 text-lg hover:bg-memphis-yellow hover-pop transition-all cursor-pointer" style="border: 3px solid black;">
+                            SAIBA MAIS
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Abstract CSS Art -->
+                <div class="relative hidden lg:flex items-center justify-center hero-shape" style="min-height: 500px;">
+                    <!-- Main circle -->
+                    <div class="w-72 h-72 bg-memphis-blue rounded-full flex items-center justify-center animate-float" style="border: 5px solid black;">
+                        <div class="w-48 h-48 bg-memphis-yellow flex items-center justify-center" style="border: 4px solid black; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                            <div class="w-16 h-16 bg-memphis-pink rounded-full mt-8" style="border: 3px solid black;"></div>
+                        </div>
+                    </div>
+                    <!-- Floating shapes -->
+                    <div class="absolute top-10 right-10 w-20 h-20 bg-memphis-coral animate-wiggle" style="border: 3px solid black; transform-origin: center;"></div>
+                    <div class="absolute bottom-20 left-5 w-16 h-16 bg-memphis-mint rounded-full animate-float" style="border: 3px solid black; animation-delay: 1s;"></div>
+                    <div class="absolute top-1/2 right-0 w-12 h-12 bg-memphis-purple" style="border: 3px solid black; transform: rotate(45deg);"></div>
+                    <!-- Dots cluster -->
+                    <div class="absolute bottom-10 right-20 flex gap-2">
+                        <div class="w-4 h-4 bg-memphis-pink rounded-full"></div>
+                        <div class="w-4 h-4 bg-memphis-blue rounded-full"></div>
+                        <div class="w-4 h-4 bg-memphis-yellow rounded-full"></div>
+                    </div>
+                    <!-- Lines -->
+                    <svg class="absolute top-20 left-0" width="60" height="60" viewBox="0 0 60 60">
+                        <line x1="0" y1="0" x2="60" y2="60" stroke="#000" stroke-width="3"/>
+                        <line x1="0" y1="20" x2="40" y2="60" stroke="#FF1493" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative py-24 bg-dotted overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="geo-triangle" style="top: 40px; right: 10%; transform: rotate(-10deg); border-bottom-color: #0066FF; opacity: 0.3;"></div>
+        <div class="geo-circle bg-memphis-coral" style="bottom: 60px; left: 5%; opacity: 0.3; width: 45px; height: 45px;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <div class="inline-block bg-memphis-blue px-6 py-2 mb-4" style="border: 3px solid black; transform: rotate(-2deg);">
+                    <span class="text-white font-extrabold text-sm uppercase tracking-widest">O que te espera</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-black text-black mt-4">
+                    UMA EXPLOSÃO DE <span class="text-memphis-pink">CRIATIVIDADE</span>
+                </h2>
+                <p class="text-lg text-gray-600 font-semibold mt-4 max-w-2xl mx-auto">
+                    Três pilares que fazem do nosso festival uma experiência única e inesquecível.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Card 1 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-memphis-yellow flex items-center justify-center mb-6 rotate-memphis" style="border: 3px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-black mb-3">GRAFITE AO VIVO</h3>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        Assista artistas renomados criando murais gigantes em tempo real. Mais de 50 artistas nacionais e internacionais transformando paredes em obras-primas.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-memphis-pink font-bold cursor-pointer hover:gap-4 transition-all">
+                        <span>Explorar</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-memphis-pink rounded-full flex items-center justify-center mb-6" style="border: 3px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-black mb-3">MÚSICA & BEATS</h3>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        Palcos com DJs, MCs e bandas que embalam a cultura urbana. Do hip-hop ao eletrônico, a trilha sonora perfeita para quatro dias de arte.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-memphis-blue font-bold cursor-pointer hover:gap-4 transition-all">
+                        <span>Explorar</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.3s;">
+                    <div class="w-16 h-16 bg-memphis-blue flex items-center justify-center mb-6" style="border: 3px solid black; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-black mb-3">WORKSHOPS</h3>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        Aprenda técnicas de stencil, lambe-lambe, lettering e muito mais. Oficinas para todos os níveis, do iniciante ao artista experiente.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-memphis-coral font-bold cursor-pointer hover:gap-4 transition-all">
+                        <span>Explorar</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-24 bg-white overflow-hidden">
+        <!-- Zigzag decorative strip -->
+        <div class="absolute top-0 left-0 w-full h-4 bg-zigzag"></div>
+
+        <!-- Decorative shapes -->
+        <div class="geo-circle bg-memphis-yellow" style="top: 80px; left: 8%; opacity: 0.4; width: 50px; height: 50px;"></div>
+        <div class="geo-square bg-memphis-pink" style="bottom: 100px; right: 6%; transform: rotate(20deg); opacity: 0.3; width: 40px; height: 40px;"></div>
+        <svg class="absolute bottom-20 left-20 opacity-20 hidden lg:block" width="120" height="25" viewBox="0 0 120 25">
+            <path d="M0 12 Q7.5 0 15 12 Q22.5 25 30 12 Q37.5 0 45 12 Q52.5 25 60 12 Q67.5 0 75 12 Q82.5 25 90 12 Q97.5 0 105 12 Q112.5 25 120 12" fill="none" stroke="#FFD700" stroke-width="3"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <div class="inline-block bg-memphis-yellow px-6 py-2 mb-4" style="border: 3px solid black; transform: rotate(2deg);">
+                    <span class="text-black font-extrabold text-sm uppercase tracking-widest">Quem já viveu</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-black text-black mt-4">
+                    VOZES DA <span class="text-memphis-blue">COMUNIDADE</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Testimonial 1 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    </div>
+                    <p class="text-gray-700 font-medium leading-relaxed mb-6 italic">
+                        "Foi a experiência mais incrível da minha vida. Ver artistas criando murais enormes ao vivo, com música e energia por todos os lados. Voltarei todos os anos!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-memphis-pink rounded-full flex items-center justify-center" style="border: 2px solid black;">
+                            <span class="text-white font-black text-lg">M</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-black">Marina Costa</p>
+                            <p class="text-sm text-gray-500 font-semibold">Artista Visual — SP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.15s;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    </div>
+                    <p class="text-gray-700 font-medium leading-relaxed mb-6 italic">
+                        "Os workshops mudaram minha forma de ver a arte. Aprendi stencil com um dos maiores nomes do grafite brasileiro. A organização é impecável!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-memphis-blue rounded-full flex items-center justify-center" style="border: 2px solid black;">
+                            <span class="text-white font-black text-lg">R</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-black">Rafael Mendes</p>
+                            <p class="text-sm text-gray-500 font-semibold">Designer — RJ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.3s;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow" viewBox="0 0 24 24" fill="currentColor"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                    </div>
+                    <p class="text-gray-700 font-medium leading-relaxed mb-6 italic">
+                        "Trouxe minha familia inteira e todos amaram. Tem atividades para todas as idades. A area de food trucks e sensacional. Evento nota 10!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-memphis-yellow rounded-full flex items-center justify-center" style="border: 2px solid black;">
+                            <span class="text-black font-black text-lg">J</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-black">Juliana Ferreira</p>
+                            <p class="text-sm text-gray-500 font-semibold">Professora — MG</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative py-24 bg-dotted-blue overflow-hidden">
+        <!-- Decorative shapes -->
+        <div class="geo-triangle" style="top: 50px; left: 6%; transform: rotate(25deg); border-bottom-color: #FF1493; opacity: 0.3;"></div>
+        <div class="geo-circle bg-memphis-yellow" style="top: 100px; right: 8%; opacity: 0.4; width: 55px; height: 55px;"></div>
+        <div class="geo-square bg-memphis-mint" style="bottom: 80px; left: 12%; transform: rotate(15deg); opacity: 0.3;"></div>
+        <svg class="absolute top-16 right-32 opacity-20 hidden lg:block" width="100" height="20" viewBox="0 0 100 20">
+            <path d="M0 10 Q6 0 12 10 Q18 20 24 10 Q30 0 36 10 Q42 20 48 10 Q54 0 60 10 Q66 20 72 10 Q78 0 84 10 Q90 20 96 10" fill="none" stroke="#FF3333" stroke-width="2.5"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <div class="inline-block bg-memphis-pink px-6 py-2 mb-4" style="border: 3px solid black; transform: rotate(-1deg);">
+                    <span class="text-white font-extrabold text-sm uppercase tracking-widest">Ingressos</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-black text-black mt-4">
+                    ESCOLHA SUA <span class="text-memphis-pink">EXPERIÊNCIA</span>
+                </h2>
+                <p class="text-lg text-gray-600 font-semibold mt-4 max-w-2xl mx-auto">
+                    Três opções para você viver o festival do seu jeito. Todos incluem acesso às áreas de exposição.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-10 items-start">
+                <!-- Tier 1: Básico -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal">
+                    <div class="w-14 h-14 bg-memphis-mint flex items-center justify-center mb-4 rotate-memphis" style="border: 3px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-black uppercase mb-1">Passe Diário</h3>
+                    <p class="text-sm text-gray-500 font-semibold mb-4">Acesso a 1 dia do festival</p>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black text-black">R$89</span>
+                        <span class="text-gray-500 font-bold">/dia</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Acesso às exposições</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Shows ao vivo</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-mint flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Área de food trucks</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <span class="text-gray-400 font-medium">Workshops exclusivos</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-white text-black font-extrabold px-6 py-3 hover:bg-memphis-mint hover:text-black transition-all cursor-pointer" style="border: 3px solid black;">
+                        COMPRAR
+                    </a>
+                </div>
+
+                <!-- Tier 2: Completo (Highlight) -->
+                <div class="memphis-card pricing-highlight p-8 hover-pop transition-all cursor-pointer reveal bg-white" style="animation-delay: 0.15s;">
+                    <div class="w-14 h-14 bg-memphis-pink rounded-full flex items-center justify-center mb-4" style="border: 3px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-black uppercase mb-1">Passe Completo</h3>
+                    <p class="text-sm text-gray-500 font-semibold mb-4">4 dias + workshops</p>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black text-memphis-pink">R$249</span>
+                        <span class="text-gray-500 font-bold">/4 dias</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Tudo do Passe Diário</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Acesso aos 4 dias</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">2 workshops inclusos</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Kit do festival</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-memphis-pink text-white font-extrabold px-6 py-3 hover:bg-memphis-blue transition-all cursor-pointer" style="border: 3px solid black;">
+                        COMPRAR AGORA
+                    </a>
+                </div>
+
+                <!-- Tier 3: VIP -->
+                <div class="memphis-card p-8 hover-pop transition-all cursor-pointer reveal" style="animation-delay: 0.3s;">
+                    <div class="w-14 h-14 bg-memphis-yellow flex items-center justify-center mb-4" style="border: 3px solid black; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-black uppercase mb-1">Passe VIP</h3>
+                    <p class="text-sm text-gray-500 font-semibold mb-4">Experiência premium completa</p>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black text-black">R$499</span>
+                        <span class="text-gray-500 font-bold">/4 dias</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Tudo do Passe Completo</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Área VIP com open bar</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Meet & greet com artistas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-yellow flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            <span class="text-gray-700 font-medium">Todos os workshops</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-white text-black font-extrabold px-6 py-3 hover:bg-memphis-yellow hover:text-black transition-all cursor-pointer" style="border: 3px solid black;">
+                        COMPRAR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="relative py-24 bg-memphis-pink overflow-hidden">
+        <!-- Decorative geometric shapes -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="geo-circle bg-white" style="top: 20px; left: 10%; width: 80px; height: 80px; opacity: 1;"></div>
+            <div class="geo-square bg-white" style="bottom: 30px; right: 8%; width: 60px; height: 60px; transform: rotate(25deg); opacity: 1;"></div>
+            <div class="geo-triangle" style="top: 50%; left: 3%; border-bottom-color: white; opacity: 1;"></div>
+            <div class="geo-circle bg-white" style="bottom: 20%; right: 20%; width: 40px; height: 40px; opacity: 1;"></div>
+        </div>
+        <!-- Squiggly lines -->
+        <svg class="absolute top-10 left-1/4 opacity-20 hidden lg:block" width="180" height="25" viewBox="0 0 180 25">
+            <path d="M0 12 Q10 0 20 12 Q30 25 40 12 Q50 0 60 12 Q70 25 80 12 Q90 0 100 12 Q110 25 120 12 Q130 0 140 12 Q150 25 160 12 Q170 0 180 12" fill="none" stroke="white" stroke-width="3"/>
+        </svg>
+        <svg class="absolute bottom-10 right-1/4 opacity-20 hidden lg:block" width="140" height="25" viewBox="0 0 140 25">
+            <path d="M0 12 Q10 0 20 12 Q30 25 40 12 Q50 0 60 12 Q70 25 80 12 Q90 0 100 12 Q110 25 120 12 Q130 0 140 12" fill="none" stroke="white" stroke-width="3"/>
+        </svg>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+            <div class="inline-block bg-memphis-yellow px-6 py-2 mb-6" style="border: 3px solid black; transform: rotate(2deg);">
+                <span class="text-black font-extrabold text-sm uppercase tracking-widest">Não fique de fora</span>
+            </div>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+                A ARTE ESTÁ<br>CHAMANDO <span class="text-memphis-yellow">VOCÊ</span>
+            </h2>
+            <p class="text-xl text-white/90 font-semibold mb-10 max-w-2xl mx-auto">
+                Garanta seu lugar no maior festival de arte urbana do Brasil. Ingressos limitados — não perca essa experiência única.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#pricing" class="inline-block bg-memphis-yellow text-black font-extrabold px-10 py-4 text-lg hover-pop hover:bg-white transition-all cursor-pointer" style="border: 3px solid black;">
+                    GARANTIR MEU INGRESSO
+                </a>
+                <a href="#contact" class="inline-block bg-transparent text-white font-extrabold px-10 py-4 text-lg hover-pop hover:bg-white hover:text-black transition-all cursor-pointer" style="border: 3px solid white;">
+                    FALE CONOSCO
+                </a>
+            </div>
+            <!-- Counter badges -->
+            <div class="flex flex-wrap justify-center gap-8 mt-12">
+                <div class="text-center">
+                    <div class="text-4xl font-black text-memphis-yellow">50+</div>
+                    <div class="text-white/80 font-bold text-sm uppercase tracking-wider">Artistas</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-memphis-yellow">4</div>
+                    <div class="text-white/80 font-bold text-sm uppercase tracking-wider">Dias</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-memphis-yellow">20+</div>
+                    <div class="text-white/80 font-bold text-sm uppercase tracking-wider">Workshops</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-memphis-yellow">10K</div>
+                    <div class="text-white/80 font-bold text-sm uppercase tracking-wider">Participantes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="relative bg-black text-white pt-20 pb-8 overflow-hidden">
+        <!-- Decorative top border -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-memphis-pink via-memphis-yellow to-memphis-blue"></div>
+        <!-- Scattered shapes -->
+        <div class="geo-circle" style="top: 40px; right: 5%; width: 30px; height: 30px; background: #FF1493; opacity: 0.2;"></div>
+        <div class="geo-square" style="bottom: 60px; left: 4%; width: 25px; height: 25px; background: #FFD700; transform: rotate(30deg); opacity: 0.2;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6 cursor-pointer group">
+                        <div class="w-10 h-10 bg-memphis-pink rotate-memphis flex items-center justify-center transition-all group-hover:rotate-0">
+                            <span class="text-white font-black text-lg">F</span>
+                        </div>
+                        <span class="font-black text-xl tracking-tight">ARTE<span class="text-memphis-pink">URBANA</span></span>
+                    </a>
+                    <p class="text-gray-400 font-medium leading-relaxed mb-6">
+                        O maior festival de arte urbana do Brasil. Celebrando a cultura de rua desde 2020.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-memphis-pink transition-all cursor-pointer" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-memphis-blue transition-all cursor-pointer" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-memphis-red transition-all cursor-pointer" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-memphis-turquoise transition-all cursor-pointer" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-black text-sm uppercase tracking-widest text-memphis-yellow mb-6">Festival</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Programação</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Artistas</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Workshops</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Mapa do Evento</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-black text-sm uppercase tracking-widest text-memphis-yellow mb-6">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Política de Cookies</a></li>
+                        <li><a href="#" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">Acessibilidade</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-black text-sm uppercase tracking-widest text-memphis-yellow mb-6">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+                            </svg>
+                            <a href="mailto:contato@festivalarteurban.com.br" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">contato@festivalarteurban.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                            </svg>
+                            <a href="tel:+5511999999999" class="text-gray-400 font-medium hover:text-memphis-pink transition-all cursor-pointer">(11) 99999-9999</a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-memphis-pink flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                            </svg>
+                            <span class="text-gray-400 font-medium">Parque Ibirapuera, São Paulo — SP</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-500 font-medium text-sm">
+                    &copy; 2026 Festival de Arte Urbana. Todos os direitos reservados.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-gray-500 text-sm font-medium hover:text-memphis-pink transition-all cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-gray-500 text-sm font-medium hover:text-memphis-pink transition-all cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-gray-500 text-sm font-medium hover:text-memphis-pink transition-all cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

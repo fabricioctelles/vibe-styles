@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PixelForge Studios — Estúdio de Jogos Indie. Criamos experiências retro com alma moderna. Jogos pixel art feitos com paixão.">
+    <meta name="keywords" content="jogos indie, pixel art, estúdio de jogos, games retro, desenvolvimento de jogos, 8-bit">
+    <meta name="author" content="PixelForge Studios">
+    <meta property="og:title" content="PixelForge Studios — Estúdio de Jogos Indie">
+    <meta property="og:description" content="Criamos experiências retro com alma moderna. Jogos pixel art feitos com paixão e nostalgia.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>PixelForge Studios — Estúdio de Jogos Indie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 4px;
+            --color-black: #0D0D0D;
+            --color-green: #00A800;
+            --color-red: #E40058;
+            --color-blue: #0058F8;
+            --color-yellow: #F8D800;
+            --color-cyan: #00E8D8;
+            --color-orange: #F87800;
+            --color-white: #FCFCFC;
+            --font-pixel: 'Press Start 2P', monospace;
+            --border: 4px solid #0D0D0D;
+            --shadow: 4px 4px 0 #0D0D0D;
+            --border-radius: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0px !important;
+            image-rendering: pixelated;
+        }
+
+        body {
+            font-family: var(--font-pixel);
+            background: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanline Overlay */
+        .crt-overlay {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15) 0px,
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+        }
+
+        /* Pixel Blink Animation */
+        @keyframes pixel-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .pixel-blink {
+            animation: pixel-blink 1s steps(2) infinite;
+        }
+
+        /* Pixel Float Animation */
+        @keyframes pixel-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .pixel-float {
+            animation: pixel-float 2s steps(4) infinite;
+        }
+
+        /* Pixel Pulse Animation */
+        @keyframes pixel-pulse {
+            0%, 100% { box-shadow: 0 0 0 0px var(--color-green); }
+            50% { box-shadow: 0 0 0 8px transparent; }
+        }
+
+        /* Step Slide In */
+        @keyframes step-slide-up {
+            0% { transform: translateY(16px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .step-slide-up {
+            animation: step-slide-up 0.5s steps(4) forwards;
+        }
+
+        /* Pixel Button Styles */
+        .pixel-btn {
+            font-family: var(--font-pixel);
+            border: 4px solid var(--color-black);
+            box-shadow: 4px 4px 0 var(--color-black);
+            padding: 12px 24px;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all 0.1s steps(2);
+            text-decoration: none;
+            display: inline-block;
+            image-rendering: pixelated;
+        }
+        .pixel-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--color-black);
+        }
+        .pixel-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0 0 0 var(--color-black);
+        }
+        .pixel-btn-primary {
+            background: var(--color-green);
+            color: var(--color-black);
+        }
+        .pixel-btn-secondary {
+            background: var(--color-blue);
+            color: var(--color-white);
+        }
+        .pixel-btn-red {
+            background: var(--color-red);
+            color: var(--color-white);
+        }
+
+        /* Pixel Card */
+        .pixel-card {
+            border: 4px solid var(--color-white);
+            box-shadow: 4px 4px 0 var(--color-black);
+            background: #1a1a2e;
+            padding: 24px;
+            transition: all 0.15s steps(4);
+            cursor: pointer;
+        }
+        .pixel-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 var(--color-black);
+        }
+
+        /* Pricing Highlight */
+        .pricing-highlight {
+            border-color: var(--color-yellow) !important;
+            box-shadow: 4px 4px 0 var(--color-yellow), 8px 8px 0 var(--color-black) !important;
+            transform: scale(1.03);
+        }
+        .pricing-highlight:hover {
+            transform: scale(1.03) translate(-2px, -2px);
+        }
+
+        /* Hero Pixel Art Element */
+        .pixel-art-hero {
+            width: 160px;
+            height: 160px;
+            position: relative;
+        }
+        .pixel-art-hero .pixel-block {
+            position: absolute;
+            image-rendering: pixelated;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--color-black); }
+        ::-webkit-scrollbar-thumb { background: var(--color-green); border: 2px solid var(--color-black); }
+
+        /* Nav link hover */
+        .nav-link {
+            cursor: pointer;
+            transition: all 0.1s steps(2);
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--color-green);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: var(--color-green);
+            transition: width 0.2s steps(4);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--color-black);
+            border: 4px solid var(--color-green);
+            border-top: none;
+            z-index: 100;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+
+        /* Section divider */
+        .pixel-divider {
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--color-green) 0px,
+                var(--color-green) 8px,
+                var(--color-black) 8px,
+                var(--color-black) 16px
+            );
+        }
+
+        /* Star rating pixels */
+        .pixel-star {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--color-yellow);
+            margin-right: 4px;
+            box-shadow: 2px 2px 0 var(--color-black);
+        }
+    </style>
+</head>
+<body>
+    <!-- CRT Scanline Overlay -->
+    <div class="crt-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D] border-b-4 border-[#00A800]" style="border-bottom: 4px solid var(--color-green);">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between relative">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 cursor-pointer" style="text-decoration:none;">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
+                    <rect x="4" y="4" width="8" height="8" fill="#00A800"/>
+                    <rect x="12" y="4" width="8" height="8" fill="#0058F8"/>
+                    <rect x="20" y="4" width="8" height="8" fill="#E40058"/>
+                    <rect x="4" y="12" width="8" height="8" fill="#F8D800"/>
+                    <rect x="12" y="12" width="8" height="8" fill="#FCFCFC"/>
+                    <rect x="20" y="12" width="8" height="8" fill="#F87800"/>
+                    <rect x="4" y="20" width="8" height="8" fill="#00E8D8"/>
+                    <rect x="12" y="20" width="8" height="8" fill="#E40058"/>
+                    <rect x="20" y="20" width="8" height="8" fill="#00A800"/>
+                </svg>
+                <span class="text-[0.7rem] md:text-xs" style="color:var(--color-green); font-family:var(--font-pixel);">PixelForge</span>
+            </a>
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#features" class="nav-link text-[0.55rem]" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none;">Recursos</a>
+                <a href="#testimonials" class="nav-link text-[0.55rem]" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none;">Depoimentos</a>
+                <a href="#pricing" class="nav-link text-[0.55rem]" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none;">Planos</a>
+                <a href="#cta" class="pixel-btn pixel-btn-primary text-[0.5rem]" style="font-family:var(--font-pixel); text-decoration:none;">Jogar Agora</a>
+            </div>
+            <!-- Mobile Hamburger -->
+            <button id="menuBtn" class="md:hidden cursor-pointer p-2" style="background:none; border:none;" aria-label="Abrir menu">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect y="4" width="28" height="4" fill="#00A800"/><rect y="12" width="28" height="4" fill="#00A800"/><rect y="20" width="28" height="4" fill="#00A800"/></svg>
+            </button>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu">
+                <a href="#features" class="block px-6 py-4 text-[0.55rem] nav-link" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none; border-bottom: 2px solid #1a1a2e;">Recursos</a>
+                <a href="#testimonials" class="block px-6 py-4 text-[0.55rem] nav-link" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none; border-bottom: 2px solid #1a1a2e;">Depoimentos</a>
+                <a href="#pricing" class="block px-6 py-4 text-[0.55rem] nav-link" style="color:var(--color-white); font-family:var(--font-pixel); text-decoration:none; border-bottom: 2px solid #1a1a2e;">Planos</a>
+                <a href="#cta" class="block px-6 py-4 text-[0.55rem]" style="color:var(--color-green); font-family:var(--font-pixel); text-decoration:none;">Jogar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-4" style="background: var(--color-black);">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 w-full">
+            <!-- Hero Text -->
+            <div class="flex-1 text-center md:text-left">
+                <p class="text-[0.55rem] mb-4 pixel-blink" style="color:var(--color-green); font-family:var(--font-pixel);">&#9654; PRESSIONE START</p>
+                <h1 class="text-lg md:text-2xl lg:text-3xl mb-6 leading-relaxed" style="font-family:var(--font-pixel); color:var(--color-white);">
+                    Criamos <span style="color:var(--color-red);">Jogos Indie</span> com Alma Retro
+                </h1>
+                <p class="text-[0.5rem] md:text-[0.6rem] mb-8 leading-loose" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                    Somos o PixelForge Studios. Transformamos nostalgia em experiências interativas. Cada pixel conta uma história.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#pricing" class="pixel-btn pixel-btn-primary text-[0.55rem]">Conhecer Jogos</a>
+                    <a href="#features" class="pixel-btn pixel-btn-secondary text-[0.55rem]">Ver Recursos</a>
+                </div>
+            </div>
+            <!-- Hero Pixel Art Visual -->
+            <div class="flex-1 flex justify-center">
+                <div class="relative" style="width:240px; height:240px;">
+                    <!-- Pixel Art Controller -->
+                    <div class="pixel-float" style="position:absolute; top:20px; left:20px; width:200px; height:140px; background:#1a1a2e; border:4px solid var(--color-white); box-shadow: 8px 8px 0 var(--color-black);">
+                        <!-- D-Pad -->
+                        <div style="position:absolute; top:30px; left:24px;">
+                            <div style="width:16px; height:48px; background:var(--color-black); position:absolute; left:16px; top:0;"></div>
+                            <div style="width:48px; height:16px; background:var(--color-black); position:absolute; left:0; top:16px;"></div>
+                        </div>
+                        <!-- Buttons -->
+                        <div style="position:absolute; top:36px; right:24px; display:flex; gap:8px;">
+                            <div style="width:24px; height:24px; background:var(--color-red); border:2px solid var(--color-black);"></div>
+                            <div style="width:24px; height:24px; background:var(--color-green); border:2px solid var(--color-black); margin-top:-12px;"></div>
+                        </div>
+                        <!-- Select/Start -->
+                        <div style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:12px;">
+                            <div style="width:28px; height:8px; background:var(--color-black);"></div>
+                            <div style="width:28px; height:8px; background:var(--color-black);"></div>
+                        </div>
+                    </div>
+                    <!-- Floating Pixels -->
+                    <div class="pixel-float" style="position:absolute; top:0; right:0; width:16px; height:16px; background:var(--color-yellow); animation-delay:0.3s;"></div>
+                    <div class="pixel-float" style="position:absolute; bottom:20px; left:0; width:12px; height:12px; background:var(--color-cyan); animation-delay:0.6s;"></div>
+                    <div class="pixel-float" style="position:absolute; bottom:0; right:40px; width:20px; height:20px; background:var(--color-red); animation-delay:0.9s;"></div>
+                    <div class="pixel-float" style="position:absolute; top:10px; left:50%; width:8px; height:8px; background:var(--color-green); animation-delay:1.2s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Divider -->
+    <div class="pixel-divider"></div>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-20 px-4" style="background:#0a0a1a;">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-[0.5rem] mb-3" style="color:var(--color-cyan); font-family:var(--font-pixel);">// RECURSOS</p>
+                <h2 class="text-sm md:text-lg mb-4" style="font-family:var(--font-pixel); color:var(--color-white);">Por Que Nos Escolher?</h2>
+                <p class="text-[0.45rem] md:text-[0.55rem]" style="font-family:var(--font-pixel); color:#808080;">Ferramentas e paixão para criar jogos inesquecíveis.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="pixel-card">
+                    <div class="mb-6" style="width:48px; height:48px; background:var(--color-green); border:4px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                            <rect x="2" y="6" width="20" height="12" /><line x1="6" y1="10" x2="6" y2="14" /><line x1="4" y1="12" x2="8" y2="12" /><circle cx="16" cy="11" r="1" fill="#0D0D0D"/><circle cx="18" cy="13" r="1" fill="#0D0D0D"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-3" style="font-family:var(--font-pixel); color:var(--color-green);">Game Design Autoral</h3>
+                    <p class="text-[0.45rem] leading-loose" style="font-family:var(--font-pixel); color:#a0a0a0;">Cada jogo é uma obra de arte única. Mecânicas originais, narrativas envolventes e pixel art feita à mão com dedicação total.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="pixel-card">
+                    <div class="mb-6" style="width:48px; height:48px; background:var(--color-blue); border:4px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-3" style="font-family:var(--font-pixel); color:var(--color-blue);">Multiplataforma</h3>
+                    <p class="text-[0.45rem] leading-loose" style="font-family:var(--font-pixel); color:#a0a0a0;">Nossos jogos rodam em PC, consoles e mobile. Exportação otimizada para todas as plataformas com performance impecável.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="pixel-card">
+                    <div class="mb-6" style="width:48px; height:48px; background:var(--color-red); border:4px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><rect x="3" y="3" width="8" height="8"/><path d="M16 3h5v5"/><path d="M21 3l-7 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-3" style="font-family:var(--font-pixel); color:var(--color-red);">Comunidade Ativa</h3>
+                    <p class="text-[0.45rem] leading-loose" style="font-family:var(--font-pixel); color:#a0a0a0;">Mais de 50 mil jogadores na nossa comunidade. Feedback direto, beta tests exclusivos e eventos online toda semana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Divider -->
+    <div class="pixel-divider" style="background: repeating-linear-gradient(90deg, var(--color-red) 0px, var(--color-red) 8px, var(--color-black) 8px, var(--color-black) 16px);"></div>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-20 px-4" style="background:var(--color-black);">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-[0.5rem] mb-3" style="color:var(--color-yellow); font-family:var(--font-pixel);">// DEPOIMENTOS</p>
+                <h2 class="text-sm md:text-lg mb-4" style="font-family:var(--font-pixel); color:var(--color-white);">O Que Dizem os Jogadores</h2>
+                <p class="text-[0.45rem] md:text-[0.55rem]" style="font-family:var(--font-pixel); color:#808080;">Feedback real da nossa comunidade gamer.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="pixel-card" style="border-color:var(--color-yellow);">
+                    <div class="mb-4">
+                        <span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span>
+                    </div>
+                    <p class="text-[0.45rem] leading-loose mb-6" style="font-family:var(--font-pixel); color:#c0c0c0;">
+                        "Melhor estúdio indie do Brasil. Os jogos deles me fazem sentir como se estivesse nos anos 90 de novo. Pura nostalgia com gameplay moderno!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div style="width:32px; height:32px; background:var(--color-green); border:2px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                            <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:var(--color-black);">RL</span>
+                        </div>
+                        <div>
+                            <p class="text-[0.45rem]" style="font-family:var(--font-pixel); color:var(--color-white);">Rafael Lima</p>
+                            <p class="text-[0.35rem]" style="font-family:var(--font-pixel); color:#808080;">Streamer de Games</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="pixel-card" style="border-color:var(--color-yellow);">
+                    <div class="mb-4">
+                        <span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span>
+                    </div>
+                    <p class="text-[0.45rem] leading-loose mb-6" style="font-family:var(--font-pixel); color:#c0c0c0;">
+                        "A qualidade da pixel art é absurda. Cada frame é perfeito. Já joguei todos os títulos e estou ansioso pelo próximo lançamento!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div style="width:32px; height:32px; background:var(--color-blue); border:2px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                            <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:var(--color-white);">CM</span>
+                        </div>
+                        <div>
+                            <p class="text-[0.45rem]" style="font-family:var(--font-pixel); color:var(--color-white);">Camila Mendes</p>
+                            <p class="text-[0.35rem]" style="font-family:var(--font-pixel); color:#808080;">Game Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="pixel-card" style="border-color:var(--color-yellow);">
+                    <div class="mb-4">
+                        <span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span><span class="pixel-star"></span>
+                    </div>
+                    <p class="text-[0.45rem] leading-loose mb-6" style="font-family:var(--font-pixel); color:#c0c0c0;">
+                        "Comprei o pacote completo e não me arrependo. Suporte incrível, atualizações constantes e a comunidade é muito acolhedora."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div style="width:32px; height:32px; background:var(--color-red); border:2px solid var(--color-black); display:flex; align-items:center; justify-content:center;">
+                            <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:var(--color-white);">TS</span>
+                        </div>
+                        <div>
+                            <p class="text-[0.45rem]" style="font-family:var(--font-pixel); color:var(--color-white);">Thiago Santos</p>
+                            <p class="text-[0.35rem]" style="font-family:var(--font-pixel); color:#808080;">Jogador Hardcore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Divider -->
+    <div class="pixel-divider" style="background: repeating-linear-gradient(90deg, var(--color-blue) 0px, var(--color-blue) 8px, var(--color-black) 8px, var(--color-black) 16px);"></div>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="py-20 px-4" style="background:#0a0a1a;">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-[0.5rem] mb-3" style="color:var(--color-orange); font-family:var(--font-pixel);">// PLANOS</p>
+                <h2 class="text-sm md:text-lg mb-4" style="font-family:var(--font-pixel); color:var(--color-white);">Escolha Sua Aventura</h2>
+                <p class="text-[0.45rem] md:text-[0.55rem]" style="font-family:var(--font-pixel); color:#808080;">Pacotes para todo tipo de jogador.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <!-- Tier 1 - Casual -->
+                <div class="pixel-card text-center">
+                    <div class="mb-4" style="width:48px; height:48px; background:var(--color-cyan); border:4px solid var(--color-black); margin:0 auto; display:flex; align-items:center; justify-content:center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="square"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-2" style="font-family:var(--font-pixel); color:var(--color-cyan);">Casual</h3>
+                    <div class="mb-6">
+                        <span class="text-lg" style="font-family:var(--font-pixel); color:var(--color-white);">R$29</span>
+                        <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:#808080;">/mês</span>
+                    </div>
+                    <div class="text-left mb-6" style="border-top:2px solid #2a2a3e; padding-top:16px;">
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Acesso a 3 jogos
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Saves na nuvem
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Suporte por e-mail
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#505050;">
+                            <span style="color:#505050;">&#9632;</span> Sem beta exclusivo
+                        </p>
+                    </div>
+                    <a href="#" class="pixel-btn pixel-btn-secondary text-[0.45rem] w-full block text-center">Selecionar</a>
+                </div>
+                <!-- Tier 2 - Pro (Highlighted) -->
+                <div class="pixel-card pricing-highlight text-center">
+                    <div class="mb-2 text-center">
+                        <span class="text-[0.35rem] px-3 py-1 inline-block" style="font-family:var(--font-pixel); background:var(--color-yellow); color:var(--color-black); border:2px solid var(--color-black);">MAIS POPULAR</span>
+                    </div>
+                    <div class="mb-4 mt-4" style="width:48px; height:48px; background:var(--color-yellow); border:4px solid var(--color-black); margin:0 auto; display:flex; align-items:center; justify-content:center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="square"><path d="M6 9l6 6 6-6"/><rect x="3" y="3" width="18" height="18"/></svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-2" style="font-family:var(--font-pixel); color:var(--color-yellow);">Pro Gamer</h3>
+                    <div class="mb-6">
+                        <span class="text-lg" style="font-family:var(--font-pixel); color:var(--color-white);">R$59</span>
+                        <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:#808080;">/mês</span>
+                    </div>
+                    <div class="text-left mb-6" style="border-top:2px solid #2a2a3e; padding-top:16px;">
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Acesso a todos os jogos
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Beta exclusivo
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Suporte prioritário
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Skins exclusivas
+                        </p>
+                    </div>
+                    <a href="#" class="pixel-btn pixel-btn-primary text-[0.45rem] w-full block text-center">Selecionar</a>
+                </div>
+                <!-- Tier 3 - Lendário -->
+                <div class="pixel-card text-center">
+                    <div class="mb-4" style="width:48px; height:48px; background:var(--color-orange); border:4px solid var(--color-black); margin:0 auto; display:flex; align-items:center; justify-content:center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="square"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="text-[0.6rem] mb-2" style="font-family:var(--font-pixel); color:var(--color-orange);">Lendário</h3>
+                    <div class="mb-6">
+                        <span class="text-lg" style="font-family:var(--font-pixel); color:var(--color-white);">R$99</span>
+                        <span class="text-[0.4rem]" style="font-family:var(--font-pixel); color:#808080;">/mês</span>
+                    </div>
+                    <div class="text-left mb-6" style="border-top:2px solid #2a2a3e; padding-top:16px;">
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Tudo do Pro Gamer
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Acesso ao código-fonte
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Créditos nos jogos
+                        </p>
+                        <p class="text-[0.4rem] mb-3 flex items-center gap-2" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                            <span style="color:var(--color-green);">&#9632;</span> Reuniões com o time
+                        </p>
+                    </div>
+                    <a href="#" class="pixel-btn pixel-btn-red text-[0.45rem] w-full block text-center">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Divider -->
+    <div class="pixel-divider" style="background: repeating-linear-gradient(90deg, var(--color-yellow) 0px, var(--color-yellow) 8px, var(--color-black) 8px, var(--color-black) 16px);"></div>
+
+    <!-- CTA SECTION -->
+    <section id="cta" class="py-20 px-4" style="background:var(--color-black);">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="pixel-card" style="border-color:var(--color-green); background:#0a0a1a; padding:48px 24px;">
+                <div class="mb-6">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto; display:block;">
+                        <rect x="8" y="8" width="8" height="8" fill="#00A800"/>
+                        <rect x="16" y="8" width="8" height="8" fill="#E40058"/>
+                        <rect x="24" y="8" width="8" height="8" fill="#0058F8"/>
+                        <rect x="32" y="8" width="8" height="8" fill="#F8D800"/>
+                        <rect x="8" y="16" width="8" height="8" fill="#F87800"/>
+                        <rect x="16" y="16" width="16" height="16" fill="#FCFCFC"/>
+                        <rect x="32" y="16" width="8" height="8" fill="#00E8D8"/>
+                        <rect x="8" y="24" width="8" height="8" fill="#0058F8"/>
+                        <rect x="32" y="24" width="8" height="8" fill="#E40058"/>
+                        <rect x="8" y="32" width="8" height="8" fill="#F8D800"/>
+                        <rect x="16" y="32" width="8" height="8" fill="#00E8D8"/>
+                        <rect x="24" y="32" width="8" height="8" fill="#F87800"/>
+                        <rect x="32" y="32" width="8" height="8" fill="#00A800"/>
+                    </svg>
+                </div>
+                <h2 class="text-sm md:text-lg mb-4" style="font-family:var(--font-pixel); color:var(--color-white);">Pronto Para a Aventura?</h2>
+                <p class="text-[0.45rem] md:text-[0.55rem] mb-8 leading-loose" style="font-family:var(--font-pixel); color:#a0a0a0;">
+                    Junte-se a milhares de jogadores. Insira seu e-mail e receba acesso antecipado ao nosso próximo lançamento.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
+                    <input type="email" placeholder="seu@email.com" class="w-full px-4 py-3 text-[0.5rem]" style="font-family:var(--font-pixel); background:#1a1a2e; color:var(--color-white); border:4px solid var(--color-green); outline:none;" aria-label="Seu e-mail">
+                    <a href="#" class="pixel-btn pixel-btn-primary text-[0.5rem] whitespace-nowrap">Entrar na Fila</a>
+                </div>
+                <p class="text-[0.3rem] mt-4" style="font-family:var(--font-pixel); color:#505050;">Sem spam. Apenas pixels e aventuras.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Divider -->
+    <div class="pixel-divider"></div>
+
+    <!-- FOOTER -->
+    <footer class="py-16 px-4" style="background:#050510; border-top:4px solid #1a1a2e;">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Footer Logo & Description -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
+                            <rect x="4" y="4" width="8" height="8" fill="#00A800"/>
+                            <rect x="12" y="4" width="8" height="8" fill="#0058F8"/>
+                            <rect x="20" y="4" width="8" height="8" fill="#E40058"/>
+                            <rect x="4" y="12" width="8" height="8" fill="#F8D800"/>
+                            <rect x="12" y="12" width="8" height="8" fill="#FCFCFC"/>
+                            <rect x="20" y="12" width="8" height="8" fill="#F87800"/>
+                            <rect x="4" y="20" width="8" height="8" fill="#00E8D8"/>
+                            <rect x="12" y="20" width="8" height="8" fill="#E40058"/>
+                            <rect x="20" y="20" width="8" height="8" fill="#00A800"/>
+                        </svg>
+                        <span class="text-[0.6rem]" style="color:var(--color-green); font-family:var(--font-pixel);">PixelForge</span>
+                    </div>
+                    <p class="text-[0.35rem] leading-loose" style="font-family:var(--font-pixel); color:#606060;">
+                        Estúdio indie brasileiro criando jogos pixel art com paixão desde 2020.
+                    </p>
+                </div>
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="text-[0.45rem] mb-4" style="font-family:var(--font-pixel); color:var(--color-green);">Navegação</h4>
+                    <ul style="list-style:none; padding:0;">
+                        <li class="mb-3"><a href="#features" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Recursos</a></li>
+                        <li class="mb-3"><a href="#testimonials" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Depoimentos</a></li>
+                        <li class="mb-3"><a href="#pricing" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Planos</a></li>
+                        <li class="mb-3"><a href="#cta" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Contato</a></li>
+                    </ul>
+                </div>
+                <!-- Legal Links -->
+                <div>
+                    <h4 class="text-[0.45rem] mb-4" style="font-family:var(--font-pixel); color:var(--color-blue);">Legal</h4>
+                    <ul style="list-style:none; padding:0;">
+                        <li class="mb-3"><a href="#" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Política de Privacidade</a></li>
+                        <li class="mb-3"><a href="#" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Termos de Uso</a></li>
+                        <li class="mb-3"><a href="#" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">Política de Cookies</a></li>
+                        <li class="mb-3"><a href="#" class="text-[0.35rem] nav-link" style="font-family:var(--font-pixel); color:#808080; text-decoration:none;">LGPD</a></li>
+                    </ul>
+                </div>
+                <!-- Social & Contact -->
+                <div>
+                    <h4 class="text-[0.45rem] mb-4" style="font-family:var(--font-pixel); color:var(--color-red);">Redes Sociais</h4>
+                    <div class="flex gap-3 mb-6">
+                        <!-- Twitter/X -->
+                        <a href="#" class="cursor-pointer" style="width:32px; height:32px; background:#1a1a2e; border:2px solid #404060; display:flex; align-items:center; justify-content:center; transition: all 0.1s steps(2); text-decoration:none;" aria-label="Twitter" onmouseover="this.style.borderColor='#00A800'" onmouseout="this.style.borderColor='#404060'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square"><path d="M22 4s-1.5.7-2.8 1c-1-.9-2.4-1.5-4-1.5-3 0-5.5 2.5-5.5 5.5 0 .4 0 .8.1 1.2C6.7 10 3.7 8.2 1.7 5.5c-.5.8-.7 1.7-.7 2.7 0 1.9 1 3.6 2.5 4.6-.9 0-1.7-.3-2.5-.7v.1c0 2.7 1.9 4.9 4.4 5.4-.5.1-.9.2-1.4.2-.3 0-.7 0-1-.1.7 2.1 2.6 3.6 4.9 3.6-1.8 1.4-4.1 2.3-6.6 2.3-.4 0-.8 0-1.2-.1 2.3 1.5 5.1 2.4 8.1 2.4 9.7 0 15-8 15-15v-.7c1-.7 1.9-1.6 2.6-2.7z"/></svg>
+                        </a>
+                        <!-- Discord -->
+                        <a href="#" class="cursor-pointer" style="width:32px; height:32px; background:#1a1a2e; border:2px solid #404060; display:flex; align-items:center; justify-content:center; transition: all 0.1s steps(2); text-decoration:none;" aria-label="Discord" onmouseover="this.style.borderColor='#0058F8'" onmouseout="this.style.borderColor='#404060'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square"><path d="M9 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/><path d="M18 8s-1-1.5-4-2l-.2.4c2.6.7 3.8 1.7 5.2 2.6-2.2-1.1-4.4-2-8-2s-5.8.9-8 2c1.4-.9 2.6-1.9 5.2-2.6L8 6c-3 .5-4 2-4 2s-2 3-2 9c2 2.3 5 2.5 5 2.5l.6-1c-1.6-.5-3.1-1.5-4.6-3 1.8 1.3 4.4 2.5 8 2.5s6.2-1.2 8-2.5c-1.5 1.5-3 2.5-4.6 3l.6 1s3-.2 5-2.5c0-6-2-9-2-9z"/></svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="cursor-pointer" style="width:32px; height:32px; background:#1a1a2e; border:2px solid #404060; display:flex; align-items:center; justify-content:center; transition: all 0.1s steps(2); text-decoration:none;" aria-label="YouTube" onmouseover="this.style.borderColor='#E40058'" onmouseout="this.style.borderColor='#404060'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square"><rect x="2" y="4" width="20" height="16"/><polygon points="10,8 16,12 10,16"/></svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="cursor-pointer" style="width:32px; height:32px; background:#1a1a2e; border:2px solid #404060; display:flex; align-items:center; justify-content:center; transition: all 0.1s steps(2); text-decoration:none;" aria-label="Instagram" onmouseover="this.style.borderColor='#F87800'" onmouseout="this.style.borderColor='#404060'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FCFCFC" stroke-width="2" stroke-linecap="square"><rect x="2" y="2" width="20" height="20"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+                        </a>
+                    </div>
+                    <p class="text-[0.35rem] mb-2" style="font-family:var(--font-pixel); color:#606060;">Contato:</p>
+                    <p class="text-[0.35rem]" style="font-family:var(--font-pixel); color:#808080;">contato@pixelforge.com.br</p>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div style="border-top:2px solid #1a1a2e; padding-top:16px;" class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[0.3rem]" style="font-family:var(--font-pixel); color:#505050;">
+                    &copy; 2026 PixelForge Studios. Todos os direitos reservados.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-[0.3rem] nav-link" style="font-family:var(--font-pixel); color:#505050; text-decoration:none;">Mapa do Site</a>
+                    <a href="#" class="text-[0.3rem] nav-link" style="font-family:var(--font-pixel); color:#505050; text-decoration:none;">FAQ</a>
+                    <a href="#" class="text-[0.3rem] nav-link" style="font-family:var(--font-pixel); color:#505050; text-decoration:none;">Trabalhe Conosco</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
