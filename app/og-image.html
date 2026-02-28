@@ -4,28 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1200, height=630, initial-scale=1.0">
   <title>OG Image - Vibe Styles</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       overflow: hidden;
-    }
-
-    /* Hide dev tools */
-    [data-nextjs-dialog-overlay],
-    [data-nextjs-dialog],
-    nextjs-portal,
-    #__next-build-indicator {
-      display: none !important;
+      background: #09090b;
     }
 
     .og-container {
@@ -33,228 +21,268 @@
       height: 630px;
       position: relative;
       overflow: hidden;
+      background: #09090b;
     }
 
-    .gradient-bg {
+    /* Mesh gradient background */
+    .mesh-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d1b3d 25%, #1e1b3d 50%, #0f172a 75%, #1a1a1a 100%);
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 90%, rgba(139, 92, 246, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 85% 20%, rgba(6, 182, 212, 0.20) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(236, 72, 153, 0.10) 0%, transparent 50%);
     }
 
-    .gradient-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-    }
-
-    .orb-1 {
-      width: 400px;
-      height: 400px;
-      background: #8B5CF6;
-      top: -100px;
-      right: -50px;
-    }
-
-    .orb-2 {
-      width: 300px;
-      height: 300px;
-      background: #06b6d4;
-      bottom: -80px;
-      left: -50px;
-      opacity: 0.3;
-    }
-
-    .orb-3 {
-      width: 200px;
-      height: 200px;
-      background: #ec4899;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.2;
-    }
-
-    .grid-pattern {
+    /* Subtle noise texture */
+    .noise {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
     }
 
-    .glass-card {
+    /* Dot grid pattern */
+    .dot-grid {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 520px;
-      padding: 48px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
 
-    .logo-container {
+    /* Content layout */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 80px;
+      gap: 64px;
+    }
+
+    .left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      z-index: 2;
+    }
+
+    /* Logo + brand */
+    .brand {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 24px;
     }
 
     .logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
     }
 
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Title */
     .title {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 900;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      background: linear-gradient(160deg, #ffffff 30%, #a78bfa 70%, #67e8f9 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .subtitle {
-      font-size: 20px;
+    /* Tagline */
+    .tagline {
+      font-size: 22px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 32px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      max-width: 480px;
     }
 
-    .badges {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      padding: 8px 20px;
-      border-radius: 100px;
-      font-size: 14px;
+    .tagline strong {
+      color: rgba(255,255,255,0.85);
       font-weight: 600;
     }
 
-    .badge-purple {
-      background: rgba(139, 92, 246, 0.2);
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      padding: 7px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid;
+    }
+
+    .tag-purple {
+      background: rgba(139, 92, 246, 0.12);
       color: #c4b5fd;
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-color: rgba(139, 92, 246, 0.25);
     }
 
-    .badge-cyan {
-      background: rgba(6, 182, 212, 0.2);
+    .tag-cyan {
+      background: rgba(6, 182, 212, 0.12);
       color: #67e8f9;
-      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-color: rgba(6, 182, 212, 0.25);
     }
 
-    .badge-pink {
-      background: rgba(236, 72, 153, 0.2);
+    .tag-pink {
+      background: rgba(236, 72, 153, 0.12);
       color: #f9a8d4;
-      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-color: rgba(236, 72, 153, 0.25);
     }
 
+    /* Right side — style preview mosaic */
+    .right {
+      width: 380px;
+      height: 420px;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 12px;
+      transform: perspective(900px) rotateY(-6deg) rotateX(2deg);
+    }
+
+    .tile {
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px;
+    }
+
+    .tile-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Tile styles — each with a unique mini-design */
+    .tile-glass {
+      background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(6,182,212,0.10));
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .tile-brutalist {
+      background: #18181b;
+      border: 2px solid #fafafa;
+      border-radius: 0;
+    }
+    .tile-brutalist .tile-label { color: #fafafa; }
+
+    .tile-neo {
+      background: linear-gradient(145deg, #1e1e22, #151518);
+      box-shadow: 6px 6px 12px rgba(0,0,0,0.5), -4px -4px 10px rgba(255,255,255,0.03);
+    }
+
+    .tile-gradient {
+      background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b);
+    }
+
+    .tile-minimal {
+      background: #fafafa;
+      border-color: rgba(0,0,0,0.06);
+    }
+    .tile-minimal .tile-label { color: #18181b; }
+
+    .tile-dark {
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      border-color: rgba(99,102,241,0.2);
+    }
+
+    /* URL */
     .url-bar {
       position: absolute;
-      bottom: 32px;
-      left: 48px;
+      bottom: 28px;
+      right: 48px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 24px;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 8px;
+      z-index: 3;
     }
 
     .url-text {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.8);
-      font-family: 'Inter', monospace;
+      color: rgba(255,255,255,0.35);
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .decorative-cards {
+    /* Accent glow line at top */
+    .top-glow {
       position: absolute;
-      right: 48px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .mini-card {
-      width: 140px;
-      height: 90px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .mini-card:nth-child(1) {
-      transform: rotate(-3deg) translateX(-20px);
-    }
-
-    .mini-card:nth-child(2) {
-      transform: rotate(2deg) translateX(10px);
-    }
-
-    .mini-card:nth-child(3) {
-      transform: rotate(-1deg) translateX(-5px);
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8B5CF6, #06b6d4, transparent);
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
   <div class="og-container">
-    <!-- Background -->
-    <div class="gradient-bg"></div>
-    <div class="gradient-orb orb-1"></div>
-    <div class="gradient-orb orb-2"></div>
-    <div class="gradient-orb orb-3"></div>
-    <div class="grid-pattern"></div>
+    <div class="mesh-bg"></div>
+    <div class="noise"></div>
+    <div class="dot-grid"></div>
+    <div class="top-glow"></div>
 
-    <!-- Main Card -->
-    <div class="glass-card">
-      <div class="logo-container">
-        <img src="assets/images/logo.png" alt="Vibe Styles" class="logo">
-        <div class="title">Vibe Styles</div>
+    <div class="content">
+      <!-- Left — Text -->
+      <div class="left">
+        <div class="brand">
+          <img src="assets/images/logo.png" alt="Vibe Styles" class="logo">
+          <span class="brand-name">Vibe Styles</span>
+        </div>
+        <div class="title">Estilos de UI<br>para Vibe Coding</div>
+        <div class="tagline">Coleção curada de <strong>estilos visuais</strong> com prompts prontos para usar com <strong>IA generativa</strong></div>
+        <div class="tags">
+          <span class="tag tag-purple">Prompts Prontos</span>
+          <span class="tag tag-cyan">Open Source</span>
+          <span class="tag tag-pink">Vibe Coding</span>
+        </div>
       </div>
-      <div class="subtitle">256 estilos de UI/UX com prompts para IA generativa</div>
-      <div class="badges">
-        <div class="badge badge-purple">256 Estilos</div>
-        <div class="badge badge-cyan">25 Categorias</div>
-        <div class="badge badge-pink">Open Source</div>
+
+      <!-- Right — Style mosaic -->
+      <div class="right">
+        <div class="tile tile-glass"><span class="tile-label">Glass</span></div>
+        <div class="tile tile-brutalist"><span class="tile-label">Brutalist</span></div>
+        <div class="tile tile-neo"><span class="tile-label">Neumorphism</span></div>
+        <div class="tile tile-gradient"><span class="tile-label">Gradient</span></div>
+        <div class="tile tile-minimal"><span class="tile-label">Minimal</span></div>
+        <div class="tile tile-dark"><span class="tile-label">Dark UI</span></div>
       </div>
     </div>
 
-    <!-- Decorative Cards -->
-    <div class="decorative-cards">
-      <div class="mini-card">Glassmorphism</div>
-      <div class="mini-card">Swiss Style</div>
-      <div class="mini-card">Dark Mode</div>
-    </div>
-
-    <!-- URL Bar -->
     <div class="url-bar">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-      </svg>
       <span class="url-text">vibe.ft.ia.br</span>
     </div>
   </div>

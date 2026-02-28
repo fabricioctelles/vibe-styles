@@ -85,10 +85,132 @@ python3 -c "import json; data = json.load(open('app/data/data.json')); print(f'T
 ## Passo 2: Criar HTML em `app/styles/{id}.html`
 
 - Chame o máximo de agentes em paralelo possível
-- Rode a função "buildPrompt" do app/detail.html e gere um arquivo em /tmp/[id].txt
-- Entregue o /tmp/[id].txt como contexto para cada agente gerar o html em app/styles
+- Monte o prompt completo usando a função `buildPrompt` (detalhada abaixo) e grave em `/tmp/{id}.txt`
+- Entregue o `/tmp/{id}.txt` como contexto para cada agente gerar o HTML em `app/styles/`
 - Essa é uma tarefa agêntica, não tente executá-la em lote usando scripts, cada agente deve executar cada um dos novos prompts
-- Limpe /tmp/[id].txt após cada execução
+- Limpe `/tmp/{id}.txt` após cada execução
+
+### Função `buildPrompt`
+
+A função abaixo recebe o objeto `prompt` de um registro do `data.json` e monta o prompt completo que será entregue ao agente. Reproduza essa lógica para gerar o `/tmp/{id}.txt`:
+
+```javascript
+// Origem: app/detail.html
+// card = registro do data.json (ex: data[0])
+// card.prompt contém todos os campos necessários
+
+function buildPrompt(card) {
+  if (!card || !card.prompt) return '';
+  const p = card.prompt;
+  const e = p.estilo || {};
+
+  return `## INSTRUÇÃO PRINCIPAL
+${p.header || ''}
+
+## Estilo
+- Nome: ${e.nome || ''}
+- Tipo: ${e.tipo || ''}
+- Keywords: ${e.keywords || ''}
+- Cores Primárias: ${e.coresPrimarias || ''}
+- Cores Secundárias: ${e.coresSecundarias || ''}
+- Efeitos: ${e.efeitos || ''}
+- Era: ${e.era || ''}
+- Light/Dark: ${e.lightDark || ''}
+
+## AI Prompt Keywords (SIGA FIELMENTE)
+${p.aiPromptKeywords || ''}
+
+## CSS/Technical
+${p.cssTechnical || ''}
+
+## Design System Variables
+${p.designSystemVariables || ''}
+
+## Checklist
+${p.checklist || ''}
+
+## REGRAS DE EXECUÇÃO
+${p.regrasDeExecucao || ''}`;
+}
+```
+
+### Gerar `/tmp/{id}.txt` via Python (one-liner)
+
+```bash
+# Um estilo (ex: ID 257)
+python3 -c "
+import json
+d=json.load(open('app/data/data.json'))
+c=next(x for x in d if x['id']==257)
+p=c['prompt'];e=p.get('estilo',{})
+open('/tmp/257.txt','w').write(f'''## INSTRUÇÃO PRINCIPAL
+{p.get('header','')}
+
+## Estilo
+- Nome: {e.get('nome','')}
+- Tipo: {e.get('tipo','')}
+- Keywords: {e.get('keywords','')}
+- Cores Primárias: {e.get('coresPrimarias','')}
+- Cores Secundárias: {e.get('coresSecundarias','')}
+- Efeitos: {e.get('efeitos','')}
+- Era: {e.get('era','')}
+- Light/Dark: {e.get('lightDark','')}
+
+## AI Prompt Keywords (SIGA FIELMENTE)
+{p.get('aiPromptKeywords','')}
+
+## CSS/Technical
+{p.get('cssTechnical','')}
+
+## Design System Variables
+{p.get('designSystemVariables','')}
+
+## Checklist
+{p.get('checklist','')}
+
+## REGRAS DE EXECUÇÃO
+{p.get('regrasDeExecucao','')}''')
+print('✓ /tmp/257.txt gerado')
+"
+
+# Múltiplos estilos (ex: IDs 257 a 260)
+python3 -c "
+import json
+d=json.load(open('app/data/data.json'))
+for c in d:
+ if c['id'] not in range(257,261): continue
+ p=c['prompt'];e=p.get('estilo',{})
+ t=f'''## INSTRUÇÃO PRINCIPAL
+{p.get('header','')}
+
+## Estilo
+- Nome: {e.get('nome','')}
+- Tipo: {e.get('tipo','')}
+- Keywords: {e.get('keywords','')}
+- Cores Primárias: {e.get('coresPrimarias','')}
+- Cores Secundárias: {e.get('coresSecundarias','')}
+- Efeitos: {e.get('efeitos','')}
+- Era: {e.get('era','')}
+- Light/Dark: {e.get('lightDark','')}
+
+## AI Prompt Keywords (SIGA FIELMENTE)
+{p.get('aiPromptKeywords','')}
+
+## CSS/Technical
+{p.get('cssTechnical','')}
+
+## Design System Variables
+{p.get('designSystemVariables','')}
+
+## Checklist
+{p.get('checklist','')}
+
+## REGRAS DE EXECUÇÃO
+{p.get('regrasDeExecucao','')}'''
+ open(f'/tmp/{c[\"id\"]}.txt','w').write(t)
+ print(f'✓ /tmp/{c[\"id\"]}.txt gerado')
+"
+```
 
 
 ---
