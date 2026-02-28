@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ImmersiveX - Plataforma de Experiências Digitais Imersivas com scroll-driven animations de última geração">
+    <meta name="keywords" content="experiências digitais, scroll imersivo, parallax, animações, UX, UI, design interativo">
+    <meta name="author" content="ImmersiveX">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ImmersiveX - Experiências Digitais Imersivas">
+    <meta property="og:description" content="Crie jornadas visuais imersivas com animações scroll-driven de última geração">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://immersivex.com.br">
+    <meta property="og:image" content="https://immersivex.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ImmersiveX - Experiências Digitais Imersivas">
+    <meta name="twitter:description" content="Crie jornadas visuais imersivas com animações scroll-driven de última geração">
+    <title>ImmersiveX - Plataforma de Experiências Digitais Imersivas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/bundled/locomotive-scroll.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --color-bg: #1A1A2E;
+            --color-bg-alt: #16213E;
+            --color-text: #FFFFFF;
+            --color-text-muted: #A0A0B0;
+            --color-accent: #6C63FF;
+            --color-accent-soft: #A29BFE;
+            --color-coral: #FF6B6B;
+            --color-cyan: #00D2FF;
+            --color-surface: rgba(255,255,255,0.05);
+            --font-body: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --border-radius: 16px;
+            --glass-bg: rgba(255,255,255,0.05);
+            --glass-border: 1px solid rgba(255,255,255,0.1);
+            --glass-blur: blur(10px);
+            --progress: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+        }
+
+        /* Locomotive Scroll Animations */
+        [data-scroll] {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        [data-scroll].is-inview {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays */
+        [data-scroll-delay="1"] { transition-delay: 0.1s; }
+        [data-scroll-delay="2"] { transition-delay: 0.2s; }
+        [data-scroll-delay="3"] { transition-delay: 0.3s; }
+        [data-scroll-delay="4"] { transition-delay: 0.4s; }
+        [data-scroll-delay="5"] { transition-delay: 0.5s; }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-cyan), var(--color-coral));
+            z-index: 9999;
+            width: calc(var(--progress) * 100%);
+            transition: width 0.1s linear;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(26, 26, 46, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .navbar a {
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Hero */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            will-change: transform;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-accent), transparent 70%);
+            top: -10%;
+            right: -5%;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--color-cyan), transparent 70%);
+            bottom: -10%;
+            left: -5%;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--color-coral), transparent 70%);
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(108, 99, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108, 99, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(108, 99, 255, 0.5);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-accent);
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: var(--border-radius);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(108, 99, 255, 0.3);
+            transform: translateY(-8px) translate3d(0, 0, 0);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Feature icon containers */
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: var(--border-radius);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px) translate3d(0, 0, 0);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-featured {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(0, 210, 255, 0.1));
+            border: 1px solid rgba(108, 99, 255, 0.4);
+            position: relative;
+        }
+
+        .pricing-featured::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--border-radius);
+            padding: 1px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-cyan));
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(0, 210, 255, 0.1), rgba(255, 107, 107, 0.08));
+            animation: ctaGradientShift 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes ctaGradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-cyan));
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-accent));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 16px 50px rgba(108, 99, 255, 0.5);
+        }
+
+        .cta-btn:hover::after {
+            opacity: 1;
+        }
+
+        .cta-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        .footer-link {
+            color: var(--color-text-muted);
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-link:hover {
+            color: var(--color-accent);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Kinetic Typography */
+        .kinetic-word {
+            display: inline-block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.3), transparent);
+        }
+
+        /* Testimonial avatar */
+        .avatar-ring {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-cyan));
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--color-accent);
+        }
+
+        /* Floating shapes for hero */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatShape 6s ease-in-out infinite;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            33% { transform: translate3d(10px, -15px, 0) rotate(5deg); }
+            66% { transform: translate3d(-8px, 10px, 0) rotate(-3deg); }
+        }
+
+        /* Check icon for pricing */
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Stars for testimonials */
+        .star-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-orb-1 { width: 300px; height: 300px; }
+            .hero-orb-2 { width: 250px; height: 250px; }
+            .hero-orb-3 { width: 200px; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress" data-scroll-css-progress></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Navegação principal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 text-white no-underline" aria-label="ImmersiveX - Página inicial">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+                        <path d="M8 16L16 8L24 16L16 24L8 16Z" fill="white" opacity="0.9"/>
+                        <path d="M12 16L16 12L20 16L16 20L12 16Z" fill="#6C63FF"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+                                <stop stop-color="#6C63FF"/>
+                                <stop offset="1" stop-color="#00D2FF"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="text-lg font-bold" style="font-family: var(--font-display);">ImmersiveX</span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer">Recursos</a>
+                    <a href="#testimonials" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer">Preços</a>
+                    <a href="#contact" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer">Contato</a>
+                    <a href="#pricing" class="nav-cta px-5 py-2.5 rounded-xl text-sm font-semibold text-white no-underline cursor-pointer">Começar Agora</a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button class="md:hidden text-white cursor-pointer" id="menuToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu flex-col gap-4" id="mobileMenu" role="menu">
+                <a href="#features" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer" role="menuitem">Recursos</a>
+                <a href="#testimonials" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer" role="menuitem">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer" role="menuitem">Preços</a>
+                <a href="#contact" class="text-sm text-gray-300 hover:text-white no-underline cursor-pointer" role="menuitem">Contato</a>
+                <a href="#pricing" class="nav-cta px-5 py-2.5 rounded-xl text-sm font-semibold text-white no-underline text-center cursor-pointer" role="menuitem">Começar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" data-scroll-section>
+        <!-- Parallax Background Layers -->
+        <div class="hero-grid" data-scroll data-scroll-speed="0.1" data-scroll-position="top"></div>
+        <div class="hero-gradient-orb hero-orb-1" data-scroll data-scroll-speed="0.2" data-scroll-position="top"></div>
+        <div class="hero-gradient-orb hero-orb-2" data-scroll data-scroll-speed="0.5" data-scroll-position="top"></div>
+        <div class="hero-gradient-orb hero-orb-3" data-scroll data-scroll-speed="0.8" data-scroll-position="top"></div>
+
+        <!-- Floating geometric shapes -->
+        <div class="floating-shape" style="width:80px;height:80px;border:1px solid rgba(108,99,255,0.2);top:20%;left:10%;" data-scroll data-scroll-speed="0.3" data-scroll-position="top" aria-hidden="true"></div>
+        <div class="floating-shape" style="width:40px;height:40px;background:rgba(0,210,255,0.1);top:60%;right:15%;animation-delay:-2s;" data-scroll data-scroll-speed="0.6" data-scroll-position="top" aria-hidden="true"></div>
+        <div class="floating-shape" style="width:60px;height:60px;border:1px solid rgba(255,107,107,0.15);top:30%;right:25%;animation-delay:-4s;border-radius:12px;" data-scroll data-scroll-speed="0.4" data-scroll-position="top" aria-hidden="true"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Badge -->
+                <div data-scroll data-scroll-speed="0.2" data-scroll-offset="200,0">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium tracking-wide uppercase" style="background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.3); color: var(--color-accent-soft);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        Scroll-Driven Experiences
+                    </span>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight" data-scroll data-scroll-speed="0.3" data-scroll-offset="200,0">
+                    <span class="kinetic-word">Experiências</span> <span class="kinetic-word">Digitais</span><br>
+                    <span class="kinetic-word">Que</span> <span class="kinetic-word" style="background: linear-gradient(135deg, var(--color-accent), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Transcendem</span> <span class="kinetic-word">o</span> <span class="kinetic-word" style="background: linear-gradient(135deg, var(--color-coral), var(--color-accent-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Scroll</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style="color: var(--color-text-muted);" data-scroll data-scroll-speed="0.4" data-scroll-offset="200,0">
+                    Crie jornadas visuais imersivas com animações scroll-driven de última geração. Transforme cada pixel em uma experiência memorável.
+                </p>
+
+                <!-- Buttons -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" data-scroll data-scroll-speed="0.5" data-scroll-offset="200,0">
+                    <a href="#pricing" class="btn-primary px-8 py-4 rounded-2xl text-base font-semibold text-white no-underline inline-flex items-center gap-2">
+                        Começar Agora
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="#features" class="btn-secondary px-8 py-4 rounded-2xl text-base font-semibold text-white no-underline inline-flex items-center gap-2">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Ver Demo
+                    </a>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div class="mt-16 md:mt-24 flex flex-col items-center gap-2 opacity-60" data-scroll data-scroll-speed="0.2">
+                    <span class="text-xs uppercase tracking-widest" style="color: var(--color-text-muted);">Role para explorar</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted); animation: bounce 2s infinite;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 md:py-32 relative" data-scroll-section>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase mb-6" style="background: rgba(108,99,255,0.12); color: var(--color-accent-soft);" data-scroll data-scroll-offset="100,0">Recursos</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-scroll data-scroll-offset="100,0">
+                    Tecnologia de Scroll <span style="background: linear-gradient(135deg, var(--color-accent), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Reimaginada</span>
+                </h2>
+                <p class="mt-5 text-base md:text-lg leading-relaxed" style="color: var(--color-text-muted);" data-scroll data-scroll-offset="100,0">
+                    Ferramentas poderosas para criar experiências de navegação que encantam e engajam seus usuários.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Feature 1: Scroll Suave -->
+                <div class="glass-card p-8 md:p-10" data-scroll data-scroll-speed="0.1" data-scroll-offset="100,0" data-scroll-delay="1">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(108,99,255,0.05));">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2L12 22"/>
+                            <path d="M5 9L12 2L19 9"/>
+                            <circle cx="12" cy="14" r="3" fill="rgba(108,99,255,0.3)" stroke="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Scroll Suave</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">
+                        Interpolação lerp com Lenis engine para uma experiência de rolagem fluida e natural. Controle total sobre duração, easing e comportamento do scroll.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-xs font-medium" style="color: var(--color-accent-soft);">
+                        <span>Lerp: 0.1</span>
+                        <span style="color: rgba(255,255,255,0.2);">•</span>
+                        <span>Duration: 1.2s</span>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Parallax Inteligente -->
+                <div class="glass-card p-8 md:p-10" data-scroll data-scroll-speed="0.15" data-scroll-offset="100,0" data-scroll-delay="2">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(0,210,255,0.2), rgba(0,210,255,0.05));">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="3" width="20" height="18" rx="3"/>
+                            <line x1="2" y1="9" x2="22" y2="9" opacity="0.4"/>
+                            <line x1="2" y1="15" x2="22" y2="15" opacity="0.2"/>
+                            <circle cx="12" cy="12" r="2" fill="rgba(0,210,255,0.3)" stroke="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Parallax Inteligente</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">
+                        Camadas com velocidades independentes que criam profundidade visual. Cada elemento se move em seu próprio ritmo, gerando uma sensação tridimensional.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-xs font-medium" style="color: var(--color-cyan);">
+                        <span>Speed: 0.1 - 0.8</span>
+                        <span style="color: rgba(255,255,255,0.2);">•</span>
+                        <span>Multi-layer</span>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Detecção de Viewport -->
+                <div class="glass-card p-8 md:p-10" data-scroll data-scroll-speed="0.2" data-scroll-offset="100,0" data-scroll-delay="3">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,107,107,0.05));">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6" opacity="0.5"/>
+                            <circle cx="12" cy="12" r="2" fill="rgba(255,107,107,0.4)" stroke="none"/>
+                            <line x1="12" y1="2" x2="12" y2="5"/>
+                            <line x1="12" y1="19" x2="12" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Detecção de Viewport</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">
+                        IntersectionObserver com estratégia dual para detecção precisa de elementos visíveis. Trigger offsets customizáveis e callbacks otimizados.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-xs font-medium" style="color: var(--color-coral);">
+                        <span>Observer API</span>
+                        <span style="color: rgba(255,255,255,0.2);">•</span>
+                        <span>Dual Strategy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 md:py-32 relative" style="background: var(--color-bg-alt);" data-scroll-section>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase mb-6" style="background: rgba(162,155,254,0.12); color: var(--color-accent-soft);" data-scroll data-scroll-offset="100,0">Depoimentos</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-scroll data-scroll-offset="100,0">
+                    O Que Dizem Nossos <span style="background: linear-gradient(135deg, var(--color-accent-soft), var(--color-coral)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Clientes</span>
+                </h2>
+                <p class="mt-5 text-base md:text-lg leading-relaxed" style="color: var(--color-text-muted);" data-scroll data-scroll-offset="100,0">
+                    Profissionais de UX/UI que transformaram suas experiências digitais com nossa plataforma.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card p-8" data-scroll data-scroll-offset="100,0" data-scroll-delay="1" data-scroll-repeat>
+                    <!-- Stars -->
+                    <div class="flex gap-1 mb-5">
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6" style="color: var(--color-text-muted);">
+                        "A ImmersiveX revolucionou a forma como entregamos experiências de scroll. O parallax multicamada trouxe uma profundidade visual que nossos clientes nunca tinham visto. A taxa de engajamento subiu 340% no primeiro mês."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring">
+                            <div class="avatar-inner">MR</div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold">Marina Rodrigues</p>
+                            <p class="text-xs" style="color: var(--color-text-muted);">Lead UX Designer, PixelFlow Studio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card p-8" data-scroll data-scroll-offset="100,0" data-scroll-delay="2" data-scroll-repeat>
+                    <div class="flex gap-1 mb-5">
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6" style="color: var(--color-text-muted);">
+                        "Implementar scroll-driven animations costumava levar semanas. Com a ImmersiveX, conseguimos prototipar e entregar em dias. O sistema de detecção de viewport é simplesmente impecável — zero jank, performance nativa."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring">
+                            <div class="avatar-inner">TC</div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold">Thiago Costa</p>
+                            <p class="text-xs" style="color: var(--color-text-muted);">Frontend Architect, NovaTech Digital</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card p-8" data-scroll data-scroll-offset="100,0" data-scroll-delay="3" data-scroll-repeat>
+                    <div class="flex gap-1 mb-5">
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="#6C63FF" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6" style="color: var(--color-text-muted);">
+                        "Nosso portfólio de design ganhou vida com as animações da ImmersiveX. Cada projeto agora conta uma história visual enquanto o usuário navega. Os clientes ficam impressionados com a fluidez e a atenção aos detalhes."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring">
+                            <div class="avatar-inner">LS</div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold">Larissa Santos</p>
+                            <p class="text-xs" style="color: var(--color-text-muted);">Creative Director, Onda Criativa Agency</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 md:py-32 relative" data-scroll-section>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase mb-6" style="background: rgba(0,210,255,0.12); color: var(--color-cyan);" data-scroll data-scroll-offset="100,0">Preços</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-scroll data-scroll-offset="100,0">
+                    Planos Para Cada <span style="background: linear-gradient(135deg, var(--color-cyan), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Ambição</span>
+                </h2>
+                <p class="mt-5 text-base md:text-lg leading-relaxed" style="color: var(--color-text-muted);" data-scroll data-scroll-offset="100,0">
+                    Escolha o plano ideal para transformar suas experiências digitais. Sem surpresas, sem taxas ocultas.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
+                <!-- Básico -->
+                <div class="pricing-card p-8 md:p-10" data-scroll data-scroll-offset="100,0" data-scroll-delay="1">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-1">Básico</h3>
+                        <p class="text-xs" style="color: var(--color-text-muted);">Para projetos pessoais e protótipos</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">R$ 97</span>
+                        <span class="text-sm" style="color: var(--color-text-muted);">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Scroll suave com Lenis
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Até 3 projetos ativos
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Parallax básico (2 camadas)
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por e-mail
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Documentação completa
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary block text-center px-6 py-3.5 rounded-xl text-sm font-semibold text-white no-underline">Escolher Básico</a>
+                </div>
+
+                <!-- Pro (Destaque) -->
+                <div class="pricing-card pricing-featured p-8 md:p-10 md:-mt-4 md:mb-[-16px]" data-scroll data-scroll-offset="100,0" data-scroll-delay="2">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Pro</h3>
+                            <p class="text-xs" style="color: var(--color-text-muted);">Para equipes e agências</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background: linear-gradient(135deg, var(--color-accent), var(--color-cyan)); color: white;">Popular</span>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">R$ 197</span>
+                        <span class="text-sm" style="color: var(--color-text-muted);">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Parallax avançado (8 camadas)
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Kinetic typography engine
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritário 24/7
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Analytics de scroll behavior
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-primary block text-center px-6 py-3.5 rounded-xl text-sm font-semibold text-white no-underline">Escolher Pro</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card p-8 md:p-10" data-scroll data-scroll-offset="100,0" data-scroll-delay="3">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-1">Enterprise</h3>
+                        <p class="text-xs" style="color: var(--color-text-muted);">Para grandes operações</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">R$ 497</span>
+                        <span class="text-sm" style="color: var(--color-text-muted);">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do plano Pro
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            White-label completo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            API dedicada e webhooks
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Custom scroll physics engine
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm" style="color: var(--color-text-muted);">
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            SLA 99.9% uptime
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary block text-center px-6 py-3.5 rounded-xl text-sm font-semibold text-white no-underline">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CTA Final Section -->
+    <section class="cta-section py-24 md:py-32 relative" data-scroll-section>
+        <div class="cta-gradient"></div>
+        <!-- Decorative orbs -->
+        <div class="absolute top-0 left-1/4 w-64 h-64 rounded-full opacity-20" style="background: radial-gradient(circle, var(--color-accent), transparent 70%); filter: blur(60px);" data-scroll data-scroll-speed="0.3" aria-hidden="true"></div>
+        <div class="absolute bottom-0 right-1/4 w-48 h-48 rounded-full opacity-15" style="background: radial-gradient(circle, var(--color-cyan), transparent 70%); filter: blur(50px);" data-scroll data-scroll-speed="0.5" aria-hidden="true"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-scroll data-scroll-offset="100,0">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-6 opacity-60" aria-hidden="true">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6" data-scroll data-scroll-offset="100,0">
+                Pronto Para <span style="background: linear-gradient(135deg, var(--color-accent), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Transformar</span> Suas Experiências?
+            </h2>
+            <p class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style="color: var(--color-text-muted);" data-scroll data-scroll-offset="100,0">
+                Junte-se a centenas de equipes que já estão criando experiências digitais imersivas. Comece gratuitamente e escale quando estiver pronto.
+            </p>
+            <div data-scroll data-scroll-offset="100,0">
+                <a href="#pricing" class="cta-btn inline-flex items-center gap-3 px-10 py-5 rounded-2xl text-lg font-bold text-white no-underline">
+                    <span class="flex items-center gap-3">
+                        Começar Gratuitamente
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </a>
+                <p class="mt-5 text-xs" style="color: var(--color-text-muted);">Sem cartão de crédito. Cancele quando quiser.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-16 md:py-20 relative" style="background: var(--color-bg-alt); border-top: 1px solid rgba(255,255,255,0.06);" data-scroll-section>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 text-white no-underline mb-4" aria-label="ImmersiveX - Página inicial">
+                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect width="32" height="32" rx="8" fill="url(#logoGrad2)"/>
+                            <path d="M8 16L16 8L24 16L16 24L8 16Z" fill="white" opacity="0.9"/>
+                            <path d="M12 16L16 12L20 16L16 20L12 16Z" fill="#6C63FF"/>
+                            <defs>
+                                <linearGradient id="logoGrad2" x1="0" y1="0" x2="32" y2="32">
+                                    <stop stop-color="#6C63FF"/>
+                                    <stop offset="1" stop-color="#00D2FF"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="text-base font-bold" style="font-family: var(--font-display);">ImmersiveX</span>
+                    </a>
+                    <p class="text-xs leading-relaxed" style="color: var(--color-text-muted);">
+                        Plataforma líder em experiências digitais imersivas com scroll-driven animations.
+                    </p>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4" style="font-family: var(--font-display);">Produto</h4>
+                    <ul class="space-y-2.5 list-none">
+                        <li><a href="#features" class="footer-link text-xs no-underline">Recursos</a></li>
+                        <li><a href="#pricing" class="footer-link text-xs no-underline">Preços</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Documentação</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Changelog</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Integrações</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4" style="font-family: var(--font-display);">Empresa</h4>
+                    <ul class="space-y-2.5 list-none">
+                        <li><a href="#" class="footer-link text-xs no-underline">Sobre Nós</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Blog</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Carreiras</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Parceiros</a></li>
+                        <li><a href="#contact" class="footer-link text-xs no-underline">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4" style="font-family: var(--font-display);">Legal</h4>
+                    <ul class="space-y-2.5 list-none">
+                        <li><a href="#" class="footer-link text-xs no-underline">Política de Privacidade</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Termos de Uso</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">Política de Cookies</a></li>
+                        <li><a href="#" class="footer-link text-xs no-underline">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="section-divider mb-8"></div>
+
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs" style="color: var(--color-text-muted);">&copy; 2026 ImmersiveX. Todos os direitos reservados.</p>
+
+                <!-- Social Icons -->
+                <div class="flex items-center gap-3">
+                    <!-- Twitter/X -->
+                    <a href="#" class="social-icon text-white no-underline" aria-label="Siga-nos no X (Twitter)">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="#" class="social-icon text-white no-underline" aria-label="Veja nosso código no GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="#" class="social-icon text-white no-underline" aria-label="Conecte-se conosco no LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="social-icon text-white no-underline" aria-label="Siga-nos no Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Locomotive Scroll JS -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/bundled/locomotive-scroll.min.js"></script>
+
+    <script>
+        // Initialize Locomotive Scroll
+        const locomotiveScroll = new LocomotiveScroll();
+
+        // Scroll Progress Bar
+        (function() {
+            const progressBar = document.getElementById('scrollProgress');
+            
+            function updateProgress() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+                document.documentElement.style.setProperty('--progress', progress);
+                requestAnimationFrame(updateProgress);
+            }
+            
+            requestAnimationFrame(updateProgress);
+        })();
+
+        // Mobile Menu Toggle
+        (function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    const isOpen = mobileMenu.classList.contains('active');
+                    mobileMenu.classList.toggle('active');
+                    menuToggle.setAttribute('aria-expanded', !isOpen);
+                });
+
+                // Close menu on link click
+                mobileMenu.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+        })();
+
+        // Navbar scroll effect
+        (function() {
+            const navbar = document.querySelector('.navbar');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 80) {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+                    navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+                } else {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.8)';
+                    navbar.style.boxShadow = 'none';
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+        })();
+
+        // IntersectionObserver for scroll animations (fallback/enhancement)
+        (function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60px 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-inview');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('[data-scroll]').forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
