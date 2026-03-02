@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowTeam — Gestão Simples para Equipes Remotas</title>
+  <meta name="description" content="Gerencie sua equipe remota com simplicidade e eficiência. FlowTeam oferece ferramentas intuitivas para colaboração, produtividade e comunicação.">
+  <meta property="og:title" content="FlowTeam — Gestão Simples para Equipes Remotas">
+  <meta property="og:description" content="Gerencie sua equipe remota com simplicidade e eficiência.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --font-heading: 'Geist', sans-serif;
+      --font-accent: 'Instrument Serif', serif;
+      --color-text: #373a46;
+      --color-bg: #FFFFFF;
+      --color-input-bg: #fcfcfc;
+      --color-button-dark: #1a1a1a;
+      --radius-input: 40px;
+      --shadow-input: 0px 10px 40px 5px rgba(194,194,194,0.25);
+      --shadow-button: inset -4px -6px 25px 0px rgba(201,201,201,0.08), inset 4px 4px 10px 0px rgba(29,29,29,0.24);
+      --spacing-top: 290px;
+      --max-width: 1200px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Geist', sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      overflow-x: hidden;
+    }
+
+    .font-instrument { font-family: 'Instrument Serif', serif; }
+    .font-geist { font-family: 'Geist', sans-serif; }
+
+    .hero-heading {
+      font-family: 'Geist', sans-serif;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      font-size: 80px;
+      line-height: 1;
+      color: #1a1a1a;
+    }
+
+    .hero-heading .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 100px;
+    }
+
+    .cta-button {
+      background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+      box-shadow: inset -4px -6px 25px 0px rgba(201,201,201,0.08), inset 4px 4px 10px 0px rgba(29,29,29,0.24);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: linear-gradient(180deg, #3a3a3a 0%, #222222 100%);
+      transform: translateY(-1px);
+    }
+
+    .input-container {
+      background: var(--color-input-bg);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius-input);
+      box-shadow: var(--shadow-input);
+    }
+
+    .nav-link {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #6b7280;
+    }
+    .nav-link:hover { color: #1a1a1a; }
+
+    .card-hover {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .pricing-highlight {
+      background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-up-delay-1 { animation-delay: 0.15s; }
+    .fade-up-delay-2 { animation-delay: 0.3s; }
+    .fade-up-delay-3 { animation-delay: 0.45s; }
+    .fade-up-delay-4 { animation-delay: 0.6s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .star-icon { color: #f59e0b; }
+
+    @media (max-width: 768px) {
+      .hero-heading { font-size: 40px; }
+      .hero-heading .accent { font-size: 50px; }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .hero-heading { font-size: 60px; }
+      .hero-heading .accent { font-size: 75px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#1a1a1a"/><path d="M10 16l4 4 8-8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="font-geist font-semibold text-lg text-gray-900">FlowTeam</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a class="nav-link text-sm font-medium">Recursos</a>
+        <a class="nav-link text-sm font-medium">Preços</a>
+        <a class="nav-link text-sm font-medium">Depoimentos</a>
+        <a class="nav-link text-sm font-medium">Contato</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a class="nav-link text-sm font-medium hidden sm:block">Entrar</a>
+        <button class="cta-button text-sm font-medium px-5 py-2.5 rounded-full">Começar Grátis</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen overflow-hidden">
+    <!-- Video Background -->
+    <div class="absolute inset-0 z-0">
+      <video autoplay muted loop playsinline class="w-full h-full object-cover [transform:scaleY(-1)]">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260302_085640_276ea93b-d7da-4418-a09b-2aa5b490e838.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-gradient-to-b from-[26.416%] from-[rgba(255,255,255,0)] to-[66.943%] to-white"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-[1200px] mx-auto px-6 pt-[290px] flex flex-col items-center text-center gap-8">
+      <h1 class="hero-heading fade-up">
+        Gestão <span class="accent">simples</span><br>para sua equipe remota
+      </h1>
+
+      <p class="fade-up fade-up-delay-1 font-geist text-lg opacity-80 max-w-[554px]" style="color: #373a46;">
+        Simplifique a colaboração, acompanhe o progresso e mantenha sua equipe conectada — tudo em um só lugar, sem complicação.
+      </p>
+
+      <div class="fade-up fade-up-delay-2 w-full max-w-[480px]">
+        <div class="input-container flex items-center p-1.5 pl-5">
+          <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          <input type="email" placeholder="Seu melhor e-mail" class="flex-1 bg-transparent border-none outline-none px-3 py-2.5 text-sm font-geist text-gray-700 placeholder-gray-400">
+          <button class="cta-button text-sm font-medium px-6 py-2.5 rounded-full whitespace-nowrap">Criar Conta Grátis</button>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="fade-up fade-up-delay-3 flex items-center justify-center gap-3 mt-5">
+          <div class="flex -space-x-1">
+            <svg class="w-5 h-5 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <span class="text-sm font-medium text-gray-600">1.020+ Reviews</span>
+          <div class="flex items-center gap-1.5 ml-2">
+            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg>
+            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97-.001-.001-.001c-.73 0-.87.347-.87.856v1.124h1.74l-.226 1.756h-1.514V18H13.2v-6.046h-1.466V10.2H13.2V8.922c0-1.453.888-2.244 2.183-2.244.62 0 1.153.046 1.308.067v1.476h-.797z"/></svg>
+            <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 bg-white">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-geist font-medium text-4xl tracking-tight text-gray-900" style="letter-spacing: -0.04em;">Tudo que sua equipe <span class="font-instrument italic text-5xl">precisa</span></h2>
+        <p class="mt-4 text-gray-500 text-lg max-w-lg mx-auto">Ferramentas pensadas para simplificar o dia a dia de equipes distribuídas.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border border-gray-100">
+          <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+          </div>
+          <h3 class="font-geist font-semibold text-xl text-gray-900 mb-2">Colaboração em Tempo Real</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Trabalhe junto com sua equipe em documentos, tarefas e projetos simultaneamente, sem atrasos.</p>
+        </div>
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border border-gray-100">
+          <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          </div>
+          <h3 class="font-geist font-semibold text-xl text-gray-900 mb-2">Métricas Inteligentes</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Dashboards claros com insights sobre produtividade, entregas e engajamento da equipe.</p>
+        </div>
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border border-gray-100">
+          <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+          </div>
+          <h3 class="font-geist font-semibold text-xl text-gray-900 mb-2">Automações com IA</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Automatize tarefas repetitivas, resumos de reuniões e relatórios com inteligência artificial integrada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-geist font-medium text-4xl tracking-tight text-gray-900" style="letter-spacing: -0.04em;">O que nossos <span class="font-instrument italic text-5xl">clientes</span> dizem</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-hover bg-white rounded-2xl p-8 border border-gray-100">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">"Reduzimos 40% do tempo em reuniões desnecessárias. O FlowTeam mudou completamente como nossa equipe remota opera."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600">MC</div>
+            <div><p class="text-sm font-semibold text-gray-900">Marina Costa</p><p class="text-xs text-gray-400">CTO, TechBR</p></div>
+          </div>
+        </div>
+        <div class="card-hover bg-white rounded-2xl p-8 border border-gray-100">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">"A interface é tão limpa que a adoção foi instantânea. Em uma semana, toda a equipe já estava usando sem treinamento."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600">RS</div>
+            <div><p class="text-sm font-semibold text-gray-900">Rafael Santos</p><p class="text-xs text-gray-400">Head de Produto, StartupX</p></div>
+          </div>
+        </div>
+        <div class="card-hover bg-white rounded-2xl p-8 border border-gray-100">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">"As automações com IA economizam pelo menos 5 horas por semana para cada membro do time. Investimento que se paga sozinho."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600">AL</div>
+            <div><p class="text-sm font-semibold text-gray-900">Ana Luíza</p><p class="text-xs text-gray-400">CEO, RemoteFirst</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-24 bg-white">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-geist font-medium text-4xl tracking-tight text-gray-900" style="letter-spacing: -0.04em;">Planos para cada <span class="font-instrument italic text-5xl">momento</span></h2>
+        <p class="mt-4 text-gray-500 text-lg">Comece grátis. Escale quando precisar.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 items-center">
+        <!-- Starter -->
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border border-gray-100">
+          <p class="text-sm font-medium text-gray-500 mb-1">Starter</p>
+          <p class="text-4xl font-semibold text-gray-900 mb-1" style="letter-spacing: -0.04em;">Grátis</p>
+          <p class="text-sm text-gray-400 mb-6">Para equipes de até 5 pessoas</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>5 membros</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 projetos</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Chat integrado</li>
+          </ul>
+          <button class="w-full py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-700 cursor-pointer transition-all hover:bg-gray-100">Começar Grátis</button>
+        </div>
+        <!-- Pro (destaque) -->
+        <div class="card-hover pricing-highlight rounded-2xl p-8 border border-gray-800">
+          <div class="flex items-center gap-2 mb-1">
+            <p class="text-sm font-medium text-gray-300">Pro</p>
+            <span class="text-xs bg-white/10 text-white px-2 py-0.5 rounded-full">Popular</span>
+          </div>
+          <p class="text-4xl font-semibold text-white mb-1" style="letter-spacing: -0.04em;">R$49<span class="text-lg font-normal text-gray-400">/mês</span></p>
+          <p class="text-sm text-gray-400 mb-6">Para equipes em crescimento</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-gray-300"><svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>25 membros</li>
+            <li class="flex items-center gap-2 text-sm text-gray-300"><svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Projetos ilimitados</li>
+            <li class="flex items-center gap-2 text-sm text-gray-300"><svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Automações com IA</li>
+            <li class="flex items-center gap-2 text-sm text-gray-300"><svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Relatórios avançados</li>
+          </ul>
+          <button class="w-full py-3 rounded-full bg-white text-gray-900 text-sm font-medium cursor-pointer transition-all hover:bg-gray-100">Assinar Pro</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border border-gray-100">
+          <p class="text-sm font-medium text-gray-500 mb-1">Enterprise</p>
+          <p class="text-4xl font-semibold text-gray-900 mb-1" style="letter-spacing: -0.04em;">Sob consulta</p>
+          <p class="text-sm text-gray-400 mb-6">Para grandes organizações</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Membros ilimitados</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>SSO & SAML</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>SLA dedicado</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Suporte prioritário</li>
+          </ul>
+          <button class="w-full py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-700 cursor-pointer transition-all hover:bg-gray-100">Falar com Vendas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-[700px] mx-auto px-6 text-center">
+      <h2 class="font-geist font-medium text-4xl tracking-tight text-gray-900 mb-4" style="letter-spacing: -0.04em;">Pronto para simplificar sua <span class="font-instrument italic text-5xl">gestão</span>?</h2>
+      <p class="text-gray-500 text-lg mb-8">Junte-se a mais de 1.000 equipes que já transformaram sua forma de trabalhar remotamente.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button class="cta-button text-sm font-medium px-8 py-3.5 rounded-full">Criar Conta Grátis</button>
+        <button class="text-sm font-medium px-8 py-3.5 rounded-full border border-gray-200 text-gray-700 cursor-pointer transition-all hover:bg-gray-100">Agendar Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-16 bg-white border-t border-gray-100">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#1a1a1a"/><path d="M10 16l4 4 8-8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="font-geist font-semibold text-gray-900">FlowTeam</span>
+          </div>
+          <p class="text-sm text-gray-400 leading-relaxed">Gestão simples para equipes remotas que querem focar no que importa.</p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-900 mb-3">Produto</p>
+          <ul class="space-y-2">
+            <li><a class="nav-link text-sm">Recursos</a></li>
+            <li><a class="nav-link text-sm">Preços</a></li>
+            <li><a class="nav-link text-sm">Integrações</a></li>
+            <li><a class="nav-link text-sm">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-900 mb-3">Empresa</p>
+          <ul class="space-y-2">
+            <li><a class="nav-link text-sm">Sobre</a></li>
+            <li><a class="nav-link text-sm">Blog</a></li>
+            <li><a class="nav-link text-sm">Carreiras</a></li>
+            <li><a class="nav-link text-sm">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-900 mb-3">Legal</p>
+          <ul class="space-y-2">
+            <li><a class="nav-link text-sm">Política de Privacidade</a></li>
+            <li><a class="nav-link text-sm">Termos de Uso</a></li>
+            <li><a class="nav-link text-sm">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-gray-100">
+        <p class="text-xs text-gray-400">&copy; 2026 FlowTeam. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-4 mt-4 sm:mt-0">
+          <a class="cursor-pointer transition-all hover:opacity-70"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.384 4.482A13.944 13.944 0 011.671 3.149a4.916 4.916 0 001.523 6.574 4.897 4.897 0 01-2.229-.616v.062a4.918 4.918 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 14.002-7.496 14.002-13.986 0-.21 0-.423-.015-.634A9.936 9.936 0 0024 4.557z"/></svg></a>
+          <a class="cursor-pointer transition-all hover:opacity-70"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3 8h-1.35c-.538 0-.65.221-.65.778V10h2l-.209 2H13v7h-3v-7H8v-2h2V7.692C10 5.923 10.931 5 13.029 5H15v3z"/></svg></a>
+          <a class="cursor-pointer transition-all hover:opacity-70"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a class="cursor-pointer transition-all hover:opacity-70"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
