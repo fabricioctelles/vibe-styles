@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CopperCRM — Gestão de Relacionamento Inteligente</title>
+  <meta name="description" content="CopperCRM é a plataforma moderna de CRM que transforma a gestão de relacionamento com clientes. Funil de vendas, automações e relatórios em um só lugar.">
+  <meta name="keywords" content="CRM, gestão de clientes, funil de vendas, automação comercial, relatórios, pipeline">
+  <meta name="author" content="CopperCRM">
+  <meta property="og:title" content="CopperCRM — Gestão de Relacionamento Inteligente">
+  <meta property="og:description" content="Transforme sua operação comercial com um CRM moderno, visual e poderoso. Teste grátis por 14 dias.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coppercrm.com.br">
+  <meta property="og:image" content="https://coppercrm.com.br/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CopperCRM — Gestão de Relacionamento Inteligente">
+  <meta name="twitter:description" content="Transforme sua operação comercial com um CRM moderno, visual e poderoso.">
+  <link rel="canonical" href="https://coppercrm.com.br">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            copper: '#C08532',
+            'copper-light': '#D4A054',
+            'copper-dark': '#A06E28',
+            sand: '#F2F1ED',
+            'sand-dark': '#E8E6E0',
+            graphite: '#111827',
+            'gray-mid': '#9CA3AF',
+            success: '#16A34A',
+            danger: '#DC2626',
+            'border-subtle': '#E5E7EB',
+          },
+          fontFamily: {
+            geist: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '14px',
+            'sm-custom': '8px',
+            'lg-custom': '20px',
+          },
+          boxShadow: {
+            'soft': '0 18px 45px rgba(15,23,42,0.08)',
+            'card': '0 4px 20px rgba(15,23,42,0.06)',
+            'hover': '0 22px 50px rgba(15,23,42,0.12)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    h1, h2, h3, h4, h5, h6, label, .label-text, nav a, .nav-link { letter-spacing: -0.15px; }
+    .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.6); }
+    .badge-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; letter-spacing: -0.15px; }
+    .badge-success { background: #ECFDF5; color: #16A34A; }
+    .badge-warning { background: #FFF7ED; color: #C08532; }
+    .badge-danger { background: #FEF2F2; color: #DC2626; }
+    .pill-pipeline { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; letter-spacing: -0.15px; }
+    .icon-hugeicon { width: 24px; height: 24px; stroke-width: 1.5; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+    .interactive { cursor: pointer; transition: all 180ms ease; }
+    .interactive:hover { transform: translateY(-2px); }
+    .btn-primary { background: #C08532; color: #fff; transition: all 180ms ease; cursor: pointer; }
+    .btn-primary:hover { background: #A06E28; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(192,133,50,0.3); }
+    .btn-outline { border: 1.5px solid #C08532; color: #C08532; background: transparent; transition: all 180ms ease; cursor: pointer; }
+    .btn-outline:hover { background: #C08532; color: #fff; }
+    .card-float { background: #fff; border-radius: 14px; box-shadow: 0 18px 45px rgba(15,23,42,0.08); transition: all 180ms ease; }
+    .card-float:hover { box-shadow: 0 22px 50px rgba(15,23,42,0.12); transform: translateY(-3px); }
+    .pricing-highlight { border: 2px solid #C08532; position: relative; }
+    .pricing-highlight::before { content: 'Mais Popular'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #C08532; color: #fff; padding: 4px 18px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: -0.15px; }
+    .mobile-menu { display: none; }
+    @media (max-width: 768px) {
+      .desktop-nav { display: none; }
+      .mobile-menu-btn { display: flex !important; }
+      .mobile-menu.active { display: flex; }
+    }
+    @media (min-width: 769px) {
+      .mobile-menu-btn { display: none !important; }
+    }
+    .progress-bar { height: 6px; border-radius: 999px; background: #E5E7EB; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+  </style>
+</head>
+<body class="bg-sand text-graphite antialiased">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border-subtle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 interactive">
+          <svg class="w-8 h-8 text-copper" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="24" height="24" rx="6"/>
+            <path d="M10 16h12M16 10v12"/>
+            <circle cx="16" cy="16" r="3"/>
+          </svg>
+          <span class="text-xl font-bold text-graphite" style="letter-spacing:-0.15px;">Copper<span class="text-copper">CRM</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="desktop-nav flex items-center gap-8">
+          <a href="#features" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite interactive">Funcionalidades</a>
+          <a href="#testimonials" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite interactive">Depoimentos</a>
+          <a href="#pricing" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite interactive">Planos</a>
+          <a href="#contact" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite interactive">Contato</a>
+        </div>
+
+        <!-- CTA -->
+        <div class="desktop-nav flex items-center gap-3">
+          <a href="#" class="btn-outline px-5 py-2 rounded-lg text-sm font-semibold">Entrar</a>
+          <a href="#" class="btn-primary px-5 py-2 rounded-lg text-sm font-semibold">Testar Grátis</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn items-center justify-center w-10 h-10 rounded-lg interactive hover:bg-sand-dark" onclick="document.getElementById('mobileMenu').classList.toggle('active')" aria-label="Menu">
+          <svg class="w-6 h-6 text-graphite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu flex-col gap-2 px-4 pb-4 bg-white border-t border-border-subtle">
+      <a href="#features" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite py-2 interactive">Funcionalidades</a>
+      <a href="#testimonials" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite py-2 interactive">Depoimentos</a>
+      <a href="#pricing" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite py-2 interactive">Planos</a>
+      <a href="#contact" class="nav-link text-sm font-medium text-gray-mid hover:text-graphite py-2 interactive">Contato</a>
+      <div class="flex gap-3 pt-2">
+        <a href="#" class="btn-outline px-5 py-2 rounded-lg text-sm font-semibold flex-1 text-center">Entrar</a>
+        <a href="#" class="btn-primary px-5 py-2 rounded-lg text-sm font-semibold flex-1 text-center">Testar Grátis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="pt-28 pb-16 md:pt-36 md:pb-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <div class="inline-flex items-center gap-2 badge-status badge-warning mb-6">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>Novo: Automações com IA integradas</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-graphite leading-tight mb-6" style="letter-spacing:-0.15px;">
+          Gerencie relacionamentos.<br>
+          <span class="text-copper">Feche mais negócios.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-mid leading-relaxed mb-8 max-w-2xl mx-auto">
+          O CRM moderno que unifica funil de vendas, automações e relatórios em uma interface limpa e intuitiva. Tenha visão completa da sua operação comercial.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="btn-primary px-8 py-3.5 rounded-xl text-base font-semibold inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Começar Teste Grátis
+          </a>
+          <a href="#" class="btn-outline px-8 py-3.5 rounded-xl text-base font-semibold inline-flex items-center gap-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Ver Demonstração
+          </a>
+        </div>
+        <p class="text-sm text-gray-mid mt-4">14 dias grátis · Sem cartão de crédito · Cancele quando quiser</p>
+      </div>
+
+      <!-- Dashboard Preview -->
+      <div class="card-float p-4 md:p-6 max-w-5xl mx-auto">
+        <div class="bg-sand rounded-xl p-4 md:p-6">
+          <!-- Dashboard Header -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 class="text-lg font-bold text-graphite" style="letter-spacing:-0.15px;">Painel de Vendas</h3>
+              <p class="text-sm text-gray-mid">Visão geral — Dezembro 2025</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="badge-status badge-success">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                +23% este mês
+              </span>
+            </div>
+          </div>
+
+          <!-- Stats Row -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="bg-white rounded-card p-4 shadow-card">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="text-xs text-gray-mid label-text" style="letter-spacing:-0.15px;">Contatos</span>
+              </div>
+              <p class="text-2xl font-bold text-graphite">2.847</p>
+              <p class="text-xs text-success font-medium mt-1">+142 novos</p>
+            </div>
+            <div class="bg-white rounded-card p-4 shadow-card">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <span class="text-xs text-gray-mid label-text" style="letter-spacing:-0.15px;">Negócios</span>
+              </div>
+              <p class="text-2xl font-bold text-graphite">384</p>
+              <p class="text-xs text-success font-medium mt-1">+28 abertos</p>
+            </div>
+            <div class="bg-white rounded-card p-4 shadow-card">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                <span class="text-xs text-gray-mid label-text" style="letter-spacing:-0.15px;">Receita</span>
+              </div>
+              <p class="text-2xl font-bold text-graphite">R$ 1.2M</p>
+              <p class="text-xs text-success font-medium mt-1">+18% MoM</p>
+            </div>
+            <div class="bg-white rounded-card p-4 shadow-card">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="text-xs text-gray-mid label-text" style="letter-spacing:-0.15px;">Atividades</span>
+              </div>
+              <p class="text-2xl font-bold text-graphite">156</p>
+              <p class="text-xs text-copper font-medium mt-1">12 pendentes</p>
+            </div>
+          </div>
+
+          <!-- Pipeline Preview -->
+          <div class="bg-white rounded-card p-4 shadow-card">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-sm font-semibold text-graphite label-text" style="letter-spacing:-0.15px;">Pipeline de Vendas</h4>
+              <span class="text-xs text-gray-mid">5 etapas</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-medium text-gray-mid" style="letter-spacing:-0.15px;">Prospecção</span>
+                  <span class="text-xs font-bold text-graphite">48</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar-fill bg-gray-mid" style="width:65%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-medium text-gray-mid" style="letter-spacing:-0.15px;">Qualificação</span>
+                  <span class="text-xs font-bold text-graphite">32</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar-fill bg-copper-light" style="width:50%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-medium text-gray-mid" style="letter-spacing:-0.15px;">Proposta</span>
+                  <span class="text-xs font-bold text-graphite">21</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar-fill bg-copper" style="width:38%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-medium text-gray-mid" style="letter-spacing:-0.15px;">Negociação</span>
+                  <span class="text-xs font-bold text-graphite">14</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar-fill bg-copper-dark" style="width:25%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-medium text-gray-mid" style="letter-spacing:-0.15px;">Fechamento</span>
+                  <span class="text-xs font-bold text-graphite">8</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar-fill bg-success" style="width:15%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES SECTION ========== -->
+  <section id="features" class="py-16 md:py-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="badge-status badge-warning mb-4 inline-flex">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Funcionalidades
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-graphite mb-4" style="letter-spacing:-0.15px;">
+          Tudo que sua equipe precisa para vender mais
+        </h2>
+        <p class="text-lg text-gray-mid leading-relaxed">
+          Ferramentas poderosas integradas em uma interface que sua equipe vai adorar usar todos os dias.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Feature 1: Funil -->
+        <div class="card-float p-8 interactive">
+          <div class="w-14 h-14 rounded-xl bg-copper/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-graphite mb-3" style="letter-spacing:-0.15px;">Funil de Vendas Visual</h3>
+          <p class="text-gray-mid leading-relaxed mb-4">
+            Visualize cada etapa do seu pipeline com cards arrastáveis. Mova negócios entre fases, defina valores e acompanhe a probabilidade de fechamento em tempo real.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill-pipeline bg-sand text-graphite">Kanban</span>
+            <span class="pill-pipeline bg-sand text-graphite">Drag & Drop</span>
+            <span class="pill-pipeline bg-sand text-graphite">Filtros</span>
+          </div>
+        </div>
+
+        <!-- Feature 2: Automações -->
+        <div class="card-float p-8 interactive">
+          <div class="w-14 h-14 rounded-xl bg-copper/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-graphite mb-3" style="letter-spacing:-0.15px;">Automações Inteligentes</h3>
+          <p class="text-gray-mid leading-relaxed mb-4">
+            Crie fluxos automáticos para follow-ups, atribuição de leads e notificações. Reduza tarefas manuais e garanta que nenhuma oportunidade seja esquecida.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill-pipeline bg-sand text-graphite">Workflows</span>
+            <span class="pill-pipeline bg-sand text-graphite">Triggers</span>
+            <span class="pill-pipeline bg-sand text-graphite">E-mails</span>
+          </div>
+        </div>
+
+        <!-- Feature 3: Relatórios -->
+        <div class="card-float p-8 interactive">
+          <div class="w-14 h-14 rounded-xl bg-copper/10 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 20V10M12 20V4M6 20v-6"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-graphite mb-3" style="letter-spacing:-0.15px;">Relatórios e Métricas</h3>
+          <p class="text-gray-mid leading-relaxed mb-4">
+            Dashboards em tempo real com métricas de conversão, receita, atividades e performance do time. Exporte relatórios e tome decisões baseadas em dados.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill-pipeline bg-sand text-graphite">Dashboards</span>
+            <span class="pill-pipeline bg-sand text-graphite">KPIs</span>
+            <span class="pill-pipeline bg-sand text-graphite">Exportar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS SECTION ========== -->
+  <section id="testimonials" class="py-16 md:py-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="badge-status badge-warning mb-4 inline-flex">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Depoimentos
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-graphite mb-4" style="letter-spacing:-0.15px;">
+          Times que transformaram suas vendas
+        </h2>
+        <p class="text-lg text-gray-mid leading-relaxed">
+          Veja como equipes comerciais estão usando o CopperCRM para crescer de forma previsível.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Testimonial 1 -->
+        <div class="card-float p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-gray-mid leading-relaxed mb-6">
+            "O CopperCRM mudou completamente a forma como gerenciamos nosso funil. Antes perdíamos leads por falta de acompanhamento. Agora, cada oportunidade é rastreada automaticamente."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-copper/15 flex items-center justify-center">
+              <span class="text-sm font-bold text-copper">RM</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-graphite" style="letter-spacing:-0.15px;">Renata Moreira</p>
+              <p class="text-xs text-gray-mid">Head de Vendas · TechSol</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="card-float p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-gray-mid leading-relaxed mb-6">
+            "Os relatórios em tempo real nos deram visibilidade total sobre a performance do time. Conseguimos identificar gargalos e aumentar a taxa de conversão em 34% no primeiro trimestre."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-copper/15 flex items-center justify-center">
+              <span class="text-sm font-bold text-copper">FC</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-graphite" style="letter-spacing:-0.15px;">Felipe Costa</p>
+              <p class="text-xs text-gray-mid">Diretor Comercial · Nexus Digital</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="card-float p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg class="w-5 h-5 text-copper" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-gray-mid leading-relaxed mb-6">
+            "As automações economizam pelo menos 10 horas por semana do nosso time. Follow-ups automáticos, atribuição de leads e lembretes — tudo funciona sem intervenção manual."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-copper/15 flex items-center justify-center">
+              <span class="text-sm font-bold text-copper">AS</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-graphite" style="letter-spacing:-0.15px;">Ana Souza</p>
+              <p class="text-xs text-gray-mid">Gerente de Operações · Venda Certa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING SECTION ========== -->
+  <section id="pricing" class="py-16 md:py-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="badge-status badge-warning mb-4 inline-flex">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Planos
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-graphite mb-4" style="letter-spacing:-0.15px;">
+          Escolha o plano ideal para seu time
+        </h2>
+        <p class="text-lg text-gray-mid leading-relaxed">
+          Comece grátis e escale conforme sua operação cresce. Sem surpresas, sem taxas ocultas.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto items-start">
+        <!-- Starter -->
+        <div class="card-float p-8 interactive">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-graphite mb-1" style="letter-spacing:-0.15px;">Starter</h3>
+            <p class="text-sm text-gray-mid">Para equipes pequenas começando</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-graphite">R$ 79</span>
+            <span class="text-gray-mid text-sm">/mês por usuário</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Até 1.000 contatos
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              1 pipeline de vendas
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Relatórios básicos
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte por e-mail
+            </li>
+            <li class="flex items-center gap-3 text-sm text-gray-mid">
+              <svg class="w-5 h-5 text-border-subtle flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Automações
+            </li>
+            <li class="flex items-center gap-3 text-sm text-gray-mid">
+              <svg class="w-5 h-5 text-border-subtle flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Integrações avançadas
+            </li>
+          </ul>
+          <a href="#" class="btn-outline w-full py-3 rounded-xl text-sm font-semibold text-center block">Começar Grátis</a>
+        </div>
+
+        <!-- Professional (Highlighted) -->
+        <div class="card-float p-8 pricing-highlight interactive mt-0 md:-mt-4">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-graphite mb-1" style="letter-spacing:-0.15px;">Professional</h3>
+            <p class="text-sm text-gray-mid">Para times em crescimento</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-graphite">R$ 149</span>
+            <span class="text-gray-mid text-sm">/mês por usuário</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Contatos ilimitados
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              5 pipelines de vendas
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Relatórios avançados
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Automações ilimitadas
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Integrações (Slack, WhatsApp, E-mail)
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <a href="#" class="btn-primary w-full py-3 rounded-xl text-sm font-semibold text-center block">Começar Teste Grátis</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="card-float p-8 interactive">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-graphite mb-1" style="letter-spacing:-0.15px;">Enterprise</h3>
+            <p class="text-sm text-gray-mid">Para operações complexas</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-extrabold text-graphite">Custom</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Tudo do Professional
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Pipelines ilimitados
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              API dedicada
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SSO e controle de acesso
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Onboarding dedicado
+            </li>
+            <li class="flex items-center gap-3 text-sm text-graphite">
+              <svg class="w-5 h-5 text-success flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SLA garantido
+            </li>
+          </ul>
+          <a href="#" class="btn-outline w-full py-3 rounded-xl text-sm font-semibold text-center block">Falar com Vendas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA FINAL SECTION ========== -->
+  <section class="py-16 md:py-24 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="rounded-lg-custom overflow-hidden" style="border-radius:20px;">
+        <div class="bg-gradient-to-br from-copper to-copper-dark p-10 md:p-16 text-center relative overflow-hidden">
+          <!-- Decorative elements -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+          <div class="relative z-10">
+            <div class="w-16 h-16 rounded-2xl bg-white/15 flex items-center justify-center mx-auto mb-8">
+              <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4" style="letter-spacing:-0.15px;">
+              Pronto para transformar suas vendas?
+            </h2>
+            <p class="text-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
+              Junte-se a mais de 2.000 equipes que já usam o CopperCRM para fechar negócios mais rápido. Comece seu teste gratuito de 14 dias agora.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="#" class="bg-white text-copper font-semibold px-8 py-3.5 rounded-xl text-base inline-flex items-center gap-2 interactive hover:bg-sand" style="cursor:pointer;transition:all 180ms ease;">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Começar Teste Grátis
+              </a>
+              <a href="#" class="border-2 border-white/40 text-white font-semibold px-8 py-3.5 rounded-xl text-base inline-flex items-center gap-2 interactive hover:bg-white/10" style="cursor:pointer;transition:all 180ms ease;">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Agendar Demonstração
+              </a>
+            </div>
+            <p class="text-sm text-white/60 mt-5">Sem cartão de crédito · Setup em 2 minutos · Cancele quando quiser</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="bg-graphite text-white pt-16 pb-8 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <!-- Brand Column -->
+        <div class="col-span-2 md:col-span-1">
+          <a href="#" class="flex items-center gap-2 mb-4">
+            <svg class="w-8 h-8 text-copper" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="24" height="24" rx="6"/>
+              <path d="M10 16h12M16 10v12"/>
+              <circle cx="16" cy="16" r="3"/>
+            </svg>
+            <span class="text-xl font-bold" style="letter-spacing:-0.15px;">Copper<span class="text-copper">CRM</span></span>
+          </a>
+          <p class="text-sm text-gray-mid leading-relaxed mb-6">
+            A plataforma de CRM moderna que transforma a gestão de relacionamento com clientes para equipes comerciais de alta performance.
+          </p>
+          <!-- Social Icons -->
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center interactive hover:bg-copper" aria-label="LinkedIn">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center interactive hover:bg-copper" aria-label="Twitter">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center interactive hover:bg-copper" aria-label="Instagram">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center interactive hover:bg-copper" aria-label="YouTube">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Produto -->
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-4" style="letter-spacing:-0.15px;">Produto</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#features" class="text-sm text-gray-mid hover:text-white interactive">Funcionalidades</a></li>
+            <li><a href="#pricing" class="text-sm text-gray-mid hover:text-white interactive">Planos e Preços</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Integrações</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">API & Developers</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Changelog</a></li>
+          </ul>
+        </div>
+
+        <!-- Empresa -->
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-4" style="letter-spacing:-0.15px;">Empresa</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Sobre Nós</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Blog</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Carreiras</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Parceiros</a></li>
+            <li><a href="#contact" class="text-sm text-gray-mid hover:text-white interactive">Contato</a></li>
+          </ul>
+        </div>
+
+        <!-- Suporte -->
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-4" style="letter-spacing:-0.15px;">Suporte</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Central de Ajuda</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Documentação</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Status do Sistema</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Comunidade</a></li>
+            <li><a href="#" class="text-sm text-gray-mid hover:text-white interactive">Webinars</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-gray-mid">&copy; 2026 CopperCRM. Todos os direitos reservados.</p>
+          <div class="flex items-center gap-6">
+            <a href="#" class="text-sm text-gray-mid hover:text-white interactive">Política de Privacidade</a>
+            <a href="#" class="text-sm text-gray-mid hover:text-white interactive">Termos de Uso</a>
+            <a href="#" class="text-sm text-gray-mid hover:text-white interactive">Cookies</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Smooth scroll behavior -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu if open
+          document.getElementById('mobileMenu').classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

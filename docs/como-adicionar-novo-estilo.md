@@ -217,6 +217,8 @@ for c in d:
 
 ## Passo 3: Gerar screenshot `app/screenshots/{id}.png`
 
+Importante: Antes de gerar o screenshot, independente do metodo usado, espere 5 segundos para que as animações carreguem totalemnte.
+
 ### Opção A: Playwright (recomendado)
 
 Com o servidor local rodando, navegar para `http://localhost:8000/styles/{id}.html`, redimensionar para 1280x720 e capturar screenshot.
