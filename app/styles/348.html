@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetricFlow — Todos os números que importam. Em um só lugar.</title>
+    <meta name="description" content="Plataforma de analytics SaaS que centraliza todas as suas métricas, integrações e transações em um painel intuitivo e poderoso.">
+    <meta name="keywords" content="analytics, SaaS, métricas, dashboard, integrações, dados, KPI">
+    <meta name="author" content="MetricFlow">
+    <meta property="og:title" content="MetricFlow — Todos os números que importam.">
+    <meta property="og:description" content="Centralize suas métricas, integrações e transações em um só lugar.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metricflow.com.br">
+    <meta property="og:image" content="https://metricflow.com.br/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'page-bg': '#F7F8F3',
+                        'surface': '#FFFFFF',
+                        'surface-soft': '#F3F4F6',
+                        'primary': '#16A34A',
+                        'primary-dark': '#14532D',
+                        'text-main': '#111827',
+                        'text-muted': '#6B7280',
+                        'border-soft': '#E5E7EB',
+                        'pill-bg': '#DCFCE7',
+                    },
+                    borderRadius: {
+                        'card': '14px',
+                        'icon': '12px',
+                    },
+                    boxShadow: {
+                        'card': '0 18px 45px rgba(15,23,42,0.04)',
+                    },
+                    fontFamily: {
+                        'sans': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'tight-custom': '-0.02em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { letter-spacing: -0.02em; }
+        body { background-color: #F7F8F3; }
+
+        /* Dots illustration */
+        .dots-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+        }
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #16A34A;
+            animation: float 6s ease-in-out infinite;
+        }
+        .dot:nth-child(odd) { animation-direction: reverse; }
+        .dot:nth-child(3n) { animation-duration: 8s; }
+        .dot:nth-child(5n) { animation-duration: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+            50% { transform: translateY(-18px) scale(1.08); opacity: 1; }
+        }
+
+        /* Integration card hover */
+        .integration-card {
+            transition: all 200ms ease;
+            cursor: pointer;
+        }
+        .integration-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(15,23,42,0.08);
+            border-color: #16A34A;
+        }
+
+        /* Zebra striping */
+        .zebra-table tbody tr:nth-child(even) {
+            background-color: #F3F4F6;
+        }
+        .zebra-table tbody tr:nth-child(odd) {
+            background-color: #FFFFFF;
+        }
+        .zebra-table tbody tr {
+            transition: all 150ms ease;
+        }
+        .zebra-table tbody tr:hover {
+            background-color: #DCFCE7;
+        }
+
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(12px);
+            background-color: rgba(247, 248, 243, 0.85);
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Status badge */
+        .status-concluido { background-color: #DCFCE7; color: #14532D; }
+        .status-pendente { background-color: #FEF3C7; color: #92400E; }
+        .status-processando { background-color: #DBEAFE; color: #1E40AF; }
+    </style>
+</head>
+<body class="bg-page-bg text-text-main font-sans antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 border-b border-border-soft">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <rect width="28" height="28" rx="7" fill="#16A34A"/>
+                        <path d="M8 18V14M14 18V10M20 18V7" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span class="text-lg font-bold text-primary-dark">MetricFlow</span>
+                </a>
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#metricas" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150">Produto</a>
+                    <a href="#integracoes" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150">Funcionalidades</a>
+                    <a href="#transacoes" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150">Preços</a>
+                    <a href="#footer" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150">Recursos</a>
+                </div>
+                <!-- CTA -->
+                <a href="#cta" class="hidden md:inline-flex items-center px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-card cursor-pointer transition-all duration-200 hover:bg-green-700 hover:shadow-lg">
+                    Começar agora
+                </a>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-icon cursor-pointer transition-all duration-150 hover:bg-surface-soft" aria-label="Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-border-soft mt-2 pt-4">
+                <div class="flex flex-col gap-3">
+                    <a href="#metricas" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150 py-1">Produto</a>
+                    <a href="#integracoes" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150 py-1">Funcionalidades</a>
+                    <a href="#transacoes" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150 py-1">Preços</a>
+                    <a href="#footer" class="text-sm text-text-muted hover:text-text-main cursor-pointer transition-all duration-150 py-1">Recursos</a>
+                    <a href="#cta" class="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-card cursor-pointer transition-all duration-200 hover:bg-green-700 mt-2">Começar agora</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="pt-28 pb-16 md:pt-36 md:pb-24" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left content -->
+                <div class="order-2 lg:order-1">
+                    <!-- Badges -->
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-pill-bg text-primary-dark text-xs font-semibold rounded-full">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Tempo real
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-pill-bg text-primary-dark text-xs font-semibold rounded-full">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Seguro
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-pill-bg text-primary-dark text-xs font-semibold rounded-full">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            +2.000 empresas
+                        </span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-dark leading-[1.08] mb-6">
+                        Todos os números que importam.<br class="hidden sm:block"> <span class="text-primary">Em um só lugar.</span>
+                    </h1>
+                    <p class="text-lg text-text-muted leading-relaxed mb-10 max-w-lg">
+                        Centralize métricas, integrações e transações em um painel intuitivo. Tome decisões mais rápidas com dados que você confia.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#cta" class="inline-flex items-center justify-center px-7 py-3.5 bg-primary text-white font-semibold rounded-card cursor-pointer transition-all duration-200 hover:bg-green-700 hover:shadow-lg text-base">
+                            Começar gratuitamente
+                            <svg class="ml-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </a>
+                        <a href="#metricas" class="inline-flex items-center justify-center px-7 py-3.5 bg-surface text-text-main font-semibold rounded-card border border-border-soft cursor-pointer transition-all duration-200 hover:border-primary hover:text-primary text-base">
+                            Ver demonstração
+                        </a>
+                    </div>
+                </div>
+                <!-- Right illustration: green dots -->
+                <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
+                    <div class="dots-container w-full max-w-md lg:max-w-lg" id="dots-illustration" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MÉTRICAS ========== -->
+    <section id="metricas" class="py-16 md:py-24" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">Métricas que movem seu negócio</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Acompanhe os indicadores mais importantes em tempo real, com visualizações claras e objetivas.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
+                <!-- KPI 1 -->
+                <div class="bg-surface rounded-card border border-border-soft shadow-card p-8 text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-pill-bg rounded-icon mb-5">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <p class="text-5xl font-bold text-primary mb-2">1.845</p>
+                    <p class="text-text-muted text-sm font-medium">Usuários ativos mensais</p>
+                    <div class="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary bg-pill-bg px-2.5 py-1 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                        +12,5% este mês
+                    </div>
+                </div>
+                <!-- KPI 2 -->
+                <div class="bg-surface rounded-card border border-border-soft shadow-card p-8 text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-pill-bg rounded-icon mb-5">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <p class="text-5xl font-bold text-primary mb-2">R$125K</p>
+                    <p class="text-text-muted text-sm font-medium">Receita recorrente mensal</p>
+                    <div class="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary bg-pill-bg px-2.5 py-1 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                        +8,3% este mês
+                    </div>
+                </div>
+                <!-- KPI 3 -->
+                <div class="bg-surface rounded-card border border-border-soft shadow-card p-8 text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-pill-bg rounded-icon mb-5">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <p class="text-5xl font-bold text-primary mb-2">92%</p>
+                    <p class="text-text-muted text-sm font-medium">Taxa de retenção de clientes</p>
+                    <div class="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary bg-pill-bg px-2.5 py-1 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                        +2,1% este mês
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INTEGRAÇÕES ========== -->
+    <section id="integracoes" class="py-16 md:py-24" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">Conecta com todas as ferramentas que você já usa</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Integre seus dados de forma simples e automática com as plataformas mais populares do mercado.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-6">
+                <!-- Integration 1: Google Analytics -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Google Analytics</span>
+                </div>
+                <!-- Integration 2: HubSpot -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">HubSpot</span>
+                </div>
+                <!-- Integration 3: Stripe -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Stripe</span>
+                </div>
+                <!-- Integration 4: Slack -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M14 20.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5z"/><path d="M10 9.5C10 10.33 9.33 11 8.5 11h-5C2.67 11 2 10.33 2 9.5S2.67 8 3.5 8h5c.83 0 1.5.67 1.5 1.5z"/><path d="M10 3.5C10 4.33 9.33 5 8.5 5S7 4.33 7 3.5 7.67 2 8.5 2s1.5.67 1.5 1.5z"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Slack</span>
+                </div>
+                <!-- Integration 5: Salesforce -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Salesforce</span>
+                </div>
+                <!-- Integration 6: Zapier -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Zapier</span>
+                </div>
+                <!-- Integration 7: Mailchimp -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Mailchimp</span>
+                </div>
+                <!-- Integration 8: Notion -->
+                <div class="integration-card bg-surface rounded-card border border-border-soft shadow-card p-6 flex flex-col items-center gap-3 text-center">
+                    <div class="w-12 h-12 flex items-center justify-center bg-pill-bg rounded-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold text-text-main">Notion</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TRANSAÇÕES ========== -->
+    <section id="transacoes" class="py-16 md:py-24" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">Transações recentes</h2>
+                <p class="text-text-muted text-lg max-w-2xl mx-auto">Acompanhe todas as movimentações financeiras em tempo real com detalhes completos.</p>
+            </div>
+            <div class="bg-surface rounded-card border border-border-soft shadow-card overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="zebra-table w-full text-left">
+                        <thead>
+                            <tr class="border-b border-border-soft bg-surface-soft">
+                                <th class="px-6 py-4 text-xs font-semibold text-text-muted uppercase tracking-wider">Data</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-text-muted uppercase tracking-wider">Cliente</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-text-muted uppercase tracking-wider">Valor</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-text-muted uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border-soft">
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">15 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-pill-bg flex items-center justify-center text-xs font-bold text-primary-dark">MC</div>
+                                        <span>Maria Costa</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 2.450,00</td>
+                                <td class="px-6 py-4"><span class="status-concluido text-xs font-semibold px-3 py-1 rounded-full">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">14 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-800">JS</div>
+                                        <span>João Silva</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 8.900,00</td>
+                                <td class="px-6 py-4"><span class="status-concluido text-xs font-semibold px-3 py-1 rounded-full">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">13 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-800">AF</div>
+                                        <span>Ana Ferreira</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 1.200,00</td>
+                                <td class="px-6 py-4"><span class="status-pendente text-xs font-semibold px-3 py-1 rounded-full">Pendente</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">12 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-pill-bg flex items-center justify-center text-xs font-bold text-primary-dark">PO</div>
+                                        <span>Pedro Oliveira</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 5.670,00</td>
+                                <td class="px-6 py-4"><span class="status-concluido text-xs font-semibold px-3 py-1 rounded-full">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">11 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-xs font-bold text-purple-800">LS</div>
+                                        <span>Luciana Santos</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 3.340,00</td>
+                                <td class="px-6 py-4"><span class="status-processando text-xs font-semibold px-3 py-1 rounded-full">Processando</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-text-main whitespace-nowrap">10 Jan 2026</td>
+                                <td class="px-6 py-4 text-sm text-text-main">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center text-xs font-bold text-rose-800">RA</div>
+                                        <span>Rafael Almeida</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-semibold text-text-main">R$ 12.100,00</td>
+                                <td class="px-6 py-4"><span class="status-concluido text-xs font-semibold px-3 py-1 rounded-full">Concluído</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section id="cta" class="py-16 md:py-24" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="bg-surface rounded-card border border-border-soft shadow-card p-10 sm:p-16">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-pill-bg rounded-full mb-8">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">Seus dados estão esperando.</h2>
+                <p class="text-text-muted text-lg mb-10 max-w-lg mx-auto">Comece a centralizar suas métricas agora mesmo. Configuração em minutos, sem necessidade de código.</p>
+                <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-card cursor-pointer transition-all duration-200 hover:bg-green-700 hover:shadow-lg text-base">
+                    Configurar instantaneamente
+                    <svg class="ml-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer" class="border-t border-border-soft py-12 md:py-16" style="padding-left: clamp(1rem, 5vw, 4rem); padding-right: clamp(1rem, 5vw, 4rem);">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer transition-all duration-200 hover:opacity-80">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <rect width="28" height="28" rx="7" fill="#16A34A"/>
+                            <path d="M8 18V14M14 18V10M20 18V7" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        <span class="text-lg font-bold text-primary-dark">MetricFlow</span>
+                    </a>
+                    <p class="text-sm text-text-muted leading-relaxed mb-6">Centralize todas as suas métricas e tome decisões mais inteligentes com dados confiáveis.</p>
+                    <!-- Social icons -->
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="text-text-muted hover:text-primary cursor-pointer transition-all duration-150" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="#" class="text-text-muted hover:text-primary cursor-pointer transition-all duration-150" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="#" class="text-text-muted hover:text-primary cursor-pointer transition-all duration-150" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                        <a href="#" class="text-text-muted hover:text-primary cursor-pointer transition-all duration-150" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Links Produto -->
+                <div>
+                    <h4 class="text-sm font-semibold text-text-main mb-4">Produto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Funcionalidades</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Integrações</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Preços</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Changelog</a></li>
+                    </ul>
+                </div>
+                <!-- Links Empresa -->
+                <div>
+                    <h4 class="text-sm font-semibold text-text-main mb-4">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Sobre nós</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Blog</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Carreiras</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Contato</a></li>
+                    </ul>
+                </div>
+                <!-- Links Legal -->
+                <div>
+                    <h4 class="text-sm font-semibold text-text-main mb-4">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Segurança</a></li>
+                        <li><a href="#" class="text-sm text-text-muted hover:text-primary cursor-pointer transition-all duration-150">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Bottom bar -->
+            <div class="border-t border-border-soft pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-text-muted">&copy; 2026 MetricFlow. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Privacidade</a>
+                    <a href="#" class="text-xs text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Termos</a>
+                    <a href="#" class="text-xs text-text-muted hover:text-primary cursor-pointer transition-all duration-150">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Generate green dots illustration
+        (function() {
+            const container = document.getElementById('dots-illustration');
+            if (!container) return;
+            const dotCount = 60;
+            const greens = ['#16A34A', '#14532D', '#22C55E', '#86EFAC', '#DCFCE7', '#4ADE80'];
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                const size = Math.random() * 18 + 4;
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+                dot.style.left = Math.random() * 90 + 5 + '%';
+                dot.style.top = Math.random() * 85 + 5 + '%';
+                dot.style.backgroundColor = greens[Math.floor(Math.random() * greens.length)];
+                dot.style.opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
+                dot.style.animationDelay = (Math.random() * 5).toFixed(2) + 's';
+                container.appendChild(dot);
+            }
+        })();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close menu on link click
+            mobileMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
