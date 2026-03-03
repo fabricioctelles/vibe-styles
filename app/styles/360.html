@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weblex — Construtor de Sites Profissional</title>
+    <meta name="description" content="Crie sites profissionais incríveis com o Weblex. Construtor intuitivo, templates modernos e performance excepcional.">
+    <meta name="keywords" content="construtor de sites, criador de sites, website builder, landing page, sites profissionais">
+    <meta name="author" content="Weblex">
+    <meta property="og:title" content="Weblex — Construtor de Sites Profissional">
+    <meta property="og:description" content="Crie sites profissionais incríveis com o Weblex. Construtor intuitivo, templates modernos e performance excepcional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://weblex.com.br">
+    <meta property="og:image" content="https://weblex.com.br/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        primary: 'hsl(var(--primary))',
+                        'primary-foreground': 'hsl(var(--primary-foreground))',
+                        secondary: 'hsl(var(--secondary))',
+                        muted: 'hsl(var(--muted))',
+                        'muted-foreground': 'hsla(var(--muted-foreground))',
+                        border: 'hsla(var(--border))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: 240 67% 1%;
+            --foreground: 0 0% 100%;
+            --primary: 73 98% 57%;
+            --primary-foreground: 240 67% 1%;
+            --secondary: 0 0% 100%;
+            --muted: 240 10% 12%;
+            --muted-foreground: 0, 0%, 82%, 0.8;
+            --border: 0, 0%, 100%, 0.1;
+            --headline-size: 62px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .headline-lg {
+            font-size: 62px;
+            line-height: 1.1;
+        }
+
+        .headline-md {
+            font-size: 48px;
+            line-height: 1.1;
+        }
+
+        .headline-sm {
+            font-size: 36px;
+            line-height: 1.1;
+        }
+
+        .pill-badge {
+            border: 1px solid hsla(var(--border));
+            border-radius: 9999px;
+            padding: 6px 16px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: hsla(var(--muted-foreground));
+        }
+
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-radius: 9999px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: hsl(var(--secondary));
+            border: 1px solid hsla(var(--border));
+            border-radius: 9999px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: hsla(0, 0%, 100%, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .card-glass {
+            background-color: hsl(var(--muted));
+            border: 1px solid hsla(var(--border));
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .card-glass:hover {
+            border-color: hsla(0, 0%, 100%, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .pricing-highlight {
+            border-color: hsl(var(--primary));
+            position: relative;
+        }
+
+        .pricing-highlight::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, hsl(var(--primary)), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .nav-link {
+            color: hsla(var(--muted-foreground));
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: hsl(var(--foreground));
+        }
+
+        .glow-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+            opacity: 0.3;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(ellipse 60% 50% at 50% 100%, hsla(73, 98%, 57%, 0.06) 0%, transparent 70%);
+        }
+
+        @media (max-width: 1024px) {
+            .headline-lg { font-size: 48px; }
+            .headline-md { font-size: 36px; }
+            .headline-sm { font-size: 28px; }
+        }
+
+        @media (max-width: 640px) {
+            .headline-lg { font-size: 36px; }
+            .headline-md { font-size: 28px; }
+            .headline-sm { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 cursor-pointer">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="hsl(73,98%,57%)"/>
+                    <path d="M8 22L13 10H15L18 18L21 10H23L17 22H15L12 14L9 22H8Z" fill="hsl(240,67%,1%)" stroke="hsl(240,67%,1%)" stroke-width="0.5"/>
+                </svg>
+                <span class="text-xl font-bold text-white">Weblex</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="nav-link text-sm">Recursos</a>
+                <a href="#testimonials" class="nav-link text-sm">Depoimentos</a>
+                <a href="#pricing" class="nav-link text-sm">Planos</a>
+                <a href="#contact" class="nav-link text-sm">Contato</a>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#" class="nav-link text-sm cursor-pointer">Entrar</a>
+                <a href="#" class="btn-primary text-sm !py-2.5 !px-6">
+                    Começar Grátis
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                </a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden cursor-pointer text-white" aria-label="Abrir menu">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-background border-t border-border px-6 pb-6">
+            <div class="flex flex-col gap-4 pt-4">
+                <a href="#features" class="nav-link text-sm">Recursos</a>
+                <a href="#testimonials" class="nav-link text-sm">Depoimentos</a>
+                <a href="#pricing" class="nav-link text-sm">Planos</a>
+                <a href="#contact" class="nav-link text-sm">Contato</a>
+                <div class="pt-4 border-t border-border flex flex-col gap-3">
+                    <a href="#" class="nav-link text-sm">Entrar</a>
+                    <a href="#" class="btn-primary text-sm justify-center">
+                        Começar Grátis
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-end pb-20 pt-32 px-6">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="max-w-3xl">
+                <div class="pill-badge mb-8">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Novo: Editor com IA integrada
+                </div>
+                <h1 class="headline-lg font-bold text-white mb-6">
+                    Construa sites que <span class="text-primary">convertem</span> em minutos
+                </h1>
+                <p class="text-lg mb-10 leading-relaxed" style="color: hsla(var(--muted-foreground));">
+                    O construtor de sites mais poderoso do Brasil. Arraste, solte e publique. Sem código, sem complicação, sem limites para sua criatividade.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="btn-primary">
+                        Criar Meu Site
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                    </a>
+                    <a href="#" class="btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Ver Demonstração
+                    </a>
+                </div>
+                <div class="flex items-center gap-6 mt-12" style="color: hsla(var(--muted-foreground));">
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Grátis para começar
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Sem cartão de crédito
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Cancele quando quiser
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="pill-badge mx-auto mb-6">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Recursos
+                </div>
+                <h2 class="headline-md font-bold text-white mb-4">Tudo que você precisa para <span class="text-primary">brilhar</span> online</h2>
+                <p class="max-w-2xl mx-auto" style="color: hsla(var(--muted-foreground));">Ferramentas profissionais que simplificam a criação de sites extraordinários, do conceito à publicação.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="card-glass">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: hsla(73,98%,57%,0.1);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Editor Drag & Drop</h3>
+                    <p style="color: hsla(var(--muted-foreground));" class="leading-relaxed">Arraste e solte elementos com precisão pixel-perfect. Interface intuitiva que qualquer pessoa consegue usar sem treinamento.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="card-glass">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: hsla(73,98%,57%,0.1);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">+200 Templates Premium</h3>
+                    <p style="color: hsla(var(--muted-foreground));" class="leading-relaxed">Biblioteca com mais de 200 templates profissionais para todos os nichos. Personalize cores, fontes e layouts em segundos.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="card-glass">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: hsla(73,98%,57%,0.1);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Performance Extrema</h3>
+                    <p style="color: hsla(var(--muted-foreground));" class="leading-relaxed">Sites otimizados para Core Web Vitals com CDN global. Carregamento ultrarrápido que melhora seu SEO e conversões.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="pill-badge mx-auto mb-6">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Depoimentos
+                </div>
+                <h2 class="headline-md font-bold text-white mb-4">Quem usa, <span class="text-primary">recomenda</span></h2>
+                <p class="max-w-2xl mx-auto" style="color: hsla(var(--muted-foreground));">Milhares de profissionais e empresas já transformaram sua presença digital com o Weblex.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="card-glass">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="mb-6 leading-relaxed" style="color: hsla(var(--muted-foreground));">"Migrei meu e-commerce para o Weblex e as vendas aumentaram 40% no primeiro mês. A velocidade do site fez toda a diferença."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: hsla(73,98%,57%,0.15); color: hsl(73,98%,57%);">RM</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Renata Moreira</p>
+                            <p class="text-xs" style="color: hsla(var(--muted-foreground));">CEO, Loja Vitrine Digital</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="card-glass">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="mb-6 leading-relaxed" style="color: hsla(var(--muted-foreground));">"Como freelancer, o Weblex me permite entregar projetos em metade do tempo. Os templates são lindos e os clientes adoram o resultado."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: hsla(73,98%,57%,0.15); color: hsl(73,98%,57%);">LC</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Lucas Cardoso</p>
+                            <p class="text-xs" style="color: hsla(var(--muted-foreground));">Web Designer Freelancer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="card-glass">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="hsl(73,98%,57%)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="mb-6 leading-relaxed" style="color: hsla(var(--muted-foreground));">"A integração com ferramentas de marketing é perfeita. Conectei Google Analytics, Meta Pixel e WhatsApp em poucos cliques."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: hsla(73,98%,57%,0.15); color: hsl(73,98%,57%);">AF</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Amanda Ferreira</p>
+                            <p class="text-xs" style="color: hsla(var(--muted-foreground));">Diretora de Marketing, TechBR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="pill-badge mx-auto mb-6">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Planos
+                </div>
+                <h2 class="headline-md font-bold text-white mb-4">Escolha o plano <span class="text-primary">ideal</span></h2>
+                <p class="max-w-2xl mx-auto" style="color: hsla(var(--muted-foreground));">Comece grátis e escale conforme seu negócio cresce. Sem surpresas, sem taxas ocultas.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <!-- Starter -->
+                <div class="card-glass">
+                    <p class="text-sm font-medium mb-2" style="color: hsla(var(--muted-foreground));">Starter</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">R$0</span>
+                        <span class="text-sm" style="color: hsla(var(--muted-foreground));">/mês</span>
+                    </div>
+                    <p class="text-sm mb-8" style="color: hsla(var(--muted-foreground));">Para quem está começando</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">1 site publicado</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">50 templates básicos</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">SSL gratuito</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Subdomínio Weblex</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full justify-center">Começar Grátis</a>
+                </div>
+                <!-- Pro (Destaque) -->
+                <div class="card-glass pricing-highlight relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="text-xs font-bold px-4 py-1 rounded-full" style="background: hsl(var(--primary)); color: hsl(var(--primary-foreground));">Mais Popular</span>
+                    </div>
+                    <p class="text-sm font-medium mb-2 text-primary">Pro</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">R$79</span>
+                        <span class="text-sm" style="color: hsla(var(--muted-foreground));">/mês</span>
+                    </div>
+                    <p class="text-sm mb-8" style="color: hsla(var(--muted-foreground));">Para profissionais e freelancers</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">10 sites publicados</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Todos os 200+ templates</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Domínio personalizado</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Editor com IA</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Analytics avançado</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Suporte prioritário</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-primary w-full justify-center">
+                        Assinar Pro
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                    </a>
+                </div>
+                <!-- Enterprise -->
+                <div class="card-glass">
+                    <p class="text-sm font-medium mb-2" style="color: hsla(var(--muted-foreground));">Enterprise</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">R$249</span>
+                        <span class="text-sm" style="color: hsla(var(--muted-foreground));">/mês</span>
+                    </div>
+                    <p class="text-sm mb-8" style="color: hsla(var(--muted-foreground));">Para agências e empresas</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Sites ilimitados</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">White-label completo</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">API e integrações</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">Gerente de conta dedicado</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span style="color: hsla(var(--muted-foreground));">SLA 99.9% uptime</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary w-full justify-center">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <!-- CTA Final Section -->
+    <section class="py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="card-glass relative overflow-hidden" style="padding: 64px 48px;">
+                <div class="absolute inset-0 opacity-5" style="background: radial-gradient(circle at 50% 0%, hsl(73,98%,57%), transparent 60%);"></div>
+                <div class="relative z-10">
+                    <div class="pill-badge mx-auto mb-6">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(73,98%,57%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Comece agora
+                    </div>
+                    <h2 class="headline-sm font-bold text-white mb-4">Pronto para criar seu site profissional?</h2>
+                    <p class="mb-10 max-w-xl mx-auto" style="color: hsla(var(--muted-foreground));">Junte-se a mais de 50.000 profissionais que já construíram seus sites com o Weblex. Comece grátis, sem cartão de crédito.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#" class="btn-primary">
+                            Começar Gratuitamente
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                        </a>
+                        <a href="#" class="btn-secondary">
+                            Agendar uma Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="border-t py-16 px-6" style="border-color: hsla(var(--border));">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="8" fill="hsl(73,98%,57%)"/>
+                            <path d="M8 22L13 10H15L18 18L21 10H23L17 22H15L12 14L9 22H8Z" fill="hsl(240,67%,1%)" stroke="hsl(240,67%,1%)" stroke-width="0.5"/>
+                        </svg>
+                        <span class="text-lg font-bold text-white">Weblex</span>
+                    </a>
+                    <p class="text-sm leading-relaxed mb-6" style="color: hsla(var(--muted-foreground));">O construtor de sites mais poderoso do Brasil. Crie, publique e escale sua presença digital.</p>
+                    <div class="flex items-center gap-4">
+                        <!-- Instagram -->
+                        <a href="#" class="nav-link cursor-pointer" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" class="nav-link cursor-pointer" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" class="nav-link cursor-pointer" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="nav-link cursor-pointer" aria-label="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Produto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Recursos</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Templates</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Planos e Preços</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Changelog</a></li>
+                    </ul>
+                </div>
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Parceiros</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Contato</a></li>
+                    </ul>
+                </div>
+                <!-- Suporte -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Suporte</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Central de Ajuda</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Documentação</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Status do Sistema</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="nav-link text-sm cursor-pointer">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style="border-top: 1px solid hsla(var(--border));">
+                <p class="text-sm" style="color: hsla(var(--muted-foreground));">&copy; 2026 Weblex. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="nav-link text-xs cursor-pointer">Termos</a>
+                    <a href="#" class="nav-link text-xs cursor-pointer">Privacidade</a>
+                    <a href="#" class="nav-link text-xs cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>

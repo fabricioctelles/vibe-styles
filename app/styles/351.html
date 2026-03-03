@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskora — Gerencie Projetos com Inteligência</title>
+    <meta name="description" content="Taskora é a plataforma SaaS de gestão de projetos que usa IA para otimizar fluxos de trabalho, aumentar produtividade e entregar resultados reais.">
+    <meta name="keywords" content="gestão de projetos, SaaS, produtividade, IA, automação, equipes">
+    <meta name="author" content="Taskora">
+    <meta property="og:title" content="Taskora — Gerencie Projetos com Inteligência">
+    <meta property="og:description" content="Plataforma SaaS de gestão de projetos com IA. Automatize fluxos, acompanhe métricas e entregue mais.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://taskora.com">
+    <meta property="og:image" content="https://taskora.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-primary': '#050505',
+                        'glass': 'rgba(255,255,255,0.1)',
+                        'dashboard-bg': '#F9F9FA',
+                        'trend-green': '#22C55E',
+                        'trend-red': '#EF4444',
+                        'accent-blue': '#3B82F6',
+                    },
+                    fontFamily: {
+                        'body': ['Manrope', 'sans-serif'],
+                        'accent': ['Instrument Serif', 'serif'],
+                        'ui': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Manrope', sans-serif; background: #050505; color: #FFFFFF; overflow-x: hidden; }
+
+        /* Video Background Simulation */
+        .video-bg {
+            position: absolute; inset: 0; overflow: hidden; opacity: 0.5;
+        }
+        .video-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, #050505 100%);
+        }
+        .particle-field {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 60%, rgba(139,92,246,0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%);
+            animation: particleShift 12s ease-in-out infinite alternate;
+        }
+        .particle-orb {
+            position: absolute; border-radius: 50%; filter: blur(40px);
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+        .particle-orb:nth-child(1) {
+            width: 300px; height: 300px; top: 10%; left: 20%;
+            background: rgba(59,130,246,0.2);
+            animation-duration: 10s;
+        }
+        .particle-orb:nth-child(2) {
+            width: 200px; height: 200px; top: 50%; left: 60%;
+            background: rgba(139,92,246,0.18);
+            animation-duration: 14s; animation-delay: -3s;
+        }
+        .particle-orb:nth-child(3) {
+            width: 250px; height: 250px; top: 30%; left: 75%;
+            background: rgba(59,130,246,0.12);
+            animation-duration: 11s; animation-delay: -6s;
+        }
+        .particle-orb:nth-child(4) {
+            width: 180px; height: 180px; top: 60%; left: 10%;
+            background: rgba(139,92,246,0.15);
+            animation-duration: 13s; animation-delay: -2s;
+        }
+        .geo-shape {
+            position: absolute; border: 1px solid rgba(59,130,246,0.1);
+            animation: geoRotate 20s linear infinite;
+        }
+        .geo-shape:nth-child(5) {
+            width: 120px; height: 120px; top: 20%; left: 50%;
+            transform: rotate(45deg);
+        }
+        .geo-shape:nth-child(6) {
+            width: 80px; height: 80px; top: 55%; left: 30%;
+            border-radius: 50%; animation-duration: 25s; animation-direction: reverse;
+        }
+
+        @keyframes particleShift {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.05) translate(20px, -15px); }
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.1); }
+            66% { transform: translate(-20px, 15px) scale(0.95); }
+        }
+        @keyframes geoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar-glass {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Staggered Animations */
+        .stagger-item {
+            opacity: 0; transform: translateY(30px);
+            animation: fadeUp 0.7s ease-out forwards;
+        }
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.25s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.55s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.7s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll-triggered animations */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1; transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+
+        /* Badge gradient */
+        .badge-gradient {
+            background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(139,92,246,0.15) 100%);
+            border: 1px solid rgba(59,130,246,0.25);
+        }
+
+        /* Card hover */
+        .feature-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.35s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-4px);
+        }
+
+        /* Testimonial card */
+        .testimonial-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.35s ease;
+        }
+        .testimonial-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        /* Pricing card */
+        .pricing-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.35s ease;
+        }
+        .pricing-card:hover {
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-4px);
+        }
+        .pricing-card-featured {
+            background: linear-gradient(180deg, rgba(59,130,246,0.1) 0%, rgba(255,255,255,0.04) 100%);
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        .pricing-card-featured:hover {
+            border-color: rgba(59,130,246,0.5);
+            transform: translateY(-6px);
+        }
+
+        /* CTA gradient */
+        .cta-gradient {
+            background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.08) 50%, rgba(59,130,246,0.05) 100%);
+            border: 1px solid rgba(59,130,246,0.15);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(59,130,246,0.35);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.35);
+        }
+
+        /* Dashboard mockup */
+        .dashboard-mockup {
+            background: #F9F9FA;
+            border-radius: 12px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Headline size */
+        .headline-massive {
+            font-size: clamp(3rem, 8vw, 80px);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    </style>
+</head>
+<body class="font-body antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+        <div class="navbar-glass rounded-full px-5 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 cursor-pointer">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-blue-700 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="text-white font-bold text-lg tracking-tight">Taskora</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm text-gray-400 hover:text-white transition-all cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="text-sm text-gray-400 hover:text-white transition-all cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-all cursor-pointer">Preços</a>
+                <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-all cursor-pointer">Contato</a>
+            </div>
+
+            <!-- Desktop CTA -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#" class="text-sm text-gray-300 hover:text-white transition-all cursor-pointer">Entrar</a>
+                <a href="#" class="btn-primary text-sm text-white font-semibold px-5 py-2 rounded-full cursor-pointer inline-block">Começar Grátis</a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="menuBtn" class="md:hidden text-white cursor-pointer p-1" aria-label="Abrir menu">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu mt-2 rounded-2xl p-5 hidden md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="#features" class="text-gray-300 hover:text-white transition-all cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="text-gray-300 hover:text-white transition-all cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="text-gray-300 hover:text-white transition-all cursor-pointer">Preços</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition-all cursor-pointer">Contato</a>
+                <hr class="border-white/10">
+                <a href="#" class="text-gray-300 hover:text-white transition-all cursor-pointer">Entrar</a>
+                <a href="#" class="btn-primary text-white font-semibold px-5 py-2.5 rounded-full text-center cursor-pointer">Começar Grátis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-16 overflow-hidden">
+        <!-- Video Background Simulation -->
+        <div class="video-bg">
+            <div class="particle-field"></div>
+            <div class="particle-orb"></div>
+            <div class="particle-orb"></div>
+            <div class="particle-orb"></div>
+            <div class="particle-orb"></div>
+            <div class="geo-shape"></div>
+            <div class="geo-shape"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <!-- Badge -->
+            <div class="stagger-item inline-flex items-center gap-2 badge-gradient rounded-full px-4 py-1.5 mb-8">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                    <defs><linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="url(#starGrad)"/>
+                </svg>
+                <span class="text-sm text-gray-300 font-medium">Novo: Automação com IA integrada</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="stagger-item headline-massive font-extrabold text-white mb-6">
+                Gerencie projetos com<br>
+                <span class="font-accent italic font-normal text-white">inteligência</span> real
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="stagger-item text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Taskora combina gestão de projetos e inteligência artificial para que sua equipe entregue mais, com menos esforço e total visibilidade.
+            </p>
+
+            <!-- Buttons -->
+            <div class="stagger-item flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-base cursor-pointer inline-flex items-center gap-2">
+                    Começar Gratuitamente
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+                <a href="#" class="btn-secondary text-white font-medium px-8 py-3.5 rounded-full text-base cursor-pointer inline-flex items-center gap-2">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Ver Demonstração
+                </a>
+            </div>
+
+            <!-- Dashboard Mockup -->
+            <div class="stagger-item dashboard-mockup w-full max-w-3xl mx-auto p-1 overflow-hidden">
+                <div class="bg-dashboard-bg rounded-lg font-ui">
+                    <!-- Titlebar -->
+                    <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-200">
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="flex-1 text-center">
+                            <span class="text-xs text-gray-400 font-medium">taskora.com/dashboard</span>
+                        </div>
+                    </div>
+                    <!-- Dashboard Content -->
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-5">
+                            <div>
+                                <h3 class="text-gray-900 font-semibold text-sm">Visão Geral do Projeto</h3>
+                                <p class="text-gray-500 text-xs mt-0.5">Atualizado agora</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-xs bg-blue-50 text-accent-blue px-2.5 py-1 rounded-full font-medium">Semanal</span>
+                                <span class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full font-medium cursor-pointer hover:bg-gray-200 transition-all">Mensal</span>
+                            </div>
+                        </div>
+                        <!-- Stats Row -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                            <div class="bg-white rounded-lg p-3 border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Tarefas Concluídas</p>
+                                <p class="text-xl font-bold text-gray-900">248</p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <svg class="w-3 h-3 text-trend-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                                    <span class="text-xs text-trend-green font-medium">+12%</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-3 border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Produtividade</p>
+                                <p class="text-xl font-bold text-gray-900">94%</p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <svg class="w-3 h-3 text-trend-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                                    <span class="text-xs text-trend-green font-medium">+5%</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-3 border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Tempo Médio</p>
+                                <p class="text-xl font-bold text-gray-900">2.4d</p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <svg class="w-3 h-3 text-trend-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                                    <span class="text-xs text-trend-green font-medium">-18%</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-3 border border-gray-100">
+                                <p class="text-xs text-gray-500 mb-1">Membros Ativos</p>
+                                <p class="text-xl font-bold text-gray-900">32</p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <svg class="w-3 h-3 text-trend-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                                    <span class="text-xs text-trend-red font-medium">-2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Progress Bars -->
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5"><span class="text-gray-700 font-medium">Sprint Atual</span><span class="text-gray-500">78%</span></div>
+                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden"><div class="h-full bg-accent-blue rounded-full" style="width:78%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5"><span class="text-gray-700 font-medium">Backlog Refinado</span><span class="text-gray-500">92%</span></div>
+                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden"><div class="h-full bg-trend-green rounded-full" style="width:92%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative py-24 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block text-accent-blue text-sm font-semibold tracking-wider uppercase mb-3">Recursos</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">Tudo que sua equipe <span class="font-accent italic font-normal">precisa</span></h2>
+                <p class="text-gray-400 text-lg max-w-xl mx-auto">Ferramentas poderosas que se adaptam ao seu fluxo de trabalho, não o contrário.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="feature-card rounded-2xl p-7 reveal reveal-delay-1 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue/20 to-blue-600/10 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-2">Automação com IA</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Deixe a inteligência artificial priorizar tarefas, sugerir prazos e identificar gargalos antes que eles aconteçam.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card rounded-2xl p-7 reveal reveal-delay-2 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-700/10 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-2">Métricas em Tempo Real</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Dashboards interativos com dados ao vivo. Acompanhe velocidade do time, burndown e entregas sem sair da plataforma.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card rounded-2xl p-7 reveal reveal-delay-3 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-700/10 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-2">Colaboração Integrada</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Comentários, menções, compartilhamento de arquivos e videoconferência. Tudo em um só lugar para manter o time alinhado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-24 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block text-accent-blue text-sm font-semibold tracking-wider uppercase mb-3">Depoimentos</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">Quem usa, <span class="font-accent italic font-normal">recomenda</span></h2>
+                <p class="text-gray-400 text-lg max-w-xl mx-auto">Mais de 2.000 equipes já transformaram sua produtividade com Taskora.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card rounded-2xl p-7 reveal reveal-delay-1">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">"Taskora mudou completamente a forma como gerenciamos sprints. A IA sugere prioridades que fazem sentido e economizamos horas toda semana."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent-blue to-blue-700 flex items-center justify-center text-white text-sm font-bold">RC</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Renata Costa</p>
+                            <p class="text-gray-500 text-xs">Head de Produto, TechFlow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card rounded-2xl p-7 reveal reveal-delay-2">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">"O dashboard em tempo real é incrível. Consigo ver exatamente onde estamos em cada sprint e tomar decisões rápidas com dados confiáveis."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-sm font-bold">ML</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Marcos Lima</p>
+                            <p class="text-gray-500 text-xs">CTO, DataBridge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card rounded-2xl p-7 reveal reveal-delay-3">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">"Migramos do Jira para o Taskora e não olhamos para trás. A interface é limpa, rápida e a curva de aprendizado é praticamente zero."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white text-sm font-bold">AS</div>
+                        <div>
+                            <p class="text-white text-sm font-semibold">Ana Souza</p>
+                            <p class="text-gray-500 text-xs">Scrum Master, NovaSoft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative py-24 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block text-accent-blue text-sm font-semibold tracking-wider uppercase mb-3">Preços</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">Planos que <span class="font-accent italic font-normal">escalam</span> com você</h2>
+                <p class="text-gray-400 text-lg max-w-xl mx-auto">Comece grátis. Escale quando precisar. Sem surpresas na fatura.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 items-start">
+                <!-- Starter -->
+                <div class="pricing-card rounded-2xl p-7 reveal reveal-delay-1">
+                    <div class="mb-6">
+                        <h3 class="text-white font-bold text-lg mb-1">Starter</h3>
+                        <p class="text-gray-500 text-sm">Para equipes pequenas começando</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-white">R$0</span>
+                        <span class="text-gray-500 text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Até 5 membros
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            3 projetos ativos
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Dashboard básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-500">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Automação com IA
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary block text-center text-white font-semibold py-3 rounded-full cursor-pointer">Começar Grátis</a>
+                </div>
+
+                <!-- Pro (Featured) -->
+                <div class="pricing-card-featured rounded-2xl p-7 reveal reveal-delay-2 relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-accent-blue to-blue-700 text-white text-xs font-bold px-4 py-1 rounded-full">Mais Popular</span>
+                    </div>
+                    <div class="mb-6 pt-2">
+                        <h3 class="text-white font-bold text-lg mb-1">Pro</h3>
+                        <p class="text-gray-500 text-sm">Para equipes em crescimento</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-white">R$79</span>
+                        <span class="text-gray-500 text-sm">/mês por membro</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Membros ilimitados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Projetos ilimitados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Automação com IA
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Métricas avançadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-primary block text-center text-white font-semibold py-3 rounded-full cursor-pointer">Assinar Pro</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card rounded-2xl p-7 reveal reveal-delay-3">
+                    <div class="mb-6">
+                        <h3 class="text-white font-bold text-lg mb-1">Enterprise</h3>
+                        <p class="text-gray-500 text-sm">Para grandes organizações</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-white">Custom</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Tudo do Pro
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SSO e SAML
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SLA dedicado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Gerente de conta exclusivo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg class="w-5 h-5 text-accent-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            API personalizada
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-secondary block text-center text-white font-semibold py-3 rounded-full cursor-pointer">Falar com Vendas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section class="relative py-24 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="cta-gradient rounded-3xl p-10 md:p-16 text-center reveal relative overflow-hidden">
+                <!-- Decorative orbs -->
+                <div class="absolute -top-20 -right-20 w-60 h-60 bg-accent-blue/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl"></div>
+
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-5">Pronto para transformar sua <span class="font-accent italic font-normal">produtividade</span>?</h2>
+                    <p class="text-gray-400 text-lg max-w-xl mx-auto mb-8">Junte-se a milhares de equipes que já usam Taskora para entregar projetos com mais velocidade e clareza.</p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-base cursor-pointer inline-flex items-center gap-2">
+                            Começar Agora — É Grátis
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                        <a href="#" class="btn-secondary text-white font-medium px-8 py-3.5 rounded-full text-base cursor-pointer">Agendar Demo</a>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-5">Sem cartão de crédito. Cancele quando quiser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="border-t border-white/5 py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-blue-700 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <span class="text-white font-bold text-lg tracking-tight">Taskora</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-5">Gestão de projetos inteligente para equipes que querem entregar mais.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer" aria-label="Twitter">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer" aria-label="LinkedIn">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer" aria-label="GitHub">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer" aria-label="Instagram">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Produto</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#features" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Preços</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Changelog</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Empresa</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Contato</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Cookies</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">LGPD</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-all cursor-pointer">Segurança</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-600 text-sm">&copy; 2026 Taskora. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-all cursor-pointer">Privacidade</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-all cursor-pointer">Termos</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-all cursor-pointer">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

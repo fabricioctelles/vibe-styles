@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Designer Criativo — Projetos únicos, design autoral e experiências visuais marcantes.">
+    <meta name="keywords" content="designer, criativo, portfólio, UI, UX, branding, identidade visual">
+    <meta name="author" content="Lucas Ferreira">
+    <meta property="og:title" content="Lucas Ferreira — Designer Criativo">
+    <meta property="og:description" content="Portfólio de Designer Criativo — Projetos únicos, design autoral e experiências visuais marcantes.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>Lucas Ferreira — Designer Criativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0a0a0a',
+                        surface: '#141414',
+                        txt: '#f5f5f5',
+                        muted: '#888888',
+                        accent: '#f5f5f5',
+                        stroke: '#1f1f1f',
+                        blue1: '#89AACC',
+                        blue2: '#4E85BF',
+                    },
+                    fontFamily: {
+                        body: ['Inter', 'sans-serif'],
+                        display: ['Instrument Serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --text: #f5f5f5;
+            --muted: #888888;
+            --accent: #f5f5f5;
+            --stroke: #1f1f1f;
+            --gradient-accent: linear-gradient(90deg, #89AACC, #4E85BF);
+            --glow: rgba(137,170,204,0.35);
+            --font-body: 'Inter', sans-serif;
+            --font-display: 'Instrument Serif', serif;
+            --loading-duration: 2.7s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loading-counter {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(4rem, 10vw, 8rem);
+            color: var(--text);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+        .loading-word {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            height: 1.2em;
+            overflow: hidden;
+            position: relative;
+        }
+        .loading-word span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .loading-word span.active { opacity: 1; }
+        .loading-progress-track {
+            width: 200px;
+            height: 3px;
+            background: var(--stroke);
+            border-radius: 4px;
+            margin-top: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-accent);
+            border-radius: 4px;
+            box-shadow: 0 0 12px var(--glow);
+            transition: width 0.05s linear;
+        }
+
+        /* Scroll indicator */
+        @keyframes scroll-down {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(8px); opacity: 0.4; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .scroll-dot {
+            animation: scroll-down 1.5s infinite;
+        }
+
+        /* Hero entrance */
+        @keyframes hero-entrance {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-animate {
+            opacity: 0;
+            animation: hero-entrance 0.8s ease forwards;
+        }
+        .hero-animate-delay-1 { animation-delay: 0.15s; }
+        .hero-animate-delay-2 { animation-delay: 0.3s; }
+        .hero-animate-delay-3 { animation-delay: 0.45s; }
+        .hero-animate-delay-4 { animation-delay: 0.6s; }
+
+        /* Role cycling */
+        .role-cycle {
+            display: inline-block;
+            position: relative;
+            height: 1.3em;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+        .role-cycle span {
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .role-cycle span.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient border hover */
+        .gradient-border-hover {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gradient-border-hover:hover {
+            border-color: #89AACC;
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        /* Navbar pill */
+        .nav-pill {
+            background: rgba(20,20,20,0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--stroke);
+        }
+        .nav-link {
+            color: var(--muted);
+            transition: color 0.3s ease;
+            font-size: 0.875rem;
+        }
+        .nav-link:hover { color: var(--text); }
+
+        /* CTA gradient border */
+        .cta-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            color: var(--text);
+            background: transparent;
+            border: 1px solid var(--stroke);
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .cta-btn:hover {
+            border-color: #89AACC;
+            box-shadow: 0 0 24px var(--glow);
+        }
+        .cta-btn-filled {
+            background: linear-gradient(90deg, #89AACC, #4E85BF);
+            border: none;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+        .cta-btn-filled:hover {
+            box-shadow: 0 0 30px var(--glow);
+            border: none;
+        }
+
+        /* Card styles */
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .feature-card:hover {
+            border-color: #89AACC;
+            box-shadow: 0 0 24px var(--glow);
+            transform: translateY(-4px);
+        }
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .testimonial-card:hover {
+            border-color: #89AACC;
+            box-shadow: 0 0 16px var(--glow);
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .pricing-card:hover {
+            border-color: #89AACC;
+            box-shadow: 0 0 20px var(--glow);
+        }
+        .pricing-card.featured {
+            border-color: #89AACC;
+            box-shadow: 0 0 30px var(--glow);
+            transform: scale(1.03);
+        }
+        .pricing-card.featured:hover {
+            transform: scale(1.05);
+        }
+
+        /* Section label */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gradient-accent);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #89AACC, #4E85BF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Divider */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: var(--stroke);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(10,10,10,0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--muted);
+            transition: color 0.3s ease;
+        }
+        .mobile-menu a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-counter" id="loading-counter">000</div>
+        <div class="loading-word" id="loading-word">
+            <span class="active">DESIGN</span>
+            <span>CRIATIVIDADE</span>
+            <span>INOVAÇÃO</span>
+            <span>EXPERIÊNCIA</span>
+        </div>
+        <div class="loading-progress-track">
+            <div class="loading-progress-bar" id="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#hero" onclick="closeMobile()">Início</a>
+        <a href="#features" onclick="closeMobile()">Serviços</a>
+        <a href="#testimonials" onclick="closeMobile()">Depoimentos</a>
+        <a href="#pricing" onclick="closeMobile()">Planos</a>
+        <a href="#cta" onclick="closeMobile()">Contato</a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-4 py-2.5 flex items-center gap-6" id="navbar">
+        <!-- Logo gradient ring -->
+        <a href="#hero" class="flex-shrink-0 cursor-pointer" aria-label="Início">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #89AACC, #4E85BF); padding: 2px;">
+                <div class="w-full h-full rounded-full bg-bg flex items-center justify-center">
+                    <span class="font-display italic text-txt text-sm font-bold">LF</span>
+                </div>
+            </div>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+            <a href="#hero" class="nav-link px-3 py-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-all">Início</a>
+            <a href="#features" class="nav-link px-3 py-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-all">Serviços</a>
+            <a href="#testimonials" class="nav-link px-3 py-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-all">Depoimentos</a>
+            <a href="#pricing" class="nav-link px-3 py-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-all">Planos</a>
+            <a href="#cta" class="nav-link px-3 py-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-all">Contato</a>
+        </div>
+        <a href="#cta" class="hidden md:inline-flex cta-btn text-sm py-2 px-5 cursor-pointer">Fale Comigo</a>
+        <!-- Mobile hamburger -->
+        <button class="md:hidden flex flex-col gap-1.5 cursor-pointer p-1" id="hamburger" aria-label="Menu" onclick="toggleMobile()">
+            <span class="block w-5 h-0.5 bg-txt rounded transition-all"></span>
+            <span class="block w-5 h-0.5 bg-txt rounded transition-all"></span>
+            <span class="block w-3.5 h-0.5 bg-txt rounded transition-all"></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex flex-col items-center justify-center px-6 relative">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="hero-animate section-label justify-center mb-6">Portfólio 2025</p>
+            <h1 class="hero-animate hero-animate-delay-1 font-display italic text-txt leading-[0.95] tracking-tight" style="font-size: clamp(3rem, 9vw, 7.5rem);">
+                Criando experiências<br>
+                <span class="gradient-text">que inspiram</span>
+            </h1>
+            <p class="hero-animate hero-animate-delay-2 text-muted text-lg md:text-xl max-w-2xl mx-auto mt-8 leading-relaxed">
+                Sou <span class="text-txt font-medium">Lucas Ferreira</span>, um
+                <span class="role-cycle" id="role-cycle">
+                    <span class="active">Designer de Interfaces</span>
+                    <span>Diretor Criativo</span>
+                    <span>Estrategista Visual</span>
+                    <span>Brand Designer</span>
+                </span>
+                <br>transformando ideias em experiências visuais memoráveis.
+            </p>
+            <div class="hero-animate hero-animate-delay-3 flex flex-wrap items-center justify-center gap-4 mt-10">
+                <a href="#features" class="cta-btn-filled cta-btn cursor-pointer">
+                    Ver Projetos
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                <a href="#cta" class="cta-btn cursor-pointer">
+                    Fale Comigo
+                </a>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <div class="hero-animate hero-animate-delay-4 absolute bottom-10 flex flex-col items-center gap-2">
+            <span class="text-muted text-xs tracking-widest uppercase">Scroll</span>
+            <div class="w-5 h-8 rounded-full border border-stroke flex items-start justify-center pt-1.5">
+                <div class="scroll-dot w-1.5 h-1.5 rounded-full bg-blue1"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="section-label justify-center">Serviços</p>
+                <h2 class="font-display italic text-txt text-4xl md:text-5xl lg:text-6xl mt-2">O que eu faço</h2>
+                <p class="text-muted mt-4 max-w-xl mx-auto">Soluções criativas sob medida para marcas que querem se destacar no mercado.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="feature-card">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(137,170,204,0.15), rgba(78,133,191,0.1));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3 class="text-txt text-xl font-semibold mb-3">Design de Interfaces</h3>
+                    <p class="text-muted text-sm leading-relaxed">Interfaces intuitivas e visualmente impactantes que conectam usuários à sua marca de forma natural e envolvente.</p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">UI Design</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">UX Research</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Protótipos</span>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="feature-card">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(137,170,204,0.15), rgba(78,133,191,0.1));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12s1.5-4 4-4 4 4 4 4-1.5 4-4 4-4-4-4-4"/></svg>
+                    </div>
+                    <h3 class="text-txt text-xl font-semibold mb-3">Identidade Visual</h3>
+                    <p class="text-muted text-sm leading-relaxed">Construção de marcas autênticas com logotipos, paletas de cores e sistemas visuais que comunicam a essência do seu negócio.</p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Branding</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Logotipos</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Guidelines</span>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="feature-card">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(137,170,204,0.15), rgba(78,133,191,0.1));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="text-txt text-xl font-semibold mb-3">Direção Criativa</h3>
+                    <p class="text-muted text-sm leading-relaxed">Estratégia visual completa para campanhas, produtos digitais e experiências de marca que geram impacto real.</p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Estratégia</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Campanhas</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-stroke text-muted">Motion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="section-label justify-center">Depoimentos</p>
+                <h2 class="font-display italic text-txt text-4xl md:text-5xl lg:text-6xl mt-2">O que dizem sobre mim</h2>
+                <p class="text-muted mt-4 max-w-xl mx-auto">Feedbacks de clientes e parceiros que confiaram no meu trabalho.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-muted text-sm leading-relaxed mb-6">"O Lucas transformou completamente a identidade da nossa startup. O resultado superou todas as expectativas — profissional, criativo e extremamente atencioso."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold" style="background: linear-gradient(135deg, #89AACC, #4E85BF); color: #0a0a0a;">MR</div>
+                        <div>
+                            <p class="text-txt text-sm font-medium">Marina Ribeiro</p>
+                            <p class="text-muted text-xs">CEO, NovaTech</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-muted text-sm leading-relaxed mb-6">"Trabalhar com o Lucas foi uma experiência incrível. Ele entendeu a essência da nossa marca e entregou um design que realmente comunica quem somos."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold" style="background: linear-gradient(135deg, #89AACC, #4E85BF); color: #0a0a0a;">PA</div>
+                        <div>
+                            <p class="text-txt text-sm font-medium">Pedro Almeida</p>
+                            <p class="text-muted text-xs">Fundador, Estúdio Vértice</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#89AACC" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-muted text-sm leading-relaxed mb-6">"Design impecável e processo super organizado. O Lucas entrega no prazo, com qualidade absurda. Já estamos planejando o próximo projeto juntos."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold" style="background: linear-gradient(135deg, #89AACC, #4E85BF); color: #0a0a0a;">CS</div>
+                        <div>
+                            <p class="text-txt text-sm font-medium">Camila Santos</p>
+                            <p class="text-muted text-xs">Diretora de Marketing, Bloom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="section-label justify-center">Planos</p>
+                <h2 class="font-display italic text-txt text-4xl md:text-5xl lg:text-6xl mt-2">Invista no seu projeto</h2>
+                <p class="text-muted mt-4 max-w-xl mx-auto">Pacotes flexíveis para cada etapa do seu negócio.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Tier 1 -->
+                <div class="pricing-card">
+                    <p class="text-muted text-sm font-medium uppercase tracking-wider mb-2">Essencial</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-txt text-4xl font-bold font-display italic">R$2.500</span>
+                    </div>
+                    <p class="text-muted text-xs mb-8">por projeto</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Design de até 5 telas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            1 rodada de revisão
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Entrega em 7 dias
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Arquivos Figma
+                        </li>
+                    </ul>
+                    <a href="#cta" class="cta-btn w-full justify-center cursor-pointer">Começar</a>
+                </div>
+                <!-- Tier 2 (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4" style="background: linear-gradient(90deg, #89AACC, #4E85BF); color: #0a0a0a;">Mais Popular</div>
+                    <p class="text-muted text-sm font-medium uppercase tracking-wider mb-2">Profissional</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-txt text-4xl font-bold font-display italic">R$5.900</span>
+                    </div>
+                    <p class="text-muted text-xs mb-8">por projeto</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Design de até 15 telas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            3 rodadas de revisão
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Design System básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Protótipo interativo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por 30 dias
+                        </li>
+                    </ul>
+                    <a href="#cta" class="cta-btn cta-btn-filled w-full justify-center cursor-pointer">Começar Agora</a>
+                </div>
+                <!-- Tier 3 -->
+                <div class="pricing-card">
+                    <p class="text-muted text-sm font-medium uppercase tracking-wider mb-2">Premium</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-txt text-4xl font-bold font-display italic">R$12.000</span>
+                    </div>
+                    <p class="text-muted text-xs mb-8">por projeto</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Telas ilimitadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Revisões ilimitadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Design System completo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Identidade visual
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Direção criativa dedicada
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-muted">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#89AACC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por 90 dias
+                        </li>
+                    </ul>
+                    <a href="#cta" class="cta-btn w-full justify-center cursor-pointer">Falar sobre o projeto</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- CTA Final Section -->
+    <section id="cta" class="py-24 md:py-32 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="section-label justify-center">Vamos Conversar</p>
+            <h2 class="font-display italic text-txt text-4xl md:text-5xl lg:text-6xl mt-2 leading-tight">
+                Pronto para transformar<br>sua <span class="gradient-text">visão em realidade</span>?
+            </h2>
+            <p class="text-muted mt-6 max-w-xl mx-auto text-lg leading-relaxed">
+                Cada grande projeto começa com uma conversa. Me conte sobre sua ideia e vamos criar algo extraordinário juntos.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-10">
+                <a href="mailto:contato@lucasferreira.design" class="cta-btn cta-btn-filled cursor-pointer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Enviar E-mail
+                </a>
+                <a href="#" class="cta-btn cursor-pointer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    Ver GitHub
+                </a>
+            </div>
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-8 mt-16 pt-12 border-t border-stroke max-w-lg mx-auto">
+                <div>
+                    <p class="text-txt text-3xl font-bold font-display italic gradient-text">50+</p>
+                    <p class="text-muted text-xs mt-1">Projetos Entregues</p>
+                </div>
+                <div>
+                    <p class="text-txt text-3xl font-bold font-display italic gradient-text">8</p>
+                    <p class="text-muted text-xs mt-1">Anos de Experiência</p>
+                </div>
+                <div>
+                    <p class="text-txt text-3xl font-bold font-display italic gradient-text">30+</p>
+                    <p class="text-muted text-xs mt-1">Clientes Satisfeitos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-stroke">
+        <div class="max-w-6xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #89AACC, #4E85BF); padding: 2px;">
+                            <div class="w-full h-full rounded-full bg-bg flex items-center justify-center">
+                                <span class="font-display italic text-txt text-sm font-bold">LF</span>
+                            </div>
+                        </div>
+                        <span class="font-display italic text-txt text-lg">Lucas Ferreira</span>
+                    </div>
+                    <p class="text-muted text-sm leading-relaxed">Designer criativo focado em experiências visuais que conectam marcas a pessoas.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3 mt-6">
+                        <a href="#" class="w-9 h-9 rounded-full border border-stroke flex items-center justify-center text-muted hover:text-txt hover:border-blue1 transition-all cursor-pointer" aria-label="Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-stroke flex items-center justify-center text-muted hover:text-txt hover:border-blue1 transition-all cursor-pointer" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-stroke flex items-center justify-center text-muted hover:text-txt hover:border-blue1 transition-all cursor-pointer" aria-label="Dribbble">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 12.56 6.44 19.25"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full border border-stroke flex items-center justify-center text-muted hover:text-txt hover:border-blue1 transition-all cursor-pointer" aria-label="Behance">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12.5h8c1.5 0 3-1 3-3s-1.5-3-3-3H1v10h8.5c1.5 0 3-1 3-2.5s-1-2.5-2.5-2.5"/><path d="M14 13.5c0-2.5 2-4.5 4.5-4.5S23 11 23 13.5 21 18 18.5 18 14 16 14 13.5z"/><line x1="15" y1="7" x2="22" y2="7"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Links -->
+                <div>
+                    <h4 class="text-txt text-sm font-semibold mb-4">Navegação</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#hero" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Início</a></li>
+                        <li><a href="#features" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Serviços</a></li>
+                        <li><a href="#testimonials" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Depoimentos</a></li>
+                        <li><a href="#pricing" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Planos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-txt text-sm font-semibold mb-4">Serviços</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">UI/UX Design</a></li>
+                        <li><a href="#" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Identidade Visual</a></li>
+                        <li><a href="#" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Direção Criativa</a></li>
+                        <li><a href="#" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Design System</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-txt text-sm font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="mailto:contato@lucasferreira.design" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">contato@lucasferreira.design</a></li>
+                        <li><span class="text-muted text-sm">São Paulo, Brasil</span></li>
+                        <li><a href="#" class="text-muted text-sm hover:text-txt transition-colors cursor-pointer">Agendar Reunião</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Bottom bar -->
+            <div class="border-t border-stroke mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-muted text-xs">&copy; 2026 Lucas Ferreira. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-muted text-xs hover:text-txt transition-colors cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-muted text-xs hover:text-txt transition-colors cursor-pointer">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Loading Screen - Counter 000→100 via requestAnimationFrame + rotating words + gradient progress bar
+        (function() {
+            const counter = document.getElementById('loading-counter');
+            const progress = document.getElementById('loading-progress');
+            const screen = document.getElementById('loading-screen');
+            const wordContainer = document.getElementById('loading-word');
+            const words = wordContainer.querySelectorAll('span');
+            const duration = 2700; // 2.7s
+            let startTime = null;
+            let currentWordIndex = 0;
+            const wordInterval = duration / words.length;
+
+            function padNumber(n) {
+                return String(Math.floor(n)).padStart(3, '0');
+            }
+
+            function animateLoading(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progressVal = Math.min(elapsed / duration, 1);
+                const count = Math.floor(progressVal * 100);
+
+                counter.textContent = padNumber(count);
+                progress.style.width = (progressVal * 100) + '%';
+
+                // Rotate words
+                const newWordIndex = Math.min(Math.floor(elapsed / wordInterval), words.length - 1);
+                if (newWordIndex !== currentWordIndex) {
+                    words[currentWordIndex].classList.remove('active');
+                    currentWordIndex = newWordIndex;
+                    words[currentWordIndex].classList.add('active');
+                }
+
+                if (progressVal < 1) {
+                    requestAnimationFrame(animateLoading);
+                } else {
+                    counter.textContent = '100';
+                    setTimeout(function() {
+                        screen.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }, 300);
+                }
+            }
+
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(animateLoading);
+        })();
+
+        // Role Cycling - every 2s
+        (function() {
+            const container = document.getElementById('role-cycle');
+            const roles = container.querySelectorAll('span');
+            let current = 0;
+
+            setInterval(function() {
+                roles[current].classList.remove('active');
+                current = (current + 1) % roles.length;
+                roles[current].classList.add('active');
+            }, 2000);
+        })();
+
+        // Mobile Menu
+        function toggleMobile() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+        function closeMobile() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.remove('open');
+        }
+
+        // Navbar background on scroll
+        (function() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 80) {
+                    navbar.style.borderColor = 'rgba(137,170,204,0.15)';
+                } else {
+                    navbar.style.borderColor = '';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Logoisum — Agência Premium de Edição de Vídeo. Transformamos suas ideias em vídeos virais com edição profissional, color grading e motion graphics de alto nível.">
+    <meta name="keywords" content="edição de vídeo, agência de vídeo, reels virais, motion graphics, color grading, produção audiovisual, vídeo profissional">
+    <meta name="author" content="Logoisum Video Agency">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Logoisum — Agência Premium de Edição de Vídeo">
+    <meta property="og:description" content="Transformamos suas ideias em vídeos virais. Edição profissional, color grading e motion graphics de alto nível.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://logoisum.com.br">
+    <meta property="og:image" content="https://logoisum.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Logoisum — Agência Premium de Edição de Vídeo">
+    <meta name="twitter:description" content="Transformamos suas ideias em vídeos virais com edição profissional de alto nível.">
+    <title>Logoisum — Agência Premium de Edição de Vídeo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#222222',
+                        'brand-black': '#000000',
+                        'brand-gray': '#F5F5F5',
+                        'brand-text': '#666666',
+                        'brand-soft': '#333333',
+                    },
+                    fontFamily: {
+                        'barlow': ['Barlow', 'sans-serif'],
+                        'instrument': ['Instrument Serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-navbar: #FFFFFF;
+            --bg-button: #222222;
+            --text-primary: #000000;
+            --font-body: 'Barlow', sans-serif;
+            --font-display: 'Instrument Serif', serif;
+            --navbar-radius: 16px;
+            --display-size: 84px;
+            --tracking-tight: -4px;
+            --min-height: 90vh;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); overflow-x: hidden; }
+
+        /* ===== ANIMATED VIDEO BACKGROUND ===== */
+        .video-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .video-bg::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse 600px 400px at 20% 30%, rgba(80, 60, 120, 0.4) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 70% 60%, rgba(40, 80, 130, 0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 300px at 50% 80%, rgba(120, 50, 80, 0.3) 0%, transparent 70%),
+                radial-gradient(ellipse 350px 250px at 80% 20%, rgba(60, 100, 80, 0.25) 0%, transparent 70%);
+            animation: videoShift 12s ease-in-out infinite alternate;
+        }
+
+        .video-bg::after {
+            content: '';
+            position: absolute;
+            inset: -30%;
+            width: 160%;
+            height: 160%;
+            background: 
+                radial-gradient(ellipse 450px 300px at 60% 40%, rgba(100, 70, 140, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 380px 280px at 30% 70%, rgba(50, 90, 140, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse 320px 220px at 75% 25%, rgba(140, 60, 90, 0.2) 0%, transparent 60%);
+            animation: videoShift2 15s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes videoShift {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(-5%, 3%) rotate(2deg) scale(1.05); }
+            50% { transform: translate(3%, -4%) rotate(-1deg) scale(1.02); }
+            75% { transform: translate(-3%, 5%) rotate(3deg) scale(1.08); }
+            100% { transform: translate(5%, -2%) rotate(-2deg) scale(1.03); }
+        }
+
+        @keyframes videoShift2 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1.05); }
+            33% { transform: translate(4%, -3%) rotate(-2deg) scale(1); }
+            66% { transform: translate(-4%, 4%) rotate(2deg) scale(1.1); }
+            100% { transform: translate(2%, -5%) rotate(-1deg) scale(1.02); }
+        }
+
+        /* Geometric shapes overlay */
+        .geo-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .geo-shape {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        .geo-shape:nth-child(1) {
+            width: 300px; height: 300px;
+            top: 10%; left: 5%;
+            border-radius: 50%;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .geo-shape:nth-child(2) {
+            width: 200px; height: 200px;
+            top: 60%; right: 10%;
+            transform: rotate(45deg);
+            animation-delay: -3s;
+            animation-duration: 22s;
+        }
+
+        .geo-shape:nth-child(3) {
+            width: 150px; height: 150px;
+            bottom: 20%; left: 30%;
+            border-radius: 30%;
+            animation-delay: -6s;
+            animation-duration: 16s;
+        }
+
+        .geo-shape:nth-child(4) {
+            width: 250px; height: 250px;
+            top: 30%; right: 25%;
+            border-radius: 50%;
+            border-color: rgba(255, 255, 255, 0.04);
+            animation-delay: -9s;
+            animation-duration: 25s;
+        }
+
+        .geo-shape:nth-child(5) {
+            width: 180px; height: 180px;
+            bottom: 10%; right: 5%;
+            transform: rotate(30deg);
+            border-radius: 20%;
+            animation-delay: -4s;
+            animation-duration: 20s;
+        }
+
+        .geo-shape:nth-child(6) {
+            width: 120px; height: 120px;
+            top: 5%; right: 40%;
+            border-radius: 50%;
+            border-color: rgba(255, 255, 255, 0.08);
+            animation-delay: -7s;
+            animation-duration: 14s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            25% { transform: translateY(-30px) rotate(5deg); opacity: 0.8; }
+            50% { transform: translateY(15px) rotate(-3deg); opacity: 0.4; }
+            75% { transform: translateY(-20px) rotate(7deg); opacity: 0.7; }
+        }
+
+        /* Film grain effect */
+        .film-grain {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grain 0.5s steps(1) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-2%, -3%); }
+            20% { transform: translate(3%, 1%); }
+            30% { transform: translate(-1%, 2%); }
+            40% { transform: translate(2%, -2%); }
+            50% { transform: translate(-3%, 3%); }
+            60% { transform: translate(1%, -1%); }
+            70% { transform: translate(-2%, 2%); }
+            80% { transform: translate(3%, -3%); }
+            90% { transform: translate(-1%, 1%); }
+        }
+
+        /* Scan lines */
+        .scan-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.015) 2px,
+                rgba(0, 0, 0, 0.015) 4px
+            );
+        }
+
+        /* Light leak animation */
+        .light-leak {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255, 200, 150, 0.05) 0%, transparent 40%, transparent 60%, rgba(150, 180, 255, 0.04) 100%);
+            animation: leakShift 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes leakShift {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+            100% { opacity: 0.4; transform: scale(0.98); }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar-floating {
+            background: var(--bg-navbar);
+            border-radius: var(--navbar-radius);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar-floating.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-link {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--bg-button);
+        }
+
+        /* ===== CTA BUTTON WITH ARROW ===== */
+        .cta-btn-dark {
+            background: var(--bg-button);
+            color: #FFFFFF;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 12px 12px 24px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .cta-btn-dark:hover {
+            background: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-btn-dark:hover .arrow-housing {
+            transform: rotate(0deg);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .arrow-housing {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(-45deg);
+        }
+
+        /* ===== HERO HEADLINE ===== */
+        .hero-headline-barlow {
+            font-family: var(--font-body);
+            font-weight: 800;
+            letter-spacing: var(--tracking-tight);
+            color: #FFFFFF;
+            line-height: 1;
+        }
+
+        .hero-headline-instrument {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: var(--display-size);
+            color: #FFFFFF;
+            line-height: 1.05;
+        }
+
+        /* ===== PLAY BUTTON ===== */
+        .play-btn-pill {
+            background: #FFFFFF;
+            color: var(--text-primary);
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 36px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .play-btn-pill:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .play-icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-button);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn-pill:hover .play-icon-circle {
+            transform: scale(1.1);
+        }
+
+        /* ===== FEATURE CARDS ===== */
+        .feature-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bg-button), #555);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--bg-button);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon-box {
+            transform: scale(1.08) rotate(-3deg);
+        }
+
+        /* ===== TESTIMONIAL CARDS ===== */
+        .testimonial-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.07);
+        }
+
+        .testimonial-card .quote-mark {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 64px;
+            color: rgba(0, 0, 0, 0.06);
+            line-height: 1;
+            position: absolute;
+            top: 20px;
+            left: 28px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
+        }
+
+        /* ===== PRICING CARDS ===== */
+        .pricing-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 44px 36px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            background: var(--bg-button);
+            color: #FFFFFF;
+            border-color: transparent;
+            transform: scale(1.05);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #FFFFFF;
+            color: var(--bg-button);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .pricing-btn-dark {
+            background: var(--bg-button);
+            color: #FFFFFF;
+        }
+
+        .pricing-btn-dark:hover {
+            background: #000000;
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn-light {
+            background: #FFFFFF;
+            color: var(--bg-button);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .pricing-btn-light:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn-outline {
+            background: transparent;
+            color: var(--bg-button);
+            border: 2px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .pricing-btn-outline:hover {
+            background: var(--bg-button);
+            color: #FFFFFF;
+            border-color: var(--bg-button);
+            transform: translateY(-2px);
+        }
+
+        /* ===== CTA FINAL SECTION ===== */
+        .cta-final-section {
+            background: var(--bg-button);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: ctaFloat 15s ease-in-out infinite;
+        }
+
+        .cta-final-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            animation: ctaFloat 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes ctaFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -30px) scale(1.05); }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-link {
+            color: var(--brand-text);
+            font-family: var(--font-body);
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-button);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-headline-barlow {
+                font-size: 48px !important;
+                letter-spacing: -2px;
+            }
+            .hero-headline-instrument {
+                font-size: 52px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-headline-barlow {
+                font-size: 36px !important;
+                letter-spacing: -1.5px;
+            }
+            .hero-headline-instrument {
+                font-size: 40px !important;
+            }
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline-barlow {
+                font-size: 28px !important;
+                letter-spacing: -1px;
+            }
+            .hero-headline-instrument {
+                font-size: 32px !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-barlow bg-white">
+
+    <!-- ===== MOBILE MENU ===== -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMobileMenu" class="absolute top-6 right-6 cursor-pointer" aria-label="Fechar menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <a href="#inicio" class="nav-link cursor-pointer">Início</a>
+        <a href="#servicos" class="nav-link cursor-pointer">Serviços</a>
+        <a href="#depoimentos" class="nav-link cursor-pointer">Depoimentos</a>
+        <a href="#precos" class="nav-link cursor-pointer">Preços</a>
+        <a href="#contato" class="nav-link cursor-pointer">Contato</a>
+        <a href="#contato" class="cta-btn-dark cursor-pointer mt-4">
+            Começar Agora
+            <span class="arrow-housing">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+        </a>
+    </div>
+
+    <!-- ===== HERO SECTION WITH VIDEO BACKGROUND ===== -->
+    <section id="inicio" class="relative" style="min-height: var(--min-height);">
+        <!-- Animated Video Background -->
+        <div class="video-bg">
+            <div class="geo-shapes">
+                <div class="geo-shape"></div>
+                <div class="geo-shape"></div>
+                <div class="geo-shape"></div>
+                <div class="geo-shape"></div>
+                <div class="geo-shape"></div>
+                <div class="geo-shape"></div>
+            </div>
+            <div class="film-grain"></div>
+            <div class="scan-lines"></div>
+            <div class="light-leak"></div>
+        </div>
+
+        <!-- Floating White Navbar -->
+        <nav class="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-8 md:pt-6">
+            <div class="navbar-floating max-w-6xl mx-auto px-6 py-3 md:px-8 md:py-4 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#inicio" class="flex items-center gap-2 cursor-pointer">
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#222222"/>
+                        <path d="M10 8L24 16L10 24V8Z" fill="white"/>
+                    </svg>
+                    <span class="font-barlow font-bold text-lg tracking-tight text-brand-dark">Logoisum</span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#inicio" class="nav-link cursor-pointer">Início</a>
+                    <a href="#servicos" class="nav-link cursor-pointer">Serviços</a>
+                    <a href="#depoimentos" class="nav-link cursor-pointer">Depoimentos</a>
+                    <a href="#precos" class="nav-link cursor-pointer">Preços</a>
+                    <a href="#contato" class="nav-link cursor-pointer">Contato</a>
+                </div>
+
+                <!-- Desktop CTA -->
+                <a href="#contato" class="hidden md:inline-flex cta-btn-dark cursor-pointer">
+                    Começar Agora
+                    <span class="arrow-housing">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </a>
+
+                <!-- Mobile Hamburger -->
+                <button id="openMobileMenu" class="md:hidden cursor-pointer" aria-label="Abrir menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 flex flex-col items-center justify-center text-center px-4" style="min-height: var(--min-height); padding-top: 120px; padding-bottom: 80px;">
+            <!-- Small Tag -->
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-5 py-2 mb-8 border border-white/10">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-white/80 font-barlow font-medium text-sm">Aceitando novos projetos para 2026</span>
+            </div>
+
+            <!-- Two-line Headline -->
+            <h1 class="mb-6">
+                <span class="hero-headline-barlow block text-6xl md:text-7xl lg:text-[84px]">Transformamos Ideias</span>
+                <span class="hero-headline-instrument block text-6xl md:text-7xl lg:text-[84px] mt-1">em Vídeos Virais</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-white/70 font-barlow text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                Somos uma agência premium de edição de vídeo especializada em reels virais, 
+                motion graphics e conteúdo que gera resultados reais para marcas ambiciosas.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <a href="#contato" class="cta-btn-dark text-base px-8 py-4 cursor-pointer">
+                    Solicitar Orçamento
+                    <span class="arrow-housing">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </a>
+                <button class="play-btn-pill cursor-pointer">
+                    <span class="play-icon-circle">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                    </span>
+                    Ver Showreel
+                </button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 mt-16 pt-8 border-t border-white/10">
+                <div class="text-center">
+                    <span class="block text-white font-barlow font-bold text-3xl md:text-4xl">500+</span>
+                    <span class="text-white/50 font-barlow text-sm mt-1">Projetos Entregues</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-white font-barlow font-bold text-3xl md:text-4xl">98%</span>
+                    <span class="text-white/50 font-barlow text-sm mt-1">Clientes Satisfeitos</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-white font-barlow font-bold text-3xl md:text-4xl">2M+</span>
+                    <span class="text-white/50 font-barlow text-sm mt-1">Visualizações Geradas</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-white font-barlow font-bold text-3xl md:text-4xl">24h</span>
+                    <span class="text-white/50 font-barlow text-sm mt-1">Tempo de Resposta</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-white/40 font-barlow text-xs tracking-widest uppercase">Scroll</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES / SERVIÇOS SECTION ===== -->
+    <section id="servicos" class="py-24 md:py-32 bg-brand-gray">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 md:mb-20 fade-up">
+                <span class="inline-block font-barlow font-semibold text-xs tracking-[3px] uppercase text-brand-text mb-4">Nossos Serviços</span>
+                <h2 class="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-brand-dark mb-6">
+                    O que fazemos de
+                    <span class="font-instrument italic font-normal"> melhor</span>
+                </h2>
+                <p class="text-brand-text font-barlow text-lg max-w-2xl mx-auto leading-relaxed">
+                    Oferecemos um conjunto completo de serviços de produção audiovisual para transformar 
+                    a presença digital da sua marca com conteúdo de alta performance.
+                </p>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Card 1: Edição de Vídeo -->
+                <div class="feature-card fade-up">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="23 7 16 12 23 17 23 7"/>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Edição de Vídeo Profissional</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        Cortes precisos, ritmo envolvente e narrativa visual que prende a atenção do início ao fim. 
+                        Utilizamos as ferramentas mais avançadas do mercado como DaVinci Resolve, Premiere Pro e 
+                        After Effects para entregar resultados cinematográficos. Cada projeto passa por um rigoroso 
+                        processo de revisão para garantir a máxima qualidade em cada frame.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Cortes Dinâmicos</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Storytelling</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">4K/8K</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Motion Graphics -->
+                <div class="feature-card fade-up" style="transition-delay: 0.1s;">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Motion Graphics & Animação</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        Animações fluidas e motion graphics que elevam qualquer conteúdo a outro patamar. 
+                        Criamos intros impactantes, lower thirds elegantes, transições personalizadas e 
+                        infográficos animados que comunicam dados complexos de forma visual e memorável. 
+                        Nosso time domina After Effects, Cinema 4D e Blender para resultados surpreendentes.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">After Effects</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">3D Motion</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Infográficos</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Reels & Social -->
+                <div class="feature-card fade-up" style="transition-delay: 0.2s;">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Reels Virais & Social Media</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        Conteúdo otimizado para Instagram, TikTok e YouTube Shorts que viraliza de verdade. 
+                        Entendemos os algoritmos, as tendências e o timing perfeito para maximizar o alcance 
+                        orgânico. Criamos reels com hooks poderosos, legendas dinâmicas e edição no ritmo 
+                        que mantém o espectador grudado até o final do vídeo.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Instagram</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">TikTok</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">YouTube</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Color Grading -->
+                <div class="feature-card fade-up">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 2a7 7 0 0 0 0 14 4 4 0 0 1 0 8 10 10 0 0 0 0-20z"/>
+                            <circle cx="12" cy="9" r="2" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Color Grading Cinematográfico</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        Transformamos a atmosfera dos seus vídeos com color grading profissional que define 
+                        o mood perfeito para cada projeto. Desde looks cinematográficos quentes até paletas 
+                        frias e modernas, nossos coloristas trabalham com DaVinci Resolve para criar uma 
+                        identidade visual única e consistente para sua marca.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">DaVinci Resolve</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">LUTs Custom</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">HDR</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: Sound Design -->
+                <div class="feature-card fade-up" style="transition-delay: 0.1s;">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Sound Design & Mixagem</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        O áudio é 50% da experiência. Nosso time de sound designers cria paisagens sonoras 
+                        imersivas, seleciona trilhas que potencializam a emoção e realiza mixagem profissional 
+                        que garante clareza em qualquer dispositivo. Efeitos sonoros personalizados, voice-over 
+                        e sincronização labial perfeita para cada projeto.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Trilha Sonora</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">SFX</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Mixagem</span>
+                    </div>
+                </div>
+
+                <!-- Card 6: Estratégia de Conteúdo -->
+                <div class="feature-card fade-up" style="transition-delay: 0.2s;">
+                    <div class="feature-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-barlow font-bold text-xl text-brand-dark mb-3">Estratégia de Conteúdo</h3>
+                    <p class="text-brand-text font-barlow text-[15px] leading-relaxed mb-6">
+                        Não apenas editamos — planejamos. Nossa equipe de estrategistas analisa seu público-alvo, 
+                        tendências do mercado e métricas de performance para criar um calendário de conteúdo 
+                        que maximiza engajamento e conversões. Relatórios mensais detalhados com insights 
+                        acionáveis para otimizar continuamente seus resultados.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Planejamento</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">Analytics</span>
+                        <span class="inline-block bg-brand-gray text-brand-text font-barlow text-xs font-medium px-3 py-1.5 rounded-full">ROI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS SECTION ===== -->
+    <section id="depoimentos" class="py-24 md:py-32 bg-white">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 md:mb-20 fade-up">
+                <span class="inline-block font-barlow font-semibold text-xs tracking-[3px] uppercase text-brand-text mb-4">Depoimentos</span>
+                <h2 class="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-brand-dark mb-6">
+                    O que nossos clientes
+                    <span class="font-instrument italic font-normal"> dizem</span>
+                </h2>
+                <p class="text-brand-text font-barlow text-lg max-w-2xl mx-auto leading-relaxed">
+                    Mais de 500 marcas já confiaram na Logoisum para transformar sua presença digital. 
+                    Veja o que alguns dos nossos parceiros têm a dizer sobre a experiência.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card fade-up">
+                    <span class="quote-mark">"</span>
+                    <div class="stars mt-6">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-brand-soft font-barlow text-[15px] leading-relaxed mb-6">
+                        "A Logoisum transformou completamente a presença digital da nossa marca. Os reels que eles 
+                        produzem consistentemente alcançam mais de 100 mil visualizações. O nível de profissionalismo 
+                        e atenção aos detalhes é incomparável. Nosso engajamento no Instagram cresceu 340% em apenas 
+                        três meses de parceria. Recomendo fortemente para qualquer marca que leve conteúdo a sério."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                        <div class="w-11 h-11 rounded-full bg-brand-dark flex items-center justify-center">
+                            <span class="text-white font-barlow font-bold text-sm">MR</span>
+                        </div>
+                        <div>
+                            <span class="block font-barlow font-semibold text-sm text-brand-dark">Marina Rodrigues</span>
+                            <span class="block font-barlow text-xs text-brand-text">CEO, Bloom Cosméticos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card fade-up" style="transition-delay: 0.1s;">
+                    <span class="quote-mark">"</span>
+                    <div class="stars mt-6">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-brand-soft font-barlow text-[15px] leading-relaxed mb-6">
+                        "Trabalhar com a equipe da Logoisum foi uma experiência incrível. Eles entenderam 
+                        perfeitamente a identidade da nossa marca e traduziram isso em vídeos que realmente 
+                        conectam com nosso público. O color grading cinematográfico que aplicam é de outro 
+                        nível — parece que cada frame foi pintado à mão. Nosso canal no YouTube dobrou de 
+                        inscritos desde que começamos a parceria."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                        <div class="w-11 h-11 rounded-full bg-brand-dark flex items-center justify-center">
+                            <span class="text-white font-barlow font-bold text-sm">TA</span>
+                        </div>
+                        <div>
+                            <span class="block font-barlow font-semibold text-sm text-brand-dark">Thiago Almeida</span>
+                            <span class="block font-barlow text-xs text-brand-text">Diretor de Marketing, TechFlow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card fade-up" style="transition-delay: 0.2s;">
+                    <span class="quote-mark">"</span>
+                    <div class="stars mt-6">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-brand-soft font-barlow text-[15px] leading-relaxed mb-6">
+                        "Eu já trabalhei com diversas agências de vídeo, mas nenhuma chegou perto do nível 
+                        da Logoisum. A velocidade de entrega é impressionante sem comprometer a qualidade. 
+                        Os motion graphics que criaram para nossa campanha de lançamento geraram mais de 
+                        2 milhões de impressões em uma semana. O ROI do investimento em vídeo com eles 
+                        é simplesmente absurdo. Parceria de longo prazo garantida."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                        <div class="w-11 h-11 rounded-full bg-brand-dark flex items-center justify-center">
+                            <span class="text-white font-barlow font-bold text-sm">CS</span>
+                        </div>
+                        <div>
+                            <span class="block font-barlow font-semibold text-sm text-brand-dark">Camila Santos</span>
+                            <span class="block font-barlow text-xs text-brand-text">Fundadora, Viva Fitness</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Logos -->
+            <div class="mt-16 md:mt-20 text-center fade-up">
+                <p class="text-brand-text font-barlow text-sm mb-8 tracking-wide uppercase">Marcas que confiam na Logoisum</p>
+                <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16 opacity-30">
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">Bloom</span>
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">TechFlow</span>
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">Viva</span>
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">NexGen</span>
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">Pulse</span>
+                    <span class="font-barlow font-bold text-2xl text-brand-dark">Zenith</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING SECTION ===== -->
+    <section id="precos" class="py-24 md:py-32 bg-brand-gray">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 md:mb-20 fade-up">
+                <span class="inline-block font-barlow font-semibold text-xs tracking-[3px] uppercase text-brand-text mb-4">Planos & Preços</span>
+                <h2 class="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-brand-dark mb-6">
+                    Invista no crescimento
+                    <span class="font-instrument italic font-normal"> da sua marca</span>
+                </h2>
+                <p class="text-brand-text font-barlow text-lg max-w-2xl mx-auto leading-relaxed">
+                    Planos flexíveis pensados para cada estágio do seu negócio. Todos incluem 
+                    revisões ilimitadas e suporte dedicado via WhatsApp.
+                </p>
+            </div>
+
+            <!-- Pricing Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+                <!-- Tier 1: Starter -->
+                <div class="pricing-card fade-up">
+                    <div class="mb-8">
+                        <h3 class="font-barlow font-bold text-xl text-brand-dark mb-2">Starter</h3>
+                        <p class="text-brand-text font-barlow text-sm leading-relaxed">
+                            Ideal para criadores de conteúdo e pequenos negócios que estão começando a investir em vídeo profissional.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-barlow font-bold text-5xl text-brand-dark">R$1.497</span>
+                            <span class="text-brand-text font-barlow text-sm">/mês</span>
+                        </div>
+                        <span class="text-brand-text font-barlow text-xs mt-1 block">Faturamento mensal • Cancele quando quiser</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">4 vídeos editados por mês (até 60s cada)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Legendas dinâmicas e animadas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Color grading básico incluso</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">2 rodadas de revisão por vídeo</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Entrega em até 72 horas úteis</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Suporte via WhatsApp em horário comercial</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="pricing-btn pricing-btn-outline cursor-pointer transition-all">Começar com Starter</a>
+                </div>
+
+                <!-- Tier 2: Profissional (Featured) -->
+                <div class="pricing-card featured fade-up" style="transition-delay: 0.1s;">
+                    <span class="pricing-badge">Mais Popular</span>
+                    <div class="mb-8">
+                        <h3 class="font-barlow font-bold text-xl mb-2">Profissional</h3>
+                        <p class="text-white/70 font-barlow text-sm leading-relaxed">
+                            Para marcas em crescimento que precisam de volume e qualidade premium com motion graphics avançado.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-barlow font-bold text-5xl">R$3.497</span>
+                            <span class="text-white/60 font-barlow text-sm">/mês</span>
+                        </div>
+                        <span class="text-white/50 font-barlow text-xs mt-1 block">Faturamento mensal • Economia de 20% no anual</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">10 vídeos editados por mês (até 90s cada)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Motion graphics e animações personalizadas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Color grading cinematográfico avançado</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Revisões ilimitadas em cada projeto</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Sound design e trilha sonora licenciada</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Entrega prioritária em 48 horas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-white/80">Gerente de conta dedicado 24/7</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="pricing-btn pricing-btn-light cursor-pointer transition-all">Escolher Profissional</a>
+                </div>
+
+                <!-- Tier 3: Enterprise -->
+                <div class="pricing-card fade-up" style="transition-delay: 0.2s;">
+                    <div class="mb-8">
+                        <h3 class="font-barlow font-bold text-xl text-brand-dark mb-2">Enterprise</h3>
+                        <p class="text-brand-text font-barlow text-sm leading-relaxed">
+                            Solução completa para grandes marcas e agências que precisam de produção em escala com qualidade premium.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-barlow font-bold text-5xl text-brand-dark">Custom</span>
+                        </div>
+                        <span class="text-brand-text font-barlow text-xs mt-1 block">Proposta personalizada • Contrato flexível</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Vídeos ilimitados por mês</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Equipe dedicada exclusiva para sua marca</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Produção completa: roteiro à pós-produção</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Estratégia de conteúdo mensal personalizada</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Relatórios de performance e analytics</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Entrega express em 24 horas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-dark flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span class="font-barlow text-sm text-brand-soft">Suporte prioritário 24/7 com SLA garantido</span>
+                        </li>
+                    </ul>
+                    <a href="#contato" class="pricing-btn pricing-btn-dark cursor-pointer transition-all">Falar com Especialista</a>
+                </div>
+            </div>
+
+            <!-- Pricing Note -->
+            <div class="text-center mt-12 fade-up">
+                <p class="text-brand-text font-barlow text-sm">
+                    Todos os planos incluem: armazenamento em nuvem, formatos otimizados para cada rede social e garantia de satisfação.
+                    <br class="hidden md:block">
+                    Precisa de algo diferente? <a href="#contato" class="text-brand-dark font-semibold underline cursor-pointer hover:text-black transition-colors">Entre em contato</a> para um plano personalizado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA FINAL SECTION ===== -->
+    <section class="cta-final-section py-24 md:py-32">
+        <div class="max-w-4xl mx-auto px-4 md:px-8 text-center relative z-10">
+            <div class="fade-up">
+                <span class="inline-block font-barlow font-semibold text-xs tracking-[3px] uppercase text-white/50 mb-6">Pronto para começar?</span>
+                <h2 class="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-white mb-4">
+                    Vamos criar algo
+                </h2>
+                <h2 class="font-instrument italic text-4xl md:text-5xl lg:text-6xl text-white mb-8">
+                    extraordinário juntos
+                </h2>
+                <p class="text-white/60 font-barlow text-lg max-w-xl mx-auto leading-relaxed mb-10">
+                    Agende uma call gratuita de 30 minutos com nosso time criativo. 
+                    Vamos entender seu projeto, apresentar ideias e mostrar como podemos 
+                    transformar sua visão em vídeos que geram resultados reais.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contato" class="inline-flex items-center gap-3 bg-white text-brand-dark rounded-full px-8 py-4 font-barlow font-semibold text-base cursor-pointer transition-all hover:bg-gray-100 hover:translate-y-[-2px] hover:shadow-lg">
+                        Agendar Call Gratuita
+                        <span class="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center transition-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </span>
+                    </a>
+                    <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-transparent text-white border border-white/20 rounded-full px-8 py-4 font-barlow font-semibold text-base cursor-pointer transition-all hover:bg-white/10 hover:translate-y-[-2px]">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        WhatsApp Direto
+                    </a>
+                </div>
+            </div>
+
+            <!-- Trust Elements -->
+            <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-14 pt-8 border-t border-white/10">
+                <div class="flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="text-white/50 font-barlow text-sm">Dados protegidos</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span class="text-white/50 font-barlow text-sm">Resposta em 24h</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span class="text-white/50 font-barlow text-sm">Satisfação garantida</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="contato" class="bg-brand-dark py-16 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 md:px-8">
+            <!-- Footer Top -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 mb-16">
+                <!-- Column 1: Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#inicio" class="flex items-center gap-2 mb-5 cursor-pointer">
+                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="white"/>
+                            <path d="M10 8L24 16L10 24V8Z" fill="#222"/>
+                        </svg>
+                        <span class="font-barlow font-bold text-lg tracking-tight text-white">Logoisum</span>
+                    </a>
+                    <p class="text-white/50 font-barlow text-sm leading-relaxed mb-6 max-w-xs">
+                        Agência premium de edição de vídeo. Transformamos ideias em conteúdo visual 
+                        que gera resultados reais para marcas ambiciosas desde 2020.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <a href="https://instagram.com/logoisum" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://youtube.com/@logoisum" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                        </a>
+                        <a href="https://tiktok.com/@logoisum" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.87a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.3z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/company/logoisum" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="https://twitter.com/logoisum" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="X (Twitter)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navegação -->
+                <div>
+                    <h4 class="font-barlow font-bold text-sm text-white mb-5 tracking-wide uppercase">Navegação</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Início</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Serviços</a></li>
+                        <li><a href="#depoimentos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Depoimentos</a></li>
+                        <li><a href="#precos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Preços</a></li>
+                        <li><a href="#contato" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Contato</a></li>
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Portfólio</a></li>
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Serviços -->
+                <div>
+                    <h4 class="font-barlow font-bold text-sm text-white mb-5 tracking-wide uppercase">Serviços</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Edição de Vídeo</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Motion Graphics</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Reels & Social Media</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Color Grading</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Sound Design</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Estratégia de Conteúdo</a></li>
+                        <li><a href="#servicos" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Produção Audiovisual</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contato & Legal -->
+                <div>
+                    <h4 class="font-barlow font-bold text-sm text-white mb-5 tracking-wide uppercase">Contato</h4>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:contato@logoisum.com.br" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">contato@logoisum.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:+5511999999999" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">+55 (11) 99999-9999</a>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg width="16" height="16" class="flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span class="footer-link text-white/50">São Paulo, SP — Brasil</span>
+                        </li>
+                    </ul>
+                    <h4 class="font-barlow font-bold text-sm text-white mb-4 tracking-wide uppercase">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Política de Privacidade</a></li>
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Termos de Uso</a></li>
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">Política de Cookies</a></li>
+                        <li><a href="#" class="footer-link text-white/50 hover:text-white cursor-pointer transition-all">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Divider -->
+            <div class="border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-white/30 font-barlow text-sm text-center md:text-left">
+                        &copy; 2026 Logoisum Video Agency. Todos os direitos reservados. CNPJ: 00.000.000/0001-00
+                    </p>
+                    <div class="flex items-center gap-6">
+                        <a href="#" class="text-white/30 font-barlow text-xs hover:text-white/60 cursor-pointer transition-all">Sitemap</a>
+                        <a href="#" class="text-white/30 font-barlow text-xs hover:text-white/60 cursor-pointer transition-all">Acessibilidade</a>
+                        <a href="#" class="text-white/30 font-barlow text-xs hover:text-white/60 cursor-pointer transition-all">Trabalhe Conosco</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== Mobile Menu Toggle =====
+        const openBtn = document.getElementById('openMobileMenu');
+        const closeBtn = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (openBtn && closeBtn && mobileMenu) {
+            openBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Close menu when clicking a link
+            mobileMenu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // ===== Navbar Scroll Effect =====
+        const navbar = document.querySelector('.navbar-floating');
+        if (navbar) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // ===== Scroll Reveal Animation =====
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.fade-up');
+            const windowHeight = window.innerHeight;
+            const revealPoint = 120;
+
+            elements.forEach(function(el) {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ===== Smooth Scroll for Anchor Links =====
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navbarHeight = 100;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ===== Counter Animation for Stats =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-counter]');
+            counters.forEach(function(counter) {
+                const target = parseInt(counter.getAttribute('data-counter'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                function updateCounter() {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                }
+
+                updateCounter();
+            });
+        }
+
+        // ===== Play Button Interaction =====
+        const playBtn = document.querySelector('.play-btn-pill');
+        if (playBtn) {
+            playBtn.addEventListener('click', function() {
+                // Simulated showreel modal behavior
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:200;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s ease;';
+                
+                const content = document.createElement('div');
+                content.style.cssText = 'text-align:center;color:white;';
+                content.innerHTML = '<div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div><p style="font-family:Barlow,sans-serif;font-size:18px;opacity:0.7;">Showreel em breve</p><p style="font-family:Barlow,sans-serif;font-size:14px;opacity:0.4;margin-top:8px;">Clique para fechar</p>';
+                
+                overlay.appendChild(content);
+                document.body.appendChild(overlay);
+                document.body.style.overflow = 'hidden';
+
+                requestAnimationFrame(function() {
+                    overlay.style.opacity = '1';
+                });
+
+                overlay.addEventListener('click', function() {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() {
+                        document.body.removeChild(overlay);
+                        document.body.style.overflow = '';
+                    }, 300);
+                });
+            });
+        }
+
+        // ===== Keyboard Accessibility =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close mobile menu
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                // Close any overlay
+                const overlay = document.querySelector('[style*="z-index:200"]');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() {
+                        if (overlay.parentNode) {
+                            overlay.parentNode.removeChild(overlay);
+                        }
+                        document.body.style.overflow = '';
+                    }, 300);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

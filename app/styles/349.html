@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthFlow — Gestão Patrimonial Inteligente</title>
+    <meta name="description" content="WealthFlow é a plataforma premium de gestão patrimonial e investimentos inteligentes. Tecnologia de ponta para maximizar seus rendimentos com segurança.">
+    <meta name="keywords" content="fintech, gestão patrimonial, investimentos, wealth management, plataforma financeira">
+    <meta name="author" content="WealthFlow">
+    <meta property="og:title" content="WealthFlow — Gestão Patrimonial Inteligente">
+    <meta property="og:description" content="Plataforma premium de gestão patrimonial e investimentos inteligentes. Maximize seus rendimentos com tecnologia de ponta.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wealthflow.com.br">
+    <meta property="og:image" content="https://wealthflow.com.br/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wf-black': '#000000',
+                        'wf-dark': '#1A1A1A',
+                        'wf-soft': '#111111',
+                        'wf-gray': '#888888',
+                        'wf-light': '#CCCCCC',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --text-primary: #FFFFFF;
+            --glass-bg: rgba(0,0,0,0.7);
+            --glass-border: rgba(255,255,255,0.1);
+            --blur: 24px;
+            --radius-pill: 9999px;
+            --radius-card: 16px;
+            --video-scale: 1.5;
+            --transition: 200ms ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Video-like animated background */
+        .video-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .video-bg-inner {
+            width: 100%;
+            height: 100%;
+            transform: scale(1.5);
+            transform-origin: top left;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(180, 140, 50, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(100, 80, 30, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(60, 60, 80, 0.12) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #111111 30%, #0d0d0d 60%, #080808 100%);
+            animation: videoPan 20s ease-in-out infinite alternate;
+        }
+
+        /* Bokeh lights */
+        .bokeh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0;
+            animation: bokehFloat 8s ease-in-out infinite;
+        }
+
+        .bokeh-1 { width: 300px; height: 300px; background: rgba(200, 170, 80, 0.08); top: 10%; left: 15%; animation-delay: 0s; animation-duration: 12s; }
+        .bokeh-2 { width: 200px; height: 200px; background: rgba(150, 130, 60, 0.06); top: 40%; left: 60%; animation-delay: 2s; animation-duration: 10s; }
+        .bokeh-3 { width: 250px; height: 250px; background: rgba(100, 100, 140, 0.07); top: 60%; left: 30%; animation-delay: 4s; animation-duration: 14s; }
+        .bokeh-4 { width: 180px; height: 180px; background: rgba(180, 150, 70, 0.05); top: 20%; left: 75%; animation-delay: 1s; animation-duration: 11s; }
+        .bokeh-5 { width: 350px; height: 350px; background: rgba(120, 100, 50, 0.04); top: 50%; left: 10%; animation-delay: 3s; animation-duration: 15s; }
+
+        /* Grid lines overlay */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridShift 30s linear infinite;
+        }
+
+        @keyframes videoPan {
+            0% { transform: scale(1.5) translate(0, 0); }
+            25% { transform: scale(1.5) translate(-2%, -1%); }
+            50% { transform: scale(1.5) translate(-1%, -2%); }
+            75% { transform: scale(1.5) translate(-3%, -1%); }
+            100% { transform: scale(1.5) translate(-1%, 0); }
+        }
+
+        @keyframes bokehFloat {
+            0%, 100% { opacity: 0.3; transform: translate(0, 0) scale(1); }
+            25% { opacity: 0.6; transform: translate(20px, -30px) scale(1.1); }
+            50% { opacity: 0.4; transform: translate(-10px, 20px) scale(0.95); }
+            75% { opacity: 0.7; transform: translate(15px, 10px) scale(1.05); }
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-card);
+        }
+
+        .glass-pill {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+        }
+
+        /* Hover transitions */
+        .hover-scale {
+            transition: transform var(--transition);
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .hover-glow {
+            transition: all var(--transition);
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            background: linear-gradient(135deg, rgba(200,170,80,0.15), rgba(0,0,0,0.7));
+            border: 1px solid rgba(200,170,80,0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        /* Pulse animation for CTA */
+        @keyframes subtlePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.1); }
+            50% { box-shadow: 0 0 20px 5px rgba(255,255,255,0.05); }
+        }
+
+        .cta-pulse {
+            animation: subtlePulse 3s ease-in-out infinite;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 300ms ease;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 24L16 4L28 24H4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M10 24L16 12L22 24" stroke="currentColor" stroke-width="1.5" fill="rgba(255,255,255,0.1)"/>
+                    </svg>
+                    <span class="text-xl font-bold tracking-tight">WealthFlow</span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-wf-light hover:text-white transition-colors cursor-pointer">Recursos</a>
+                    <a href="#testimonials" class="text-sm text-wf-light hover:text-white transition-colors cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-sm text-wf-light hover:text-white transition-colors cursor-pointer">Planos</a>
+                    <a href="#contact" class="text-sm text-wf-light hover:text-white transition-colors cursor-pointer">Contato</a>
+                </div>
+
+                <!-- Desktop CTA -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#" class="text-sm text-wf-light hover:text-white transition-colors cursor-pointer">Entrar</a>
+                    <a href="#pricing" class="glass-pill px-5 py-2.5 text-sm font-medium text-white hover-scale cursor-pointer inline-block">
+                        Começar Agora
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button class="md:hidden text-white cursor-pointer p-2" id="menuBtn" aria-label="Abrir menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center gap-8 md:hidden" id="mobileMenu">
+            <button class="absolute top-6 right-6 text-white cursor-pointer" id="closeMenuBtn" aria-label="Fechar menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <a href="#features" class="text-2xl text-white hover:text-wf-light transition-colors cursor-pointer mobile-link">Recursos</a>
+            <a href="#testimonials" class="text-2xl text-white hover:text-wf-light transition-colors cursor-pointer mobile-link">Depoimentos</a>
+            <a href="#pricing" class="text-2xl text-white hover:text-wf-light transition-colors cursor-pointer mobile-link">Planos</a>
+            <a href="#contact" class="text-2xl text-white hover:text-wf-light transition-colors cursor-pointer mobile-link">Contato</a>
+            <a href="#pricing" class="glass-pill px-8 py-3 text-lg font-medium text-white hover-scale cursor-pointer inline-block mt-4 mobile-link">Começar Agora</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" id="hero">
+        <!-- Animated Video-like Background -->
+        <div class="video-bg">
+            <div class="video-bg-inner"></div>
+            <div class="bokeh bokeh-1"></div>
+            <div class="bokeh bokeh-2"></div>
+            <div class="bokeh bokeh-3"></div>
+            <div class="bokeh bokeh-4"></div>
+            <div class="bokeh bokeh-5"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black z-[1]"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto pt-24 pb-32">
+            <!-- Pill Badge -->
+            <div class="inline-flex items-center gap-2 glass-pill px-5 py-2 mb-8">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs sm:text-sm text-wf-light tracking-wide">Plataforma #1 em Gestão Patrimonial no Brasil</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
+                Seu patrimônio merece<br>
+                <span class="bg-gradient-to-r from-white via-wf-light to-wf-gray bg-clip-text text-transparent">inteligência de verdade</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg md:text-xl text-wf-gray max-w-2xl mx-auto mb-10 leading-relaxed">
+                Tecnologia de ponta e estratégias personalizadas para multiplicar seus investimentos com segurança e transparência total.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#pricing" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover-scale cursor-pointer cta-pulse text-sm sm:text-base inline-block">
+                    Comece Gratuitamente
+                </a>
+                <a href="#features" class="glass-pill px-8 py-4 text-white font-medium hover-scale cursor-pointer text-sm sm:text-base inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Ver Demonstração
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom Floating Glass Card - 4 Column Feature Grid -->
+        <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 -mb-16">
+            <div class="glass hover-glow p-6 sm:p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <!-- Stat 1 -->
+                    <div class="text-center sm:text-left">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/>
+                                </svg>
+                            </div>
+                            <span class="text-2xl sm:text-3xl font-bold">R$ 12B+</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-wf-gray">Patrimônio sob gestão</p>
+                    </div>
+                    <!-- Stat 2 -->
+                    <div class="text-center sm:text-left">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-2xl sm:text-3xl font-bold">85K+</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-wf-gray">Investidores ativos</p>
+                    </div>
+                    <!-- Stat 3 -->
+                    <div class="text-center sm:text-left">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+                                </svg>
+                            </div>
+                            <span class="text-2xl sm:text-3xl font-bold">99.9%</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-wf-gray">Uptime garantido</p>
+                    </div>
+                    <!-- Stat 4 -->
+                    <div class="text-center sm:text-left">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-2xl sm:text-3xl font-bold">&lt;50ms</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-wf-gray">Latência de execução</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="relative bg-black py-32 px-4 sm:px-6" id="features">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 glass-pill px-4 py-1.5 mb-6">
+                    <span class="text-xs text-wf-gray tracking-widest uppercase">Recursos</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                    Tudo que você precisa,<br>em um só lugar
+                </h2>
+                <p class="text-wf-gray text-base sm:text-lg max-w-2xl mx-auto">
+                    Ferramentas poderosas projetadas para investidores que exigem o melhor em tecnologia e performance.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass hover-glow p-8 group cursor-pointer">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Análise em Tempo Real</h3>
+                    <p class="text-wf-gray text-sm leading-relaxed">
+                        Dashboards interativos com dados de mercado atualizados a cada segundo. Visualize tendências, compare ativos e tome decisões informadas instantaneamente.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass hover-glow p-8 group cursor-pointer">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">IA Preditiva</h3>
+                    <p class="text-wf-gray text-sm leading-relaxed">
+                        Algoritmos de inteligência artificial que analisam padrões de mercado e sugerem alocações otimizadas para maximizar seus retornos com risco controlado.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass hover-glow p-8 group cursor-pointer">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Segurança Bancária</h3>
+                    <p class="text-wf-gray text-sm leading-relaxed">
+                        Criptografia de ponta a ponta, autenticação multifator e conformidade total com regulamentações do Banco Central e CVM para proteger seu patrimônio.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section class="relative bg-wf-soft py-32 px-4 sm:px-6" id="testimonials">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 glass-pill px-4 py-1.5 mb-6">
+                    <span class="text-xs text-wf-gray tracking-widest uppercase">Depoimentos</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                    Quem usa, recomenda
+                </h2>
+                <p class="text-wf-gray text-base sm:text-lg max-w-2xl mx-auto">
+                    Veja o que investidores e gestores dizem sobre a experiência com a WealthFlow.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="glass hover-glow p-8 flex flex-col">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-wf-light text-sm leading-relaxed mb-6 flex-1">
+                        "A WealthFlow transformou completamente a forma como gerencio meus investimentos. A interface é intuitiva e os relatórios em tempo real me dão confiança para tomar decisões rápidas."
+                    </p>
+                    <div class="flex items-center gap-3 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 flex items-center justify-center">
+                            <span class="text-sm font-semibold">RC</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Ricardo Campos</p>
+                            <p class="text-xs text-wf-gray">CEO, Vertex Capital</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass hover-glow p-8 flex flex-col">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-wf-light text-sm leading-relaxed mb-6 flex-1">
+                        "Como gestora de fundos, preciso de ferramentas confiáveis. A IA preditiva da WealthFlow identificou oportunidades que nossos analistas não haviam percebido. Resultado: +34% no portfólio."
+                    </p>
+                    <div class="flex items-center gap-3 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 flex items-center justify-center">
+                            <span class="text-sm font-semibold">AM</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Ana Martins</p>
+                            <p class="text-xs text-wf-gray">Gestora, Prisma Investimentos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass hover-glow p-8 flex flex-col">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-wf-light text-sm leading-relaxed mb-6 flex-1">
+                        "Migrei de três plataformas diferentes para a WealthFlow. A consolidação de todos os meus ativos em um único painel, com segurança de nível bancário, foi um divisor de águas."
+                    </p>
+                    <div class="flex items-center gap-3 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 flex items-center justify-center">
+                            <span class="text-sm font-semibold">PL</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Pedro Linhares</p>
+                            <p class="text-xs text-wf-gray">Investidor Independente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section class="relative bg-black py-32 px-4 sm:px-6" id="pricing">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 glass-pill px-4 py-1.5 mb-6">
+                    <span class="text-xs text-wf-gray tracking-widest uppercase">Planos</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                    Escolha o plano ideal
+                </h2>
+                <p class="text-wf-gray text-base sm:text-lg max-w-2xl mx-auto">
+                    Planos flexíveis que acompanham o crescimento do seu patrimônio. Sem taxas ocultas, sem surpresas.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <!-- Tier 1 - Essencial -->
+                <div class="glass hover-glow p-8 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-1">Essencial</h3>
+                        <p class="text-xs text-wf-gray">Para quem está começando</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">R$ 0</span>
+                        <span class="text-wf-gray text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Painel de investimentos básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Até 3 contas conectadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Relatórios mensais
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-gray">
+                            <svg class="w-5 h-5 text-wf-gray/40 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            IA Preditiva
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-gray">
+                            <svg class="w-5 h-5 text-wf-gray/40 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <a href="#" class="glass-pill text-center py-3.5 text-sm font-medium text-white hover-scale cursor-pointer block">
+                        Começar Grátis
+                    </a>
+                </div>
+
+                <!-- Tier 2 - Profissional (Highlighted) -->
+                <div class="pricing-highlight rounded-[var(--radius-card)] p-8 flex flex-col relative backdrop-blur-xl md:-mt-4 md:mb-[-16px]">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="glass-pill px-4 py-1 text-xs font-medium bg-white/10 border border-amber-500/30 text-amber-300">Mais Popular</span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-1">Profissional</h3>
+                        <p class="text-xs text-wf-gray">Para investidores ativos</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">R$ 97</span>
+                        <span class="text-wf-gray text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Painel avançado em tempo real
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Contas ilimitadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Relatórios diários e semanais
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            IA Preditiva completa
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Suporte prioritário 24/7
+                        </li>
+                    </ul>
+                    <a href="#" class="bg-white text-black text-center py-3.5 rounded-full text-sm font-semibold hover-scale cursor-pointer block">
+                        Assinar Profissional
+                    </a>
+                </div>
+
+                <!-- Tier 3 - Enterprise -->
+                <div class="glass hover-glow p-8 flex flex-col">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-1">Enterprise</h3>
+                        <p class="text-xs text-wf-gray">Para gestoras e family offices</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">Sob consulta</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Tudo do Profissional
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            API dedicada e white-label
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Gerente de conta exclusivo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            SLA 99.99% garantido
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-wf-light">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                            </svg>
+                            Compliance e auditoria dedicados
+                        </li>
+                    </ul>
+                    <a href="#" class="glass-pill text-center py-3.5 text-sm font-medium text-white hover-scale cursor-pointer block">
+                        Falar com Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL SECTION ========== -->
+    <section class="relative py-32 px-4 sm:px-6 overflow-hidden">
+        <!-- Background effect -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-wf-soft to-black"></div>
+        <div class="absolute inset-0">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/[0.02] blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 glass-pill px-4 py-1.5 mb-6">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                </svg>
+                <span class="text-xs text-wf-gray tracking-widest uppercase">Comece Hoje</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Pronto para transformar<br>sua gestão patrimonial?
+            </h2>
+            <p class="text-wf-gray text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Junte-se a mais de 85 mil investidores que já confiam na WealthFlow para proteger e multiplicar seu patrimônio.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#pricing" class="bg-white text-black font-semibold px-10 py-4 rounded-full hover-scale cursor-pointer cta-pulse text-sm sm:text-base inline-block">
+                    Criar Conta Gratuita
+                </a>
+                <a href="#contact" class="glass-pill px-8 py-4 text-white font-medium hover-scale cursor-pointer text-sm sm:text-base inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/>
+                    </svg>
+                    Falar com Consultor
+                </a>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="flex flex-wrap items-center justify-center gap-6 mt-12 text-wf-gray">
+                <div class="flex items-center gap-2 text-xs">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+                    </svg>
+                    Regulado pela CVM
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+                    </svg>
+                    Criptografia AES-256
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Suporte 24/7
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-wf-soft border-t border-white/5 pt-16 pb-8 px-4 sm:px-6" id="contact">
+        <div class="max-w-6xl mx-auto">
+            <!-- Footer Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <svg class="w-7 h-7 text-white" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 24L16 4L28 24H4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M10 24L16 12L22 24" stroke="currentColor" stroke-width="1.5" fill="rgba(255,255,255,0.1)"/>
+                        </svg>
+                        <span class="text-lg font-bold tracking-tight">WealthFlow</span>
+                    </a>
+                    <p class="text-sm text-wf-gray leading-relaxed mb-6 max-w-xs">
+                        Plataforma premium de gestão patrimonial e investimentos inteligentes para o investidor brasileiro.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <!-- LinkedIn -->
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer" aria-label="LinkedIn">
+                            <svg class="w-4 h-4 text-wf-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <!-- X/Twitter -->
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer" aria-label="X Twitter">
+                            <svg class="w-4 h-4 text-wf-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer" aria-label="Instagram">
+                            <svg class="w-4 h-4 text-wf-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer" aria-label="YouTube">
+                            <svg class="w-4 h-4 text-wf-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-white">Produto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Planos e Preços</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">API para Desenvolvedores</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-white">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Imprensa</a></li>
+                        <li><a href="#contact" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-white">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Política de Cookies</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">Compliance</a></li>
+                        <li><a href="#" class="text-sm text-wf-gray hover:text-white transition-colors cursor-pointer">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-wf-gray">&copy; 2026 WealthFlow. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-wf-gray hover:text-white transition-colors cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-xs text-wf-gray hover:text-white transition-colors cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-xs text-wf-gray hover:text-white transition-colors cursor-pointer">Mapa do Site</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(0,0,0,0.85)';
+                navbar.style.backdropFilter = 'blur(20px)';
+                navbar.style.webkitBackdropFilter = 'blur(20px)';
+                navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            } else {
+                navbar.style.background = 'transparent';
+                navbar.style.backdropFilter = 'none';
+                navbar.style.webkitBackdropFilter = 'none';
+                navbar.style.borderBottom = 'none';
+            }
+        });
+
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexus Agency — Agência digital premium especializada em branding, design e tecnologia. Transformamos visões em experiências digitais extraordinárias.">
+    <meta name="keywords" content="agência digital, branding, design, tecnologia, marketing digital, desenvolvimento web, UX/UI">
+    <meta name="author" content="Nexus Agency">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Nexus Agency — Experiências Digitais Extraordinárias">
+    <meta property="og:description" content="Agência digital premium especializada em branding, design e tecnologia de ponta.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nexusagency.com.br">
+    <meta property="og:image" content="https://nexusagency.com.br/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nexus Agency — Experiências Digitais Extraordinárias">
+    <meta name="twitter:description" content="Agência digital premium especializada em branding, design e tecnologia de ponta.">
+    <title>Nexus Agency — Experiências Digitais Extraordinárias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#010101',
+                        rosa: '#FA93FA',
+                        roxoMedio: '#C967E8',
+                        roxoEscuro: '#983AD6',
+                        vidro: 'rgba(28,27,36,0.15)',
+                        brancoSuave: 'rgba(255,255,255,0.8)',
+                        bordaSutil: 'rgba(255,255,255,0.05)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #010101; color: #fff; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FA93FA 50%, #C967E8 75%, #983AD6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-pink {
+            background: linear-gradient(135deg, #FA93FA, #C967E8, #983AD6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(28, 27, 36, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: rgba(28, 27, 36, 0.35);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Glow Effects */
+        .glow-pink { box-shadow: 0 0 30px rgba(250, 147, 250, 0.3), 0 0 60px rgba(201, 103, 232, 0.15); }
+        .glow-subtle { box-shadow: 0 0 20px rgba(250, 147, 250, 0.15); }
+        .icon-glow { filter: drop-shadow(0 0 12px rgba(250, 147, 250, 0.5)); }
+
+        /* Animated Gradient Background */
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin-top: -150px;
+            mix-blend-mode: screen;
+            overflow: hidden;
+        }
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(152, 58, 214, 0.4) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 30% 60%, rgba(250, 147, 250, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 70% 50%, rgba(201, 103, 232, 0.3) 0%, transparent 60%);
+            animation: pulseGradient 8s ease-in-out infinite alternate;
+        }
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #010101 0%, transparent 20%, transparent 80%, #010101 100%),
+                        linear-gradient(to right, #010101 0%, transparent 15%, transparent 85%, #010101 100%);
+        }
+
+        @keyframes pulseGradient {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; transform: scale(1.02); }
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(250, 147, 250, 0.6);
+            animation: floatParticle linear infinite;
+        }
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-400px) translateX(50px); opacity: 0; }
+        }
+
+        /* Infinite Slider */
+        .slider-track {
+            display: flex;
+            width: max-content;
+            animation: slideInfinite 30s linear infinite;
+        }
+        @keyframes slideInfinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .slider-track:hover { animation-play-state: paused; }
+        .logo-item { filter: brightness(0) invert(1); opacity: 0.5; transition: all 0.4s ease; }
+        .logo-item:hover { opacity: 1; filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(250,147,250,0.5)); }
+
+        /* Pill Badge */
+        .pill-badge {
+            background: linear-gradient(135deg, rgba(250,147,250,0.15), rgba(152,58,214,0.15));
+            border: 1px solid rgba(250,147,250,0.25);
+            box-shadow: 0 0 20px rgba(250,147,250,0.1), inset 0 0 20px rgba(250,147,250,0.05);
+        }
+
+        /* CTA Button */
+        .cta-btn {
+            position: relative;
+            background: linear-gradient(135deg, #FA93FA, #C967E8, #983AD6);
+            transition: all 0.4s ease;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 0 30px rgba(250,147,250,0.4), 0 0 60px rgba(201,103,232,0.2);
+            transform: translateY(-2px);
+        }
+        .cta-btn-outline {
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.4s ease;
+        }
+        .cta-btn-outline:hover {
+            border-color: rgba(250,147,250,0.5);
+            background: rgba(250,147,250,0.05);
+            box-shadow: 0 0 20px rgba(250,147,250,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Pricing Popular */
+        .pricing-popular {
+            background: linear-gradient(180deg, rgba(250,147,250,0.08) 0%, rgba(152,58,214,0.05) 100%);
+            border: 1px solid rgba(250,147,250,0.25);
+            box-shadow: 0 0 40px rgba(250,147,250,0.1), 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Scroll animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar scroll */
+        .navbar-scrolled {
+            background: rgba(1, 1, 1, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Mobile menu */
+        .mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* Testimonial card hover */
+        .testimonial-card { transition: all 0.4s ease; }
+        .testimonial-card:hover {
+            border-color: rgba(250,147,250,0.2);
+            box-shadow: 0 0 30px rgba(250,147,250,0.08);
+            transform: translateY(-4px);
+        }
+
+        /* Feature card hover */
+        .feature-card { transition: all 0.4s ease; }
+        .feature-card:hover {
+            border-color: rgba(250,147,250,0.2);
+            box-shadow: 0 0 30px rgba(250,147,250,0.08);
+            transform: translateY(-6px);
+        }
+    </style>
+</head>
+<body class="bg-base antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 cursor-pointer group">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-rosa via-roxoMedio to-roxoEscuro flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-rosa/30">
+                        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <span class="text-xl font-bold text-white">Nexus</span>
+                </a>
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-white/60 hover:text-white transition-all duration-300 cursor-pointer">Serviços</a>
+                    <a href="#testimonials" class="text-sm text-white/60 hover:text-white transition-all duration-300 cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-sm text-white/60 hover:text-white transition-all duration-300 cursor-pointer">Planos</a>
+                    <a href="#contact" class="text-sm text-white/60 hover:text-white transition-all duration-300 cursor-pointer">Contato</a>
+                </div>
+                <!-- CTA Desktop -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#pricing" class="cta-btn px-6 py-2.5 rounded-full text-sm font-semibold text-white cursor-pointer inline-flex items-center gap-2">
+                        Começar Agora
+                        <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </span>
+                    </a>
+                </div>
+                <!-- Mobile Hamburger -->
+                <button id="menuBtn" class="md:hidden text-white cursor-pointer p-2" aria-label="Abrir menu">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-base/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
+        <button id="closeMenuBtn" class="absolute top-6 right-6 text-white cursor-pointer p-2" aria-label="Fechar menu">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <a href="#features" class="text-2xl font-semibold text-white/80 hover:text-white transition-all duration-300 cursor-pointer mobile-link">Serviços</a>
+        <a href="#testimonials" class="text-2xl font-semibold text-white/80 hover:text-white transition-all duration-300 cursor-pointer mobile-link">Depoimentos</a>
+        <a href="#pricing" class="text-2xl font-semibold text-white/80 hover:text-white transition-all duration-300 cursor-pointer mobile-link">Planos</a>
+        <a href="#contact" class="text-2xl font-semibold text-white/80 hover:text-white transition-all duration-300 cursor-pointer mobile-link">Contato</a>
+        <a href="#pricing" class="cta-btn px-8 py-3 rounded-full text-lg font-semibold text-white cursor-pointer mt-4 mobile-link">Começar Agora</a>
+    </div>
+
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
+        <!-- Background ambient glow -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-roxoEscuro/10 blur-[150px]"></div>
+            <div class="absolute top-1/3 left-1/3 w-[400px] h-[400px] rounded-full bg-rosa/5 blur-[120px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-12 sm:pt-20">
+            <!-- Pill Badge -->
+            <div class="fade-up inline-flex items-center gap-2.5 pill-badge rounded-full px-5 py-2 mb-8">
+                <span class="w-7 h-7 rounded-lg bg-gradient-to-br from-rosa via-roxoMedio to-roxoEscuro flex items-center justify-center icon-glow">
+                    <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </span>
+                <span class="text-sm font-medium text-white/80">Agência Digital Premium — 2026</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="fade-up text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6">
+                <span class="text-white">Criamos </span>
+                <span class="gradient-text">experiências digitais</span><br>
+                <span class="text-white">que </span>
+                <span class="gradient-text">transformam marcas</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="fade-up text-base sm:text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Somos uma agência de design e tecnologia que combina estratégia, criatividade e inovação para construir produtos digitais que geram resultados reais.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#pricing" class="cta-btn px-8 py-3.5 rounded-full text-base font-semibold text-white cursor-pointer inline-flex items-center gap-3 w-full sm:w-auto justify-center">
+                    Iniciar Projeto
+                    <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </span>
+                </a>
+                <a href="#features" class="cta-btn-outline px-8 py-3.5 rounded-full text-base font-medium text-white/80 cursor-pointer inline-flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <svg class="w-5 h-5 text-rosa" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/></svg>
+                    Ver Showreel
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Visual (Animated Gradient replacing video) -->
+        <div class="hero-visual relative z-0">
+            <!-- Particles -->
+            <div class="particle" style="left:10%;bottom:0;animation-duration:6s;animation-delay:0s;"></div>
+            <div class="particle" style="left:25%;bottom:0;animation-duration:8s;animation-delay:1s;width:2px;height:2px;"></div>
+            <div class="particle" style="left:40%;bottom:0;animation-duration:7s;animation-delay:2s;"></div>
+            <div class="particle" style="left:55%;bottom:0;animation-duration:9s;animation-delay:0.5s;width:4px;height:4px;background:rgba(201,103,232,0.5);"></div>
+            <div class="particle" style="left:70%;bottom:0;animation-duration:6.5s;animation-delay:3s;"></div>
+            <div class="particle" style="left:85%;bottom:0;animation-duration:7.5s;animation-delay:1.5s;width:2px;height:2px;"></div>
+            <div class="particle" style="left:15%;bottom:0;animation-duration:10s;animation-delay:4s;background:rgba(152,58,214,0.6);"></div>
+            <div class="particle" style="left:60%;bottom:0;animation-duration:8.5s;animation-delay:2.5s;width:3px;height:3px;"></div>
+            <div class="particle" style="left:35%;bottom:0;animation-duration:11s;animation-delay:0.8s;"></div>
+            <div class="particle" style="left:78%;bottom:0;animation-duration:7s;animation-delay:3.5s;width:2px;height:2px;background:rgba(250,147,250,0.4);"></div>
+            <!-- Inner animated gradient -->
+            <div class="absolute inset-0 rounded-3xl overflow-hidden">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse 100% 80% at 50% 50%, rgba(152,58,214,0.35) 0%, rgba(201,103,232,0.15) 40%, transparent 70%); animation: pulseGradient 6s ease-in-out infinite alternate;"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(circle at 30% 40%, rgba(250,147,250,0.2) 0%, transparent 50%); animation: pulseGradient 10s ease-in-out infinite alternate-reverse;"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(circle at 70% 60%, rgba(152,58,214,0.25) 0%, transparent 45%); animation: pulseGradient 8s ease-in-out infinite alternate;"></div>
+            </div>
+        </div>
+
+        <!-- Logo Cloud / Infinite Slider -->
+        <div class="relative z-10 w-full -mt-10 mb-0">
+            <p class="text-center text-xs uppercase tracking-[0.2em] text-white/30 mb-6 font-medium">Marcas que confiam na Nexus</p>
+            <div class="overflow-hidden relative">
+                <div class="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-base to-transparent z-10"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-base to-transparent z-10"></div>
+                <div class="slider-track py-4">
+                    <!-- Logos duplicated for infinite effect -->
+                    <div class="flex items-center gap-12 sm:gap-16 px-6">
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">TechFlow</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Orbita</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Luminar</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Vertex AI</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">NovaCore</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Pulsar</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Zenith</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Quantum</span>
+                    </div>
+                    <div class="flex items-center gap-12 sm:gap-16 px-6">
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">TechFlow</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Orbita</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Luminar</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Vertex AI</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">NovaCore</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Pulsar</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Zenith</span>
+                        <span class="logo-item text-2xl font-bold text-white whitespace-nowrap cursor-pointer">Quantum</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="relative py-24 sm:py-32">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-rosa/20 to-transparent"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 sm:mb-20">
+                <span class="fade-up inline-block text-xs uppercase tracking-[0.2em] text-rosa/70 font-semibold mb-4">Nossos Serviços</span>
+                <h2 class="fade-up text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-5">
+                    Soluções que <span class="gradient-text-pink">impulsionam</span> resultados
+                </h2>
+                <p class="fade-up text-white/40 text-base sm:text-lg max-w-2xl mx-auto">
+                    Combinamos design de classe mundial com tecnologia de ponta para entregar experiências digitais que convertem e encantam.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Card 1 -->
+                <div class="fade-up feature-card glass-card rounded-2xl p-8 sm:p-10 cursor-pointer group">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-rosa/20 to-roxoEscuro/20 flex items-center justify-center mb-6 group-hover:from-rosa/30 group-hover:to-roxoEscuro/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-rosa transition-all duration-300 group-hover:icon-glow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Design & Branding</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-6">Identidades visuais memoráveis, interfaces intuitivas e sistemas de design escaláveis que posicionam sua marca no topo do mercado.</p>
+                    <div class="flex items-center gap-2 text-rosa text-sm font-medium group-hover:gap-3 transition-all duration-300">
+                        <span>Explorar</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="fade-up feature-card glass-card rounded-2xl p-8 sm:p-10 cursor-pointer group" style="transition-delay: 0.1s;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-rosa/20 to-roxoEscuro/20 flex items-center justify-center mb-6 group-hover:from-rosa/30 group-hover:to-roxoEscuro/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-roxoMedio transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Desenvolvimento Web</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-6">Aplicações web de alta performance com as tecnologias mais modernas. Sites, plataformas SaaS e e-commerces que escalam.</p>
+                    <div class="flex items-center gap-2 text-roxoMedio text-sm font-medium group-hover:gap-3 transition-all duration-300">
+                        <span>Explorar</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="fade-up feature-card glass-card rounded-2xl p-8 sm:p-10 cursor-pointer group" style="transition-delay: 0.2s;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-rosa/20 to-roxoEscuro/20 flex items-center justify-center mb-6 group-hover:from-rosa/30 group-hover:to-roxoEscuro/30 transition-all duration-500">
+                        <svg class="w-7 h-7 text-roxoEscuro transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Marketing & Growth</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-6">Estratégias de crescimento orientadas por dados. SEO, mídia paga, automação e analytics para maximizar seu ROI digital.</p>
+                    <div class="flex items-center gap-2 text-roxoEscuro text-sm font-medium group-hover:gap-3 transition-all duration-300">
+                        <span>Explorar</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="relative py-24 sm:py-32">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-roxoMedio/20 to-transparent"></div>
+            <div class="absolute bottom-1/3 right-0 w-[500px] h-[500px] rounded-full bg-roxoEscuro/5 blur-[150px]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 sm:mb-20">
+                <span class="fade-up inline-block text-xs uppercase tracking-[0.2em] text-rosa/70 font-semibold mb-4">Depoimentos</span>
+                <h2 class="fade-up text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-5">
+                    O que nossos <span class="gradient-text-pink">clientes</span> dizem
+                </h2>
+                <p class="fade-up text-white/40 text-base sm:text-lg max-w-2xl mx-auto">
+                    Resultados reais de empresas que confiaram na Nexus para transformar sua presença digital.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="fade-up testimonial-card glass-card rounded-2xl p-8 cursor-pointer">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6">"A Nexus transformou completamente nossa presença digital. O novo site aumentou nossas conversões em 340% nos primeiros três meses. A equipe é excepcional e entrega além do esperado."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-rosa to-roxoEscuro flex items-center justify-center text-white font-bold text-sm">RC</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Rafael Costa</p>
+                            <p class="text-white/30 text-xs">CEO, TechFlow Brasil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="fade-up testimonial-card glass-card rounded-2xl p-8 cursor-pointer" style="transition-delay: 0.1s;">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6">"Profissionalismo e criatividade em outro nível. O rebranding que fizeram para a Luminar nos posicionou como referência no mercado. Cada detalhe foi pensado com cuidado e estratégia."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-roxoMedio to-roxoEscuro flex items-center justify-center text-white font-bold text-sm">AM</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Ana Martins</p>
+                            <p class="text-white/30 text-xs">Diretora de Marketing, Luminar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="fade-up testimonial-card glass-card rounded-2xl p-8 cursor-pointer" style="transition-delay: 0.2s;">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 text-rosa" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6">"A plataforma SaaS que a Nexus desenvolveu para nós é impecável. Performance incrível, UX intuitiva e o suporte pós-lançamento é de primeira. Parceria que recomendo de olhos fechados."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-rosa/80 to-roxoMedio flex items-center justify-center text-white font-bold text-sm">LS</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Lucas Silva</p>
+                            <p class="text-white/30 text-xs">CTO, NovaCore Systems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="relative py-24 sm:py-32">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-rosa/20 to-transparent"></div>
+            <div class="absolute top-1/2 left-1/4 w-[400px] h-[400px] rounded-full bg-roxoEscuro/8 blur-[150px]"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-rosa/5 blur-[120px]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 sm:mb-20">
+                <span class="fade-up inline-block text-xs uppercase tracking-[0.2em] text-rosa/70 font-semibold mb-4">Planos & Preços</span>
+                <h2 class="fade-up text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-5">
+                    Invista no <span class="gradient-text-pink">crescimento</span> da sua marca
+                </h2>
+                <p class="fade-up text-white/40 text-base sm:text-lg max-w-2xl mx-auto">
+                    Planos flexíveis para cada estágio do seu negócio. Todos incluem suporte dedicado e garantia de satisfação.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+                <!-- Starter -->
+                <div class="fade-up glass-card rounded-2xl p-8 sm:p-10 transition-all duration-500 hover:border-white/10 hover:translate-y-[-4px] cursor-pointer">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Starter</h3>
+                        <p class="text-white/30 text-sm">Para startups e pequenos negócios</p>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-white">R$4.900</span>
+                        <span class="text-white/30 text-sm">/projeto</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Landing page responsiva
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Identidade visual básica
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SEO on-page otimizado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            2 rodadas de revisão
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/30">
+                            <svg class="w-5 h-5 text-white/15 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Suporte pós-lançamento
+                        </li>
+                    </ul>
+                    <a href="#contact" class="cta-btn-outline block text-center px-6 py-3.5 rounded-full text-sm font-semibold text-white/80 cursor-pointer">
+                        Escolher Starter
+                    </a>
+                </div>
+
+                <!-- Professional (Popular) -->
+                <div class="fade-up pricing-popular rounded-2xl p-8 sm:p-10 relative cursor-pointer transition-all duration-500 hover:translate-y-[-4px]" style="transition-delay: 0.1s;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <span class="pill-badge px-4 py-1.5 rounded-full text-xs font-semibold text-rosa">Mais Popular</span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Professional</h3>
+                        <p class="text-white/30 text-sm">Para empresas em crescimento</p>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl sm:text-5xl font-extrabold gradient-text-pink">R$12.900</span>
+                        <span class="text-white/30 text-sm">/projeto</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Site completo multi-páginas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Branding completo + guia de marca
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            SEO avançado + analytics
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            5 rodadas de revisão
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            30 dias de suporte pós-lançamento
+                        </li>
+                    </ul>
+                    <a href="#contact" class="cta-btn block text-center px-6 py-3.5 rounded-full text-sm font-semibold text-white cursor-pointer glow-subtle">
+                        Escolher Professional
+                    </a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="fade-up glass-card rounded-2xl p-8 sm:p-10 transition-all duration-500 hover:border-white/10 hover:translate-y-[-4px] cursor-pointer" style="transition-delay: 0.2s;">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Enterprise</h3>
+                        <p class="text-white/30 text-sm">Para grandes operações</p>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-white">Sob consulta</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Plataforma digital completa
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Design system personalizado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Estratégia de growth completa
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Revisões ilimitadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/60">
+                            <svg class="w-5 h-5 text-rosa flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                            Equipe dedicada + suporte 24/7
+                        </li>
+                    </ul>
+                    <a href="#contact" class="cta-btn-outline block text-center px-6 py-3.5 rounded-full text-sm font-semibold text-white/80 cursor-pointer">
+                        Falar com Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL SECTION ========== -->
+    <section class="relative py-24 sm:py-32 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-rosa/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-roxoEscuro/5 to-transparent"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-roxoEscuro/10 blur-[200px]"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <div class="fade-up glass-card rounded-3xl p-10 sm:p-16 relative overflow-hidden">
+                <!-- Decorative gradient orbs -->
+                <div class="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-rosa/10 blur-[80px]"></div>
+                <div class="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-roxoEscuro/15 blur-[80px]"></div>
+
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-rosa via-roxoMedio to-roxoEscuro flex items-center justify-center mx-auto mb-8 glow-pink">
+                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+                    Pronto para <span class="gradient-text-pink">elevar</span> sua<br>presença digital?
+                </h2>
+                <p class="text-white/40 text-base sm:text-lg max-w-xl mx-auto mb-10">
+                    Agende uma consultoria gratuita e descubra como podemos transformar sua visão em uma experiência digital extraordinária.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contact" class="cta-btn px-10 py-4 rounded-full text-base font-semibold text-white cursor-pointer inline-flex items-center gap-3 w-full sm:w-auto justify-center">
+                        Agendar Consultoria Grátis
+                        <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </span>
+                    </a>
+                    <a href="https://wa.me/5511999999999" class="cta-btn-outline px-8 py-4 rounded-full text-base font-medium text-white/80 cursor-pointer inline-flex items-center gap-2 w-full sm:w-auto justify-center">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Falar no WhatsApp
+                    </a>
+                </div>
+                <p class="text-white/20 text-xs mt-6">Sem compromisso. Resposta em até 24 horas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="relative border-t border-white/5">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-roxoEscuro/5 blur-[150px]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer group mb-5">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-rosa via-roxoMedio to-roxoEscuro flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-rosa/30">
+                            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <span class="text-xl font-bold text-white">Nexus</span>
+                    </a>
+                    <p class="text-white/30 text-sm leading-relaxed mb-6">Agência digital premium especializada em criar experiências que transformam marcas e geram resultados extraordinários.</p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 rounded-xl glass flex items-center justify-center text-white/40 hover:text-rosa hover:border-rosa/20 transition-all duration-300 cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl glass flex items-center justify-center text-white/40 hover:text-rosa hover:border-rosa/20 transition-all duration-300 cursor-pointer" aria-label="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl glass flex items-center justify-center text-white/40 hover:text-rosa hover:border-rosa/20 transition-all duration-300 cursor-pointer" aria-label="Twitter / X">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl glass flex items-center justify-center text-white/40 hover:text-rosa hover:border-rosa/20 transition-all duration-300 cursor-pointer" aria-label="YouTube">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links Column 1 -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-5">Serviços</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Design & Branding</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Desenvolvimento Web</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Marketing Digital</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Consultoria UX/UI</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">E-commerce</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Aplicativos Mobile</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 2 -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-5">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Portfólio</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-sm text-white/30 hover:text-white/70 transition-all duration-300 cursor-pointer">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-5">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-sm text-white/30">
+                            <svg class="w-4 h-4 text-rosa/50 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            contato@nexusagency.com.br
+                        </li>
+                        <li class="flex items-center gap-2 text-sm text-white/30">
+                            <svg class="w-4 h-4 text-rosa/50 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                            +55 (11) 9999-9999
+                        </li>
+                        <li class="flex items-start gap-2 text-sm text-white/30">
+                            <svg class="w-4 h-4 text-rosa/50 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            São Paulo, SP — Brasil
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-white/20 text-xs text-center sm:text-left">© 2026 Nexus Agency. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-white/20 hover:text-white/50 transition-all duration-300 cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-xs text-white/20 hover:text-white/50 transition-all duration-300 cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-xs text-white/20 hover:text-white/50 transition-all duration-300 cursor-pointer">Cookies</a>
+                    <a href="#" class="text-xs text-white/20 hover:text-white/50 transition-all duration-300 cursor-pointer">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // Scroll reveal (Intersection Observer)
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

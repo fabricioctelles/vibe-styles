@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Synapse AI — Plataforma SaaS de inteligência artificial que transforma dados em decisões. Automatize processos, gere insights e escale sua operação com IA de ponta.">
+    <meta name="keywords" content="inteligência artificial, SaaS, IA, machine learning, automação, dados, insights, plataforma AI">
+    <meta name="author" content="Synapse AI">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Synapse AI — Inteligência Artificial para Decisões Reais">
+    <meta property="og:description" content="Transforme dados em decisões com a plataforma de IA mais avançada do mercado. Automatize, analise e escale.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://synapse-ai.com.br">
+    <meta property="og:image" content="https://synapse-ai.com.br/og-image.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Synapse AI — Inteligência Artificial para Decisões Reais">
+    <meta name="twitter:description" content="Transforme dados em decisões com a plataforma de IA mais avançada do mercado.">
+    <title>Synapse AI — Inteligência Artificial para Decisões Reais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'synapse-black': '#000000',
+                        'synapse-white': '#FFFFFF',
+                        'synapse-muted': '#6B7280',
+                        'synapse-gray': '#888888',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'headline': ['80px', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+                        'headline-md': ['56px', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+                        'headline-sm': ['40px', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --text-primary: #FFFFFF;
+            --text-muted: #6B7280;
+            --glass-bg: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.2);
+            --video-height: 80vh;
+            --video-bottom: 35vh;
+            --headline-size: 80px;
+            --logo-opacity: 0.4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient visual element */
+        .hero-gradient-visual {
+            position: absolute;
+            width: 120%;
+            height: var(--video-height);
+            bottom: var(--video-bottom);
+            left: -10%;
+            opacity: 1;
+            z-index: 0;
+            background: conic-gradient(from 180deg at 50% 50%, #7c3aed, #2563eb, #06b6d4, #10b981, #eab308, #ef4444, #7c3aed);
+            filter: blur(100px);
+            animation: rotateGradient 12s ease-in-out infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg) scale(1); }
+            33% { transform: rotate(120deg) scale(1.1); }
+            66% { transform: rotate(240deg) scale(0.95); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Glass morphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .glass-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 9999px;
+            padding: 6px 18px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Navbar blur */
+        .navbar-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(0,0,0,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Staggered fade-in-up animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation: fadeInUp 0.8s ease-out 0.1s both; }
+        .stagger-2 { animation: fadeInUp 0.8s ease-out 0.25s both; }
+        .stagger-3 { animation: fadeInUp 0.8s ease-out 0.4s both; }
+        .stagger-4 { animation: fadeInUp 0.8s ease-out 0.55s both; }
+        .stagger-5 { animation: fadeInUp 0.8s ease-out 0.7s both; }
+        .stagger-6 { animation: fadeInUp 0.8s ease-out 0.85s both; }
+
+        /* Scroll-triggered animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(180deg, #FFFFFF 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Gradient border card */
+        .gradient-border-card {
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .gradient-border-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Logo marquee */
+        .logo-marquee-item {
+            filter: grayscale(1);
+            opacity: var(--logo-opacity);
+            transition: all 0.3s ease;
+        }
+        .logo-marquee-item:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            position: relative;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: var(--bg-primary);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        /* Pulse dot */
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        }
+
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar-blur fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between h-16 lg:h-20">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 cursor-pointer transition-all hover:opacity-80">
+                <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="14" stroke="white" stroke-width="1.5"/>
+                    <path d="M10 16C10 12.5 12.5 10 16 10C19.5 10 22 12.5 22 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M12 20C12 17.5 13.8 15.5 16 15.5C18.2 15.5 20 17.5 20 20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="16" cy="21" r="1.5" fill="white"/>
+                </svg>
+                <span class="text-lg font-bold tracking-tight">Synapse AI</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Recursos</a>
+                <a href="#testimonials" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Preços</a>
+                <a href="#contact" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Contato</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="hidden sm:inline-flex text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Entrar</a>
+                <a href="#pricing" class="btn-primary px-5 py-2.5 rounded-full text-sm font-medium cursor-pointer inline-flex items-center gap-2">
+                    Começar Grátis
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden cursor-pointer p-2 hover:bg-white/10 rounded-lg transition-all" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden pb-4 px-2">
+            <div class="glass rounded-2xl p-4 flex flex-col gap-3">
+                <a href="#features" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer py-2 px-3 rounded-lg hover:bg-white/5">Recursos</a>
+                <a href="#testimonials" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer py-2 px-3 rounded-lg hover:bg-white/5">Depoimentos</a>
+                <a href="#pricing" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer py-2 px-3 rounded-lg hover:bg-white/5">Preços</a>
+                <a href="#contact" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer py-2 px-3 rounded-lg hover:bg-white/5">Contato</a>
+                <a href="#pricing" class="btn-primary px-5 py-2.5 rounded-full text-sm font-medium cursor-pointer text-center mt-2">Começar Grátis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 overflow-hidden">
+        <!-- Animated Gradient Visual -->
+        <div class="hero-gradient-visual"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto text-center">
+            <!-- Glass Badges Row -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-8 stagger-1">
+                <span class="glass-badge inline-flex items-center gap-2 cursor-pointer hover:bg-white/15 transition-all">
+                    <span class="pulse-dot"></span>
+                    Plataforma Ativa
+                </span>
+                <span class="glass-badge inline-flex items-center gap-2 cursor-pointer hover:bg-white/15 transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    IA Generativa
+                </span>
+                <span class="glass-badge inline-flex items-center gap-2 cursor-pointer hover:bg-white/15 transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    SOC 2 Certificado
+                </span>
+            </div>
+
+            <!-- Massive Headline -->
+            <h1 class="text-headline-sm md:text-headline-md lg:text-headline font-extrabold gradient-text stagger-2 mb-6 px-2">
+                Inteligência que<br>transforma dados<br>em decisões
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg md:text-xl text-synapse-muted max-w-2xl mx-auto stagger-3 mb-10 leading-relaxed">
+                A plataforma de IA que automatiza processos, gera insights preditivos e escala sua operação. Do dado bruto à decisão estratégica em segundos.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 stagger-4">
+                <a href="#pricing" class="btn-primary px-8 py-4 rounded-full text-base font-semibold cursor-pointer inline-flex items-center gap-3 hover:scale-105 transition-all">
+                    Começar Gratuitamente
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+                <a href="#features" class="btn-glass px-8 py-4 rounded-full text-base font-medium cursor-pointer inline-flex items-center gap-3 hover:scale-105 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Ver Demonstração
+                </a>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 mt-16 stagger-5">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white">2.5M+</div>
+                    <div class="text-sm text-synapse-muted mt-1">Previsões por dia</div>
+                </div>
+                <div class="w-px h-10 bg-white/10 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white">99.9%</div>
+                    <div class="text-sm text-synapse-muted mt-1">Uptime garantido</div>
+                </div>
+                <div class="w-px h-10 bg-white/10 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white">850+</div>
+                    <div class="text-sm text-synapse-muted mt-1">Empresas ativas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LOGO MARQUEE ========== -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <p class="text-center text-sm text-synapse-muted mb-10 tracking-widest uppercase">Empresas que confiam na Synapse AI</p>
+            <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+                <!-- Logo 1 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 30" fill="white"><rect x="0" y="8" width="30" height="14" rx="3"/><text x="38" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">TechCo</text></svg>
+                </div>
+                <!-- Logo 2 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 130 30" fill="white"><circle cx="15" cy="15" r="12" stroke="white" stroke-width="2" fill="none"/><text x="35" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">DataFlow</text></svg>
+                </div>
+                <!-- Logo 3 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 30" fill="white"><polygon points="15,2 28,28 2,28" stroke="white" stroke-width="2" fill="none"/><text x="35" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">Vertex</text></svg>
+                </div>
+                <!-- Logo 4 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 140 30" fill="white"><rect x="2" y="5" width="20" height="20" rx="5" stroke="white" stroke-width="2" fill="none"/><text x="30" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">CloudBase</text></svg>
+                </div>
+                <!-- Logo 5 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 130 30" fill="white"><path d="M5 15 L15 5 L25 15 L15 25 Z" stroke="white" stroke-width="2" fill="none"/><text x="33" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">NexGen</text></svg>
+                </div>
+                <!-- Logo 6 -->
+                <div class="logo-marquee-item cursor-pointer">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 30" fill="white"><circle cx="8" cy="15" r="6" fill="white"/><circle cx="22" cy="15" r="6" fill="white" opacity="0.5"/><text x="35" y="22" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white">Orbis</text></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="glass-badge inline-flex items-center gap-2 mb-6">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    Recursos
+                </span>
+                <h2 class="text-3xl md:text-5xl font-bold gradient-text mb-4">Tudo que você precisa<br>em uma plataforma</h2>
+                <p class="text-synapse-muted text-lg max-w-2xl mx-auto">Ferramentas poderosas de IA integradas para transformar a maneira como sua empresa opera e toma decisões.</p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all group">
+                    <div class="w-12 h-12 rounded-xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-all">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Análise Preditiva</h3>
+                    <p class="text-synapse-muted leading-relaxed">Modelos de machine learning que antecipam tendências, identificam padrões ocultos e geram previsões com até 97% de precisão.</p>
+                    <div class="mt-6 flex items-center gap-2 text-sm text-synapse-muted group-hover:text-white transition-all">
+                        Saiba mais
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all group" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 rounded-xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-all">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Automação Inteligente</h3>
+                    <p class="text-synapse-muted leading-relaxed">Workflows automatizados com IA que aprendem com seus processos e otimizam operações em tempo real, reduzindo custos em até 60%.</p>
+                    <div class="mt-6 flex items-center gap-2 text-sm text-synapse-muted group-hover:text-white transition-all">
+                        Saiba mais
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all group" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 rounded-xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-all">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Segurança Avançada</h3>
+                    <p class="text-synapse-muted leading-relaxed">Criptografia de ponta a ponta, conformidade LGPD e SOC 2, com monitoramento contínuo de ameaças por IA dedicada.</p>
+                    <div class="mt-6 flex items-center gap-2 text-sm text-synapse-muted group-hover:text-white transition-all">
+                        Saiba mais
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="glass-badge inline-flex items-center gap-2 mb-6">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    Depoimentos
+                </span>
+                <h2 class="text-3xl md:text-5xl font-bold gradient-text mb-4">O que nossos clientes<br>estão dizendo</h2>
+                <p class="text-synapse-muted text-lg max-w-2xl mx-auto">Empresas de todos os tamanhos confiam na Synapse AI para impulsionar suas operações.</p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-white/80 leading-relaxed mb-6">"A Synapse AI revolucionou nossa análise de dados. Reduzimos o tempo de geração de relatórios de dias para minutos. A precisão dos modelos preditivos superou todas as expectativas."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center text-sm font-bold">MC</div>
+                        <div>
+                            <div class="text-sm font-semibold">Marina Costa</div>
+                            <div class="text-xs text-synapse-muted">CTO, DataFlow Brasil</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all" style="transition-delay: 0.1s;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-white/80 leading-relaxed mb-6">"Implementamos a automação inteligente em nosso pipeline de vendas e o resultado foi impressionante. 60% de redução em tarefas manuais e aumento de 35% na conversão."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-sm font-bold">RS</div>
+                        <div>
+                            <div class="text-sm font-semibold">Rafael Santos</div>
+                            <div class="text-xs text-synapse-muted">VP de Operações, Vertex Tech</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all" style="transition-delay: 0.2s;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-white/80 leading-relaxed mb-6">"A segurança e conformidade da Synapse nos deram confiança para migrar toda nossa infraestrutura de dados. O suporte técnico é excepcional e a integração foi surpreendentemente simples."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center text-sm font-bold">AL</div>
+                        <div>
+                            <div class="text-sm font-semibold">Ana Luíza Ferreira</div>
+                            <div class="text-xs text-synapse-muted">CISO, CloudBase Soluções</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING SECTION ========== -->
+    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="glass-badge inline-flex items-center gap-2 mb-6">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Preços
+                </span>
+                <h2 class="text-3xl md:text-5xl font-bold gradient-text mb-4">Planos que escalam<br>com seu negócio</h2>
+                <p class="text-synapse-muted text-lg max-w-2xl mx-auto">Comece gratuitamente e evolua conforme sua necessidade. Sem surpresas, sem taxas ocultas.</p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center max-w-5xl mx-auto">
+                <!-- Starter -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all">
+                    <div class="text-sm text-synapse-muted font-medium mb-2">Starter</div>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">Grátis</span>
+                    </div>
+                    <p class="text-sm text-synapse-muted mb-8">Ideal para explorar a plataforma</p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            1.000 previsões/mês
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            2 modelos de IA
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Dashboard básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/40">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            API dedicada
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn-glass w-full py-3 rounded-full text-sm font-medium cursor-pointer flex items-center justify-center gap-2 hover:scale-105 transition-all">
+                        Começar Grátis
+                    </a>
+                </div>
+
+                <!-- Pro (Highlighted) -->
+                <div class="pricing-highlight rounded-2xl p-8 reveal cursor-pointer hover:bg-white/10 transition-all md:py-12" style="transition-delay: 0.1s;">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-sm text-white font-medium">Pro</div>
+                        <span class="glass-badge text-xs px-3 py-1">Mais Popular</span>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">R$297</span>
+                        <span class="text-sm text-synapse-muted">/mês</span>
+                    </div>
+                    <p class="text-sm text-synapse-muted mb-8">Para equipes em crescimento</p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            50.000 previsões/mês
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Todos os modelos de IA
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Dashboard avançado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            API dedicada
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn-primary w-full py-3 rounded-full text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 hover:scale-105 transition-all bg-white text-black hover:bg-white/90">
+                        Assinar Pro
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="gradient-border-card p-8 reveal cursor-pointer hover:bg-white/5 transition-all" style="transition-delay: 0.2s;">
+                    <div class="text-sm text-synapse-muted font-medium mb-2">Enterprise</div>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-4xl font-bold text-white">Custom</span>
+                    </div>
+                    <p class="text-sm text-synapse-muted mb-8">Para grandes operações</p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Previsões ilimitadas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Modelos customizados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            White-label disponível
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/80">
+                            <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            SLA 99.99% garantido
+                        </li>
+                    </ul>
+
+                    <a href="#contact" class="btn-glass w-full py-3 rounded-full text-sm font-medium cursor-pointer flex items-center justify-center gap-2 hover:scale-105 transition-all">
+                        Falar com Vendas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA FINAL SECTION ========== -->
+    <section class="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Background gradient effect -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-[600px] h-[600px] bg-gradient-to-r from-violet-600/20 via-blue-600/20 to-cyan-600/20 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 reveal">
+            <span class="glass-badge inline-flex items-center gap-2 mb-8">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                Comece Agora
+            </span>
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold gradient-text mb-6">Pronto para transformar<br>seus dados em poder?</h2>
+            <p class="text-lg md:text-xl text-synapse-muted max-w-2xl mx-auto mb-10 leading-relaxed">
+                Junte-se a mais de 850 empresas que já estão usando inteligência artificial para tomar decisões melhores e mais rápidas.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#pricing" class="btn-primary px-10 py-4 rounded-full text-base font-semibold cursor-pointer inline-flex items-center gap-3 hover:scale-105 transition-all bg-white text-black hover:bg-white/90">
+                    Começar Gratuitamente
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+                <a href="#contact" class="btn-glass px-10 py-4 rounded-full text-base font-medium cursor-pointer inline-flex items-center gap-3 hover:scale-105 transition-all">
+                    Agendar Demonstração
+                </a>
+            </div>
+            <p class="text-sm text-synapse-muted mt-6">Sem cartão de crédito. Configuração em 2 minutos.</p>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" class="border-t border-white/5 pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Footer Top -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
+                <!-- Brand Column -->
+                <div class="lg:col-span-2">
+                    <a href="#" class="flex items-center gap-2 cursor-pointer transition-all hover:opacity-80 mb-4">
+                        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="14" stroke="white" stroke-width="1.5"/>
+                            <path d="M10 16C10 12.5 12.5 10 16 10C19.5 10 22 12.5 22 16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M12 20C12 17.5 13.8 15.5 16 15.5C18.2 15.5 20 17.5 20 20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="16" cy="21" r="1.5" fill="white"/>
+                        </svg>
+                        <span class="text-lg font-bold tracking-tight">Synapse AI</span>
+                    </a>
+                    <p class="text-sm text-synapse-muted leading-relaxed max-w-sm mb-6">
+                        Plataforma de inteligência artificial que transforma dados brutos em decisões estratégicas. Automatize, analise e escale com confiança.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-4">
+                        <!-- LinkedIn -->
+                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all" aria-label="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all" aria-label="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all" aria-label="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Produto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Preços</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">API & Docs</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Imprensa</a></li>
+                        <li><a href="#contact" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Política de Cookies</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">LGPD</a></li>
+                        <li><a href="#" class="text-sm text-synapse-muted hover:text-white transition-all cursor-pointer">Segurança</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-synapse-muted">&copy; 2026 Synapse AI. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-synapse-muted hover:text-white transition-all cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-xs text-synapse-muted hover:text-white transition-all cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-xs text-synapse-muted hover:text-white transition-all cursor-pointer">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCROLL REVEAL SCRIPT ========== -->
+    <script>
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

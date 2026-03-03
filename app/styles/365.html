@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeopleFlow — Plataforma SaaS de Gestão de RH</title>
+    <meta name="description" content="PeopleFlow é a plataforma moderna de gestão de RH que simplifica recrutamento, folha de pagamento e engajamento de colaboradores.">
+    <meta name="keywords" content="gestão de RH, SaaS, recursos humanos, folha de pagamento, recrutamento, people analytics">
+    <meta property="og:title" content="PeopleFlow — Gestão de RH Inteligente">
+    <meta property="og:description" content="Simplifique toda a jornada do colaborador com uma plataforma unificada e intuitiva.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://peopleflow.com.br">
+    <meta property="og:image" content="https://peopleflow.com.br/og-image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Inter', 'sans-serif'],
+                        accent: ['Instrument Serif', 'serif'],
+                    },
+                    colors: {
+                        primary: '#FFFFFF',
+                        textPrimary: '#1A1A1A',
+                        textMuted: '#373a46',
+                        inputBg: '#fcfcfc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-muted: #373a46;
+            --input-bg: #fcfcfc;
+            --input-radius: 40px;
+            --input-shadow: 0px 10px 40px 5px rgba(194,194,194,0.25);
+            --font-body: 'Inter', sans-serif;
+            --font-accent: 'Instrument Serif', serif;
+            --headline-size: 80px;
+            --padding-top: 290px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-accent { font-family: var(--font-accent); }
+
+        .input-email {
+            background: var(--input-bg);
+            border-radius: var(--input-radius);
+            box-shadow: var(--input-shadow);
+            border: 1px solid rgba(0,0,0,0.08);
+            padding: 16px 28px;
+            font-size: 16px;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            width: 100%;
+        }
+        .input-email:focus {
+            box-shadow: 0px 10px 50px 8px rgba(194,194,194,0.35);
+        }
+        .input-email::placeholder {
+            color: #a0a0a0;
+        }
+
+        .btn-cta {
+            background: var(--text-primary);
+            color: #fff;
+            border-radius: var(--input-radius);
+            padding: 16px 36px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            border: none;
+            cursor: pointer;
+            box-shadow:
+                inset 0 1px 0 0 rgba(255,255,255,0.08),
+                inset 0 -2px 4px 0 rgba(201,201,201,0.08),
+                0 4px 16px 0 rgba(29,29,29,0.24),
+                0 1px 3px 0 rgba(29,29,29,0.12);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .btn-cta:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                inset 0 1px 0 0 rgba(255,255,255,0.12),
+                inset 0 -2px 4px 0 rgba(201,201,201,0.08),
+                0 8px 28px 0 rgba(29,29,29,0.32),
+                0 2px 6px 0 rgba(29,29,29,0.16);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: var(--input-radius);
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: var(--font-body);
+            border: 1.5px solid rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            border-color: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.02);
+        }
+
+        .card-feature {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.4s ease;
+        }
+        .card-feature:hover {
+            box-shadow: 0 20px 60px -10px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+
+        .card-testimonial {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: all 0.4s ease;
+        }
+        .card-testimonial:hover {
+            box-shadow: 0 16px 48px -8px rgba(0,0,0,0.07);
+        }
+
+        .pricing-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 24px;
+            padding: 44px 36px;
+            transition: all 0.4s ease;
+        }
+        .pricing-card:hover {
+            box-shadow: 0 20px 60px -10px rgba(0,0,0,0.08);
+        }
+        .pricing-card.featured {
+            border: 2px solid var(--text-primary);
+            transform: scale(1.04);
+            box-shadow: 0 24px 64px -12px rgba(0,0,0,0.12);
+        }
+        .pricing-card.featured:hover {
+            transform: scale(1.06);
+            box-shadow: 0 28px 72px -12px rgba(0,0,0,0.16);
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .delay-4 { animation-delay: 0.55s; }
+        .delay-5 { animation-delay: 0.7s; }
+
+        .avatar-stack img, .avatar-stack .avatar-placeholder {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 2.5px solid #fff;
+            margin-left: -10px;
+            object-fit: cover;
+        }
+        .avatar-stack .avatar-placeholder:first-child { margin-left: 0; }
+
+        .nav-link {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+        .nav-link:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            :root { --headline-size: 42px; --padding-top: 140px; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: scale(1); }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            :root { --headline-size: 60px; --padding-top: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-black/[0.04]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-[72px]">
+            <a href="#" class="flex items-center gap-2 cursor-pointer">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#1A1A1A"/><circle cx="10" cy="12" r="3" fill="#fff"/><circle cx="18" cy="12" r="3" fill="#fff"/><path d="M8 19c0-3.3 2.7-4 6-4s6 .7 6 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <span class="text-lg font-semibold tracking-tight text-textPrimary">PeopleFlow</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="nav-link">Funcionalidades</a>
+                <a href="#testimonials" class="nav-link">Depoimentos</a>
+                <a href="#pricing" class="nav-link">Planos</a>
+                <a href="#cta" class="nav-link">Contato</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#" class="nav-link">Entrar</a>
+                <button class="btn-cta !py-[10px] !px-6 !text-sm">Começar Grátis</button>
+            </div>
+            <!-- Mobile menu button -->
+            <button id="menuBtn" class="md:hidden cursor-pointer p-2 rounded-lg hover:bg-black/[0.04] transition" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-black/[0.04] px-6 py-6 space-y-4">
+            <a href="#features" class="block nav-link py-2">Funcionalidades</a>
+            <a href="#testimonials" class="block nav-link py-2">Depoimentos</a>
+            <a href="#pricing" class="block nav-link py-2">Planos</a>
+            <a href="#cta" class="block nav-link py-2">Contato</a>
+            <div class="pt-4 border-t border-black/[0.06] flex flex-col gap-3">
+                <a href="#" class="nav-link">Entrar</a>
+                <button class="btn-cta w-full">Começar Grátis</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="bg-white" style="padding-top: var(--padding-top);">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <!-- Social proof badge -->
+            <div class="animate-in delay-1 inline-flex items-center gap-3 mb-10 px-5 py-2.5 rounded-full border border-black/[0.06] bg-white" style="box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+                <div class="avatar-stack flex items-center">
+                    <div class="avatar-placeholder" style="background: #e8d5f5; margin-left:0;"></div>
+                    <div class="avatar-placeholder" style="background: #d5e8f5;"></div>
+                    <div class="avatar-placeholder" style="background: #f5e0d5;"></div>
+                    <div class="avatar-placeholder" style="background: #d5f5e0;"></div>
+                </div>
+                <span class="text-sm text-textMuted font-medium">+2.400 empresas já confiam na PeopleFlow</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="animate-in delay-2 leading-[1.05] tracking-tight text-textPrimary" style="font-size: var(--headline-size); font-weight: 600;">
+                Gestão de pessoas<br>
+                <span class="font-accent italic" style="font-size: calc(var(--headline-size) * 1.25); font-weight: 400;">simplificada</span>
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="animate-in delay-3 mt-7 text-lg md:text-xl text-textMuted max-w-2xl mx-auto leading-relaxed" style="font-weight: 400;">
+                Recrute, gerencie e engaje seus colaboradores em uma única plataforma. Menos burocracia, mais estratégia para o seu RH.
+            </p>
+
+            <!-- Email input + CTA -->
+            <div class="animate-in delay-4 mt-12 flex flex-col sm:flex-row items-center gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Seu melhor e-mail corporativo" class="input-email flex-1">
+                <button class="btn-cta w-full sm:w-auto">
+                    Começar Grátis
+                    <svg class="inline-block ml-2 -mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+            </div>
+
+            <!-- Trust line -->
+            <p class="animate-in delay-5 mt-5 text-sm text-textMuted/60">Teste grátis por 14 dias · Sem cartão de crédito · Cancele quando quiser</p>
+        </div>
+
+        <!-- Spacer -->
+        <div class="h-32 md:h-48"></div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <p class="text-sm font-semibold tracking-widest uppercase text-textMuted/50 mb-4">Funcionalidades</p>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-textPrimary">Tudo que seu RH <span class="font-accent italic" style="font-size: 1.15em;">precisa</span></h2>
+                <p class="mt-5 text-lg text-textMuted max-w-2xl mx-auto">Ferramentas integradas para cada etapa da jornada do colaborador, do recrutamento ao offboarding.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card-feature">
+                    <div class="w-12 h-12 rounded-2xl bg-black/[0.04] flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-textPrimary mb-3">Recrutamento Inteligente</h3>
+                    <p class="text-textMuted leading-relaxed">Pipeline visual de candidatos, triagem automática com IA e agendamento integrado de entrevistas. Reduza o tempo de contratação em até 60%.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card-feature">
+                    <div class="w-12 h-12 rounded-2xl bg-black/[0.04] flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2"/><path d="M7 12h4"/><circle cx="16" cy="10" r="2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-textPrimary mb-3">Folha & Benefícios</h3>
+                    <p class="text-textMuted leading-relaxed">Processamento automático de folha de pagamento, gestão de benefícios flexíveis e conformidade trabalhista sempre atualizada.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card-feature">
+                    <div class="w-12 h-12 rounded-2xl bg-black/[0.04] flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-8 4 5 5-9"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-textPrimary mb-3">People Analytics</h3>
+                    <p class="text-textMuted leading-relaxed">Dashboards em tempo real com métricas de engajamento, turnover e performance. Tome decisões baseadas em dados, não em achismos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <p class="text-sm font-semibold tracking-widest uppercase text-textMuted/50 mb-4">Depoimentos</p>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-textPrimary">Quem usa, <span class="font-accent italic" style="font-size: 1.15em;">recomenda</span></h2>
+                <p class="mt-5 text-lg text-textMuted max-w-2xl mx-auto">Veja o que líderes de RH estão dizendo sobre a transformação que a PeopleFlow trouxe para suas equipes.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card-testimonial">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-textMuted leading-relaxed mb-6">"Reduzimos o tempo de fechamento da folha de 5 dias para 1. A automação da PeopleFlow transformou completamente nossa operação de DP."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-200 to-purple-100 flex items-center justify-center">
+                            <span class="text-sm font-semibold text-purple-700">CM</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-textPrimary">Carla Mendes</p>
+                            <p class="text-xs text-textMuted">Head de RH · TechNova</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card-testimonial">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-textMuted leading-relaxed mb-6">"O módulo de recrutamento é absurdamente bom. Conseguimos preencher 40 vagas em 2 meses com metade do esforço que tínhamos antes."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-blue-100 flex items-center justify-center">
+                            <span class="text-sm font-semibold text-blue-700">RS</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-textPrimary">Rafael Santos</p>
+                            <p class="text-xs text-textMuted">Diretor de Pessoas · LogiPrime</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card-testimonial">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-textMuted leading-relaxed mb-6">"O People Analytics mudou a forma como tomamos decisões. Identificamos padrões de turnover que nunca teríamos visto sem a plataforma."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-200 to-emerald-100 flex items-center justify-center">
+                            <span class="text-sm font-semibold text-emerald-700">JO</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-textPrimary">Juliana Oliveira</p>
+                            <p class="text-xs text-textMuted">CHRO · FinanceUp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <p class="text-sm font-semibold tracking-widest uppercase text-textMuted/50 mb-4">Planos</p>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-textPrimary">Preço justo para <span class="font-accent italic" style="font-size: 1.15em;">cada fase</span></h2>
+                <p class="mt-5 text-lg text-textMuted max-w-2xl mx-auto">Comece grátis e escale conforme sua empresa cresce. Sem surpresas na fatura.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center max-w-5xl mx-auto">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <p class="text-sm font-semibold tracking-wide uppercase text-textMuted/50 mb-2">Starter</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-5xl font-semibold text-textPrimary">R$0</span>
+                        <span class="text-textMuted text-sm">/mês</span>
+                    </div>
+                    <p class="text-sm text-textMuted mb-8">Até 10 colaboradores</p>
+                    <ul class="space-y-3.5 mb-10">
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Cadastro de colaboradores
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Controle de ponto básico
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Relatórios essenciais
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte por e-mail
+                        </li>
+                    </ul>
+                    <button class="btn-outline w-full">Começar Grátis</button>
+                </div>
+
+                <!-- Pro (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-semibold tracking-wide uppercase text-textMuted/50">Pro</p>
+                        <span class="text-xs font-semibold bg-textPrimary text-white px-3 py-1 rounded-full">Popular</span>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-5xl font-semibold text-textPrimary">R$29</span>
+                        <span class="text-textMuted text-sm">/colaborador/mês</span>
+                    </div>
+                    <p class="text-sm text-textMuted mb-8">Até 200 colaboradores</p>
+                    <ul class="space-y-3.5 mb-10">
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do Starter
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Recrutamento com IA
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Folha de pagamento automática
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            People Analytics avançado
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+                    <button class="btn-cta w-full">Começar Agora</button>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <p class="text-sm font-semibold tracking-wide uppercase text-textMuted/50 mb-2">Enterprise</p>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="text-5xl font-semibold text-textPrimary">Custom</span>
+                    </div>
+                    <p class="text-sm text-textMuted mb-8">Colaboradores ilimitados</p>
+                    <ul class="space-y-3.5 mb-10">
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tudo do Pro
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            SSO & SCIM provisioning
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            API completa & webhooks
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-textMuted">
+                            <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                    </ul>
+                    <button class="btn-outline w-full">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section id="cta" class="py-24 md:py-32 bg-white">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-textPrimary">Pronto para transformar<br>seu <span class="font-accent italic" style="font-size: 1.15em;">RH</span>?</h2>
+            <p class="mt-6 text-lg text-textMuted max-w-xl mx-auto leading-relaxed">Junte-se a mais de 2.400 empresas que já simplificaram a gestão de pessoas com a PeopleFlow.</p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Seu e-mail corporativo" class="input-email flex-1">
+                <button class="btn-cta w-full sm:w-auto">
+                    Começar Grátis
+                    <svg class="inline-block ml-2 -mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+            </div>
+            <p class="mt-5 text-sm text-textMuted/60">14 dias grátis · Setup em 5 minutos · Sem cartão de crédito</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-black/[0.06] bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-10 md:gap-8">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-5 cursor-pointer">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#1A1A1A"/><circle cx="10" cy="12" r="3" fill="#fff"/><circle cx="18" cy="12" r="3" fill="#fff"/><path d="M8 19c0-3.3 2.7-4 6-4s6 .7 6 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        <span class="text-lg font-semibold tracking-tight text-textPrimary">PeopleFlow</span>
+                    </a>
+                    <p class="text-sm text-textMuted leading-relaxed max-w-xs mb-6">A plataforma completa de gestão de RH para empresas que valorizam suas pessoas.</p>
+                    <!-- Social icons -->
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="text-textMuted hover:text-textPrimary transition cursor-pointer" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="text-textMuted hover:text-textPrimary transition cursor-pointer" aria-label="Twitter/X">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="text-textMuted hover:text-textPrimary transition cursor-pointer" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a href="#" class="text-textMuted hover:text-textPrimary transition cursor-pointer" aria-label="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <p class="text-sm font-semibold text-textPrimary mb-4">Produto</p>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Funcionalidades</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Planos & Preços</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <p class="text-sm font-semibold text-textPrimary mb-4">Empresa</p>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Contato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <p class="text-sm font-semibold text-textPrimary mb-4">Legal</p>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Privacidade</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">LGPD</a></li>
+                        <li><a href="#" class="text-sm text-textMuted hover:text-textPrimary transition cursor-pointer">Segurança</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="mt-16 pt-8 border-t border-black/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-textMuted/60">&copy; 2026 PeopleFlow. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-sm text-textMuted/60 hover:text-textMuted transition cursor-pointer">Termos</a>
+                    <a href="#" class="text-sm text-textMuted/60 hover:text-textMuted transition cursor-pointer">Privacidade</a>
+                    <a href="#" class="text-sm text-textMuted/60 hover:text-textMuted transition cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile menu toggle script -->
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobileMenu a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card-feature, .card-testimonial, .pricing-card').forEach(function(el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(24px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

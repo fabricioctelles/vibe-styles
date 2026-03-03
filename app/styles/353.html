@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datacore — Plataforma de Dados Inteligente</title>
+    <meta name="description" content="Datacore é a plataforma SaaS de infraestrutura de dados que transforma a maneira como sua empresa conecta, processa e analisa informações em tempo real.">
+    <meta name="keywords" content="plataforma de dados, SaaS, infraestrutura de dados, analytics, inteligência artificial, dados em tempo real">
+    <meta name="author" content="Datacore">
+    <meta property="og:title" content="Datacore — Plataforma de Dados Inteligente">
+    <meta property="og:description" content="Transforme sua infraestrutura de dados com a plataforma mais avançada do mercado. Conecte, processe e analise em tempo real.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://datacore.io">
+    <meta property="og:image" content="https://datacore.io/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Datacore — Plataforma de Dados Inteligente">
+    <meta name="twitter:description" content="Transforme sua infraestrutura de dados com a plataforma mais avançada do mercado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: { DEFAULT: '#7b39fc', hover: '#6a2ce0' },
+                        dark: { DEFAULT: '#2b2344', hover: '#352b54' },
+                        orange: '#f87b52',
+                        glass: { border: 'rgba(164,132,215,0.5)', bg: 'rgba(85,80,110,0.4)' }
+                    },
+                    fontFamily: {
+                        global: ['Manrope', 'sans-serif'],
+                        heading: ['Inter', 'sans-serif'],
+                        button: ['Cabin', 'sans-serif'],
+                        accent: ['Instrument Serif', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-purple: #7b39fc;
+            --color-dark: #2b2344;
+            --color-orange: #f87b52;
+            --glass-border: rgba(164,132,215,0.5);
+            --glass-bg: rgba(85,80,110,0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Manrope', sans-serif; background: #000; color: #fff; }
+
+        /* Video background simulation */
+        .hero-video-bg {
+            position: absolute; inset: 0; z-index: 0; overflow: hidden;
+        }
+        .hero-video-bg::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, #0a0015 0%, #1a0a3e 25%, #0d0d2b 50%, #2b1055 75%, #000 100%);
+            background-size: 400% 400%;
+            animation: videoSimBg 12s ease infinite;
+        }
+        .hero-video-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(123,57,252,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(248,123,82,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 60% 80%, rgba(123,57,252,0.1) 0%, transparent 45%);
+            animation: videoSimOverlay 8s ease-in-out infinite alternate;
+        }
+        @keyframes videoSimBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes videoSimOverlay {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Particle grid overlay */
+        .particle-grid {
+            position: absolute; inset: 0; z-index: 1;
+            background-image:
+                radial-gradient(circle, rgba(123,57,252,0.3) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: particleMove 20s linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes particleMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        /* Data lines animation */
+        .data-lines {
+            position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0.2;
+        }
+        .data-lines::before, .data-lines::after {
+            content: '';
+            position: absolute;
+            width: 1px; height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--color-purple), transparent);
+            animation: dataLineFloat 6s ease-in-out infinite;
+        }
+        .data-lines::before { left: 25%; animation-delay: 0s; }
+        .data-lines::after { left: 75%; animation-delay: 3s; }
+        @keyframes dataLineFloat {
+            0%, 100% { top: -200px; opacity: 0; }
+            50% { top: 50%; opacity: 1; }
+        }
+
+        /* Hero overlay */
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 2;
+            background: rgba(0,0,0,0.6);
+        }
+
+        /* Glassmorphism badge */
+        .glass-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 16px 6px 8px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 9999px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .glass-badge:hover { background: rgba(85,80,110,0.6); }
+        .glass-badge .tag {
+            background: var(--color-orange);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(164,132,215,0.8);
+            box-shadow: 0 8px 32px rgba(123,57,252,0.15);
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(123,57,252,0.15));
+            border: 2px solid var(--color-purple);
+            position: relative;
+        }
+        .pricing-highlight::before {
+            content: '';
+            position: absolute; inset: -1px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--color-purple), var(--color-orange));
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(0,0,0,0.97);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu a {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem; font-weight: 600;
+            color: #fff; text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .mobile-menu a:hover { color: var(--color-purple); }
+
+        /* Floating shapes */
+        .float-shape {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); opacity: 0.15;
+            animation: floatShape 10s ease-in-out infinite alternate;
+        }
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -20px) scale(1.1); }
+        }
+
+        /* CTA glow */
+        .cta-glow {
+            position: relative;
+        }
+        .cta-glow::before {
+            content: '';
+            position: absolute; inset: -2px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--color-purple), var(--color-orange), var(--color-purple));
+            background-size: 200% 200%;
+            animation: glowRotate 4s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(15px);
+        }
+        @keyframes glowRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Testimonial avatar ring */
+        .avatar-ring {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-purple), var(--color-orange));
+            padding: 2px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .avatar-ring > div {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: var(--color-dark);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700; font-size: 0.85rem;
+            color: var(--color-purple);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-global antialiased">
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="absolute top-6 right-6 cursor-pointer" aria-label="Fechar menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <a href="#features" onclick="toggleMenu()">Recursos</a>
+        <a href="#testimonials" onclick="toggleMenu()">Depoimentos</a>
+        <a href="#pricing" onclick="toggleMenu()">Preços</a>
+        <a href="#contact" onclick="toggleMenu()">Contato</a>
+        <a href="#pricing" onclick="toggleMenu()" class="mt-4 px-8 py-3 bg-purple rounded-lg font-button font-semibold text-white cursor-pointer transition-all hover:bg-purple-hover">Começar Agora</a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-lg text-white tracking-tight">Datacore</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer">Recursos</a>
+                    <a href="#testimonials" class="text-sm text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer">Depoimentos</a>
+                    <a href="#pricing" class="text-sm text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer">Preços</a>
+                    <a href="#contact" class="text-sm text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer">Contato</a>
+                </div>
+
+                <!-- Desktop CTA -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#" class="text-sm text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer">Entrar</a>
+                    <a href="#pricing" class="px-5 py-2.5 bg-purple hover:bg-purple-hover rounded-lg font-button font-semibold text-sm text-white transition-all duration-300 cursor-pointer">Começar Grátis</a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="openMenu" class="md:hidden cursor-pointer" aria-label="Abrir menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background Simulation -->
+        <div class="hero-video-bg"></div>
+        <div class="particle-grid"></div>
+        <div class="data-lines"></div>
+        <div class="hero-overlay"></div>
+
+        <!-- Floating shapes -->
+        <div class="float-shape w-96 h-96 bg-purple -top-20 -left-20" style="animation-delay: 0s;"></div>
+        <div class="float-shape w-72 h-72 bg-orange bottom-10 right-10" style="animation-delay: 3s;"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-24 pb-16">
+            <!-- Glassmorphism Badge -->
+            <div class="flex justify-center mb-8 reveal">
+                <div class="glass-badge cursor-pointer">
+                    <span class="tag">Novo</span>
+                    <span class="text-gray-200">Integração com IA Generativa disponível</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="font-heading font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[76px] leading-[1.05] tracking-tight mb-6 reveal">
+                Infraestrutura de dados<br>
+                para empresas <em class="font-accent italic font-normal not-italic" style="font-family: 'Instrument Serif', serif; font-style: italic;">inteligentes</em>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed reveal">
+                Conecte, processe e analise seus dados em tempo real com a plataforma que está redefinindo a infraestrutura de dados moderna.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
+                <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-purple hover:bg-purple-hover rounded-xl font-button font-semibold text-white text-base transition-all duration-300 cursor-pointer shadow-lg shadow-purple/25 hover:shadow-purple/40 hover:scale-[1.02]">
+                    Começar Gratuitamente
+                </a>
+                <a href="#features" class="w-full sm:w-auto px-8 py-4 bg-dark hover:bg-dark-hover rounded-xl font-button font-semibold text-white text-base transition-all duration-300 cursor-pointer border border-gray-700 hover:border-gray-500">
+                    Explorar Recursos
+                </a>
+            </div>
+
+            <!-- Trust bar -->
+            <div class="mt-16 flex flex-wrap items-center justify-center gap-6 text-gray-500 text-xs reveal">
+                <span class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    SOC 2 Certificado
+                </span>
+                <span class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    99.99% Uptime
+                </span>
+                <span class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    +2.500 Empresas
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="float-shape w-80 h-80 bg-purple top-20 -right-40" style="animation-delay: 2s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-orange border border-orange/30 bg-orange/5 mb-4">Recursos</span>
+                <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4">
+                    Tudo que você precisa para<br>
+                    <em class="font-accent italic font-normal" style="font-family: 'Instrument Serif', serif; font-style: italic;">dominar</em> seus dados
+                </h2>
+                <p class="text-gray-400 text-base md:text-lg max-w-xl mx-auto">
+                    Ferramentas poderosas projetadas para equipes que exigem performance e confiabilidade.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="w-12 h-12 rounded-xl bg-purple/15 border border-purple/30 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl mb-3">Processamento em Tempo Real</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Processe milhões de eventos por segundo com latência inferior a 10ms. Nossa engine de streaming garante que seus dados estejam sempre atualizados.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/5">
+                        <div class="flex items-center gap-2 text-purple text-sm font-medium cursor-pointer hover:text-purple-hover transition-colors duration-300">
+                            <span>Saiba mais</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="w-12 h-12 rounded-xl bg-orange/15 border border-orange/30 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f87b52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl mb-3">Integrações Nativas</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Conecte-se a mais de 200 fontes de dados com conectores pré-construídos. De bancos SQL a APIs REST, tudo em poucos cliques.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/5">
+                        <div class="flex items-center gap-2 text-orange text-sm font-medium cursor-pointer hover:opacity-80 transition-all duration-300">
+                            <span>Saiba mais</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="w-12 h-12 rounded-xl bg-purple/15 border border-purple/30 flex items-center justify-center mb-6">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl mb-3">Analytics Avançado</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Dashboards interativos com IA integrada que identifica padrões e anomalias automaticamente. Tome decisões baseadas em dados reais.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/5">
+                        <div class="flex items-center gap-2 text-purple text-sm font-medium cursor-pointer hover:text-purple-hover transition-colors duration-300">
+                            <span>Saiba mais</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="float-shape w-64 h-64 bg-orange -bottom-20 left-10" style="animation-delay: 4s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-purple border border-purple/30 bg-purple/5 mb-4">Depoimentos</span>
+                <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4">
+                    Amado por equipes que<br>
+                    <em class="font-accent italic font-normal" style="font-family: 'Instrument Serif', serif; font-style: italic;">constroem</em> o futuro
+                </h2>
+                <p class="text-gray-400 text-base md:text-lg max-w-xl mx-auto">
+                    Veja o que líderes de tecnologia estão dizendo sobre a Datacore.
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        "A Datacore transformou completamente nossa pipeline de dados. O que levava horas agora acontece em segundos. A equipe de engenharia nunca esteve tão produtiva."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring"><div>RM</div></div>
+                        <div>
+                            <p class="font-heading font-semibold text-sm text-white">Rafael Mendes</p>
+                            <p class="text-gray-500 text-xs">CTO, TechFlow Brasil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        "Migramos de três ferramentas diferentes para a Datacore e reduzimos nosso custo de infraestrutura em 60%. A simplicidade da plataforma é impressionante."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring"><div>AS</div></div>
+                        <div>
+                            <p class="font-heading font-semibold text-sm text-white">Ana Silva</p>
+                            <p class="text-gray-500 text-xs">VP de Engenharia, NovaPay</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card p-8 reveal">
+                    <div class="flex items-center gap-1 mb-5">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f87b52" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        "O suporte da Datacore é excepcional. Implementamos a plataforma em duas semanas e já estávamos gerando insights que antes eram impossíveis."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar-ring"><div>LC</div></div>
+                        <div>
+                            <p class="font-heading font-semibold text-sm text-white">Lucas Costa</p>
+                            <p class="text-gray-500 text-xs">Head de Dados, Fintera</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="float-shape w-96 h-96 bg-purple top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="animation-delay: 1s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-orange border border-orange/30 bg-orange/5 mb-4">Preços</span>
+                <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4">
+                    Planos que escalam com<br>
+                    <em class="font-accent italic font-normal" style="font-family: 'Instrument Serif', serif; font-style: italic;">você</em>
+                </h2>
+                <p class="text-gray-400 text-base md:text-lg max-w-xl mx-auto">
+                    Comece gratuitamente e evolua conforme sua necessidade. Sem surpresas na fatura.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+                <!-- Starter -->
+                <div class="glass-card p-8 reveal">
+                    <div class="mb-6">
+                        <h3 class="font-heading font-bold text-lg mb-1">Starter</h3>
+                        <p class="text-gray-500 text-sm">Para equipes que estão começando</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-heading font-extrabold text-4xl text-white">Grátis</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Até 100k eventos/mês
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            3 conectores inclusos
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dashboard básico
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-500">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a4a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-500">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a4a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            IA Generativa
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3.5 text-center rounded-xl font-button font-semibold text-sm bg-dark hover:bg-dark-hover border border-gray-700 hover:border-gray-500 text-white transition-all duration-300 cursor-pointer">
+                        Começar Grátis
+                    </a>
+                </div>
+
+                <!-- Pro (Highlighted) -->
+                <div class="glass-card pricing-highlight p-8 reveal md:-mt-4 md:mb-[-16px]">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="font-heading font-bold text-lg mb-1">Pro</h3>
+                            <p class="text-gray-400 text-sm">Para equipes em crescimento</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple/20 text-purple border border-purple/40">Popular</span>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-heading font-extrabold text-4xl text-white">R$297</span>
+                        <span class="text-gray-500 text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Até 10M eventos/mês
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            50+ conectores
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dashboards avançados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            IA Generativa
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3.5 text-center rounded-xl font-button font-semibold text-sm bg-purple hover:bg-purple-hover text-white transition-all duration-300 cursor-pointer shadow-lg shadow-purple/25 hover:shadow-purple/40">
+                        Assinar Pro
+                    </a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="glass-card p-8 reveal">
+                    <div class="mb-6">
+                        <h3 class="font-heading font-bold text-lg mb-1">Enterprise</h3>
+                        <p class="text-gray-500 text-sm">Para grandes organizações</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="font-heading font-extrabold text-4xl text-white">Custom</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Eventos ilimitados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            200+ conectores
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dashboards personalizados
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Gerente de conta dedicado
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            SLA 99.999% garantido
+                        </li>
+                    </ul>
+                    <a href="#" class="block w-full py-3.5 text-center rounded-xl font-button font-semibold text-sm bg-dark hover:bg-dark-hover border border-gray-700 hover:border-gray-500 text-white transition-all duration-300 cursor-pointer">
+                        Falar com Vendas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final Section -->
+    <section class="relative py-24 md:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative cta-glow rounded-2xl overflow-hidden reveal">
+                <!-- CTA Background -->
+                <div class="absolute inset-0 bg-gradient-to-br from-purple/20 via-dark to-black"></div>
+                <div class="absolute inset-0">
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-purple/10 rounded-full filter blur-[100px]"></div>
+                    <div class="absolute bottom-0 left-0 w-72 h-72 bg-orange/10 rounded-full filter blur-[80px]"></div>
+                </div>
+                <!-- Particle grid inside CTA -->
+                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, rgba(123,57,252,0.4) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+                <div class="relative z-10 text-center py-16 md:py-24 px-6 md:px-12">
+                    <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-5">
+                        Pronto para transformar<br>
+                        seus <em class="font-accent italic font-normal" style="font-family: 'Instrument Serif', serif; font-style: italic;">dados</em>?
+                    </h2>
+                    <p class="text-gray-400 text-base md:text-lg max-w-lg mx-auto mb-10">
+                        Junte-se a mais de 2.500 empresas que já confiam na Datacore para impulsionar suas decisões com dados em tempo real.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#pricing" class="w-full sm:w-auto px-10 py-4 bg-purple hover:bg-purple-hover rounded-xl font-button font-semibold text-white text-base transition-all duration-300 cursor-pointer shadow-lg shadow-purple/25 hover:shadow-purple/40 hover:scale-[1.02]">
+                            Começar Agora — É Grátis
+                        </a>
+                        <a href="#" class="w-full sm:w-auto px-10 py-4 bg-white/5 hover:bg-white/10 rounded-xl font-button font-semibold text-white text-base transition-all duration-300 cursor-pointer border border-white/10 hover:border-white/20">
+                            Agendar Demonstração
+                        </a>
+                    </div>
+                    <p class="text-gray-600 text-xs mt-6">Sem cartão de crédito. Configuração em 2 minutos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="relative border-t border-white/5 pt-16 pb-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div class="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
+                    <a href="#" class="flex items-center gap-3 mb-4 cursor-pointer group">
+                        <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7b39fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                        </div>
+                        <span class="font-heading font-bold text-lg text-white tracking-tight">Datacore</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-xs">
+                        A plataforma de infraestrutura de dados que empresas modernas confiam para conectar, processar e analisar em tempo real.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3 mt-6">
+                        <!-- Twitter/X -->
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-purple/20 border border-white/10 hover:border-purple/40 flex items-center justify-center transition-all duration-300 cursor-pointer" aria-label="Twitter">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-purple/20 border border-white/10 hover:border-purple/40 flex items-center justify-center transition-all duration-300 cursor-pointer" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-purple/20 border border-white/10 hover:border-purple/40 flex items-center justify-center transition-all duration-300 cursor-pointer" aria-label="GitHub">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-purple/20 border border-white/10 hover:border-purple/40 flex items-center justify-center transition-all duration-300 cursor-pointer" aria-label="YouTube">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto -->
+                <div>
+                    <h4 class="font-heading font-semibold text-sm text-white mb-4">Produto</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#features" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Recursos</a></li>
+                        <li><a href="#pricing" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Preços</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Integrações</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Changelog</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Documentação</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="font-heading font-semibold text-sm text-white mb-4">Empresa</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Sobre Nós</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Blog</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Carreiras</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Contato</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-heading font-semibold text-sm text-white mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Segurança</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">LGPD</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 cursor-pointer">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-600 text-xs">&copy; 2026 Datacore. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-xs transition-colors duration-300 cursor-pointer">Política de Privacidade</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-xs transition-colors duration-300 cursor-pointer">Termos de Uso</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-xs transition-colors duration-300 cursor-pointer">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+        }
+        document.getElementById('openMenu').addEventListener('click', toggleMenu);
+        document.getElementById('closeMenu').addEventListener('click', toggleMenu);
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                navbar.style.background = 'rgba(0,0,0,0.85)';
+                navbar.style.backdropFilter = 'blur(20px)';
+                navbar.style.webkitBackdropFilter = 'blur(20px)';
+                navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            } else {
+                navbar.style.background = 'transparent';
+                navbar.style.backdropFilter = 'none';
+                navbar.style.webkitBackdropFilter = 'none';
+                navbar.style.borderBottom = 'none';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
