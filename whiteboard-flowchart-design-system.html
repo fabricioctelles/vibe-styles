@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whiteboard Flowchart — Design System Spec</title>
+
+<!-- FONTS: Core do estilo handwritten -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Permanent+Marker&family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<!-- Rough.js para bordas orgânicas -->
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+
+<style>
+  /* ============================================
+     DESIGN TOKENS — WHITEBOARD FLOWCHART
+     ============================================ */
+  :root {
+    /* --- BACKGROUND --- */
+    --wb-bg: #F7F8FA;
+    --wb-bg-texture: #F0F1F3;
+    --wb-frame: #B8BBBE;
+    --wb-frame-inner: #D4D6D9;
+    
+    /* --- INK / STROKES --- */
+    --wb-ink: #1A1A1A;
+    --wb-ink-soft: rgba(26,26,26,0.7);
+    --wb-ink-faint: rgba(26,26,26,0.35);
+    
+    /* --- PASTÉIS (fills de caixas) --- */
+    --wb-blue: #C4DFF6;
+    --wb-blue-deep: #8FBFE0;
+    --wb-yellow: #FFF5C3;
+    --wb-yellow-warm: #FDEEA0;
+    --wb-green: #D4EDDA;
+    --wb-green-mint: #B8E6C8;
+    --wb-pink: #FADADD;
+    --wb-pink-warm: #F4B6C2;
+    --wb-lavender: #E8DCF5;
+    --wb-orange: #FFE0C2;
+    
+    /* --- SHADOWS (hard, sem blur) --- */
+    --wb-shadow: 3px 3px 0px rgba(26,26,26,0.15);
+    --wb-shadow-strong: 4px 4px 0px rgba(26,26,26,0.25);
+    
+    /* --- TYPOGRAPHY --- */
+    --font-title: 'Permanent Marker', cursive;
+    --font-body: 'Kalam', cursive;
+    --font-accent: 'Patrick Hand', cursive;
+    --font-handwrite: 'Caveat', cursive;
+    
+    /* --- BORDERS --- */
+    --wb-border: 2.5px solid var(--wb-ink);
+    --wb-border-thin: 1.5px solid var(--wb-ink-soft);
+  }
+
+  /* ============================================
+     RESET & BASE
+     ============================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: #E8E9EB;
+    font-family: var(--font-body);
+    color: var(--wb-ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================
+     WHITEBOARD FRAME (Moldura física)
+     ============================================ */
+  .whiteboard-frame {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 8px;
+    background: linear-gradient(135deg, #C8CACD 0%, #D8DADD 30%, #C0C2C5 70%, #B0B2B5 100%);
+    border-radius: 12px;
+    box-shadow: 
+      0 8px 32px rgba(0,0,0,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.4),
+      inset 0 -1px 0 rgba(0,0,0,0.1);
+  }
+
+  .whiteboard {
+    background: var(--wb-bg);
+    border-radius: 6px;
+    padding: 3rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    /* Textura sutil de whiteboard */
+    background-image: 
+      radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.6) 0%, transparent 70%),
+      radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.4) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,0.008) 0%, rgba(0,0,0,0.02) 100%);
+  }
+
+  /* Reflexo sutil no whiteboard */
+  .whiteboard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .whiteboard > * { position: relative; z-index: 1; }
+
+  /* ============================================
+     TIPOGRAFIA — HIERARQUIA HANDWRITTEN
+     ============================================ */
+  
+  /* H1: Título principal — "canetão grosso" */
+  .wb-title {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--wb-ink);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    /* Leve underline desenhada à mão */
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--wb-ink-faint);
+    text-underline-offset: 8px;
+  }
+
+  /* H2: Títulos de seção (ribbons) */
+  .wb-section-title {
+    font-family: var(--font-title);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: inline-block;
+    padding: 0.4rem 1.4rem;
+    position: relative;
+  }
+
+  /* H3: Subtítulos de step */
+  .wb-step-title {
+    font-family: var(--font-title);
+    font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  /* Body text */
+  .wb-text {
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    line-height: 1.55;
+    color: var(--wb-ink-soft);
+  }
+
+  /* Annotations / small notes */
+  .wb-note {
+    font-family: var(--font-handwrite);
+    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+    color: var(--wb-ink-soft);
+    font-style: italic;
+  }
+
+  /* ============================================
+     COMPONENTES CORE
+     ============================================ */
+
+  /* --- RIBBON (faixa de título de path) --- */
+  .ribbon {
+    display: inline-block;
+    padding: 0.5rem 2rem 0.5rem 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .ribbon--blue {
+    background: var(--wb-blue);
+    border: var(--wb-border);
+    box-shadow: var(--wb-shadow);
+  }
+  .ribbon--green {
+    background: var(--wb-green);
+    border: var(--wb-border);
+    box-shadow: var(--wb-shadow);
+  }
+  /* Irregularidade: rotação sutil */
+  .ribbon { transform: rotate(-0.5deg); }
+
+  /* --- STEP BADGE (círculo numerado) --- */
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .step-badge__number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    border: 2.5px solid var(--wb-ink);
+    flex-shrink: 0;
+  }
+  .step-badge__number--pink { background: var(--wb-pink); }
+  .step-badge__number--blue { background: var(--wb-blue); }
+  .step-badge__number--green { background: var(--wb-green-mint); }
+  .step-badge__number--yellow { background: var(--wb-yellow-warm); }
+
+  .step-badge__label {
+    font-family: var(--font-accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--wb-ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* --- CARD (caixa de conteúdo) --- */
+  .wb-card {
+    padding: 1.2rem 1.4rem;
+    border: var(--wb-border);
+    box-shadow: var(--wb-shadow);
+    position: relative;
+    transition: transform 0.15s ease;
+  }
+  .wb-card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--wb-shadow-strong);
+  }
+  .wb-card--yellow { background: var(--wb-yellow); }
+  .wb-card--blue { background: var(--wb-blue); }
+  .wb-card--green { background: var(--wb-green); }
+  .wb-card--white { background: rgba(255,255,255,0.7); }
+  .wb-card--pink { background: var(--wb-pink); }
+  .wb-card--lavender { background: var(--wb-lavender); }
+  .wb-card--orange { background: var(--wb-orange); }
+
+  /* Rotações orgânicas aleatórias */
+  .wb-card.tilt-1 { transform: rotate(-0.8deg); }
+  .wb-card.tilt-2 { transform: rotate(0.6deg); }
+  .wb-card.tilt-3 { transform: rotate(-0.4deg); }
+  .wb-card.tilt-1:hover { transform: rotate(-0.8deg) translate(-1px, -1px); }
+  .wb-card.tilt-2:hover { transform: rotate(0.6deg) translate(-1px, -1px); }
+  .wb-card.tilt-3:hover { transform: rotate(-0.4deg) translate(-1px, -1px); }
+
+  /* --- STICKY NOTE (post-it) --- */
+  .sticky-note {
+    padding: 1rem 1.2rem;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+    position: relative;
+    min-width: 140px;
+  }
+  .sticky-note--yellow { background: #FFF9C4; }
+  .sticky-note--blue { background: #BBDEFB; }
+  .sticky-note--pink { background: #F8BBD0; }
+  .sticky-note--green { background: #C8E6C9; }
+  /* Fita adesiva no topo */
+  .sticky-note::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 50px;
+    height: 14px;
+    background: rgba(200, 200, 180, 0.5);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* --- DOODLE ICONS (SVG inline) --- */
+  .doodle-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    stroke: var(--wb-ink);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .doodle-icon--filled { fill: var(--wb-yellow-warm); }
+
+  /* --- CONNECTOR ARROWS (SVG) --- */
+  .connector {
+    stroke: var(--wb-ink);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    marker-end: url(#arrowhead);
+  }
+  .connector--dashed {
+    stroke-dasharray: 8 4;
+  }
+
+  /* ============================================
+     LAYOUT SYSTEM
+     ============================================ */
+  .wb-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  .wb-grid--2col {
+    grid-template-columns: 1fr 1fr;
+  }
+  .wb-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .wb-flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .wb-flow__item {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* Separator visual */
+  .wb-divider {
+    border: none;
+    border-top: 2px dashed var(--wb-ink-faint);
+    margin: 2rem 0;
+  }
+
+  /* ============================================
+     RESULT BOX (destaque final)
+     ============================================ */
+  .result-box {
+    border: 3px solid var(--wb-ink);
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--wb-yellow) 0%, #FFF8E1 100%);
+    box-shadow: 5px 5px 0 rgba(26,26,26,0.2);
+    position: relative;
+    transform: rotate(0.3deg);
+  }
+  .result-box::after {
+    content: '★';
+    position: absolute;
+    top: -14px;
+    right: 20px;
+    font-size: 1.6rem;
+    color: var(--wb-ink);
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 900px) {
+    .whiteboard { padding: 1.5rem; }
+    .wb-grid--2col, .wb-grid--3col { grid-template-columns: 1fr; }
+    .whiteboard-frame { margin: 1rem; }
+  }
+
+  /* ============================================
+     DEMO LAYOUT BELOW
+     ============================================ */
+  .spec-section {
+    margin-bottom: 3rem;
+  }
+  .spec-label {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--wb-ink-faint);
+    margin-bottom: 0.3rem;
+  }
+
+  /* Swatches */
+  .swatch-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .swatch {
+    width: 80px;
+    height: 60px;
+    border: var(--wb-border-thin);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 4px;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    color: var(--wb-ink-soft);
+  }
+
+  /* Font specimens */
+  .font-specimen {
+    margin: 0.8rem 0;
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.5);
+    border-left: 3px solid var(--wb-ink-faint);
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) {
+    .intro-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Animated draw-in for SVG connectors */
+  @keyframes drawLine {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+  }
+  .animate-draw {
+    stroke-dasharray: 200;
+    animation: drawLine 1.5s ease forwards;
+  }
+
+  /* Subtle wiggle for handmade feel */
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-0.5deg); }
+    75% { transform: rotate(0.5deg); }
+  }
+
+  .demo-flow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+  .demo-arrow {
+    font-size: 1.5rem;
+    color: var(--wb-ink-faint);
+    font-family: var(--font-handwrite);
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG DEFS (arrowheads, filters) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1A1A1A"/>
+    </marker>
+    <!-- Filtro de irregularidade para bordas -->
+    <filter id="roughen">
+      <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="whiteboard-frame">
+<div class="whiteboard">
+
+  <!-- ============================
+       TÍTULO PRINCIPAL
+       ============================ -->
+  <div class="spec-section" style="text-align:center;">
+    <h1 class="wb-title">Whiteboard Flowchart — Design System</h1>
+    <p class="wb-note" style="max-width:700px; margin:0 auto;">
+      Spec completa para replicar o estilo "quadro branco com fluxograma desenhado à mão" em landing pages web. 
+      Todos os tokens, componentes e técnicas estão documentados abaixo.
+    </p>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       1. PALETA DE CORES
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--pink">1</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Paleta de Cores</h2>
+    <p class="wb-text" style="margin:0.5rem 0;">
+      Inspirada num whiteboard real: fundo neutro frio, tinta de marcador como cor primária, e fills pastéis chapados 
+      (sem gradientes) para hierarquia visual. Limite máximo: 5-6 cores de destaque.
+    </p>
+
+    <h3 class="wb-step-title" style="font-size:0.9rem; margin-top:1rem;">Fundo & Estrutura</h3>
+    <div class="swatch-grid">
+      <div class="swatch" style="background:#F7F8FA;">#F7F8FA<br>Board</div>
+      <div class="swatch" style="background:#E8E9EB;">#E8E9EB<br>Page bg</div>
+      <div class="swatch" style="background:#B8BBBE;">#B8BBBE<br>Frame</div>
+      <div class="swatch" style="background:#1A1A1A; color:#fff;">#1A1A1A<br>Ink</div>
+    </div>
+
+    <h3 class="wb-step-title" style="font-size:0.9rem; margin-top:1rem;">Fills Pastéis (caixas & ribbons)</h3>
+    <div class="swatch-grid">
+      <div class="swatch" style="background:var(--wb-blue);">Blue<br>#C4DFF6</div>
+      <div class="swatch" style="background:var(--wb-yellow);">Yellow<br>#FFF5C3</div>
+      <div class="swatch" style="background:var(--wb-green);">Green<br>#D4EDDA</div>
+      <div class="swatch" style="background:var(--wb-pink);">Pink<br>#FADADD</div>
+      <div class="swatch" style="background:var(--wb-lavender);">Lavender<br>#E8DCF5</div>
+      <div class="swatch" style="background:var(--wb-orange);">Orange<br>#FFE0C2</div>
+    </div>
+
+    <div class="wb-card wb-card--white tilt-2" style="max-width:500px; margin-top:1rem;">
+      <p class="wb-text"><strong>Regra de ouro:</strong> Fundo sempre branco-gelo. Sombras 100% sólidas (sem blur). 
+      Contraste WCAG AA garantido: texto preto sobre qualquer pastel deste palette = ratio > 7:1.</p>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       2. TIPOGRAFIA
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--blue">2</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Tipografia</h2>
+    <p class="wb-text" style="margin:0.5rem 0;">
+      4 fontes do Google Fonts formam a hierarquia completa. A ilusão de "escrito à mão" precisa equilibrar 
+      personalidade com legibilidade, especialmente em mobile.
+    </p>
+
+    <div class="font-specimen">
+      <p class="spec-label">Títulos Principais — "Canetão grosso"</p>
+      <p style="font-family:'Permanent Marker'; font-size:2rem; text-transform:uppercase; letter-spacing:0.04em;">
+        Permanent Marker — ABCDEFG 123
+      </p>
+      <p class="wb-text" style="font-size:0.8rem;">Uso: H1, títulos de path, títulos de seção. Sempre uppercase. Size: 2rem–3.5rem.</p>
+    </div>
+
+    <div class="font-specimen">
+      <p class="spec-label">Corpo / Listas — "Caneta média"</p>
+      <p style="font-family:'Kalam'; font-size:1.2rem;">
+        Kalam — The quick brown fox jumps over the lazy dog. 0123456789
+      </p>
+      <p class="wb-text" style="font-size:0.8rem;">Uso: body text, bullets, descrições em cards. Mixed case. Size: 0.85rem–1.1rem. Line-height: 1.55.</p>
+    </div>
+
+    <div class="font-specimen">
+      <p class="spec-label">Labels & UI — "Escrita limpa"</p>
+      <p style="font-family:'Patrick Hand'; font-size:1.2rem; text-transform:uppercase; letter-spacing:0.06em;">
+        Patrick Hand — Step Labels & Badges
+      </p>
+      <p class="wb-text" style="font-size:0.8rem;">Uso: step labels, badges, subtítulos menores. Uppercase. Size: 0.75rem–0.9rem.</p>
+    </div>
+
+    <div class="font-specimen">
+      <p class="spec-label">Notas / Anotações — "Escrita corrida"</p>
+      <p style="font-family:'Caveat'; font-size:1.4rem; font-style:italic;">
+        Caveat — Anotações rápidas, notas de rodapé, itálico editorial
+      </p>
+      <p class="wb-text" style="font-size:0.8rem;">Uso: captions, notas, annotations. Italic. Size: 0.9rem–1.2rem.</p>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       3. COMPONENTES VISUAIS
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--green">3</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Componentes Visuais</h2>
+
+    <!-- RIBBONS -->
+    <p class="wb-text" style="margin:1rem 0 0.5rem;"><strong>Ribbons (faixas de título)</strong></p>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <div class="ribbon ribbon--blue">
+        <span class="wb-section-title">Path 1: Título Azul</span>
+      </div>
+      <div class="ribbon ribbon--green" style="transform:rotate(0.4deg);">
+        <span class="wb-section-title">Path 2: Título Verde</span>
+      </div>
+    </div>
+
+    <!-- STEP BADGES -->
+    <p class="wb-text" style="margin:0.5rem 0;"><strong>Step Badges (círculos numerados)</strong></p>
+    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <div style="text-align:center;">
+        <div class="step-badge">
+          <div class="step-badge__number step-badge__number--pink">1</div>
+          <span class="step-badge__label">Step</span>
+        </div>
+        <span class="wb-step-title">Pink</span>
+      </div>
+      <div style="text-align:center;">
+        <div class="step-badge">
+          <div class="step-badge__number step-badge__number--blue">2</div>
+          <span class="step-badge__label">Step</span>
+        </div>
+        <span class="wb-step-title">Blue</span>
+      </div>
+      <div style="text-align:center;">
+        <div class="step-badge">
+          <div class="step-badge__number step-badge__number--green">3</div>
+          <span class="step-badge__label">Step</span>
+        </div>
+        <span class="wb-step-title">Green</span>
+      </div>
+      <div style="text-align:center;">
+        <div class="step-badge">
+          <div class="step-badge__number step-badge__number--yellow">4</div>
+          <span class="step-badge__label">Step</span>
+        </div>
+        <span class="wb-step-title">Yellow</span>
+      </div>
+    </div>
+
+    <!-- CARDS -->
+    <p class="wb-text" style="margin:0.5rem 0;"><strong>Cards (caixas de conteúdo)</strong></p>
+    <div class="wb-grid wb-grid--3col" style="margin:1rem 0;">
+      <div class="wb-card wb-card--yellow tilt-1">
+        <h3 class="wb-step-title">Card Amarelo</h3>
+        <p class="wb-text">Borda preta sólida 2.5px. Sombra hard (3px 3px, sem blur). Fill pastel. Rotação sutil ≈ -0.8°.</p>
+      </div>
+      <div class="wb-card wb-card--blue tilt-2">
+        <h3 class="wb-step-title">Card Azul</h3>
+        <p class="wb-text">Hover: translate(-1px, -1px) + sombra mais forte. Simula "levantar" do quadro.</p>
+      </div>
+      <div class="wb-card wb-card--green tilt-3">
+        <h3 class="wb-step-title">Card Verde</h3>
+        <p class="wb-text">Cada card tem uma rotação única para quebrar a rigidez do grid.</p>
+      </div>
+    </div>
+
+    <!-- STICKY NOTES -->
+    <p class="wb-text" style="margin:1rem 0 0.5rem;"><strong>Sticky Notes (post-its)</strong></p>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <div class="sticky-note sticky-note--yellow" style="transform:rotate(-2deg);">
+        <p class="wb-text" style="font-size:0.9rem;">Nota rápida com fita adesiva no topo</p>
+      </div>
+      <div class="sticky-note sticky-note--blue" style="transform:rotate(1.5deg);">
+        <p class="wb-text" style="font-size:0.9rem;">Variante azul, ideal para dicas</p>
+      </div>
+      <div class="sticky-note sticky-note--pink" style="transform:rotate(-1deg);">
+        <p class="wb-text" style="font-size:0.9rem;">Rosa para destaques emocionais</p>
+      </div>
+    </div>
+
+    <!-- RESULT BOX -->
+    <p class="wb-text" style="margin:1rem 0 0.5rem;"><strong>Result Box (destaque final)</strong></p>
+    <div class="result-box" style="max-width:600px;">
+      <h3 class="wb-step-title" style="font-size:1.3rem; margin-bottom:0.3rem;">The Result</h3>
+      <p class="wb-text">Caixa com borda 3px, sombra forte (5px 5px), background gradient sutil yellow → white. Ícone estrela posicionado absoluto no canto.</p>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       4. ÍCONES & SETAS
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--yellow">4</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Ícones Doodle & Conectores</h2>
+
+    <div class="intro-grid">
+      <div>
+        <p class="wb-text" style="margin-bottom:0.8rem;"><strong>Ícones:</strong> SVG inline, stroke-only (sem fill, exceto highlight opcional). 
+        Stroke-width: 2px, linecap: round, linejoin: round. Tamanho: 24–40px. 
+        Estilo "rabisco rápido" — linhas não perfeitamente retas.</p>
+        
+        <div style="display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; margin:1rem 0;">
+          <!-- Lightbulb -->
+          <svg class="doodle-icon" viewBox="0 0 28 28" width="36" height="36">
+            <path d="M14 3c-4.5 0-7 3.5-7 7 0 3 2 5 3 6.5V19h8v-2.5c1-1.5 3-3.5 3-6.5 0-3.5-2.5-7-7-7z" fill="#FFF5C3"/>
+            <path d="M14 3c-4.5 0-7 3.5-7 7 0 3 2 5 3 6.5V19h8v-2.5c1-1.5 3-3.5 3-6.5 0-3.5-2.5-7-7-7z"/>
+            <line x1="10" y1="22" x2="18" y2="22"/>
+            <line x1="11" y1="25" x2="17" y2="25"/>
+            <line x1="14" y1="1" x2="14" y2="0"/>
+            <line x1="6" y1="5" x2="4.5" y2="3.5"/>
+            <line x1="22" y1="5" x2="23.5" y2="3.5"/>
+          </svg>
+
+          <!-- Heart -->
+          <svg class="doodle-icon" viewBox="0 0 28 28" width="36" height="36">
+            <path d="M14 24s-9-6-9-12c0-3 2.5-5.5 5-5.5 1.8 0 3.2 1 4 2.5 0.8-1.5 2.2-2.5 4-2.5 2.5 0 5 2.5 5 5.5 0 6-9 12-9 12z" fill="#FADADD"/>
+            <path d="M14 24s-9-6-9-12c0-3 2.5-5.5 5-5.5 1.8 0 3.2 1 4 2.5 0.8-1.5 2.2-2.5 4-2.5 2.5 0 5 2.5 5 5.5 0 6-9 12-9 12z"/>
+          </svg>
+
+          <!-- Document/List -->
+          <svg class="doodle-icon" viewBox="0 0 28 28" width="36" height="36">
+            <rect x="5" y="3" width="18" height="22" rx="2"/>
+            <line x1="9" y1="9" x2="19" y2="9"/>
+            <line x1="9" y1="13" x2="19" y2="13"/>
+            <line x1="9" y1="17" x2="15" y2="17"/>
+          </svg>
+
+          <!-- Megaphone -->
+          <svg class="doodle-icon" viewBox="0 0 28 28" width="36" height="36">
+            <path d="M4 11h4l8-5v16l-8-5H4V11z"/>
+            <path d="M20 10c1.5 1 2.5 2.5 2.5 4s-1 3-2.5 4" fill="none"/>
+          </svg>
+
+          <!-- Gear -->
+          <svg class="doodle-icon" viewBox="0 0 28 28" width="36" height="36">
+            <circle cx="14" cy="14" r="4"/>
+            <path d="M14 2v3M14 23v3M2 14h3M23 14h3M5.1 5.1l2.1 2.1M20.8 20.8l2.1 2.1M5.1 22.9l2.1-2.1M20.8 7.2l2.1-2.1"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="wb-text" style="margin-bottom:0.8rem;"><strong>Conectores:</strong> SVG paths com curvas Bézier. 
+        Pontas de seta triangulares via &lt;marker&gt;. Animação draw-in (stroke-dasharray + dashoffset) 
+        para revealing progressivo na landing page.</p>
+        
+        <svg width="280" height="100" style="margin:0.5rem 0;">
+          <path class="connector animate-draw" d="M20 20 C60 20, 60 80, 130 80" />
+          <path class="connector connector--dashed" d="M150 80 C200 80, 200 20, 260 20" style="stroke-dasharray:8 4;" />
+          <text x="20" y="14" font-family="Patrick Hand" font-size="12" fill="#666">Sólida</text>
+          <text x="200" y="14" font-family="Patrick Hand" font-size="12" fill="#666">Tracejada</text>
+        </svg>
+
+        <p class="wb-text" style="font-size:0.85rem; color:var(--wb-ink-faint);">
+          Tip: Use Rough.js para gerar paths com "jitter" automático, 
+          criando curvas que parecem desenhadas à mão.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       5. TÉCNICAS CSS
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--pink">5</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Técnicas CSS Chave</h2>
+
+    <div class="wb-grid wb-grid--2col" style="margin-top:1rem;">
+      <div class="wb-card wb-card--white tilt-1">
+        <h3 class="wb-step-title" style="margin-bottom:0.4rem;">Sombras Hard</h3>
+        <p class="wb-text">
+          <code style="font-family:monospace; font-size:0.85rem; background:rgba(0,0,0,0.05); padding:2px 6px;">
+            box-shadow: 3px 3px 0px rgba(26,26,26,0.15);
+          </code>
+        </p>
+        <p class="wb-text" style="margin-top:0.3rem;">Zero blur. Offset sólido. Simula "papel colado" sobre o quadro. 
+        Variante forte: 5px 5px para caixas de resultado.</p>
+      </div>
+      <div class="wb-card wb-card--white tilt-2">
+        <h3 class="wb-step-title" style="margin-bottom:0.4rem;">Rotações Orgânicas</h3>
+        <p class="wb-text">
+          <code style="font-family:monospace; font-size:0.85rem; background:rgba(0,0,0,0.05); padding:2px 6px;">
+            transform: rotate(-0.8deg);
+          </code>
+        </p>
+        <p class="wb-text" style="margin-top:0.3rem;">Cada elemento recebe rotação aleatória entre -1° e 1°. 
+        Nunca repita o mesmo ângulo em cards adjacentes.</p>
+      </div>
+      <div class="wb-card wb-card--white tilt-3">
+        <h3 class="wb-step-title" style="margin-bottom:0.4rem;">Textura de Whiteboard</h3>
+        <p class="wb-text">Sobreposição de radial-gradients com opacidade baixa (0.1–0.3) para simular 
+        reflexo e leve variação tonal da superfície. Opcional: imagem de textura com mix-blend-mode.</p>
+      </div>
+      <div class="wb-card wb-card--white tilt-1">
+        <h3 class="wb-step-title" style="margin-bottom:0.4rem;">Bordas Irregulares</h3>
+        <p class="wb-text">Opção A: SVG filter feTurbulence + feDisplacementMap com scale baixo (1–2px). 
+        Opção B: Rough.js para bordas com jitter automático. 
+        Opção C: clip-path polygon com pontos levemente deslocados.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       6. DEMO: MINI FLOWCHART
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--blue">6</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Demo: Mini Flowchart</h2>
+    <p class="wb-note" style="margin-bottom:1rem;">Exemplo funcional do layout flowchart com todos os componentes aplicados.</p>
+
+    <div style="text-align:center; margin-bottom:1.5rem;">
+      <h2 class="wb-title" style="font-size:clamp(1.4rem, 3vw, 2.2rem); margin-bottom:0.5rem;">Como Funciona o Processo</h2>
+      <p class="wb-note">Um guia rápido em 3 passos</p>
+    </div>
+
+    <div class="wb-grid wb-grid--2col" style="margin-bottom:1.5rem;">
+      <!-- PATH A -->
+      <div>
+        <div class="ribbon ribbon--blue" style="margin-bottom:1rem;">
+          <span class="wb-section-title" style="font-size:1rem;">Caminho A: Do Zero</span>
+        </div>
+        
+        <div class="demo-flow">
+          <div class="wb-card wb-card--yellow tilt-1" style="flex:1; min-width:180px;">
+            <div class="step-badge">
+              <div class="step-badge__number step-badge__number--pink">1</div>
+              <span class="step-badge__label">Step</span>
+            </div>
+            <h3 class="wb-step-title">Defina a Base</h3>
+            <p class="wb-text" style="font-size:0.85rem;">Identifique público, canais e objetivos principais.</p>
+          </div>
+          
+          <span class="demo-arrow">→</span>
+          
+          <div class="wb-card wb-card--blue tilt-2" style="flex:1; min-width:180px;">
+            <div class="step-badge">
+              <div class="step-badge__number step-badge__number--blue">2</div>
+              <span class="step-badge__label">Step</span>
+            </div>
+            <h3 class="wb-step-title">Execute</h3>
+            <p class="wb-text" style="font-size:0.85rem;">Rode os prompts e colete os resultados iniciais.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PATH B -->
+      <div>
+        <div class="ribbon ribbon--green" style="margin-bottom:1rem; transform:rotate(0.4deg);">
+          <span class="wb-section-title" style="font-size:1rem;">Caminho B: Com Dados</span>
+        </div>
+        
+        <div class="demo-flow">
+          <div class="wb-card wb-card--green tilt-3" style="flex:1; min-width:180px;">
+            <div class="step-badge">
+              <div class="step-badge__number step-badge__number--green">1</div>
+              <span class="step-badge__label">Step</span>
+            </div>
+            <h3 class="wb-step-title">Colete Dados</h3>
+            <p class="wb-text" style="font-size:0.85rem;">Reúna feedbacks, métricas e históricos reais.</p>
+          </div>
+
+          <span class="demo-arrow">→</span>
+
+          <div class="wb-card wb-card--lavender tilt-1" style="flex:1; min-width:180px;">
+            <div class="step-badge">
+              <div class="step-badge__number step-badge__number--yellow">2</div>
+              <span class="step-badge__label">Step</span>
+            </div>
+            <h3 class="wb-step-title">Analise</h3>
+            <p class="wb-text" style="font-size:0.85rem;">Use ferramentas de inteligência para insights profundos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-box" style="max-width:100%; text-align:center;">
+      <h3 class="wb-step-title" style="font-size:1.3rem; margin-bottom:0.3rem;">
+        <svg class="doodle-icon" viewBox="0 0 28 28" width="24" height="24" style="vertical-align:middle; margin-right:6px;">
+          <path d="M14 3c-4.5 0-7 3.5-7 7 0 3 2 5 3 6.5V19h8v-2.5c1-1.5 3-3.5 3-6.5 0-3.5-2.5-7-7-7z" fill="#FFF5C3"/>
+          <path d="M14 3c-4.5 0-7 3.5-7 7 0 3 2 5 3 6.5V19h8v-2.5c1-1.5 3-3.5 3-6.5 0-3.5-2.5-7-7-7z"/>
+          <line x1="10" y1="22" x2="18" y2="22"/><line x1="11" y1="25" x2="17" y2="25"/>
+        </svg>
+        O Resultado
+      </h3>
+      <p class="wb-text">Ambos os caminhos convergem aqui — com dados reais ou hipóteses validadas, 
+      o output é um artefato acionável e reutilizável.</p>
+    </div>
+  </div>
+
+  <hr class="wb-divider">
+
+  <!-- ============================
+       7. CHECKLIST DE IMPLEMENTAÇÃO
+       ============================ -->
+  <div class="spec-section">
+    <div class="step-badge">
+      <div class="step-badge__number step-badge__number--green">7</div>
+      <span class="step-badge__label">Seção</span>
+    </div>
+    <h2 class="wb-step-title">Checklist de Implementação</h2>
+
+    <div class="wb-grid wb-grid--2col" style="margin-top:1rem;">
+      <div class="wb-card wb-card--yellow tilt-2">
+        <h3 class="wb-step-title" style="margin-bottom:0.5rem;">Obrigatório</h3>
+        <ul class="wb-text" style="padding-left:1.2rem;">
+          <li>Google Fonts: Permanent Marker + Kalam + Patrick Hand + Caveat</li>
+          <li>CSS custom properties para todos os tokens</li>
+          <li>Sombras hard (blur: 0) em todos os cards</li>
+          <li>Rotações aleatórias (-1° a 1°) em cada card</li>
+          <li>Moldura metálica (gradient cinza) envolvendo o whiteboard</li>
+          <li>Fundo branco-gelo com textura sutil</li>
+          <li>Bordas pretas sólidas 2–3px</li>
+          <li>Responsivo: grid → stack em ≤ 900px</li>
+        </ul>
+      </div>
+      <div class="wb-card wb-card--green tilt-3">
+        <h3 class="wb-step-title" style="margin-bottom:0.5rem;">Opcional (Upgrade)</h3>
+        <ul class="wb-text" style="padding-left:1.2rem;">
+          <li>Rough.js para bordas com jitter procedural</li>
+          <li>Animação draw-in nos conectores SVG</li>
+          <li>Hover: elevação + sombra intensificada</li>
+          <li>Textura de whiteboard via background-image</li>
+          <li>Filtro SVG feTurbulence para irregularidade</li>
+          <li>Animação @keyframes wiggle sutil no load</li>
+          <li>Sticky notes com pseudo-element de fita adesiva</li>
+          <li>Intersection Observer para reveal-on-scroll</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       FOOTER NOTE
+       ============================ -->
+  <div style="text-align:center; margin-top:2rem;">
+    <p class="wb-note">
+      Design System — Whiteboard Flowchart v1.0 — Todos os tokens, componentes e patterns estão neste documento.
+    </p>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

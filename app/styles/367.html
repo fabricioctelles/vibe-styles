@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowStep - Plataforma de Produtividade e Automacao de Workflows</title>
+<meta name="description" content="FlowStep e a plataforma definitiva para automacao de workflows e produtividade. Crie fluxos inteligentes, automatize tarefas repetitivas e acelere seus resultados.">
+<meta name="keywords" content="automacao, workflows, produtividade, FlowStep, automacao de processos, gestao de tarefas">
+<meta name="author" content="FlowStep">
+<meta property="og:title" content="FlowStep - Automacao de Workflows Inteligente">
+<meta property="og:description" content="Crie fluxos automatizados, elimine tarefas repetitivas e multiplique a produtividade da sua equipe com FlowStep.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flowstep.com.br">
+<meta property="og:image" content="https://flowstep.com.br/og-image.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FlowStep - Automacao de Workflows Inteligente">
+<meta name="twitter:description" content="Crie fluxos automatizados e multiplique a produtividade da sua equipe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--wb-bg:#F9FAFB;--wb-ink:#1A1A1A;--wb-frame:#B8BBBE;--wb-page:#E8E9EB;
+--wb-blue:#A5D8FF;--wb-yellow:#FFF9E6;--wb-green:#C3E8BD;--wb-pink:#FADADD;
+--wb-lavender:#E8DCF5;--wb-orange:#FFE0C2;
+--wb-shadow:4px 4px 0px rgba(51,51,51,0.4);--wb-shadow-lg:6px 6px 0px rgba(51,51,51,0.4);
+--font-title:'Permanent Marker',cursive;--font-body:'Kalam',cursive;
+--font-accent:'Patrick Hand',cursive;--font-handwrite:'Caveat',cursive;
+--timeline-width:35%;--content-width:65%
+}
+body{font-family:var(--font-body);background:var(--wb-page);color:var(--wb-ink);line-height:1.6;overflow-x:hidden}
+
+/* WHITEBOARD FRAME */
+.whiteboard-frame{max-width:1200px;margin:2rem auto;background:var(--wb-bg);border:8px solid;border-image:linear-gradient(180deg,#d4d4d4 0%,#e8e8e8 10%,#c0c0c0 20%,#d8d8d8 40%,#b8b8b8 60%,#cccccc 80%,#a8a8a8 90%,#bfbfbf 100%) 1;box-shadow:0 0 0 2px #999,8px 8px 24px rgba(0,0,0,0.18),inset 0 0 80px rgba(200,200,200,0.08);position:relative;min-height:100vh}
+.whiteboard-frame::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.06;pointer-events:none;z-index:0}
+.whiteboard-frame>*{position:relative;z-index:1}
+
+/* FRAME TRAY */
+.frame-tray{position:relative;height:48px;background:linear-gradient(180deg,#c8c8c8 0%,#b0b0b0 40%,#a0a0a0 100%);border-top:2px solid #999;display:flex;align-items:center;justify-content:center;gap:12px;max-width:1200px;margin:0 auto}
+.marker{width:56px;height:18px;border-radius:9px;border:1.5px solid rgba(0,0,0,0.25);box-shadow:1px 2px 3px rgba(0,0,0,0.2)}
+.marker--blue{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.marker--red{background:linear-gradient(90deg,#ef4444,#f87171)}
+.marker--green{background:linear-gradient(90deg,#22c55e,#4ade80)}
+.marker--black{background:linear-gradient(90deg,#1a1a1a,#444)}
+.eraser{width:64px;height:28px;background:linear-gradient(180deg,#f5f5f5 0%,#e0e0e0 100%);border:1.5px solid #aaa;border-radius:4px;box-shadow:1px 2px 4px rgba(0,0,0,0.15);margin-left:16px;position:relative}
+.eraser::after{content:'';display:block;width:100%;height:8px;background:#888;border-radius:0 0 3px 3px;position:absolute;bottom:0;left:0}
+
+/* NAVBAR */
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;border-bottom:2.5px dashed var(--wb-ink);flex-wrap:wrap;gap:1rem}
+.navbar-logo{font-family:var(--font-title);font-size:1.8rem;color:var(--wb-ink);text-decoration:none;transform:rotate(-1deg);display:inline-block}
+.navbar-logo span{color:#3b82f6}
+.navbar-links{display:flex;list-style:none;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.navbar-links a{font-family:var(--font-accent);font-size:1.1rem;color:var(--wb-ink);text-decoration:none;text-transform:uppercase;letter-spacing:1px;padding:0.3rem 0.6rem;transition:background 0.2s,transform 0.2s;cursor:pointer}
+.navbar-links a:hover{background:var(--wb-yellow);transform:rotate(-1deg)}
+.navbar-cta{font-family:var(--font-accent);font-size:1.05rem;text-transform:uppercase;letter-spacing:1px;padding:0.55rem 1.3rem;background:var(--wb-blue);color:var(--wb-ink);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;display:inline-block}
+.navbar-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0px rgba(51,51,51,0.4)}
+
+/* HERO */
+.hero{padding:4rem 2.5rem 3rem;text-align:center;position:relative}
+.hero-headline{font-family:var(--font-title);font-size:3.2rem;text-transform:uppercase;transform:rotate(-2deg);line-height:1.2;margin-bottom:1rem;display:inline-block}
+.hero-headline .highlight{background:linear-gradient(180deg,transparent 55%,var(--wb-blue) 55%);padding:0 6px}
+.hero-subtitle{font-family:var(--font-handwrite);font-size:1.7rem;font-style:italic;color:#555;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-buttons{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{font-family:var(--font-accent);font-size:1.15rem;text-transform:uppercase;letter-spacing:1.5px;padding:0.8rem 2rem;background:var(--wb-green);color:var(--wb-ink);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn-primary:hover{transform:translate(-2px,-2px);box-shadow:var(--wb-shadow-lg)}
+.btn-secondary{font-family:var(--font-accent);font-size:1.15rem;text-transform:uppercase;letter-spacing:1.5px;padding:0.8rem 2rem;background:var(--wb-yellow);color:var(--wb-ink);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn-secondary:hover{transform:translate(-2px,-2px);box-shadow:var(--wb-shadow-lg)}
+.hero-arrow{display:block;margin:0 auto}
+
+/* SECTION TITLES */
+.section-title{font-family:var(--font-title);font-size:2.4rem;text-transform:uppercase;text-align:center;transform:rotate(-2deg);margin-bottom:0.5rem;display:inline-block}
+.section-subtitle{font-family:var(--font-handwrite);font-size:1.4rem;font-style:italic;text-align:center;color:#666;margin-bottom:3rem}
+.section-header{text-align:center;padding:0 2rem}
+
+/* STATS BAR */
+.stats-bar{display:flex;justify-content:center;gap:3rem;padding:2rem 2.5rem;border-top:2px dashed #ccc;border-bottom:2px dashed #ccc;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-item .stat-number{font-family:var(--font-title);font-size:2.4rem;display:block;color:var(--wb-ink)}
+.stat-item .stat-label{font-family:var(--font-accent);font-size:0.9rem;text-transform:uppercase;letter-spacing:1.5px;color:#666}
+
+/* TIMELINE */
+.timeline-section{padding:3rem 2.5rem 4rem}
+.timeline-step{display:flex;align-items:flex-start;margin-bottom:5rem;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.timeline-step.visible{opacity:1;transform:translateY(0)}
+.timeline-step:last-child{margin-bottom:0}
+.step-circle-wrapper{width:var(--timeline-width);display:flex;justify-content:center;align-items:flex-start;position:relative;flex-shrink:0;padding-top:0.5rem}
+.step-circle{width:64px;height:64px;border-radius:50%;border:3px solid var(--wb-ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:1.6rem;box-shadow:var(--wb-shadow);position:relative;z-index:2;flex-shrink:0}
+.step-circle--blue{background:var(--wb-blue)}
+.step-circle--green{background:var(--wb-green)}
+.step-circle--pink{background:var(--wb-pink)}
+.step-circle--orange{background:var(--wb-orange)}
+.step-circle--lavender{background:var(--wb-lavender)}
+.step-circle--yellow{background:var(--wb-yellow)}
+.step-content{width:var(--content-width);background:var(--wb-yellow);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);padding:1.5rem 1.8rem;position:relative;margin-left:1.5rem}
+.step-content--white{background:#fff}
+.step-content--blue{background:var(--wb-blue)}
+.step-content--green{background:var(--wb-green)}
+.step-content--pink{background:var(--wb-pink)}
+.step-content h3{font-family:var(--font-title);font-size:1.35rem;text-transform:uppercase;margin-bottom:0.6rem;transform:rotate(-1deg);display:inline-block}
+.step-content p{font-family:var(--font-body);font-size:1.05rem;line-height:1.7;color:#333}
+.step-content .step-label{font-family:var(--font-accent);font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;color:#777;margin-bottom:0.4rem;display:block}
+.step-icon{position:absolute;top:-18px;right:16px}
+
+/* FEATURES */
+.features-section{padding:3rem 2.5rem 4rem}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:960px;margin:0 auto}
+.feature-card{border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);padding:2rem 1.5rem;text-align:center;transition:transform 0.3s,box-shadow 0.3s;cursor:default;position:relative}
+.feature-card:hover{transform:translate(-2px,-3px) rotate(-1deg);box-shadow:var(--wb-shadow-lg)}
+.feature-card:nth-child(1){background:var(--wb-blue);transform:rotate(-1.5deg)}
+.feature-card:nth-child(2){background:var(--wb-green);transform:rotate(1deg)}
+.feature-card:nth-child(3){background:var(--wb-lavender);transform:rotate(-0.5deg)}
+.feature-card:nth-child(1):hover{transform:translate(-2px,-3px) rotate(-2.5deg)}
+.feature-card:nth-child(2):hover{transform:translate(-2px,-3px) rotate(0deg)}
+.feature-card:nth-child(3):hover{transform:translate(-2px,-3px) rotate(-1.5deg)}
+.feature-card .feature-icon{margin-bottom:1rem}
+.feature-card h3{font-family:var(--font-title);font-size:1.25rem;text-transform:uppercase;margin-bottom:0.7rem}
+.feature-card p{font-family:var(--font-body);font-size:1rem;line-height:1.6;color:#333}
+.feature-card .feature-badge{font-family:var(--font-accent);font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;background:var(--wb-ink);color:var(--wb-bg);padding:0.2rem 0.7rem;display:inline-block;margin-top:0.8rem}
+
+/* INTEGRATIONS */
+.integrations-section{padding:3rem 2.5rem;text-align:center}
+.integrations-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;max-width:700px;margin:0 auto}
+.integration-item{width:80px;height:80px;border:2px solid var(--wb-ink);box-shadow:var(--wb-shadow);background:#fff;display:flex;align-items:center;justify-content:center;transition:transform 0.2s;cursor:default}
+.integration-item:hover{transform:translate(-2px,-2px) rotate(-3deg)}
+.integration-item span{font-family:var(--font-accent);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;color:#555;text-align:center;line-height:1.2}
+
+/* TESTIMONIALS */
+.testimonials-section{padding:3rem 2.5rem 4rem}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;max-width:960px;margin:0 auto}
+.sticky-note{background:var(--wb-yellow);border:2px solid var(--wb-ink);box-shadow:var(--wb-shadow);padding:2rem 1.5rem 1.5rem;position:relative;transition:transform 0.3s}
+.sticky-note::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(2deg);width:60px;height:20px;background:rgba(200,200,200,0.6);border:1px solid rgba(150,150,150,0.3)}
+.sticky-note:nth-child(1){transform:rotate(-2deg);background:var(--wb-yellow)}
+.sticky-note:nth-child(2){transform:rotate(1.5deg);background:var(--wb-pink)}
+.sticky-note:nth-child(3){transform:rotate(-1deg);background:var(--wb-orange)}
+.sticky-note:hover{z-index:10}
+.sticky-note:nth-child(1):hover{transform:rotate(0deg) scale(1.03)}
+.sticky-note:nth-child(2):hover{transform:rotate(0deg) scale(1.03)}
+.sticky-note:nth-child(3):hover{transform:rotate(0deg) scale(1.03)}
+.sticky-note blockquote{font-family:var(--font-handwrite);font-size:1.2rem;font-style:italic;line-height:1.5;margin-bottom:1rem;color:#333}
+.sticky-note .author{font-family:var(--font-accent);font-size:0.95rem;text-transform:uppercase;letter-spacing:1px;color:#555}
+.sticky-note .author-role{font-family:var(--font-body);font-size:0.85rem;color:#777;display:block;margin-top:0.2rem}
+.star-rating{margin-bottom:0.6rem}
+.star-rating svg{width:18px;height:18px;fill:#f59e0b;stroke:var(--wb-ink);stroke-width:1}
+
+/* PRICING */
+.pricing-section{padding:3rem 2.5rem 4rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:960px;margin:0 auto;align-items:start}
+.pricing-card{border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);padding:2rem 1.5rem;text-align:center;background:#fff;position:relative;transition:transform 0.3s,box-shadow 0.3s}
+.pricing-card:hover{transform:translate(-2px,-3px);box-shadow:var(--wb-shadow-lg)}
+.pricing-card.featured{background:var(--wb-blue);box-shadow:6px 6px 0px rgba(51,51,51,0.5);transform:scale(1.05);z-index:2;border-width:3px}
+.pricing-card.featured:hover{transform:scale(1.05) translate(-2px,-3px);box-shadow:8px 8px 0px rgba(51,51,51,0.5)}
+.pricing-card .plan-badge{font-family:var(--font-accent);font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;background:var(--wb-ink);color:var(--wb-bg);padding:0.25rem 0.8rem;display:inline-block;margin-bottom:1rem}
+.pricing-card .plan-name{font-family:var(--font-title);font-size:1.5rem;text-transform:uppercase;margin-bottom:0.5rem}
+.pricing-card .plan-price{font-family:var(--font-title);font-size:2.8rem;margin-bottom:0.3rem}
+.pricing-card .plan-price span{font-family:var(--font-body);font-size:1rem;color:#666}
+.pricing-card .plan-desc{font-family:var(--font-handwrite);font-size:1.1rem;font-style:italic;color:#555;margin-bottom:1.2rem}
+.pricing-card ul{list-style:none;text-align:left;margin-bottom:1.5rem}
+.pricing-card ul li{font-family:var(--font-body);font-size:0.95rem;padding:0.4rem 0;border-bottom:1px dashed #ccc;display:flex;align-items:center;gap:0.5rem}
+.pricing-card ul li svg{flex-shrink:0}
+.plan-btn{font-family:var(--font-accent);font-size:1.05rem;text-transform:uppercase;letter-spacing:1.5px;padding:0.7rem 1.8rem;background:var(--wb-green);color:var(--wb-ink);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;display:inline-block;text-decoration:none}
+.plan-btn:hover{transform:translate(-2px,-2px);box-shadow:var(--wb-shadow-lg)}
+.pricing-card.featured .plan-btn{background:var(--wb-pink)}
+
+/* CTA FINAL */
+.cta-final-section{padding:3rem 2.5rem 4rem}
+.cta-final-box{max-width:780px;margin:0 auto;background:var(--wb-blue);border:3px solid var(--wb-ink);box-shadow:6px 6px 0px rgba(51,51,51,0.45);padding:3rem 2.5rem;text-align:center;position:relative}
+.cta-final-box .cta-icon{margin-bottom:1rem}
+.cta-final-box h2{font-family:var(--font-title);font-size:2.2rem;text-transform:uppercase;transform:rotate(-1.5deg);margin-bottom:0.8rem;display:inline-block}
+.cta-final-box p{font-family:var(--font-handwrite);font-size:1.4rem;font-style:italic;color:#333;margin-bottom:1.8rem;max-width:550px;margin-left:auto;margin-right:auto}
+.cta-btn{font-family:var(--font-accent);font-size:1.2rem;text-transform:uppercase;letter-spacing:2px;padding:0.9rem 2.5rem;background:var(--wb-pink);color:var(--wb-ink);border:2.5px solid var(--wb-ink);box-shadow:var(--wb-shadow);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;display:inline-block}
+.cta-btn:hover{transform:translate(-2px,-2px);box-shadow:var(--wb-shadow-lg)}
+.cta-final-annotation{font-family:var(--font-handwrite);font-size:1.1rem;font-style:italic;color:#666;margin-top:1rem}
+
+/* FOOTER */
+.footer{border-top:2.5px dashed var(--wb-ink);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem}
+.footer-col{flex:1;min-width:180px}
+.footer-col h4{font-family:var(--font-title);font-size:1rem;text-transform:uppercase;margin-bottom:0.8rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:0.4rem}
+.footer-col ul li a{font-family:var(--font-body);font-size:0.95rem;color:#555;text-decoration:none;transition:color 0.2s;cursor:pointer}
+.footer-col ul li a:hover{color:var(--wb-ink);text-decoration:underline}
+.footer-social{display:flex;gap:0.8rem;margin-top:0.5rem}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:2px solid var(--wb-ink);box-shadow:3px 3px 0px rgba(51,51,51,0.3);background:var(--wb-bg);transition:transform 0.2s,box-shadow 0.2s,background 0.2s;cursor:pointer}
+.footer-social a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0px rgba(51,51,51,0.4);background:var(--wb-yellow)}
+.footer-bottom{width:100%;text-align:center;padding-top:1.5rem;border-top:1px dashed #ccc;margin-top:1rem}
+.footer-bottom p{font-family:var(--font-body);font-size:0.85rem;color:#888}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.whiteboard-frame{margin:0.5rem;border-width:5px}
+.navbar{flex-direction:column;text-align:center;padding:1rem}
+.navbar-links{justify-content:center}
+.hero-headline{font-size:2rem}
+.hero-subtitle{font-size:1.3rem}
+.timeline-step{flex-direction:column;align-items:center;text-align:center}
+.step-circle-wrapper{width:100%;justify-content:center;margin-bottom:1rem}
+.step-content{width:100%;margin-left:0}
+.step-connector-svg{display:none}
+.features-grid,.testimonials-grid,.pricing-grid{grid-template-columns:1fr}
+.pricing-card.featured{transform:scale(1)}
+.pricing-card.featured:hover{transform:translate(-2px,-3px)}
+.footer{flex-direction:column;text-align:center}
+.footer-social{justify-content:center}
+.stats-bar{gap:1.5rem}
+.section-title{font-size:1.8rem}
+.cta-final-box h2{font-size:1.6rem}
+.cta-final-box p{font-size:1.15rem}
+.integrations-grid{gap:1rem}
+.integration-item{width:65px;height:65px}
+}
+@media(max-width:480px){
+.hero-headline{font-size:1.6rem}
+.hero-buttons{flex-direction:column;align-items:center}
+.navbar-links{gap:0.8rem}
+.step-circle{width:52px;height:52px;font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1A1A1A"/></marker>
+</defs>
+</svg>
+
+<div class="whiteboard-frame">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+<a href="#" class="navbar-logo">Flow<span>Step</span></a>
+<ul class="navbar-links">
+<li><a href="#como-funciona">Como Funciona</a></li>
+<li><a href="#recursos">Recursos</a></li>
+<li><a href="#depoimentos">Depoimentos</a></li>
+<li><a href="#precos">Precos</a></li>
+</ul>
+<a href="#comecar" class="navbar-cta">Comece Gratis</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<h1 class="hero-headline">Automatize seus <span class="highlight">workflows</span> e libere seu potencial</h1>
+<p class="hero-subtitle">Chega de tarefas repetitivas. O FlowStep conecta suas ferramentas, organiza seus processos e faz o trabalho pesado por voce.</p>
+<div class="hero-buttons">
+<a href="#comecar" class="btn-primary">Criar Conta Gratis</a>
+<a href="#como-funciona" class="btn-secondary">Ver Como Funciona</a>
+</div>
+<svg class="hero-arrow" width="48" height="80" viewBox="0 0 48 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C24 4,22 38,24 58C26 38,24 4,24 4" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" fill="none"/>
+<polygon points="14,62 24,78 34,62" fill="#1A1A1A"/>
+</svg>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+<div class="stat-item"><span class="stat-number">12.500+</span><span class="stat-label">Equipes Ativas</span></div>
+<div class="stat-item"><span class="stat-number">3.2M</span><span class="stat-label">Workflows Criados</span></div>
+<div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfacao</span></div>
+<div class="stat-item"><span class="stat-number">47h</span><span class="stat-label">Economizadas/Mes</span></div>
+</div>
+
+<!-- COMO FUNCIONA - TIMELINE -->
+<section class="timeline-section" id="como-funciona">
+<div class="section-header">
+<h2 class="section-title">Como Funciona</h2>
+<p class="section-subtitle">Siga os passos e veja como e simples transformar sua rotina com o FlowStep</p>
+</div>
+
+<!-- STEP 1 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--blue">1</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 20C15 18,30 10,55 20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content">
+<span class="step-label">Passo 1 — Cadastro</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="20" rx="2" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M2 28C2 28,10 32,20 32C30 32,38 28,38 28" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" fill="none"/><line x1="14" y1="14" x2="26" y2="14" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="18" x2="24" y2="18" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg>
+<h3>Crie sua Conta em Segundos</h3>
+<p>Basta informar seu e-mail e escolher uma senha. Nenhum cartao de credito necessario para comecar. Voce recebe acesso imediato ao painel completo do FlowStep, com templates prontos para usar e um assistente de configuracao que guia voce pelos primeiros passos. O processo leva menos de 30 segundos e voce ja pode comecar a explorar todas as funcionalidades da plataforma sem nenhuma restricao durante o periodo de teste gratuito de 14 dias. Alem disso, oferecemos um tour interativo que apresenta cada recurso de forma didatica e envolvente.</p>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--green">2</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 20C18 25,35 12,55 20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content step-content--white">
+<span class="step-label">Passo 2 — Conexao</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="12" cy="20" r="8" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><circle cx="28" cy="20" r="8" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><line x1="18" y1="20" x2="22" y2="20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="10" x2="12" y2="6" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="10" x2="28" y2="6" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg>
+<h3>Conecte suas Ferramentas</h3>
+<p>Integre com mais de 200 aplicativos que voce ja usa no dia a dia: Google Workspace, Slack, Trello, Notion, Asana, HubSpot, Salesforce, Jira e muitos outros. A conexao e feita com apenas dois cliques usando autenticacao OAuth segura. O FlowStep sincroniza automaticamente seus dados entre as plataformas, garantindo que todas as informacoes estejam sempre atualizadas e acessiveis em um unico lugar centralizado. Nossa biblioteca de conectores cresce toda semana com novas integracoes solicitadas pela comunidade.</p>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--pink">3</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 22C12 15,40 28,55 20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content">
+<span class="step-label">Passo 3 — Construcao</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="7" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><circle cx="20" cy="20" r="3" stroke="#1A1A1A" stroke-width="2" fill="none"/><line x1="20" y1="4" x2="20" y2="10" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="36" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><line x1="4" y1="20" x2="10" y2="20" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="20" x2="36" y2="20" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/></svg>
+<h3>Monte seu Workflow Visual</h3>
+<p>Use nosso editor drag-and-drop para criar fluxos de trabalho personalizados sem escrever uma unica linha de codigo. Arraste blocos de acoes, defina condicoes logicas com operadores simples como se/entao/senao, configure gatilhos automaticos baseados em eventos e conecte tudo em um fluxo visual intuitivo. Cada bloco pode ser personalizado com filtros avancados, transformacoes de dados e regras de negocio especificas para o seu contexto. O editor oferece preview em tempo real para que voce veja exatamente como seu workflow vai funcionar antes de ativa-lo.</p>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--orange">4</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 20C16 28,38 14,55 20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content step-content--white">
+<span class="step-label">Passo 4 — Automacao</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><polygon points="20,4 36,14 36,30 20,38 4,30 4,14" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linejoin="round"/><line x1="20" y1="4" x2="20" y2="38" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="14" x2="36" y2="14" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg>
+<h3>Ative Gatilhos Automaticos</h3>
+<p>Configure gatilhos que disparam seus workflows automaticamente: quando um formulario e preenchido, quando um e-mail chega, quando um prazo se aproxima ou quando um status muda em outra ferramenta. O FlowStep monitora tudo em tempo real e executa as acoes programadas sem que voce precise levantar um dedo. Voce pode combinar multiplos gatilhos com condicoes logicas avancadas para criar automacoes sofisticadas que se adaptam ao contexto do seu negocio.</p>
+</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--lavender">5</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 18C14 24,42 16,55 22" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content step-content--green">
+<span class="step-label">Passo 5 — Monitoramento</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="22" rx="2" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><polyline points="8,24 14,18 20,22 26,14 32,16" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="34" x2="24" y2="34" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/></svg>
+<h3>Acompanhe Tudo em Tempo Real</h3>
+<p>O painel de monitoramento mostra cada workflow em execucao, com logs detalhados, metricas de performance e alertas inteligentes. Identifique gargalos, otimize processos e tome decisoes baseadas em dados concretos. Receba notificacoes instantaneas quando algo precisa de atencao e visualize dashboards personalizados com os KPIs mais importantes para sua equipe. Exporte relatorios completos em PDF ou CSV para compartilhar com stakeholders.</p>
+</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="timeline-step">
+<div class="step-circle-wrapper">
+<div class="step-circle step-circle--yellow">6</div>
+<svg class="step-connector-svg" width="60" height="40" viewBox="0 0 60 40" style="position:absolute;right:-10px;top:18px" fill="none"><path d="M2 22C10 16,44 26,55 20" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/></svg>
+</div>
+<div class="step-content step-content--blue">
+<span class="step-label">Passo 6 — Escala</span>
+<svg class="step-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 32L20 8L32 32" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="24" x2="28" y2="24" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="8" r="3" stroke="#1A1A1A" stroke-width="2" fill="none"/></svg>
+<h3>Escale sem Limites</h3>
+<p>Conforme sua equipe cresce, o FlowStep cresce junto. Adicione novos membros, crie workflows departamentais, defina permissoes granulares e mantenha tudo organizado com pastas e tags. Nossa infraestrutura suporta milhoes de execucoes por mes com latencia minima. Compartilhe templates entre equipes, crie bibliotecas de automacoes reutilizaveis e padronize processos em toda a organizacao com governanca centralizada.</p>
+</div>
+</div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="recursos">
+<div class="section-header">
+<h2 class="section-title">Recursos Poderosos</h2>
+<p class="section-subtitle">Tudo que voce precisa para automatizar, conectar e escalar seus processos</p>
+</div>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M8 12L24 4L40 12V28L24 44L8 28V12Z" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linejoin="round"/><circle cx="24" cy="20" r="6" stroke="#1A1A1A" stroke-width="2" fill="none"/><path d="M18 32C18 28,22 26,24 26C26 26,30 28,30 32" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+</div>
+<h3>Editor Visual Intuitivo</h3>
+<p>Crie workflows complexos arrastando e soltando blocos. Sem codigo, sem complicacao. Interface pensada para quem quer resultados rapidos.</p>
+<span class="feature-badge">Drag & Drop</span>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="16" height="12" rx="2" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><rect x="26" y="10" width="16" height="12" rx="2" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><rect x="16" y="28" width="16" height="12" rx="2" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><line x1="14" y1="22" x2="24" y2="28" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><line x1="34" y1="22" x2="24" y2="28" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg>
+</div>
+<h3>200+ Integracoes</h3>
+<p>Conecte todas as ferramentas que sua equipe ja usa. Google, Slack, Notion, HubSpot, Jira e muito mais com autenticacao segura OAuth.</p>
+<span class="feature-badge">Conectores</span>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#1A1A1A" stroke-width="2.5" fill="none"/><polyline points="24,14 24,24 32,28" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="#1A1A1A"/></svg>
+</div>
+<h3>Automacao em Tempo Real</h3>
+<p>Gatilhos instantaneos que executam acoes no momento exato. Monitore, ajuste e otimize com dashboards ao vivo e alertas inteligentes.</p>
+<span class="feature-badge">Real-Time</span>
+</div>
+</div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="integrations-section">
+<div class="section-header">
+<h2 class="section-title">Integracoes Favoritas</h2>
+<p class="section-subtitle">Conecte com as ferramentas que voce ja ama usar</p>
+</div>
+<div class="integrations-grid">
+<div class="integration-item"><span>Google<br>Workspace</span></div>
+<div class="integration-item"><span>Slack</span></div>
+<div class="integration-item"><span>Notion</span></div>
+<div class="integration-item"><span>Trello</span></div>
+<div class="integration-item"><span>HubSpot</span></div>
+<div class="integration-item"><span>Jira</span></div>
+<div class="integration-item"><span>Asana</span></div>
+<div class="integration-item"><span>Salesforce</span></div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="depoimentos">
+<div class="section-header">
+<h2 class="section-title">O que Dizem Nossos Usuarios</h2>
+<p class="section-subtitle">Historias reais de equipes que transformaram sua produtividade</p>
+</div>
+<div class="testimonials-grid">
+<div class="sticky-note">
+<div class="star-rating">
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+</div>
+<blockquote>"O FlowStep economizou 30 horas por semana da minha equipe. Automatizamos tudo que era repetitivo e agora focamos no que realmente importa."</blockquote>
+<span class="author">Marina Costa<span class="author-role">Head de Operacoes, TechBR</span></span>
+</div>
+<div class="sticky-note">
+<div class="star-rating">
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+</div>
+<blockquote>"A interface visual e incrivel. Consegui criar automacoes complexas sem precisar de nenhum desenvolvedor. Recomendo para qualquer gestor."</blockquote>
+<span class="author">Rafael Mendes<span class="author-role">CEO, StartupFlow</span></span>
+</div>
+<div class="sticky-note">
+<div class="star-rating">
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+<svg viewBox="0 0 20 20"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+</div>
+<blockquote>"Migramos de 3 ferramentas diferentes para o FlowStep. A centralizacao e as automacoes reduziram nossos erros em 85%. Transformador."</blockquote>
+<span class="author">Juliana Alves<span class="author-role">Diretora de Projetos, AgenciaMax</span></span>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="precos">
+<div class="section-header">
+<h2 class="section-title">Planos e Precos</h2>
+<p class="section-subtitle">Escolha o plano ideal para o tamanho da sua operacao</p>
+</div>
+<div class="pricing-grid">
+<div class="pricing-card">
+<span class="plan-badge">Starter</span>
+<h3 class="plan-name">Iniciante</h3>
+<p class="plan-price">Gratis<span></span></p>
+<p class="plan-desc">Perfeito para testar e comecar</p>
+<ul>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ate 5 workflows</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>10 integracoes</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>500 execucoes/mes</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte por e-mail</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>1 usuario</li>
+</ul>
+<a href="#" class="plan-btn">Comecar Gratis</a>
+</div>
+<div class="pricing-card featured">
+<span class="plan-badge">Mais Popular</span>
+<h3 class="plan-name">Profissional</h3>
+<p class="plan-price">R$97<span>/mes</span></p>
+<p class="plan-desc">Para equipes que querem escalar</p>
+<ul>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Workflows ilimitados</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>200+ integracoes</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>50.000 execucoes/mes</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte prioritario</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ate 10 usuarios</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dashboards avancados</li>
+</ul>
+<a href="#" class="plan-btn">Assinar Agora</a>
+</div>
+<div class="pricing-card">
+<span class="plan-badge">Enterprise</span>
+<h3 class="plan-name">Empresarial</h3>
+<p class="plan-price">R$297<span>/mes</span></p>
+<p class="plan-desc">Para grandes operacoes e corporacoes</p>
+<ul>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do Profissional</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execucoes ilimitadas</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Usuarios ilimitados</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SSO e SAML</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Gerente de conta dedicado</li>
+<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 6,12 13,4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SLA 99.9%</li>
+</ul>
+<a href="#" class="plan-btn">Falar com Vendas</a>
+</div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final-section" id="comecar">
+<div class="cta-final-box">
+<div class="cta-icon">
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><path d="M28 8L8 20V44L28 52L48 44V20L28 8Z" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linejoin="round"/><path d="M28 8V52" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><path d="M8 20L28 32L48 20" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="30" r="5" stroke="#1A1A1A" stroke-width="2" fill="var(--wb-pink)"/></svg>
+</div>
+<h2>Pronto para Automatizar?</h2>
+<p>Junte-se a mais de 12.500 equipes que ja transformaram sua produtividade com o FlowStep</p>
+<a href="#" class="cta-btn">Comecar Agora — E Gratis</a>
+<p class="cta-final-annotation">* Sem cartao de credito. Cancele quando quiser.</p>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-col">
+<h4>FlowStep</h4>
+<ul>
+<li><a href="#">Sobre Nos</a></li>
+<li><a href="#">Carreiras</a></li>
+<li><a href="#">Blog</a></li>
+<li><a href="#">Imprensa</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Produto</h4>
+<ul>
+<li><a href="#">Recursos</a></li>
+<li><a href="#">Integracoes</a></li>
+<li><a href="#">Precos</a></li>
+<li><a href="#">Changelog</a></li>
+<li><a href="#">API Docs</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Suporte</h4>
+<ul>
+<li><a href="#">Central de Ajuda</a></li>
+<li><a href="#">Contato</a></li>
+<li><a href="#">Status</a></li>
+<li><a href="#">Comunidade</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Legal</h4>
+<ul>
+<li><a href="#">Politica de Privacidade</a></li>
+<li><a href="#">Termos de Uso</a></li>
+<li><a href="#">Cookies</a></li>
+</ul>
+<div class="footer-social">
+<a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+<a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+<a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#1A1A1A"/></svg></a>
+<a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg></a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 FlowStep. Todos os direitos reservados. Feito com dedicacao no Brasil.</p>
+</div>
+</footer>
+
+</div><!-- end whiteboard-frame -->
+
+<!-- FRAME TRAY -->
+<div class="frame-tray">
+<div class="marker marker--blue"></div>
+<div class="marker marker--red"></div>
+<div class="marker marker--green"></div>
+<div class="marker marker--black"></div>
+<div class="eraser"></div>
+</div>
+
+<script>
+/* Intersection Observer for fade-in */
+(function(){
+var steps = document.querySelectorAll('.timeline-step');
+if ('IntersectionObserver' in window) {
+var observer = new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+observer.unobserve(entry.target);
+}
+});
+},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
+steps.forEach(function(step,i){
+step.style.transitionDelay = (i * 0.12) + 's';
+observer.observe(step);
+});
+} else {
+steps.forEach(function(s){s.classList.add('visible');});
+}
+})();
+
+/* Smooth scroll */
+(function(){
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+a.addEventListener('click',function(e){
+var target = document.querySelector(this.getAttribute('href'));
+if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+});
+});
+})();
+
+/* Active nav highlight */
+(function(){
+var sections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.navbar-links a');
+function highlight(){
+var scrollPos = window.scrollY + 120;
+sections.forEach(function(section){
+var top = section.offsetTop;
+var height = section.offsetHeight;
+var id = section.getAttribute('id');
+if(scrollPos >= top && scrollPos < top + height){
+navLinks.forEach(function(link){
+link.style.color='';link.style.borderBottom='';
+if(link.getAttribute('href')==='#'+id){
+link.style.color='var(--wb-ink)';
+link.style.borderBottom='2px solid var(--wb-ink)';
+link.style.paddingBottom='2px';
+}
+});
+}
+});
+}
+highlight();
+window.addEventListener('scroll',highlight);
+})();
+</script>
+</body>
+</html>

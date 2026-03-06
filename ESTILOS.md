@@ -1,4 +1,4 @@
-# Vibe Styles — Catálogo Completo (336 estilos)
+# Vibe Styles — Catálogo Completo (367 estilos)
 
 Todos os estilos disponíveis no [Vibe Styles](https://vibe.ft.ia.br), organizados por categoria.
 
@@ -75,7 +75,7 @@ Estilos futuristas, sci-fi, cyberpunk e interfaces tecnológicas:
 | 319 | Gothic | `gothic` |
 | 329 | Helios Design System (HashiCorp) | `helios-design-system-hashicorp` |
 
-### 🟣 Arte & Ilustracao (56 estilos)
+### 🟣 Arte & Ilustracao (62 estilos)
 
 Estilos artísticos, ilustrativos e expressivos:
 
@@ -137,6 +137,12 @@ Estilos artísticos, ilustrativos e expressivos:
 | 324 | Coquette | `coquette` |
 | 325 | Surrealism | `surrealism` |
 | 328 | Scrapbook / Collage | `scrapbook-collage` |
+| 355 | Bold Portfolio Hero | `bold-portfolio-hero` |
+| 362 | Framelix 3D Studios | `framelix-3d-studios` |
+| 363 | Logoisum Video Agency Hero | `logoisum-video-agency-hero` |
+| 364 | Dark Portfolio Hero | `dark-portfolio-hero` |
+| 366 | Whiteboard Flowchart | `whiteboard-flowchart` |
+| 367 | Vertical Whiteboard Timeline | `vertical-whiteboard-timeline` |
 
 ### 🟠 Retro & Pop (46 estilos)
 

@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaBoard — Plataforma de Brainstorming e Planejamento Visual Colaborativo</title>
+    <meta name="description" content="IdeaBoard é a plataforma definitiva para brainstorming e planejamento visual colaborativo. Organize ideias, crie fluxogramas e colabore em tempo real com sua equipe.">
+    <meta name="keywords" content="brainstorming, planejamento visual, colaboração, whiteboard, fluxograma, ideias, equipe, produtividade">
+    <meta name="author" content="IdeaBoard">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="IdeaBoard — Brainstorming e Planejamento Visual Colaborativo">
+    <meta property="og:description" content="Organize ideias, crie fluxogramas e colabore em tempo real com sua equipe na plataforma mais intuitiva do mercado.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ideaboard.com.br">
+    <meta property="og:image" content="https://ideaboard.com.br/og-image.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IdeaBoard — Brainstorming Visual Colaborativo">
+    <meta name="twitter:description" content="Organize ideias, crie fluxogramas e colabore em tempo real com sua equipe.">
+    <link rel="canonical" href="https://ideaboard.com.br">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            --wb-bg: #F7F8FA;
+            --wb-ink: #1A1A1A;
+            --wb-ink-soft: rgba(26,26,26,0.7);
+            --wb-frame: #B8BBBE;
+            --wb-page: #E8E9EB;
+            --wb-blue: #C4DFF6;
+            --wb-yellow: #FFF5C3;
+            --wb-green: #D4EDDA;
+            --wb-pink: #FADADD;
+            --wb-lavender: #E8DCF5;
+            --wb-orange: #FFE0C2;
+            --wb-shadow: 3px 3px 0px rgba(26,26,26,0.15);
+            --wb-shadow-strong: 5px 5px 0px rgba(26,26,26,0.2);
+            --wb-border: 2.5px solid var(--wb-ink);
+            --font-title: 'Permanent Marker', cursive;
+            --font-body: 'Kalam', cursive;
+            --font-accent: 'Patrick Hand', cursive;
+            --font-handwrite: 'Caveat', cursive;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--wb-ink);
+            background-color: var(--wb-page);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ============================================
+           MOLDURA METÁLICA DO WHITEBOARD
+           ============================================ */
+        .whiteboard-frame {
+            max-width: 1280px;
+            margin: 24px auto;
+            background: linear-gradient(135deg, #C8CACD 0%, #D8DADD 30%, #C0C2C5 70%, #B0B2B5 100%);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.4),
+                inset 0 -1px 0 rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .whiteboard-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           TEXTURA WHITEBOARD
+           ============================================ */
+        .whiteboard-surface {
+            background-color: var(--wb-bg);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .whiteboard-surface::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(200,205,210,0.08) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .whiteboard-surface > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           TIPOGRAFIA
+           ============================================ */
+        .title-marker {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title-marker.wavy-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'%3E%3Cpath d='M0 4 Q15 0 30 4 Q45 8 60 4 Q75 0 90 4 Q105 8 120 4' fill='none' stroke='%231A1A1A' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+            background-size: 60px 8px;
+        }
+
+        .text-body {
+            font-family: var(--font-body);
+            color: var(--wb-ink-soft);
+        }
+
+        .text-accent {
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .text-handwrite {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+        }
+
+        /* ============================================
+           COMPONENTES COMUNS
+           ============================================ */
+        .section-padding {
+            padding: 60px 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* ============================================
+           BOTÕES
+           ============================================ */
+        .btn {
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 28px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: var(--wb-shadow);
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px rgba(26,26,26,0.2);
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px rgba(26,26,26,0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--wb-blue);
+            color: var(--wb-ink);
+        }
+
+        .btn-secondary {
+            background-color: var(--wb-yellow);
+            color: var(--wb-ink);
+        }
+
+        .btn-cta {
+            background-color: var(--wb-green);
+            color: var(--wb-ink);
+            font-size: 1.2rem;
+            padding: 16px 36px;
+        }
+
+        /* ============================================
+           RIBBON (FAIXA DE TÍTULO)
+           ============================================ */
+        .ribbon {
+            display: inline-block;
+            padding: 8px 32px;
+            border: var(--wb-border);
+            border-radius: 4px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            box-shadow: var(--wb-shadow);
+            position: relative;
+        }
+
+        .ribbon-blue { background-color: var(--wb-blue); }
+        .ribbon-yellow { background-color: var(--wb-yellow); }
+        .ribbon-green { background-color: var(--wb-green); }
+        .ribbon-pink { background-color: var(--wb-pink); }
+        .ribbon-lavender { background-color: var(--wb-lavender); }
+        .ribbon-orange { background-color: var(--wb-orange); }
+
+        /* ============================================
+           STEP BADGES
+           ============================================ */
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: var(--wb-border);
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            box-shadow: var(--wb-shadow);
+            flex-shrink: 0;
+        }
+
+        .step-badge-blue { background-color: var(--wb-blue); }
+        .step-badge-yellow { background-color: var(--wb-yellow); }
+        .step-badge-green { background-color: var(--wb-green); }
+        .step-badge-pink { background-color: var(--wb-pink); }
+        .step-badge-lavender { background-color: var(--wb-lavender); }
+        .step-badge-orange { background-color: var(--wb-orange); }
+
+        /* ============================================
+           STICKY NOTES (POST-ITS)
+           ============================================ */
+        .sticky-note {
+            padding: 28px 24px 24px;
+            border: var(--wb-border);
+            border-radius: 2px;
+            box-shadow: var(--wb-shadow);
+            position: relative;
+            min-height: 220px;
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 18px;
+            background: rgba(200, 200, 200, 0.55);
+            border: 1.5px solid rgba(26,26,26,0.15);
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .sticky-yellow { background-color: var(--wb-yellow); }
+        .sticky-pink { background-color: var(--wb-pink); }
+        .sticky-blue { background-color: var(--wb-blue); }
+        .sticky-green { background-color: var(--wb-green); }
+        .sticky-lavender { background-color: var(--wb-lavender); }
+        .sticky-orange { background-color: var(--wb-orange); }
+
+        /* ============================================
+           ROTAÇÕES ORGÂNICAS
+           ============================================ */
+        .rotate-1 { transform: rotate(-0.8deg); }
+        .rotate-2 { transform: rotate(0.6deg); }
+        .rotate-3 { transform: rotate(-0.4deg); }
+        .rotate-4 { transform: rotate(0.9deg); }
+        .rotate-5 { transform: rotate(-0.5deg); }
+        .rotate-6 { transform: rotate(0.7deg); }
+
+        .rotate-1:hover, .rotate-2:hover, .rotate-3:hover,
+        .rotate-4:hover, .rotate-5:hover, .rotate-6:hover {
+            transform: rotate(0deg) scale(1.02);
+            transition: transform 0.25s ease;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            border-bottom: var(--wb-border);
+            background-color: rgba(247, 248, 250, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-logo {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .navbar-links a {
+            font-family: var(--font-accent);
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--wb-ink-soft);
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .navbar-links a:hover {
+            color: var(--wb-ink);
+        }
+
+        .navbar-cta {
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            background-color: var(--wb-green);
+            cursor: pointer;
+            box-shadow: var(--wb-shadow);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .navbar-cta:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px rgba(26,26,26,0.2);
+        }
+
+        .navbar-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .navbar-hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--wb-ink);
+            border-radius: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            color: var(--wb-ink-soft);
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 6px 18px;
+            background-color: var(--wb-lavender);
+            border: var(--wb-border);
+            border-radius: 20px;
+            box-shadow: var(--wb-shadow);
+        }
+
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--wb-ink-soft);
+            max-width: 650px;
+            margin: 0 auto 36px;
+            line-height: 1.4;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        /* Hero Flowchart Decorativo */
+        .hero-flowchart {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-flowchart svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* ============================================
+           PARCEIROS / LOGOS
+           ============================================ */
+        .partners {
+            padding: 30px 40px 40px;
+            text-align: center;
+            border-top: 1.5px dashed rgba(26,26,26,0.15);
+            border-bottom: 1.5px dashed rgba(26,26,26,0.15);
+        }
+
+        .partners-label {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--wb-ink-soft);
+            margin-bottom: 20px;
+        }
+
+        .partners-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+
+        .partners-grid span {
+            font-family: var(--font-accent);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--wb-ink-soft);
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features {
+            padding: 70px 40px;
+        }
+
+        .features .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            padding: 32px 28px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--wb-shadow-strong);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 18px;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-card p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--wb-ink-soft);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           COMO FUNCIONA (HOW IT WORKS)
+           ============================================ */
+        .how-it-works {
+            padding: 70px 40px;
+            background-color: rgba(232, 233, 235, 0.3);
+        }
+
+        .how-it-works .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 24px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+        }
+
+        .step-content h3 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            font-family: var(--font-body);
+            color: var(--wb-ink-soft);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .step-connector {
+            display: flex;
+            justify-content: center;
+            margin: -18px 0;
+        }
+
+        .step-connector svg {
+            width: 24px;
+            height: 36px;
+        }
+
+        /* ============================================
+           BENEFÍCIOS
+           ============================================ */
+        .benefits {
+            padding: 70px 40px;
+        }
+
+        .benefits .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .benefit-item {
+            padding: 24px 20px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+            text-align: center;
+        }
+
+        .benefit-item .benefit-icon-wrap {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: var(--wb-border);
+            box-shadow: var(--wb-shadow);
+        }
+
+        .benefit-item h4 {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .benefit-item p {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--wb-ink-soft);
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials {
+            padding: 70px 40px;
+            background-color: rgba(232, 233, 235, 0.3);
+        }
+
+        .testimonials .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-text {
+            font-family: var(--font-handwrite);
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            color: var(--wb-ink);
+        }
+
+        .testimonial-author {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--wb-ink-soft);
+        }
+
+        .testimonial-role {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--wb-ink-soft);
+            margin-top: 2px;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-stars svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ============================================
+           PRICING
+           ============================================ */
+        .pricing {
+            padding: 70px 40px;
+        }
+
+        .pricing .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .pricing-card {
+            padding: 36px 28px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            background-color: var(--wb-yellow);
+            box-shadow: var(--wb-shadow-strong);
+            transform: scale(1.04);
+            z-index: 2;
+        }
+
+        .pricing-card.featured::after {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 4px 16px;
+            background-color: var(--wb-pink);
+            border: var(--wb-border);
+            border-radius: 20px;
+            box-shadow: var(--wb-shadow);
+            white-space: nowrap;
+        }
+
+        .pricing-plan-name {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price span {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--wb-ink-soft);
+        }
+
+        .pricing-period {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--wb-ink-soft);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(26,26,26,0.12);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* ============================================
+           INTEGRAÇÕES
+           ============================================ */
+        .integrations {
+            padding: 70px 40px;
+            background-color: rgba(232, 233, 235, 0.3);
+        }
+
+        .integrations .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .integrations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .integration-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 16px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+            transition: transform 0.2s ease;
+            cursor: default;
+        }
+
+        .integration-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .integration-item svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .integration-item span {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           FAQ
+           ============================================ */
+        .faq {
+            padding: 70px 40px;
+        }
+
+        .faq .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-list {
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(196, 223, 246, 0.2);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--wb-ink-soft);
+            line-height: 1.6;
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px;
+        }
+
+        /* ============================================
+           CTA FINAL
+           ============================================ */
+        .cta-final {
+            padding: 70px 40px;
+            text-align: center;
+            background-color: rgba(232, 233, 235, 0.3);
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            border: 3px solid var(--wb-ink);
+            border-radius: 8px;
+            box-shadow: var(--wb-shadow-strong);
+            background-color: var(--wb-bg);
+            position: relative;
+        }
+
+        .cta-box .cta-star {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+        }
+
+        .cta-box h2 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--wb-ink-soft);
+            margin-bottom: 28px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 40px;
+            border-top: var(--wb-border);
+            background-color: rgba(247, 248, 250, 0.95);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--wb-ink-soft);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            cursor: pointer;
+        }
+
+        .footer-social a:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px rgba(26,26,26,0.2);
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--wb-ink-soft);
+            padding: 4px 0;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: var(--wb-ink);
+        }
+
+        .footer-bottom {
+            border-top: 1.5px dashed rgba(26,26,26,0.15);
+            padding-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-bottom p {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--wb-ink-soft);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--wb-ink-soft);
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--wb-ink);
+        }
+
+        /* ============================================
+           ESTATÍSTICAS
+           ============================================ */
+        .stats {
+            padding: 50px 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 24px 16px;
+            border: var(--wb-border);
+            border-radius: 6px;
+            box-shadow: var(--wb-shadow);
+            background-color: var(--wb-bg);
+        }
+
+        .stat-number {
+            font-family: var(--font-title);
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-family: var(--font-handwrite);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--wb-ink-soft);
+        }
+
+        /* ============================================
+           RESPONSIVO
+           ============================================ */
+        @media (max-width: 900px) {
+            .whiteboard-frame {
+                margin: 12px;
+                padding: 10px;
+            }
+
+            .navbar {
+                padding: 14px 20px;
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--wb-bg);
+                border-bottom: var(--wb-border);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 50px 20px 40px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .grid-3,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .integrations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .section-padding {
+                padding: 40px 20px;
+            }
+
+            .features,
+            .how-it-works,
+            .benefits,
+            .testimonials,
+            .pricing,
+            .integrations,
+            .faq,
+            .cta-final {
+                padding: 50px 20px;
+            }
+
+            .hero-flowchart {
+                padding: 10px;
+            }
+
+            .cta-box {
+                padding: 32px 24px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .integrations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                gap: 20px;
+            }
+
+            .ribbon {
+                font-size: 1.1rem;
+                padding: 6px 20px;
+            }
+        }
+
+        /* ============================================
+           ANIMAÇÕES SUAVES
+           ============================================ */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        .wiggle-anim {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         MOLDURA METÁLICA
+         ============================================ -->
+    <div class="whiteboard-frame">
+        <div class="whiteboard-surface">
+
+            <!-- ============================================
+                 NAVBAR
+                 ============================================ -->
+            <nav class="navbar" role="navigation" aria-label="Navegação principal">
+                <a href="#" class="navbar-logo" aria-label="IdeaBoard - Página inicial">
+                    <svg viewBox="0 0 36 36" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="30" height="30" rx="4"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <circle cx="24" cy="12" r="3"/>
+                        <circle cx="18" cy="24" r="3"/>
+                        <line x1="14.5" y1="13" x2="22" y2="11"/>
+                        <line x1="13" y1="14.5" x2="17" y2="22"/>
+                        <line x1="23" y1="14.5" x2="19.5" y2="22"/>
+                    </svg>
+                    IdeaBoard
+                </a>
+                <div class="navbar-links" id="navLinks">
+                    <a href="#features">Recursos</a>
+                    <a href="#como-funciona">Como Funciona</a>
+                    <a href="#depoimentos">Depoimentos</a>
+                    <a href="#precos">Preços</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <a href="#cta-final" class="navbar-cta">Começar Grátis</a>
+                <button class="navbar-hamburger" id="hamburgerBtn" aria-label="Abrir menu de navegação" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+
+            <!-- ============================================
+                 HERO SECTION
+                 ============================================ -->
+            <section class="hero" id="hero">
+                <div class="hero-badge text-accent">Plataforma Colaborativa</div>
+                <h1 class="title-marker wavy-underline">Suas Melhores Ideias<br>Nascem no Quadro Branco</h1>
+                <p class="hero-subtitle">Brainstorming visual, fluxogramas intuitivos e planejamento colaborativo em tempo real — tudo num só lugar, como um quadro branco infinito.</p>
+                <div class="hero-buttons">
+                    <a href="#cta-final" class="btn btn-primary">Criar Meu Quadro</a>
+                    <a href="#como-funciona" class="btn btn-secondary">Ver Como Funciona</a>
+                </div>
+
+                <!-- Flowchart Decorativo SVG -->
+                <div class="hero-flowchart" aria-hidden="true">
+                    <svg viewBox="0 0 700 200" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Caixa 1: Ideia -->
+                        <rect x="20" y="60" width="140" height="70" rx="6" fill="#C4DFF6" stroke="#1A1A1A"/>
+                        <text x="90" y="100" text-anchor="middle" font-family="'Permanent Marker', cursive" font-size="16" fill="#1A1A1A" stroke="none">IDEIA</text>
+                        <!-- Seta 1→2 -->
+                        <line x1="160" y1="95" x2="210" y2="95"/>
+                        <polygon points="210,90 220,95 210,100" fill="#1A1A1A" stroke="none"/>
+                        <!-- Caixa 2: Organizar -->
+                        <rect x="220" y="60" width="140" height="70" rx="6" fill="#FFF5C3" stroke="#1A1A1A"/>
+                        <text x="290" y="100" text-anchor="middle" font-family="'Permanent Marker', cursive" font-size="15" fill="#1A1A1A" stroke="none">ORGANIZAR</text>
+                        <!-- Seta 2→3 -->
+                        <line x1="360" y1="95" x2="410" y2="95"/>
+                        <polygon points="410,90 420,95 410,100" fill="#1A1A1A" stroke="none"/>
+                        <!-- Caixa 3: Colaborar -->
+                        <rect x="420" y="60" width="140" height="70" rx="6" fill="#D4EDDA" stroke="#1A1A1A"/>
+                        <text x="490" y="100" text-anchor="middle" font-family="'Permanent Marker', cursive" font-size="14" fill="#1A1A1A" stroke="none">COLABORAR</text>
+                        <!-- Seta 3→4 -->
+                        <line x1="560" y1="95" x2="600" y2="95"/>
+                        <polygon points="600,90 610,95 600,100" fill="#1A1A1A" stroke="none"/>
+                        <!-- Caixa 4: Resultado -->
+                        <rect x="610" y="55" width="80" height="80" rx="40" fill="#FADADD" stroke="#1A1A1A"/>
+                        <text x="650" y="100" text-anchor="middle" font-family="'Permanent Marker', cursive" font-size="11" fill="#1A1A1A" stroke="none">SUCESSO!</text>
+                        <!-- Doodle decorativo -->
+                        <path d="M90 145 Q120 170 150 150 Q180 130 200 155" stroke="#1A1A1A" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                        <path d="M400 40 Q430 20 460 35" stroke="#1A1A1A" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                        <!-- Estrela decorativa -->
+                        <polygon points="350,15 354,28 368,28 357,36 361,49 350,41 339,49 343,36 332,28 346,28" fill="#FFF5C3" stroke="#1A1A1A" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 PARCEIROS
+                 ============================================ -->
+            <section class="partners">
+                <p class="partners-label">Usado por equipes incríveis em todo o Brasil</p>
+                <div class="partners-grid">
+                    <span>TechNova</span>
+                    <span>StartupBR</span>
+                    <span>DesignLab</span>
+                    <span>AgileCo</span>
+                    <span>InnovateMKT</span>
+                    <span>CodeCraft</span>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 FEATURES
+                 ============================================ -->
+            <section class="features" id="features">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-blue">Recursos Principais</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Tudo que você precisa para transformar ideias em ação</p>
+                    </div>
+                    <div class="grid-3">
+                        <!-- Feature 1 -->
+                        <div class="feature-card rotate-1" style="background-color: var(--wb-blue);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="6" y="6" width="44" height="44" rx="6"/>
+                                    <line x1="6" y1="18" x2="50" y2="18"/>
+                                    <rect x="12" y="24" width="14" height="10" rx="2"/>
+                                    <rect x="30" y="24" width="14" height="10" rx="2"/>
+                                    <rect x="12" y="38" width="32" height="8" rx="2"/>
+                                </svg>
+                            </div>
+                            <h3>Quadro Infinito</h3>
+                            <p>Um canvas sem limites para suas ideias. Arraste, redimensione e organize livremente seus elementos visuais como se estivesse num quadro branco real, mas sem acabar o espaço.</p>
+                        </div>
+                        <!-- Feature 2 -->
+                        <div class="feature-card rotate-2" style="background-color: var(--wb-green);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="20" cy="22" r="8"/>
+                                    <circle cx="36" cy="22" r="8"/>
+                                    <circle cx="28" cy="38" r="8"/>
+                                    <line x1="24" y1="28" x2="26" y2="32"/>
+                                    <line x1="32" y1="28" x2="30" y2="32"/>
+                                </svg>
+                            </div>
+                            <h3>Colaboração em Tempo Real</h3>
+                            <p>Trabalhe junto com sua equipe simultaneamente. Veja cursores, edições e comentários de todos os participantes ao vivo, como se estivessem na mesma sala.</p>
+                        </div>
+                        <!-- Feature 3 -->
+                        <div class="feature-card rotate-3" style="background-color: var(--wb-pink);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="8" y="12" width="18" height="14" rx="3"/>
+                                    <rect x="30" y="12" width="18" height="14" rx="3"/>
+                                    <rect x="19" y="32" width="18" height="14" rx="3"/>
+                                    <line x1="17" y1="26" x2="25" y2="32"/>
+                                    <line x1="39" y1="26" x2="31" y2="32"/>
+                                    <polyline points="28,46 28,52"/>
+                                    <polyline points="22,52 28,52 34,52"/>
+                                </svg>
+                            </div>
+                            <h3>Fluxogramas Inteligentes</h3>
+                            <p>Crie fluxogramas, mapas mentais e diagramas com conectores automáticos que se ajustam quando você move os elementos. Visualize processos complexos com facilidade.</p>
+                        </div>
+                    </div>
+
+                    <!-- Segunda linha de features -->
+                    <div class="grid-3" style="margin-top: 32px;">
+                        <!-- Feature 4 -->
+                        <div class="feature-card rotate-4" style="background-color: var(--wb-lavender);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="8" y="8" width="40" height="40" rx="4"/>
+                                    <path d="M8 20 L48 20"/>
+                                    <path d="M20 20 L20 48"/>
+                                    <circle cx="34" cy="34" r="6"/>
+                                    <line x1="38.5" y1="38.5" x2="44" y2="44"/>
+                                </svg>
+                            </div>
+                            <h3>Templates Prontos</h3>
+                            <p>Mais de 200 templates profissionais para brainstorming, retrospectivas, planejamento de sprint, mapeamento de jornada do cliente, canvas de negócios e muito mais.</p>
+                        </div>
+                        <!-- Feature 5 -->
+                        <div class="feature-card rotate-5" style="background-color: var(--wb-orange);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M28 8 L28 48"/>
+                                    <path d="M8 28 L48 28"/>
+                                    <rect x="12" y="12" width="12" height="12" rx="2"/>
+                                    <rect x="32" y="12" width="12" height="12" rx="2"/>
+                                    <rect x="12" y="32" width="12" height="12" rx="2"/>
+                                    <rect x="32" y="32" width="12" height="12" rx="2"/>
+                                </svg>
+                            </div>
+                            <h3>Organização Visual</h3>
+                            <p>Agrupe ideias com cores, tags e seções. Use sticky notes virtuais, votação por pontos e priorização visual para transformar caos criativo em planos estruturados.</p>
+                        </div>
+                        <!-- Feature 6 -->
+                        <div class="feature-card rotate-6" style="background-color: var(--wb-yellow);">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 56 56" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 44 L12 20 L24 8 L44 8 L44 44 Z"/>
+                                    <path d="M12 20 L24 20 L24 8"/>
+                                    <line x1="20" y1="30" x2="36" y2="30"/>
+                                    <line x1="20" y1="36" x2="36" y2="36"/>
+                                    <polyline points="36,16 42,16"/>
+                                </svg>
+                            </div>
+                            <h3>Exportação Flexível</h3>
+                            <p>Exporte seus quadros como PDF, PNG, SVG ou apresentação interativa. Compartilhe links públicos ou privados e integre com suas ferramentas favoritas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 COMO FUNCIONA
+                 ============================================ -->
+            <section class="how-it-works" id="como-funciona">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-green">Como Funciona</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Três passos simples para liberar a criatividade da sua equipe</p>
+                    </div>
+                    <div class="steps-list">
+                        <!-- Passo 1 -->
+                        <div class="step-item rotate-1">
+                            <div class="step-badge step-badge-blue">1</div>
+                            <div class="step-content">
+                                <h3>Crie Seu Quadro</h3>
+                                <p>Comece do zero ou escolha entre mais de 200 templates profissionais. Defina o objetivo da sessão, convide participantes e personalize o layout do seu quadro branco virtual. Em menos de 30 segundos você já está pronto para começar a criar.</p>
+                            </div>
+                        </div>
+                        <!-- Conector -->
+                        <div class="step-connector" aria-hidden="true">
+                            <svg viewBox="0 0 24 36" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="0" x2="12" y2="28"/>
+                                <polygon points="7,24 12,34 17,24" fill="#1A1A1A" stroke="none"/>
+                            </svg>
+                        </div>
+                        <!-- Passo 2 -->
+                        <div class="step-item rotate-2">
+                            <div class="step-badge step-badge-yellow">2</div>
+                            <div class="step-content">
+                                <h3>Colabore em Tempo Real</h3>
+                                <p>Adicione sticky notes, desenhe conexões, vote em ideias e organize visualmente. Todos os participantes veem as mudanças instantaneamente. Use o timer integrado para sessões de brainstorming cronometradas e mantenha o foco da equipe.</p>
+                            </div>
+                        </div>
+                        <!-- Conector -->
+                        <div class="step-connector" aria-hidden="true">
+                            <svg viewBox="0 0 24 36" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="0" x2="12" y2="28"/>
+                                <polygon points="7,24 12,34 17,24" fill="#1A1A1A" stroke="none"/>
+                            </svg>
+                        </div>
+                        <!-- Passo 3 -->
+                        <div class="step-item rotate-3">
+                            <div class="step-badge step-badge-green">3</div>
+                            <div class="step-content">
+                                <h3>Transforme em Ação</h3>
+                                <p>Converta ideias em tarefas acionáveis, exporte para suas ferramentas de gestão favoritas ou gere relatórios visuais automaticamente. O IdeaBoard conecta a fase criativa com a execução, garantindo que nenhuma boa ideia se perca no caminho.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 BENEFÍCIOS
+                 ============================================ -->
+            <section class="benefits" id="beneficios">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-lavender">Por Que Escolher o IdeaBoard</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Benefícios reais para equipes que pensam grande</p>
+                    </div>
+                    <div class="benefits-grid">
+                        <div class="benefit-item rotate-2">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-blue);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <h4>Reuniões 3x Mais Rápidas</h4>
+                            <p>Sessões de brainstorming que antes levavam horas agora são resolvidas em minutos com ferramentas visuais intuitivas e templates prontos.</p>
+                        </div>
+                        <div class="benefit-item rotate-5">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-yellow);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2 L15.09 8.26 L22 9.27 L17 14.14 L18.18 21.02 L12 17.77 L5.82 21.02 L7 14.14 L2 9.27 L8.91 8.26 Z"/>
+                                </svg>
+                            </div>
+                            <h4>Ideias Nunca Se Perdem</h4>
+                            <p>Tudo fica salvo automaticamente na nuvem. Histórico completo de versões para você voltar a qualquer momento e recuperar insights valiosos.</p>
+                        </div>
+                        <div class="benefit-item rotate-1">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-green);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <h4>Equipes Mais Engajadas</h4>
+                            <p>Participação igualitária com votação anônima e contribuições simultâneas. Até os mais introvertidos compartilham suas melhores ideias.</p>
+                        </div>
+                        <div class="benefit-item rotate-4">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-pink);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <h4>100% Remoto-Friendly</h4>
+                            <p>Funciona perfeitamente para equipes distribuídas. Sem necessidade de instalação — acesse direto pelo navegador em qualquer dispositivo.</p>
+                        </div>
+                        <div class="benefit-item rotate-3">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-lavender);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <h4>Segurança Empresarial</h4>
+                            <p>Criptografia ponta a ponta, SSO, controle de permissões granular e conformidade com LGPD. Seus dados e ideias estão sempre protegidos.</p>
+                        </div>
+                        <div class="benefit-item rotate-6">
+                            <div class="benefit-icon-wrap" style="background-color: var(--wb-orange);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                                </svg>
+                            </div>
+                            <h4>Métricas de Produtividade</h4>
+                            <p>Dashboard com analytics de participação, velocidade de decisão e volume de ideias geradas. Meça o impacto real das suas sessões criativas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 ESTATÍSTICAS
+                 ============================================ -->
+            <section class="stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item rotate-1" style="background-color: var(--wb-blue);">
+                            <span class="stat-number" data-target="50000">50.000+</span>
+                            <span class="stat-label">Equipes ativas</span>
+                        </div>
+                        <div class="stat-item rotate-2" style="background-color: var(--wb-yellow);">
+                            <span class="stat-number" data-target="2000000">2M+</span>
+                            <span class="stat-label">Quadros criados</span>
+                        </div>
+                        <div class="stat-item rotate-3" style="background-color: var(--wb-green);">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Satisfação dos clientes</span>
+                        </div>
+                        <div class="stat-item rotate-4" style="background-color: var(--wb-pink);">
+                            <span class="stat-number">4.9</span>
+                            <span class="stat-label">Nota média nas lojas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 TESTIMONIALS
+                 ============================================ -->
+            <section class="testimonials" id="depoimentos">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-pink">O Que Dizem Nossos Usuários</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Histórias reais de equipes que transformaram sua forma de trabalhar</p>
+                    </div>
+                    <div class="grid-3">
+                        <!-- Depoimento 1 -->
+                        <div class="sticky-note sticky-yellow rotate-1">
+                            <div class="testimonial-stars" aria-label="5 de 5 estrelas">
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                            </div>
+                            <p class="testimonial-text">"O IdeaBoard revolucionou nossas sessões de brainstorming. Antes, as ideias se perdiam em post-its colados na parede. Agora tudo fica organizado, acessível e conectado. Nossa produtividade criativa triplicou!"</p>
+                            <p class="testimonial-author">Mariana Costa</p>
+                            <p class="testimonial-role">Head de Produto — TechNova</p>
+                        </div>
+                        <!-- Depoimento 2 -->
+                        <div class="sticky-note sticky-pink rotate-2">
+                            <div class="testimonial-stars" aria-label="5 de 5 estrelas">
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                            </div>
+                            <p class="testimonial-text">"Com equipe 100% remota, precisávamos de algo que simulasse a energia de estar junto numa sala. O IdeaBoard faz exatamente isso. Os fluxogramas inteligentes e a colaboração em tempo real são simplesmente incríveis."</p>
+                            <p class="testimonial-author">Rafael Oliveira</p>
+                            <p class="testimonial-role">CTO — StartupBR</p>
+                        </div>
+                        <!-- Depoimento 3 -->
+                        <div class="sticky-note sticky-blue rotate-3">
+                            <div class="testimonial-stars" aria-label="5 de 5 estrelas">
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                                <svg viewBox="0 0 18 18" fill="#1A1A1A" stroke="none"><polygon points="9,1 11.5,6.5 17,7 13,11 14,17 9,14 4,17 5,11 1,7 6.5,6.5"/></svg>
+                            </div>
+                            <p class="testimonial-text">"Uso o IdeaBoard para mapear jornadas de usuário e fazer design sprints com meu time. A interface é tão intuitiva que até stakeholders não-técnicos participam ativamente. Melhor investimento que fizemos este ano."</p>
+                            <p class="testimonial-author">Juliana Santos</p>
+                            <p class="testimonial-role">UX Lead — DesignLab</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 PRICING
+                 ============================================ -->
+            <section class="pricing" id="precos">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-yellow">Planos e Preços</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Escolha o plano ideal para o tamanho da sua equipe</p>
+                    </div>
+                    <div class="grid-3">
+                        <!-- Plano Gratuito -->
+                        <div class="pricing-card rotate-1">
+                            <div class="pricing-plan-name">Starter</div>
+                            <div class="pricing-price">Grátis</div>
+                            <div class="pricing-period">para sempre, sem cartão</div>
+                            <ul class="pricing-features">
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Até 3 quadros ativos
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    5 colaboradores por quadro
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Templates básicos inclusos
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Exportação em PNG
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Colaboração em tempo real
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Suporte por e-mail
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-primary" style="width:100%;">Começar Grátis</a>
+                        </div>
+                        <!-- Plano Pro (Destaque) -->
+                        <div class="pricing-card featured">
+                            <div class="pricing-plan-name">Pro</div>
+                            <div class="pricing-price">R$49<span>/mês</span></div>
+                            <div class="pricing-period">por usuário, cobrado anualmente</div>
+                            <ul class="pricing-features">
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Quadros ilimitados
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Colaboradores ilimitados
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Todos os 200+ templates
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Exportação PDF, PNG, SVG
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Votação e priorização
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Timer para sessões
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Integrações básicas
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Suporte prioritário
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-cta" style="width:100%;">Assinar Pro</a>
+                        </div>
+                        <!-- Plano Enterprise -->
+                        <div class="pricing-card rotate-3">
+                            <div class="pricing-plan-name">Enterprise</div>
+                            <div class="pricing-price">R$129<span>/mês</span></div>
+                            <div class="pricing-period">por usuário, cobrado anualmente</div>
+                            <ul class="pricing-features">
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Tudo do plano Pro
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    SSO e SAML 2.0
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Conformidade LGPD
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    API e webhooks
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Analytics avançado
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Permissões granulares
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    Gerente de conta dedicado
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,9 7,13 15,5"/></svg>
+                                    SLA 99.9% uptime
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-secondary" style="width:100%;">Falar com Vendas</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 INTEGRAÇÕES
+                 ============================================ -->
+            <section class="integrations" id="integracoes">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-orange">Integrações</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Conecte o IdeaBoard com as ferramentas que sua equipe já usa</p>
+                    </div>
+                    <div class="integrations-grid">
+                        <div class="integration-item rotate-1">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="4" width="32" height="32" rx="4"/>
+                                <path d="M12 14 L20 22 L28 14"/>
+                                <line x1="20" y1="22" x2="20" y2="32"/>
+                            </svg>
+                            <span>Slack</span>
+                        </div>
+                        <div class="integration-item rotate-2">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="20" cy="20" r="16"/>
+                                <path d="M12 20 L18 26 L28 14"/>
+                            </svg>
+                            <span>Jira</span>
+                        </div>
+                        <div class="integration-item rotate-3">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="6" y="6" width="28" height="28" rx="3"/>
+                                <line x1="6" y1="14" x2="34" y2="14"/>
+                                <line x1="14" y1="6" x2="14" y2="34"/>
+                            </svg>
+                            <span>Notion</span>
+                        </div>
+                        <div class="integration-item rotate-4">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 4 L36 12 L36 28 L20 36 L4 28 L4 12 Z"/>
+                                <line x1="20" y1="4" x2="20" y2="36"/>
+                                <line x1="4" y1="12" x2="36" y2="12"/>
+                            </svg>
+                            <span>Figma</span>
+                        </div>
+                        <div class="integration-item rotate-5">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="8" width="32" height="24" rx="3"/>
+                                <polyline points="4,12 20,24 36,12"/>
+                            </svg>
+                            <span>Google</span>
+                        </div>
+                        <div class="integration-item rotate-6">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="20" cy="20" r="16"/>
+                                <circle cx="20" cy="20" r="6"/>
+                                <line x1="20" y1="4" x2="20" y2="14"/>
+                                <line x1="20" y1="26" x2="20" y2="36"/>
+                                <line x1="4" y1="20" x2="14" y2="20"/>
+                                <line x1="26" y1="20" x2="36" y2="20"/>
+                            </svg>
+                            <span>Teams</span>
+                        </div>
+                        <div class="integration-item rotate-1">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 8 L32 8 L32 32 L8 32 Z"/>
+                                <path d="M14 16 L20 22 L26 16"/>
+                                <path d="M14 22 L20 28 L26 22"/>
+                            </svg>
+                            <span>Trello</span>
+                        </div>
+                        <div class="integration-item rotate-4">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="20" cy="20" r="16"/>
+                                <path d="M14 14 L14 26 L26 20 Z"/>
+                            </svg>
+                            <span>Asana</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 FAQ
+                 ============================================ -->
+            <section class="faq" id="faq">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="ribbon ribbon-blue">Perguntas Frequentes</div>
+                        <p class="text-handwrite" style="font-size:1.2rem; color:var(--wb-ink-soft); margin-top:12px;">Tire suas dúvidas sobre o IdeaBoard</p>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>Preciso instalar algum software para usar o IdeaBoard?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                Não! O IdeaBoard funciona 100% no navegador. Basta acessar nosso site, criar sua conta gratuita e começar a usar imediatamente. Funciona em Chrome, Firefox, Safari e Edge. Também temos aplicativos nativos para iPad e tablets Android para quem prefere usar caneta stylus.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>Quantas pessoas podem colaborar ao mesmo tempo?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                No plano Starter (gratuito), até 5 pessoas podem colaborar simultaneamente em cada quadro. Nos planos Pro e Enterprise, não há limite de colaboradores. Já tivemos sessões com mais de 150 participantes simultâneos funcionando perfeitamente, com latência inferior a 100ms.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>Meus dados estão seguros no IdeaBoard?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                Absolutamente. Utilizamos criptografia AES-256 em repouso e TLS 1.3 em trânsito. Nossos servidores estão hospedados no Brasil, em conformidade total com a LGPD. No plano Enterprise, oferecemos SSO via SAML 2.0, auditoria de acessos e opção de dados em nuvem privada.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>Posso usar o IdeaBoard para design sprints e retrospectivas?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                Sim! Temos templates específicos para Design Sprint (todas as 5 fases), retrospectivas ágeis (Mad/Sad/Glad, Start/Stop/Continue, 4Ls e mais), planning poker, mapeamento de jornada do usuário, Business Model Canvas, Lean Canvas e dezenas de outros frameworks populares.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>Existe período de teste gratuito para os planos pagos?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                Sim! Oferecemos 14 dias de teste gratuito em todos os planos pagos, sem necessidade de cartão de crédito. Ao final do período, você pode continuar no plano gratuito Starter ou fazer upgrade. Também oferecemos garantia de reembolso de 30 dias após a assinatura.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <span>O IdeaBoard funciona offline?</span>
+                                <svg viewBox="0 0 20 20" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+                            </div>
+                            <div class="faq-answer">
+                                Parcialmente. Você pode visualizar e editar quadros salvos localmente mesmo sem conexão. Quando a internet voltar, todas as alterações são sincronizadas automaticamente. A colaboração em tempo real, naturalmente, requer conexão ativa com a internet.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 CTA FINAL
+                 ============================================ -->
+            <section class="cta-final" id="cta-final">
+                <div class="container">
+                    <div class="cta-box">
+                        <!-- Estrela decorativa -->
+                        <svg class="cta-star float-anim" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polygon points="24,2 29,18 46,18 32,28 37,44 24,34 11,44 16,28 2,18 19,18" fill="#FFF5C3" stroke="#1A1A1A"/>
+                        </svg>
+                        <h2 class="title-marker wavy-underline">Pronto Para Liberar<br>Suas Melhores Ideias?</h2>
+                        <p>Junte-se a mais de 50.000 equipes que já transformaram sua forma de pensar, planejar e colaborar com o IdeaBoard.</p>
+                        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
+                            <a href="#" class="btn btn-cta">Criar Minha Conta Grátis</a>
+                            <a href="#" class="btn btn-secondary">Agendar uma Demo</a>
+                        </div>
+                        <p class="text-handwrite" style="margin-top:20px; font-size:1rem; color:var(--wb-ink-soft);">Sem cartão de crédito. Configuração em 30 segundos. Cancele quando quiser.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 FOOTER
+                 ============================================ -->
+            <footer class="footer" role="contentinfo">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <h3>IdeaBoard</h3>
+                            <p>A plataforma de brainstorming e planejamento visual colaborativo mais intuitiva do Brasil. Transforme ideias em ação com seu time, de qualquer lugar do mundo.</p>
+                            <div class="footer-social">
+                                <!-- Twitter/X -->
+                                <a href="#" aria-label="Siga-nos no Twitter">
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 2 L8 10 L2 16"/>
+                                        <path d="M16 2 L10 10 L16 16"/>
+                                        <line x1="2" y1="2" x2="16" y2="16"/>
+                                    </svg>
+                                </a>
+                                <!-- LinkedIn -->
+                                <a href="#" aria-label="Siga-nos no LinkedIn">
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="14" height="14" rx="2"/>
+                                        <line x1="6" y1="8" x2="6" y2="13"/>
+                                        <line x1="6" y1="5.5" x2="6" y2="5.5"/>
+                                        <circle cx="6" cy="5.5" r="0.5" fill="#1A1A1A"/>
+                                        <path d="M10 13 L10 10 C10 8.5 11 8 12 8 C13 8 13.5 8.8 13.5 10 L13.5 13"/>
+                                    </svg>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="#" aria-label="Siga-nos no Instagram">
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="14" height="14" rx="4"/>
+                                        <circle cx="9" cy="9" r="3.5"/>
+                                        <circle cx="13.5" cy="4.5" r="0.8" fill="#1A1A1A" stroke="none"/>
+                                    </svg>
+                                </a>
+                                <!-- YouTube -->
+                                <a href="#" aria-label="Inscreva-se no YouTube">
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="1" y="3" width="16" height="12" rx="3"/>
+                                        <polygon points="7,6 13,9 7,12" fill="#1A1A1A" stroke="none"/>
+                                    </svg>
+                                </a>
+                                <!-- GitHub -->
+                                <a href="#" aria-label="Veja nosso GitHub">
+                                    <svg viewBox="0 0 18 18" fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="9" r="7.5"/>
+                                        <path d="M6.5 16 C6.5 13 5 12.5 5 11 C5 10 5.5 9.5 5.5 9.5 C5 8 5.5 7 5.5 7 C7 7 7.5 8 7.5 8 C8.5 7.5 10 7.5 11 8 C11 8 11.5 7 13 7 C13 7 13.5 8 13 9.5 C13 9.5 13.5 10 13.5 11 C13.5 12.5 12 13 11.5 16"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Produto</h4>
+                            <a href="#">Recursos</a>
+                            <a href="#">Templates</a>
+                            <a href="#">Integrações</a>
+                            <a href="#">Preços</a>
+                            <a href="#">Novidades</a>
+                            <a href="#">Roadmap</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Empresa</h4>
+                            <a href="#">Sobre Nós</a>
+                            <a href="#">Blog</a>
+                            <a href="#">Carreiras</a>
+                            <a href="#">Imprensa</a>
+                            <a href="#">Parceiros</a>
+                            <a href="#">Contato</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Suporte</h4>
+                            <a href="#">Central de Ajuda</a>
+                            <a href="#">Tutoriais</a>
+                            <a href="#">Comunidade</a>
+                            <a href="#">Status do Sistema</a>
+                            <a href="#">API Docs</a>
+                            <a href="#">Webinars</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2026 IdeaBoard. Todos os direitos reservados. Feito com criatividade no Brasil.</p>
+                        <div class="footer-bottom-links">
+                            <a href="#">Termos de Uso</a>
+                            <a href="#">Política de Privacidade</a>
+                            <a href="#">LGPD</a>
+                            <a href="#">Cookies</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div><!-- /.whiteboard-surface -->
+    </div><!-- /.whiteboard-frame -->
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        /* ============================================
+           MENU HAMBURGER MOBILE
+           ============================================ */
+        (function() {
+            var hamburgerBtn = document.getElementById('hamburgerBtn');
+            var navLinks = document.getElementById('navLinks');
+
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', function() {
+                    var isOpen = navLinks.classList.toggle('active');
+                    hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+                    // Animar as barras do hamburger
+                    var spans = hamburgerBtn.querySelectorAll('span');
+                    if (isOpen) {
+                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                        spans[1].style.opacity = '0';
+                        spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+                    } else {
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+
+                // Fechar menu ao clicar em um link
+                var links = navLinks.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        hamburgerBtn.setAttribute('aria-expanded', 'false');
+                        var spans = hamburgerBtn.querySelectorAll('span');
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    });
+                }
+            }
+        })();
+
+        /* ============================================
+           FAQ ACCORDION
+           ============================================ */
+        (function() {
+            var faqItems = document.querySelectorAll('.faq-item');
+
+            for (var i = 0; i < faqItems.length; i++) {
+                var question = faqItems[i].querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', handleFaqClick);
+                    question.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleFaqClick.call(this, e);
+                        }
+                    });
+                }
+            }
+
+            function handleFaqClick(e) {
+                var item = this.closest('.faq-item');
+                var isActive = item.classList.contains('active');
+
+                // Fechar todos os outros
+                for (var j = 0; j < faqItems.length; j++) {
+                    faqItems[j].classList.remove('active');
+                    var q = faqItems[j].querySelector('.faq-question');
+                    if (q) q.setAttribute('aria-expanded', 'false');
+                }
+
+                // Toggle o clicado
+                if (!isActive) {
+                    item.classList.add('active');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            }
+        })();
+
+        /* ============================================
+           SMOOTH SCROLL PARA LINKS INTERNOS
+           ============================================ */
+        (function() {
+            var anchors = document.querySelectorAll('a[href^="#"]');
+            for (var i = 0; i < anchors.length; i++) {
+                anchors[i].addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href && href.length > 1) {
+                        var target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            }
+        })();
+
+        /* ============================================
+           SCROLL REVEAL ANIMATION
+           ============================================ */
+        (function() {
+            var revealElements = document.querySelectorAll(
+                '.feature-card, .step-item, .benefit-item, .sticky-note, .pricing-card, .integration-item, .stat-item, .faq-item, .cta-box'
+            );
+
+            // Definir estado inicial
+            for (var i = 0; i < revealElements.length; i++) {
+                revealElements[i].style.opacity = '0';
+                revealElements[i].style.transform = revealElements[i].style.transform
+                    ? revealElements[i].style.transform + ' translateY(24px)'
+                    : 'translateY(24px)';
+                revealElements[i].style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            }
+
+            function checkReveal() {
+                var windowHeight = window.innerHeight;
+                for (var i = 0; i < revealElements.length; i++) {
+                    var el = revealElements[i];
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < windowHeight - 60) {
+                        el.style.opacity = '1';
+                        // Restaurar a rotação original se existir
+                        var classes = el.className;
+                        var rotation = '';
+                        if (classes.indexOf('rotate-1') !== -1) rotation = 'rotate(-0.8deg)';
+                        else if (classes.indexOf('rotate-2') !== -1) rotation = 'rotate(0.6deg)';
+                        else if (classes.indexOf('rotate-3') !== -1) rotation = 'rotate(-0.4deg)';
+                        else if (classes.indexOf('rotate-4') !== -1) rotation = 'rotate(0.9deg)';
+                        else if (classes.indexOf('rotate-5') !== -1) rotation = 'rotate(-0.5deg)';
+                        else if (classes.indexOf('rotate-6') !== -1) rotation = 'rotate(0.7deg)';
+
+                        if (el.classList.contains('featured')) {
+                            el.style.transform = 'scale(1.04)';
+                        } else {
+                            el.style.transform = rotation || 'translateY(0)';
+                        }
+                    }
+                }
+            }
+
+            // Verificar no carregamento e no scroll
+            checkReveal();
+            var scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) return;
+                scrollTimeout = setTimeout(function() {
+                    scrollTimeout = null;
+                    checkReveal();
+                }, 50);
+            });
+        })();
+
+        /* ============================================
+           NAVBAR SHADOW ON SCROLL
+           ============================================ */
+        (function() {
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 10) {
+                        navbar.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                    } else {
+                        navbar.style.boxShadow = 'none';
+                    }
+                });
+            }
+        })();
+
+        /* ============================================
+           BOTÕES COM EFEITO RIPPLE SUTIL
+           ============================================ */
+        (function() {
+            var buttons = document.querySelectorAll('.btn, .navbar-cta');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('mouseenter', function() {
+                    this.style.transition = 'transform 0.15s ease, box-shadow 0.15s ease';
+                });
+            }
+        })();
+
+        /* ============================================
+           ACTIVE NAV LINK HIGHLIGHT
+           ============================================ */
+        (function() {
+            var sections = document.querySelectorAll('section[id]');
+            var navLinksAll = document.querySelectorAll('.navbar-links a');
+
+            function highlightNav() {
+                var scrollPos = window.scrollY + 120;
+                for (var i = 0; i < sections.length; i++) {
+                    var section = sections[i];
+                    var sectionTop = section.offsetTop;
+                    var sectionHeight = section.offsetHeight;
+                    var sectionId = section.getAttribute('id');
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        for (var j = 0; j < navLinksAll.length; j++) {
+                            navLinksAll[j].style.color = '';
+                            navLinksAll[j].style.borderBottom = '';
+                            if (navLinksAll[j].getAttribute('href') === '#' + sectionId) {
+                                navLinksAll[j].style.color = 'var(--wb-ink)';
+                                navLinksAll[j].style.borderBottom = '2px solid var(--wb-ink)';
+                                navLinksAll[j].style.paddingBottom = '2px';
+                            }
+                        }
+                    }
+                }
+            }
+
+            highlightNav();
+            window.addEventListener('scroll', highlightNav);
+        })();
+    </script>
+</body>
+</html>
